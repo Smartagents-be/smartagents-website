@@ -281,3 +281,129 @@ revealElements.forEach(el => {
     el.style.transition = 'all 0.6s ease';
     revealObserver.observe(el);
 });
+
+// Hero Neural Network Canvas Animation
+(function() {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const colors = [
+        { r: 99, g: 102, b: 241 },   // indigo (#6366f1)
+        { r: 14, g: 165, b: 233 },    // sky blue (#0ea5e9)
+        { r: 139, g: 92, b: 246 }     // purple (#8b5cf6)
+    ];
+
+    let width, height, nodes, dpr;
+    const CONNECTION_DIST = 150;
+    const isMobile = window.innerWidth < 768;
+
+    function resize() {
+        dpr = window.devicePixelRatio || 1;
+        width = canvas.offsetWidth;
+        height = canvas.offsetHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function createNodes() {
+        const count = isMobile ? 40 : 80;
+        nodes = [];
+        for (let i = 0; i < count; i++) {
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 2 + 1.5,
+                color: color,
+                pulse: Math.random() * Math.PI * 2
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < CONNECTION_DIST) {
+                    const alpha = (1 - dist / CONNECTION_DIST) * 0.3;
+                    const c = nodes[i].color;
+                    ctx.strokeStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + alpha + ')';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // Draw nodes
+        for (let i = 0; i < nodes.length; i++) {
+            const n = nodes[i];
+            n.pulse += 0.02;
+            const pulseSize = Math.sin(n.pulse) * 0.5 + 0.5;
+            const c = n.color;
+
+            // Glow
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius + 4 + pulseSize * 3, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0.08)';
+            ctx.fill();
+
+            // Core dot
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (0.6 + pulseSize * 0.4) + ')';
+            ctx.fill();
+        }
+    }
+
+    function update() {
+        for (let i = 0; i < nodes.length; i++) {
+            const n = nodes[i];
+            n.x += n.vx;
+            n.y += n.vy;
+
+            if (n.x < 0 || n.x > width) n.vx *= -1;
+            if (n.y < 0 || n.y > height) n.vy *= -1;
+        }
+    }
+
+    let animId;
+    function animate() {
+        update();
+        draw();
+        animId = requestAnimationFrame(animate);
+    }
+
+    // Only animate when hero is visible
+    const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!animId) animate();
+            } else {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        });
+    }, { threshold: 0 });
+
+    resize();
+    createNodes();
+    heroObserver.observe(canvas.closest('.hero'));
+
+    window.addEventListener('resize', () => {
+        resize();
+        createNodes();
+    });
+})();
