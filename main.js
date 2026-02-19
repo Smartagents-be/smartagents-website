@@ -300,10 +300,13 @@ revealElements.forEach(el => {
 
     function resize() {
         dpr = window.devicePixelRatio || 1;
-        width = canvas.offsetWidth;
-        height = canvas.offsetHeight;
+        var hero = canvas.parentElement;
+        width = hero.clientWidth;
+        height = hero.clientHeight;
         canvas.width = width * dpr;
         canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
@@ -398,9 +401,17 @@ revealElements.forEach(el => {
         });
     }, { threshold: 0 });
 
-    resize();
-    createNodes();
-    heroObserver.observe(canvas.closest('.hero'));
+    function init() {
+        resize();
+        createNodes();
+        heroObserver.observe(canvas.closest('.hero'));
+    }
+
+    if (document.readyState === 'complete') {
+        init();
+    } else {
+        window.addEventListener('load', init);
+    }
 
     window.addEventListener('resize', () => {
         resize();
