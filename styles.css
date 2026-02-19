@@ -234,18 +234,43 @@ h3 {
     padding: 120px 24px 80px;
     position: relative;
     overflow: hidden;
+    background: var(--dark);
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(14, 165, 233, 0.15) 50%, rgba(139, 92, 246, 0.3) 100%),
+        linear-gradient(to top, var(--dark) 0%, transparent 40%),
+        linear-gradient(to right, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.3) 100%);
+    z-index: 1;
 }
 
 .hero-content {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .hero h1 {
     margin-bottom: 24px;
     max-width: 800px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
@@ -253,67 +278,13 @@ h3 {
     color: var(--gray-light);
     max-width: 600px;
     margin-bottom: 40px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero-cta {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
-}
-
-.hero-visual {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.floating-shapes {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.shape {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.6;
-    animation: float 6s ease-in-out infinite;
-}
-
-.shape-1 {
-    width: 400px;
-    height: 400px;
-    background: var(--primary);
-    top: 20%;
-    right: 10%;
-    animation-delay: 0s;
-}
-
-.shape-2 {
-    width: 300px;
-    height: 300px;
-    background: var(--secondary);
-    top: 40%;
-    right: 30%;
-    animation-delay: 2s;
-}
-
-.shape-3 {
-    width: 350px;
-    height: 350px;
-    background: var(--accent);
-    top: 60%;
-    right: 5%;
-    animation-delay: 4s;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-30px) scale(1.05); }
 }
 
 /* Services */
@@ -915,9 +886,13 @@ h3 {
         justify-content: center;
     }
 
-    .hero-visual {
-        width: 100%;
-        opacity: 0.5;
+    .hero-video {
+        display: none;
+    }
+
+    .hero-overlay {
+        background:
+            linear-gradient(135deg, rgba(99, 102, 241, 0.4) 0%, rgba(14, 165, 233, 0.2) 50%, rgba(139, 92, 246, 0.4) 100%);
     }
 
     .form-row {
