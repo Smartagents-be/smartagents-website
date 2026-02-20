@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartAgents | Klantenzone</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        .login-card {
+            background: var(--dark-lighter);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .login-logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: var(--gray-light);
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+        }
+
+        .login-card .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-card .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray-light);
+            font-weight: 500;
+        }
+
+        .login-card .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-card .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .login-error {
+            color: #ef4444;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .login-back {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .login-back a {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .login-back a:hover {
+            color: var(--primary);
+        }
+
+        .login-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 36px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <canvas id="hero-canvas" class="login-overlay"></canvas>
+        <div class="hero-overlay" style="position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(15,23,42,0.85),rgba(15,23,42,0.75));"></div>
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="logo.svg" alt="SmartAgents">
+                <span>SmartAgents</span>
+            </div>
+            <p class="login-subtitle">Klantenzone</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Gebruikersnaam</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary login-btn">Inloggen</button>
+                <p class="login-error" id="login-error">Ongeldige gebruikersnaam of wachtwoord.</p>
+            </form>
+            <div class="login-back">
+                <a href="index.html">&larr; Terug naar smartagents.be</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Neural network canvas animation (same as main site)
+        (function() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const colors = [
+                { r: 99, g: 102, b: 241 },
+                { r: 14, g: 165, b: 233 },
+                { r: 139, g: 92, b: 246 }
+            ];
+
+            let width, height, nodes, dpr;
+            const CONNECTION_DIST = 150;
+            const isMobile = window.innerWidth < 768;
+
+            function resize() {
+                dpr = window.devicePixelRatio || 1;
+                var parent = canvas.parentElement;
+                width = parent.clientWidth;
+                height = parent.clientHeight;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function createNodes() {
+                var count = isMobile ? 30 : 60;
+                nodes = [];
+                for (var i = 0; i < count; i++) {
+                    var color = colors[Math.floor(Math.random() * colors.length)];
+                    nodes.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: (Math.random() - 0.5) * 0.4,
+                        radius: Math.random() * 2 + 1.5,
+                        color: color,
+                        pulse: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+                for (var i = 0; i < nodes.length; i++) {
+                    for (var j = i + 1; j < nodes.length; j++) {
+                        var dx = nodes[i].x - nodes[j].x;
+                        var dy = nodes[i].y - nodes[j].y;
+                        var dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < CONNECTION_DIST) {
+                            var alpha = (1 - dist / CONNECTION_DIST) * 0.3;
+                            var c = nodes[i].color;
+                            ctx.strokeStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + alpha + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                for (var i = 0; i < nodes.length; i++) {
+                    var n = nodes[i];
+                    n.pulse += 0.02;
+                    var pulseSize = Math.sin(n.pulse) * 0.5 + 0.5;
+                    var c = n.color;
+                    ctx.beginPath();
+                    ctx.arc(n.x, n.y, n.radius + 4 + pulseSize * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0.08)';
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (0.6 + pulseSize * 0.4) + ')';
+                    ctx.fill();
+                }
+            }
+
+            function update() {
+                for (var i = 0; i < nodes.length; i++) {
+                    var n = nodes[i];
+                    n.x += n.vx;
+                    n.y += n.vy;
+                    if (n.x < 0 || n.x > width) n.vx *= -1;
+                    if (n.y < 0 || n.y > height) n.vy *= -1;
+                }
+            }
+
+            function animate() {
+                update();
+                draw();
+                requestAnimationFrame(animate);
+            }
+
+            function init() {
+                resize();
+                createNodes();
+                animate();
+            }
+
+            if (document.readyState === 'complete') {
+                init();
+            } else {
+                window.addEventListener('load', init);
+            }
+
+            window.addEventListener('resize', function() {
+                resize();
+                createNodes();
+            });
+        })();
+
+        // Login form handling
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('login-error').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
