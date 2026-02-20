@@ -197,6 +197,10 @@ h3 {
     color: var(--white);
 }
 
+.mobile-only {
+    display: none;
+}
+
 /* Language Switcher */
 .lang-switcher {
     display: flex;
@@ -997,6 +1001,10 @@ h3 {
 
     .btn-nav {
         display: none;
+    }
+
+    .mobile-only {
+        display: list-item;
     }
 
     .hero {

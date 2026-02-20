@@ -290,7 +290,7 @@ contactForm.addEventListener('submit', (e) => {
     btn.disabled = true;
     btn.textContent = '...';
 
-    fetch(contactForm.action, {
+    fetch('https://formsubmit.co/ajax/info@smartagents.be', {
         method: 'POST',
         body: new FormData(contactForm),
         headers: { 'Accept': 'application/json' }
