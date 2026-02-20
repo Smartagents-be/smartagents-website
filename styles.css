@@ -158,6 +158,19 @@ h3 {
     background-clip: text;
 }
 
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.logo-tagline {
+    font-size: 0.55rem;
+    font-weight: 400;
+    -webkit-text-fill-color: var(--gray-light);
+    letter-spacing: 0.5px;
+}
+
 .logo-icon {
     width: 36px;
     height: 36px;
