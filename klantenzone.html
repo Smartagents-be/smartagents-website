@@ -42,11 +42,24 @@
             font-weight: 700;
         }
 
+        .login-logo .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
         .login-logo span {
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .login-logo .logo-tagline {
+            font-size: 0.55rem;
+            font-weight: 400;
+            -webkit-text-fill-color: var(--gray-light);
+            letter-spacing: 0.5px;
         }
 
         .login-logo img {
@@ -137,9 +150,12 @@
         <div class="login-card">
             <div class="login-logo">
                 <img src="logo.svg" alt="SmartAgents">
-                <span>SmartAgents</span>
+                <div class="logo-text">
+                    <span>SmartAgents</span>
+                    <small class="logo-tagline">Digitale collega's die nooit slapen.</small>
+                </div>
             </div>
-            <p class="login-subtitle">Klantenzone</p>
+            <p class="login-subtitle">Uw persoonlijke klantenzone</p>
             <form id="login-form">
                 <div class="form-group">
                     <label for="username">Gebruikersnaam</label>
