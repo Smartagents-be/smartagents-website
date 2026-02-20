@@ -197,7 +197,7 @@ const translations = {
         'jobs.role.item2.desc': 'Werk met LLMs, tool-use, RAG en de nieuwste agentische frameworks',
         'jobs.role.item3.title': 'Schaalbare Pipelines',
         'jobs.role.item3.desc': 'Ontwerp schaalbare agent-pipelines ge\u00EFntegreerd in bedrijfsworkflows',
-        'jobs.role.item4.title': 'Ship & Itereer',
+        'jobs.role.item4.title': 'Snelle Iteraties',
         'jobs.role.item4.desc': 'Ship snel, itereer vaak \u2014 directe impact op het product vanaf dag \u00E9\u00E9n',
         'jobs.benefits.title': 'Waarom SmartAgents',
         'jobs.benefit1.title': 'Cutting-Edge Tech',
