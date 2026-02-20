@@ -306,7 +306,11 @@
             <h2 class="section-title" data-i18n="contact.title">Let's Talk</h2>
             <p class="section-subtitle" data-i18n="contact.subtitle">Ready to optimize your business? Get in touch with our team.</p>
 
-            <form class="contact-form" id="contact-form">
+            <form class="contact-form" id="contact-form" action="https://formsubmit.co/info@smartagents.be" method="POST">
+                <input type="hidden" name="_subject" value="Nieuw bericht via smartagents.be">
+                <input type="hidden" name="_next" value="https://smartagents.be/#contact">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="_honey" style="display:none">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name" data-i18n="contact.form.name">Name</label>

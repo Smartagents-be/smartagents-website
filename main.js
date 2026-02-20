@@ -257,32 +257,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form submission handling
+// Form submission handling via FormSubmit.co
 const contactForm = document.getElementById('contact-form');
 
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-
-    // Here you would typically send the data to a server
-    console.log('Form submitted:', data);
-
-    // Show success message
     const btn = contactForm.querySelector('button[type="submit"]');
-    const successText = translations[currentLang]['contact.form.success'];
-    btn.textContent = successText;
-    btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+    btn.disabled = true;
+    btn.textContent = '...';
 
-    // Reset form
-    contactForm.reset();
-
-    // Reset button after 3 seconds
-    setTimeout(() => {
-        btn.textContent = translations[currentLang]['contact.form.submit'];
-        btn.style.background = '';
-    }, 3000);
+    fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+    }).then(response => {
+        if (response.ok) {
+            btn.textContent = translations[currentLang]['contact.form.success'];
+            btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            contactForm.reset();
+        } else {
+            btn.textContent = 'Error - probeer opnieuw';
+            btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+        }
+        btn.disabled = false;
+        setTimeout(() => {
+            btn.textContent = translations[currentLang]['contact.form.submit'];
+            btn.style.background = '';
+        }, 3000);
+    }).catch(() => {
+        btn.textContent = 'Error - probeer opnieuw';
+        btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+        btn.disabled = false;
+        setTimeout(() => {
+            btn.textContent = translations[currentLang]['contact.form.submit'];
+            btn.style.background = '';
+        }, 3000);
+    });
 });
 
 // Add scroll reveal animation
