@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /klantenzone.html
+
+Sitemap: https://smartagents.be/sitemap.xml
