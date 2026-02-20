@@ -23,6 +23,18 @@ const translations = {
         'services.training.desc': 'Comprehensive training programs to upskill your team in AI, automation, and emerging technologies. Hands-on workshops and certification courses.',
         'services.secure.title': 'Secure',
         'services.secure.desc': 'Enterprise-grade security solutions for your AI systems. Data protection, compliance frameworks, and secure deployment of automation workflows.',
+        'aanpak.title': 'Our Approach',
+        'aanpak.subtitle': 'From idea to results in 5 steps',
+        'aanpak.step1.title': 'Analysis & Intake',
+        'aanpak.step1.desc': 'We map your processes and bottlenecks. Where can AI make the difference?',
+        'aanpak.step2.title': 'Design',
+        'aanpak.step2.desc': 'We design your custom AI agent: tasks, workflows, and integrations with your existing systems.',
+        'aanpak.step3.title': 'Development',
+        'aanpak.step3.desc': 'We build and train your AI agent. You test along and provide feedback throughout the process.',
+        'aanpak.step4.title': 'Implementation',
+        'aanpak.step4.desc': 'We deploy your AI agent live in your environment. Your team always stays in control.',
+        'aanpak.step5.title': 'Optimization & Support',
+        'aanpak.step5.desc': 'We monitor, optimize, and support. Your digital colleague gets smarter every day.',
         'stats.agents': 'Running Agents',
         'stats.cost': 'Average Cost Reduction',
         'stats.satisfaction': 'Client Satisfaction',
@@ -89,6 +101,18 @@ const translations = {
         'services.training.desc': 'Uitgebreide trainingsprogramma\'s om uw team bij te scholen in AI, automatisering en opkomende technologieën. Praktische workshops bij u op locatie.',
         'services.secure.title': 'Beveiliging',
         'services.secure.desc': 'Beveiligingsoplossingen voor uw AI-systemen. Gegevensbescherming, compliance frameworks en veilige implementatie van automatiseringsworkflows.',
+        'aanpak.title': 'Ons Plan van Aanpak',
+        'aanpak.subtitle': 'Van idee tot resultaat in 5 stappen',
+        'aanpak.step1.title': 'Analyse & Intake',
+        'aanpak.step1.desc': 'We brengen uw processen en knelpunten in kaart. Waar kan AI het verschil maken?',
+        'aanpak.step2.title': 'Ontwerp',
+        'aanpak.step2.desc': 'We ontwerpen uw custom AI agent op maat: taken, workflows en integraties met uw bestaande systemen.',
+        'aanpak.step3.title': 'Ontwikkeling',
+        'aanpak.step3.desc': 'We bouwen en trainen uw AI agent. U test mee en geeft feedback tijdens het hele proces.',
+        'aanpak.step4.title': 'Implementatie',
+        'aanpak.step4.desc': 'We zetten uw AI agent live in uw omgeving. Uw team behoudt altijd de controle.',
+        'aanpak.step5.title': 'Optimalisatie & Support',
+        'aanpak.step5.desc': 'We monitoren, optimaliseren en ondersteunen. Uw digitale collega wordt elke dag slimmer.',
         'stats.agents': 'Actieve Agents',
         'stats.cost': 'Gemiddelde Kostenbesparing',
         'stats.satisfaction': 'Klanttevredenheid',
@@ -296,7 +320,7 @@ contactForm.addEventListener('submit', (e) => {
 });
 
 // Add scroll reveal animation
-const revealElements = document.querySelectorAll('.service-card, .stat-item, .about-features li');
+const revealElements = document.querySelectorAll('.service-card, .aanpak-step, .stat-item, .about-features li');
 
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
