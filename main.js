@@ -61,7 +61,7 @@ const translations = {
         'contact.form.message': 'How can we help?',
         'contact.form.submit': 'Send Message',
         'contact.form.success': 'Message Sent!',
-        'footer.tagline': 'Transforming businesses through intelligent automation.',
+        'footer.tagline': 'Digital colleagues that never sleep.',
         'footer.quicklinks': 'Quick Links',
         'footer.office': 'Office',
         'footer.copyright': '© 2026 SmartAgents. All rights reserved.'
@@ -127,7 +127,7 @@ const translations = {
         'contact.form.message': 'Hoe kunnen we helpen?',
         'contact.form.submit': 'Verstuur Bericht',
         'contact.form.success': 'Bericht Verzonden!',
-        'footer.tagline': 'Bedrijven transformeren door intelligente automatisering.',
+        'footer.tagline': 'Digitale collega\'s die nooit slapen.',
         'footer.quicklinks': 'Snelle Links',
         'footer.office': 'Kantoor',
         'footer.copyright': '© 2026 SmartAgents. Alle rechten voorbehouden.'
