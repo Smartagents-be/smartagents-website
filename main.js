@@ -76,7 +76,36 @@ const translations = {
         'footer.tagline': 'Digital colleagues that never sleep.',
         'footer.quicklinks': 'Quick Links',
         'footer.office': 'Office',
-        'footer.copyright': '© 2026 SmartAgents. All rights reserved.'
+        'footer.copyright': '© 2026 SmartAgents. All rights reserved.',
+        'nav.jobs': 'Jobs',
+        'jobs.hero.title': 'Join Our <span class="gradient-text">Team</span>',
+        'jobs.hero.subtitle': 'Help us build the future of autonomous AI agents. We\'re looking for people who want to do the most impactful work of their career.',
+        'jobs.vision.title': 'The Vision',
+        'jobs.vision.text': 'At SmartAgents, we\'re building autonomous AI agents that operate as true digital colleagues \u2014 systems that can reason, plan, and execute complex business tasks 24/7. We\'re not building chatbots. We\'re building intelligent automation that transforms how companies operate, from AI-driven process optimization to fully autonomous agentic workflows.',
+        'jobs.role.title': 'Agentic AI Developer',
+        'jobs.role.subtitle': 'What you\'ll be doing',
+        'jobs.role.item1.title': 'Multi-Agent Systems',
+        'jobs.role.item1.desc': 'Design & build multi-agent systems that solve real business problems end-to-end',
+        'jobs.role.item2.title': 'LLMs & Cutting-Edge AI',
+        'jobs.role.item2.desc': 'Work with LLMs, tool-use, RAG, and cutting-edge agentic frameworks',
+        'jobs.role.item3.title': 'Scalable Pipelines',
+        'jobs.role.item3.desc': 'Architect scalable agent pipelines integrated into enterprise workflows',
+        'jobs.role.item4.title': 'Ship & Iterate',
+        'jobs.role.item4.desc': 'Ship fast, iterate often \u2014 direct impact on the product from day one',
+        'jobs.benefits.title': 'Why Join SmartAgents',
+        'jobs.benefit1.title': 'Cutting-Edge Tech',
+        'jobs.benefit1.desc': 'Work with the latest in AI, LLMs & agentic systems',
+        'jobs.benefit2.title': 'Equity & Ownership',
+        'jobs.benefit2.desc': 'Share in the upside \u2014 build something that\'s yours too',
+        'jobs.benefit3.title': 'Full Flexibility',
+        'jobs.benefit3.desc': 'Remote-first, async-friendly, results over hours',
+        'jobs.benefit4.title': 'Real Autonomy',
+        'jobs.benefit4.desc': 'Own your domain, make decisions, move fast',
+        'jobs.team.title': 'The Team',
+        'jobs.team.text': '<strong>Axel Segers</strong> brings 20+ years of experience in digital transformation, entrepreneurship and strategy. <strong>Tom Haeldermans</strong> is a technical architect specializing in agentic AI systems and enterprise automation. Together, we\'ve built SmartAgents from the ground up \u2014 and we\'re looking for the right people to grow with us. Small team = big ownership, zero bureaucracy, maximum velocity.',
+        'jobs.cta.title': 'Interested? Let\'s Talk',
+        'jobs.cta.text': 'We\'re not looking for just any developer. We want someone who sees the future of AI and wants to build it with us. If you\'re ready to do the most impactful work of your career, reach out.',
+        'jobs.cta.button': 'Or use our contact form'
     },
     nl: {
         'nav.services': 'Diensten',
@@ -154,7 +183,36 @@ const translations = {
         'footer.tagline': 'Digitale collega\'s die nooit slapen.',
         'footer.quicklinks': 'Snelle Links',
         'footer.office': 'Kantoor',
-        'footer.copyright': '© 2026 SmartAgents. Alle rechten voorbehouden.'
+        'footer.copyright': '© 2026 SmartAgents. Alle rechten voorbehouden.',
+        'nav.jobs': 'Jobs',
+        'jobs.hero.title': 'Sluit je aan bij ons <span class="gradient-text">team</span>',
+        'jobs.hero.subtitle': 'Help ons de toekomst van autonome AI-agents te bouwen. We zoeken mensen die het meest impactvolle werk van hun carrière willen doen.',
+        'jobs.vision.title': 'De Visie',
+        'jobs.vision.text': 'Bij SmartAgents bouwen we autonome AI-agents die functioneren als echte digitale collega\'s \u2014 systemen die kunnen redeneren, plannen en complexe bedrijfstaken 24/7 uitvoeren. We bouwen geen chatbots. We bouwen intelligente automatisering die de manier waarop bedrijven werken transformeert, van AI-gedreven procesoptimalisatie tot volledig autonome agentische workflows.',
+        'jobs.role.title': 'Agentic AI Developer',
+        'jobs.role.subtitle': 'Wat je gaat doen',
+        'jobs.role.item1.title': 'Multi-Agent Systemen',
+        'jobs.role.item1.desc': 'Ontwerp & bouw multi-agent systemen die echte bedrijfsproblemen end-to-end oplossen',
+        'jobs.role.item2.title': 'LLMs & Cutting-Edge AI',
+        'jobs.role.item2.desc': 'Werk met LLMs, tool-use, RAG en de nieuwste agentische frameworks',
+        'jobs.role.item3.title': 'Schaalbare Pipelines',
+        'jobs.role.item3.desc': 'Ontwerp schaalbare agent-pipelines ge\u00EFntegreerd in bedrijfsworkflows',
+        'jobs.role.item4.title': 'Ship & Itereer',
+        'jobs.role.item4.desc': 'Ship snel, itereer vaak \u2014 directe impact op het product vanaf dag \u00E9\u00E9n',
+        'jobs.benefits.title': 'Waarom SmartAgents',
+        'jobs.benefit1.title': 'Cutting-Edge Tech',
+        'jobs.benefit1.desc': 'Werk met het nieuwste in AI, LLMs & agentische systemen',
+        'jobs.benefit2.title': 'Equity & Eigenaarschap',
+        'jobs.benefit2.desc': 'Deel in het succes \u2014 bouw iets dat ook van jou is',
+        'jobs.benefit3.title': 'Volledige Flexibiliteit',
+        'jobs.benefit3.desc': 'Remote-first, async-vriendelijk, resultaat boven uren',
+        'jobs.benefit4.title': 'Echte Autonomie',
+        'jobs.benefit4.desc': 'Eigen domein, eigen beslissingen, snel schakelen',
+        'jobs.team.title': 'Het Team',
+        'jobs.team.text': '<strong>Axel Segers</strong> brengt 20+ jaar ervaring in digitale transformatie, ondernemerschap en strategie. <strong>Tom Haeldermans</strong> is technisch architect gespecialiseerd in agentische AI-systemen en enterprise-automatisering. Samen hebben we SmartAgents van de grond af opgebouwd \u2014 en we zoeken de juiste mensen om mee te groeien. Klein team = groot eigenaarschap, nul bureaucratie, maximale snelheid.',
+        'jobs.cta.title': 'Interesse? Laten we praten',
+        'jobs.cta.text': 'We zoeken niet zomaar een developer. We willen iemand die de toekomst van AI ziet en die met ons wil bouwen. Ben je klaar voor het meest impactvolle werk van je carrière? Neem contact op.',
+        'jobs.cta.button': 'Of gebruik ons contactformulier'
     }
 };
 
@@ -256,16 +314,18 @@ const animateStats = () => {
 // Intersection Observer for stats animation
 const statsSection = document.querySelector('.stats');
 
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !statsAnimated) {
-            animateStats();
-            statsAnimated = true;
-        }
-    });
-}, { threshold: 0.5 });
+if (statsSection) {
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !statsAnimated) {
+                animateStats();
+                statsAnimated = true;
+            }
+        });
+    }, { threshold: 0.5 });
 
-statsObserver.observe(statsSection);
+    statsObserver.observe(statsSection);
+}
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -284,40 +344,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Form submission handling via FormSubmit.co
 const contactForm = document.getElementById('contact-form');
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = contactForm.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    btn.textContent = '...';
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = contactForm.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = '...';
 
-    fetch('https://formsubmit.co/ajax/info@smartagents.be', {
-        method: 'POST',
-        body: new FormData(contactForm),
-        headers: { 'Accept': 'application/json' }
-    }).then(response => {
-        if (response.ok) {
-            btn.textContent = translations[currentLang]['contact.form.success'];
-            btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-            contactForm.reset();
-        } else {
+        fetch('https://formsubmit.co/ajax/info@smartagents.be', {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                btn.textContent = translations[currentLang]['contact.form.success'];
+                btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                contactForm.reset();
+            } else {
+                btn.textContent = 'Error - probeer opnieuw';
+                btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            }
+            btn.disabled = false;
+            setTimeout(() => {
+                btn.textContent = translations[currentLang]['contact.form.submit'];
+                btn.style.background = '';
+            }, 3000);
+        }).catch(() => {
             btn.textContent = 'Error - probeer opnieuw';
             btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-        }
-        btn.disabled = false;
-        setTimeout(() => {
-            btn.textContent = translations[currentLang]['contact.form.submit'];
-            btn.style.background = '';
-        }, 3000);
-    }).catch(() => {
-        btn.textContent = 'Error - probeer opnieuw';
-        btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-        btn.disabled = false;
-        setTimeout(() => {
-            btn.textContent = translations[currentLang]['contact.form.submit'];
-            btn.style.background = '';
-        }, 3000);
+            btn.disabled = false;
+            setTimeout(() => {
+                btn.textContent = translations[currentLang]['contact.form.submit'];
+                btn.style.background = '';
+            }, 3000);
+        });
     });
-});
+}
 
 // Add scroll reveal animation
 const revealElements = document.querySelectorAll('.service-card, .aanpak-step, .stat-item, .about-features li');
