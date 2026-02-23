@@ -112,6 +112,7 @@ const translations = {
         'jobs.cta.title': 'Interested? Let\'s talk',
         'jobs.cta.text': 'We\'re not looking for just any developer. We want someone who sees the future of AI and wants to build it with us. If you\'re ready to do the most impactful work of your career, reach out.',
         'jobs.cta.button': 'Or use our contact form',
+        'services.back': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back to homepage',
         'services.learnmore': 'Learn more',
         // AI service page
         'services.ai.page.subtitle': 'Custom AI models and machine learning solutions tailored to your business needs.',
@@ -354,6 +355,7 @@ const translations = {
         'jobs.cta.title': 'Interesse? Laten we praten',
         'jobs.cta.text': 'We zoeken niet zomaar een developer. We willen iemand die de toekomst van AI ziet en die met ons wil bouwen. Ben je klaar voor het meest impactvolle werk van je carrière? Neem contact op.',
         'jobs.cta.button': 'Of gebruik ons contactformulier',
+        'services.back': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Terug naar homepagina',
         'services.learnmore': 'Meer info',
         // AI-dienstenpagina
         'services.ai.page.subtitle': 'Op maat gemaakte AI-modellen en machine learning oplossingen afgestemd op uw bedrijfsbehoeften.',
