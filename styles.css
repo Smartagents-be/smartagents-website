@@ -1162,9 +1162,7 @@ h3 {
 
 .jobs-hero h1 {
     margin-bottom: 20px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    white-space: nowrap;
 }
 
 .jobs-hero p {
@@ -1517,6 +1515,10 @@ h3 {
 
     .jobs-hero {
         padding: 130px 24px 60px;
+    }
+
+    .jobs-hero h1 {
+        white-space: normal;
     }
 
     .jobs-cta {
