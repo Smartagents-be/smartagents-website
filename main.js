@@ -249,7 +249,7 @@ const translations = {
         'nav.team': 'Team',
         'nav.contact': 'Contact',
         'hero.title': 'Transformeer uw bedrijf met <span class="gradient-text">intelligente automatisering</span>',
-        'hero.subtitle': 'Wij leveren geavanceerde AI-oplossingen, en procesoptimalisatie om uw kosten te drukken en digitale transformatie te versnellen.',
+        'hero.subtitle': 'Wij leveren op maat gemaakte AI-oplossingen, en procesoptimalisatie om uw kosten te drukken en digitale transformatie te versnellen.',
         'hero.cta.primary': 'Aan de slag',
         'hero.cta.secondary': 'Meer info',
         'vision.title': 'Visie',
