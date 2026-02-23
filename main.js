@@ -301,7 +301,7 @@ const translations = {
         'testimonials.3.text': '"Samenwerken met SmartAgents was een gamechanger. Hun agentisch AI-systeem verwerkt complexe taken waarvan we dachten dat alleen mensen ze konden doen."',
         'testimonials.3.name': 'Bart Mertens',
         'testimonials.3.role': 'CEO, NextLevel NV',
-        'contact.title': 'Waarom nog wachten? Laten we afspreken en starten',
+        'contact.title': 'Klaar om AI in te zetten?',
         'contact.subtitle': 'Samen processen in kaart brengen, samen tot kostenbesparende oplossingen komen, u behoudt de controle.',
         'contact.form.name': 'Naam',
         'contact.form.email': 'E-mail',
