@@ -1161,9 +1161,9 @@ h3 {
 }
 
 .jobs-hero-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 28px;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 32px;
     animation: pulse-glow 3s ease-in-out infinite;
 }
 
