@@ -9,6 +9,12 @@ const translations = {
         'hero.subtitle': 'We deliver cutting-edge AI solutions, agentic systems, and process optimization to accelerate your digital transformation.',
         'hero.cta.primary': 'Get started',
         'hero.cta.secondary': 'Learn more',
+        'vision.title': 'Vision',
+        'vision.headline': 'A world where every business has intelligent digital colleagues',
+        'vision.text': 'We envision a future where AI doesn\'t replace people \u2014 it amplifies them. Where every business, regardless of size, has access to intelligent automation that handles the routine, so humans can focus on the extraordinary.',
+        'mission.title': 'Mission',
+        'mission.headline': 'Making AI practical, accessible, and human-centered',
+        'mission.text': 'We build autonomous AI agents and automation solutions that deliver measurable results from day one. No hype, no black boxes \u2014 just intelligent systems that work alongside your team, under your control.',
         'services.title': 'Our services',
         'services.subtitle': 'Comprehensive solutions to optimize your operations and drive innovation',
         'services.ai.title': 'Artificial intelligence',
@@ -245,6 +251,12 @@ const translations = {
         'hero.subtitle': 'Wij leveren geavanceerde AI-oplossingen, en procesoptimalisatie om uw kosten te drukken en digitale transformatie te versnellen.',
         'hero.cta.primary': 'Aan de slag',
         'hero.cta.secondary': 'Meer info',
+        'vision.title': 'Visie',
+        'vision.headline': 'Een wereld waarin elk bedrijf intelligente digitale collega\'s heeft',
+        'vision.text': 'Wij geloven in een toekomst waarin AI mensen niet vervangt, maar versterkt. Waarin elk bedrijf, ongeacht de grootte, toegang heeft tot intelligente automatisering die het routinewerk overneemt \u2014 zodat mensen zich kunnen richten op het buitengewone.',
+        'mission.title': 'Missie',
+        'mission.headline': 'AI praktisch, toegankelijk en mensgericht maken',
+        'mission.text': 'Wij bouwen autonome AI-agents en automatiseringsoplossingen die vanaf dag \u00E9\u00E9n meetbare resultaten leveren. Geen hype, geen zwarte dozen \u2014 gewoon intelligente systemen die samenwerken met uw team, onder uw controle.',
         'services.title': 'Onze diensten',
         'services.subtitle': 'Onze oplossingen om uw operaties te optimaliseren en uw kosten te drukken',
         'services.ai.title': 'Kunstmatige intelligentie',
@@ -640,7 +652,7 @@ if (contactForm) {
 }
 
 // Add scroll reveal animation
-const revealElements = document.querySelectorAll('.service-card, .aanpak-step, .stat-item, .about-features li');
+const revealElements = document.querySelectorAll('.vm-panel, .service-card, .aanpak-step, .stat-item, .about-features li');
 
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
