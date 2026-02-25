@@ -413,7 +413,7 @@ h3 {
 
 .vm-grid {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
     gap: 48px;
     align-items: center;
 }
