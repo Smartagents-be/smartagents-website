@@ -157,10 +157,8 @@ h3 {
 }
 
 .logo span {
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #00d8ff;
+    letter-spacing: -0.5px;
 }
 
 .logo-text {
