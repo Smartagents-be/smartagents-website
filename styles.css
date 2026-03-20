@@ -1176,7 +1176,7 @@ h3 {
 }
 
 /* Jobs Page */
-.jobs-hero {
+.page-hero {
     padding: 160px 24px 80px;
     background: linear-gradient(135deg, var(--cyan-15) 0%, var(--cyan-15) 100%);
     text-align: center;
@@ -1192,7 +1192,7 @@ h3 {
     pointer-events: none;
 }
 
-.jobs-hero .container {
+.page-hero .container {
     position: relative;
     z-index: 1;
     display: flex;
@@ -1200,11 +1200,11 @@ h3 {
     align-items: center;
 }
 
-.jobs-hero .container .back-link {
+.page-hero .container .back-link {
     align-self: flex-start;
 }
 
-.jobs-hero-badge {
+.page-hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -1220,7 +1220,7 @@ h3 {
     box-shadow: 0 0 20px var(--cyan-15);
 }
 
-.jobs-hero-badge-dot {
+.page-hero-badge-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -1234,12 +1234,12 @@ h3 {
     50% { opacity: 0.5; transform: scale(0.85); }
 }
 
-.jobs-hero h1 {
+.page-hero h1 {
     margin-bottom: 20px;
     white-space: nowrap;
 }
 
-.jobs-hero p {
+.page-hero p {
     font-size: 1.2rem;
     color: var(--gray-light);
     max-width: 600px;
@@ -1247,35 +1247,35 @@ h3 {
     line-height: 1.7;
 }
 
-.jobs-section {
+.page-section {
     padding: 100px 0;
     background: var(--dark);
 }
 
-.jobs-section-alt {
+.page-section-alt {
     background: var(--dark-lighter);
 }
 
-.jobs-vision-text {
+.page-vision-text {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
 
-.jobs-vision-text p {
+.page-vision-text p {
     font-size: 1.1rem;
     color: var(--gray-light);
     line-height: 1.8;
 }
 
-.jobs-role-grid {
+.page-role-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 24px;
     margin: 0 auto;
 }
 
-.jobs-role-item {
+.page-role-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1287,18 +1287,18 @@ h3 {
     transition: all 0.3s ease;
 }
 
-.jobs-section-alt .jobs-role-item {
+.page-section-alt .page-role-item {
     background: var(--dark-lighter);
     border-color: var(--white-08);
 }
 
-.jobs-role-item:hover {
+.page-role-item:hover {
     border-color: var(--cyan);
     transform: translateY(-4px);
     box-shadow: 0 15px 30px var(--cyan-10);
 }
 
-.jobs-role-icon {
+.page-role-icon {
     width: 48px;
     height: 48px;
     min-width: 48px;
@@ -1310,24 +1310,24 @@ h3 {
     margin-bottom: 16px;
 }
 
-.jobs-role-icon svg {
+.page-role-icon svg {
     width: 24px;
     height: 24px;
     color: var(--white);
 }
 
-.jobs-role-item h3 {
+.page-role-item h3 {
     font-size: 1.1rem;
     margin-bottom: 8px;
 }
 
-.jobs-role-item p {
+.page-role-item p {
     color: var(--gray-light);
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
-.jobs-benefits-grid {
+.page-benefits-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 24px;
@@ -1335,7 +1335,7 @@ h3 {
     margin: 0 auto;
 }
 
-.jobs-benefit-card {
+.page-benefit-card {
     background: var(--dark-lighter);
     border: 1px solid var(--white-10);
     border-radius: 16px;
@@ -1344,13 +1344,13 @@ h3 {
     transition: all 0.3s ease;
 }
 
-.jobs-benefit-card:hover {
+.page-benefit-card:hover {
     border-color: var(--cyan);
     transform: translateY(-6px);
     box-shadow: 0 20px 40px var(--cyan-15);
 }
 
-.jobs-benefit-icon {
+.page-benefit-icon {
     width: 56px;
     height: 56px;
     background: var(--gradient);
@@ -1361,18 +1361,18 @@ h3 {
     margin: 0 auto 20px;
 }
 
-.jobs-benefit-icon svg {
+.page-benefit-icon svg {
     width: 26px;
     height: 26px;
     color: var(--white);
 }
 
-.jobs-benefit-card h3 {
+.page-benefit-card h3 {
     font-size: 1.1rem;
     margin-bottom: 12px;
 }
 
-.jobs-benefit-card p {
+.page-benefit-card p {
     color: var(--gray-light);
     font-size: 0.9rem;
     line-height: 1.6;
@@ -1394,25 +1394,25 @@ h3 {
     color: var(--light);
 }
 
-.jobs-cta {
+.page-cta {
     padding: 100px 24px;
     background: linear-gradient(135deg, var(--cyan-20) 0%, var(--cyan-20) 100%);
     text-align: center;
     border-top: 1px solid var(--white-05);
 }
 
-.jobs-cta h2 {
+.page-cta h2 {
     margin-bottom: 20px;
 }
 
-.jobs-cta .btn {
+.page-cta .btn {
     width: 25%;
     min-width: 200px;
     margin: 0 auto;
     box-shadow: 0 0 20px var(--cyan-35);
 }
 
-.jobs-cta > .container > p {
+.page-cta > .container > p {
     font-size: 1.1rem;
     color: var(--gray-light);
     max-width: 650px;
@@ -1420,7 +1420,7 @@ h3 {
     line-height: 1.7;
 }
 
-.jobs-cta-contacts {
+.page-cta-contacts {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1429,22 +1429,22 @@ h3 {
     flex-wrap: wrap;
 }
 
-.jobs-cta-contacts a {
+.page-cta-contacts a {
     color: var(--cyan);
     font-weight: 500;
     font-size: 1.05rem;
     transition: color 0.3s ease;
 }
 
-.jobs-cta-contacts a:hover {
+.page-cta-contacts a:hover {
     color: var(--secondary);
 }
 
-.jobs-cta-divider {
+.page-cta-divider {
     color: var(--gray);
 }
 
-.jobs-cta-btn {
+.page-cta-btn {
     margin-top: 8px;
 }
 
@@ -1648,27 +1648,27 @@ h3 {
         margin: 16px auto 0;
     }
 
-    .jobs-role-grid {
+    .page-role-grid {
         grid-template-columns: 1fr;
     }
 
-    .jobs-benefits-grid {
+    .page-benefits-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .jobs-section {
+    .page-section {
         padding: 70px 0;
     }
 
-    .jobs-hero {
+    .page-hero {
         padding: 130px 24px 60px;
     }
 
-    .jobs-hero h1 {
+    .page-hero h1 {
         white-space: normal;
     }
 
-    .jobs-cta {
+    .page-cta {
         padding: 70px 24px;
     }
 
@@ -1710,7 +1710,7 @@ h3 {
         width: 100%;
     }
 
-    .jobs-benefits-grid {
+    .page-benefits-grid {
         grid-template-columns: 1fr;
     }
 }

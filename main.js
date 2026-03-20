@@ -147,7 +147,7 @@ if (contactForm) {
 }
 
 // Add scroll reveal animation
-const revealElements = document.querySelectorAll('.vm-panel, .service-card, .aanpak-step, .stat-item, .about-features li, .jobs-role-item, .jobs-benefit-card');
+const revealElements = document.querySelectorAll('.vm-panel, .service-card, .aanpak-step, .stat-item, .about-features li, .page-role-item, .page-benefit-card');
 
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -167,7 +167,7 @@ revealElements.forEach(el => {
 
 // Light Neural Network Canvas for service/jobs page heroes
 (function() {
-    const hero = document.querySelector('.jobs-hero');
+    const hero = document.querySelector('.page-hero');
     if (!hero) return;
 
     const canvas = document.createElement('canvas');

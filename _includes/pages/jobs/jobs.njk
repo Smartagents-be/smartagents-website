@@ -48,10 +48,10 @@
 <body>
     {% include "header.njk" %}
 
-    <section class="jobs-hero">
+    <section class="page-hero">
         <div class="container">
-            <div class="jobs-hero-badge">
-                <span class="jobs-hero-badge-dot"></span>
+            <div class="page-hero-badge">
+                <span class="page-hero-badge-dot"></span>
                 {{ "jobs.hero.badge" | t(locale) }}
             </div>
             <h1>{{ "jobs.hero.title" | t(locale) | safe }}</h1>
@@ -59,22 +59,22 @@
         </div>
     </section>
 
-    <section class="jobs-section">
+    <section class="page-section">
         <div class="container">
             <h2 class="section-title">{{ "jobs.vision.title" | t(locale) }}</h2>
-            <div class="jobs-vision-text">
+            <div class="page-vision-text">
                 <p>{{ "jobs.vision.text" | t(locale) }}</p>
             </div>
         </div>
     </section>
 
-    <section class="jobs-section jobs-section-alt">
+    <section class="page-section page-section-alt">
         <div class="container">
             <h2 class="section-title">{{ "jobs.role.title" | t(locale) }}</h2>
             <p class="section-subtitle">{{ "jobs.role.subtitle" | t(locale) }}</p>
-            <div class="jobs-role-grid">
-                <div class="jobs-role-item">
-                    <div class="jobs-role-icon">
+            <div class="page-role-grid">
+                <div class="page-role-item">
+                    <div class="page-role-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                         </svg>
@@ -84,8 +84,8 @@
                         <p>{{ "jobs.role.item1.desc" | t(locale) }}</p>
                     </div>
                 </div>
-                <div class="jobs-role-item">
-                    <div class="jobs-role-icon">
+                <div class="page-role-item">
+                    <div class="page-role-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="3"/>
                             <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
@@ -96,8 +96,8 @@
                         <p>{{ "jobs.role.item2.desc" | t(locale) }}</p>
                     </div>
                 </div>
-                <div class="jobs-role-item">
-                    <div class="jobs-role-icon">
+                <div class="page-role-item">
+                    <div class="page-role-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
                         </svg>
@@ -107,8 +107,8 @@
                         <p>{{ "jobs.role.item3.desc" | t(locale) }}</p>
                     </div>
                 </div>
-                <div class="jobs-role-item">
-                    <div class="jobs-role-icon">
+                <div class="page-role-item">
+                    <div class="page-role-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                             <polyline points="22 4 12 14.01 9 11.01"/>
@@ -123,12 +123,12 @@
         </div>
     </section>
 
-    <section class="jobs-section">
+    <section class="page-section">
         <div class="container">
             <h2 class="section-title">{{ "jobs.benefits.title" | t(locale) }}</h2>
-            <div class="jobs-benefits-grid">
-                <div class="jobs-benefit-card">
-                    <div class="jobs-benefit-icon">
+            <div class="page-benefits-grid">
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                         </svg>
@@ -136,8 +136,8 @@
                     <h3>{{ "jobs.benefit1.title" | t(locale) }}</h3>
                     <p>{{ "jobs.benefit1.desc" | t(locale) }}</p>
                 </div>
-                <div class="jobs-benefit-card">
-                    <div class="jobs-benefit-icon">
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                             <path d="M9 12l2 2 4-4"/>
@@ -146,8 +146,8 @@
                     <h3>{{ "jobs.benefit2.title" | t(locale) }}</h3>
                     <p>{{ "jobs.benefit2.desc" | t(locale) }}</p>
                 </div>
-                <div class="jobs-benefit-card">
-                    <div class="jobs-benefit-icon">
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                             <polyline points="12 6 12 12 16 14"/>
@@ -156,8 +156,8 @@
                     <h3>{{ "jobs.benefit3.title" | t(locale) }}</h3>
                     <p>{{ "jobs.benefit3.desc" | t(locale) }}</p>
                 </div>
-                <div class="jobs-benefit-card">
-                    <div class="jobs-benefit-icon">
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                             <line x1="12" y1="8" x2="12" y2="12"/>
@@ -171,7 +171,7 @@
         </div>
     </section>
 
-    <section class="jobs-section jobs-section-alt jobs-team">
+    <section class="page-section page-section-alt jobs-team">
         <div class="container">
             <h2 class="section-title">{{ "jobs.team.title" | t(locale) }}</h2>
             <div class="jobs-team-content">
@@ -180,16 +180,16 @@
         </div>
     </section>
 
-    <section class="jobs-cta">
+    <section class="page-cta">
         <div class="container">
             <h2>{{ "jobs.cta.title" | t(locale) }}</h2>
             <p>{{ "jobs.cta.text" | t(locale) }}</p>
-            <div class="jobs-cta-contacts">
+            <div class="page-cta-contacts">
                 <a href="mailto:axel@smartagents.be">axel@smartagents.be</a>
-                <span class="jobs-cta-divider">|</span>
+                <span class="page-cta-divider">|</span>
                 <a href="mailto:tom@smartagents.be">tom@smartagents.be</a>
             </div>
-            <a href="{{ "/" | locale_url }}#contact" class="btn btn-secondary jobs-cta-btn">{{ "jobs.cta.button" | t(locale) }}</a>
+            <a href="{{ "/" | locale_url }}#contact" class="btn btn-secondary page-cta-btn">{{ "jobs.cta.button" | t(locale) }}</a>
         </div>
     </section>
 

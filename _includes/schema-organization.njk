@@ -5,7 +5,7 @@
     "name": "SmartAgents",
     "url": "https://smartagents.be",
     "logo": "https://smartagents.be/assets/logo.svg",
-    "description": "{{ 'page.index.description' | t(locale) }}",
+    "description": {{ 'page.index.description' | t(locale) | dump | safe }},
     "email": "info@smartagents.be",
     "address": [
         {
