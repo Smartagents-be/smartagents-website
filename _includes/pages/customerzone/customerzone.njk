@@ -1,22 +1,41 @@
+{% set nlUrl = baseUrl + nlPermalink %}
+{% set enUrl = baseUrl + "/en" + nlPermalink %}
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="{{ locale }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartAgents | Klantenzone</title>
-    <meta name="description" content="Log in op de SmartAgents klantenzone voor toegang tot uw persoonlijke dashboard en AI-oplossingen.">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#6366f1">
-    <link rel="canonical" href="https://smartagents.be/klantenzone.html">
+    <title>{{ "page.customerzone.title" | t(locale) }}</title>
+    <meta name="description" content="{{ 'page.customerzone.description' | t(locale) }}">
+    <meta name="theme-color" content="#00d8ff">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="{{ page.url | absoluteUrl(baseUrl) }}">
+    <link rel="alternate" hreflang="nl" href="{{ nlUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlUrl }}">
+    <meta property="og:url" content="{{ page.url | absoluteUrl(baseUrl) }}">
 
-    <!-- Open Graph (minimal for login page) -->
-    <meta property="og:title" content="SmartAgents | Klantenzone">
-    <meta property="og:description" content="Log in op de SmartAgents klantenzone.">
-    <meta property="og:url" content="https://smartagents.be/klantenzone.html">
+    <!-- Open Graph -->
+    {% set ogLocale = 'nl_BE' if locale == 'nl' else 'en_US' %}
+    {% set ogLocaleAlt = 'en_US' if locale == 'nl' else 'nl_BE' %}
+    {% set resolvedSocialImage = baseUrl + socialImage %}
+    {% set resolvedSocialAlt = socialAlt[locale] %}
+    <meta property="og:title" content="{{ 'page.customerzone.title' | t(locale) }}">
+    <meta property="og:description" content="{{ 'page.customerzone.description' | t(locale) }}">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ ogLocaleAlt }}">
+    <meta property="og:image" content="{{ resolvedSocialImage }}">
+    <meta property="og:image:alt" content="{{ resolvedSocialAlt }}">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SmartAgents">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ 'page.customerzone.title' | t(locale) }}">
+    <meta name="twitter:description" content="{{ 'page.customerzone.description' | t(locale) }}">
+    <meta name="twitter:image" content="{{ resolvedSocialImage }}">
+    <meta name="twitter:image:alt" content="{{ resolvedSocialAlt }}">
 
-    <link rel="icon" type="image/svg+xml" href="logo.svg">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -99,7 +118,7 @@
 
         .panel-header .panel-badge {
             background: rgba(99, 102, 241, 0.2);
-            color: var(--primary);
+            color: var(--purple);
             padding: 2px 10px;
             border-radius: 20px;
             font-size: 0.75rem;
@@ -207,7 +226,7 @@
         }
 
         .activity-icon.pending {
-            color: var(--primary);
+            color: var(--purple);
             animation: spin 2s linear infinite;
         }
 
@@ -332,7 +351,7 @@
 
         .login-card .form-group input:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--purple);
         }
 
         .login-btn {
@@ -360,7 +379,7 @@
         }
 
         .login-back a:hover {
-            color: var(--primary);
+            color: var(--purple);
         }
 
         .login-overlay {
@@ -395,24 +414,26 @@
         <canvas id="hero-canvas" class="login-overlay"></canvas>
         <div class="hero-overlay" style="position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(15,23,42,0.85),rgba(15,23,42,0.75));"></div>
         <div class="login-content">
-            <!-- Dashboard Preview (decorative) -->
+            <!-- Dashboard Preview (decorative, aria-hidden)
+                 These panels show sample data to illustrate the customer zone UI.
+                 Text is intentionally kept in English as universal product/demo language. -->
             <div class="dashboard-preview" aria-hidden="true">
                 <!-- Panel 1: Agent Status -->
                 <div class="dashboard-panel">
                     <div class="panel-header">
-                        <span><span class="panel-icon">🤖</span>Actieve Agents</span>
+                        <span><span class="panel-icon">🤖</span>Active Agents</span>
                         <span class="panel-badge">3/3</span>
                     </div>
                     <div class="agent-row">
-                        <span class="agent-name"><span class="status-dot"></span>Facturatie-agent</span>
+                        <span class="agent-name"><span class="status-dot"></span>Billing Agent</span>
                         <span class="agent-status">Online</span>
                     </div>
                     <div class="agent-row">
-                        <span class="agent-name"><span class="status-dot"></span>Klantenservice-bot</span>
+                        <span class="agent-name"><span class="status-dot"></span>Customer Service Bot</span>
                         <span class="agent-status">Online</span>
                     </div>
                     <div class="agent-row">
-                        <span class="agent-name"><span class="status-dot"></span>Data-analyse agent</span>
+                        <span class="agent-name"><span class="status-dot"></span>Data Analysis Agent</span>
                         <span class="agent-status">Online</span>
                     </div>
                 </div>
@@ -420,16 +441,16 @@
                 <!-- Panel 2: Stats Overview -->
                 <div class="dashboard-panel">
                     <div class="panel-header">
-                        <span><span class="panel-icon">📊</span>Deze maand</span>
+                        <span><span class="panel-icon">📊</span>This Month</span>
                     </div>
                     <div class="stats-grid">
                         <div class="stat-item">
                             <div class="stat-value">1.247</div>
-                            <div class="stat-label">Taken</div>
+                            <div class="stat-label">Tasks</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-value">€23.4K</div>
-                            <div class="stat-label">Bespaard</div>
+                            <div class="stat-label">Saved</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-value">98.7%</div>
@@ -453,34 +474,34 @@
                 <!-- Panel 3: Recent Activity -->
                 <div class="dashboard-panel">
                     <div class="panel-header">
-                        <span><span class="panel-icon">🕐</span>Recente activiteit</span>
+                        <span><span class="panel-icon">🕐</span>Recent Activity</span>
                     </div>
                     <div class="activity-item">
                         <span class="activity-icon done">✓</span>
-                        <span>14 facturen verwerkt</span>
+                        <span>14 invoices processed</span>
                     </div>
                     <div class="activity-item">
                         <span class="activity-icon done">✓</span>
-                        <span>Rapport Q4 gegenereerd</span>
+                        <span>Q4 report generated</span>
                     </div>
                     <div class="activity-item">
                         <span class="activity-icon done">✓</span>
-                        <span>3 nieuwe leads gekwalificeerd</span>
+                        <span>3 new leads qualified</span>
                     </div>
                     <div class="activity-item">
                         <span class="activity-icon pending">⟳</span>
-                        <span>Maandrapport in uitvoering...</span>
+                        <span>Monthly report in progress...</span>
                     </div>
                 </div>
 
                 <!-- Panel 4: Performance -->
                 <div class="dashboard-panel">
                     <div class="panel-header">
-                        <span><span class="panel-icon">⚡</span>Prestaties</span>
+                        <span><span class="panel-icon">⚡</span>Performance</span>
                     </div>
                     <div class="perf-row">
                         <div class="perf-label">
-                            <span>Efficiëntie</span>
+                            <span>Efficiency</span>
                             <span class="perf-change">+12% ↑</span>
                         </div>
                         <div class="progress-bar">
@@ -489,7 +510,7 @@
                     </div>
                     <div class="perf-row">
                         <div class="perf-label">
-                            <span>Klanttevredenheid</span>
+                            <span>Customer Satisfaction</span>
                             <span class="perf-change">+5% ↑</span>
                         </div>
                         <div class="progress-bar">
@@ -502,27 +523,27 @@
             <!-- Login Card -->
             <div class="login-card">
                 <div class="login-logo">
-                    <img src="logo.svg" alt="SmartAgents">
+                    <img src="/assets/logo.svg" alt="SmartAgents logo" width="36" height="36" decoding="async">
                     <div class="logo-text">
                         <span>SmartAgents</span>
-                        <small class="logo-tagline">Digitale collega's die nooit slapen.</small>
+                        <small class="logo-tagline">{{ "footer.tagline" | t(locale) }}</small>
                     </div>
                 </div>
-                <p class="login-subtitle">Uw persoonlijke klantenzone</p>
+                <p class="login-subtitle">{{ "customerzone.subtitle" | t(locale) }}</p>
                 <form id="login-form">
                     <div class="form-group">
-                        <label for="username">Gebruikersnaam</label>
+                        <label for="username">{{ "customerzone.username" | t(locale) }}</label>
                         <input type="text" id="username" name="username" required autocomplete="username">
                     </div>
                     <div class="form-group">
-                        <label for="password">Wachtwoord</label>
+                        <label for="password">{{ "customerzone.password" | t(locale) }}</label>
                         <input type="password" id="password" name="password" required autocomplete="current-password">
                     </div>
-                    <button type="submit" class="btn btn-primary login-btn">Inloggen</button>
-                    <p class="login-error" id="login-error">Ongeldige gebruikersnaam of wachtwoord.</p>
+                    <button type="submit" class="btn btn-primary login-btn">{{ "customerzone.login" | t(locale) }}</button>
+                    <p class="login-error" id="login-error">{{ "customerzone.error" | t(locale) }}</p>
                 </form>
                 <div class="login-back">
-                    <a href="index.html">&larr; Terug naar smartagents.be</a>
+                    <a href="{{ "/" | locale_url }}">{{ "customerzone.back" | t(locale) | safe }}</a>
                 </div>
             </div>
         </div>
@@ -543,7 +564,6 @@
 
             let width, height, nodes, dpr;
             const CONNECTION_DIST = 150;
-            const isMobile = window.innerWidth < 768;
 
             function resize() {
                 dpr = window.devicePixelRatio || 1;
@@ -558,6 +578,7 @@
             }
 
             function createNodes() {
+                var isMobile = window.innerWidth < 768;
                 var count = isMobile ? 30 : 60;
                 nodes = [];
                 for (var i = 0; i < count; i++) {

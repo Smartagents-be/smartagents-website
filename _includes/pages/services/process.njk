@@ -1,0 +1,170 @@
+{% set nlUrl = baseUrl + '/services/process-optimization/' %}
+{% set enUrl = baseUrl + '/en/services/process-optimization/' %}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "page.process.title" | t(locale) }}</title>
+    <meta name="description" content="{{ 'page.process.description' | t(locale) }}">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#00d8ff">
+    <link rel="canonical" href="{{ page.url | absoluteUrl(baseUrl) }}">
+    <link rel="alternate" hreflang="nl" href="{{ nlUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlUrl }}">
+    <meta property="og:url" content="{{ page.url | absoluteUrl(baseUrl) }}">
+
+    <!-- Open Graph -->
+    {% set ogLocale = 'nl_BE' if locale == 'nl' else 'en_US' %}
+    {% set ogLocaleAlt = 'en_US' if locale == 'nl' else 'nl_BE' %}
+    {% set resolvedSocialImage = baseUrl + socialImage %}
+    {% set resolvedSocialAlt = socialAlt[locale] %}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ 'page.process.title' | t(locale) }}">
+    <meta property="og:description" content="{{ 'page.process.description' | t(locale) }}">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ ogLocaleAlt }}">
+    <meta property="og:image" content="{{ resolvedSocialImage }}">
+    <meta property="og:image:alt" content="{{ resolvedSocialAlt }}">
+    <meta property="og:site_name" content="SmartAgents">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ 'page.process.title' | t(locale) }}">
+    <meta name="twitter:description" content="{{ 'page.process.description' | t(locale) }}">
+    <meta name="twitter:image" content="{{ resolvedSocialImage }}">
+    <meta name="twitter:image:alt" content="{{ resolvedSocialAlt }}">
+    <meta name="twitter:domain" content="smartagents.be">
+
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    {% include "schema-organization.njk" %}
+    {% set schemaData = { schemaType: schemaType, pageKey: pageKey, serviceNameKey: serviceNameKey, socialImage: socialImage, nlPermalink: nlPermalink, pageUrl: page.url } %}
+    {% set schema = schemaData | buildSchema(locale) %}
+    {% if schema %}
+    <script type="application/ld+json" data-generated-schema="page">{{ schema | safe }}</script>
+    {% endif %}
+</head>
+<body>
+    {% include "header.njk" %}
+
+    <section class="jobs-hero">
+        <div class="container">
+            <a href="{{ "/" | locale_url }}#services" class="back-link">
+                {{ "services.back" | t(locale) | safe }}
+            </a>
+            <h1>{{ "services.process.title" | t(locale) }}</h1>
+            <p>{{ "services.process.page.subtitle" | t(locale) }}</p>
+        </div>
+    </section>
+
+    <section class="jobs-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.process.page.overview.title" | t(locale) }}</h2>
+            <div class="jobs-vision-text">
+                <p>{{ "services.process.page.overview.text" | t(locale) }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="jobs-section jobs-section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ "services.process.page.features.title" | t(locale) }}</h2>
+            <div class="jobs-role-grid">
+                <div class="jobs-role-item">
+                    <div class="jobs-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.process.page.feature1.title" | t(locale) }}</h3>
+                        <p>{{ "services.process.page.feature1.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="jobs-role-item">
+                    <div class="jobs-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.process.page.feature2.title" | t(locale) }}</h3>
+                        <p>{{ "services.process.page.feature2.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="jobs-role-item">
+                    <div class="jobs-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.process.page.feature3.title" | t(locale) }}</h3>
+                        <p>{{ "services.process.page.feature3.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="jobs-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.process.page.benefits.title" | t(locale) }}</h2>
+            <div class="jobs-benefits-grid">
+                <div class="jobs-benefit-card">
+                    <div class="jobs-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.process.page.benefit1.title" | t(locale) }}</h3>
+                    <p>{{ "services.process.page.benefit1.desc" | t(locale) }}</p>
+                </div>
+                <div class="jobs-benefit-card">
+                    <div class="jobs-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.process.page.benefit2.title" | t(locale) }}</h3>
+                    <p>{{ "services.process.page.benefit2.desc" | t(locale) }}</p>
+                </div>
+                <div class="jobs-benefit-card">
+                    <div class="jobs-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.process.page.benefit3.title" | t(locale) }}</h3>
+                    <p>{{ "services.process.page.benefit3.desc" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="jobs-cta">
+        <div class="container">
+            <h2>{{ "services.process.page.cta.title" | t(locale) }}</h2>
+            <p>{{ "services.process.page.cta.text" | t(locale) }}</p>
+            <a href="{{ "/" | locale_url }}#contact" class="btn btn-primary">{{ "services.process.page.cta.button" | t(locale) }}</a>
+        </div>
+    </section>
+
+    {% include "footer.njk" %}
+
+    <script src="/main.js"></script>
+</body>
+</html>

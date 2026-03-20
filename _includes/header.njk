@@ -1,0 +1,44 @@
+{% set shell = shellConfigs[shellContext] %}
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="{{ shell.homeHref | locale_url }}" class="logo">
+            <img src="{{ shell.logoSrc }}" alt="SmartAgents" class="logo-icon">
+            <div class="logo-text">
+                <span>SmartAgents</span>
+                <small class="logo-tagline">{{ "footer.tagline" | t(locale) }}</small>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li class="nav-dropdown">
+                <a href="{{ "/" | locale_url }}#services" class="{{ shell.servicesActive }}">{{ "nav.services" | t(locale) }}</a>
+                <ul class="nav-submenu">
+                    <li><a href="{{ "/services/ai/" | locale_url }}">{{ "services.ai.title" | t(locale) }}</a></li>
+                    <li><a href="{{ "/services/agentic-ai/" | locale_url }}">{{ "services.agentic.title" | t(locale) }}</a></li>
+                    <li><a href="{{ "/services/process-optimization/" | locale_url }}">{{ "services.process.title" | t(locale) }}</a></li>
+                    <li><a href="{{ "/services/automation/" | locale_url }}">{{ "services.automation.title" | t(locale) }}</a></li>
+                    <li><a href="{{ "/services/training/" | locale_url }}">{{ "services.training.title" | t(locale) }}</a></li>
+                    <li><a href="{{ "/services/secure/" | locale_url }}">{{ "services.secure.title" | t(locale) }}</a></li>
+                    <li><a href="{{ "/services/smart-scan/" | locale_url }}">{{ "services.smartscan.title" | t(locale) }}</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ "/" | locale_url }}#about">{{ "nav.about" | t(locale) }}</a></li>
+            {% if shell.showValuesLink %}
+            <li><a href="{{ "/" | locale_url }}#vision-mission">{{ "nav.values" | t(locale) }}</a></li>
+            {% endif %}
+            <li><a href="{{ "/" | locale_url }}#team">{{ "nav.team" | t(locale) }}</a></li>
+            <li><a href="{{ "/" | locale_url }}#contact">{{ "nav.contact" | t(locale) }}</a></li>
+            <li><a href="{{ shell.jobsHref | locale_url }}" class="{{ shell.jobsActive }}">{{ "nav.jobs" | t(locale) }}</a></li>
+            <li class="mobile-only"><a href="{{ shell.customerzoneHref | locale_url }}">{{ "nav.customerzone" | t(locale) }}</a></li>
+        </ul>
+        <a href="{{ shell.customerzoneHref | locale_url }}" class="btn btn-primary btn-nav">{{ "nav.customerzone" | t(locale) }}</a>
+        <div class="lang-switcher">
+            <a class="lang-btn {% if locale == 'en' %}active{% endif %}" data-lang-link="en" href="{{ enUrl }}">EN</a>
+            <a class="lang-btn {% if locale == 'nl' %}active{% endif %}" data-lang-link="nl" href="{{ nlUrl }}">NL</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
