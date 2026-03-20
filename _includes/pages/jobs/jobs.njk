@@ -50,8 +50,9 @@
 
     <section class="jobs-hero">
         <div class="container">
-            <div class="jobs-hero-img">
-                <img src="/assets/handshake.webp" alt="{{ resolvedSocialAlt }}" width="520" height="320" loading="lazy" decoding="async">
+            <div class="jobs-hero-badge">
+                <span class="jobs-hero-badge-dot"></span>
+                {{ "jobs.hero.badge" | t(locale) }}
             </div>
             <h1>{{ "jobs.hero.title" | t(locale) | safe }}</h1>
             <p>{{ "jobs.hero.subtitle" | t(locale) }}</p>

@@ -165,6 +165,132 @@ revealElements.forEach(el => {
     revealObserver.observe(el);
 });
 
+// Light Neural Network Canvas for service/jobs page heroes
+(function() {
+    const hero = document.querySelector('.jobs-hero');
+    if (!hero) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.id = 'page-hero-canvas';
+    hero.prepend(canvas);
+
+    const ctx = canvas.getContext('2d');
+    const colors = [
+        { r: 99, g: 102, b: 241 },
+        { r: 14, g: 165, b: 233 },
+        { r: 139, g: 92, b: 246 }
+    ];
+
+    let width, height, nodes, dpr;
+    const CONNECTION_DIST = 120;
+
+    function resize() {
+        dpr = window.devicePixelRatio || 1;
+        width = hero.clientWidth;
+        height = hero.clientHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function createNodes() {
+        const isMobile = window.innerWidth < 768;
+        const count = isMobile ? 12 : 25;
+        nodes = [];
+        for (let i = 0; i < count; i++) {
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.15,
+                vy: (Math.random() - 0.5) * 0.15,
+                radius: Math.random() * 1.5 + 1,
+                color: color,
+                pulse: Math.random() * Math.PI * 2
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < CONNECTION_DIST) {
+                    const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
+                    const c = nodes[i].color;
+                    ctx.strokeStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + alpha + ')';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        for (let i = 0; i < nodes.length; i++) {
+            const n = nodes[i];
+            n.pulse += 0.01;
+            const pulseSize = Math.sin(n.pulse) * 0.5 + 0.5;
+            const c = n.color;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius + 3 + pulseSize * 2, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0.04)';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (0.4 + pulseSize * 0.3) + ')';
+            ctx.fill();
+        }
+    }
+
+    function update() {
+        for (let i = 0; i < nodes.length; i++) {
+            const n = nodes[i];
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > width) n.vx *= -1;
+            if (n.y < 0 || n.y > height) n.vy *= -1;
+        }
+    }
+
+    let animId;
+    function animate() {
+        update();
+        draw();
+        animId = requestAnimationFrame(animate);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!animId) animate();
+            } else {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        });
+    }, { threshold: 0 });
+
+    function init() {
+        resize();
+        createNodes();
+        observer.observe(hero);
+    }
+
+    if (document.readyState === 'complete') {
+        init();
+    } else {
+        window.addEventListener('load', init);
+    }
+
+    window.addEventListener('resize', () => { resize(); createNodes(); });
+})();
+
 // Hero Neural Network Canvas Animation
 (function() {
     const canvas = document.getElementById('hero-canvas');

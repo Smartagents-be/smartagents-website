@@ -9,6 +9,9 @@
             </div>
         </a>
         <ul class="nav-links">
+            {% if shell.showValuesLink %}
+            <li><a href="{{ "/" | locale_url }}#vision-mission">{{ "nav.values" | t(locale) }}</a></li>
+            {% endif %}
             <li class="nav-dropdown">
                 <a href="{{ "/" | locale_url }}#services" class="{{ shell.servicesActive }}">{{ "nav.services" | t(locale) }}</a>
                 <ul class="nav-submenu">
@@ -22,9 +25,6 @@
                 </ul>
             </li>
             <li><a href="{{ "/" | locale_url }}#about">{{ "nav.about" | t(locale) }}</a></li>
-            {% if shell.showValuesLink %}
-            <li><a href="{{ "/" | locale_url }}#vision-mission">{{ "nav.values" | t(locale) }}</a></li>
-            {% endif %}
             <li><a href="{{ "/" | locale_url }}#team">{{ "nav.team" | t(locale) }}</a></li>
             <li><a href="{{ "/" | locale_url }}#contact">{{ "nav.contact" | t(locale) }}</a></li>
             <li><a href="{{ shell.jobsHref | locale_url }}" class="{{ shell.jobsActive }}">{{ "nav.jobs" | t(locale) }}</a></li>

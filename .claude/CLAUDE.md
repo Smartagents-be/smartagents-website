@@ -60,6 +60,11 @@ When adding, removing, or restructuring pages:
 | Build config / filters | `.eleventy.js` |
 | Static assets | `assets/` |
 
+## Git Rules
+
+- Never push to any remote without explicit approval from the user first.
+- Always show the user what will be pushed and wait for confirmation before running `git push`.
+
 ## Expectation
 
 - Do not treat changes to website content as complete until the build produces correct `dist/` output.

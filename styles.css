@@ -124,6 +124,7 @@ h3 {
 .btn-primary {
     background: var(--cyan);
     color: var(--dark);
+    font-weight: 600;
 }
 
 .btn-primary:hover {
@@ -343,15 +344,24 @@ h3 {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--gray-light);
+    color: var(--cyan);
+    opacity: 0.9;
+    align-self: flex-start;
+    text-align: left;
     font-size: 0.9rem;
     font-weight: 500;
     margin-bottom: 24px;
-    transition: color 0.3s ease;
+    padding: 6px 12px 6px 8px;
+    border: 1px solid rgba(0, 216, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(0, 216, 255, 0.07);
+    transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .back-link:hover {
-    color: var(--cyan);
+    opacity: 1;
+    background: rgba(0, 216, 255, 0.14);
+    border-color: rgba(0, 216, 255, 0.5);
 }
 
 .back-link svg {
@@ -446,7 +456,7 @@ h3 {
 .hero p {
     font-size: 1.25rem;
     color: var(--gray-light);
-    max-width: 600px;
+    max-width: 780px;
     margin-bottom: 40px;
     text-shadow: 0 1px 10px var(--black-50);
 }
@@ -1171,24 +1181,57 @@ h3 {
     background: linear-gradient(135deg, var(--cyan-15) 0%, var(--cyan-15) 100%);
     text-align: center;
     border-bottom: 1px solid var(--white-05);
+    position: relative;
+    overflow: hidden;
 }
 
-.jobs-hero-img {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 32px;
-    border-radius: 50%;
-    padding: 4px;
-    background: var(--gradient);
-    box-shadow: 0 0 60px var(--cyan-30);
+#page-hero-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
 }
 
-.jobs-hero-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.jobs-hero .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jobs-hero .container .back-link {
+    align-self: flex-start;
+}
+
+.jobs-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto 28px;
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--cyan-35);
+    background: var(--cyan-10);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--cyan);
+    letter-spacing: 0.3px;
+    box-shadow: 0 0 20px var(--cyan-15);
+}
+
+.jobs-hero-badge-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    display: block;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
 }
 
 .jobs-hero h1 {
@@ -1362,6 +1405,13 @@ h3 {
     margin-bottom: 20px;
 }
 
+.jobs-cta .btn {
+    width: 25%;
+    min-width: 200px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px var(--cyan-35);
+}
+
 .jobs-cta > .container > p {
     font-size: 1.1rem;
     color: var(--gray-light);
@@ -1485,7 +1535,7 @@ h3 {
     .nav-links > li.mobile-only > a {
         display: inline-block;
         padding: 10px 24px;
-        background: var(--gradient);
+        background: var(--cyan);
         color: var(--dark) !important;
         font-weight: 600;
         border-radius: 8px;
