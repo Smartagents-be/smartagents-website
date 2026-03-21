@@ -57,9 +57,85 @@ function initSmoothScroll() {
     });
 }
 
+function initFullscreenMenu() {
+    const btn = document.querySelector('.fullscreen-menu-btn');
+    const overlay = document.querySelector('.fullscreen-nav-overlay');
+    if (!btn || !overlay) return;
+
+    function openMenu() {
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        btn.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (label) { cancelAnimationFrame(scrambleRaf); label.textContent = 'CLOSE'; }
+    }
+
+    function closeMenu() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        btn.classList.remove('active');
+        document.body.style.overflow = '';
+        if (label) scramble('MENU', 380);
+    }
+
+    btn.addEventListener('click', () => {
+        overlay.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    overlay.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    // Scramble hover effect on MENU label
+    const label = btn.querySelector('.menu-label');
+    if (!label) return;
+
+    const aiWords = ['AGENT', 'NEURAL', 'MODEL', 'TRAIN', 'INFER', 'QUERY', 'NETWORK', 'NODES', 'THINK', 'TOKEN'];
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+    let scrambleRaf = null;
+
+    function scramble(target, duration) {
+        cancelAnimationFrame(scrambleRaf);
+        const start = performance.now();
+        function step(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const settled = Math.floor(progress * target.length);
+            let result = '';
+            for (let i = 0; i < target.length; i++) {
+                result += i < settled
+                    ? target[i]
+                    : chars[Math.floor(Math.random() * chars.length)];
+            }
+            label.textContent = result;
+            if (progress < 1) scrambleRaf = requestAnimationFrame(step);
+        }
+        scrambleRaf = requestAnimationFrame(step);
+    }
+
+    let returnTimeout = null;
+
+    btn.addEventListener('mouseenter', () => {
+        if (btn.classList.contains('active')) return;
+        clearTimeout(returnTimeout);
+        const word = aiWords[Math.floor(Math.random() * aiWords.length)];
+        scramble(word, 480);
+        returnTimeout = setTimeout(() => scramble('MENU', 380), 1200);
+    });
+
+    btn.addEventListener('mouseleave', () => {
+        clearTimeout(returnTimeout);
+        scramble('MENU', 100);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     initNavigation();
     initSmoothScroll();
+    initFullscreenMenu();
 });
 
 // Animated counter for stats
@@ -88,7 +164,7 @@ const animateStats = () => {
 };
 
 // Intersection Observer for stats animation
-const statsSection = document.querySelector('.stats');
+const statsSection = document.querySelector('.hero-intro-stats') || document.querySelector('.stats');
 
 if (statsSection) {
     const statsObserver = new IntersectionObserver((entries) => {
@@ -98,7 +174,7 @@ if (statsSection) {
                 statsAnimated = true;
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
 
     statsObserver.observe(statsSection);
 }
@@ -146,24 +222,49 @@ if (contactForm) {
     });
 }
 
-// Add scroll reveal animation
-const revealElements = document.querySelectorAll('.vm-panel, .service-card, .aanpak-step, .stat-item, .about-features li, .page-role-item, .page-benefit-card');
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
+// Scroll reveal animations — varied per element type
+(function() {
+    // Type A: standard translateY + fade (general cards, list items)
+    const slideUpEls = document.querySelectorAll('.vm-panel, .about-features li, .aanpak-item');
+    slideUpEls.forEach(el => {
+        el.classList.add('reveal-slide-up');
     });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'all 0.6s ease';
-    revealObserver.observe(el);
-});
+    // Type B: scale + fade (feature items, benefit cards, stat items)
+    const scaleEls = document.querySelectorAll('.page-role-item, .page-benefit-card, .stat-item');
+    scaleEls.forEach(el => {
+        el.classList.add('reveal-scale');
+    });
+
+    // Type C: stagger within parent for service list items on homepage
+    const serviceItems = document.querySelectorAll('.services-list-item');
+    serviceItems.forEach((el, i) => {
+        el.classList.add('reveal-slide-up');
+        el.style.animationDelay = (i * 60) + 'ms';
+    });
+
+    // Stagger page-role-items and benefit cards
+    document.querySelectorAll('.page-role-item').forEach((el, i) => {
+        el.style.animationDelay = (i * 80) + 'ms';
+    });
+    document.querySelectorAll('.page-benefit-card').forEach((el, i) => {
+        el.style.animationDelay = (i * 80) + 'ms';
+    });
+
+    // Observe all reveal elements
+    const allReveal = document.querySelectorAll('.reveal-slide-up, .reveal-scale');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    allReveal.forEach(el => revealObserver.observe(el));
+})();
 
 // Light Neural Network Canvas for service/jobs page heroes
 (function() {
@@ -425,5 +526,35 @@ revealElements.forEach(el => {
     window.addEventListener('resize', () => {
         resize();
         createNodes();
+    });
+})();
+
+// Services split interactivity
+(function() {
+    const split = document.querySelector('.services-split');
+    if (!split) return;
+
+    const listItems = split.querySelectorAll('.services-list-item');
+    const panels = split.querySelectorAll('.services-panel-content');
+    const mobilePanels = document.querySelectorAll('.services-mobile-content');
+
+    function activate(serviceKey) {
+        listItems.forEach(item => {
+            const isActive = item.dataset.service === serviceKey;
+            item.classList.toggle('active', isActive);
+            item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+        panels.forEach(panel => {
+            panel.classList.toggle('active', panel.dataset.panel === serviceKey);
+        });
+        mobilePanels.forEach(panel => {
+            panel.classList.toggle('active', panel.dataset.mobilePanel === serviceKey);
+        });
+    }
+
+    listItems.forEach(item => {
+        item.addEventListener('mouseenter', () => activate(item.dataset.service));
+        item.addEventListener('focus', () => activate(item.dataset.service));
+        item.addEventListener('click', () => activate(item.dataset.service));
     });
 })();

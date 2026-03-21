@@ -117,8 +117,8 @@
         }
 
         .panel-header .panel-badge {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--purple);
+            background: var(--cyan-15);
+            color: var(--cyan);
             padding: 2px 10px;
             border-radius: 20px;
             font-size: 0.75rem;
@@ -180,10 +180,8 @@
         .stat-value {
             font-size: 1.3rem;
             font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--cyan);
+            -webkit-text-fill-color: var(--cyan);
         }
 
         .stat-label {
@@ -202,8 +200,8 @@
         .bar-chart .bar {
             flex: 1;
             border-radius: 3px 3px 0 0;
-            background: var(--gradient);
-            opacity: 0.6;
+            background: var(--cyan);
+            opacity: 0.5;
         }
 
         /* Panel 3: Recent Activity */
@@ -226,7 +224,7 @@
         }
 
         .activity-icon.pending {
-            color: var(--purple);
+            color: var(--cyan);
             animation: spin 2s linear infinite;
         }
 
@@ -269,7 +267,7 @@
         .progress-bar .progress-fill {
             height: 100%;
             border-radius: 4px;
-            background: var(--gradient);
+            background: var(--cyan);
         }
 
         /* Login Card — always centered */
@@ -301,10 +299,9 @@
         }
 
         .login-logo span {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--cyan);
+            -webkit-text-fill-color: var(--cyan);
+            letter-spacing: -0.5px;
         }
 
         .login-logo .logo-tagline {
@@ -351,7 +348,7 @@
 
         .login-card .form-group input:focus {
             outline: none;
-            border-color: var(--purple);
+            border-color: var(--cyan);
         }
 
         .login-btn {
@@ -379,7 +376,7 @@
         }
 
         .login-back a:hover {
-            color: var(--purple);
+            color: var(--cyan);
         }
 
         .login-overlay {

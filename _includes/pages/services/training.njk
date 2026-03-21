@@ -51,14 +51,11 @@
     <script type="application/ld+json" data-generated-schema="page">{{ schema | safe }}</script>
     {% endif %}
 </head>
-<body>
+<body data-service="training">
     {% include "header.njk" %}
 
     <section class="page-hero">
         <div class="container">
-            <a href="{{ "/" | locale_url }}#services" class="back-link" aria-label="{{ 'services.back.label' | t(locale) }}">
-                {{ "services.back" | t(locale) | safe }}
-            </a>
             <h1>{{ "services.training.title" | t(locale) }}</h1>
             <p>{{ "services.training.page.subtitle" | t(locale) }}</p>
         </div>

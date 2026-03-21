@@ -16,7 +16,7 @@ function stripHtml(value) {
 }
 
 module.exports = function(eleventyConfig) {
-  const SITE_BASE_URL = process.env.URL || '';
+  const SITE_BASE_URL = process.env.URL || 'https://smartagents.be';
 
   const { readFileSync } = require('node:fs');
   const { EleventyI18nPlugin } = require("@11ty/eleventy");

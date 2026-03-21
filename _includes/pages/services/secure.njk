@@ -1,5 +1,5 @@
-{% set nlUrl = baseUrl + '/services/secure/' %}
-{% set enUrl = baseUrl + '/en/services/secure/' %}
+{% set nlUrl = baseUrl + '/services/security/' %}
+{% set enUrl = baseUrl + '/en/services/security/' %}
 <!DOCTYPE html>
 <html lang="{{ locale }}">
 <head>
@@ -51,14 +51,11 @@
     <script type="application/ld+json" data-generated-schema="page">{{ schema | safe }}</script>
     {% endif %}
 </head>
-<body>
+<body data-service="secure">
     {% include "header.njk" %}
 
     <section class="page-hero">
         <div class="container">
-            <a href="{{ "/" | locale_url }}#services" class="back-link" aria-label="{{ 'services.back.label' | t(locale) }}">
-                {{ "services.back" | t(locale) | safe }}
-            </a>
             <h1>{{ "services.secure.title" | t(locale) }}</h1>
             <p>{{ "services.secure.page.subtitle" | t(locale) }}</p>
         </div>
