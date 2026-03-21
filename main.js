@@ -32,10 +32,10 @@ function initNavigation() {
         window.addEventListener('scroll', () => {
             const currentScroll = window.pageYOffset;
 
-            if (currentScroll > 100) {
-                navbar.classList.add('scrolled');
+            if (currentScroll > 80) {
+                navbar.classList.add('scrolled', 'nav-visible');
             } else {
-                navbar.classList.remove('scrolled');
+                navbar.classList.remove('scrolled', 'nav-visible');
             }
         });
     }
@@ -62,12 +62,32 @@ function initFullscreenMenu() {
     const overlay = document.querySelector('.fullscreen-nav-overlay');
     if (!btn || !overlay) return;
 
+    const label = btn.querySelector('.menu-label');
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*';
+    let scrambleRaf = null;
+
+    function scramble(target, duration) {
+        cancelAnimationFrame(scrambleRaf);
+        const start = performance.now();
+        function step(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const settled = Math.floor(progress * target.length);
+            let result = '';
+            for (let i = 0; i < target.length; i++) {
+                result += i < settled ? target[i] : chars[Math.floor(Math.random() * chars.length)];
+            }
+            if (label) label.textContent = result;
+            if (progress < 1) scrambleRaf = requestAnimationFrame(step);
+        }
+        scrambleRaf = requestAnimationFrame(step);
+    }
+
     function openMenu() {
         overlay.classList.add('open');
         overlay.setAttribute('aria-hidden', 'false');
         btn.classList.add('active');
         document.body.style.overflow = 'hidden';
-        if (label) { cancelAnimationFrame(scrambleRaf); label.textContent = btn.dataset.labelClose || 'CLOSE'; }
+        scramble(btn.dataset.labelClose || 'CLOSE', 400);
     }
 
     function closeMenu() {
@@ -75,7 +95,7 @@ function initFullscreenMenu() {
         overlay.setAttribute('aria-hidden', 'true');
         btn.classList.remove('active');
         document.body.style.overflow = '';
-        if (label) scramble('MENU', 380);
+        scramble('MENU', 400);
     }
 
     btn.addEventListener('click', () => {
@@ -88,47 +108,6 @@ function initFullscreenMenu() {
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeMenu();
-    });
-
-    // Scramble hover effect on MENU label
-    const label = btn.querySelector('.menu-label');
-    if (!label) return;
-
-    const aiWords = ['AGENT', 'NEURAL', 'MODEL', 'TRAIN', 'INFER', 'QUERY', 'NETWORK', 'NODES', 'THINK', 'TOKEN', 'PROMPT', 'EMBED', 'VECTOR', 'CHAIN', 'LAYER', 'PARSE', 'CHUNK', 'DEPLOY', 'PIPELINE', 'CONTEXT', 'STREAM', 'REASON', 'TOOLS', 'MEMORY', 'CLAUDE', 'GPT', 'LLM', 'RAG', 'FINE-TUNE'];
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
-    let scrambleRaf = null;
-
-    function scramble(target, duration) {
-        cancelAnimationFrame(scrambleRaf);
-        const start = performance.now();
-        function step(now) {
-            const progress = Math.min((now - start) / duration, 1);
-            const settled = Math.floor(progress * target.length);
-            let result = '';
-            for (let i = 0; i < target.length; i++) {
-                result += i < settled
-                    ? target[i]
-                    : chars[Math.floor(Math.random() * chars.length)];
-            }
-            label.textContent = result;
-            if (progress < 1) scrambleRaf = requestAnimationFrame(step);
-        }
-        scrambleRaf = requestAnimationFrame(step);
-    }
-
-    let returnTimeout = null;
-
-    btn.addEventListener('mouseenter', () => {
-        if (btn.classList.contains('active')) return;
-        clearTimeout(returnTimeout);
-        const word = aiWords[Math.floor(Math.random() * aiWords.length)];
-        scramble(word, 480);
-        returnTimeout = setTimeout(() => scramble('MENU', 380), 1200);
-    });
-
-    btn.addEventListener('mouseleave', () => {
-        clearTimeout(returnTimeout);
-        scramble('MENU', 100);
     });
 }
 
@@ -499,22 +478,18 @@ if (contactForm) {
         animId = requestAnimationFrame(animate);
     }
 
-    // Only animate when hero is visible
-    const heroObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (!animId) animate();
-            } else {
-                cancelAnimationFrame(animId);
-                animId = null;
-            }
-        });
-    }, { threshold: 0 });
-
     function init() {
         resize();
         createNodes();
-        heroObserver.observe(canvas.closest('.hero'));
+        animate();
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animId);
+                animId = null;
+            } else if (!animId) {
+                animate();
+            }
+        });
     }
 
     if (document.readyState === 'complete') {
@@ -537,6 +512,7 @@ if (contactForm) {
     const listItems = split.querySelectorAll('.services-list-item');
     const panels = split.querySelectorAll('.services-panel-content');
     const mobilePanels = document.querySelectorAll('.services-mobile-content');
+    const desktopBreakpoint = window.matchMedia('(min-width: 768px)');
 
     function activate(serviceKey) {
         listItems.forEach(item => {
@@ -555,6 +531,12 @@ if (contactForm) {
     listItems.forEach(item => {
         item.addEventListener('mouseenter', () => activate(item.dataset.service));
         item.addEventListener('focus', () => activate(item.dataset.service));
-        item.addEventListener('click', () => activate(item.dataset.service));
+        item.addEventListener('click', () => {
+            activate(item.dataset.service);
+
+            if (desktopBreakpoint.matches && item.dataset.href) {
+                window.location.href = item.dataset.href;
+            }
+        });
     });
 })();
