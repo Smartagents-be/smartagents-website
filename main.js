@@ -67,7 +67,7 @@ function initFullscreenMenu() {
         overlay.setAttribute('aria-hidden', 'false');
         btn.classList.add('active');
         document.body.style.overflow = 'hidden';
-        if (label) { cancelAnimationFrame(scrambleRaf); label.textContent = 'CLOSE'; }
+        if (label) { cancelAnimationFrame(scrambleRaf); label.textContent = btn.dataset.labelClose || 'CLOSE'; }
     }
 
     function closeMenu() {
@@ -94,7 +94,7 @@ function initFullscreenMenu() {
     const label = btn.querySelector('.menu-label');
     if (!label) return;
 
-    const aiWords = ['AGENT', 'NEURAL', 'MODEL', 'TRAIN', 'INFER', 'QUERY', 'NETWORK', 'NODES', 'THINK', 'TOKEN'];
+    const aiWords = ['AGENT', 'NEURAL', 'MODEL', 'TRAIN', 'INFER', 'QUERY', 'NETWORK', 'NODES', 'THINK', 'TOKEN', 'PROMPT', 'EMBED', 'VECTOR', 'CHAIN', 'LAYER', 'PARSE', 'CHUNK', 'DEPLOY', 'PIPELINE', 'CONTEXT', 'STREAM', 'REASON', 'TOOLS', 'MEMORY', 'CLAUDE', 'GPT', 'LLM', 'RAG', 'FINE-TUNE'];
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
     let scrambleRaf = null;
 

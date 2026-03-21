@@ -99,6 +99,8 @@
   "nav.jobs": "Jobs",
   "nav.home": "Go to homepage",
   "nav.menu.open": "Open menu",
+  "nav.menu.close": "CLOSE",
+  "hero.scroll": "scroll",
   "nav.customerzone": "Customer zone",
   "customerzone.subtitle": "Your personal customer zone",
   "customerzone.username": "Username",
