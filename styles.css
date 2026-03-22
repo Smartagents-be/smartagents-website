@@ -190,8 +190,8 @@ h3 {
 /* Navbar — mobile first: minimal top-right container holding only the MENU button */
 .navbar {
     position: fixed;
-    top: 24px;
-    right: 28px;
+    top: 14px;
+    right: 16px;
     left: auto;
     width: auto;
     padding: 0;
@@ -1254,8 +1254,8 @@ h3 {
 /* Fixed pill menu button */
 .fullscreen-menu-btn {
     position: fixed;
-    top: 24px;
-    right: 28px;
+    top: 14px;
+    right: 16px;
     z-index: 2000;
     background: var(--dark-deep-82);
     backdrop-filter: blur(12px);
@@ -1301,6 +1301,14 @@ h3 {
 .fullscreen-menu-btn.active .menu-bars span:nth-child(1) { transform: rotate(45deg) translate(1px, -1px); width: 18px; }
 .fullscreen-menu-btn.active .menu-bars span:nth-child(2) { opacity: 0; width: 0; }
 .fullscreen-menu-btn.active .menu-bars span:nth-child(3) { transform: rotate(-45deg) translate(1px, 1px); width: 18px; }
+
+@media (max-width: 480px) {
+    .navbar,
+    .fullscreen-menu-btn {
+        top: 10px;
+        right: 12px;
+    }
+}
 
 /* Fullscreen nav overlay */
 .fullscreen-nav-overlay {
@@ -2463,8 +2471,23 @@ body[data-service] .page-hero {
         padding: 70px 0;
     }
 
-    body[data-service] .page-hero {
-        margin-top: 68px;
+    body[data-service] .page-hero,
+    body[data-page="jobs"] .page-hero {
+        margin-top: 0;
+        padding-top: 104px;
+    }
+
+    body[data-service] .navbar,
+    body[data-service] .fullscreen-menu-btn,
+    body[data-page="jobs"] .navbar,
+    body[data-page="jobs"] .fullscreen-menu-btn {
+        top: 18px;
+    }
+
+    body[data-service] .home-pill,
+    body[data-page="jobs"] .home-pill {
+        top: 18px;
+        left: 16px;
     }
 
     .page-hero {
@@ -2497,6 +2520,27 @@ body[data-service] .page-hero {
 
     .team-social {
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    body[data-service] .navbar,
+    body[data-service] .fullscreen-menu-btn,
+    body[data-page="jobs"] .navbar,
+    body[data-page="jobs"] .fullscreen-menu-btn {
+        top: 16px;
+        right: 12px;
+    }
+
+    body[data-service] .home-pill,
+    body[data-page="jobs"] .home-pill {
+        top: 16px;
+        left: 12px;
+    }
+
+    body[data-service] .page-hero,
+    body[data-page="jobs"] .page-hero {
+        padding-top: 98px;
     }
 }
 
