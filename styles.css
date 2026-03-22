@@ -190,7 +190,7 @@ h3 {
 /* Navbar — mobile first: minimal top-right container holding only the MENU button */
 .navbar {
     position: fixed;
-    top: 14px;
+    top: 18px;
     right: 16px;
     left: auto;
     width: auto;
@@ -549,8 +549,8 @@ h3 {
 /* Home pill (top-left, mirrors MENU pill) */
 .home-pill {
     position: fixed;
-    top: 24px;
-    left: 28px;
+    top: 18px;
+    left: 16px;
     z-index: 2000;
     background: var(--dark-deep-82);
     backdrop-filter: blur(12px);
@@ -1127,12 +1127,14 @@ h3 {
 /* ===== HOMEPAGE FULLSCREEN REDESIGN ===== */
 
 /* Navbar hidden initially on homepage, revealed on scroll */
-.index-page .navbar {
-    transform: translateY(-100%);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.index-page .navbar.nav-visible {
-    transform: translateY(0);
+@media (min-width: 1024px) {
+    .index-page .navbar {
+        transform: translateY(-100%);
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .index-page .navbar.nav-visible {
+        transform: translateY(0);
+    }
 }
 
 /* Hero: true fullscreen, centered */
@@ -1254,7 +1256,7 @@ h3 {
 /* Fixed pill menu button */
 .fullscreen-menu-btn {
     position: fixed;
-    top: 14px;
+    top: 18px;
     right: 16px;
     z-index: 2000;
     background: var(--dark-deep-82);
@@ -1305,8 +1307,13 @@ h3 {
 @media (max-width: 480px) {
     .navbar,
     .fullscreen-menu-btn {
-        top: 10px;
+        top: 16px;
         right: 12px;
+    }
+
+    .home-pill {
+        top: 16px;
+        left: 12px;
     }
 }
 
@@ -2477,19 +2484,6 @@ body[data-service] .page-hero {
         padding-top: 104px;
     }
 
-    body[data-service] .navbar,
-    body[data-service] .fullscreen-menu-btn,
-    body[data-page="jobs"] .navbar,
-    body[data-page="jobs"] .fullscreen-menu-btn {
-        top: 18px;
-    }
-
-    body[data-service] .home-pill,
-    body[data-page="jobs"] .home-pill {
-        top: 18px;
-        left: 16px;
-    }
-
     .page-hero {
         padding: 62px 24px 60px;
     }
@@ -2524,20 +2518,6 @@ body[data-service] .page-hero {
 }
 
 @media (max-width: 480px) {
-    body[data-service] .navbar,
-    body[data-service] .fullscreen-menu-btn,
-    body[data-page="jobs"] .navbar,
-    body[data-page="jobs"] .fullscreen-menu-btn {
-        top: 16px;
-        right: 12px;
-    }
-
-    body[data-service] .home-pill,
-    body[data-page="jobs"] .home-pill {
-        top: 16px;
-        left: 12px;
-    }
-
     body[data-service] .page-hero,
     body[data-page="jobs"] .page-hero {
         padding-top: 98px;
