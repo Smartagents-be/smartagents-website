@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ "page.index.title" | t(locale) }}</title>
     <meta name="description" content="{{ 'page.index.description' | t(locale) }}">
-    <meta name="keywords" content="AI, artificial intelligence, automation, agentic AI, process optimization, digital transformation, Belgium, SmartAgents">
     <meta name="author" content="SmartAgents">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#00d8ff">
@@ -409,6 +408,47 @@
         </div>
     </section>
 
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">{{ "about.title" | t(locale) }}</h2>
+                    <p>{{ "about.desc" | t(locale) }}</p>
+
+                    <ul class="about-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature1" | t(locale) }}</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature2" | t(locale) }}</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature3" | t(locale) }}</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature4" | t(locale) }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-visual">
+                    <img src="/assets/logo.svg" alt="SmartAgents" class="about-logo" width="160" height="160" decoding="async">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="vision-mission" class="vision-mission">
         <div class="container">
             <div class="vm-grid">
@@ -450,47 +490,6 @@
         </div>
     </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">{{ "about.title" | t(locale) }}</h2>
-                    <p>{{ "about.desc" | t(locale) }}</p>
-
-                    <ul class="about-features">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>{{ "about.feature1" | t(locale) }}</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>{{ "about.feature2" | t(locale) }}</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>{{ "about.feature3" | t(locale) }}</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>{{ "about.feature4" | t(locale) }}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="about-visual">
-                    <img src="/assets/logo.svg" alt="SmartAgents" class="about-logo">
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="testimonials">
         <div class="container">
             <h2 class="section-title">{{ "testimonials.title" | t(locale) }}</h2>
@@ -501,27 +500,18 @@
                     <div class="testimonial-bar"></div>
                     <div class="testimonial-body">
                         <p class="testimonial-text">{{ "testimonials.1.text" | t(locale) }}</p>
-                        <div class="testimonial-author">
-                            <span class="testimonial-role">{{ "testimonials.1.role" | t(locale) }}</span>
-                        </div>
                     </div>
                 </div>
                 <div class="testimonial-item">
                     <div class="testimonial-bar"></div>
                     <div class="testimonial-body">
                         <p class="testimonial-text">{{ "testimonials.2.text" | t(locale) }}</p>
-                        <div class="testimonial-author">
-                            <span class="testimonial-role">{{ "testimonials.2.role" | t(locale) }}</span>
-                        </div>
                     </div>
                 </div>
                 <div class="testimonial-item">
                     <div class="testimonial-bar"></div>
                     <div class="testimonial-body">
                         <p class="testimonial-text">{{ "testimonials.3.text" | t(locale) }}</p>
-                        <div class="testimonial-author">
-                            <span class="testimonial-role">{{ "testimonials.3.role" | t(locale) }}</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -536,7 +526,7 @@
             <div class="team-members">
                 <div class="team-member">
                     <div class="team-member-photo">
-                        <img src="/assets/axel.webp" alt="Axel Segers">
+                        <img src="/assets/axel.webp" alt="Axel Segers" width="560" height="700" loading="lazy" decoding="async">
                     </div>
                     <div class="team-member-info">
                         <h3>Axel Segers</h3>
@@ -564,12 +554,12 @@
 
                 <div class="team-member team-member--reversed">
                     <div class="team-member-photo">
-                        <img src="/assets/tom.webp" alt="Tom Haeldermans">
+                        <img src="/assets/tom.webp" alt="Tom Haeldermans" width="560" height="700" loading="lazy" decoding="async">
                     </div>
                     <div class="team-member-info">
                         <h3>Tom Haeldermans</h3>
-                        <p class="team-role">{{ "team.tomv.role" | t(locale) }}</p>
-                        <p class="team-bio">{{ "team.tomv.bio" | t(locale) }}</p>
+                        <p class="team-role">{{ "team.tom.role" | t(locale) }}</p>
+                        <p class="team-bio">{{ "team.tom.bio" | t(locale) }}</p>
                         <div class="team-social">
                             <a href="https://www.linkedin.com/in/tom-haeldermans-862172117/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -591,7 +581,7 @@
                 </div>
                 <div class="team-member">
                     <div class="team-member-photo team-member-photo--agents">
-                        <img src="/assets/agent-network.svg" alt="Agent network" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;">
+                        <img src="/assets/agent-network.svg" alt="Agent network" width="560" height="700" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;">
                     </div>
                     <div class="team-member-info">
                         <h3>{{ "team.agents.name" | t(locale) }}</h3>

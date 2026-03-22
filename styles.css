@@ -324,13 +324,27 @@ h3 {
         color: var(--gray-light);
         padding: 7px 10px;
         border-radius: 6px;
-        transition: color 0.15s ease, background 0.15s ease;
+        border: 1px solid transparent;
+        transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
         white-space: nowrap;
     }
     .navbar-subnav a:hover {
-        background: rgba(255,255,255,0.06);
-        color: var(--white);
+        background: var(--nav-accent-bg, rgba(255,255,255,0.06));
+        border-color: var(--nav-accent-border, transparent);
+        box-shadow: 0 0 16px var(--nav-accent-glow, transparent);
+        color: var(--nav-accent-text, var(--white));
     }
+    .navbar-subnav-single {
+        min-width: 180px;
+        grid-template-columns: 1fr;
+    }
+    .navbar-subnav a[data-nav-service="ai"] { --nav-accent-text: #2563eb; --nav-accent-bg: rgba(37, 99, 235, 0.1); --nav-accent-border: rgba(37, 99, 235, 0.22); --nav-accent-glow: rgba(37, 99, 235, 0.16); }
+    .navbar-subnav a[data-nav-service="agentic"] { --nav-accent-text: #06b6d4; --nav-accent-bg: rgba(6, 182, 212, 0.1); --nav-accent-border: rgba(6, 182, 212, 0.22); --nav-accent-glow: rgba(6, 182, 212, 0.16); }
+    .navbar-subnav a[data-nav-service="automation"] { --nav-accent-text: #10b981; --nav-accent-bg: rgba(16, 185, 129, 0.1); --nav-accent-border: rgba(16, 185, 129, 0.22); --nav-accent-glow: rgba(16, 185, 129, 0.16); }
+    .navbar-subnav a[data-nav-service="process"] { --nav-accent-text: #f59e0b; --nav-accent-bg: rgba(245, 158, 11, 0.1); --nav-accent-border: rgba(245, 158, 11, 0.22); --nav-accent-glow: rgba(245, 158, 11, 0.16); }
+    .navbar-subnav a[data-nav-service="secure"] { --nav-accent-text: #f43f5e; --nav-accent-bg: rgba(244, 63, 94, 0.1); --nav-accent-border: rgba(244, 63, 94, 0.22); --nav-accent-glow: rgba(244, 63, 94, 0.16); }
+    .navbar-subnav a[data-nav-service="training"] { --nav-accent-text: #8b5cf6; --nav-accent-bg: rgba(139, 92, 246, 0.1); --nav-accent-border: rgba(139, 92, 246, 0.22); --nav-accent-glow: rgba(139, 92, 246, 0.16); }
+    .navbar-subnav a[data-nav-service="smartscan"] { --nav-accent-text: #3b82f6; --nav-accent-bg: rgba(59, 130, 246, 0.1); --nav-accent-border: rgba(59, 130, 246, 0.22); --nav-accent-glow: rgba(59, 130, 246, 0.16); }
     /* Right cluster */
     .navbar-right {
         display: flex;
@@ -1646,29 +1660,6 @@ h3 {
     color: var(--white-75);
     font-style: italic;
     margin: 0 0 12px;
-}
-
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.testimonial-name {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--light);
-}
-
-.testimonial-sep {
-    font-size: 0.7rem;
-    color: var(--white-25);
-}
-
-.testimonial-role {
-    font-size: 0.75rem;
-    color: var(--white-40);
 }
 
 /* Team */

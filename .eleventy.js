@@ -1,6 +1,7 @@
 function buildBreadcrumb(locale, dict, baseUrl, pageUrl, currentLabel, nlPermalink) {
     const homeUrl = locale === 'en' ? `${baseUrl}/en/` : `${baseUrl}/`;
-    const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: homeUrl }];
+    const homeLabel = dict['nav.home'] || 'Home';
+    const items = [{ '@type': 'ListItem', position: 1, name: homeLabel, item: homeUrl }];
     if (nlPermalink && nlPermalink.startsWith('/services/')) {
         const servicesUrl = locale === 'en' ? `${baseUrl}/en/#services` : `${baseUrl}/#services`;
         items.push({ '@type': 'ListItem', position: 2, name: dict['nav.services'], item: servicesUrl });
