@@ -121,6 +121,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("styles.css");
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("CNAME");
+  eleventyConfig.addPassthroughCopy({ "_headers": "_headers" });
+  eleventyConfig.addPassthroughCopy({ "_redirects": "_redirects" });
 
   eleventyConfig.ignores.add("dist/**");
   eleventyConfig.ignores.add(".claude/**");
