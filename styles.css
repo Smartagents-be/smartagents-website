@@ -3006,6 +3006,10 @@ body[data-service] .page-hero {
     display: flex;
     flex-direction: column;
 }
+.training-path-heading,
+.training-path-continuation {
+    display: none;
+}
 .training-node-header {
     display: flex;
     align-items: center;
@@ -3132,6 +3136,17 @@ body[data-service] .page-hero {
         background: currentColor;
         opacity: 0.45;
     }
+    .training-path-heading {
+        display: block;
+        margin-bottom: 14px;
+    }
+    .training-path-kicker {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.7;
+    }
     .training-branch--management {
         border-left-color: rgba(168,85,247,0.45);
         color: #c084fc;
@@ -3153,6 +3168,15 @@ body[data-service] .page-hero {
         margin: 10px 0 10px 11px;
         background: linear-gradient(to bottom, rgba(59,130,246,0.45), rgba(16,185,129,0.45));
         border-radius: 999px;
+    }
+    .training-path-continuation {
+        display: block;
+        margin: 0 0 2px 11px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
     }
     .training-node-target {
         flex-direction: column;
