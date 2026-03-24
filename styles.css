@@ -836,7 +836,7 @@ h3 {
 .service-feature-icon svg {
     width: 30px;
     height: 30px;
-    color: var(--primary);
+    color: var(--cyan);
     opacity: 0.7;
     transition: opacity 0.3s;
 }
@@ -852,7 +852,7 @@ h3 {
 }
 
 .service-feature:hover h3 {
-    color: var(--primary);
+    color: var(--cyan);
 }
 
 .service-feature p {
@@ -870,7 +870,7 @@ h3 {
 }
 
 .service-feature:hover .service-feature-link {
-    color: var(--primary);
+    color: var(--cyan);
 }
 
 @media (max-width: 768px) {
