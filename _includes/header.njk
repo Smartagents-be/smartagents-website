@@ -38,15 +38,6 @@
     <!-- Nav links (desktop only) -->
     <div class="navbar-links">
         <div class="navbar-dropdown">
-            <a href="{{ "/" | locale_url }}#aanpak" class="navbar-link navbar-dropdown-trigger">
-                {{ "nav.approach" | t(locale) }}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </a>
-            <div class="navbar-subnav navbar-subnav-single">
-                <a href="{{ "/services/smart-scan/" | locale_url }}" data-nav-service="smartscan">{{ "services.smartscan.title" | t(locale) }}</a>
-            </div>
-        </div>
-        <div class="navbar-dropdown">
             <a href="{{ "/" | locale_url }}#services" class="navbar-link navbar-dropdown-trigger {% if shell.servicesActive %}active{% endif %}">
                 {{ "nav.services" | t(locale) }}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
