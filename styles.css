@@ -3006,31 +3006,6 @@ body[data-service] .page-hero {
     display: flex;
     flex-direction: column;
 }
-.training-branch-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-.training-branch-label--management { color: #c084fc; }
-.training-branch-label--deepdive   { color: #93c5fd; }
-.training-branch-label--developer  { color: #34d399; margin-top: 8px; }
-.training-branch-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 800;
-    flex-shrink: 0;
-}
-.training-branch-label--management .training-branch-tag { background: rgba(168,85,247,0.15); color: #c084fc; }
-.training-branch-label--deepdive   .training-branch-tag { background: rgba(59,130,246,0.15); color: #93c5fd; }
-.training-branch-label--developer  .training-branch-tag { background: rgba(16,185,129,0.15); color: #34d399; }
 .training-node-header {
     display: flex;
     align-items: center;
@@ -3166,20 +3141,11 @@ body[data-service] .page-hero {
         color: #93c5fd;
         margin-top: 0;
     }
-    .training-branch-label {
-        font-size: 0.9rem;
-        margin-bottom: 14px;
-    }
-    .training-branch-label span:last-child {
-        color: #fff;
-    }
     .training-branch .training-node {
         background: rgba(255,255,255,0.02);
     }
-    .training-branch .training-node + .training-branch-label {
-        margin-top: 16px;
-        padding-top: 16px;
-        border-top: 1px solid rgba(255,255,255,0.08);
+    .training-branch .training-node + .training-connector--deepdive {
+        margin-top: 14px;
     }
     .training-connector--deepdive {
         width: 2px;
