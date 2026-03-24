@@ -2303,6 +2303,10 @@ body[data-service] .page-hero {
     border-bottom: none;
 }
 
+body[data-service="smartscan"] .page-role-item:last-child {
+    border-bottom: 1px solid var(--white-07);
+}
+
 .page-role-icon {
     width: 36px;
     height: 36px;
@@ -2393,6 +2397,38 @@ body[data-service] .page-hero {
     font-size: 0.88rem;
     line-height: 1.6;
     margin: 0;
+}
+
+.scan-deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.scan-deliverable-card {
+    padding: 20px 22px;
+    border: 1px solid var(--white-07);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.02);
+}
+
+.scan-deliverable-card h3 {
+    font-size: 1rem;
+    margin: 0 0 8px;
+}
+
+.scan-deliverable-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--gray-light);
+}
+
+@media (max-width: 767px) {
+    .scan-deliverables-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
 }
 
 .jobs-team .jobs-team-content {
