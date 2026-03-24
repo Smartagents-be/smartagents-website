@@ -1404,6 +1404,18 @@ h3 {
 }
 
 @media (max-width: 768px) {
+    .services-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-feature:nth-child(odd) {
+        border-right: none;
+    }
+
+    .service-feature {
+        padding: 36px 24px;
+    }
+
     .nav-links {
         display: none;
         position: absolute;
@@ -1563,15 +1575,4 @@ h3 {
         grid-template-columns: 1fr;
     }
 
-    .services-feature-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .service-feature:nth-child(odd) {
-        border-right: none;
-    }
-
-    .service-feature {
-        padding: 36px 24px;
-    }
 }
