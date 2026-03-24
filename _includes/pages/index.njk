@@ -1,5 +1,7 @@
-{% set nlUrl = baseUrl + '/' %}
-{% set enUrl = baseUrl + '/en/' %}
+{% set nlUrl = '/' %}
+{% set enUrl = '/en/' %}
+{% set nlAltUrl = nlUrl | absoluteUrl(baseUrl) %}
+{% set enAltUrl = enUrl | absoluteUrl(baseUrl) %}
 <!DOCTYPE html>
 <html lang="{{ locale }}">
 <head>
@@ -11,9 +13,9 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#00d8ff">
     <link rel="canonical" href="{{ page.url | absoluteUrl(baseUrl) }}">
-    <link rel="alternate" hreflang="nl" href="{{ nlUrl }}">
-    <link rel="alternate" hreflang="en" href="{{ enUrl }}">
-    <link rel="alternate" hreflang="x-default" href="{{ nlUrl }}">
+    <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlAltUrl }}">
 
     <!-- Open Graph -->
     {% set ogLocale = 'nl_BE' if locale == 'nl' else 'en_US' %}
