@@ -2655,6 +2655,18 @@ body[data-service] .page-hero {
         margin: 16px auto 0;
     }
 
+    .footer-links ul {
+        align-items: center;
+    }
+
+    .footer-social-col .social-links {
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        text-align: center;
+    }
+
     .page-section {
         padding: 70px 0;
     }
