@@ -196,6 +196,17 @@
             <p class="section-subtitle">{{ "services.subtitle" | t(locale) }}</p>
 
             <div class="services-feature-grid">
+                <a href="{{ "/services/training/" | locale_url }}" class="service-feature">
+                    <div class="service-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.desc" | t(locale) }}</p>
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
                 <a href="{{ "/services/agentic-ai/" | locale_url }}" class="service-feature">
                     <div class="service-feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -215,17 +226,6 @@
                     </div>
                     <h3>{{ "services.process.title" | t(locale) }}</h3>
                     <p>{{ "services.process.desc" | t(locale) }}</p>
-                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
-                </a>
-                <a href="{{ "/services/training/" | locale_url }}" class="service-feature">
-                    <div class="service-feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
-                        </svg>
-                    </div>
-                    <h3>{{ "services.training.title" | t(locale) }}</h3>
-                    <p>{{ "services.training.desc" | t(locale) }}</p>
                     <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
                 </a>
             </div>
