@@ -1033,7 +1033,7 @@ h3 {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 40px;
     margin-bottom: 60px;
 }
@@ -1053,10 +1053,16 @@ h3 {
     max-width: 300px;
 }
 
+.footer-social-col h4 {
+    margin-bottom: 20px;
+    color: var(--light);
+}
+
 .social-links {
     display: flex;
-    gap: 16px;
-    margin-top: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 0;
 }
 
 .social-links a {
@@ -1072,8 +1078,9 @@ h3 {
 }
 
 .social-links a:hover {
-    background: var(--gradient);
-    color: var(--white);
+    background: rgba(0, 216, 255, 0.12);
+    border-color: var(--primary);
+    color: var(--primary);
     transform: translateY(-3px);
 }
 
