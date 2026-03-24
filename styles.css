@@ -2899,6 +2899,244 @@ body[data-service] .page-hero {
 
 }
 
+/* Training Tree */
+.training-tree-intro {
+    max-width: 680px;
+    margin: 0 auto 48px;
+    text-align: center;
+    color: var(--gray-light);
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+.training-tree {
+    max-width: 920px;
+    margin: 0 auto;
+}
+.training-trunk-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.training-node {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 24px 28px;
+}
+.training-node--trunk {
+    max-width: 600px;
+    border-color: rgba(0,216,255,0.18);
+    border-left: 3px solid var(--cyan);
+}
+.training-node--management { border-left: 3px solid #a855f7; }
+.training-node--deepdive   { border-left: 3px solid #3b82f6; }
+.training-node--developer  { border-left: 3px solid #10b981; }
+.training-connector {
+    width: 2px;
+    height: 32px;
+    margin: 0 auto;
+    opacity: 0.4;
+}
+.training-connector--trunk  { background: var(--cyan); }
+.training-connector--deepdive { background: #3b82f6; margin: 0 0 0 20px; }
+.training-fork {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    height: 36px;
+    position: relative;
+    max-width: 920px;
+    margin: 0 auto;
+}
+/* Vertical drop from trunk */
+.training-fork::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50%;
+    background: rgba(0,216,255,0.25);
+}
+/* Horizontal bridge between the two branches */
+.training-fork::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(25% - 6px);
+    right: calc(25% - 6px);
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+}
+.training-fork-left,
+.training-fork-right {
+    position: relative;
+}
+/* Drop to management branch */
+.training-fork-left::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50%;
+    background: rgba(168,85,247,0.35);
+}
+/* Drop to deepdive branch */
+.training-fork-right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50%;
+    background: rgba(59,130,246,0.35);
+}
+.training-branches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+.training-branch {
+    display: flex;
+    flex-direction: column;
+}
+.training-branch-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.training-branch-label--management { color: #c084fc; }
+.training-branch-label--deepdive   { color: #93c5fd; }
+.training-branch-label--developer  { color: #34d399; margin-top: 8px; }
+.training-branch-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+.training-branch-label--management .training-branch-tag { background: rgba(168,85,247,0.15); color: #c084fc; }
+.training-branch-label--deepdive   .training-branch-tag { background: rgba(59,130,246,0.15); color: #93c5fd; }
+.training-branch-label--developer  .training-branch-tag { background: rgba(16,185,129,0.15); color: #34d399; }
+.training-node-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+.training-node-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0.7;
+}
+.training-node--trunk      .training-node-num { color: var(--cyan); }
+.training-node--management .training-node-num { color: #a855f7; }
+.training-node--deepdive   .training-node-num { color: #60a5fa; }
+.training-node--developer  .training-node-num { color: #10b981; }
+.training-node-prereq-inline {
+    margin-left: auto;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.04em;
+}
+.training-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+.training-badge--everyone    { background: rgba(0,216,255,0.1);   color: var(--cyan); border: 1px solid rgba(0,216,255,0.2); }
+.training-badge--management  { background: rgba(168,85,247,0.1);  color: #c084fc;     border: 1px solid rgba(168,85,247,0.2); }
+.training-badge--deepdive    { background: rgba(59,130,246,0.1);  color: #93c5fd;     border: 1px solid rgba(59,130,246,0.2); }
+.training-badge--developer   { background: rgba(16,185,129,0.1);  color: #34d399;     border: 1px solid rgba(16,185,129,0.2); }
+.training-badge--recommended { background: rgba(245,158,11,0.1);  color: #fbbf24;     border: 1px solid rgba(245,158,11,0.2); }
+.training-node-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 8px;
+    line-height: 1.45;
+}
+.training-node-desc {
+    font-size: 0.82rem;
+    color: var(--gray-light);
+    line-height: 1.65;
+    margin: 0;
+}
+.training-node-meta {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+.training-node-target {
+    display: flex;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+}
+.training-node-target span:first-child {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+@media (max-width: 767px) {
+    .training-fork {
+        display: none;
+    }
+    .training-branches {
+        grid-template-columns: 1fr;
+        position: relative;
+        padding-top: 4px;
+    }
+    /* Vertical connector from trunk to branches on mobile */
+    .training-branches::before {
+        content: '';
+        display: block;
+        width: 2px;
+        height: 20px;
+        background: rgba(0,216,255,0.2);
+        margin: 0 auto 8px;
+    }
+    .training-branch {
+        padding-left: 16px;
+        border-left: 2px solid transparent;
+    }
+    .training-branch--management {
+        border-left-color: rgba(168,85,247,0.45);
+    }
+    .training-branch--deepdive {
+        border-left-color: rgba(59,130,246,0.45);
+        margin-top: 20px;
+    }
+    .training-branch-label {
+        font-size: 0.85rem;
+    }
+    .training-connector--deepdive {
+        margin: 0 auto;
+    }
+}
+
 /* Scroll reveal animation classes */
 .reveal-slide-up {
     opacity: 0;

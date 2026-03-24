@@ -118,45 +118,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Animated counter for stats
-const stats = document.querySelectorAll('.stat-number');
-let statsAnimated = false;
+const animateStat = (stat) => {
+    const target = parseInt(stat.dataset.target);
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
 
-const animateStats = () => {
-    stats.forEach(stat => {
-        const target = parseInt(stat.dataset.target);
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
+    const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+            stat.textContent = Math.ceil(current);
+            requestAnimationFrame(updateCounter);
+        } else {
+            stat.textContent = target;
+        }
+    };
 
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                stat.textContent = Math.ceil(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                stat.textContent = target;
-            }
-        };
-
-        updateCounter();
-    });
+    updateCounter();
 };
 
-// Intersection Observer for stats animation
-const statsSection = document.querySelector('.hero-intro-stats') || document.querySelector('.stats');
+const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateStat(entry.target);
+            statObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
 
-if (statsSection) {
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !statsAnimated) {
-                animateStats();
-                statsAnimated = true;
-            }
-        });
-    }, { threshold: 0.3 });
-
-    statsObserver.observe(statsSection);
-}
+document.querySelectorAll('.stat-number').forEach(stat => statObserver.observe(stat));
 
 // Form submission handling via FormSubmit.co
 const contactForm = document.getElementById('contact-form');

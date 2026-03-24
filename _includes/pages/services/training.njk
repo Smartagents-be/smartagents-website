@@ -73,45 +73,118 @@
     <section class="page-section page-section-alt">
         <div class="container">
             <h2 class="section-title">{{ "services.training.page.features.title" | t(locale) }}</h2>
-            <div class="page-role-grid">
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
-                        </svg>
+            <p class="training-tree-intro">{{ "services.training.page.tree.intro" | t(locale) }}</p>
+
+            <div class="training-tree">
+
+                <!-- TRUNK: Course 1 + Course 2 -->
+                <div class="training-trunk-section">
+                    <div class="training-node training-node--trunk">
+                        <div class="training-node-header">
+                            <span class="training-node-num">01</span>
+                            <span class="training-badge training-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                        </div>
+                        <h3 class="training-node-title">{{ "services.training.page.course1.title" | t(locale) }}</h3>
+                        <p class="training-node-desc">{{ "services.training.page.course1.desc" | t(locale) }}</p>
+                        <div class="training-node-meta">
+                            <div class="training-node-target">
+                                <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                <span>{{ "services.training.page.course1.target" | t(locale) }}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h3>{{ "services.training.page.feature1.title" | t(locale) }}</h3>
-                        <p>{{ "services.training.page.feature1.desc" | t(locale) }}</p>
+                    <div class="training-connector training-connector--trunk"></div>
+                    <div class="training-node training-node--trunk">
+                        <div class="training-node-header">
+                            <span class="training-node-num">02</span>
+                            <span class="training-badge training-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                            <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 01</span>
+                        </div>
+                        <h3 class="training-node-title">{{ "services.training.page.course2.title" | t(locale) }}</h3>
+                        <p class="training-node-desc">{{ "services.training.page.course2.desc" | t(locale) }}</p>
+                        <div class="training-node-meta">
+                            <div class="training-node-target">
+                                <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                <span>{{ "services.training.page.course2.target" | t(locale) }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="16 18 22 12 16 6"/>
-                            <polyline points="8 6 2 12 8 18"/>
-                            <line x1="14" y1="4" x2="10" y2="20"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3>{{ "services.training.page.feature2.title" | t(locale) }}</h3>
-                        <p>{{ "services.training.page.feature2.desc" | t(locale) }}</p>
-                    </div>
+
+                <!-- FORK VISUAL -->
+                <div class="training-fork" aria-hidden="true">
+                    <div class="training-fork-left"></div>
+                    <div class="training-fork-right"></div>
                 </div>
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
+
+                <!-- BRANCHES -->
+                <div class="training-branches">
+
+                    <!-- Branch A: Management -->
+                    <div class="training-branch training-branch--management">
+                        <div class="training-branch-label training-branch-label--management">
+                            <span class="training-branch-tag">A</span>
+                            <span>{{ "services.training.page.tree.badge.management" | t(locale) }}</span>
+                        </div>
+                        <div class="training-node training-node--management">
+                            <div class="training-node-header">
+                                <span class="training-badge training-badge--management">{{ "services.training.page.tree.badge.management" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.courseM.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.courseM.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.courseM.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h3>{{ "services.training.page.feature3.title" | t(locale) }}</h3>
-                        <p>{{ "services.training.page.feature3.desc" | t(locale) }}</p>
+
+                    <!-- Branch B + C: Deep Dive → Developers -->
+                    <div class="training-branch training-branch--deepdive">
+                        <div class="training-branch-label training-branch-label--deepdive">
+                            <span class="training-branch-tag">B</span>
+                            <span>{{ "services.training.page.tree.badge.deepdive" | t(locale) }}</span>
+                            <span class="training-badge training-badge--recommended">{{ "services.training.page.tree.badge.recommended" | t(locale) }}</span>
+                        </div>
+                        <div class="training-node training-node--deepdive">
+                            <div class="training-node-header">
+                                <span class="training-node-num">03</span>
+                                <span class="training-badge training-badge--deepdive">{{ "services.training.page.tree.badge.deepdive" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.course3.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.course3.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.course3.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="training-connector training-connector--deepdive"></div>
+                        <div class="training-branch-label training-branch-label--developer">
+                            <span class="training-branch-tag">C</span>
+                            <span>{{ "services.training.page.tree.badge.developers" | t(locale) }}</span>
+                        </div>
+                        <div class="training-node training-node--developer">
+                            <div class="training-node-header">
+                                <span class="training-badge training-badge--developer">{{ "services.training.page.tree.badge.developers" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 03</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.courseD.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.courseD.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.courseD.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -150,6 +223,28 @@
                     </div>
                     <h3>{{ "services.training.page.benefit3.title" | t(locale) }}</h3>
                     <p>{{ "services.training.page.benefit3.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v4l3 3"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit4.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit4.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit5.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit5.desc" | t(locale) }}</p>
                 </div>
             </div>
         </div>
