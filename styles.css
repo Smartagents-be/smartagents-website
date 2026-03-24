@@ -1668,24 +1668,28 @@ h3 {
 
 @media (min-width: 1024px) {
     .hero-intro {
+        padding: 60px 24px;
+    }
+    .hero-intro-text {
         display: none;
     }
     .hero-intro-inner {
-        flex-direction: row;
-        align-items: center;
-        gap: 64px;
+        flex-direction: column;
+        gap: 0;
     }
-    .hero-intro-text {
-        flex: 1;
-    }
-    /* Stats as left column on desktop */
     .hero-intro-stats {
-        order: -1;
-        flex: 0 0 220px;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+    }
+    .hero-stat-card {
+        padding: 16px 32px;
+        border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .hero-stat-card:last-child {
+        border-right: none;
     }
     .hero-stat-number {
-        font-size: 4.5rem;
+        font-size: 3.5rem;
     }
 }
 
