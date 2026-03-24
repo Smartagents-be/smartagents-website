@@ -1610,9 +1610,6 @@ h3 {
 }
 
 @media (max-width: 1023px) {
-    .hero-intro {
-        display: block;
-    }
     .hero-intro-mobile-only {
         display: block;
     }
