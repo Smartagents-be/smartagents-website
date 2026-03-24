@@ -514,58 +514,83 @@ h3 {
     background: var(--dark-lighter);
 }
 
-.services-grid {
+.services-list {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.service-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.service-card {
-    background: var(--dark-card);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 16px;
-    padding: 36px 28px;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.service-card .btn-sm {
-    margin-top: auto;
-    align-self: flex-start;
-}
-
-.service-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(0, 216, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 216, 255, 0.08);
-}
-
-.service-icon {
-    width: 52px;
-    height: 52px;
-    background: rgba(0, 216, 255, 0.08);
-    border: 1px solid rgba(0, 216, 255, 0.18);
-    border-radius: 12px;
-    display: flex;
+    grid-template-columns: 52px 52px 1fr 32px;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+    gap: 28px;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
 }
 
-.service-icon svg {
-    width: 26px;
-    height: 26px;
+.service-row:hover {
+    padding-left: 8px;
+}
+
+.service-row-num {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.18);
+    letter-spacing: 0.05em;
+    transition: color 0.25s;
+}
+
+.service-row:hover .service-row-num {
     color: var(--primary);
 }
 
-.service-card h3 {
-    margin-bottom: 16px;
+.service-row-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.service-card p {
+.service-row-icon svg {
+    width: 26px;
+    height: 26px;
+    color: rgba(255, 255, 255, 0.35);
+    transition: color 0.25s;
+}
+
+.service-row:hover .service-row-icon svg {
+    color: var(--primary);
+}
+
+.service-row-body h3 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+    transition: color 0.25s;
+}
+
+.service-row:hover .service-row-body h3 {
+    color: var(--primary);
+}
+
+.service-row-body p {
     color: var(--gray-light);
-    margin-bottom: 20px;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.service-row-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: rgba(255, 255, 255, 0.2);
+    transition: all 0.25s;
+}
+
+.service-row:hover .service-row-arrow svg {
+    color: var(--primary);
+    transform: translateX(4px);
 }
 
 /* Aanpak */
@@ -1541,5 +1566,14 @@ h3 {
 
     .jobs-benefits-grid {
         grid-template-columns: 1fr;
+    }
+
+    .service-row {
+        grid-template-columns: 36px 1fr 20px;
+        gap: 16px;
+    }
+
+    .service-row-icon {
+        display: none;
     }
 }
