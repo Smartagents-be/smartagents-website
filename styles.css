@@ -596,35 +596,43 @@ h3 {
 
 .aanpak-timeline {
     position: relative;
-    padding-left: 80px;
-    max-width: 760px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
-/* Vertical line */
+/* Center vertical line */
 .aanpak-timeline::before {
     content: '';
     position: absolute;
-    left: 24px;
-    top: 8px;
-    bottom: 8px;
+    left: calc(50% - 1px);
+    top: 0;
+    bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, transparent, rgba(0, 216, 255, 0.4) 10%, rgba(0, 216, 255, 0.4) 90%, transparent);
+    background: linear-gradient(to bottom, transparent, rgba(0, 216, 255, 0.4) 8%, rgba(0, 216, 255, 0.4) 92%, transparent);
 }
 
+/* Odd steps: content on the left, right-aligned */
 .aanpak-step {
     position: relative;
-    padding-bottom: 52px;
+    width: calc(50% - 40px);
+    text-align: right;
+    padding-bottom: 56px;
 }
 
 .aanpak-step:last-child {
     padding-bottom: 0;
 }
 
-/* Circle node on the line */
+/* Even steps: content on the right, left-aligned */
+.aanpak-step:nth-child(even) {
+    margin-left: calc(50% + 40px);
+    text-align: left;
+}
+
+/* Circle node sitting on the center line */
 .aanpak-icon {
     position: absolute;
-    left: -80px;
+    right: -64px;
     top: 0;
     width: 48px;
     height: 48px;
@@ -635,6 +643,12 @@ h3 {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.aanpak-step:nth-child(even) .aanpak-icon {
+    right: auto;
+    left: -64px;
 }
 
 .aanpak-step:hover .aanpak-icon {
@@ -659,7 +673,7 @@ h3 {
 }
 
 .aanpak-step h3 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
 }
 
@@ -667,20 +681,29 @@ h3 {
     color: var(--gray-light);
     font-size: 0.9rem;
     line-height: 1.7;
-    max-width: 580px;
 }
 
+/* Mobile: collapse to single left-side timeline */
 @media (max-width: 768px) {
     .aanpak-timeline {
-        padding-left: 60px;
+        padding-left: 56px;
     }
 
     .aanpak-timeline::before {
         left: 18px;
     }
 
-    .aanpak-icon {
-        left: -60px;
+    .aanpak-step,
+    .aanpak-step:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+    }
+
+    .aanpak-icon,
+    .aanpak-step:nth-child(even) .aanpak-icon {
+        right: auto;
+        left: -56px;
         width: 38px;
         height: 38px;
     }
