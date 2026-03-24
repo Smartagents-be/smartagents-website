@@ -3094,46 +3094,103 @@ body[data-service] .page-hero {
     color: rgba(255,255,255,0.4);
 }
 .training-node-target span:first-child {
-    text-transform: uppercase;
     letter-spacing: 0.06em;
     font-size: 0.65rem;
     flex-shrink: 0;
     opacity: 0.7;
 }
 @media (max-width: 767px) {
+    .training-tree {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    .training-trunk-section {
+        gap: 14px;
+    }
+    .training-node {
+        padding: 18px;
+        border-radius: 18px;
+    }
+    .training-node-header {
+        align-items: flex-start;
+    }
+    .training-node-prereq-inline {
+        width: 100%;
+        margin-left: 0;
+        padding-top: 4px;
+    }
     .training-fork {
         display: none;
     }
     .training-branches {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         position: relative;
-        padding-top: 4px;
+        gap: 18px;
+        padding-top: 14px;
     }
-    /* Vertical connector from trunk to branches on mobile */
     .training-branches::before {
         content: '';
-        display: block;
         width: 2px;
-        height: 20px;
-        background: rgba(0,216,255,0.2);
-        margin: 0 auto 8px;
+        height: 18px;
+        background: linear-gradient(to bottom, rgba(0,216,255,0.4), rgba(0,216,255,0.08));
+        position: absolute;
+        top: -8px;
+        left: 24px;
     }
     .training-branch {
-        padding-left: 16px;
+        position: relative;
+        padding: 18px 16px 16px 22px;
         border-left: 2px solid transparent;
+        border-radius: 18px;
+        background: rgba(6, 10, 16, 0.72);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .training-branch::before {
+        content: '';
+        position: absolute;
+        top: -14px;
+        left: -2px;
+        width: 2px;
+        height: 14px;
+        background: currentColor;
+        opacity: 0.45;
     }
     .training-branch--management {
         border-left-color: rgba(168,85,247,0.45);
+        color: #c084fc;
     }
     .training-branch--deepdive {
         border-left-color: rgba(59,130,246,0.45);
-        margin-top: 20px;
+        color: #93c5fd;
+        margin-top: 0;
     }
     .training-branch-label {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        margin-bottom: 14px;
+    }
+    .training-branch-label span:last-child {
+        color: #fff;
+    }
+    .training-branch .training-node {
+        background: rgba(255,255,255,0.02);
+    }
+    .training-branch .training-node + .training-branch-label {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,255,255,0.08);
     }
     .training-connector--deepdive {
-        margin: 0 auto;
+        width: 2px;
+        height: 18px;
+        margin: 10px 0 10px 11px;
+        background: linear-gradient(to bottom, rgba(59,130,246,0.45), rgba(16,185,129,0.45));
+        border-radius: 999px;
+    }
+    .training-node-target {
+        flex-direction: column;
+        gap: 4px;
     }
 }
 
