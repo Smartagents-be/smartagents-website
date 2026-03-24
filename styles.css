@@ -1667,6 +1667,9 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+    .hero-intro {
+        display: none;
+    }
     .hero-intro-inner {
         flex-direction: row;
         align-items: center;
