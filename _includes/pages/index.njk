@@ -67,7 +67,19 @@
     <header class="hero">
         <canvas id="hero-canvas"></canvas>
         <div class="hero-overlay"></div>
-        <div class="hero-centered-logo hero-animate">
+
+        <!-- Desktop hero: title + CTA -->
+        <div class="hero-content hero-desktop-only">
+            <h1>{{ "hero.title" | t(locale) | safe }}</h1>
+            <p>{{ "hero.subtitle" | t(locale) }}</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">{{ "hero.cta.primary" | t(locale) }}</a>
+                <a href="#services" class="btn btn-secondary">{{ "hero.cta.secondary" | t(locale) }}</a>
+            </div>
+        </div>
+
+        <!-- Mobile hero: centered logo -->
+        <div class="hero-centered-logo hero-animate hero-mobile-only">
             <svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="SmartAgents" role="img">
                 <defs>
                     <linearGradient id="heroLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -101,6 +113,7 @@
             <span class="hero-logo-wordmark"><span class="hero-word">Smart</span><span class="hero-word">Agents</span></span>
             <span class="hero-logo-tagline">{{ "footer.tagline" | t(locale) }}</span>
         </div>
+
         <div class="hero-scroll-hint hero-animate-delayed">
             <span>{{ "hero.scroll" | t(locale) }}</span>
             <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
@@ -209,126 +222,19 @@
             <h2 class="section-title">{{ "services.title" | t(locale) }}</h2>
             <p class="section-subtitle">{{ "services.subtitle" | t(locale) }}</p>
 
-            <div class="services-split">
-            <!-- Left: service list with inline accordion panels for mobile -->
-            <div class="services-list">
-                <div class="services-list-entry">
-                    <button class="services-list-item active" data-service="ai" data-href="{{ "/services/ai/" | locale_url }}" type="button" aria-pressed="true">
-                        <span class="services-list-num">01</span>
-                        <span class="services-list-name">{{ "services.ai.title" | t(locale) }}</span>
-                        <svg class="services-list-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                    <div class="services-mobile-content active" data-mobile-panel="ai">
-                        <div class="services-mobile-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                            </svg>
-                        </div>
-                        <p>{{ "services.ai.desc" | t(locale) }}</p>
-                        <a href="{{ "/services/ai/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                    </div>
-                </div>
-                <div class="services-list-entry">
-                    <button class="services-list-item" data-service="agentic" data-href="{{ "/services/agentic-ai/" | locale_url }}" type="button" aria-pressed="false">
-                        <span class="services-list-num">02</span>
-                        <span class="services-list-name">{{ "services.agentic.title" | t(locale) }}</span>
-                        <svg class="services-list-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                    <div class="services-mobile-content" data-mobile-panel="agentic">
-                        <div class="services-mobile-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-                            </svg>
-                        </div>
-                        <p>{{ "services.agentic.desc" | t(locale) }}</p>
-                        <a href="{{ "/services/agentic-ai/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                    </div>
-                </div>
-                <div class="services-list-entry">
-                    <button class="services-list-item" data-service="process" data-href="{{ "/services/process-optimization/" | locale_url }}" type="button" aria-pressed="false">
-                        <span class="services-list-num">03</span>
-                        <span class="services-list-name">{{ "services.process.title" | t(locale) }}</span>
-                        <svg class="services-list-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                    <div class="services-mobile-content" data-mobile-panel="process">
-                        <div class="services-mobile-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                            </svg>
-                        </div>
-                        <p>{{ "services.process.desc" | t(locale) }}</p>
-                        <a href="{{ "/services/process-optimization/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                    </div>
-                </div>
-                <div class="services-list-entry">
-                    <button class="services-list-item" data-service="automation" data-href="{{ "/services/automation/" | locale_url }}" type="button" aria-pressed="false">
-                        <span class="services-list-num">04</span>
-                        <span class="services-list-name">{{ "services.automation.title" | t(locale) }}</span>
-                        <svg class="services-list-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                    <div class="services-mobile-content" data-mobile-panel="automation">
-                        <div class="services-mobile-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                                <path d="M8 21h8M12 17v4"/>
-                                <path d="M7 8h2M7 12h4"/>
-                            </svg>
-                        </div>
-                        <p>{{ "services.automation.desc" | t(locale) }}</p>
-                        <a href="{{ "/services/automation/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                    </div>
-                </div>
-                <div class="services-list-entry">
-                    <button class="services-list-item" data-service="training" data-href="{{ "/services/training/" | locale_url }}" type="button" aria-pressed="false">
-                        <span class="services-list-num">05</span>
-                        <span class="services-list-name">{{ "services.training.title" | t(locale) }}</span>
-                        <svg class="services-list-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                    <div class="services-mobile-content" data-mobile-panel="training">
-                        <div class="services-mobile-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
-                            </svg>
-                        </div>
-                        <p>{{ "services.training.desc" | t(locale) }}</p>
-                        <a href="{{ "/services/training/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                    </div>
-                </div>
-                <div class="services-list-entry">
-                    <button class="services-list-item" data-service="secure" data-href="{{ "/services/security/" | locale_url }}" type="button" aria-pressed="false">
-                        <span class="services-list-num">06</span>
-                        <span class="services-list-name">{{ "services.secure.title" | t(locale) }}</span>
-                        <svg class="services-list-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                    <div class="services-mobile-content" data-mobile-panel="secure">
-                        <div class="services-mobile-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                <path d="M9 12l2 2 4-4"/>
-                            </svg>
-                        </div>
-                        <p>{{ "services.secure.desc" | t(locale) }}</p>
-                        <a href="{{ "/services/security/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: preview panel (desktop only, hidden on mobile) -->
-            <div class="services-panel" aria-live="polite">
-                <div class="services-panel-content active" data-panel="ai">
-                    <div class="services-panel-icon">
+            <div class="services-feature-grid">
+                <a href="{{ "/services/ai/" | locale_url }}" class="service-feature">
+                    <div class="service-feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                         </svg>
                     </div>
                     <h3>{{ "services.ai.title" | t(locale) }}</h3>
                     <p>{{ "services.ai.desc" | t(locale) }}</p>
-                    <a href="{{ "/services/ai/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                </div>
-                <div class="services-panel-content" data-panel="agentic">
-                    <div class="services-panel-icon">
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+                <a href="{{ "/services/agentic-ai/" | locale_url }}" class="service-feature">
+                    <div class="service-feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <circle cx="12" cy="12" r="3"/>
                             <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
@@ -336,20 +242,20 @@
                     </div>
                     <h3>{{ "services.agentic.title" | t(locale) }}</h3>
                     <p>{{ "services.agentic.desc" | t(locale) }}</p>
-                    <a href="{{ "/services/agentic-ai/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                </div>
-                <div class="services-panel-content" data-panel="process">
-                    <div class="services-panel-icon">
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+                <a href="{{ "/services/process-optimization/" | locale_url }}" class="service-feature">
+                    <div class="service-feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
                         </svg>
                     </div>
                     <h3>{{ "services.process.title" | t(locale) }}</h3>
                     <p>{{ "services.process.desc" | t(locale) }}</p>
-                    <a href="{{ "/services/process-optimization/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                </div>
-                <div class="services-panel-content" data-panel="automation">
-                    <div class="services-panel-icon">
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+                <a href="{{ "/services/automation/" | locale_url }}" class="service-feature">
+                    <div class="service-feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                             <path d="M8 21h8M12 17v4"/>
@@ -358,10 +264,10 @@
                     </div>
                     <h3>{{ "services.automation.title" | t(locale) }}</h3>
                     <p>{{ "services.automation.desc" | t(locale) }}</p>
-                    <a href="{{ "/services/automation/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                </div>
-                <div class="services-panel-content" data-panel="training">
-                    <div class="services-panel-icon">
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+                <a href="{{ "/services/training/" | locale_url }}" class="service-feature">
+                    <div class="service-feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
                             <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
@@ -369,10 +275,10 @@
                     </div>
                     <h3>{{ "services.training.title" | t(locale) }}</h3>
                     <p>{{ "services.training.desc" | t(locale) }}</p>
-                    <a href="{{ "/services/training/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                </div>
-                <div class="services-panel-content" data-panel="secure">
-                    <div class="services-panel-icon">
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+                <a href="{{ "/services/security/" | locale_url }}" class="service-feature">
+                    <div class="service-feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                             <path d="M9 12l2 2 4-4"/>
@@ -380,11 +286,9 @@
                     </div>
                     <h3>{{ "services.secure.title" | t(locale) }}</h3>
                     <p>{{ "services.secure.desc" | t(locale) }}</p>
-                    <a href="{{ "/services/security/" | locale_url }}" class="btn btn-secondary btn-sm">{{ "services.learnmore" | t(locale) }}</a>
-                </div>
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
             </div>
-
-        </div>
         </div>
     </section>
 
