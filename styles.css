@@ -594,46 +594,49 @@ h3 {
     background: var(--dark);
 }
 
+/* === Horizontal timeline (desktop) === */
 .aanpak-timeline {
+    display: flex;
+    align-items: flex-start;
     position: relative;
-    max-width: 900px;
-    margin: 0 auto;
 }
 
-/* Center vertical line */
+/* Horizontal line through the centers of the nodes */
 .aanpak-timeline::before {
     content: '';
     position: absolute;
-    left: calc(50% - 1px);
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, transparent, rgba(0, 216, 255, 0.4) 8%, rgba(0, 216, 255, 0.4) 92%, transparent);
+    top: 24px;
+    left: 4%;
+    right: 4%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(0, 216, 255, 0.4) 8%, rgba(0, 216, 255, 0.4) 92%, transparent);
 }
 
-/* Odd steps: content on the left, right-aligned */
 .aanpak-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 12px;
     position: relative;
-    width: calc(50% - 40px);
-    text-align: right;
-    padding-bottom: 56px;
 }
 
 .aanpak-step:last-child {
     padding-bottom: 0;
 }
 
-/* Even steps: content on the right, left-aligned */
 .aanpak-step:nth-child(even) {
-    margin-left: calc(50% + 40px);
-    text-align: left;
+    margin-left: 0;
+    text-align: center;
 }
 
-/* Circle node sitting on the center line */
+/* Circle node on the horizontal line */
 .aanpak-icon {
-    position: absolute;
-    right: -64px;
-    top: 0;
+    position: relative;
+    right: auto;
+    left: auto;
+    top: auto;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -642,13 +645,15 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
     transition: all 0.3s ease;
     z-index: 1;
 }
 
 .aanpak-step:nth-child(even) .aanpak-icon {
     right: auto;
-    left: -64px;
+    left: auto;
 }
 
 .aanpak-step:hover .aanpak-icon {
@@ -664,46 +669,61 @@ h3 {
 }
 
 .aanpak-number {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     color: var(--primary);
     letter-spacing: 0.15em;
-    margin-bottom: 8px;
-    padding-top: 6px;
+    margin-bottom: 6px;
+    padding-top: 0;
 }
 
 .aanpak-step h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    margin-bottom: 8px;
 }
 
 .aanpak-step p {
     color: var(--gray-light);
-    font-size: 0.9rem;
-    line-height: 1.7;
+    font-size: 0.82rem;
+    line-height: 1.65;
 }
 
-/* Mobile: collapse to single left-side timeline */
+/* Mobile: vertical left-side timeline */
 @media (max-width: 768px) {
     .aanpak-timeline {
+        display: block;
         padding-left: 56px;
     }
 
     .aanpak-timeline::before {
         left: 18px;
+        top: 0;
+        right: auto;
+        bottom: 0;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(to bottom, transparent, rgba(0, 216, 255, 0.4) 8%, rgba(0, 216, 255, 0.4) 92%, transparent);
     }
 
     .aanpak-step,
     .aanpak-step:nth-child(even) {
+        display: block;
+        text-align: left;
         width: 100%;
         margin-left: 0;
-        text-align: left;
+        padding-bottom: 44px;
+    }
+
+    .aanpak-step:last-child {
+        padding-bottom: 0;
     }
 
     .aanpak-icon,
     .aanpak-step:nth-child(even) .aanpak-icon {
-        right: auto;
+        position: absolute;
         left: -56px;
+        top: 0;
+        margin-bottom: 0;
         width: 38px;
         height: 38px;
     }
@@ -711,6 +731,14 @@ h3 {
     .aanpak-icon svg {
         width: 18px;
         height: 18px;
+    }
+
+    .aanpak-step h3 {
+        font-size: 1.1rem;
+    }
+
+    .aanpak-step p {
+        font-size: 0.9rem;
     }
 }
 
