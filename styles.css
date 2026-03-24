@@ -306,7 +306,7 @@ h3 {
         padding-top: 20px; /* extends hover area to bridge gap to trigger */
         min-width: 260px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 2px;
         opacity: 0;
         pointer-events: none;
