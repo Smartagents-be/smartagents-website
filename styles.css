@@ -2490,7 +2490,7 @@ body[data-service] .page-hero {
     }
 
     .about-features {
-        align-items: center;
+        align-items: flex-start;
     }
 
     .footer-content {
