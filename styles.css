@@ -1,16 +1,17 @@
 /* CSS Variables */
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
+    --primary: #00d8ff;
+    --primary-dark: #00b0d4;
     --secondary: #0ea5e9;
-    --accent: #8b5cf6;
+    --accent: #a78bfa;
     --dark: #0f172a;
-    --dark-lighter: #1e293b;
+    --dark-lighter: #1a2438;
+    --dark-card: #141e30;
     --gray: #64748b;
     --gray-light: #94a3b8;
     --light: #f8fafc;
     --white: #ffffff;
-    --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    --gradient: linear-gradient(135deg, #a78bfa 0%, #00d8ff 50%);
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
@@ -101,24 +102,27 @@ h3 {
 }
 
 .btn-primary {
-    background: var(--gradient);
-    color: var(--white);
+    background: var(--primary);
+    color: var(--dark);
+    font-weight: 600;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 216, 255, 0.35);
+    background: #1ae0ff;
 }
 
 .btn-secondary {
     background: transparent;
     color: var(--light);
-    border: 1px solid var(--gray);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .btn-secondary:hover {
     border-color: var(--primary);
     color: var(--primary);
+    background: rgba(0, 216, 255, 0.06);
 }
 
 .btn-sm {
@@ -231,8 +235,8 @@ h3 {
 }
 
 .lang-btn.active {
-    background: var(--gradient);
-    color: var(--white);
+    background: var(--primary);
+    color: var(--dark);
 }
 
 /* Nav Dropdown */
@@ -304,7 +308,7 @@ h3 {
 
 .nav-submenu a:hover {
     color: var(--white) !important;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(0, 216, 255, 0.07);
 }
 
 /* Back Link */
@@ -406,7 +410,7 @@ h3 {
     padding: 120px 0;
     background: var(--dark);
     position: relative;
-    background-image: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+    background-image: radial-gradient(ellipse at center, rgba(0, 216, 255, 0.05) 0%, transparent 60%);
 }
 
 .vm-grid {
@@ -421,9 +425,10 @@ h3 {
 }
 
 .vm-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--gradient);
+    width: 72px;
+    height: 72px;
+    background: rgba(0, 216, 255, 0.08);
+    border: 1px solid rgba(0, 216, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -432,9 +437,9 @@ h3 {
 }
 
 .vm-icon svg {
-    width: 36px;
-    height: 36px;
-    color: var(--white);
+    width: 32px;
+    height: 32px;
+    color: var(--primary);
 }
 
 .vm-panel h3 {
@@ -460,10 +465,10 @@ h3 {
 }
 
 .vm-divider {
-    width: 2px;
+    width: 1px;
     height: 100%;
     min-height: 280px;
-    background: var(--gradient);
+    background: linear-gradient(to bottom, transparent, rgba(0, 216, 255, 0.4), transparent);
     position: relative;
     border-radius: 1px;
 }
@@ -476,7 +481,7 @@ h3 {
     transform: translateX(-50%);
     width: 20px;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(0, 216, 255, 0.15) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -499,7 +504,7 @@ h3 {
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-        background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+        background: radial-gradient(ellipse at center, rgba(0, 216, 255, 0.15) 0%, transparent 70%);
     }
 }
 
@@ -516,10 +521,10 @@ h3 {
 }
 
 .service-card {
-    background: var(--dark);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--dark-card);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 16px;
-    padding: 40px 30px;
+    padding: 36px 28px;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -531,26 +536,27 @@ h3 {
 }
 
 .service-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    transform: translateY(-6px);
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 216, 255, 0.08);
 }
 
 .service-icon {
-    width: 60px;
-    height: 60px;
-    background: var(--gradient);
+    width: 52px;
+    height: 52px;
+    background: rgba(0, 216, 255, 0.08);
+    border: 1px solid rgba(0, 216, 255, 0.18);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .service-icon svg {
-    width: 30px;
-    height: 30px;
-    color: var(--white);
+    width: 26px;
+    height: 26px;
+    color: var(--primary);
 }
 
 .service-card h3 {
@@ -581,14 +587,13 @@ h3 {
     top: 48px;
     left: 10%;
     right: 10%;
-    height: 2px;
-    background: var(--gradient);
-    opacity: 0.3;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0,216,255,0.3), transparent);
 }
 
 .aanpak-step {
-    background: var(--dark-lighter);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--dark-card);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 16px;
     padding: 32px 24px;
     text-align: center;
@@ -597,15 +602,16 @@ h3 {
 }
 
 .aanpak-step:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    transform: translateY(-6px);
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 216, 255, 0.08);
 }
 
 .aanpak-icon {
-    width: 56px;
-    height: 56px;
-    background: var(--gradient);
+    width: 52px;
+    height: 52px;
+    background: rgba(0, 216, 255, 0.08);
+    border: 1px solid rgba(0, 216, 255, 0.18);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -614,18 +620,15 @@ h3 {
 }
 
 .aanpak-icon svg {
-    width: 26px;
-    height: 26px;
-    color: var(--white);
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
 }
 
 .aanpak-number {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
     margin-bottom: 12px;
     letter-spacing: 2px;
 }
@@ -681,10 +684,7 @@ h3 {
 .stat-number {
     font-size: 3.5rem;
     font-weight: 700;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
     display: inline;
 }
 
@@ -745,17 +745,17 @@ h3 {
     width: 100%;
     max-width: 350px;
     height: auto;
-    filter: drop-shadow(0 0 60px rgba(99, 102, 241, 0.4));
+    filter: drop-shadow(0 0 60px rgba(0, 216, 255, 0.35));
     animation: pulse-glow 3s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
     0%, 100% {
-        filter: drop-shadow(0 0 60px rgba(99, 102, 241, 0.4));
+        filter: drop-shadow(0 0 60px rgba(0, 216, 255, 0.35));
         transform: scale(1);
     }
     50% {
-        filter: drop-shadow(0 0 80px rgba(99, 102, 241, 0.6));
+        filter: drop-shadow(0 0 80px rgba(0, 216, 255, 0.5));
         transform: scale(1.02);
     }
 }
@@ -786,7 +786,7 @@ h3 {
 
 .testimonial-card:hover {
     border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 216, 255, 0.08);
 }
 
 .testimonial-quote {
@@ -879,7 +879,7 @@ h3 {
 
 .team-member:hover {
     border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 216, 255, 0.08);
 }
 
 .team-member--reversed {
@@ -905,7 +905,7 @@ h3 {
 }
 
 .team-member-photo--agents {
-    background: linear-gradient(135deg, var(--dark) 0%, rgba(99, 102, 241, 0.15) 100%);
+    background: linear-gradient(135deg, var(--dark) 0%, rgba(0, 216, 255, 0.08) 100%);
     border: 2px solid var(--primary);
     display: flex;
     align-items: center;
@@ -1112,9 +1112,9 @@ h3 {
 /* Jobs Page */
 .jobs-hero {
     padding: 160px 24px 80px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(14, 165, 233, 0.1) 50%, rgba(139, 92, 246, 0.15) 100%);
+    background: var(--dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .jobs-hero-img {
@@ -1124,7 +1124,7 @@ h3 {
     border-radius: 50%;
     padding: 4px;
     background: var(--gradient);
-    box-shadow: 0 0 60px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 60px rgba(0, 216, 255, 0.15);
 }
 
 .jobs-hero-img img {
@@ -1196,14 +1196,15 @@ h3 {
 .jobs-role-item:hover {
     border-color: var(--primary);
     transform: translateY(-4px);
-    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 15px 30px rgba(0, 216, 255, 0.06);
 }
 
 .jobs-role-icon {
     width: 48px;
     height: 48px;
     min-width: 48px;
-    background: var(--gradient);
+    background: rgba(0, 216, 255, 0.08);
+    border: 1px solid rgba(0, 216, 255, 0.18);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -1214,7 +1215,7 @@ h3 {
 .jobs-role-icon svg {
     width: 24px;
     height: 24px;
-    color: var(--white);
+    color: var(--primary);
 }
 
 .jobs-role-item h3 {
@@ -1248,13 +1249,14 @@ h3 {
 .jobs-benefit-card:hover {
     border-color: var(--primary);
     transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 216, 255, 0.08);
 }
 
 .jobs-benefit-icon {
-    width: 56px;
-    height: 56px;
-    background: var(--gradient);
+    width: 52px;
+    height: 52px;
+    background: rgba(0, 216, 255, 0.08);
+    border: 1px solid rgba(0, 216, 255, 0.18);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1263,9 +1265,9 @@ h3 {
 }
 
 .jobs-benefit-icon svg {
-    width: 26px;
-    height: 26px;
-    color: var(--white);
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
 }
 
 .jobs-benefit-card h3 {
@@ -1297,9 +1299,9 @@ h3 {
 
 .jobs-cta {
     padding: 100px 24px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(14, 165, 233, 0.15) 50%, rgba(139, 92, 246, 0.2) 100%);
+    background: var(--dark-lighter);
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .jobs-cta h2 {
