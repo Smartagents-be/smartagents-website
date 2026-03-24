@@ -237,7 +237,7 @@
   "services.training.page.cta.title": "Ready to upskill your team?",
   "services.training.page.cta.text": "Let's design a training program tailored to your team's needs and goals. On-site or remote, for any level.",
   "services.training.page.cta.button": "Get in touch",
-  "services.training.page.tree.intro": "Our training follows a strategic learning path. You start with a solid foundation — then choose the track that fits your role. Think of it like a driving course: everyone learns the rules of the road (course 01) and learns to drive (course 02). Then you decide: do you drive comfortably for daily use, or do you learn to tune the engine yourself?",
+  "services.training.page.tree.intro": "Our training is built in two phases. Courses 01 and 02 are for everyone: from understanding AI to using it daily. After that, the path branches based on your role — managers, power users, and developers each follow their own specialisation.",
   "services.training.page.tree.for": "For:",
   "services.training.page.tree.prereq": "Requires:",
   "services.training.page.tree.badge.everyone": "Everyone",
