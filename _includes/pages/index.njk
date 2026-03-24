@@ -120,35 +120,6 @@
         </div>
     </header>
 
-    <section class="hero-intro">
-        <div class="container">
-            <div class="hero-intro-inner">
-                <div class="hero-intro-text">
-                    <h1>{{ "hero.title" | t(locale) | safe }}</h1>
-                    <p>{{ "hero.subtitle" | t(locale) }}</p>
-                </div>
-                <div class="hero-intro-stats">
-                    <div class="hero-stat-card">
-                        <div class="hero-stat-number"><span class="stat-number" data-target="25">0</span>+</div>
-                        <div class="hero-stat-label">{{ "stats.agents" | t(locale) }}</div>
-                    </div>
-                    <div class="hero-stat-card">
-                        <div class="hero-stat-number"><span class="stat-number" data-target="23">0</span>%</div>
-                        <div class="hero-stat-label">{{ "stats.cost" | t(locale) }}</div>
-                    </div>
-                    <div class="hero-stat-card">
-                        <div class="hero-stat-number"><span class="stat-number" data-target="98">0</span>%</div>
-                        <div class="hero-stat-label">{{ "stats.satisfaction" | t(locale) }}</div>
-                    </div>
-                    <div class="hero-stat-card">
-                        <div class="hero-stat-number"><span class="stat-number" data-target="24">0</span>/7</div>
-                        <div class="hero-stat-label">{{ "stats.support" | t(locale) }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="vision-mission" class="vision-mission">
         <div class="container">
             <div class="vm-grid">
@@ -369,6 +340,31 @@
                 </div>
                 <div class="about-visual">
                     <img src="/assets/logo.svg" alt="SmartAgents" class="about-logo" width="160" height="160" decoding="async">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero-intro">
+        <div class="container">
+            <div class="hero-intro-inner">
+                <div class="hero-intro-stats">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="25">0</span>+</div>
+                        <div class="hero-stat-label">{{ "stats.agents" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="23">0</span>%</div>
+                        <div class="hero-stat-label">{{ "stats.cost" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="98">0</span>%</div>
+                        <div class="hero-stat-label">{{ "stats.satisfaction" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="24">0</span>/7</div>
+                        <div class="hero-stat-label">{{ "stats.support" | t(locale) }}</div>
+                    </div>
                 </div>
             </div>
         </div>
