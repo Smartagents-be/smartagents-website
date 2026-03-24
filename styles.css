@@ -998,68 +998,82 @@ h3 {
     background: var(--dark);
 }
 
-.aanpak-list {
+/* === Horizontal timeline (desktop) === */
+.aanpak-timeline {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+
+.aanpak-timeline::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 4%;
+    right: 4%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--cyan-40) 8%, var(--cyan-40) 92%, transparent);
+}
+
+.aanpak-step {
+    flex: 1;
     display: flex;
     flex-direction: column;
-}
-
-.aanpak-item {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-    padding: 28px 0;
-    border-bottom: 1px solid var(--white-07);
-}
-
-.aanpak-item-heading {
-    display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 8px;
+    text-align: center;
+    padding: 0 12px;
+    position: relative;
 }
 
-.aanpak-item-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
+.aanpak-step:last-child {
+    padding-bottom: 0;
+}
+
+.aanpak-icon {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--dark);
+    border: 2px solid var(--cyan-35);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--cyan-15);
-    border: 1px solid var(--cyan-20);
+    margin-bottom: 20px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.aanpak-step:hover .aanpak-icon {
+    border-color: var(--cyan);
+    background: var(--cyan-08);
+    box-shadow: 0 0 24px var(--cyan-20);
+}
+
+.aanpak-icon svg {
+    width: 22px;
+    height: 22px;
     color: var(--cyan);
-    box-shadow: 0 0 18px rgba(74, 160, 255, 0.12);
-    flex-shrink: 0;
 }
 
-.aanpak-item-icon svg {
-    width: 18px;
-    height: 18px;
-    stroke: currentColor;
+.aanpak-number {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
 }
 
-.aanpak-item-num {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--cyan-18);
-    line-height: 1;
-    min-width: 72px;
-    letter-spacing: -0.02em;
-    flex-shrink: 0;
+.aanpak-step h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
 }
 
-.aanpak-item-body h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--light);
-    margin-bottom: 0;
-}
-
-.aanpak-item-body p {
+.aanpak-step p {
     color: var(--gray-light);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.65;
 }
 
 .aanpak-link {
@@ -1093,34 +1107,57 @@ h3 {
     transform: translateX(3px);
 }
 
-.aanpak-item:last-child {
-    border-bottom: none;
-}
-
+/* Mobile: vertical left-side timeline */
 @media (max-width: 768px) {
-    .aanpak-item {
-        gap: 18px;
-        padding: 22px 0;
+    .aanpak-timeline {
+        display: block;
+        padding-left: 56px;
     }
 
-    .aanpak-item-icon {
-        width: 30px;
-        height: 30px;
-        border-radius: 9px;
+    .aanpak-timeline::before {
+        left: 18px;
+        top: 0;
+        right: auto;
+        bottom: 0;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(to bottom, transparent, var(--cyan-40) 8%, var(--cyan-40) 92%, transparent);
     }
 
-    .aanpak-item-icon svg {
-        width: 16px;
-        height: 16px;
+    .aanpak-step {
+        display: block;
+        text-align: left;
+        padding-bottom: 44px;
     }
 
-    .aanpak-item-num {
-        min-width: 52px;
-        font-size: 2.2rem;
+    .aanpak-step:last-child {
+        padding-bottom: 0;
     }
 
-    .aanpak-item-body h3 {
-        font-size: 1rem;
+    .aanpak-icon {
+        position: absolute;
+        left: -56px;
+        top: 0;
+        margin-bottom: 0;
+        width: 38px;
+        height: 38px;
+    }
+
+    .aanpak-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .aanpak-number {
+        padding-top: 6px;
+    }
+
+    .aanpak-step h3 {
+        font-size: 1.1rem;
+    }
+
+    .aanpak-step p {
+        font-size: 0.9rem;
     }
 }
 
@@ -1887,7 +1924,7 @@ h3 {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 40px;
     margin-bottom: 60px;
 }

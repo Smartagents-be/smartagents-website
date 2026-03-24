@@ -141,84 +141,64 @@
             <h2 class="section-title">{{ "approach.title" | t(locale) }}</h2>
             <p class="section-subtitle">{{ "approach.subtitle" | t(locale) }}</p>
 
-            <div class="aanpak-list">
-                <div class="aanpak-item">
-                    <div class="aanpak-item-num">01</div>
-                    <div class="aanpak-item-body">
-                        <div class="aanpak-item-heading">
-                            <div class="aanpak-item-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="11" cy="11" r="7"></circle>
-                                    <path d="M20 20l-3.5-3.5"></path>
-                                </svg>
-                            </div>
-                            <h3>{{ "approach.step1.title" | t(locale) }}</h3>
-                        </div>
-                        <p>{{ "approach.step1.desc" | t(locale) }}</p>
-                        <a href="{{ "/services/smart-scan/" | locale_url }}" class="aanpak-link">{{ "approach.step1.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            <div class="aanpak-timeline">
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="M20 20l-3.5-3.5"></path>
+                        </svg>
                     </div>
+                    <div class="aanpak-number">01</div>
+                    <h3>{{ "approach.step1.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step1.desc" | t(locale) }}</p>
+                    <a href="{{ "/services/smart-scan/" | locale_url }}" class="aanpak-link">{{ "approach.step1.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                 </div>
-                <div class="aanpak-item">
-                    <div class="aanpak-item-num">02</div>
-                    <div class="aanpak-item-body">
-                        <div class="aanpak-item-heading">
-                            <div class="aanpak-item-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M3 21h6"></path>
-                                    <path d="M14.5 4.5a2.12 2.12 0 1 1 3 3L8 17l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                            </div>
-                            <h3>{{ "approach.step2.title" | t(locale) }}</h3>
-                        </div>
-                        <p>{{ "approach.step2.desc" | t(locale) }}</p>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21h6"></path>
+                            <path d="M14.5 4.5a2.12 2.12 0 1 1 3 3L8 17l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
                     </div>
+                    <div class="aanpak-number">02</div>
+                    <h3>{{ "approach.step2.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step2.desc" | t(locale) }}</p>
                 </div>
-                <div class="aanpak-item">
-                    <div class="aanpak-item-num">03</div>
-                    <div class="aanpak-item-body">
-                        <div class="aanpak-item-heading">
-                            <div class="aanpak-item-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="16 18 22 12 16 6"></polyline>
-                                    <polyline points="8 6 2 12 8 18"></polyline>
-                                    <line x1="10" y1="20" x2="14" y2="4"></line>
-                                </svg>
-                            </div>
-                            <h3>{{ "approach.step3.title" | t(locale) }}</h3>
-                        </div>
-                        <p>{{ "approach.step3.desc" | t(locale) }}</p>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                            <line x1="10" y1="20" x2="14" y2="4"></line>
+                        </svg>
                     </div>
+                    <div class="aanpak-number">03</div>
+                    <h3>{{ "approach.step3.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step3.desc" | t(locale) }}</p>
                 </div>
-                <div class="aanpak-item">
-                    <div class="aanpak-item-num">04</div>
-                    <div class="aanpak-item-body">
-                        <div class="aanpak-item-heading">
-                            <div class="aanpak-item-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                </svg>
-                            </div>
-                            <h3>{{ "approach.step4.title" | t(locale) }}</h3>
-                        </div>
-                        <p>{{ "approach.step4.desc" | t(locale) }}</p>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
                     </div>
+                    <div class="aanpak-number">04</div>
+                    <h3>{{ "approach.step4.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step4.desc" | t(locale) }}</p>
                 </div>
-                <div class="aanpak-item">
-                    <div class="aanpak-item-num">05</div>
-                    <div class="aanpak-item-body">
-                        <div class="aanpak-item-heading">
-                            <div class="aanpak-item-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="6" y1="20" x2="6" y2="10"></line>
-                                    <line x1="12" y1="20" x2="12" y2="4"></line>
-                                    <line x1="18" y1="20" x2="18" y2="14"></line>
-                                </svg>
-                            </div>
-                            <h3>{{ "approach.step5.title" | t(locale) }}</h3>
-                        </div>
-                        <p>{{ "approach.step5.desc" | t(locale) }}</p>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="20" x2="6" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="18" y1="20" x2="18" y2="14"></line>
+                        </svg>
                     </div>
+                    <div class="aanpak-number">05</div>
+                    <h3>{{ "approach.step5.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step5.desc" | t(locale) }}</p>
                 </div>
             </div>
         </div>
