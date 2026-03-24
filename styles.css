@@ -2097,6 +2097,15 @@ h3 {
     height: 20px;
 }
 
+.footer-social-col h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 16px;
+}
+
 .footer-links h4 {
     margin-bottom: 20px;
     color: var(--light);
