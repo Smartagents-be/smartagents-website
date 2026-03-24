@@ -595,90 +595,99 @@ h3 {
 }
 
 .aanpak-timeline {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 24px;
     position: relative;
+    padding-left: 80px;
+    max-width: 760px;
+    margin: 0 auto;
 }
 
+/* Vertical line */
 .aanpak-timeline::before {
     content: '';
     position: absolute;
-    top: 48px;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(0,216,255,0.3), transparent);
+    left: 24px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 216, 255, 0.4) 10%, rgba(0, 216, 255, 0.4) 90%, transparent);
 }
 
 .aanpak-step {
-    background: var(--dark-card);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 16px;
-    padding: 32px 24px;
-    text-align: center;
     position: relative;
-    transition: all 0.3s ease;
+    padding-bottom: 52px;
 }
 
-.aanpak-step:hover {
-    transform: translateY(-6px);
-    border-color: rgba(0, 216, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 216, 255, 0.08);
+.aanpak-step:last-child {
+    padding-bottom: 0;
 }
 
+/* Circle node on the line */
 .aanpak-icon {
-    width: 52px;
-    height: 52px;
-    background: rgba(0, 216, 255, 0.08);
-    border: 1px solid rgba(0, 216, 255, 0.18);
+    position: absolute;
+    left: -80px;
+    top: 0;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+    background: var(--dark);
+    border: 2px solid rgba(0, 216, 255, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 16px;
+    transition: all 0.3s ease;
+}
+
+.aanpak-step:hover .aanpak-icon {
+    border-color: var(--primary);
+    background: rgba(0, 216, 255, 0.08);
+    box-shadow: 0 0 24px rgba(0, 216, 255, 0.2);
 }
 
 .aanpak-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     color: var(--primary);
 }
 
 .aanpak-number {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 12px;
-    letter-spacing: 2px;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    padding-top: 6px;
 }
 
 .aanpak-step h3 {
-    font-size: 1.15rem;
-    margin-bottom: 12px;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
 }
 
 .aanpak-step p {
     color: var(--gray-light);
     font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-@media (max-width: 1024px) {
-    .aanpak-timeline {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .aanpak-timeline::before {
-        display: none;
-    }
+    line-height: 1.7;
+    max-width: 580px;
 }
 
 @media (max-width: 768px) {
     .aanpak-timeline {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto;
+        padding-left: 60px;
+    }
+
+    .aanpak-timeline::before {
+        left: 18px;
+    }
+
+    .aanpak-icon {
+        left: -60px;
+        width: 38px;
+        height: 38px;
+    }
+
+    .aanpak-icon svg {
+        width: 18px;
+        height: 18px;
     }
 }
 
