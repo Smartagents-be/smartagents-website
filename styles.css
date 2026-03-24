@@ -514,83 +514,78 @@ h3 {
     background: var(--dark-lighter);
 }
 
-.services-list {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+.services-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
 }
 
-.service-row {
-    display: grid;
-    grid-template-columns: 52px 52px 1fr 32px;
-    align-items: center;
-    gap: 28px;
-    padding: 32px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+.service-feature {
+    position: relative;
+    padding: 52px 48px;
     text-decoration: none;
     color: inherit;
-    transition: all 0.25s ease;
+    overflow: hidden;
+    transition: background 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.service-row:hover {
-    padding-left: 8px;
+.service-feature:nth-child(odd) {
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.service-row-num {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.18);
-    letter-spacing: 0.05em;
-    transition: color 0.25s;
+.service-feature:hover {
+    background: rgba(0, 216, 255, 0.04);
 }
 
-.service-row:hover .service-row-num {
-    color: var(--primary);
-}
 
-.service-row-icon {
-    width: 44px;
-    height: 44px;
+.service-feature-icon {
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
-.service-row-icon svg {
-    width: 26px;
-    height: 26px;
-    color: rgba(255, 255, 255, 0.35);
-    transition: color 0.25s;
+.service-feature-icon svg {
+    width: 30px;
+    height: 30px;
+    color: var(--primary);
+    opacity: 0.7;
+    transition: opacity 0.3s;
 }
 
-.service-row:hover .service-row-icon svg {
+.service-feature:hover .service-feature-icon svg {
+    opacity: 1;
+}
+
+.service-feature h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    transition: color 0.3s;
+}
+
+.service-feature:hover h3 {
     color: var(--primary);
 }
 
-.service-row-body h3 {
-    font-size: 1.15rem;
-    margin-bottom: 6px;
-    transition: color 0.25s;
-}
-
-.service-row:hover .service-row-body h3 {
-    color: var(--primary);
-}
-
-.service-row-body p {
+.service-feature p {
     color: var(--gray-light);
     font-size: 0.9rem;
-    margin: 0;
+    line-height: 1.7;
+    margin-bottom: 20px;
 }
 
-.service-row-arrow svg {
-    width: 20px;
-    height: 20px;
-    color: rgba(255, 255, 255, 0.2);
-    transition: all 0.25s;
+.service-feature-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(0, 216, 255, 0.5);
+    transition: color 0.3s;
 }
 
-.service-row:hover .service-row-arrow svg {
+.service-feature:hover .service-feature-link {
     color: var(--primary);
-    transform: translateX(4px);
 }
 
 /* Aanpak */
@@ -1568,12 +1563,15 @@ h3 {
         grid-template-columns: 1fr;
     }
 
-    .service-row {
-        grid-template-columns: 36px 1fr 20px;
-        gap: 16px;
+    .services-feature-grid {
+        grid-template-columns: 1fr;
     }
 
-    .service-row-icon {
-        display: none;
+    .service-feature:nth-child(odd) {
+        border-right: none;
+    }
+
+    .service-feature {
+        padding: 36px 24px;
     }
 }
