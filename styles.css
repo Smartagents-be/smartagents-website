@@ -2557,10 +2557,12 @@ body[data-service="smartscan"] .page-role-item:last-child {
         grid-template-areas: "node content";
     }
 
+    .scan-step.scan-step-left .scan-step-node,
     .scan-step.scan-step-right .scan-step-node {
         order: -1;
     }
 
+    .scan-step.scan-step-left .scan-step-content,
     .scan-step.scan-step-right .scan-step-content {
         order: 1;
     }
@@ -3114,111 +3116,256 @@ body[data-service="smartscan"] .page-role-item:last-child {
     flex-shrink: 0;
     opacity: 0.7;
 }
+/* ── Training mobile stepper (mobile-only, desktop hidden) ── */
+.training-stepper { display: none; }
+
 @media (max-width: 767px) {
-    .training-tree {
+    .training-tree { display: none; }
+
+    .training-stepper {
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        align-items: stretch;
+        gap: 0;
     }
-    .training-trunk-section {
+
+    /* Step row: marker + card */
+    .tms-step {
+        display: flex;
+        align-items: flex-start;
         gap: 14px;
     }
-    .training-node {
-        padding: 18px;
-        border-radius: 18px;
-    }
-    .training-node-header {
-        align-items: flex-start;
-    }
-    .training-node-prereq-inline {
-        width: 100%;
-        margin-left: 0;
-        padding-top: 4px;
-    }
-    .training-fork {
-        display: none;
-    }
-    .training-branches {
+    .tms-step-marker {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         display: flex;
-        flex-direction: column;
-        position: relative;
-        gap: 18px;
-        padding-top: 14px;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        margin-top: 2px;
     }
-    .training-branches::before {
-        content: '';
+    .tms-marker--cyan {
+        background: rgba(0,216,255,0.12);
+        border: 2px solid rgba(0,216,255,0.4);
+        color: var(--cyan);
+    }
+
+    /* Card */
+    .tms-step-card {
+        flex: 1;
+        border-radius: 14px;
+        padding: 16px 18px;
+        border: 1px solid rgba(255,255,255,0.07);
+        background: rgba(255,255,255,0.03);
+        margin-bottom: 0;
+    }
+    .tms-card--cyan { border-left: 3px solid rgba(0,216,255,0.45); }
+    .tms-card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .tms-card-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 6px;
+        line-height: 1.4;
+    }
+    .tms-card-desc {
+        font-size: 0.8rem;
+        color: var(--gray-light);
+        line-height: 1.65;
+        margin: 0 0 8px;
+    }
+    .tms-card-for {
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.35);
+        margin: 0;
+    }
+    .tms-prereq {
+        font-size: 0.65rem;
+        color: rgba(255,255,255,0.3);
+        letter-spacing: 0.04em;
+    }
+
+    /* Connector between steps */
+    .tms-connector {
         width: 2px;
-        height: 18px;
-        background: linear-gradient(to bottom, rgba(0,216,255,0.4), rgba(0,216,255,0.08));
-        position: absolute;
-        top: -8px;
-        left: 24px;
+        height: 20px;
+        border-radius: 999px;
+        margin: 6px 0 6px 19px;
     }
-    .training-branch {
-        position: relative;
-        padding: 18px 16px 16px 22px;
-        border-left: 2px solid transparent;
-        border-radius: 18px;
-        background: rgba(6, 10, 16, 0.72);
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
-    }
-    .training-branch::before {
-        content: '';
-        position: absolute;
-        top: -14px;
-        left: -2px;
-        width: 2px;
-        height: 14px;
-        background: currentColor;
-        opacity: 0.45;
-    }
-    .training-path-heading {
-        display: block;
-        margin-bottom: 14px;
-    }
-    .training-path-kicker {
-        font-size: 0.72rem;
+    .tms-connector--cyan { background: linear-gradient(to bottom, rgba(0,216,255,0.4), rgba(0,216,255,0.15)); }
+
+    /* Badge pills */
+    .tms-badge {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.58rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        opacity: 0.7;
-    }
-    .training-branch--management {
-        border-left-color: rgba(168,85,247,0.45);
-        color: #c084fc;
-    }
-    .training-branch--deepdive {
-        border-left-color: rgba(59,130,246,0.45);
-        color: #93c5fd;
-        margin-top: 0;
-    }
-    .training-branch .training-node {
-        background: rgba(255,255,255,0.02);
-    }
-    .training-branch .training-node + .training-connector--deepdive {
-        margin-top: 14px;
-    }
-    .training-connector--deepdive {
-        width: 2px;
-        height: 18px;
-        margin: 10px 0 10px 11px;
-        background: linear-gradient(to bottom, rgba(59,130,246,0.45), rgba(16,185,129,0.45));
+        padding: 2px 8px;
         border-radius: 999px;
     }
-    .training-path-continuation {
-        display: block;
-        margin: 0 0 2px 11px;
+    .tms-badge--everyone   { background: rgba(0,216,255,0.1);   color: var(--cyan); border: 1px solid rgba(0,216,255,0.2); }
+    .tms-badge--management { background: rgba(168,85,247,0.1);  color: #c084fc;     border: 1px solid rgba(168,85,247,0.2); }
+    .tms-badge--deepdive   { background: rgba(59,130,246,0.1);  color: #93c5fd;     border: 1px solid rgba(59,130,246,0.2); }
+    .tms-badge--developer  { background: rgba(16,185,129,0.1);  color: #34d399;     border: 1px solid rgba(16,185,129,0.2); }
+
+    /* Path split divider */
+    .tms-split {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        margin: 10px 0 20px;
+        text-align: center;
+    }
+    .tms-split-line {
+        width: 2px;
+        height: 20px;
+        background: linear-gradient(to bottom, rgba(0,216,255,0.3), rgba(255,255,255,0.1));
+        border-radius: 999px;
+        margin-bottom: 14px;
+    }
+    .tms-split-label {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px;
+        padding: 12px 20px;
+        width: 100%;
+    }
+    .tms-split-label h4 {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0 0 4px;
+        letter-spacing: 0.02em;
+    }
+    .tms-split-label p {
         font-size: 0.72rem;
+        color: rgba(255,255,255,0.4);
+        margin: 0;
+        line-height: 1.5;
+    }
+    .tms-split-arrows {
+        display: flex;
+        gap: 48px;
+        margin-top: 12px;
+    }
+    .tms-split-arrow {
+        width: 2px;
+        height: 20px;
+        border-radius: 999px;
+    }
+    .tms-arrow--purple { background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(168,85,247,0.6)); }
+    .tms-arrow--blue   { background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(59,130,246,0.6)); }
+
+    /* Paths container */
+    .tms-paths {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* Each path block */
+    .tms-path {
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.07);
+    }
+    .tms-path-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+    .tms-path-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        opacity: 0.85;
+    }
+    .tms-path-icon svg { width: 100%; height: 100%; }
+    .tms-path--management .tms-path-header {
+        background: rgba(168,85,247,0.1);
+        color: #c084fc;
+        border-bottom: 1px solid rgba(168,85,247,0.2);
+    }
+    .tms-path--deepdive .tms-path-header {
+        background: rgba(59,130,246,0.1);
+        color: #93c5fd;
+        border-bottom: 1px solid rgba(59,130,246,0.2);
+    }
+
+    /* Course cards inside a path */
+    .tms-path-course {
+        padding: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .tms-path-course:last-child { border-bottom: none; }
+    .tms-path-course h3 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #fff;
+        margin: 0;
+        line-height: 1.4;
+    }
+    .tms-path-course p {
+        font-size: 0.78rem;
+        color: var(--gray-light);
+        line-height: 1.6;
+        margin: 0;
+    }
+    .tms-path-stepnum {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #93c5fd;
+        opacity: 0.7;
+        line-height: 1;
+    }
+    .tms-path-course--developer {
+        background: rgba(16,185,129,0.04);
+        border-top: 1px solid rgba(16,185,129,0.1);
+    }
+
+    /* "Vervolgens" label between deep dive steps */
+    .tms-path-continues {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 16px;
+        font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.55);
+        color: rgba(255,255,255,0.3);
+        background: rgba(16,185,129,0.04);
+        border-top: 1px solid rgba(16,185,129,0.1);
+        border-bottom: 1px solid rgba(16,185,129,0.1);
     }
-    .training-node-target {
-        flex-direction: column;
-        gap: 4px;
+    .tms-path-continues svg {
+        width: 12px;
+        height: 12px;
+        color: rgba(16,185,129,0.5);
+        flex-shrink: 0;
     }
 }
+
 
 /* Scroll reveal animation classes */
 .reveal-slide-up {
