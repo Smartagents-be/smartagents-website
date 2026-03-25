@@ -2436,6 +2436,12 @@ body[data-service="smartscan"] .page-role-item:last-child {
     border-radius: 999px;
     box-shadow: 0 0 8px rgba(0,216,255,0.5);
 }
+.jc-freelance-note {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.45);
+}
 
 @media (max-width: 768px) {
     .jc-slide-inner { padding: 24px 20px 20px; }
