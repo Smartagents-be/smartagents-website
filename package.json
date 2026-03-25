@@ -1,0 +1,11 @@
+{
+  "name": "smartagents-website",
+  "private": true,
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "scripts": {
+    "build": "node scripts/clean-dist.mjs && eleventy",
+    "start:local": "node scripts/start-local.mjs"
+  }
+}

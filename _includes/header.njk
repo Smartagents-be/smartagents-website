@@ -1,0 +1,119 @@
+{% set shell = shellConfigs[shellContext] %}
+<nav class="navbar" id="navbar">
+    <!-- Logo (visible on desktop) -->
+    <a href="{{ "/" | locale_url }}" class="navbar-logo" aria-label="SmartAgents">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+                <linearGradient id="navLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00d8ff"/>
+                    <stop offset="50%" style="stop-color:#22d3ee"/>
+                    <stop offset="100%" style="stop-color:#4f6cf7"/>
+                </linearGradient>
+            </defs>
+            <g stroke="url(#navLogoGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+                <line x1="24" y1="8" x2="12" y2="20"/>
+                <line x1="24" y1="8" x2="36" y2="20"/>
+                <line x1="12" y1="20" x2="24" y2="24"/>
+                <line x1="36" y1="20" x2="24" y2="24"/>
+                <line x1="12" y1="20" x2="12" y2="32"/>
+                <line x1="36" y1="20" x2="36" y2="32"/>
+                <line x1="24" y1="24" x2="24" y2="40"/>
+                <line x1="12" y1="32" x2="24" y2="40"/>
+                <line x1="36" y1="32" x2="24" y2="40"/>
+            </g>
+            <g fill="url(#navLogoGradient)">
+                <circle cx="24" cy="8" r="4"/>
+                <circle cx="12" cy="20" r="3"/>
+                <circle cx="36" cy="20" r="3"/>
+                <circle cx="24" cy="24" r="3.5"/>
+                <circle cx="12" cy="32" r="2.5"/>
+                <circle cx="36" cy="32" r="2.5"/>
+                <circle cx="24" cy="40" r="3"/>
+            </g>
+            <circle cx="24" cy="8" r="6" fill="none" stroke="url(#navLogoGradient)" stroke-width="1" opacity="0.4"/>
+        </svg>
+        <span>SmartAgents</span>
+    </a>
+
+    <!-- Nav links (desktop only) -->
+    <div class="navbar-links">
+        <div class="navbar-dropdown">
+            <a href="{{ "/" | locale_url }}#services" class="navbar-link navbar-dropdown-trigger {% if shell.servicesActive %}active{% endif %}">
+                {{ "nav.services" | t(locale) }}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="navbar-subnav">
+                <a href="{{ "/services/agentic-ai/" | locale_url }}" data-nav-service="agentic">{{ "services.agentic.title" | t(locale) }}</a>
+                <a href="{{ "/services/process-optimization/" | locale_url }}" data-nav-service="process">{{ "services.process.title" | t(locale) }}</a>
+                <a href="{{ "/services/training/" | locale_url }}" data-nav-service="training">{{ "services.training.title" | t(locale) }}</a>
+            </div>
+        </div>
+        <div class="navbar-dropdown">
+            <a href="{{ "/" | locale_url }}#aanpak" class="navbar-link navbar-dropdown-trigger">
+                {{ "nav.approach" | t(locale) }}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="navbar-subnav">
+                <a href="{{ "/services/smart-scan/" | locale_url }}" data-nav-service="smartscan">{{ "services.smartscan.title" | t(locale) }}</a>
+            </div>
+        </div>
+        <a href="{{ "/" | locale_url }}#about" class="navbar-link">{{ "nav.about" | t(locale) }}</a>
+        <a href="{{ "/" | locale_url }}#contact" class="navbar-link">{{ "nav.contact" | t(locale) }}</a>
+        <a href="{{ "/jobs/" | locale_url }}" class="navbar-link {% if shell.jobsActive %}active{% endif %}">{{ "nav.jobs" | t(locale) }}</a>
+    </div>
+
+    <!-- Right cluster: CTA + lang + MENU scramble -->
+    <div class="navbar-right">
+        <a href="{{ "/customerzone/" | locale_url }}" class="btn btn-nav">{{ "nav.customerzone" | t(locale) }}</a>
+        <div class="navbar-lang">
+            <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl }}">EN</a>
+            <a class="lang-btn {% if locale == 'nl' %}active{% endif %}" href="{{ nlUrl }}">NL</a>
+        </div>
+        <button class="fullscreen-menu-btn" aria-label="{{ 'nav.menu.open' | t(locale) }}" data-label-close="{{ 'nav.menu.close' | t(locale) }}">
+            <span class="menu-label">MENU</span>
+            <span class="menu-bars">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </button>
+    </div>
+</nav>
+
+<!-- Fixed home pill (non-homepage, mobile only) -->
+<a href="{{ "/" | locale_url }}" class="home-pill" aria-label="{{ 'nav.home' | t(locale) }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span class="home-label">HOME</span>
+</a>
+
+<!-- Fullscreen nav overlay (unchanged) -->
+<div class="fullscreen-nav-overlay" aria-hidden="true">
+    <nav>
+        <a href="{{ "/customerzone/" | locale_url }}" class="overlay-nav-cta">{{ "nav.customerzone" | t(locale) }}</a>
+        <div class="overlay-nav-group">
+            <a href="{{ "/" | locale_url }}#aanpak" class="overlay-nav-group-label">{{ "nav.approach" | t(locale) }}</a>
+            <div class="overlay-nav-subnav">
+                <a href="{{ "/services/smart-scan/" | locale_url }}">{{ "services.smartscan.title" | t(locale) }}</a>
+            </div>
+        </div>
+        <div class="overlay-nav-group">
+            <a href="{{ "/" | locale_url }}#services" class="overlay-nav-group-label">{{ "nav.services" | t(locale) }}</a>
+            <div class="overlay-nav-subnav">
+                <a href="{{ "/services/agentic-ai/" | locale_url }}">{{ "services.agentic.title" | t(locale) }}</a>
+                <a href="{{ "/services/process-optimization/" | locale_url }}">{{ "services.process.title" | t(locale) }}</a>
+                <a href="{{ "/services/training/" | locale_url }}">{{ "services.training.title" | t(locale) }}</a>
+            </div>
+        </div>
+        <a href="{{ "/" | locale_url }}#vision-mission">{{ "nav.values" | t(locale) }}</a>
+        <a href="{{ "/" | locale_url }}#about">{{ "nav.about" | t(locale) }}</a>
+        <a href="{{ "/" | locale_url }}#team">{{ "nav.team" | t(locale) }}</a>
+        <a href="{{ "/" | locale_url }}#contact">{{ "nav.contact" | t(locale) }}</a>
+        <a href="{{ "/jobs/" | locale_url }}">{{ "nav.jobs" | t(locale) }}</a>
+    </nav>
+</div>
+
+<!-- Lang switcher shown when overlay is open (mobile) -->
+<div class="overlay-lang-switcher" aria-hidden="true">
+    <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl }}">EN</a>
+    <a class="lang-btn {% if locale == 'nl' %}active{% endif %}" href="{{ nlUrl }}">NL</a>
+</div>

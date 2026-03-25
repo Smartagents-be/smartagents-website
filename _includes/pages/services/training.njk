@@ -1,0 +1,361 @@
+{% set nlUrl = '/services/training/' %}
+{% set enUrl = '/en/services/training/' %}
+{% set nlAltUrl = nlUrl | absoluteUrl(baseUrl) %}
+{% set enAltUrl = enUrl | absoluteUrl(baseUrl) %}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "page.training.title" | t(locale) }}</title>
+    <meta name="description" content="{{ 'page.training.description' | t(locale) }}">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#8b5cf6">
+    <link rel="canonical" href="{{ page.url | absoluteUrl(baseUrl) }}">
+    <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlAltUrl }}">
+    <meta property="og:url" content="{{ page.url | absoluteUrl(baseUrl) }}">
+
+    <!-- Open Graph -->
+    {% set ogLocale = 'nl_BE' if locale == 'nl' else 'en_US' %}
+    {% set ogLocaleAlt = 'en_US' if locale == 'nl' else 'nl_BE' %}
+    {% set resolvedSocialImage = baseUrl + socialImage %}
+    {% set resolvedSocialAlt = socialAlt[locale] %}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ 'page.training.title' | t(locale) }}">
+    <meta property="og:description" content="{{ 'page.training.description' | t(locale) }}">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ ogLocaleAlt }}">
+    <meta property="og:image" content="{{ resolvedSocialImage }}">
+    <meta property="og:image:alt" content="{{ resolvedSocialAlt }}">
+    <meta property="og:site_name" content="SmartAgents">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ 'page.training.title' | t(locale) }}">
+    <meta name="twitter:description" content="{{ 'page.training.description' | t(locale) }}">
+    <meta name="twitter:image" content="{{ resolvedSocialImage }}">
+    <meta name="twitter:image:alt" content="{{ resolvedSocialAlt }}">
+    <meta name="twitter:domain" content="smartagents.be">
+
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    {% include "schema-organization.njk" %}
+    {% set schemaData = { schemaType: schemaType, pageKey: pageKey, serviceNameKey: serviceNameKey, socialImage: socialImage, nlPermalink: nlPermalink, pageUrl: page.url } %}
+    {% set schema = schemaData | buildSchema(locale) %}
+    {% if schema %}
+    <script type="application/ld+json" data-generated-schema="page">{{ schema | safe }}</script>
+    {% endif %}
+</head>
+<body data-service="training">
+    {% include "header.njk" %}
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>{{ "services.training.title" | t(locale) }}</h1>
+            <p>{{ "services.training.page.subtitle" | t(locale) }}</p>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.training.page.overview.title" | t(locale) }}</h2>
+            <div class="page-vision-text">
+                <p>{{ "services.training.page.overview.text" | t(locale) }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section page-section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ "services.training.page.features.title" | t(locale) }}</h2>
+            <p class="training-tree-intro">{{ "services.training.page.tree.intro" | t(locale) }}</p>
+
+            <!-- ── MOBILE-ONLY: linear stepper layout ── -->
+            <div class="training-stepper">
+
+                <!-- Foundation steps -->
+                <div class="tms-step">
+                    <div class="tms-step-marker tms-marker--cyan">
+                        <span>01</span>
+                    </div>
+                    <div class="tms-step-card tms-card--cyan">
+                        <div class="tms-card-header">
+                            <span class="tms-badge tms-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                        </div>
+                        <h3 class="tms-card-title">{{ "services.training.page.course1.title" | t(locale) }}</h3>
+                        <p class="tms-card-desc">{{ "services.training.page.course1.desc" | t(locale) }}</p>
+                        <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course1.target" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="tms-connector tms-connector--cyan"></div>
+
+                <div class="tms-step">
+                    <div class="tms-step-marker tms-marker--cyan">
+                        <span>02</span>
+                    </div>
+                    <div class="tms-step-card tms-card--cyan">
+                        <div class="tms-card-header">
+                            <span class="tms-badge tms-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 01</span>
+                        </div>
+                        <h3 class="tms-card-title">{{ "services.training.page.course2.title" | t(locale) }}</h3>
+                        <p class="tms-card-desc">{{ "services.training.page.course2.desc" | t(locale) }}</p>
+                        <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course2.target" | t(locale) }}</p>
+                    </div>
+                </div>
+
+                <!-- Path split -->
+                <div class="tms-split">
+                    <div class="tms-split-line"></div>
+                    <div class="tms-split-label">
+                        <h4>{{ "services.training.page.tree.split.title" | t(locale) }}</h4>
+                        <p>{{ "services.training.page.tree.split.subtitle" | t(locale) }}</p>
+                    </div>
+                    <div class="tms-split-arrows">
+                        <div class="tms-split-arrow tms-arrow--purple"></div>
+                        <div class="tms-split-arrow tms-arrow--blue"></div>
+                    </div>
+                </div>
+
+                <!-- Two paths -->
+                <div class="tms-paths">
+
+                    <!-- Path A: Management -->
+                    <div class="tms-path tms-path--management">
+                        <div class="tms-path-header">
+                            <span class="tms-path-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+                            </span>
+                            <span>{{ "services.training.page.tree.path1" | t(locale) }}</span>
+                            <span class="tms-badge tms-badge--management">{{ "services.training.page.tree.badge.management" | t(locale) }}</span>
+                        </div>
+                        <div class="tms-path-course">
+                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            <h3>{{ "services.training.page.courseM.title" | t(locale) }}</h3>
+                            <p>{{ "services.training.page.courseM.desc" | t(locale) }}</p>
+                            <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseM.target" | t(locale) }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Path B: Deep Dive → Developer -->
+                    <div class="tms-path tms-path--deepdive">
+                        <div class="tms-path-header">
+                            <span class="tms-path-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                            </span>
+                            <span>{{ "services.training.page.tree.path2" | t(locale) }}</span>
+                            <span class="tms-badge tms-badge--deepdive">{{ "services.training.page.tree.badge.deepdive" | t(locale) }}</span>
+                        </div>
+                        <div class="tms-path-course">
+                            <div class="tms-path-stepnum">03</div>
+                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            <h3>{{ "services.training.page.course3.title" | t(locale) }}</h3>
+                            <p>{{ "services.training.page.course3.desc" | t(locale) }}</p>
+                            <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course3.target" | t(locale) }}</p>
+                        </div>
+                        <div class="tms-path-continues">
+                            <span>{{ "services.training.page.tree.continues" | t(locale) }}</span>
+                            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v11.793l3.146-3.147a.5.5 0 01.708.708l-4 4a.5.5 0 01-.708 0l-4-4a.5.5 0 01.708-.708L7.5 13.293V1.5A.5.5 0 018 1z" clip-rule="evenodd"/></svg>
+                        </div>
+                        <div class="tms-path-course tms-path-course--developer">
+                            <span class="tms-badge tms-badge--developer">{{ "services.training.page.tree.badge.developers" | t(locale) }}</span>
+                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 03</span>
+                            <h3>{{ "services.training.page.courseD.title" | t(locale) }}</h3>
+                            <p>{{ "services.training.page.courseD.desc" | t(locale) }}</p>
+                            <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseD.target" | t(locale) }}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ── END MOBILE STEPPER ── -->
+
+            <div class="training-tree">
+
+                <!-- TRUNK: Course 1 + Course 2 -->
+                <div class="training-trunk-section">
+                    <div class="training-node training-node--trunk">
+                        <div class="training-node-header">
+                            <span class="training-node-num">01</span>
+                            <span class="training-badge training-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                        </div>
+                        <h3 class="training-node-title">{{ "services.training.page.course1.title" | t(locale) }}</h3>
+                        <p class="training-node-desc">{{ "services.training.page.course1.desc" | t(locale) }}</p>
+                        <div class="training-node-meta">
+                            <div class="training-node-target">
+                                <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                <span>{{ "services.training.page.course1.target" | t(locale) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="training-connector training-connector--trunk"></div>
+                    <div class="training-node training-node--trunk">
+                        <div class="training-node-header">
+                            <span class="training-node-num">02</span>
+                            <span class="training-badge training-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                            <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 01</span>
+                        </div>
+                        <h3 class="training-node-title">{{ "services.training.page.course2.title" | t(locale) }}</h3>
+                        <p class="training-node-desc">{{ "services.training.page.course2.desc" | t(locale) }}</p>
+                        <div class="training-node-meta">
+                            <div class="training-node-target">
+                                <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                <span>{{ "services.training.page.course2.target" | t(locale) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORK VISUAL -->
+                <div class="training-fork" aria-hidden="true">
+                    <div class="training-fork-left"></div>
+                    <div class="training-fork-right"></div>
+                </div>
+
+                <!-- BRANCHES -->
+                <div class="training-branches">
+
+                    <!-- Management -->
+                    <div class="training-branch training-branch--management">
+                        <div class="training-path-heading">
+                            <span class="training-path-kicker">{{ "services.training.page.tree.path1" | t(locale) }}</span>
+                        </div>
+                        <div class="training-node training-node--management">
+                            <div class="training-node-header">
+                                <span class="training-badge training-badge--management">{{ "services.training.page.tree.badge.management" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.courseM.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.courseM.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.courseM.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deep Dive → Developers -->
+                    <div class="training-branch training-branch--deepdive">
+                        <div class="training-path-heading">
+                            <span class="training-path-kicker">{{ "services.training.page.tree.path2" | t(locale) }}</span>
+                        </div>
+                        <div class="training-node training-node--deepdive">
+                            <div class="training-node-header">
+                                <span class="training-node-num">03</span>
+                                <span class="training-badge training-badge--deepdive">{{ "services.training.page.tree.badge.deepdive" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.course3.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.course3.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.course3.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="training-connector training-connector--deepdive"></div>
+                        <p class="training-path-continuation">{{ "services.training.page.tree.continues" | t(locale) }}</p>
+                        <div class="training-node training-node--developer">
+                            <div class="training-node-header">
+                                <span class="training-badge training-badge--developer">{{ "services.training.page.tree.badge.developers" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 03</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.courseD.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.courseD.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.courseD.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.training.page.benefits.title" | t(locale) }}</h2>
+            <div class="page-benefits-grid">
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10"/>
+                            <path d="M12 20V4"/>
+                            <path d="M6 20v-6"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit1.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit1.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit2.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit2.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit3.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit3.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v4l3 3"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit4.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit4.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit5.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit5.desc" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-cta">
+        <div class="container">
+            <h2>{{ "services.training.page.cta.title" | t(locale) }}</h2>
+            <p>{{ "services.training.page.cta.text" | t(locale) }}</p>
+            <a href="{{ "/" | locale_url }}#contact" class="btn btn-primary">{{ "services.training.page.cta.button" | t(locale) }}</a>
+        </div>
+    </section>
+
+    {% include "footer.njk" %}
+
+    <script src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+{% set nlUrl = nlPermalink %}
+{% set enUrl = "/en" + nlPermalink %}
+{% set nlAltUrl = nlUrl | absoluteUrl(baseUrl) %}
+{% set enAltUrl = enUrl | absoluteUrl(baseUrl) %}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "page.smartscan.title" | t(locale) }}</title>
+    <meta name="description" content="{{ 'page.smartscan.description' | t(locale) }}">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="canonical" href="{{ page.url | absoluteUrl(baseUrl) }}">
+    <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlAltUrl }}">
+    <meta property="og:url" content="{{ page.url | absoluteUrl(baseUrl) }}">
+
+    <!-- Open Graph -->
+    {% set ogLocale = 'nl_BE' if locale == 'nl' else 'en_US' %}
+    {% set ogLocaleAlt = 'en_US' if locale == 'nl' else 'nl_BE' %}
+    {% set resolvedSocialImage = baseUrl + socialImage %}
+    {% set resolvedSocialAlt = socialAlt[locale] %}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ 'page.smartscan.title' | t(locale) }}">
+    <meta property="og:description" content="{{ 'page.smartscan.description' | t(locale) }}">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ ogLocaleAlt }}">
+    <meta property="og:image" content="{{ resolvedSocialImage }}">
+    <meta property="og:image:alt" content="{{ resolvedSocialAlt }}">
+    <meta property="og:site_name" content="SmartAgents">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ 'page.smartscan.title' | t(locale) }}">
+    <meta name="twitter:description" content="{{ 'page.smartscan.description' | t(locale) }}">
+    <meta name="twitter:image" content="{{ resolvedSocialImage }}">
+    <meta name="twitter:image:alt" content="{{ resolvedSocialAlt }}">
+    <meta name="twitter:domain" content="smartagents.be">
+
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    {% include "schema-organization.njk" %}
+    {% set schemaData = { schemaType: schemaType, pageKey: pageKey, serviceNameKey: serviceNameKey, socialImage: socialImage, nlPermalink: nlPermalink, pageUrl: page.url } %}
+    {% set schema = schemaData | buildSchema(locale) %}
+    {% if schema %}
+    <script type="application/ld+json" data-generated-schema="page">{{ schema | safe }}</script>
+    {% endif %}
+</head>
+<body data-service="smartscan">
+    {% include "header.njk" %}
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>{{ "services.smartscan.title" | t(locale) }}</h1>
+            <p>{{ "services.smartscan.page.subtitle" | t(locale) }}</p>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.smartscan.page.overview.title" | t(locale) }}</h2>
+            <div class="page-vision-text">
+                <p>{{ "services.smartscan.page.overview.text1" | t(locale) }}</p>
+                <p style="margin-top: 1.5rem;">{{ "services.smartscan.page.overview.text2" | t(locale) }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section page-section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ "services.smartscan.page.investigation.title" | t(locale) }}</h2>
+            <div class="page-role-grid">
+                <div class="page-role-item">
+                    <div class="page-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <path d="M8 21h8M12 17v4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.smartscan.page.item1.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.item1.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="page-role-item">
+                    <div class="page-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.smartscan.page.item2.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.item2.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="page-role-item">
+                    <div class="page-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.smartscan.page.item3.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.item3.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="page-role-item">
+                    <div class="page-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.smartscan.page.item4.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.item4.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="page-role-item">
+                    <div class="page-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.smartscan.page.item5.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.item5.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+                <div class="page-role-item">
+                    <div class="page-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                            <path d="M4.93 4.93a10 10 0 0 0 0 14.14"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>{{ "services.smartscan.page.item6.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.item6.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.smartscan.page.deliverables.title" | t(locale) }}</h2>
+            <div class="scan-deliverables-grid">
+                <div class="scan-deliverable-card">
+                    <h3>{{ "services.smartscan.page.deliverable1.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.deliverable1.desc" | t(locale) }}</p>
+                </div>
+                <div class="scan-deliverable-card">
+                    <h3>{{ "services.smartscan.page.deliverable2.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.deliverable2.desc" | t(locale) }}</p>
+                </div>
+                <div class="scan-deliverable-card">
+                    <h3>{{ "services.smartscan.page.deliverable3.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.deliverable3.desc" | t(locale) }}</p>
+                </div>
+                <div class="scan-deliverable-card">
+                    <h3>{{ "services.smartscan.page.deliverable4.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.deliverable4.desc" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.smartscan.page.benefits.title" | t(locale) }}</h2>
+            <div class="page-benefits-grid">
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 11 12 14 22 4"/>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.smartscan.page.benefit1.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.benefit1.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.smartscan.page.benefit2.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.benefit2.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.smartscan.page.benefit3.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.benefit3.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.smartscan.page.benefit4.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.benefit4.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.smartscan.page.benefit5.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.benefit5.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                            <polyline points="17 6 23 6 23 12"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.smartscan.page.benefit6.title" | t(locale) }}</h3>
+                    <p>{{ "services.smartscan.page.benefit6.desc" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section page-section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ "services.smartscan.page.process.title" | t(locale) }}</h2>
+
+            <div class="scan-process">
+                <div class="scan-process-line"></div>
+
+                <div class="scan-step scan-step-left">
+                    <div class="scan-step-content">
+                        <div class="scan-step-num">01</div>
+                        <h3>{{ "services.smartscan.page.step1.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.step1.desc" | t(locale) }}</p>
+                    </div>
+                    <div class="scan-step-node">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="scan-step-spacer"></div>
+                </div>
+
+                <div class="scan-step scan-step-right">
+                    <div class="scan-step-spacer"></div>
+                    <div class="scan-step-node">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                        </svg>
+                    </div>
+                    <div class="scan-step-content">
+                        <div class="scan-step-num">02</div>
+                        <h3>{{ "services.smartscan.page.step2.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.step2.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+
+                <div class="scan-step scan-step-left">
+                    <div class="scan-step-content">
+                        <div class="scan-step-num">03</div>
+                        <h3>{{ "services.smartscan.page.step3.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.step3.desc" | t(locale) }}</p>
+                    </div>
+                    <div class="scan-step-node">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="7"/>
+                            <path d="M20 20l-3.5-3.5"/>
+                        </svg>
+                    </div>
+                    <div class="scan-step-spacer"></div>
+                </div>
+
+                <div class="scan-step scan-step-right">
+                    <div class="scan-step-spacer"></div>
+                    <div class="scan-step-node">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 11 12 14 22 4"/>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                    </div>
+                    <div class="scan-step-content">
+                        <div class="scan-step-num">04</div>
+                        <h3>{{ "services.smartscan.page.step4.title" | t(locale) }}</h3>
+                        <p>{{ "services.smartscan.page.step4.desc" | t(locale) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-cta">
+        <div class="container">
+            <h2>{{ "services.smartscan.page.cta.title" | t(locale) }}</h2>
+            <p>{{ "services.smartscan.page.cta.text" | t(locale) }}</p>
+            <a href="{{ "/" | locale_url }}#contact" class="btn btn-primary">{{ "services.smartscan.page.cta.button" | t(locale) }}</a>
+        </div>
+    </section>
+
+    {% include "footer.njk" %}
+
+    <script src="/main.js"></script>
+</body>
+</html>

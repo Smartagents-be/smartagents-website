@@ -1,0 +1,33 @@
+{% set nlUrl = '/' %}
+{% set enUrl = '/en/' %}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "page.404.title" | t(locale) }}</title>
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#00d8ff">
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    {% include "header.njk" %}
+
+    <section class="page-hero" style="min-height: 70vh; display: flex; align-items: center;">
+        <div class="container" style="text-align: center;">
+            <p class="gradient-text" style="font-size: 6rem; font-weight: 700; line-height: 1; margin-bottom: 1rem;">404</p>
+            <h1 style="margin-bottom: 1.5rem;">{{ "page.404.heading" | t(locale) }}</h1>
+            <p style="color: var(--gray-light); font-size: 1.1rem; max-width: 480px; margin: 0 auto 2.5rem;">{{ "page.404.text" | t(locale) }}</p>
+            <a href="{{ "/" | locale_url }}" class="btn btn-primary">{{ "page.404.button" | t(locale) }}</a>
+        </div>
+    </section>
+
+    {% include "footer.njk" %}
+
+    <script src="/main.js"></script>
+</body>
+</html>
