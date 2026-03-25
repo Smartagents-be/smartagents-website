@@ -77,105 +77,110 @@
             <h2 class="section-title">{{ "services.training.page.features.title" | t(locale) }}</h2>
             <p class="training-tree-intro">{{ "services.training.page.tree.intro" | t(locale) }}</p>
 
-            <!-- ── MOBILE-ONLY: linear stepper layout ── -->
-            <div class="training-stepper">
+            <!-- ── MOBILE-ONLY: interactive path chooser ── -->
+            <div class="tmc">
 
-                <!-- Foundation steps -->
-                <div class="tms-step">
-                    <div class="tms-step-marker tms-marker--cyan">
-                        <span>01</span>
+                <!-- Phase 1: Foundation (always visible) -->
+                <div class="tmc-phase">
+                    <div class="tmc-phase-label">
+                        <div class="tmc-phase-dot tmc-phase-dot--cyan"></div>
+                        <span>{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
                     </div>
-                    <div class="tms-step-card tms-card--cyan">
-                        <div class="tms-card-header">
-                            <span class="tms-badge tms-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                    <div class="tmc-track">
+                        <div class="tmc-track-line tmc-track-line--cyan"></div>
+                        <div class="tmc-cards">
+                            <div class="tmc-card tmc-card--cyan">
+                                <div class="tmc-card-num">01</div>
+                                <div class="tmc-card-body">
+                                    <h3>{{ "services.training.page.course1.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.course1.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course1.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                            <div class="tmc-card tmc-card--cyan">
+                                <div class="tmc-card-num">02</div>
+                                <div class="tmc-card-body">
+                                    <h3>{{ "services.training.page.course2.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.course2.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course2.target" | t(locale) }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="tms-card-title">{{ "services.training.page.course1.title" | t(locale) }}</h3>
-                        <p class="tms-card-desc">{{ "services.training.page.course1.desc" | t(locale) }}</p>
-                        <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course1.target" | t(locale) }}</p>
-                    </div>
-                </div>
-                <div class="tms-connector tms-connector--cyan"></div>
-
-                <div class="tms-step">
-                    <div class="tms-step-marker tms-marker--cyan">
-                        <span>02</span>
-                    </div>
-                    <div class="tms-step-card tms-card--cyan">
-                        <div class="tms-card-header">
-                            <span class="tms-badge tms-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
-                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 01</span>
-                        </div>
-                        <h3 class="tms-card-title">{{ "services.training.page.course2.title" | t(locale) }}</h3>
-                        <p class="tms-card-desc">{{ "services.training.page.course2.desc" | t(locale) }}</p>
-                        <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course2.target" | t(locale) }}</p>
                     </div>
                 </div>
 
-                <!-- Path split -->
-                <div class="tms-split">
-                    <div class="tms-split-line"></div>
-                    <div class="tms-split-label">
-                        <h4>{{ "services.training.page.tree.split.title" | t(locale) }}</h4>
-                        <p>{{ "services.training.page.tree.split.subtitle" | t(locale) }}</p>
-                    </div>
-                    <div class="tms-split-arrows">
-                        <div class="tms-split-arrow tms-arrow--purple"></div>
-                        <div class="tms-split-arrow tms-arrow--blue"></div>
+                <!-- Phase 2: Role picker -->
+                <div class="tmc-picker">
+                    <div class="tmc-picker-line"></div>
+                    <p class="tmc-picker-question">{{ "services.training.page.tree.split.title" | t(locale) }}</p>
+                    <div class="tmc-picker-btns">
+                        <button class="tmc-picker-btn tmc-picker-btn--management tmc-active" data-tmc="management">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            {{ "services.training.page.tree.badge.management" | t(locale) }}
+                        </button>
+                        <button class="tmc-picker-btn tmc-picker-btn--deepdive" data-tmc="deepdive">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            {{ "services.training.page.tree.badge.deepdive" | t(locale) }}
+                        </button>
                     </div>
                 </div>
 
-                <!-- Two paths -->
-                <div class="tms-paths">
-
-                    <!-- Path A: Management -->
-                    <div class="tms-path tms-path--management">
-                        <div class="tms-path-header">
-                            <span class="tms-path-icon">
-                                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
-                            </span>
-                            <span>{{ "services.training.page.tree.path1" | t(locale) }}</span>
-                            <span class="tms-badge tms-badge--management">{{ "services.training.page.tree.badge.management" | t(locale) }}</span>
-                        </div>
-                        <div class="tms-path-course">
-                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
-                            <h3>{{ "services.training.page.courseM.title" | t(locale) }}</h3>
-                            <p>{{ "services.training.page.courseM.desc" | t(locale) }}</p>
-                            <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseM.target" | t(locale) }}</p>
+                <!-- Phase 3: Management panel -->
+                <div class="tmc-panel tmc-panel--management tmc-active" data-tmc-panel="management">
+                    <div class="tmc-phase-label">
+                        <div class="tmc-phase-dot tmc-phase-dot--purple"></div>
+                        <span>{{ "services.training.page.tree.path1" | t(locale) }}</span>
+                    </div>
+                    <div class="tmc-track">
+                        <div class="tmc-track-line tmc-track-line--purple"></div>
+                        <div class="tmc-cards">
+                            <div class="tmc-card tmc-card--management">
+                                <div class="tmc-card-body">
+                                    <span class="tmc-prereq-tag">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                                    <h3>{{ "services.training.page.courseM.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.courseM.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseM.target" | t(locale) }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Path B: Deep Dive → Developer -->
-                    <div class="tms-path tms-path--deepdive">
-                        <div class="tms-path-header">
-                            <span class="tms-path-icon">
-                                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                            </span>
-                            <span>{{ "services.training.page.tree.path2" | t(locale) }}</span>
-                            <span class="tms-badge tms-badge--deepdive">{{ "services.training.page.tree.badge.deepdive" | t(locale) }}</span>
-                        </div>
-                        <div class="tms-path-course">
-                            <div class="tms-path-stepnum">03</div>
-                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
-                            <h3>{{ "services.training.page.course3.title" | t(locale) }}</h3>
-                            <p>{{ "services.training.page.course3.desc" | t(locale) }}</p>
-                            <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course3.target" | t(locale) }}</p>
-                        </div>
-                        <div class="tms-path-continues">
-                            <span>{{ "services.training.page.tree.continues" | t(locale) }}</span>
-                            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v11.793l3.146-3.147a.5.5 0 01.708.708l-4 4a.5.5 0 01-.708 0l-4-4a.5.5 0 01.708-.708L7.5 13.293V1.5A.5.5 0 018 1z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <div class="tms-path-course tms-path-course--developer">
-                            <span class="tms-badge tms-badge--developer">{{ "services.training.page.tree.badge.developers" | t(locale) }}</span>
-                            <span class="tms-prereq">{{ "services.training.page.tree.prereq" | t(locale) }} 03</span>
-                            <h3>{{ "services.training.page.courseD.title" | t(locale) }}</h3>
-                            <p>{{ "services.training.page.courseD.desc" | t(locale) }}</p>
-                            <p class="tms-card-for">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseD.target" | t(locale) }}</p>
-                        </div>
-                    </div>
-
                 </div>
+
+                <!-- Phase 3: Deep Dive panel -->
+                <div class="tmc-panel tmc-panel--deepdive" data-tmc-panel="deepdive">
+                    <div class="tmc-phase-label">
+                        <div class="tmc-phase-dot tmc-phase-dot--blue"></div>
+                        <span>{{ "services.training.page.tree.path2" | t(locale) }}</span>
+                    </div>
+                    <div class="tmc-track">
+                        <div class="tmc-track-line tmc-track-line--blue"></div>
+                        <div class="tmc-cards">
+                            <div class="tmc-card tmc-card--deepdive">
+                                <div class="tmc-card-num tmc-card-num--blue">03</div>
+                                <div class="tmc-card-body">
+                                    <span class="tmc-prereq-tag">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                                    <h3>{{ "services.training.page.course3.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.course3.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course3.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                            <div class="tmc-card tmc-card--developer">
+                                <div class="tmc-card-num tmc-card-num--green">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                                </div>
+                                <div class="tmc-card-body">
+                                    <span class="tmc-prereq-tag">{{ "services.training.page.tree.prereq" | t(locale) }} 03</span>
+                                    <h3>{{ "services.training.page.courseD.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.courseD.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseD.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <!-- ── END MOBILE STEPPER ── -->
+            <!-- ── END MOBILE PATH CHOOSER ── -->
 
             <div class="training-tree">
 

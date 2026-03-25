@@ -530,3 +530,20 @@ if (contactForm) {
         });
     });
 })();
+
+// ── Training mobile path chooser ──
+(function () {
+    const btns = document.querySelectorAll('.tmc-picker-btn');
+    if (!btns.length) return;
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const path = btn.dataset.tmc;
+            btns.forEach(b => b.classList.remove('tmc-active'));
+            document.querySelectorAll('.tmc-panel').forEach(p => p.classList.remove('tmc-active'));
+            btn.classList.add('tmc-active');
+            const panel = document.querySelector('.tmc-panel--' + path);
+            if (panel) panel.classList.add('tmc-active');
+        });
+    });
+})();
