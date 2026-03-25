@@ -176,9 +176,89 @@
     <section class="page-section page-section-alt jobs-team">
         <div class="container">
             <h2 class="section-title">{{ "jobs.team.title" | t(locale) }}</h2>
-            <div class="jobs-team-content">
-                <p>{{ "jobs.team.text" | t(locale) | safe }}</p>
+
+            <div class="jt-founders">
+
+                <!-- Axel -->
+                <div class="jt-founder">
+                    <div class="jt-photo-wrap">
+                        <img src="/assets/axel.webp" alt="Axel Segers" class="jt-photo">
+                        <div class="jt-photo-glow jt-photo-glow--cyan"></div>
+                    </div>
+                    <div class="jt-founder-body">
+                        <div class="jt-founder-header">
+                            <h3>Axel Segers</h3>
+                            <span class="jt-role">{{ "team.axel.role" | t(locale) }}</span>
+                        </div>
+                        <p class="jt-bio">{{ "team.axel.bio" | t(locale) }}</p>
+                        <div class="jt-chips">
+                            <span class="jt-chip">Strategie &amp; Visie</span>
+                            <span class="jt-chip">Digitale Transformatie</span>
+                            <span class="jt-chip">20+ jaar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="jt-divider" aria-hidden="true">
+                    <div class="jt-divider-line"></div>
+                    <div class="jt-divider-node">
+                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6">
+                                <line x1="24" y1="8" x2="12" y2="20"/><line x1="24" y1="8" x2="36" y2="20"/>
+                                <line x1="12" y1="20" x2="24" y2="24"/><line x1="36" y1="20" x2="24" y2="24"/>
+                                <line x1="12" y1="20" x2="12" y2="32"/><line x1="36" y1="20" x2="36" y2="32"/>
+                                <line x1="24" y1="24" x2="24" y2="40"/><line x1="12" y1="32" x2="24" y2="40"/><line x1="36" y1="32" x2="24" y2="40"/>
+                            </g>
+                            <g fill="currentColor">
+                                <circle cx="24" cy="8" r="4"/><circle cx="12" cy="20" r="3"/><circle cx="36" cy="20" r="3"/>
+                                <circle cx="24" cy="24" r="3.5"/><circle cx="12" cy="32" r="2.5"/><circle cx="36" cy="32" r="2.5"/><circle cx="24" cy="40" r="3"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="jt-divider-line"></div>
+                </div>
+
+                <!-- Tom -->
+                <div class="jt-founder">
+                    <div class="jt-photo-wrap">
+                        <img src="/assets/tom.webp" alt="Tom Haeldermans" class="jt-photo">
+                        <div class="jt-photo-glow jt-photo-glow--purple"></div>
+                    </div>
+                    <div class="jt-founder-body">
+                        <div class="jt-founder-header">
+                            <h3>Tom Haeldermans</h3>
+                            <span class="jt-role">{{ "team.tom.role" | t(locale) }}</span>
+                        </div>
+                        <p class="jt-bio">{{ "team.tom.bio" | t(locale) }}</p>
+                        <div class="jt-chips">
+                            <span class="jt-chip jt-chip--purple">Agentic AI</span>
+                            <span class="jt-chip jt-chip--purple">Enterprise Architectuur</span>
+                            <span class="jt-chip jt-chip--purple">Tech Lead</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Team DNA strip -->
+            <div class="jt-dna">
+                <div class="jt-dna-item">
+                    <span class="jt-dna-val">{{ "jobs.team.promise1.val" | t(locale) }}</span>
+                    <span class="jt-dna-sub">{{ "jobs.team.promise1.sub" | t(locale) }}</span>
+                </div>
+                <div class="jt-dna-sep"></div>
+                <div class="jt-dna-item">
+                    <span class="jt-dna-val">{{ "jobs.team.promise2.val" | t(locale) }}</span>
+                    <span class="jt-dna-sub">{{ "jobs.team.promise2.sub" | t(locale) }}</span>
+                </div>
+                <div class="jt-dna-sep"></div>
+                <div class="jt-dna-item">
+                    <span class="jt-dna-val">{{ "jobs.team.promise3.val" | t(locale) }}</span>
+                    <span class="jt-dna-sub">{{ "jobs.team.promise3.sub" | t(locale) }}</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
