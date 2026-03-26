@@ -1364,6 +1364,7 @@ h3 {
 
 .hero-word:nth-child(1) { animation-delay: 0.1s; }
 .hero-word:nth-child(2) { animation-delay: 0.25s; }
+.hero-word-accent { color: var(--cyan); }
 
 .hero-animate .logo-icon {
     opacity: 0;
@@ -1412,8 +1413,8 @@ h3 {
     font-size: 0.68rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--cyan);
-    opacity: 0.65;
+    color: var(--white);
+    opacity: 0.7;
     font-weight: 400;
 }
 
