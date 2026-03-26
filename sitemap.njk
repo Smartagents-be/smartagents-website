@@ -3,11 +3,17 @@ permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {%- for p in collections.all %}
   {%- if not p.data.excludeFromSitemap %}
+  {%- set nlHref = baseUrl + p.data.nlPermalink %}
+  {%- set enHref = baseUrl + "/en" + p.data.nlPermalink %}
   <url>
     <loc>{{ baseUrl }}{{ p.url }}</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="{{ nlHref }}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ enHref }}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ nlHref }}"/>
     <lastmod>{{ p.date | dateToFormat }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>{{ "1.0" if p.url == "/" or p.url == "/en/" else "0.8" }}</priority>
