@@ -1,4 +1,5 @@
 .worktrees/
 dist/
 node_modules/
+export/
 .claude/settings.local.json
