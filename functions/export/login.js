@@ -13,7 +13,16 @@ async function generateToken(secret) {
     .join('');
 }
 
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 function loginPage(redirectTo, error) {
+  const safeRedirect = escapeHtml(redirectTo);
   return `<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -97,7 +106,7 @@ function loginPage(redirectTo, error) {
     <div class="brand">SmartAgents</div>
     <div class="subtitle">Beveiligde documenten</div>
     <form method="POST" action="/export/login">
-      <input type="hidden" name="redirect" value="${redirectTo}">
+      <input type="hidden" name="redirect" value="${safeRedirect}">
       <label for="password">Wachtwoord</label>
       <input type="password" id="password" name="password" autofocus autocomplete="current-password">
       ${error ? '<div class="error">Ongeldig wachtwoord. Probeer opnieuw.</div>' : ''}
@@ -116,7 +125,10 @@ export async function onRequest(context) {
     const redirect = url.searchParams.get('redirect') || '/export/';
     const error = url.searchParams.get('error') === '1';
     return new Response(loginPage(redirect, error), {
-      headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-store'
+      }
     });
   }
 
@@ -135,12 +147,16 @@ export async function onRequest(context) {
       );
     }
 
+    if (!env.EXPORT_SESSION_SECRET) {
+      return new Response('Server misconfiguration', { status: 500 });
+    }
+
     const token = await generateToken(env.EXPORT_SESSION_SECRET);
     return new Response(null, {
       status: 302,
       headers: {
         'Location': safeRedirect,
-        'Set-Cookie': `export_session=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=604800; Path=/export`
+        'Set-Cookie': `export_session=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=604800; Path=/export/`
       }
     });
   }

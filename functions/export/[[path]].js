@@ -13,6 +13,15 @@ async function generateToken(secret) {
     .join('');
 }
 
+function timingSafeEqual(a, b) {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 function parseCookies(header) {
   const cookies = {};
   for (const part of (header || '').split(';')) {
@@ -32,7 +41,7 @@ export async function onRequest(context) {
 
   if (token && env.EXPORT_SESSION_SECRET) {
     const expected = await generateToken(env.EXPORT_SESSION_SECRET);
-    if (token === expected) {
+    if (timingSafeEqual(token, expected)) {
       return env.ASSETS.fetch(request);
     }
   }
