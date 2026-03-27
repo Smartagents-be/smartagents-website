@@ -21,6 +21,15 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;');
 }
 
+function timingSafeEqual(a, b) {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 function loginPage(redirectTo, error) {
   const safeRedirect = escapeHtml(redirectTo);
   return `<!DOCTYPE html>
@@ -140,7 +149,7 @@ export async function onRequest(context) {
     // Valideer redirect: mag enkel verwijzen naar /export/
     const safeRedirect = redirect.startsWith('/export/') ? redirect : '/export/';
 
-    if (!env.EXPORT_PASSWORD || password !== env.EXPORT_PASSWORD) {
+    if (!env.EXPORT_PASSWORD || !timingSafeEqual(password, env.EXPORT_PASSWORD)) {
       return Response.redirect(
         `${url.origin}/export/login?error=1&redirect=${encodeURIComponent(safeRedirect)}`,
         302
@@ -156,7 +165,8 @@ export async function onRequest(context) {
       status: 302,
       headers: {
         'Location': safeRedirect,
-        'Set-Cookie': `export_session=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=604800; Path=/export/`
+        'Set-Cookie': `export_session=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=604800; Path=/export/`,
+        'Cache-Control': 'no-store'
       }
     });
   }
