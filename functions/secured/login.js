@@ -60,7 +60,6 @@ function loginPage(redirectTo, error) {
     .brand {
       font-size: 1.4rem;
       font-weight: 700;
-      color: #00d8ff;
       letter-spacing: -0.02em;
       margin-bottom: 0.4rem;
     }
@@ -112,7 +111,7 @@ function loginPage(redirectTo, error) {
 </head>
 <body>
   <div class="card">
-    <div class="brand">SmartAgents</div>
+    <div class="brand"><span style="color:#fff">Smart</span><span style="color:#00d8ff">Agents</span></div>
     <div class="subtitle">Beveiligde documenten</div>
     <form method="POST" action="/secured/login">
       <input type="hidden" name="redirect" value="${safeRedirect}">
