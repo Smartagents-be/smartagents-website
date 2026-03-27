@@ -1,0 +1,111 @@
+---
+permalink: /secured/index.html
+excludeFromSitemap: true
+---
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>SmartAgents — Documenten</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #0a0a0f;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #e8e8f0;
+      padding: 3rem 1.5rem;
+    }
+    header {
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+    .brand {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #00d8ff;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .list {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .item {
+      background: #13131a;
+      border: 1px solid #1e1e2e;
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #e8e8f0;
+    }
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .btn {
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.8; }
+    .btn-view {
+      background: #00d8ff;
+      color: #0a0a0f;
+    }
+    .btn-pdf {
+      background: transparent;
+      border: 1px solid #2a2a3a;
+      color: #aaa;
+    }
+    .empty {
+      max-width: 680px;
+      margin: 0 auto;
+      color: #555;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">SmartAgents</div>
+    <div class="subtitle">Beveiligde documenten</div>
+  </header>
+
+  {% if securedFiles.length %}
+  <div class="list">
+    {% for doc in securedFiles %}
+    <div class="item">
+      <span class="item-name">{{ doc.name }}</span>
+      <div class="actions">
+        {% if doc.html %}<a class="btn btn-view" href="{{ doc.html }}">Bekijken</a>{% endif %}
+        {% if doc.pdf %}<a class="btn btn-pdf" href="{{ doc.pdf }}" download>PDF</a>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="empty">Geen documenten beschikbaar.</p>
+  {% endif %}
+</body>
+</html>
