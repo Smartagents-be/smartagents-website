@@ -46,6 +46,6 @@ export async function onRequest(context) {
     }
   }
 
-  const loginUrl = `${url.origin}/export/login?redirect=${encodeURIComponent(url.pathname)}`;
+  const loginUrl = `${url.origin}/secured/login?redirect=${encodeURIComponent(url.pathname)}`;
   return Response.redirect(loginUrl, 302);
 }

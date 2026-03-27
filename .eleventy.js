@@ -117,7 +117,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addGlobalData('baseUrl', SITE_BASE_URL);
 
   eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy("export");
+  eleventyConfig.addPassthroughCopy("secured");
   eleventyConfig.addPassthroughCopy("main.js");
   eleventyConfig.addPassthroughCopy("styles.css");
   eleventyConfig.addPassthroughCopy("robots.txt");

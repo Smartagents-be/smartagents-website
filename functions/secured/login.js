@@ -114,7 +114,7 @@ function loginPage(redirectTo, error) {
   <div class="card">
     <div class="brand">SmartAgents</div>
     <div class="subtitle">Beveiligde documenten</div>
-    <form method="POST" action="/export/login">
+    <form method="POST" action="/secured/login">
       <input type="hidden" name="redirect" value="${safeRedirect}">
       <label for="password">Wachtwoord</label>
       <input type="password" id="password" name="password" autofocus autocomplete="current-password">
@@ -131,7 +131,7 @@ export async function onRequest(context) {
   const url = new URL(request.url);
 
   if (request.method === 'GET') {
-    const redirect = url.searchParams.get('redirect') || '/export/';
+    const redirect = url.searchParams.get('redirect') || '/secured/';
     const error = url.searchParams.get('error') === '1';
     return new Response(loginPage(redirect, error), {
       headers: {
@@ -144,14 +144,14 @@ export async function onRequest(context) {
   if (request.method === 'POST') {
     const formData = await request.formData();
     const password = formData.get('password') || '';
-    const redirect = formData.get('redirect') || '/export/';
+    const redirect = formData.get('redirect') || '/secured/';
 
-    // Valideer redirect: mag enkel verwijzen naar /export/
-    const safeRedirect = redirect.startsWith('/export/') ? redirect : '/export/';
+    // Valideer redirect: mag enkel verwijzen naar /secured/
+    const safeRedirect = redirect.startsWith('/secured/') ? redirect : '/secured/';
 
     if (!env.EXPORT_PASSWORD || !timingSafeEqual(password, env.EXPORT_PASSWORD)) {
       return Response.redirect(
-        `${url.origin}/export/login?error=1&redirect=${encodeURIComponent(safeRedirect)}`,
+        `${url.origin}/secured/login?error=1&redirect=${encodeURIComponent(safeRedirect)}`,
         302
       );
     }
@@ -165,7 +165,7 @@ export async function onRequest(context) {
       status: 302,
       headers: {
         'Location': safeRedirect,
-        'Set-Cookie': `export_session=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=604800; Path=/export/`,
+        'Set-Cookie': `export_session=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=604800; Path=/secured/`,
         'Cache-Control': 'no-store'
       }
     });
