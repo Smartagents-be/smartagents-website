@@ -3882,7 +3882,11 @@ body[data-service="smartscan"] .page-role-item:last-child {
 
     .flip-card-front {
         border-radius: 16px 16px 0 0;
-        height: 300px;
+        height: 320px;
+    }
+
+    .flip-card-photo img {
+        object-position: top center;
     }
 
     .flip-card-back {
