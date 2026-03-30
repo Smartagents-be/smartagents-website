@@ -66,6 +66,7 @@
         </div>
         <a href="{{ "/" | locale_url }}#about" class="navbar-link">{{ "nav.about" | t(locale) }}</a>
         <a href="{{ "/" | locale_url }}#contact" class="navbar-link">{{ "nav.contact" | t(locale) }}</a>
+        <a href="{{ "/team/" | locale_url }}" class="navbar-link {% if shell.teamActive %}active{% endif %}">{{ "nav.team" | t(locale) }}</a>
         <a href="{{ "/jobs/" | locale_url }}" class="navbar-link {% if shell.jobsActive %}active{% endif %}">{{ "nav.jobs" | t(locale) }}</a>
     </div>
 
