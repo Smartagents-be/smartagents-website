@@ -25,5 +25,15 @@ module.exports = {
     showValuesLink: true,
     jobsActive: "active",
     servicesActive: ""
+  },
+  team: {
+    homeHref: "/",
+    jobsHref: "/jobs/",
+    customerzoneHref: "/customerzone/",
+    logoSrc: "/assets/logo.svg",
+    showValuesLink: true,
+    jobsActive: "",
+    servicesActive: "",
+    teamActive: "active"
   }
 };
