@@ -580,3 +580,10 @@ if (contactForm) {
         if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
     }, { passive: true });
 })();
+
+// Flip card tap support
+document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+        card.classList.toggle('is-flipped');
+    });
+});

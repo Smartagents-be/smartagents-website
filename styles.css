@@ -3842,6 +3842,11 @@ body[data-service="smartscan"] .page-role-item:last-child {
     height: 72px;
 }
 
+/* JS-driven flip (tap on mobile) */
+.flip-card.is-flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
 /* Responsive */
 @media (max-width: 900px) {
     .flip-cards-grid {
@@ -3854,10 +3859,6 @@ body[data-service="smartscan"] .page-role-item:last-child {
         height: 480px;
     }
 
-    .flip-card-inner {
-        transition: none;
-    }
-
     .flip-card:hover .flip-card-inner {
         transform: none;
     }
@@ -3866,11 +3867,7 @@ body[data-service="smartscan"] .page-role-item:last-child {
         display: none;
     }
 
-    .flip-card:focus-within .flip-card-inner {
-        transform: rotateY(180deg);
-    }
-
-    .flip-card:focus-within .flip-card-back {
+    .flip-card.is-flipped .flip-card-back {
         display: flex;
     }
 }
