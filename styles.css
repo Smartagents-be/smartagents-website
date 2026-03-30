@@ -3848,19 +3848,51 @@ body[data-service="smartscan"] .page-role-item:last-child {
     transform: rotateY(180deg);
 }
 
-/* Responsive */
+/* Responsive — gewone kaart op mobiel, geen flip */
 @media (max-width: 900px) {
     .flip-cards-grid {
         grid-template-columns: 1fr;
         max-width: 420px;
         margin: 0 auto;
+        gap: 2.5rem;
     }
 
     .flip-card {
-        height: 480px;
+        height: auto;
+        cursor: default;
     }
 
-    .flip-card:hover .flip-card-inner {
+    .flip-card-inner {
+        transform: none !important;
+        transform-style: flat;
+        transition: none;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        position: static;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
         transform: none;
+        border-radius: 0;
+    }
+
+    .flip-card-front {
+        border-radius: 16px 16px 0 0;
+        height: 300px;
+    }
+
+    .flip-card-back {
+        border-radius: 0 0 16px 16px;
+        transform: none;
+        justify-content: flex-start;
+        border-top: none;
+    }
+
+    .flip-card-back h2 {
+        display: none;
     }
 }
