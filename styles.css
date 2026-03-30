@@ -3702,6 +3702,7 @@ body[data-service="smartscan"] .page-role-item:last-child {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
     border-radius: 16px;
 }
@@ -3861,13 +3862,5 @@ body[data-service="smartscan"] .page-role-item:last-child {
 
     .flip-card:hover .flip-card-inner {
         transform: none;
-    }
-
-    .flip-card-back {
-        display: none;
-    }
-
-    .flip-card.is-flipped .flip-card-back {
-        display: flex;
     }
 }
