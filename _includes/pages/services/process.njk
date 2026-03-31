@@ -63,64 +63,116 @@
         </div>
     </section>
 
-    <section class="page-section">
+    <section class="process-why">
         <div class="container">
-            <h2 class="section-title">{{ "services.process.page.overview.title" | t(locale) }}</h2>
-            <div class="page-vision-text">
-                <p>{{ "services.process.page.overview.text" | t(locale) }}</p>
+            <h2 class="section-title">{{ "services.process.page.why.title" | t(locale) }}</h2>
+            <div class="process-why-grid">
+                <p class="process-why-statement">{{ "services.process.page.why.statement" | t(locale) }}</p>
+                <ul class="process-why-points">
+                    <li class="process-why-point">
+                        <span class="process-why-point-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        {{ "services.process.page.why.point1" | t(locale) }}
+                    </li>
+                    <li class="process-why-point">
+                        <span class="process-why-point-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        {{ "services.process.page.why.point2" | t(locale) }}
+                    </li>
+                    <li class="process-why-point">
+                        <span class="process-why-point-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        {{ "services.process.page.why.point3" | t(locale) }}
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <section class="page-section page-section-alt">
+    <section class="process-timeline">
         <div class="container">
-            <h2 class="section-title">{{ "services.process.page.features.title" | t(locale) }}</h2>
-            <div class="page-role-grid">
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"/>
-                            <path d="M21 21l-4.35-4.35"/>
-                        </svg>
+            <h2 class="section-title">{{ "services.process.page.methodology.title" | t(locale) }}</h2>
+            <div class="process-timeline-track">
+                <div class="process-timeline-line"></div>
+
+                <div class="process-phase process-phase--left">
+                    <div class="process-phase-card">
+                        <div class="process-phase-number">{{ "services.process.page.phase1.number" | t(locale) }}</div>
+                        <div class="process-phase-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        </div>
+                        <h3 class="process-phase-title">{{ "services.process.page.phase1.title" | t(locale) }}</h3>
+                        <p class="process-phase-desc">{{ "services.process.page.phase1.desc" | t(locale) }}</p>
                     </div>
-                    <div>
-                        <h3>{{ "services.process.page.feature1.title" | t(locale) }}</h3>
-                        <p>{{ "services.process.page.feature1.desc" | t(locale) }}</p>
+                    <div class="process-phase-dot"></div>
+                    <div class="process-phase-empty"></div>
+                </div>
+
+                <div class="process-phase process-phase--right">
+                    <div class="process-phase-empty"></div>
+                    <div class="process-phase-dot"></div>
+                    <div class="process-phase-card">
+                        <div class="process-phase-number">{{ "services.process.page.phase2.number" | t(locale) }}</div>
+                        <div class="process-phase-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        </div>
+                        <h3 class="process-phase-title">{{ "services.process.page.phase2.title" | t(locale) }}</h3>
+                        <p class="process-phase-desc">{{ "services.process.page.phase2.desc" | t(locale) }}</p>
                     </div>
                 </div>
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 20h9"/>
-                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                        </svg>
+
+                <div class="process-phase process-phase--left">
+                    <div class="process-phase-card">
+                        <div class="process-phase-number">{{ "services.process.page.phase3.number" | t(locale) }}</div>
+                        <div class="process-phase-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        </div>
+                        <h3 class="process-phase-title">{{ "services.process.page.phase3.title" | t(locale) }}</h3>
+                        <p class="process-phase-desc">{{ "services.process.page.phase3.desc" | t(locale) }}</p>
                     </div>
-                    <div>
-                        <h3>{{ "services.process.page.feature2.title" | t(locale) }}</h3>
-                        <p>{{ "services.process.page.feature2.desc" | t(locale) }}</p>
+                    <div class="process-phase-dot"></div>
+                    <div class="process-phase-empty"></div>
+                </div>
+
+                <div class="process-phase process-phase--right">
+                    <div class="process-phase-empty"></div>
+                    <div class="process-phase-dot"></div>
+                    <div class="process-phase-card">
+                        <div class="process-phase-number">{{ "services.process.page.phase4.number" | t(locale) }}</div>
+                        <div class="process-phase-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <h3 class="process-phase-title">{{ "services.process.page.phase4.title" | t(locale) }}</h3>
+                        <p class="process-phase-desc">{{ "services.process.page.phase4.desc" | t(locale) }}</p>
                     </div>
                 </div>
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                        </svg>
+
+                <div class="process-phase process-phase--left">
+                    <div class="process-phase-card">
+                        <div class="process-phase-number">{{ "services.process.page.phase5.number" | t(locale) }}</div>
+                        <div class="process-phase-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                        </div>
+                        <h3 class="process-phase-title">{{ "services.process.page.phase5.title" | t(locale) }}</h3>
+                        <p class="process-phase-desc">{{ "services.process.page.phase5.desc" | t(locale) }}</p>
                     </div>
-                    <div>
-                        <h3>{{ "services.process.page.feature3.title" | t(locale) }}</h3>
-                        <p>{{ "services.process.page.feature3.desc" | t(locale) }}</p>
-                    </div>
+                    <div class="process-phase-dot"></div>
+                    <div class="process-phase-empty"></div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section class="page-section">
+    <section class="process-benefits">
         <div class="container">
             <h2 class="section-title">{{ "services.process.page.benefits.title" | t(locale) }}</h2>
-            <div class="page-benefits-grid">
-                <div class="page-benefit-card">
-                    <div class="page-benefit-icon">
+            <div class="process-benefits-grid">
+                <div class="process-benefit-card">
+                    <div class="process-benefit-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="12" y1="1" x2="12" y2="23"/>
                             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -129,8 +181,8 @@
                     <h3>{{ "services.process.page.benefit1.title" | t(locale) }}</h3>
                     <p>{{ "services.process.page.benefit1.desc" | t(locale) }}</p>
                 </div>
-                <div class="page-benefit-card">
-                    <div class="page-benefit-icon">
+                <div class="process-benefit-card">
+                    <div class="process-benefit-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                         </svg>
@@ -138,8 +190,8 @@
                     <h3>{{ "services.process.page.benefit2.title" | t(locale) }}</h3>
                     <p>{{ "services.process.page.benefit2.desc" | t(locale) }}</p>
                 </div>
-                <div class="page-benefit-card">
-                    <div class="page-benefit-icon">
+                <div class="process-benefit-card">
+                    <div class="process-benefit-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                             <circle cx="9" cy="7" r="4"/>
@@ -149,6 +201,42 @@
                     </div>
                     <h3>{{ "services.process.page.benefit3.title" | t(locale) }}</h3>
                     <p>{{ "services.process.page.benefit3.desc" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-different">
+        <div class="container">
+            <h2 class="section-title">{{ "services.process.page.different.title" | t(locale) }}</h2>
+            <div class="process-different-grid">
+                <div class="process-different-item">
+                    <div class="process-different-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <p class="process-different-label">{{ "services.process.page.diff1.label" | t(locale) }}</p>
+                    <p class="process-different-tagline">{{ "services.process.page.diff1.tagline" | t(locale) }}</p>
+                </div>
+                <div class="process-different-item">
+                    <div class="process-different-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    </div>
+                    <p class="process-different-label">{{ "services.process.page.diff2.label" | t(locale) }}</p>
+                    <p class="process-different-tagline">{{ "services.process.page.diff2.tagline" | t(locale) }}</p>
+                </div>
+                <div class="process-different-item">
+                    <div class="process-different-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.42"/></svg>
+                    </div>
+                    <p class="process-different-label">{{ "services.process.page.diff3.label" | t(locale) }}</p>
+                    <p class="process-different-tagline">{{ "services.process.page.diff3.tagline" | t(locale) }}</p>
+                </div>
+                <div class="process-different-item">
+                    <div class="process-different-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <p class="process-different-label">{{ "services.process.page.diff4.label" | t(locale) }}</p>
+                    <p class="process-different-tagline">{{ "services.process.page.diff4.tagline" | t(locale) }}</p>
                 </div>
             </div>
         </div>
