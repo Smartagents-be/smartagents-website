@@ -11,6 +11,10 @@ npm run start:local → node scripts/start-local.mjs  (local preview only)
 
 `scripts/start-local.mjs` is a local-only static server for previewing `dist/`. Not used in production.
 
+- Requires Node 18+ (Eleventy 3).
+- No test suite and no linter. Verification = `npm run build` + inspecting `dist/`.
+- `SITE_BASE_URL` comes from the `URL` env var (set by Netlify); falls back to `https://smartagents.be`.
+
 ## i18n Architecture
 
 - Official Eleventy directory-based i18n pattern.
@@ -33,6 +37,17 @@ npm run start:local → node scripts/start-local.mjs  (local preview only)
 - All static assets live in `assets/` and are copied to `dist/assets/` via passthrough copy.
 - Image formats: `.webp` for photos, `.svg` for logos and illustrations.
 - Always reference assets as `/assets/filename.ext` — never from the root.
+
+## Shell Contexts & Schema
+
+- `shellContext` front matter key (e.g. `home`, `services`, `jobs`, `team`) selects a preset from [`_data/shellConfigs.js`](../_data/shellConfigs.js) that drives nav active states and header links.
+- `buildSchema` filter in [`.eleventy.js`](../.eleventy.js) emits JSON-LD. Currently handles `schemaType` values `home`, `service`, `jobs` (plus breadcrumbs). Add a new branch there for any new schema type.
+
+## Deploy & Hosting
+
+- Primary deploy: Netlify (uses `_headers`, the `URL` env var, and `dist/` as publish dir).
+- `wrangler.toml` + [`functions/secured/`](../functions/secured/) configure a Cloudflare Pages/Workers deploy path for gated `secured/` content.
+- `secured/` and `customerzone/` pages set `excludeFromSitemap: true` and are copied via passthrough — treat them as restricted content, not public marketing pages.
 
 ## Eleventy Setup Rules
 
