@@ -1336,10 +1336,50 @@ h3 {
             linear-gradient(to right, var(--dark-50) 0%, transparent 50%);
     }
     .index-page .hero .hero-content {
-        text-align: center;
+        text-align: left;
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
+    }
+    .hero-desktop-grid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(32px, 5vw, 72px);
+        width: 100%;
+        max-width: 1200px;
+    }
+    .hero-desktop-logo {
+        flex: 0 0 auto;
+        width: clamp(140px, 16vw, 220px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hero-desktop-logo svg {
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 6px 24px rgba(0, 216, 255, 0.25));
+    }
+    .hero-desktop-text {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .hero-desktop-text h1 {
+        margin-left: 0;
+    }
+    .hero-desktop-text .hero-cta {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 1024px) {
+    .hero-desktop-grid {
+        gap: 32px;
+    }
+    .hero-desktop-logo {
+        width: 140px;
     }
 }
 

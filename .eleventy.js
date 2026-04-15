@@ -115,6 +115,7 @@ module.exports = function(eleventyConfig) {
 
   // Global data
   eleventyConfig.addGlobalData('baseUrl', SITE_BASE_URL);
+  eleventyConfig.addGlobalData('assetsVersion', String(Date.now()));
 
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("secured");
