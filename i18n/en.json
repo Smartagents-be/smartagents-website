@@ -282,6 +282,7 @@
   "services.training.page.course2.title": "AI in practice: working smarter",
   "services.training.page.course2.desc": "Hands-on training for everyday tasks, fully tailored to the platform you use — Microsoft Copilot, ChatGPT, Claude, Gemini or any other tool. We work with concrete examples and live demos, and provide recordings so your team can follow along or revisit them later. You learn to communicate with AI tools and build your own simple agents and assistants within these platforms — no coding required.",
   "services.training.page.course2.target": "Everyone in the company",
+  "services.training.page.onepager.download": "Download one-pager",
   "services.training.page.courseM.title": "AI for management: strategy, transformation & security",
   "services.training.page.courseM.desc": "Lead an AI-powered organization with confidence. From ROI calculations and change management to the EU AI Act and data sovereignty — everything you need to know as a leader.",
   "services.training.page.courseM.target": "C-Level, Directors, Managers",

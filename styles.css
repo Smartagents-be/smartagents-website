@@ -3319,6 +3319,11 @@ body[data-service="smartscan"] .page-role-item:last-child {
     margin-top: 14px;
     padding-top: 12px;
     border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .training-node-target {
     display: flex;
@@ -3331,6 +3336,29 @@ body[data-service="smartscan"] .page-role-item:last-child {
     font-size: 0.65rem;
     flex-shrink: 0;
     opacity: 0.7;
+}
+.training-onepager-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.training-onepager-btn--cyan {
+    color: var(--cyan);
+    border-color: rgba(0,216,255,0.22);
+    background: rgba(0,216,255,0.06);
+}
+.training-onepager-btn--cyan:hover {
+    background: rgba(0,216,255,0.13);
+    box-shadow: 0 0 10px rgba(0,216,255,0.15);
 }
 /* ── Training mobile path chooser (mobile-only) ── */
 .tmc { display: none; }
@@ -3433,6 +3461,10 @@ body[data-service="smartscan"] .page-role-item:last-child {
     .tmc-meta {
         font-size: 0.68rem;
         color: rgba(255,255,255,0.3);
+    }
+    .tmc-card-body .training-onepager-btn {
+        align-self: flex-start;
+        margin-top: 4px;
     }
     .tmc-prereq-tag {
         font-size: 0.62rem;
