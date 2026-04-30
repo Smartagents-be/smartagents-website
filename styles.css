@@ -3279,6 +3279,7 @@ body[data-service="smartscan"] .page-role-item:last-child {
 }
 .training-node--trunk      .training-node-num { color: var(--cyan); }
 .training-node--management .training-node-num { color: #a855f7; }
+.training-node--management .training-node-target { flex-basis: 100%; }
 .training-node--deepdive   .training-node-num { color: #60a5fa; }
 .training-node--developer  .training-node-num { color: #10b981; }
 .training-node-prereq-inline {
