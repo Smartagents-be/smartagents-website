@@ -39,6 +39,86 @@ function initNavigation() {
             }
         });
     }
+
+    // Shared viewport: single container, panels slide within it
+    const dropdowns  = Array.from(document.querySelectorAll('.navbar-dropdown[data-nav]'));
+    const viewport   = document.querySelector('.nav-viewport');
+    const panels     = Array.from(document.querySelectorAll('.nav-panel[data-panel]'));
+    let activeIndex  = -1;
+    let closeTimer   = null;
+
+    function positionViewport() {
+        if (!viewport || !dropdowns.length) return;
+        const navbar = document.querySelector('.navbar');
+        const nb    = navbar.getBoundingClientRect();
+        const first = dropdowns[0].getBoundingClientRect();
+        const last  = dropdowns[dropdowns.length - 1].getBoundingClientRect();
+        viewport.style.left  = (first.left - nb.left) + 'px';
+        viewport.style.width = (last.right - first.left + 50) + 'px';
+    }
+
+    positionViewport();
+    window.addEventListener('resize', positionViewport);
+
+    function openPanel(index) {
+        if (closeTimer !== null) { clearTimeout(closeTimer); closeTimer = null; }
+        if (!viewport) return;
+
+        const isSwitch = activeIndex !== -1 && activeIndex !== index;
+        const dir      = isSwitch ? (index > activeIndex ? 'right' : 'left') : null;
+
+        // Deactivate previous panel instantly (no exit anim when switching)
+        if (isSwitch) {
+            panels[activeIndex]?.classList.remove('is-active', 'from-left', 'from-right');
+            dropdowns[activeIndex]?.classList.remove('is-active');
+        }
+
+        // Viewport is fixed to the Services→Approach span (positioned on init)
+        positionViewport();
+
+        // Open viewport (only animates on first open, stays visible on switch)
+        viewport.classList.remove('is-closing');
+        if (!isSwitch) {
+            viewport.classList.add('is-open');
+        }
+
+        // Slide in the new panel
+        const panel = panels[index];
+        if (panel) {
+            panel.classList.remove('from-left', 'from-right');
+            if (dir) panel.classList.add(`from-${dir}`);
+            panel.classList.add('is-active');
+        }
+
+        dropdowns[index].classList.add('is-active');
+        activeIndex = index;
+    }
+
+    function closeAll() {
+        if (activeIndex === -1) return;
+        panels.forEach(p => p.classList.remove('is-active', 'from-left', 'from-right'));
+        dropdowns.forEach(d => d.classList.remove('is-active'));
+        viewport?.classList.remove('is-open');
+        viewport?.classList.add('is-closing');
+        closeTimer = setTimeout(() => {
+            viewport?.classList.remove('is-closing');
+            activeIndex = -1;
+            closeTimer = null;
+        }, 200);
+    }
+
+    dropdowns.forEach((dropdown, index) => {
+        dropdown.addEventListener('mouseenter', () => openPanel(index));
+        dropdown.addEventListener('mouseleave', (e) => {
+            if (viewport?.contains(e.relatedTarget)) return;
+            if (dropdowns.some(d => d !== dropdown && d.contains(e.relatedTarget))) return;
+            closeAll();
+        });
+    });
+    viewport?.addEventListener('mouseleave', (e) => {
+        if (dropdowns.some(d => d.contains(e.relatedTarget))) return;
+        closeAll();
+    });
 }
 
 function initSmoothScroll() {
