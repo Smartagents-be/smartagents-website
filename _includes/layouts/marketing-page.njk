@@ -1,0 +1,34 @@
+{%- if showHeader is not defined -%}
+    {%- set showHeader = true -%}
+{%- endif -%}
+{%- if showFooter is not defined -%}
+    {%- set showFooter = true -%}
+{%- endif -%}
+{%- if includeMainScript is not defined -%}
+    {%- set includeMainScript = true -%}
+{%- endif -%}
+{%- if includeCanonical is not defined -%}
+    {%- set includeCanonical = true -%}
+{%- endif -%}
+{%- if includeAlternates is not defined -%}
+    {%- set includeAlternates = true -%}
+{%- endif -%}
+{%- if includeOpenGraph is not defined -%}
+    {%- set includeOpenGraph = true -%}
+{%- endif -%}
+{%- if includeTwitter is not defined -%}
+    {%- set includeTwitter = true -%}
+{%- endif -%}
+{%- if includeTwitterDomain is not defined -%}
+    {%- set includeTwitterDomain = true -%}
+{%- endif -%}
+{%- if includeOrganizationSchema is not defined -%}
+    {%- set includeOrganizationSchema = true -%}
+{%- endif -%}
+{%- if includePageSchema is not defined -%}
+    {%- set includePageSchema = true -%}
+{%- endif -%}
+{%- if includeWebsiteSchema is not defined -%}
+    {%- set includeWebsiteSchema = schemaType == "home" -%}
+{%- endif -%}
+{%- include "layouts/base.njk" -%}

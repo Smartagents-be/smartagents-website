@@ -1,0 +1,151 @@
+{%- set resolvedTitleKey = pageTitleKey if pageTitleKey is defined else ("page." ~ pageKey ~ ".title" if pageKey is defined else "") -%}
+{%- set resolvedDescriptionKey = pageDescriptionKey if pageDescriptionKey is defined else ("page.training.detail." ~ courseKey ~ ".description" if courseKey is defined else ("page." ~ pageKey ~ ".description" if pageKey is defined else "")) -%}
+{%- if courseKey is defined and pageTitleKey is not defined -%}
+    {%- set resolvedTitleKey = "page.training.detail." ~ courseKey ~ ".title" -%}
+{%- endif -%}
+{%- set resolvedTitle = pageTitle if pageTitle is defined else (resolvedTitleKey | t(locale)) -%}
+{%- set resolvedDescription = pageDescription if pageDescription is defined else (resolvedDescriptionKey | t(locale) if resolvedDescriptionKey else "") -%}
+{%- if headerNlUrl is defined -%}
+    {%- set nlUrl = headerNlUrl -%}
+{%- else -%}
+    {%- set nlUrl = nlPermalink if nlPermalink is defined else "/" -%}
+{%- endif -%}
+{%- if headerEnUrl is defined -%}
+    {%- set enUrl = headerEnUrl -%}
+{%- elseif enPermalink is defined -%}
+    {%- set enUrl = enPermalink -%}
+{%- elseif nlPermalink is defined -%}
+    {%- set enUrl = "/en" + nlPermalink -%}
+{%- else -%}
+    {%- set enUrl = "/en/" -%}
+{%- endif -%}
+{%- set nlAltUrl = nlUrl | absoluteUrl(baseUrl) -%}
+{%- set enAltUrl = enUrl | absoluteUrl(baseUrl) -%}
+{%- set resolvedCanonicalUrl = canonicalUrl if canonicalUrl is defined else (page.url | absoluteUrl(baseUrl)) -%}
+{%- set ogLocale = "nl_BE" if locale == "nl" else "en_US" -%}
+{%- set ogLocaleAlt = "en_US" if locale == "nl" else "nl_BE" -%}
+{%- set resolvedSocialImage = baseUrl + socialImage if socialImage is defined else "" -%}
+{%- set resolvedSocialAlt = socialAlt[locale] if socialAlt is defined else "" -%}
+{%- set resolvedBodyClass = bodyClass if bodyClass is defined else ("index-page" if pageKey == "index" else "") -%}
+{%- set resolvedBodyDataPage = bodyDataPage if bodyDataPage is defined else (pageKey if pageKey in ["jobs", "team"] else "") -%}
+{%- set resolvedBodyDataService = bodyDataService if bodyDataService is defined else ("training" if courseKey is defined else (pageKey if schemaType == "service" else "")) -%}
+{%- set resolvedBodyTrainingDetail = bodyDataTrainingDetail if bodyDataTrainingDetail is defined else (courseKey if courseKey is defined else "") -%}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ resolvedTitle }}</title>
+    {% if includeDescription is not defined or includeDescription %}
+    {% if resolvedDescription and resolvedDescription != resolvedDescriptionKey %}
+    <meta name="description" content="{{ resolvedDescription }}">
+    {% endif %}
+    {% endif %}
+    {% if metaAuthor is defined %}
+    <meta name="author" content="{{ metaAuthor }}">
+    {% endif %}
+    <meta name="robots" content="{{ metaRobots if metaRobots is defined else 'index, follow' }}">
+    <meta name="theme-color" content="{{ metaThemeColor if metaThemeColor is defined else '#00d8ff' }}">
+    {% if includeCanonical is not defined or includeCanonical %}
+    <link rel="canonical" href="{{ resolvedCanonicalUrl }}">
+    {% endif %}
+    {% if includeAlternates is not defined or includeAlternates %}
+    <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlAltUrl }}">
+    {% endif %}
+    {% if includeOpenGraph is not defined or includeOpenGraph %}
+    <meta property="og:type" content="{{ ogType if ogType is defined else 'website' }}">
+    <meta property="og:site_name" content="{{ ogSiteName if ogSiteName is defined else 'SmartAgents' }}">
+    <meta property="og:title" content="{{ resolvedTitle }}">
+    {% if includeDescription is not defined or includeDescription %}
+    {% if resolvedDescription and resolvedDescription != resolvedDescriptionKey %}
+    <meta property="og:description" content="{{ resolvedDescription }}">
+    {% endif %}
+    {% endif %}
+    <meta property="og:url" content="{{ page.url | absoluteUrl(baseUrl) }}">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ ogLocaleAlt }}">
+    {% if resolvedSocialImage %}
+    <meta property="og:image" content="{{ resolvedSocialImage }}">
+    {% endif %}
+    {% if resolvedSocialAlt %}
+    <meta property="og:image:alt" content="{{ resolvedSocialAlt }}">
+    {% endif %}
+    {% endif %}
+    {% if includeTwitter is not defined or includeTwitter %}
+    <meta name="twitter:card" content="{{ twitterCard if twitterCard is defined else 'summary_large_image' }}">
+    <meta name="twitter:title" content="{{ resolvedTitle }}">
+    {% if includeDescription is not defined or includeDescription %}
+    {% if resolvedDescription and resolvedDescription != resolvedDescriptionKey %}
+    <meta name="twitter:description" content="{{ resolvedDescription }}">
+    {% endif %}
+    {% endif %}
+    {% if resolvedSocialImage %}
+    <meta name="twitter:image" content="{{ resolvedSocialImage }}">
+    {% endif %}
+    {% if resolvedSocialAlt %}
+    <meta name="twitter:image:alt" content="{{ resolvedSocialAlt }}">
+    {% endif %}
+    {% if includeTwitterDomain is not defined or includeTwitterDomain %}
+    <meta name="twitter:domain" content="smartagents.be">
+    {% endif %}
+    {% endif %}
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="stylesheet" href="/styles.css?v={{ assetsVersion }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {% if headInclude is defined %}
+    {% include headInclude %}
+    {% endif %}
+    {% if includeOrganizationSchema is defined and includeOrganizationSchema %}
+    {% include "schema-organization.njk" %}
+    {% endif %}
+    {% if includeWebsiteSchema is defined and includeWebsiteSchema %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SmartAgents",
+        "url": "https://smartagents.be"
+    }
+    </script>
+    {% endif %}
+    {% if includePageSchema is defined and includePageSchema %}
+    {% set schemaData = { schemaType: schemaType, pageKey: pageKey, serviceNameKey: serviceNameKey, socialImage: socialImage, nlPermalink: nlPermalink, pageUrl: page.url, postedDate: postedDate } %}
+    {% set schema = schemaData | buildSchema(locale) %}
+    {% if schema %}
+    <script type="application/ld+json" data-generated-schema="page">{{ schema | safe }}</script>
+    {% endif %}
+    {% endif %}
+    {% if includeAnalytics is not defined or includeAnalytics %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18080961249"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18080961249');
+    </script>
+    {% endif %}
+</head>
+<body{% if resolvedBodyClass %} class="{{ resolvedBodyClass }}"{% endif %}{% if resolvedBodyDataPage %} data-page="{{ resolvedBodyDataPage }}"{% endif %}{% if resolvedBodyDataService %} data-service="{{ resolvedBodyDataService }}"{% endif %}{% if resolvedBodyTrainingDetail %} data-training-detail="{{ resolvedBodyTrainingDetail }}"{% endif %}>
+    {% if showHeader is defined and showHeader %}
+    {% include "header.njk" %}
+    {% endif %}
+
+    {{ content | safe }}
+
+    {% if showFooter is defined and showFooter %}
+    {% include "footer.njk" %}
+    {% endif %}
+
+    {% if includeMainScript is defined and includeMainScript %}
+    <script src="/main.js?v={{ assetsVersion }}"></script>
+    {% endif %}
+    {% if scriptsInclude is defined %}
+    {% include scriptsInclude %}
+    {% endif %}
+</body>
+</html>

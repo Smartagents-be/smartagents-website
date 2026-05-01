@@ -1,0 +1,121 @@
+<script>
+    // Neural network canvas animation (same as main site)
+    (function() {
+        const canvas = document.getElementById('hero-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        const colors = [
+            { r: 99, g: 102, b: 241 },
+            { r: 14, g: 165, b: 233 },
+            { r: 139, g: 92, b: 246 }
+        ];
+
+        let width, height, nodes, dpr;
+        const CONNECTION_DIST = 150;
+
+        function resize() {
+            dpr = window.devicePixelRatio || 1;
+            var parent = canvas.parentElement;
+            width = parent.clientWidth;
+            height = parent.clientHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function createNodes() {
+            var isMobile = window.innerWidth < 768;
+            var count = isMobile ? 30 : 60;
+            nodes = [];
+            for (var i = 0; i < count; i++) {
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                nodes.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    radius: Math.random() * 2 + 1.5,
+                    color: color,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            for (var i = 0; i < nodes.length; i++) {
+                for (var j = i + 1; j < nodes.length; j++) {
+                    var dx = nodes[i].x - nodes[j].x;
+                    var dy = nodes[i].y - nodes[j].y;
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < CONNECTION_DIST) {
+                        var alpha = (1 - dist / CONNECTION_DIST) * 0.3;
+                        var c = nodes[i].color;
+                        ctx.strokeStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + alpha + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            for (var i = 0; i < nodes.length; i++) {
+                var n = nodes[i];
+                n.pulse += 0.02;
+                var pulseSize = Math.sin(n.pulse) * 0.5 + 0.5;
+                var c = n.color;
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.radius + 4 + pulseSize * 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0.08)';
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (0.6 + pulseSize * 0.4) + ')';
+                ctx.fill();
+            }
+        }
+
+        function update() {
+            for (var i = 0; i < nodes.length; i++) {
+                var n = nodes[i];
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > width) n.vx *= -1;
+                if (n.y < 0 || n.y > height) n.vy *= -1;
+            }
+        }
+
+        function animate() {
+            update();
+            draw();
+            requestAnimationFrame(animate);
+        }
+
+        function init() {
+            resize();
+            createNodes();
+            animate();
+        }
+
+        if (document.readyState === 'complete') {
+            init();
+        } else {
+            window.addEventListener('load', init);
+        }
+
+        window.addEventListener('resize', function() {
+            resize();
+            createNodes();
+        });
+    })();
+
+    // Login form handling
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('login-error').style.display = 'block';
+    });
+</script>
