@@ -2078,10 +2078,56 @@ h3 {
     margin: 0 auto;
     background: var(--dark);
     border: 1px solid var(--white-07);
-    border-top: 2px solid var(--page-accent, var(--cyan));
-    border-radius: 20px;
+    border-radius: 0;
     padding: 48px;
-    box-shadow: 0 0 60px var(--cyan-06);
+    box-shadow: none;
+    position: relative;
+}
+
+.contact-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--page-accent, var(--cyan));
+    pointer-events: none;
+    z-index: 2;
+}
+
+.contact-form::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    padding: 2px;
+    background: radial-gradient(
+        200px circle at var(--mx, 50%) var(--my, -60px),
+        var(--page-accent, var(--cyan)),
+        transparent 100%
+    );
+    -webkit-mask:
+        linear-gradient(#fff, #fff) content-box,
+        linear-gradient(#fff, #fff);
+    -webkit-mask-composite: destination-out;
+    mask:
+        linear-gradient(#fff, #fff) content-box,
+        linear-gradient(#fff, #fff);
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 2;
+}
+
+.contact-form.is-lit::after {
+    opacity: 0.7;
+}
+
+.contact-form > * {
+    position: relative;
+    z-index: 1;
 }
 
 .form-row {
