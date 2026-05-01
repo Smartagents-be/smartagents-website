@@ -1,0 +1,49 @@
+{%- set resolvedTitleKey = "page." ~ pageKey ~ ".title" -%}
+{%- set resolvedDescriptionKey = "page." ~ pageKey ~ ".description" -%}
+{%- set resolvedTitle = resolvedTitleKey | t(locale) -%}
+{%- set resolvedDescription = resolvedDescriptionKey | t(locale) -%}
+{%- set nlUrl = nlPermalink -%}
+{%- set enUrl = "/en" + nlPermalink -%}
+{%- set nlAltUrl = nlUrl | absoluteUrl(baseUrl) -%}
+{%- set enAltUrl = enUrl | absoluteUrl(baseUrl) -%}
+{%- set canonicalUrl = page.url | absoluteUrl(baseUrl) -%}
+{%- set ogLocale = "nl_BE" if locale == "nl" else "en_US" -%}
+{%- set ogLocaleAlternate = "en_US" if locale == "nl" else "nl_BE" -%}
+{%- set socialImageUrl = baseUrl + socialImage -%}
+{%- set socialImageAlt = socialAlt[locale] -%}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ resolvedTitle }}</title>
+    <meta name="description" content="{{ resolvedDescription }}">
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#00d8ff">
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlAltUrl }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SmartAgents">
+    <meta property="og:title" content="{{ resolvedTitle }}">
+    <meta property="og:description" content="{{ resolvedDescription }}">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ ogLocaleAlternate }}">
+    <meta property="og:image" content="{{ socialImageUrl }}">
+    <meta property="og:image:alt" content="{{ socialImageAlt }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ resolvedTitle }}">
+    <meta name="twitter:description" content="{{ resolvedDescription }}">
+    <meta name="twitter:image" content="{{ socialImageUrl }}">
+    <meta name="twitter:image:alt" content="{{ socialImageAlt }}">
+    {% include "layouts/shared/site-assets.njk" %}
+    {% include "pages/customerzone/head.njk" %}
+    {% include "layouts/shared/analytics.njk" %}
+</head>
+<body>
+    {{ content | safe }}
+    {% include "pages/customerzone/scripts.njk" %}
+</body>
+</html>

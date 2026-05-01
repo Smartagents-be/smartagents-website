@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "page.404.title" | t(locale) }}</title>
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#00d8ff">
+    {% set nlUrl = "/" %}
+    {% set enUrl = "/en/" %}
+    {% include "layouts/shared/site-assets.njk" %}
+    {% include "layouts/shared/analytics.njk" %}
+</head>
+<body>
+    {% include "header.njk" %}
+    {{ content | safe }}
+    {% include "footer.njk" %}
+    <script src="/main.js?v={{ assetsVersion }}"></script>
+</body>
+</html>
