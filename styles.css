@@ -338,6 +338,9 @@ h3 {
         align-items: center;
         gap: 4px;
     }
+    .navbar-links > .navbar-link {
+        align-self: center;
+    }
 
     .navbar-link:hover {
         color: var(--white);
@@ -414,14 +417,21 @@ h3 {
         position: absolute;
         top: 100%; /* bottom edge of .navbar (which is position:fixed) */
         left: 0; /* overridden by JS to align with active trigger */
-        background: rgba(10, 15, 30);
+        background: rgba(10, 15, 30, 0.82);
         backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border-left: 2px solid var(--page-accent, var(--cyan));
+        border-bottom: 1px solid var(--white-10);
+        border-right: 1px solid var(--white-10);
         overflow: hidden;
         z-index: 200;
         transform-origin: top left;
         opacity: 0;
         pointer-events: none;
+        transition: background 0.3s ease;
+    }
+    .navbar.scrolled .nav-viewport {
+        background: var(--dark);
     }
 
     .nav-viewport.is-open {
@@ -459,7 +469,7 @@ h3 {
     /* ── Panel link styles ────────────────────────────────────── */
     .nav-panel a {
         font-size: 0.8rem;
-        color: var(--gray-light);
+        color: var(--light);
         padding: 7px 10px;
         border-radius: 0;
         border: 1px solid transparent;
