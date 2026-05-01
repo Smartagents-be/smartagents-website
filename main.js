@@ -587,3 +587,14 @@ document.querySelectorAll('.flip-card').forEach(card => {
         card.classList.toggle('is-flipped');
     });
 });
+
+// Contact form spotlight
+document.querySelectorAll('.contact-form').forEach(form => {
+    form.addEventListener('pointermove', e => {
+        const rect = form.getBoundingClientRect();
+        form.style.setProperty('--mx', `${(e.clientX - rect.left).toFixed(1)}px`);
+        form.style.setProperty('--my', `${(e.clientY - rect.top).toFixed(1)}px`);
+        form.classList.add('is-lit');
+    });
+    form.addEventListener('pointerleave', () => form.classList.remove('is-lit'));
+});
