@@ -2783,14 +2783,6 @@ body[data-service] .page-hero {
     border-bottom: 1px solid var(--white-07);
 }
 
-.page-role-item:last-child {
-    border-bottom: none;
-}
-
-body[data-service="smartscan"] .page-role-item:last-child {
-    border-bottom: 1px solid var(--white-07);
-}
-
 .page-role-icon {
     width: 36px;
     height: 36px;
@@ -5207,12 +5199,6 @@ body[data-training-detail="m365-copilot"] {
     --page-accent-20: var(--cyan-20);
     --page-accent-15: var(--cyan-15);
     --page-accent-08: var(--cyan-08);
-}
-
-body[data-training-detail="ai-introductie"] .page-role-item:last-child,
-body[data-training-detail="m365-copilot"] .page-role-item:last-child,
-body[data-training-detail="c-level"] .page-role-item:last-child {
-    border-bottom: 1px solid var(--white-07);
 }
 
 /* ── Fixed PDF download FAB ── */
