@@ -1,34 +1,76 @@
-{%- if showHeader is not defined -%}
-    {%- set showHeader = true -%}
+{%- set resolvedTitleKey = "page.training.detail." ~ courseKey ~ ".title" if courseKey is defined else "page." ~ pageKey ~ ".title" -%}
+{%- set resolvedDescriptionKey = "page.training.detail." ~ courseKey ~ ".description" if courseKey is defined else "page." ~ pageKey ~ ".description" -%}
+{%- set resolvedTitle = pageTitle if pageTitle is defined else (pageTitleKey | t(locale) if pageTitleKey is defined else (resolvedTitleKey | t(locale))) -%}
+{%- set resolvedDescription = pageDescription if pageDescription is defined else (pageDescriptionKey | t(locale) if pageDescriptionKey is defined else (resolvedDescriptionKey | t(locale))) -%}
+{%- set nlUrl = nlPermalink if nlPermalink is defined else "/" -%}
+{%- if enPermalink is defined -%}
+    {%- set enUrl = enPermalink -%}
+{%- elseif nlPermalink is defined -%}
+    {%- set enUrl = "/en" + nlPermalink -%}
+{%- else -%}
+    {%- set enUrl = "/en/" -%}
 {%- endif -%}
-{%- if showFooter is not defined -%}
-    {%- set showFooter = true -%}
-{%- endif -%}
-{%- if includeMainScript is not defined -%}
-    {%- set includeMainScript = true -%}
-{%- endif -%}
-{%- if includeCanonical is not defined -%}
-    {%- set includeCanonical = true -%}
-{%- endif -%}
-{%- if includeAlternates is not defined -%}
-    {%- set includeAlternates = true -%}
-{%- endif -%}
-{%- if includeOpenGraph is not defined -%}
-    {%- set includeOpenGraph = true -%}
-{%- endif -%}
-{%- if includeTwitter is not defined -%}
-    {%- set includeTwitter = true -%}
-{%- endif -%}
-{%- if includeTwitterDomain is not defined -%}
-    {%- set includeTwitterDomain = true -%}
-{%- endif -%}
-{%- if includeOrganizationSchema is not defined -%}
-    {%- set includeOrganizationSchema = true -%}
-{%- endif -%}
-{%- if includePageSchema is not defined -%}
-    {%- set includePageSchema = true -%}
-{%- endif -%}
-{%- if includeWebsiteSchema is not defined -%}
-    {%- set includeWebsiteSchema = schemaType == "home" -%}
-{%- endif -%}
-{%- include "layouts/base.njk" -%}
+{%- set nlAltUrl = nlUrl | absoluteUrl(baseUrl) -%}
+{%- set enAltUrl = enUrl | absoluteUrl(baseUrl) -%}
+{%- set canonicalUrl = page.url | absoluteUrl(baseUrl) -%}
+{%- set ogLocale = "nl_BE" if locale == "nl" else "en_US" -%}
+{%- set ogLocaleAlternate = "en_US" if locale == "nl" else "nl_BE" -%}
+{%- set socialImageUrl = baseUrl + socialImage -%}
+{%- set socialImageAlt = socialAlt[locale] -%}
+{%- set bodyClass = "index-page" if pageKey == "index" else "" -%}
+{%- set bodyDataPage = pageKey if pageKey in ["jobs", "team"] else "" -%}
+{%- set bodyDataService = "training" if courseKey is defined else (pageKey if schemaType == "service" else "") -%}
+{%- set bodyTrainingDetail = courseKey if courseKey is defined else "" -%}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ resolvedTitle }}</title>
+    <meta name="description" content="{{ resolvedDescription }}">
+    {% if metaAuthor is defined %}
+    <meta name="author" content="{{ metaAuthor }}">
+    {% endif %}
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#00d8ff">
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ nlAltUrl }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SmartAgents">
+    <meta property="og:title" content="{{ resolvedTitle }}">
+    <meta property="og:description" content="{{ resolvedDescription }}">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ ogLocaleAlternate }}">
+    <meta property="og:image" content="{{ socialImageUrl }}">
+    <meta property="og:image:alt" content="{{ socialImageAlt }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ resolvedTitle }}">
+    <meta name="twitter:description" content="{{ resolvedDescription }}">
+    <meta name="twitter:image" content="{{ socialImageUrl }}">
+    <meta name="twitter:image:alt" content="{{ socialImageAlt }}">
+    <meta name="twitter:domain" content="smartagents.be">
+    {% include "layouts/shared/site-assets.njk" %}
+    {% include "schema-organization.njk" %}
+    {% if schemaType == "home" %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SmartAgents",
+        "url": "https://smartagents.be"
+    }
+    </script>
+    {% endif %}
+    {% include "layouts/shared/page-schema.njk" %}
+    {% include "layouts/shared/analytics.njk" %}
+</head>
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}{% if bodyDataPage %} data-page="{{ bodyDataPage }}"{% endif %}{% if bodyDataService %} data-service="{{ bodyDataService }}"{% endif %}{% if bodyTrainingDetail %} data-training-detail="{{ bodyTrainingDetail }}"{% endif %}>
+    {% include "header.njk" %}
+    {{ content | safe }}
+    {% include "footer.njk" %}
+    <script src="/main.js?v={{ assetsVersion }}"></script>
+</body>
+</html>
