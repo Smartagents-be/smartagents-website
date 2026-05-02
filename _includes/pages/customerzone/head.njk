@@ -19,6 +19,13 @@
         width: 100%;
     }
 
+    .login-page .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(135deg, var(--dark-95), var(--dark-50));
+    }
+
     /* Dashboard Preview — absolute positioned panels around the centered login */
     .dashboard-preview {
         position: absolute;
@@ -30,8 +37,8 @@
 
     .dashboard-panel {
         position: absolute;
-        background: rgba(30, 41, 59, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--dark-lighter);
+        border: 1px solid var(--white-10);
         border-radius: 16px;
         padding: 24px;
         width: 280px;
@@ -68,7 +75,7 @@
         margin-bottom: 20px;
         font-size: 0.85rem;
         font-weight: 600;
-        color: var(--light);
+        color: var(--white);
     }
 
     .panel-header .panel-icon {
@@ -91,8 +98,8 @@
         justify-content: space-between;
         padding: 8px 0;
         font-size: 0.8rem;
-        color: rgba(255, 255, 255, 0.7);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        color: var(--white-75);
+        border-bottom: 1px solid var(--white-05);
     }
 
     .agent-row:last-child {
@@ -108,14 +115,14 @@
     .status-dot {
         width: 7px;
         height: 7px;
-        background: #10b981;
+        background: var(--green);
         border-radius: 50%;
-        box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        box-shadow: 0 0 10px var(--green-20);
         animation: pulse 2s infinite;
     }
 
     .agent-status {
-        color: #10b981;
+        color: var(--green);
         font-weight: 500;
     }
 
@@ -142,7 +149,7 @@
         font-size: 0.68rem;
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        color: rgba(255, 255, 255, 0.45);
+        color: var(--white-40);
     }
 
     .bar-chart {
@@ -154,7 +161,7 @@
 
     .bar {
         flex: 1;
-        background: linear-gradient(to top, rgba(0, 216, 255, 0.18), rgba(0, 216, 255, 0.4));
+        background: linear-gradient(to top, var(--cyan-20), var(--cyan-40));
         border-radius: 4px 4px 0 0;
     }
 
@@ -165,7 +172,7 @@
         gap: 10px;
         padding: 8px 0;
         font-size: 0.8rem;
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--white-75);
     }
 
     .activity-icon {
@@ -181,13 +188,13 @@
     }
 
     .activity-icon.done {
-        background: rgba(16, 185, 129, 0.14);
-        color: #10b981;
+        background: var(--green-10);
+        color: var(--green);
     }
 
     .activity-icon.pending {
-        background: rgba(245, 158, 11, 0.14);
-        color: #f59e0b;
+        background: var(--amber-10);
+        color: var(--amber);
     }
 
     /* Panel 4: Performance */
@@ -205,17 +212,17 @@
         align-items: center;
         margin-bottom: 8px;
         font-size: 0.78rem;
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--white-75);
     }
 
     .perf-change {
-        color: #10b981;
+        color: var(--green);
         font-weight: 600;
     }
 
     .progress-bar {
         height: 8px;
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--white-05);
         border-radius: 999px;
         overflow: hidden;
     }
@@ -223,7 +230,7 @@
     .progress-fill {
         height: 100%;
         border-radius: 999px;
-        background: linear-gradient(90deg, rgba(0, 216, 255, 0.45), rgba(99, 102, 241, 0.7));
+        background: linear-gradient(90deg, var(--cyan-40), var(--purple-60));
     }
 
     /* Center login card */
@@ -232,12 +239,12 @@
         z-index: 3;
         width: 100%;
         max-width: 440px;
-        background: rgba(15, 23, 42, 0.78);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--dark-95);
+        border: 1px solid var(--white-10);
         border-radius: 24px;
         padding: 44px 40px;
         backdrop-filter: blur(18px);
-        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 32px 80px var(--black-50);
     }
 
     .login-logo {
@@ -256,7 +263,7 @@
     .login-logo span {
         font-size: 1.1rem;
         font-weight: 600;
-        color: var(--light);
+        color: var(--white);
     }
 
     .login-logo small {
@@ -283,16 +290,16 @@
     .form-group label {
         font-size: 0.88rem;
         font-weight: 500;
-        color: var(--light);
+        color: var(--white);
     }
 
     .form-group input {
         width: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--white-10);
+        background: var(--white-05);
         border-radius: 12px;
         padding: 13px 14px;
-        color: var(--light);
+        color: var(--white);
         font-size: 0.95rem;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
@@ -300,7 +307,7 @@
     .form-group input:focus {
         outline: none;
         border-color: var(--cyan);
-        box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.15);
+        box-shadow: 0 0 0 3px var(--cyan-15);
     }
 
     .login-btn {
@@ -310,9 +317,9 @@
 
     .login-error {
         display: none;
-        color: #f87171;
-        background: rgba(239, 68, 68, 0.08);
-        border: 1px solid rgba(239, 68, 68, 0.18);
+        color: var(--rose);
+        background: var(--rose-08);
+        border: 1px solid var(--rose-20);
         border-radius: 12px;
         padding: 12px 14px;
         font-size: 0.88rem;

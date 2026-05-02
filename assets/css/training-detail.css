@@ -1,0 +1,96 @@
+/* ── Training detail CTA inline form ── */
+.page-cta:has(.training-cta-form) {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--dark-lighter) 100%);
+}
+
+.training-cta-form {
+    max-width: 560px;
+    margin: 32px auto 0;
+    text-align: left;
+}
+
+.training-cta-form .btn {
+    width: 100%;
+    box-shadow: none;
+}
+
+.training-cta-form textarea {
+    min-height: 80px;
+}
+
+/* ── Training detail: button + FAB follow page accent ── */
+[data-training-detail] .btn-primary {
+    background: var(--purple);
+    box-shadow: none;
+}
+
+[data-training-detail] .btn-primary:hover {
+    box-shadow: 0 10px 40px var(--purple-20);
+}
+
+[data-training-detail] .training-detail-pdf-fab {
+    background: var(--purple);
+}
+
+/* ── Training detail: AI Introductie & M365 Copilot — use cyan instead of the default training accent ── */
+body[data-training-detail="ai-introductie"] .btn-primary,
+body[data-training-detail="ai-introductie"] .training-detail-pdf-fab,
+body[data-training-detail="m365-copilot"] .btn-primary,
+body[data-training-detail="m365-copilot"] .training-detail-pdf-fab {
+    background: var(--cyan);
+}
+
+body[data-training-detail="ai-introductie"] .btn-primary:hover,
+body[data-training-detail="m365-copilot"] .btn-primary:hover {
+    box-shadow: 0 10px 40px var(--cyan-20);
+}
+
+/* ── Fixed PDF download FAB ── */
+.training-detail-pdf-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 22px 12px 18px;
+    background: var(--cyan);
+    color: var(--dark);
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.87rem;
+    text-decoration: none;
+    transition: transform 0.18s ease;
+    white-space: nowrap;
+}
+
+.training-detail-pdf-fab:hover {
+    transform: translateY(-2px);
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.training-detail-pdf-fab svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    stroke: var(--dark);
+}
+
+@media (max-width: 480px) {
+    .training-detail-pdf-fab {
+        bottom: 18px;
+        right: 16px;
+        padding: 13px 16px;
+        gap: 0;
+        border-radius: 50%;
+        width: 52px;
+        height: 52px;
+        justify-content: center;
+    }
+
+    .training-detail-pdf-fab .fab-label {
+        display: none;
+    }
+}

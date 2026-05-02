@@ -1,3 +1,5 @@
+const colorRuntime = window.SmartAgentsColorRuntime;
+
 function initNavigation() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
@@ -248,11 +250,11 @@ if (contactForm) {
         }).then(response => {
             if (response.ok) {
                 btn.textContent = successLabel;
-                btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                btn.style.background = 'var(--green)';
                 contactForm.reset();
             } else {
                 btn.textContent = errorLabel;
-                btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                btn.style.background = 'var(--rose)';
             }
             btn.disabled = false;
             setTimeout(() => {
@@ -261,7 +263,7 @@ if (contactForm) {
             }, 3000);
         }).catch(() => {
             btn.textContent = errorLabel;
-            btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            btn.style.background = 'var(--rose)';
             btn.disabled = false;
             setTimeout(() => {
                 btn.textContent = defaultLabel;
@@ -325,11 +327,12 @@ if (contactForm) {
     hero.prepend(canvas);
 
     const ctx = canvas.getContext('2d');
-    const colors = [
-        { r: 99, g: 102, b: 241 },
-        { r: 14, g: 165, b: 233 },
-        { r: 139, g: 92, b: 246 }
-    ];
+    if (!colorRuntime) return;
+
+    const colors = colorRuntime.buildParticlePalette(hero);
+    if (!colors.length) {
+        return;
+    }
 
     let width, height, nodes, dpr;
     const CONNECTION_DIST = 120;
@@ -373,7 +376,7 @@ if (contactForm) {
                 if (dist < CONNECTION_DIST) {
                     const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
                     const c = nodes[i].color;
-                    ctx.strokeStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + alpha + ')';
+                    ctx.strokeStyle = colorRuntime.rgbaString(c, alpha);
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -389,11 +392,11 @@ if (contactForm) {
             const c = n.color;
             ctx.beginPath();
             ctx.arc(n.x, n.y, n.radius + 3 + pulseSize * 2, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0.04)';
+            ctx.fillStyle = colorRuntime.rgbaString(c, 0.04);
             ctx.fill();
             ctx.beginPath();
             ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (0.4 + pulseSize * 0.3) + ')';
+            ctx.fillStyle = colorRuntime.rgbaString(c, 0.4 + pulseSize * 0.3);
             ctx.fill();
         }
     }
@@ -446,12 +449,10 @@ if (contactForm) {
     const canvas = document.getElementById('hero-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    if (!colorRuntime) return;
 
-    const colors = [
-        { r: 99, g: 102, b: 241 },   // indigo (#6366f1)
-        { r: 14, g: 165, b: 233 },    // sky blue (#0ea5e9)
-        { r: 139, g: 92, b: 246 }     // purple (#8b5cf6)
-    ];
+    const colors = colorRuntime.buildParticlePalette();
+    if (!colors.length) return;
 
     let width, height, nodes, dpr;
     const CONNECTION_DIST = 150;
@@ -499,7 +500,7 @@ if (contactForm) {
                 if (dist < CONNECTION_DIST) {
                     const alpha = (1 - dist / CONNECTION_DIST) * 0.3;
                     const c = nodes[i].color;
-                    ctx.strokeStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + alpha + ')';
+                    ctx.strokeStyle = colorRuntime.rgbaString(c, alpha);
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -519,13 +520,13 @@ if (contactForm) {
             // Glow
             ctx.beginPath();
             ctx.arc(n.x, n.y, n.radius + 4 + pulseSize * 3, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0.08)';
+            ctx.fillStyle = colorRuntime.rgbaString(c, 0.08);
             ctx.fill();
 
             // Core dot
             ctx.beginPath();
             ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (0.6 + pulseSize * 0.4) + ')';
+            ctx.fillStyle = colorRuntime.rgbaString(c, 0.6 + pulseSize * 0.4);
             ctx.fill();
         }
     }

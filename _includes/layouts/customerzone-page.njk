@@ -19,7 +19,7 @@
     <title>{{ resolvedTitle }}</title>
     <meta name="description" content="{{ resolvedDescription }}">
     <meta name="robots" content="noindex, follow">
-    <meta name="theme-color" content="#00d8ff">
+    <meta name="theme-color" content="{{ themeColor }}">
     <link rel="canonical" href="{{ canonicalUrl }}">
     <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
     <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
@@ -44,6 +44,7 @@
 </head>
 <body>
     {{ content | safe }}
+    {% include "layouts/shared/color-runtime.njk" %}
     {% include "pages/customerzone/scripts.njk" %}
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ "page.404.title" | t(locale) }}</title>
     <meta name="robots" content="noindex, follow">
-    <meta name="theme-color" content="#00d8ff">
+    <meta name="theme-color" content="{{ themeColor }}">
     {% set nlUrl = "/" %}
     {% set enUrl = "/en/" %}
     {% include "layouts/shared/site-assets.njk" %}
@@ -15,6 +15,7 @@
     {% include "header.njk" %}
     {{ content | safe }}
     {% include "footer.njk" %}
+    {% include "layouts/shared/color-runtime.njk" %}
     <script src="/main.js?v={{ assetsVersion }}"></script>
 </body>
 </html>

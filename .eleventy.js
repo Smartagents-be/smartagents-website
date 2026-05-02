@@ -21,6 +21,14 @@ module.exports = function(eleventyConfig) {
 
   const { readFileSync } = require('node:fs');
   const { EleventyI18nPlugin } = require("@11ty/eleventy");
+  const baseStyles = readFileSync('./assets/css/base.css', 'utf8');
+  const themeColorMatch = baseStyles.match(/--cyan:\s*(#[0-9a-fA-F]{6})\s*;/);
+
+  if (!themeColorMatch) {
+      throw new Error('Could not resolve --cyan from assets/css/base.css');
+  }
+
+  const themeColor = themeColorMatch[1];
   const i18n = {
       en: JSON.parse(readFileSync('./i18n/en.json', 'utf8')),
       nl: JSON.parse(readFileSync('./i18n/nl.json', 'utf8'))
@@ -116,11 +124,11 @@ module.exports = function(eleventyConfig) {
   // Global data
   eleventyConfig.addGlobalData('baseUrl', SITE_BASE_URL);
   eleventyConfig.addGlobalData('assetsVersion', String(Date.now()));
+  eleventyConfig.addGlobalData('themeColor', themeColor);
 
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("secured");
   eleventyConfig.addPassthroughCopy("main.js");
-  eleventyConfig.addPassthroughCopy("styles.css");
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy({ "_headers": "_headers" });
