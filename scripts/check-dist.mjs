@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distDir = path.resolve(__dirname, '..', 'dist');
-const textExtensions = new Set(['.html', '.xml', '.txt']);
+const textExtensions = new Set(['.html', '.xml', '.txt', '.css']);
 const regexChecks = [
   {
     label: 'unresolved undefined.* output',
@@ -17,7 +17,7 @@ const regexChecks = [
   },
   {
     label: 'raw translation key in output',
-    regex: /\b(?:page|services|jobs|team|contact|hero|nav|footer|customerzone|training|approach|vision|mission|about|stats|testimonials)\.[\w.-]+\b/g
+    regex: /\b(?:page|services|jobs|team|contact|hero|nav|footer|customerzone|training|approach|vision|mission|about|stats|testimonials)\.(?!css\b|js\b|svg\b|webp\b|png\b|jpg\b|jpeg\b|pdf\b)[\w.-]+\b/g
   },
   {
     label: 'local or development URL leaked into build output',
@@ -37,6 +37,17 @@ function addFailure(file, label, sample) {
   failures.push({ file, label, sample });
 }
 
+function extractCustomPropertyDefinitions(content) {
+  return Array.from(content.matchAll(/--([\w-]+)\s*:/g), match => match[1]);
+}
+
+function extractCustomPropertyReferences(content) {
+  return Array.from(content.matchAll(/var\(--([\w-]+)(\s*,[^)]*)?\)/g), match => ({
+    name: match[1],
+    hasFallback: Boolean(match[2])
+  }));
+}
+
 function isPrimaryPage(file) {
   return file.endsWith('.html') && !file.startsWith('secured/');
 }
@@ -45,13 +56,13 @@ function isErrorPage(file) {
   return file === '404.html' || file === 'en/404.html';
 }
 
-function walk(dir) {
+function collectTextFiles(dir, files = []) {
   for (const entry of readdirSync(dir)) {
     const fullPath = path.join(dir, entry);
     const stats = statSync(fullPath);
 
     if (stats.isDirectory()) {
-      walk(fullPath);
+      collectTextFiles(fullPath, files);
       continue;
     }
 
@@ -59,8 +70,25 @@ function walk(dir) {
       continue;
     }
 
-    const relativePath = path.relative(distDir, fullPath);
-    const content = readFileSync(fullPath, 'utf8');
+    files.push({
+      fullPath,
+      relativePath: path.relative(distDir, fullPath),
+      content: readFileSync(fullPath, 'utf8')
+    });
+  }
+
+  return files;
+}
+
+const textFiles = collectTextFiles(distDir);
+const sharedCssTokenDefinitions = new Set(
+  textFiles
+    .filter(file => file.relativePath.endsWith('.css'))
+    .flatMap(file => extractCustomPropertyDefinitions(file.content))
+);
+
+for (const file of textFiles) {
+    const { relativePath, content } = file;
 
     for (const check of regexChecks) {
       const match = content.match(check.regex);
@@ -69,6 +97,22 @@ function walk(dir) {
       }
 
       addFailure(relativePath, check.label, match[0]);
+    }
+
+    const localTokenDefinitions = new Set(extractCustomPropertyDefinitions(content));
+    const tokenReferences = extractCustomPropertyReferences(content);
+
+    for (const tokenReference of tokenReferences) {
+      if (tokenReference.hasFallback) {
+        continue;
+      }
+
+      const tokenName = tokenReference.name;
+      if (localTokenDefinitions.has(tokenName) || sharedCssTokenDefinitions.has(tokenName)) {
+        continue;
+      }
+
+      addFailure(relativePath, 'undefined CSS custom property', `--${tokenName}`);
     }
 
     if (!isPrimaryPage(relativePath)) {
@@ -94,10 +138,7 @@ function walk(dir) {
     } else if (robotsMatch[1].trim() !== expectedRobots) {
       addFailure(relativePath, `unexpected robots meta tag, expected "${expectedRobots}"`, robotsMatch[0]);
     }
-  }
 }
-
-walk(distDir);
 
 if (failures.length > 0) {
   console.error('Build sanity check failed.');

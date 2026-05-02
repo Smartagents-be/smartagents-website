@@ -11,39 +11,8 @@ permalink: /secured/smartscan-rapport-claes-logistics/
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
 <style>
-:root {
-  --cyan: #00d8ff;
-  --cyan-10: rgba(0,216,255,0.1);
-  --cyan-15: rgba(0,216,255,0.15);
-  --cyan-20: rgba(0,216,255,0.2);
-  --cyan-30: rgba(0,216,255,0.3);
-  --cyan-60: rgba(0,216,255,0.6);
-  --blue: #3b82f6;
-  --blue-10: rgba(59,130,246,0.10);
-  --blue-15: rgba(59,130,246,0.15);
-  --blue-20: rgba(59,130,246,0.20);
-  --purple: #6366f1;
-  --purple-10: rgba(99,102,241,0.10);
-  --green: #10b981;
-  --green-10: rgba(16,185,129,0.10);
-  --amber: #f59e0b;
-  --amber-10: rgba(245,158,11,0.10);
-  --red: #f43f5e;
-  --red-10: rgba(244,63,94,0.10);
-  --dark: #0f172a;
-  --dark-lighter: #1e293b;
-  --dark-deep: #090e16;
-  --gray: #64748b;
-  --gray-light: #94a3b8;
-  --light: #f8fafc;
-  --white: #ffffff;
-  --white-05: rgba(255,255,255,0.05);
-  --white-08: rgba(255,255,255,0.08);
-  --white-10: rgba(255,255,255,0.10);
-  --white-25: rgba(255,255,255,0.25);
-}
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -51,7 +20,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', -apple-system, sans-serif;
   background: var(--dark-deep);
-  color: var(--light);
+  color: var(--white);
   line-height: 1.6;
   font-size: 15px;
 }
@@ -70,8 +39,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,216,255,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(99,102,241,0.07) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 50% at 80% 20%, var(--cyan-08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, var(--purple-08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -79,8 +48,8 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    linear-gradient(var(--white-05) 1px, transparent 1px),
+    linear-gradient(90deg, var(--white-05) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
@@ -204,7 +173,7 @@ body {
 .cover-meta-value {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--light);
+  color: var(--white);
 }
 
 .cover-footer {
@@ -214,7 +183,7 @@ body {
   justify-content: space-between;
   position: relative;
   z-index: 2;
-  border-top: 1px solid var(--white-08);
+  border-top: 1px solid var(--white-10);
 }
 
 .cover-footer-note {
@@ -244,7 +213,7 @@ body {
 
 .ring-track {
   fill: none;
-  stroke: var(--white-08);
+  stroke: var(--white-10);
   stroke-width: 6;
 }
 
@@ -283,7 +252,7 @@ body {
 .ring-info h4 {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--light);
+  color: var(--white);
   margin-bottom: 2px;
 }
 
@@ -304,7 +273,7 @@ body {
 
 .section:last-of-type { border-bottom: none; }
 
-.section-alt { background: rgba(255,255,255,0.015); }
+.section-alt { background: var(--white-05); }
 
 .section-label {
   font-size: 0.68rem;
@@ -346,7 +315,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1px;
-  background: var(--white-08);
+  background: var(--white-10);
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 40px;
@@ -389,7 +358,7 @@ body {
 
 .finding-card {
   background: var(--white-05);
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
   border-radius: 10px;
   padding: 20px 22px;
   display: flex;
@@ -421,7 +390,7 @@ body {
   font-size: 0.88rem;
   font-weight: 600;
   margin-bottom: 4px;
-  color: var(--light);
+  color: var(--white);
 }
 
 .finding-body p {
@@ -451,7 +420,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0;
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -473,7 +442,7 @@ body {
 }
 
 .context-detail-val {
-  color: var(--light);
+  color: var(--white);
   font-weight: 600;
   text-align: right;
 }
@@ -487,7 +456,7 @@ body {
 
 .domein-card {
   background: var(--white-05);
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
   border-radius: 10px;
   padding: 22px 20px;
   display: flex;
@@ -523,7 +492,7 @@ body {
 .domein-card h3 {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--light);
+  color: var(--white);
 }
 
 .domein-card p {
@@ -558,7 +527,7 @@ body {
 
 .usecase {
   background: var(--white-05);
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
   border-radius: 12px;
   padding: 24px 26px;
   display: grid;
@@ -580,7 +549,7 @@ body {
 .usecase-num {
   font-family: 'DM Serif Display', serif;
   font-size: 1.8rem;
-  color: var(--white-25);
+  color: var(--white-20);
   line-height: 1;
   min-width: 36px;
 }
@@ -589,7 +558,7 @@ body {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 6px;
-  color: var(--light);
+  color: var(--white);
 }
 
 .usecase-body p {
@@ -614,7 +583,7 @@ body {
   border-radius: 100px;
   background: var(--white-05);
   color: var(--gray-light);
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
 }
 
 .usecase-scores {
@@ -640,11 +609,11 @@ body {
   justify-content: space-between;
 }
 
-.score-label span { color: var(--light); }
+.score-label span { color: var(--white); }
 
 .score-bar {
   height: 4px;
-  background: var(--white-08);
+  background: var(--white-10);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -709,10 +678,10 @@ body {
   overflow: hidden;
 }
 
-.matrix-quadrant.q-tl { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 8px 0 0 0; }
-.matrix-quadrant.q-tr { background: rgba(0,216,255,0.06);  border: 1px solid rgba(0,216,255,0.15);  border-radius: 0 8px 0 0; }
-.matrix-quadrant.q-bl { background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.12); border-radius: 0 0 0 8px; }
-.matrix-quadrant.q-br { background: rgba(255,255,255,0.02); border: 1px solid var(--white-08);       border-radius: 0 0 8px 0; }
+.matrix-quadrant.q-tl { background: var(--green-08); border: 1px solid var(--green-15); border-radius: 8px 0 0 0; }
+.matrix-quadrant.q-tr { background: var(--cyan-08);  border: 1px solid var(--cyan-15);  border-radius: 0 8px 0 0; }
+.matrix-quadrant.q-bl { background: var(--amber-08); border: 1px solid var(--amber-15); border-radius: 0 0 0 8px; }
+.matrix-quadrant.q-br { background: var(--white-05); border: 1px solid var(--white-10);       border-radius: 0 0 8px 0; }
 
 .matrix-quadrant-label {
   font-size: 0.63rem;
@@ -814,7 +783,7 @@ body {
   padding: 14px 16px;
   background: var(--white-05);
   border-radius: 8px;
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
 }
 
 .initiative-dot {
@@ -829,7 +798,7 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 2px;
-  color: var(--light);
+  color: var(--white);
 }
 
 .initiative p {
@@ -847,7 +816,7 @@ body {
 
 .condition-card {
   background: var(--white-05);
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
   border-radius: 10px;
   padding: 22px 20px;
 }
@@ -859,7 +828,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--light);
+  color: var(--white);
 }
 
 .condition-card h3 .cond-dot {
@@ -908,7 +877,7 @@ body {
 }
 
 .conclusie-text p strong {
-  color: var(--light);
+  color: var(--white);
   font-weight: 600;
 }
 
@@ -916,7 +885,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0;
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -950,7 +919,7 @@ body {
 .next-step-body h4 {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--light);
+  color: var(--white);
   margin-bottom: 2px;
 }
 
@@ -962,7 +931,7 @@ body {
 /* ── REPORT FOOTER ───────────────────────────────────── */
 .report-footer {
   background: var(--dark-deep);
-  border-top: 1px solid var(--white-08);
+  border-top: 1px solid var(--white-10);
   padding: 40px 56px;
   display: flex;
   align-items: center;
@@ -1002,7 +971,7 @@ body {
   text-transform: uppercase;
   color: var(--gray);
   background: var(--white-05);
-  border: 1px solid var(--white-08);
+  border: 1px solid var(--white-10);
   padding: 6px 14px;
   border-radius: 100px;
 }
@@ -1047,9 +1016,9 @@ body {
       <svg class="logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#00d8ff"/>
-            <stop offset="50%" style="stop-color:#22d3ee"/>
-            <stop offset="100%" style="stop-color:#4f6cf7"/>
+            <stop offset="0%" style="stop-color:var(--cyan)"/>
+            <stop offset="50%" style="stop-color:var(--cyan)"/>
+            <stop offset="100%" style="stop-color:var(--blue)"/>
           </linearGradient>
         </defs>
         <g stroke="url(#logoGrad)" stroke-width="1.5" fill="none" opacity="0.6">
@@ -1247,7 +1216,7 @@ body {
   <p class="section-intro">We analyseerden zes domeinen op AI-potentieel — van dagelijkse operaties tot sectorspecifieke kansen. Per domein beoordelen we de mate van AI-gereedheid.</p>
 
   <div class="domein-grid">
-    <div class="domein-card" style="--accent:#10b981; --accent-10:rgba(16,185,129,0.1)">
+    <div class="domein-card" style="--accent:var(--green); --accent-10:var(--green-10)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
       </div>
@@ -1255,7 +1224,7 @@ body {
       <p>Ritplanning, wagenparkinzet, afwijkingsbeheer en chauffeurscommunicatie zijn de kernprocessen met het hoogste AI-potentieel.</p>
       <span class="domein-pill hoog">● Hoog potentieel</span>
     </div>
-    <div class="domein-card" style="--accent:#f59e0b; --accent-10:rgba(245,158,11,0.1)">
+    <div class="domein-card" style="--accent:var(--amber); --accent-10:var(--amber-10)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </div>
@@ -1263,7 +1232,7 @@ body {
       <p>Klantenservice, offerteteksten en nieuwsbrieven lenen zich voor AI-ondersteuning, maar zijn geen eerste prioriteit.</p>
       <span class="domein-pill midden">● Matig potentieel</span>
     </div>
-    <div class="domein-card" style="--accent:#3b82f6; --accent-10:rgba(59,130,246,0.1)">
+    <div class="domein-card" style="--accent:var(--blue); --accent-10:var(--blue-10)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
       </div>
@@ -1271,7 +1240,7 @@ body {
       <p>Historische ritdata en klantpatronen zijn rijp voor voorspellende analyses. Data governance vraagt nog aandacht.</p>
       <span class="domein-pill hoog">● Hoog potentieel</span>
     </div>
-    <div class="domein-card" style="--accent:#10b981; --accent-10:rgba(16,185,129,0.1)">
+    <div class="domein-card" style="--accent:var(--green); --accent-10:var(--green-10)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       </div>
@@ -1279,7 +1248,7 @@ body {
       <p>CMR-verwerking, facturatie en tolcontrole zijn tijdrovend en sterk gestructureerd — ideaal voor automatisatie.</p>
       <span class="domein-pill hoog">● Hoog potentieel</span>
     </div>
-    <div class="domein-card" style="--accent:#00d8ff; --accent-10:rgba(0,216,255,0.1)">
+    <div class="domein-card" style="--accent:var(--cyan); --accent-10:var(--cyan-10)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
@@ -1287,7 +1256,7 @@ body {
       <p>Lead scoring en proactieve klantcommunicatie bieden kansen, maar vereisen betere CRM-data als eerste stap.</p>
       <span class="domein-pill midden">● Matig potentieel</span>
     </div>
-    <div class="domein-card" style="--accent:#94a3b8; --accent-10:rgba(148,163,184,0.1)">
+    <div class="domein-card" style="--accent:var(--gray-light); --accent-10:var(--white-10)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
       </div>
@@ -1310,7 +1279,7 @@ body {
   <div class="usecase-list">
 
     <!-- UC 1 -->
-    <div class="usecase" style="--uc-color:#10b981">
+    <div class="usecase" style="--uc-color:var(--green)">
       <div class="usecase-num">01</div>
       <div class="usecase-body">
         <h3>AI-ondersteunde ritplanning</h3>
@@ -1324,21 +1293,21 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Hoog</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:90%; background:#10b981"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:90%; background:var(--green)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Hoog</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:85%; background:#10b981"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:85%; background:var(--green)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★★★</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:95%; background:#10b981"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:95%; background:var(--green)"></div></div>
         </div>
       </div>
     </div>
 
     <!-- UC 2 -->
-    <div class="usecase" style="--uc-color:#10b981">
+    <div class="usecase" style="--uc-color:var(--green)">
       <div class="usecase-num">02</div>
       <div class="usecase-body">
         <h3>Automatische CMR- en factuurverwerking</h3>
@@ -1352,21 +1321,21 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Hoog</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:88%; background:#10b981"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:88%; background:var(--green)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Hoog</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:90%; background:#10b981"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:90%; background:var(--green)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★★★</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:92%; background:#10b981"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:92%; background:var(--green)"></div></div>
         </div>
       </div>
     </div>
 
     <!-- UC 3 -->
-    <div class="usecase" style="--uc-color:#3b82f6">
+    <div class="usecase" style="--uc-color:var(--blue)">
       <div class="usecase-num">03</div>
       <div class="usecase-body">
         <h3>Klantenservice AI-assistent</h3>
@@ -1380,21 +1349,21 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Hoog</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:82%; background:#3b82f6"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:82%; background:var(--blue)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Matig</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:65%; background:#3b82f6"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:65%; background:var(--blue)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★★★</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:80%; background:#3b82f6"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:80%; background:var(--blue)"></div></div>
         </div>
       </div>
     </div>
 
     <!-- UC 4 -->
-    <div class="usecase" style="--uc-color:#3b82f6">
+    <div class="usecase" style="--uc-color:var(--blue)">
       <div class="usecase-num">04</div>
       <div class="usecase-body">
         <h3>Voorspellend onderhoud wagenpark</h3>
@@ -1408,21 +1377,21 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Hoog</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:85%; background:#3b82f6"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:85%; background:var(--blue)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Matig</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:60%; background:#3b82f6"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:60%; background:var(--blue)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★★☆</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:70%; background:#3b82f6"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:70%; background:var(--blue)"></div></div>
         </div>
       </div>
     </div>
 
     <!-- UC 5 -->
-    <div class="usecase" style="--uc-color:#f59e0b">
+    <div class="usecase" style="--uc-color:var(--amber)">
       <div class="usecase-num">05</div>
       <div class="usecase-body">
         <h3>Slimme tariefberekening & offertegeneratie</h3>
@@ -1436,21 +1405,21 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Matig</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:65%; background:#f59e0b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:65%; background:var(--amber)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Matig</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:55%; background:#f59e0b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:55%; background:var(--amber)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★★☆</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:60%; background:#f59e0b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:60%; background:var(--amber)"></div></div>
         </div>
       </div>
     </div>
 
     <!-- UC 6 -->
-    <div class="usecase" style="--uc-color:#f59e0b">
+    <div class="usecase" style="--uc-color:var(--amber)">
       <div class="usecase-num">06</div>
       <div class="usecase-body">
         <h3>Meertalige klantenportaal assistent</h3>
@@ -1464,21 +1433,21 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Matig</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:60%; background:#f59e0b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:60%; background:var(--amber)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Hoog</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:80%; background:#f59e0b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:80%; background:var(--amber)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★★☆</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:65%; background:#f59e0b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:65%; background:var(--amber)"></div></div>
         </div>
       </div>
     </div>
 
     <!-- UC 7 -->
-    <div class="usecase" style="--uc-color:#64748b">
+    <div class="usecase" style="--uc-color:var(--gray)">
       <div class="usecase-num">07</div>
       <div class="usecase-body">
         <h3>HACCP-compliance documentatiebeheer</h3>
@@ -1492,15 +1461,15 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Laag</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:40%; background:#64748b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:40%; background:var(--gray)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Matig</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:55%; background:#64748b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:55%; background:var(--gray)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★☆☆</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:35%; background:#64748b"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:35%; background:var(--gray)"></div></div>
         </div>
       </div>
     </div>
@@ -1522,40 +1491,40 @@ body {
     <div class="matrix-grid">
       <!-- Q1: hoog impact, laag haalbaarheid (strategisch) -->
       <div class="matrix-quadrant q-tl">
-        <div class="matrix-quadrant-label" style="color:#f59e0b">Strategisch investeren</div>
+        <div class="matrix-quadrant-label" style="color:var(--amber)">Strategisch investeren</div>
         <!-- UC4: Voorspellend onderhoud -->
-        <div class="matrix-dot" style="background:rgba(59,130,246,0.2); border-color:#3b82f6; color:#3b82f6; bottom:30%; left:25%">UC4</div>
+        <div class="matrix-dot" style="background:var(--blue-20); border-color:var(--blue); color:var(--blue); bottom:30%; left:25%">UC4</div>
       </div>
       <!-- Q2: hoog impact, hoog haalbaarheid (quick wins) -->
       <div class="matrix-quadrant q-tr">
-        <div class="matrix-quadrant-label" style="color:#10b981">Meteen starten</div>
+        <div class="matrix-quadrant-label" style="color:var(--green)">Meteen starten</div>
         <!-- UC1, UC2, UC3 -->
-        <div class="matrix-dot" style="background:rgba(16,185,129,0.2); border-color:#10b981; color:#10b981; bottom:55%; left:20%">UC1</div>
-        <div class="matrix-dot" style="background:rgba(16,185,129,0.2); border-color:#10b981; color:#10b981; bottom:35%; left:55%">UC2</div>
-        <div class="matrix-dot" style="background:rgba(59,130,246,0.2); border-color:#3b82f6; color:#3b82f6; bottom:65%; right:15%">UC3</div>
+        <div class="matrix-dot" style="background:var(--green-20); border-color:var(--green); color:var(--green); bottom:55%; left:20%">UC1</div>
+        <div class="matrix-dot" style="background:var(--green-20); border-color:var(--green); color:var(--green); bottom:35%; left:55%">UC2</div>
+        <div class="matrix-dot" style="background:var(--blue-20); border-color:var(--blue); color:var(--blue); bottom:65%; right:15%">UC3</div>
       </div>
       <!-- Q3: laag impact, laag haalbaarheid (later) -->
       <div class="matrix-quadrant q-bl">
-        <div class="matrix-quadrant-label" style="color:#64748b">Later evalueren</div>
+        <div class="matrix-quadrant-label" style="color:var(--gray)">Later evalueren</div>
         <!-- UC7 -->
-        <div class="matrix-dot" style="background:rgba(100,116,139,0.2); border-color:#64748b; color:#94a3b8; top:25%; left:40%">UC7</div>
+        <div class="matrix-dot" style="background:var(--white-20); border-color:var(--gray); color:var(--gray-light); top:25%; left:40%">UC7</div>
       </div>
       <!-- Q4: laag impact, hoog haalbaarheid (laaghangende fruit) -->
       <div class="matrix-quadrant q-br">
-        <div class="matrix-quadrant-label" style="color:#94a3b8">Plannen & integreren</div>
+        <div class="matrix-quadrant-label" style="color:var(--gray-light)">Plannen & integreren</div>
         <!-- UC5, UC6 -->
-        <div class="matrix-dot" style="background:rgba(245,158,11,0.15); border-color:#f59e0b; color:#f59e0b; top:30%; left:20%">UC5</div>
-        <div class="matrix-dot" style="background:rgba(245,158,11,0.15); border-color:#f59e0b; color:#f59e0b; top:55%; right:20%">UC6</div>
+        <div class="matrix-dot" style="background:var(--amber-15); border-color:var(--amber); color:var(--amber); top:30%; left:20%">UC5</div>
+        <div class="matrix-dot" style="background:var(--amber-15); border-color:var(--amber); color:var(--amber); top:55%; right:20%">UC6</div>
       </div>
     </div>
     <div class="matrix-x-label">Technische haalbaarheid</div>
   </div>
 
   <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:20px; justify-content:flex-end;">
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:rgba(16,185,129,0.3); border:1.5px solid #10b981"></span>Fase 1 — Quick win</span>
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:rgba(59,130,246,0.3); border:1.5px solid #3b82f6"></span>Fase 2 — Strategisch</span>
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:rgba(245,158,11,0.2); border:1.5px solid #f59e0b"></span>Fase 2 — Plannen</span>
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:rgba(100,116,139,0.2); border:1.5px solid #64748b"></span>Fase 3 — Later</span>
+    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--green-20); border:1.5px solid var(--green)"></span>Fase 1 — Quick win</span>
+    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--blue-20); border:1.5px solid var(--blue)"></span>Fase 2 — Strategisch</span>
+    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--amber-20); border:1.5px solid var(--amber)"></span>Fase 2 — Plannen</span>
+    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--white-20); border:1.5px solid var(--gray)"></span>Fase 3 — Later</span>
   </div>
 </section>
 
@@ -1582,21 +1551,21 @@ body {
         <p style="font-size:0.82rem; color:var(--gray-light); margin-bottom:12px;">Focus op drie initiatieven met de hoogste impact en laagste implementatieweerstand. Directe ROI zichtbaar binnen kwartaal 1.</p>
         <div class="phase-initiatives">
           <div class="initiative">
-            <div class="initiative-dot" style="background:#10b981"></div>
+            <div class="initiative-dot" style="background:var(--green)"></div>
             <div>
               <h4>UC1 — AI-ondersteunde ritplanning</h4>
               <p>Integratie met TransStar Pro via bestaande API. Piloot met 2 planners, daarna uitrol naar het volledige planningsteam.</p>
             </div>
           </div>
           <div class="initiative">
-            <div class="initiative-dot" style="background:#10b981"></div>
+            <div class="initiative-dot" style="background:var(--green)"></div>
             <div>
               <h4>UC2 — Automatische CMR-verwerking</h4>
               <p>Document AI gekoppeld aan ERP. Start met inkomende CMR-documenten, daarna uitbreiding naar facturen en pakbonnen.</p>
             </div>
           </div>
           <div class="initiative">
-            <div class="initiative-dot" style="background:#3b82f6"></div>
+            <div class="initiative-dot" style="background:var(--blue)"></div>
             <div>
               <h4>UC3 — Klantenservice AI-assistent</h4>
               <p>Interne RAG-chatbot gevoed met ritdata uit TMS. Enkel voor medewerkers in eerste fase, geen directe klantinteractie.</p>
@@ -1619,21 +1588,21 @@ body {
         <p style="font-size:0.82rem; color:var(--gray-light); margin-bottom:12px;">Na consolidatie van fase 1 breiden we uit naar meer complexe toepassingen. Nadruk op datakwaliteit en adoptie.</p>
         <div class="phase-initiatives">
           <div class="initiative">
-            <div class="initiative-dot" style="background:#3b82f6"></div>
+            <div class="initiative-dot" style="background:var(--blue)"></div>
             <div>
               <h4>UC4 — Voorspellend onderhoud wagenpark</h4>
               <p>Integratie van OBD-sensordata met onderhoudsplanning. Vereist eerst dataverzameling uit boordcomputers (reeds beschikbaar).</p>
             </div>
           </div>
           <div class="initiative">
-            <div class="initiative-dot" style="background:#f59e0b"></div>
+            <div class="initiative-dot" style="background:var(--amber)"></div>
             <div>
               <h4>UC5 — Slimme tariefberekening</h4>
               <p>Pricing-assistent voor accountmanagers. Vereist opschoning van historische tariefdata als voorbereidende stap.</p>
             </div>
           </div>
           <div class="initiative">
-            <div class="initiative-dot" style="background:#f59e0b"></div>
+            <div class="initiative-dot" style="background:var(--amber)"></div>
             <div>
               <h4>UC6 — Meertalige portaalassistent</h4>
               <p>Klantgerichte chatbot op het bestaande portaal. Uitrol starten met FR-talige klanten als pilootgroep.</p>
@@ -1656,14 +1625,14 @@ body {
         <p style="font-size:0.82rem; color:var(--gray-light); margin-bottom:12px;">Optimalisatie van bestaande systemen en uitbreiding naar sectorspecifieke kansen. Evalueer op basis van resultaten uit fase 1 en 2.</p>
         <div class="phase-initiatives">
           <div class="initiative">
-            <div class="initiative-dot" style="background:#64748b"></div>
+            <div class="initiative-dot" style="background:var(--gray)"></div>
             <div>
               <h4>UC7 — HACCP-compliance documentatiebeheer</h4>
               <p>Automatisatie van temperatuurlogboeken voor audits. Timing afhankelijk van sensordata-infrastructuur en regulatoire ontwikkelingen.</p>
             </div>
           </div>
           <div class="initiative">
-            <div class="initiative-dot" style="background:#64748b"></div>
+            <div class="initiative-dot" style="background:var(--gray)"></div>
             <div>
               <h4>Optimalisatie & schaling</h4>
               <p>Verbetering van modellen op basis van operationele feedback. Uitbreiding naar de Rotterdam-vestiging en eventuele nieuwe markten.</p>
@@ -1686,7 +1655,7 @@ body {
 
   <div class="conditions-grid">
     <div class="condition-card">
-      <h3><span class="cond-dot" style="background:#10b981"></span> Data & integraties</h3>
+      <h3><span class="cond-dot" style="background:var(--green)"></span> Data & integraties</h3>
       <ul class="condition-list">
         <li>Historische ritdata (min. 18 maanden) beschikbaar maken via TMS-export voor planningsmodel</li>
         <li>API-connectie tussen TMS en ERP controleren op stabiliteit en documenteren</li>
@@ -1695,7 +1664,7 @@ body {
       </ul>
     </div>
     <div class="condition-card">
-      <h3><span class="cond-dot" style="background:#3b82f6"></span> Adoptie & change management</h3>
+      <h3><span class="cond-dot" style="background:var(--blue)"></span> Adoptie & change management</h3>
       <ul class="condition-list">
         <li>Planners en chauffeurs vroegtijdig betrekken bij ontwerp van de planningsassistent</li>
         <li>AI positioneren als hulpmiddel, niet als vervanger — actief communiceren naar het team</li>
@@ -1704,7 +1673,7 @@ body {
       </ul>
     </div>
     <div class="condition-card">
-      <h3><span class="cond-dot" style="background:#f59e0b"></span> Risico & governance</h3>
+      <h3><span class="cond-dot" style="background:var(--amber)"></span> Risico & governance</h3>
       <ul class="condition-list">
         <li>GDPR-toetsing uitvoeren voor klantgerelateerde AI-toepassingen (UC3, UC6)</li>
         <li>Menselijk toezicht verplicht stellen bij autonome beslissingen in planning en pricing</li>
@@ -1713,7 +1682,7 @@ body {
       </ul>
     </div>
     <div class="condition-card">
-      <h3><span class="cond-dot" style="background:#6366f1"></span> Organisatie & budget</h3>
+      <h3><span class="cond-dot" style="background:var(--purple)"></span> Organisatie & budget</h3>
       <ul class="condition-list">
         <li>Een AI-projecteigenaar aanduiden met mandaat over fase 1 implementaties</li>
         <li>Budget reserveren voor externe integratie (schatting: €35–55K voor fase 1)</li>
@@ -1791,9 +1760,9 @@ body {
     <svg width="40" height="40" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#00d8ff"/>
-          <stop offset="50%" style="stop-color:#22d3ee"/>
-          <stop offset="100%" style="stop-color:#4f6cf7"/>
+          <stop offset="0%" style="stop-color:var(--cyan)"/>
+          <stop offset="50%" style="stop-color:var(--cyan)"/>
+          <stop offset="100%" style="stop-color:var(--blue)"/>
         </linearGradient>
       </defs>
       <g stroke="url(#footerGrad)" stroke-width="1.5" fill="none" opacity="0.6">

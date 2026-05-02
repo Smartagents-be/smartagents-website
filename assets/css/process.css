@@ -1,0 +1,378 @@
+/* ===========================
+   Process Optimization Page
+   =========================== */
+
+/* Why section */
+.process-why {
+    padding: 100px 0;
+    background: var(--dark);
+}
+
+.process-why .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.process-why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.process-why-statement {
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--white);
+}
+
+.process-why-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.process-why-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.6;
+}
+
+.process-why-point-icon {
+    flex-shrink: 0;
+    color: var(--cyan);
+    margin-top: 1px;
+}
+
+/* Methodology timeline */
+.process-timeline {
+    padding: 100px 0;
+    background: var(--dark-lighter);
+}
+
+.process-timeline .section-title {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.process-timeline-track {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.process-timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--cyan-30) 8%, var(--cyan-30) 92%, transparent);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.process-phase {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0 20px;
+    align-items: center;
+    margin-bottom: 56px;
+    position: relative;
+}
+
+.process-phase:last-child {
+    margin-bottom: 0;
+}
+
+.process-phase-dot {
+    width: 14px;
+    height: 14px;
+    background: var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--cyan-40);
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.process-phase-card {
+    background: var(--white-05);
+    border: 1px solid var(--cyan-15);
+    border-radius: 12px;
+    padding: 32px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.process-phase-card:hover {
+    border-color: var(--cyan-30);
+    background: var(--white-05);
+}
+
+/* Left-side phase: card | dot | empty */
+.process-phase--left .process-phase-card {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: right;
+}
+
+.process-phase--left .process-phase-dot {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.process-phase--left .process-phase-empty {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+/* Right-side phase: empty | dot | card */
+.process-phase--right .process-phase-empty {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.process-phase--right .process-phase-dot {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.process-phase--right .process-phase-card {
+    grid-column: 3;
+    grid-row: 1;
+    text-align: left;
+}
+
+.process-phase-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--cyan-20);
+    line-height: 1;
+    margin-bottom: 12px;
+    font-feature-settings: "tnum";
+}
+
+.process-phase-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--cyan);
+    margin-bottom: 12px;
+}
+
+.process-phase--left .process-phase-icon {
+    margin-left: auto;
+}
+
+.process-phase-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+.process-phase-desc {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* Benefits — redesigned */
+.process-benefits {
+    padding: 100px 0;
+    background: var(--dark);
+}
+
+.process-benefits .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.process-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.process-benefit-card {
+    background: var(--white-05);
+    border: 1px solid var(--white-05);
+    border-radius: 16px;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.process-benefit-card:hover {
+    border-color: var(--cyan-20);
+    box-shadow: 0 0 30px var(--cyan-08);
+}
+
+.process-benefit-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--cyan-10);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+}
+
+.process-benefit-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: var(--cyan);
+}
+
+.process-benefit-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.process-benefit-card p {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* What makes us different */
+.process-different {
+    padding: 80px 0;
+    background: var(--dark-lighter);
+    border-top: 1px solid var(--white-05);
+}
+
+.process-different .section-title {
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+.process-different-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.process-different-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 28px;
+    border-right: 1px solid var(--white-05);
+}
+
+.process-different-item:last-child {
+    border-right: none;
+}
+
+.process-different-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--cyan-10);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.process-different-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--cyan);
+}
+
+.process-different-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.process-different-tagline {
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Mobile overrides for process page */
+@media (max-width: 900px) {
+    .process-why-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .process-why-statement {
+        font-size: 1.35rem;
+    }
+
+    .process-timeline-line {
+        left: 19px;
+        transform: none;
+    }
+
+    .process-phase {
+        grid-template-columns: 40px 1fr;
+    }
+
+    .process-phase--left .process-phase-card,
+    .process-phase--right .process-phase-card {
+        grid-column: 2;
+        grid-row: 1;
+        text-align: left;
+    }
+
+    .process-phase--left .process-phase-dot,
+    .process-phase--right .process-phase-dot {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .process-phase--left .process-phase-empty,
+    .process-phase--right .process-phase-empty {
+        display: none;
+    }
+
+    .process-phase--left .process-phase-icon {
+        margin-left: 0;
+    }
+
+    .process-phase-number {
+        font-size: 1.6rem;
+    }
+
+    .process-benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .process-different-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+
+    .process-different-item {
+        border-right: none;
+        padding: 0;
+    }
+}

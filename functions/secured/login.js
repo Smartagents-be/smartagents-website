@@ -32,12 +32,14 @@ function timingSafeEqual(a, b) {
 
 function loginPage(redirectTo, error) {
   const safeRedirect = escapeHtml(redirectTo);
+  const inputBorder = error ? 'var(--rose)' : 'var(--white-10)';
   return `<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartAgents — Beveiligde documenten</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -45,16 +47,16 @@ function loginPage(redirectTo, error) {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0a0a0f;
+      background: var(--dark);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: #e8e8f0;
+      color: var(--white);
     }
     .card {
       width: 100%;
       max-width: 400px;
       padding: 2.5rem 2rem;
-      background: #13131a;
-      border: 1px solid #1e1e2e;
+      background: var(--dark-lighter);
+      border: 1px solid var(--white-10);
       border-radius: 12px;
     }
     .brand {
@@ -65,40 +67,40 @@ function loginPage(redirectTo, error) {
     }
     .subtitle {
       font-size: 0.9rem;
-      color: #888;
+      color: var(--gray-light);
       margin-bottom: 2rem;
     }
     label {
       display: block;
       font-size: 0.82rem;
-      color: #aaa;
+      color: var(--gray-light);
       margin-bottom: 0.4rem;
     }
     input[type="password"] {
       width: 100%;
       padding: 0.7rem 0.9rem;
-      background: #0a0a0f;
-      border: 1px solid ${error ? '#ff4d4d' : '#2a2a3a'};
+      background: var(--dark-deep);
+      border: 1px solid ${inputBorder};
       border-radius: 8px;
-      color: #e8e8f0;
+      color: var(--white);
       font-size: 1rem;
       outline: none;
       transition: border-color 0.15s;
     }
     input[type="password"]:focus {
-      border-color: #00d8ff;
+      border-color: var(--cyan);
     }
     .error {
       margin-top: 0.5rem;
       font-size: 0.82rem;
-      color: #ff4d4d;
+      color: var(--rose);
     }
     button {
       margin-top: 1.5rem;
       width: 100%;
       padding: 0.75rem;
-      background: #00d8ff;
-      color: #0a0a0f;
+      background: var(--cyan);
+      color: var(--dark);
       border: none;
       border-radius: 8px;
       font-size: 0.95rem;
@@ -107,11 +109,13 @@ function loginPage(redirectTo, error) {
       transition: opacity 0.15s;
     }
     button:hover { opacity: 0.85; }
+    .brand-base { color: var(--white); }
+    .brand-accent { color: var(--cyan); }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="brand"><span style="color:#fff">Smart</span><span style="color:#00d8ff">Agents</span></div>
+    <div class="brand"><span class="brand-base">Smart</span><span class="brand-accent">Agents</span></div>
     <div class="subtitle">Beveiligde documenten</div>
     <form method="POST" action="/secured/login">
       <input type="hidden" name="redirect" value="${safeRedirect}">
