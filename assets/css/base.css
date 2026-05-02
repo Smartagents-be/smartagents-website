@@ -70,6 +70,13 @@
     --purple-20: rgba(99, 102, 241, 0.2);
     --purple-40: rgba(99, 102, 241, 0.4);
     --purple-60: rgba(99, 102, 241, 0.6);
+    --purple-soft: #8b5cf6;
+    --purple-soft-08: rgba(139, 92, 246, 0.08);
+    --purple-soft-10: rgba(139, 92, 246, 0.1);
+    --purple-soft-15: rgba(139, 92, 246, 0.15);
+    --purple-soft-20: rgba(139, 92, 246, 0.2);
+    --purple-soft-40: rgba(139, 92, 246, 0.4);
+    --purple-soft-60: rgba(139, 92, 246, 0.6);
 }
 
 /* Per-service accent colors — applied to service buttons, desktop panels, and mobile accordion panels */

@@ -34,7 +34,7 @@
 }
 
 .training-node--management {
-    border-left: 3px solid var(--purple);
+    border-left: 3px solid var(--purple-soft);
 }
 
 .training-node--deepdive {
@@ -108,7 +108,7 @@
     transform: translateX(-50%);
     width: 2px;
     height: 50%;
-    background: var(--purple-40);
+    background: var(--purple-soft-40);
 }
 
 /* Drop to deepdive branch */
@@ -160,7 +160,7 @@
 }
 
 .training-node--management .training-node-num {
-    color: var(--purple);
+    color: var(--purple-soft);
 }
 
 .training-node--management .training-node-target {
@@ -200,9 +200,9 @@
 }
 
 .training-badge--management {
-    background: var(--purple-10);
-    color: var(--purple);
-    border: 1px solid var(--purple-20);
+    background: var(--purple-soft-10);
+    color: var(--purple-soft);
+    border: 1px solid var(--purple-soft-20);
 }
 
 .training-badge--deepdive {
@@ -290,14 +290,14 @@
 }
 
 .training-onepager-btn--management {
-    color: var(--purple);
-    border-color: var(--purple-20);
-    background: var(--purple-08);
+    color: var(--purple-soft);
+    border-color: var(--purple-soft-20);
+    background: var(--purple-soft-08);
 }
 
 .training-onepager-btn--management:hover {
-    background: var(--purple-10);
-    box-shadow: 0 0 10px var(--purple-20);
+    background: var(--purple-soft-10);
+    box-shadow: 0 0 10px var(--purple-soft-20);
 }
 
 .training-onepager-btn--filled-cyan {
@@ -313,13 +313,13 @@
 
 .training-onepager-btn--filled-management {
     color: var(--dark-deep);
-    border-color: var(--purple);
-    background: var(--purple);
+    border-color: var(--purple-soft);
+    background: var(--purple-soft);
 }
 
 .training-onepager-btn--filled-management:hover {
-    background: var(--purple);
-    box-shadow: 0 0 14px var(--purple-40);
+    background: var(--purple-soft);
+    box-shadow: 0 0 14px var(--purple-soft-40);
 }
 
 /* ── Training detail page components ── */
@@ -394,7 +394,7 @@
     padding: 18px 16px;
     border: 1px solid var(--white-10);
     border-radius: 12px;
-    background: var(--cyan-04);
+    background: var(--service-color-08, var(--cyan-04));
 }
 
 .training-day-number {
@@ -462,8 +462,8 @@
     }
 
     .tmc-phase-dot--purple {
-        background: var(--purple);
-        box-shadow: 0 0 8px var(--purple-60);
+        background: var(--purple-soft);
+        box-shadow: 0 0 8px var(--purple-soft-60);
     }
 
     .tmc-phase-dot--blue {
@@ -491,7 +491,7 @@
     }
 
     .tmc-track-line--purple {
-        background: linear-gradient(to bottom, var(--purple-60), var(--purple-10));
+        background: linear-gradient(to bottom, var(--purple-soft-60), var(--purple-soft-10));
     }
 
     .tmc-track-line--blue {
@@ -521,8 +521,8 @@
     }
 
     .tmc-card--management {
-        border-left: 3px solid var(--purple-40);
-        background: var(--purple-08);
+        border-left: 3px solid var(--purple-soft-40);
+        background: var(--purple-soft-08);
     }
 
     .tmc-card--deepdive {
@@ -650,10 +650,10 @@
     }
 
     .tmc-picker-btn--management.tmc-active {
-        border-color: var(--purple-60);
-        background: var(--purple-10);
-        color: var(--purple);
-        box-shadow: 0 0 20px var(--purple-20);
+        border-color: var(--purple-soft-60);
+        background: var(--purple-soft-10);
+        color: var(--purple-soft);
+        box-shadow: 0 0 20px var(--purple-soft-20);
     }
 
     .tmc-picker-btn--deepdive.tmc-active {
