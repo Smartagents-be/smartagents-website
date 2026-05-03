@@ -7,7 +7,7 @@ This repo uses four different shared layers. They serve different purposes:
 - `assets/`
   - Browser-loaded media and file assets.
   - Keep these flat in the `assets/` root rather than creating subfolders.
-  - Examples: `assets/logo.svg`, `assets/social-preview.webp`, `assets/axel.webp`, `assets/SmartAgents_AI_Introductie_Onepager.pdf`.
+  - Examples: `assets/logo.svg`, `assets/social-preview.webp`, `assets/axel-profile.webp`, `assets/SmartAgents_AI_Introductie_Onepager.pdf`.
 
 - `shared/`
   - Shared cross-page CSS and JS that the browser loads directly.
