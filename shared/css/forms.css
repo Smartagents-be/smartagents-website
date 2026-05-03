@@ -90,8 +90,8 @@
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--cyan);
-    box-shadow: 0 0 0 3px var(--cyan-08);
+    border-color: var(--service-color, var(--cyan));
+    box-shadow: 0 0 0 3px var(--service-color-08, var(--cyan-08));
 }
 
 .form-select-wrap {
@@ -115,8 +115,8 @@
 
 .form-select-wrap select:focus {
     outline: none;
-    border-color: var(--cyan);
-    box-shadow: 0 0 0 3px var(--cyan-08);
+    border-color: var(--service-color, var(--cyan));
+    box-shadow: 0 0 0 3px var(--service-color-08, var(--cyan-08));
 }
 
 .form-select-wrap select option {
@@ -138,7 +138,7 @@
 
 .form-select-wrap:focus-within .form-select-chevron,
 .form-group:focus-within .form-select-chevron {
-    stroke: var(--cyan);
+    stroke: var(--service-color, var(--cyan));
 }
 
 .form-group textarea {
@@ -151,7 +151,7 @@
 }
 
 .form-group:focus-within label {
-    color: var(--cyan);
+    color: var(--service-color, var(--cyan));
 }
 
 @media (max-width: 768px) {

@@ -33,16 +33,7 @@ body[data-training-detail="m365-copilot"] {
     min-height: 80px;
 }
 
-/* ── Training detail: button + FAB follow page accent ── */
-[data-training-detail] .btn-primary {
-    background: var(--service-color, var(--purple));
-    box-shadow: none;
-}
-
-[data-training-detail] .btn-primary:hover {
-    box-shadow: 0 10px 40px var(--service-color-20, var(--purple-20));
-}
-
+/* ── Training detail: PDF FAB follows page accent ── */
 [data-training-detail] .training-detail-pdf-fab {
     background: var(--service-color, var(--purple));
 }

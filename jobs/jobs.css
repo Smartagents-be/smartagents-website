@@ -1,4 +1,11 @@
 /* Jobs page components */
+body[data-page="jobs"] {
+    --service-color: var(--cyan);
+    --service-color-20: var(--cyan-20);
+    --service-color-15: var(--cyan-15);
+    --service-color-08: var(--cyan-08);
+}
+
 .jc {
     border-radius: 20px;
     border: 1px solid var(--white-05);
