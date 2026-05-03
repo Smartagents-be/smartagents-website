@@ -3,7 +3,7 @@
   <div class="subtitle">Beveiligde documenten</div>
 </header>
 
-{% if securedSupportsProtectedDocs and securedFiles.length %}
+{% if securedFiles.length %}
 <div class="list">
   {% for doc in securedFiles %}
   <div class="item">
@@ -14,11 +14,6 @@
     </div>
   </div>
   {% endfor %}
-</div>
-{% elif not securedSupportsProtectedDocs %}
-<div class="empty">
-  Deze deployment draait in statische modus. Beschermde documenten worden daarom niet mee gepubliceerd.
-  Gebruik een server-capabele deployment voor `/secured/`, of host deze documenten apart achter echte authenticatie.
 </div>
 {% else %}
 <p class="empty">Geen documenten beschikbaar.</p>

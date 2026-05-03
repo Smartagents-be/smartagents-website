@@ -11,9 +11,9 @@ Route mapping in this repo:
 This split is platform-driven. The function files should stay under `functions/` unless deployment moves away from Cloudflare Pages Functions.
 
 Deployment modes in this repo:
-- `npm run build:cloudflare`
+- `npm run build`
   - Includes the protected `/secured/` document pages and PDFs.
   - Expects Cloudflare Pages Functions to protect those URLs.
-- `npm run build:static`
-  - Builds the public site without publishing protected `/secured/` documents.
-  - `/secured/` stays as an informational page so static hosts like GitHub Pages do not accidentally leak the files.
+
+Keep Cloudflare-specific behavior isolated here and under `/secured/`.
+The public marketing site should continue to use static-compatible paths and directly fetchable browser assets even though this repo no longer maintains a separate static-host build mode.

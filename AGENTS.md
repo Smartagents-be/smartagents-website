@@ -21,11 +21,10 @@ This project uses a **Colocation Pattern** to manage complexity. Instead of glob
 - **Environment**: Node.js.
 - **Deployment**: Cloudflare Pages (with Functions for `/secured/` content).
 - **Build Commands**:
-  - `npm run build`: Standard build (includes secured docs).
-  - `npm run build:cloudflare`: Explicit Cloudflare build.
-  - `npm run build:static`: Prunes `/secured/` content for static hosts.
+  - `npm run build`: The single production build (clean `dist`, run Eleventy, run `check-dist.mjs`).
   - `npm run start:local`: Local preview server for `dist/`.
-- **Secured Route Invariant**: `/secured/` is a single protected route namespace backed by Cloudflare Pages Functions. Do not create localized variants such as `/en/secured/` unless the same server-side protection exists for that exact path. Static builds should leave only the safe `/secured/` placeholder page.
+- **Secured Route Invariant**: `/secured/` is a single protected route namespace backed by Cloudflare Pages Functions. Do not create localized variants such as `/en/secured/` unless the same server-side protection exists for that exact path.
+- **Static-Compatible Public Paths**: Even though the repo now ships a single Cloudflare-oriented build, keep public marketing pages static-compatible: use root-relative URLs through `withPathPrefix` or `absoluteUrl`, keep folder-based page outputs, keep browser assets directly fetchable, and avoid introducing server-side dependencies for public pages.
 
 ## I18n (Internationalization)
 

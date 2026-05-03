@@ -1,13 +1,10 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import securedAccessModeHelpers from '../lib/deploy/secured-access-mode.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distDir = path.resolve(__dirname, '..', 'dist');
-const { resolveSecuredAccessMode } = securedAccessModeHelpers;
-const securedAccessMode = resolveSecuredAccessMode(process.env.SECURED_ACCESS_MODE);
 const textExtensions = new Set(['.html', '.xml', '.txt', '.css']);
 const regexChecks = [
   {
@@ -34,8 +31,7 @@ const noindexPages = new Set([
   'en/404.html',
   'customerzone/index.html',
   'en/customerzone/index.html',
-  'secured/index.html',
-  'en/secured/index.html'
+  'secured/index.html'
 ]);
 
 function addFailure(file, label, sample) {
@@ -62,10 +58,9 @@ function isErrorPage(file) {
 }
 
 function isNoindexPage(file) {
-    if (noindexPages.has(file)) return true;
-    if (file.startsWith('secured/')) return true;
-    if (file.startsWith('en/secured/')) return true;
-    return false;
+  if (noindexPages.has(file)) return true;
+  if (file.startsWith('secured/')) return true;
+  return false;
 }
 
 function hasFrontMatterLeak(content) {
@@ -111,6 +106,12 @@ function collectAllFiles(dir) {
 }
 collectAllFiles(distDir);
 
+for (const file of allFiles) {
+  if (/^[^/]+\/secured(?:\/|$)/.test(file)) {
+    addFailure(file, 'unexpected localized or nested secured route output', file);
+  }
+}
+
 const sharedCssTokenDefinitions = new Set(
   textFiles
     .filter(file => file.relativePath.endsWith('.css'))
@@ -138,10 +139,10 @@ for (const file of textFiles) {
         if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('//')) {
           continue;
         }
-        
+
         const linkPath = href.split(/[?#]/)[0];
         let normalizedTarget;
-        
+
         if (linkPath.startsWith('/')) {
             normalizedTarget = linkPath.slice(1);
         } else {
@@ -153,7 +154,7 @@ for (const file of textFiles) {
         if (normalizedTarget === '.') normalizedTarget = 'index.html';
         else if (normalizedTarget.endsWith('/')) normalizedTarget += 'index.html';
         else if (!path.extname(normalizedTarget) && !normalizedTarget.endsWith('.html')) normalizedTarget = path.join(normalizedTarget, 'index.html');
-        
+
         // On Windows, normalizedTarget might use backslashes
         const lookupTarget = normalizedTarget.replace(/\\/g, '/');
 
@@ -224,18 +225,6 @@ try {
 
   for (const entry of unexpectedTopLevelSecuredHtml) {
     addFailure(`secured/${entry}`, 'unexpected top-level secured html output', entry);
-  }
-
-  if (securedAccessMode === 'static') {
-    const leakedProtectedFiles = securedEntries.filter((entry) => entry.endsWith('.pdf'));
-    for (const entry of leakedProtectedFiles) {
-      addFailure(`secured/${entry}`, 'protected secured file leaked into static build', entry);
-    }
-
-    const leakedProtectedPages = securedEntries.filter((entry) => statSync(path.join(securedDistDir, entry)).isDirectory());
-    for (const entry of leakedProtectedPages) {
-      addFailure(`secured/${entry}/`, 'protected secured html leaked into static build', entry);
-    }
   }
 } catch {
   // No secured output directory is also valid for some build targets.

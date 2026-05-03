@@ -18,8 +18,6 @@ function stripHtml(value) {
     return (value || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-const { resolveSecuredAccessMode, supportsProtectedSecuredDocs } = require('./lib/deploy/secured-access-mode');
-
 function normalizePathPrefix(rawPathPrefix = process.env.PATH_PREFIX) {
     const value = String(rawPathPrefix || '').trim();
 
@@ -112,21 +110,13 @@ function collectColocatedAssets(rootDir, fs, path) {
     );
 }
 
-function collectSecuredStaticFiles(rootDir, fs, path, includeProtectedDocs) {
+function collectSecuredStaticFiles(rootDir, fs, path) {
     return collectFiles(
         rootDir,
         fs,
         path,
         (fullPath) => {
-            if (fullPath.endsWith('.css')) {
-                return true;
-            }
-
-            if (includeProtectedDocs && fullPath.endsWith('.pdf')) {
-                return true;
-            }
-
-            return false;
+            return fullPath.endsWith('.css') || fullPath.endsWith('.pdf');
         }
     );
 }
@@ -137,8 +127,6 @@ module.exports = function(eleventyConfig) {
   const SITE_ROOT_URL = buildAbsoluteUrl('/', SITE_BASE_URL, PATH_PREFIX);
   const BASE_DOMAIN = new URL(SITE_ROOT_URL).hostname;
   const colocatedAssetRoots = ['404', 'customerzone', 'footer', 'header', 'home', 'jobs', 'services', 'team'];
-  const securedAccessMode = resolveSecuredAccessMode();
-  const includeProtectedSecuredDocs = supportsProtectedSecuredDocs(securedAccessMode);
 
   const fs = require('node:fs');
   const path = require('node:path');
@@ -254,8 +242,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addGlobalData('pathPrefix', PATH_PREFIX);
   eleventyConfig.addGlobalData('assetsVersion', String(Date.now()));
   eleventyConfig.addGlobalData('themeColor', themeColor);
-  eleventyConfig.addGlobalData('securedAccessMode', securedAccessMode);
-  eleventyConfig.addGlobalData('securedSupportsProtectedDocs', includeProtectedSecuredDocs);
 
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("shared");
@@ -267,7 +253,7 @@ module.exports = function(eleventyConfig) {
           eleventyConfig.addPassthroughCopy({ [file]: file });
       });
   });
-  collectSecuredStaticFiles('secured', fs, path, includeProtectedSecuredDocs).forEach((file) => {
+  collectSecuredStaticFiles('secured', fs, path).forEach((file) => {
       eleventyConfig.addPassthroughCopy({ [file]: file });
   });
 
@@ -277,10 +263,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("services/training/detail.njk");
   eleventyConfig.ignores.add("header/*.njk");
   eleventyConfig.ignores.add("footer/*.njk");
-  if (!includeProtectedSecuredDocs) {
-      eleventyConfig.ignores.add("secured/*.html");
-      eleventyConfig.ignores.add("secured/*.pdf");
-  }
 
   return {
     dir: {

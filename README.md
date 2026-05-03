@@ -44,19 +44,24 @@ This project follows a **Colocation Pattern** (the "everything-in-its-place" rul
 - Shared cross-page CSS and JS should live in `shared/`.
 - Shared template building blocks should live in `_includes/`.
 
-## Deployment Modes
+## Build And Deploy
 
 - `npm run build`
-  - Default build for server-capable deployments.
-  - In this repo that means Cloudflare-style protected `/secured/` documents are included.
+  - The single production build for this repo.
+  - Cleans `dist/`, runs Eleventy, and validates the output with `scripts/check-dist.mjs`.
+  - Includes the protected `/secured/` document pages and PDFs for Cloudflare deployment.
 
-- `npm run build:cloudflare`
-  - Explicit Cloudflare/server-capable build.
-  - Publishes the protected `/secured/` document pages and PDFs.
-  - The request protection itself is handled by `functions/secured/`.
+- `npm run start:local`
+  - Serves `dist/` locally for quick verification.
 
-- `npm run build:static`
-  - Safe build for static-only hosts such as GitHub Pages.
-  - The public marketing site still builds normally.
-  - Protected `/secured/` documents are not published, because a static host cannot enforce server-side access control.
-  - `/secured/` remains as an informational placeholder page instead of exposing the files.
+- Cloudflare-specific protection stays isolated to `functions/secured/`.
+  - The public marketing site should remain static-compatible even though this repo no longer maintains a separate static-host build mode.
+
+## Static-Compatible Paths
+
+Keep the public site easy to export in the future:
+
+- Use root-relative browser paths and pass them through `withPathPrefix` or `absoluteUrl` when appropriate.
+- Keep public pages as normal folder routes with `index.html` output.
+- Keep browser-loaded assets directly fetchable from `assets/`, `shared/`, or colocated page folders.
+- Do not make public marketing pages depend on server-side auth, request rewriting, or Cloudflare-specific runtime behavior.

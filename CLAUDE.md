@@ -1,6 +1,6 @@
 # CLAUDE.md - Agent Entry Point
 
-This file serves as the primary entry point for AI agents. 
+This file serves as the primary entry point for AI agents.
 
 ## Primary Documentation
 For all architectural, technical, and workflow guidelines, refer to:
@@ -9,7 +9,6 @@ For all architectural, technical, and workflow guidelines, refer to:
 ## Quick Commands
 - **Build**: `npm run build` (Runs `check-dist.mjs` validation)
 - **Local Dev**: `npm run start:local`
-- **Static Build**: `npm run build:static` (Prunes secured content)
 
 ## Tech Stack Summary
 - **SSG**: Eleventy 3.0 (Nunjucks)
