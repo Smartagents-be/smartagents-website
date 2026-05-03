@@ -46,13 +46,13 @@ function pruneStaticSecuredOutput() {
     }
 
     const ext = path.extname(entry.name).toLowerCase();
-    if (ext !== '.html' && ext !== '.pdf') {
+    if (ext !== '.njk' && ext !== '.pdf') {
       continue;
     }
 
     rmSync(path.join(distSecuredDir, entry.name), { recursive: true, force: true });
 
-    if (ext === '.html') {
+    if (ext === '.njk') {
       rmSync(path.join(distSecuredDir, path.basename(entry.name, ext)), { recursive: true, force: true });
     }
   }
