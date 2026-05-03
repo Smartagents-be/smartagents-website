@@ -1,10 +1,17 @@
 (function() {
-    const contactForm = document.getElementById('contact-form');
+    function bindContactFormSubmit(contactForm) {
+        if (!contactForm || contactForm.dataset.contactFormBound === 'true') {
+            return;
+        }
 
-    if (contactForm) {
+        contactForm.dataset.contactFormBound = 'true';
+
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const button = contactForm.querySelector('button[type="submit"]');
+            if (!button) {
+                return;
+            }
             const defaultLabel = button.dataset.labelDefault || button.textContent.trim();
             const successLabel = button.dataset.labelSuccess || 'Message sent!';
             const errorLabel = button.dataset.labelError || 'Error';
@@ -42,6 +49,8 @@
             });
         });
     }
+
+    document.querySelectorAll('.contact-form').forEach(bindContactFormSubmit);
 
     document.querySelectorAll('.contact-form').forEach((form) => {
         form.addEventListener('pointermove', (e) => {

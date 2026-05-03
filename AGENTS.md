@@ -25,6 +25,7 @@ This project uses a **Colocation Pattern** to manage complexity. Instead of glob
   - `npm run build:cloudflare`: Explicit Cloudflare build.
   - `npm run build:static`: Prunes `/secured/` content for static hosts.
   - `npm run start:local`: Local preview server for `dist/`.
+- **Secured Route Invariant**: `/secured/` is a single protected route namespace backed by Cloudflare Pages Functions. Do not create localized variants such as `/en/secured/` unless the same server-side protection exists for that exact path. Static builds should leave only the safe `/secured/` placeholder page.
 
 ## I18n (Internationalization)
 
@@ -65,5 +66,5 @@ This project uses a **Colocation Pattern** to manage complexity. Instead of glob
 1. **Colocate by default**: When adding a new service or component, create a new folder and keep its CSS/JS inside it.
 2. **Update i18n**: Never hardcode strings in templates. Add keys to both `nl.json` and `en.json`.
 3. **Use Data Cascades**: Prefer `.11tydata.js` for setting page-level variables (`pageStyles`, `pageScripts`, `schemaType`).
-4. **Safety First**: Do not modify `functions/` or `secured/` without understanding the Cloudflare auth flow.
+4. **Safety First**: Do not modify `functions/` or `secured/` without understanding the Cloudflare auth flow. Protected docs must never become reachable through an unguarded alternate route.
 5. **No Duplication**: Do not copy `page.njk` content into `index.njk`. Use `{% include "./page.njk" %}`.
