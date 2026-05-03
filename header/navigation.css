@@ -191,10 +191,10 @@
         background: var(--nav-surface);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border-top: 2px solid var(--service-color, var(--cyan));
+        border-top: 1px solid var(--white-10);
         border-bottom: 1px solid var(--white-10);
         border-right: 1px solid var(--white-10);
-        border-left: 1px solid var(--white-10);
+        border-left: 2px solid var(--service-color, var(--cyan));
         overflow: hidden;
         z-index: 200;
         transform-origin: top left;
