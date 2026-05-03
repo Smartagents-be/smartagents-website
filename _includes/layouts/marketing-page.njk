@@ -15,7 +15,7 @@
 {%- set canonicalUrl = page.url | absoluteUrl(baseUrl) -%}
 {%- set ogLocale = "nl_BE" if locale == "nl" else "en_US" -%}
 {%- set ogLocaleAlternate = "en_US" if locale == "nl" else "nl_BE" -%}
-{%- set socialImageUrl = baseUrl + socialImage -%}
+{%- set socialImageUrl = socialImage | absoluteUrl(baseUrl) -%}
 {%- set socialImageAlt = socialAlt[locale] -%}
 {%- set bodyClass = "index-page" if pageKey == "index" else "" -%}
 {%- set bodyDataPage = pageKey if pageKey in ["jobs", "team"] else "" -%}
@@ -51,27 +51,28 @@
     <meta name="twitter:description" content="{{ resolvedDescription }}">
     <meta name="twitter:image" content="{{ socialImageUrl }}">
     <meta name="twitter:image:alt" content="{{ socialImageAlt }}">
-    <meta name="twitter:domain" content="smartagents.be">
-    {% include "layouts/shared/site-assets.njk" %}
-    {% include "schema-organization.njk" %}
+    <meta name="twitter:domain" content="{{ baseDomain }}">
+    {% include "document/favicon.njk" %}
+    {% include "document/shared-stylesheets.njk" %}
+    {% include "document/google-fonts.njk" %}
+    {% include "seo/organization-schema.njk" %}
     {% if schemaType == "home" %}
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "SmartAgents",
-        "url": "https://smartagents.be"
+        "url": {{ siteRootUrl | dump | safe }}
     }
     </script>
     {% endif %}
-    {% include "layouts/shared/page-schema.njk" %}
-    {% include "layouts/shared/analytics.njk" %}
+    {% include "seo/page-schema.njk" %}
+    {% include "document/google-tag.njk" %}
 </head>
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}{% if bodyDataPage %} data-page="{{ bodyDataPage }}"{% endif %}{% if bodyDataService %} data-service="{{ bodyDataService }}"{% endif %}{% if bodyTrainingDetail %} data-training-detail="{{ bodyTrainingDetail }}"{% endif %}>
-    {% include "header.njk" %}
+    {% include "../../header/header.njk" %}
     {{ content | safe }}
-    {% include "footer.njk" %}
-    {% include "layouts/shared/color-runtime.njk" %}
-    <script src="/main.js?v={{ assetsVersion }}"></script>
+    {% include "../../footer/footer.njk" %}
+    {% include "document/shared-scripts.njk" %}
 </body>
 </html>

@@ -1,0 +1,152 @@
+/* Smart Scan page components */
+.scan-deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.scan-deliverable-card {
+    padding: 20px 22px;
+    border: 1px solid var(--white-05);
+    border-radius: 18px;
+    background: var(--white-05);
+}
+
+.scan-deliverable-card h3 {
+    font-size: 1rem;
+    margin: 0 0 8px;
+}
+
+.scan-deliverable-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--gray-light);
+}
+
+.scan-process {
+    position: relative;
+    max-width: 900px;
+    margin: 60px auto 0;
+}
+
+.scan-process-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, transparent, var(--service-color, var(--cyan-30)) 8%, var(--service-color, var(--cyan-30)) 92%, transparent);
+}
+
+.scan-step {
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 56px;
+}
+
+.scan-step:last-child {
+    margin-bottom: 0;
+}
+
+.scan-step-node {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--dark-lighter);
+    border: 2px solid var(--service-color, var(--cyan-30));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.scan-step:hover .scan-step-node {
+    border-color: var(--service-color, var(--cyan));
+    box-shadow: 0 0 24px var(--service-color-20, var(--cyan-20));
+}
+
+.scan-step-node svg {
+    width: 24px;
+    height: 24px;
+    color: var(--service-color, var(--cyan));
+    opacity: 0.8;
+}
+
+.scan-step-content {
+    background: var(--white-05);
+    border: 1px solid var(--white-05);
+    border-radius: 14px;
+    padding: 28px 32px;
+    transition: border-color 0.3s, background 0.3s;
+}
+
+.scan-step:hover .scan-step-content {
+    border-color: var(--service-color-20, var(--cyan-20));
+    background: var(--service-color-08, var(--cyan-04));
+}
+
+.scan-step-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--service-color, var(--cyan));
+    opacity: 0.7;
+    margin-bottom: 8px;
+}
+
+.scan-step-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.scan-step-content p {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .scan-deliverables-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .scan-process-line {
+        left: 28px;
+        transform: none;
+    }
+
+    .scan-step,
+    .scan-step.scan-step-right {
+        grid-template-columns: 64px 1fr;
+    }
+
+    .scan-step.scan-step-left .scan-step-spacer,
+    .scan-step.scan-step-right .scan-step-spacer {
+        display: none;
+    }
+
+    .scan-step.scan-step-right {
+        grid-template-areas: "node content";
+    }
+
+    .scan-step.scan-step-left .scan-step-node,
+    .scan-step.scan-step-right .scan-step-node {
+        order: -1;
+    }
+
+    .scan-step.scan-step-left .scan-step-content,
+    .scan-step.scan-step-right .scan-step-content {
+        order: 1;
+    }
+}

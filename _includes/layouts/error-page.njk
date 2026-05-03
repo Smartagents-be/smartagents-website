@@ -8,14 +8,15 @@
     <meta name="theme-color" content="{{ themeColor }}">
     {% set nlUrl = "/" %}
     {% set enUrl = "/en/" %}
-    {% include "layouts/shared/site-assets.njk" %}
-    {% include "layouts/shared/analytics.njk" %}
+    {% include "document/favicon.njk" %}
+    {% include "document/shared-stylesheets.njk" %}
+    {% include "document/google-fonts.njk" %}
+    {% include "document/google-tag.njk" %}
 </head>
 <body>
-    {% include "header.njk" %}
+    {% include "../../header/header.njk" %}
     {{ content | safe }}
-    {% include "footer.njk" %}
-    {% include "layouts/shared/color-runtime.njk" %}
-    <script src="/main.js?v={{ assetsVersion }}"></script>
+    {% include "../../footer/footer.njk" %}
+    {% include "document/shared-scripts.njk" %}
 </body>
 </html>

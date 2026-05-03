@@ -1,0 +1,666 @@
+/* Training pages */
+.training-tree-intro {
+    max-width: 680px;
+    margin: 0 auto 48px;
+    text-align: center;
+    color: var(--gray-light);
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+
+.training-tree {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.training-trunk-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.training-node {
+    width: 100%;
+    background: var(--white-05);
+    border: 1px solid var(--white-05);
+    border-radius: 16px;
+    padding: 24px 28px;
+}
+
+.training-node--trunk {
+    max-width: 600px;
+    border-color: var(--cyan-20);
+    border-left: 3px solid var(--cyan);
+}
+
+.training-node--management {
+    border-left: 3px solid var(--purple-soft);
+}
+
+.training-node--deepdive {
+    border-left: 3px solid var(--blue);
+}
+
+.training-node--developer {
+    border-left: 3px solid var(--green);
+}
+
+.training-connector {
+    width: 2px;
+    height: 32px;
+    margin: 0 auto;
+    opacity: 0.4;
+}
+
+.training-connector--trunk {
+    background: var(--cyan);
+}
+
+.training-connector--deepdive {
+    background: var(--blue);
+    margin: 0 0 0 20px;
+}
+
+.training-fork {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    height: 36px;
+    position: relative;
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+/* Vertical drop from trunk */
+.training-fork::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50%;
+    background: var(--cyan-20);
+}
+
+/* Horizontal bridge between the two branches */
+.training-fork::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(25% - 6px);
+    right: calc(25% - 6px);
+    height: 1px;
+    background: var(--white-10);
+}
+
+.training-fork-left,
+.training-fork-right {
+    position: relative;
+}
+
+/* Drop to management branch */
+.training-fork-left::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50%;
+    background: var(--purple-soft-40);
+}
+
+/* Drop to deepdive branch */
+.training-fork-right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50%;
+    background: var(--blue-40);
+}
+
+.training-branches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.training-branch {
+    display: flex;
+    flex-direction: column;
+}
+
+.training-path-heading,
+.training-path-continuation {
+    display: none;
+}
+
+.training-node-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.training-node-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0.7;
+}
+
+.training-node--trunk .training-node-num {
+    color: var(--cyan);
+}
+
+.training-node--management .training-node-num {
+    color: var(--purple-soft);
+}
+
+.training-node--management .training-node-target {
+    flex-basis: 100%;
+}
+
+.training-node--deepdive .training-node-num {
+    color: var(--blue);
+}
+
+.training-node--developer .training-node-num {
+    color: var(--green);
+}
+
+.training-node-prereq-inline {
+    margin-left: auto;
+    font-size: 0.65rem;
+    color: var(--white-20);
+    letter-spacing: 0.04em;
+}
+
+.training-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.training-badge--everyone {
+    background: var(--cyan-10);
+    color: var(--cyan);
+    border: 1px solid var(--cyan-20);
+}
+
+.training-badge--management {
+    background: var(--purple-soft-10);
+    color: var(--purple-soft);
+    border: 1px solid var(--purple-soft-20);
+}
+
+.training-badge--deepdive {
+    background: var(--blue-10);
+    color: var(--blue);
+    border: 1px solid var(--blue-20);
+}
+
+.training-badge--developer {
+    background: var(--green-10);
+    color: var(--green);
+    border: 1px solid var(--green-20);
+}
+
+.training-badge--recommended {
+    background: var(--amber-10);
+    color: var(--amber);
+    border: 1px solid var(--amber-20);
+}
+
+.training-node-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0 0 8px;
+    line-height: 1.45;
+}
+
+.training-node-desc {
+    font-size: 0.82rem;
+    color: var(--gray-light);
+    line-height: 1.65;
+    margin: 0;
+}
+
+.training-node-meta {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--white-05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.training-node-target {
+    display: flex;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: var(--white-40);
+}
+
+.training-node-target span:first-child {
+    letter-spacing: 0.06em;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.training-onepager-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-onepager-btn--cyan {
+    color: var(--cyan);
+    border-color: var(--cyan-20);
+    background: var(--cyan-08);
+}
+
+.training-onepager-btn--cyan:hover {
+    background: var(--cyan-10);
+    box-shadow: 0 0 10px var(--cyan-15);
+}
+
+.training-onepager-btn--management {
+    color: var(--purple-soft);
+    border-color: var(--purple-soft-20);
+    background: var(--purple-soft-08);
+}
+
+.training-onepager-btn--management:hover {
+    background: var(--purple-soft-10);
+    box-shadow: 0 0 10px var(--purple-soft-20);
+}
+
+.training-onepager-btn--filled-cyan {
+    color: var(--dark);
+    border-color: var(--cyan);
+    background: var(--cyan);
+}
+
+.training-onepager-btn--filled-cyan:hover {
+    background: var(--cyan);
+    box-shadow: 0 0 14px var(--cyan-30);
+}
+
+.training-onepager-btn--filled-management {
+    color: var(--dark-deep);
+    border-color: var(--purple-soft);
+    background: var(--purple-soft);
+}
+
+.training-onepager-btn--filled-management:hover {
+    background: var(--purple-soft);
+    box-shadow: 0 0 14px var(--purple-soft-40);
+}
+
+/* ── Training detail page components ── */
+.page-hero-kicker {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--service-color, var(--cyan));
+    margin-bottom: 14px;
+}
+
+.page-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--white-10);
+}
+
+.page-hero-meta-pill {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.page-hero-meta-pill-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--service-color, var(--cyan));
+    opacity: 0.85;
+}
+
+.page-hero-meta-pill-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.page-role-item-kicker {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--service-color, var(--cyan));
+    margin-bottom: 6px;
+}
+
+.training-day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.training-day-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 16px;
+    border: 1px solid var(--white-10);
+    border-radius: 12px;
+    background: var(--service-color-08, var(--cyan-04));
+}
+
+.training-day-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--service-color-08, var(--cyan-10));
+    color: var(--service-color, var(--cyan));
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    border: 1px solid var(--service-color-20, var(--cyan-30));
+}
+
+.training-day-content {
+    padding-top: 4px;
+}
+
+.training-day-content h3 {
+    margin: 4px 0 0;
+    font-size: 0.98rem;
+    line-height: 1.4;
+}
+
+/* ── Training mobile path chooser (mobile-only) ── */
+.tmc {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .training-tree {
+        display: none;
+    }
+
+    .tmc {
+        display: block;
+    }
+
+    /* ── Phase label (section header row) ── */
+    .tmc-phase-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--white-40);
+    }
+
+    .tmc-phase-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .tmc-phase-dot--cyan {
+        background: var(--cyan);
+        box-shadow: 0 0 8px var(--cyan-60);
+    }
+
+    .tmc-phase-dot--purple {
+        background: var(--purple-soft);
+        box-shadow: 0 0 8px var(--purple-soft-60);
+    }
+
+    .tmc-phase-dot--blue {
+        background: var(--blue);
+        box-shadow: 0 0 8px var(--blue-60);
+    }
+
+    /* ── Track: left line + stacked cards ── */
+    .tmc-track {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 8px;
+    }
+
+    .tmc-track-line {
+        width: 2px;
+        border-radius: 999px;
+        flex-shrink: 0;
+        align-self: stretch;
+        min-height: 40px;
+    }
+
+    .tmc-track-line--cyan {
+        background: linear-gradient(to bottom, var(--cyan-60), var(--cyan-10));
+    }
+
+    .tmc-track-line--purple {
+        background: linear-gradient(to bottom, var(--purple-soft-60), var(--purple-soft-10));
+    }
+
+    .tmc-track-line--blue {
+        background: linear-gradient(to bottom, var(--blue-60), var(--green-20));
+    }
+
+    .tmc-cards {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* ── Course card ── */
+    .tmc-card {
+        border-radius: 14px;
+        padding: 16px 18px;
+        border: 1px solid var(--white-05);
+        background: var(--white-05);
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    .tmc-card--cyan {
+        border-left: 3px solid var(--cyan-40);
+    }
+
+    .tmc-card--management {
+        border-left: 3px solid var(--purple-soft-40);
+        background: var(--purple-soft-08);
+    }
+
+    .tmc-card--deepdive {
+        border-left: 3px solid var(--blue-40);
+        background: var(--blue-10);
+    }
+
+    .tmc-card--developer {
+        border-left: 3px solid var(--green-20);
+        background: var(--green-08);
+    }
+
+    .tmc-card-num {
+        font-size: 1.4rem;
+        font-weight: 900;
+        line-height: 1;
+        flex-shrink: 0;
+        padding-top: 2px;
+        opacity: 0.6;
+    }
+
+    .tmc-card-num--blue {
+        color: var(--blue);
+    }
+
+    .tmc-card-num--green {
+        color: var(--green);
+        display: flex;
+        align-items: center;
+    }
+
+    .tmc-card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tmc-card-body h3 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--white);
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .tmc-card-body p {
+        font-size: 0.78rem;
+        color: var(--gray-light);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .tmc-meta {
+        font-size: 0.68rem;
+        color: var(--white-40);
+    }
+
+    .tmc-card-body .training-onepager-btn {
+        align-self: flex-start;
+        margin-top: 4px;
+    }
+
+    .tmc-prereq-tag {
+        font-size: 0.62rem;
+        font-weight: 600;
+        color: var(--white-40);
+        letter-spacing: 0.04em;
+    }
+
+    /* ── Role picker ── */
+    .tmc-picker {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        margin: 8px 0 20px;
+    }
+
+    .tmc-picker-line {
+        width: 2px;
+        height: 24px;
+        background: linear-gradient(to bottom, var(--cyan-30), var(--white-10));
+        border-radius: 999px;
+    }
+
+    .tmc-picker-question {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--white-40);
+        margin: 0;
+    }
+
+    .tmc-picker-btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .tmc-picker-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 12px;
+        border-radius: 14px;
+        border: 2px solid var(--white-10);
+        background: var(--white-05);
+        color: var(--white-40);
+        font-size: 0.78rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        letter-spacing: 0.02em;
+    }
+
+    .tmc-picker-btn svg {
+        width: 22px;
+        height: 22px;
+        opacity: 0.7;
+    }
+
+    .tmc-picker-btn--management.tmc-active {
+        border-color: var(--purple-soft-60);
+        background: var(--purple-soft-10);
+        color: var(--purple-soft);
+        box-shadow: 0 0 20px var(--purple-soft-20);
+    }
+
+    .tmc-picker-btn--deepdive.tmc-active {
+        border-color: var(--blue-60);
+        background: var(--blue-10);
+        color: var(--blue);
+        box-shadow: 0 0 20px var(--blue-20);
+    }
+
+    /* ── Path panels (show/hide) ── */
+    .tmc-panel {
+        display: none;
+    }
+
+    .tmc-panel.tmc-active {
+        display: block;
+    }
+}

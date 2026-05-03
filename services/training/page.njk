@@ -1,0 +1,339 @@
+    {% from "macros/service-page.njk" import serviceHero, contactCtaSection with context %}
+
+    {{ serviceHero("services.training.title" | t(locale), "services.training.page.subtitle" | t(locale), "training") }}
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.training.page.overview.title" | t(locale) }}</h2>
+            <div class="page-vision-text">
+                <p>{{ "services.training.page.overview.text" | t(locale) }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section page-section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ "services.training.page.features.title" | t(locale) }}</h2>
+            <p class="training-tree-intro">{{ "services.training.page.tree.intro" | t(locale) }}</p>
+
+            <!-- ── MOBILE-ONLY: interactive path chooser ── -->
+            <div class="tmc">
+
+                <!-- Phase 1: Foundation (always visible) -->
+                <div class="tmc-phase">
+                    <div class="tmc-phase-label">
+                        <div class="tmc-phase-dot tmc-phase-dot--cyan"></div>
+                        <span>{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                    </div>
+                    <div class="tmc-track">
+                        <div class="tmc-track-line tmc-track-line--cyan"></div>
+                        <div class="tmc-cards">
+                            <div class="tmc-card tmc-card--cyan">
+                                <div class="tmc-card-num">01</div>
+                                <div class="tmc-card-body">
+                                    <h3>{{ "services.training.page.course1.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.course1.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course1.target" | t(locale) }}</span>
+                                    <a href="{{ "/services/training/ai-introductie/" | locale_url | withPathPrefix }}" class="training-onepager-btn training-onepager-btn--filled-cyan">
+                                        {{ "services.training.page.detail.button" | t(locale) }}
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                    </a>
+                                    <a href="{{ "/assets/SmartAgents_AI_Introductie_Onepager.pdf" | withPathPrefix }}" target="_blank" rel="noopener noreferrer" class="training-onepager-btn training-onepager-btn--cyan">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                        {{ "services.training.page.onepager.download" | t(locale) }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="tmc-card tmc-card--cyan">
+                                <div class="tmc-card-num">02</div>
+                                <div class="tmc-card-body">
+                                    <h3>{{ "services.training.page.course2.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.course2.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course2.target" | t(locale) }}</span>
+                                    <a href="{{ "/services/training/m365-copilot/" | locale_url | withPathPrefix }}" class="training-onepager-btn training-onepager-btn--filled-cyan">
+                                        {{ "services.training.page.detail.button" | t(locale) }}
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                    </a>
+                                    <a href="{{ "/assets/SmartAgents_M365_Copilot_Onepager.pdf" | withPathPrefix }}" target="_blank" rel="noopener noreferrer" class="training-onepager-btn training-onepager-btn--cyan">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                        {{ "services.training.page.onepager.download" | t(locale) }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Role picker -->
+                <div class="tmc-picker">
+                    <div class="tmc-picker-line"></div>
+                    <p class="tmc-picker-question">{{ "services.training.page.tree.split.title" | t(locale) }}</p>
+                    <div class="tmc-picker-btns">
+                        <button class="tmc-picker-btn tmc-picker-btn--management tmc-active" data-tmc="management">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            {{ "services.training.page.tree.badge.management" | t(locale) }}
+                        </button>
+                        <button class="tmc-picker-btn tmc-picker-btn--deepdive" data-tmc="deepdive">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            {{ "services.training.page.tree.badge.deepdive" | t(locale) }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Management panel -->
+                <div class="tmc-panel tmc-panel--management tmc-active" data-tmc-panel="management">
+                    <div class="tmc-phase-label">
+                        <div class="tmc-phase-dot tmc-phase-dot--purple"></div>
+                        <span>{{ "services.training.page.tree.path1" | t(locale) }}</span>
+                    </div>
+                    <div class="tmc-track">
+                        <div class="tmc-track-line tmc-track-line--purple"></div>
+                        <div class="tmc-cards">
+                            <div class="tmc-card tmc-card--management">
+                                <div class="tmc-card-body">
+                                    <span class="tmc-prereq-tag">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                                    <h3>{{ "services.training.page.courseM.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.courseM.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseM.target" | t(locale) }}</span>
+                                    <a href="{{ "/services/training/c-level/" | locale_url | withPathPrefix }}" class="training-onepager-btn training-onepager-btn--filled-management">
+                                        {{ "services.training.page.detail.button" | t(locale) }}
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                    </a>
+                                    <a href="{{ "/assets/SmartAgents_AI_C-Level_Onepager.pdf" | withPathPrefix }}" target="_blank" rel="noopener noreferrer" class="training-onepager-btn training-onepager-btn--management">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                        {{ "services.training.page.onepager.download" | t(locale) }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Deep Dive panel -->
+                <div class="tmc-panel tmc-panel--deepdive" data-tmc-panel="deepdive">
+                    <div class="tmc-phase-label">
+                        <div class="tmc-phase-dot tmc-phase-dot--blue"></div>
+                        <span>{{ "services.training.page.tree.path2" | t(locale) }}</span>
+                    </div>
+                    <div class="tmc-track">
+                        <div class="tmc-track-line tmc-track-line--blue"></div>
+                        <div class="tmc-cards">
+                            <div class="tmc-card tmc-card--deepdive">
+                                <div class="tmc-card-body">
+                                    <span class="tmc-prereq-tag">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                                    <h3>{{ "services.training.page.course3.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.course3.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.course3.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                            <div class="tmc-card tmc-card--developer">
+                                <div class="tmc-card-num tmc-card-num--green">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                                </div>
+                                <div class="tmc-card-body">
+                                    <span class="tmc-prereq-tag">{{ "services.training.page.tree.prereq" | t(locale) }} {{ "services.training.page.course3.title" | t(locale) }}</span>
+                                    <h3>{{ "services.training.page.courseD.title" | t(locale) }}</h3>
+                                    <p>{{ "services.training.page.courseD.desc" | t(locale) }}</p>
+                                    <span class="tmc-meta">{{ "services.training.page.tree.for" | t(locale) }} {{ "services.training.page.courseD.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ── END MOBILE PATH CHOOSER ── -->
+
+            <div class="training-tree">
+
+                <!-- TRUNK: Course 1 + Course 2 -->
+                <div class="training-trunk-section">
+                    <div class="training-node training-node--trunk">
+                        <div class="training-node-header">
+                            <span class="training-node-num">01</span>
+                            <span class="training-badge training-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                        </div>
+                        <h3 class="training-node-title">{{ "services.training.page.course1.title" | t(locale) }}</h3>
+                        <p class="training-node-desc">{{ "services.training.page.course1.desc" | t(locale) }}</p>
+                        <div class="training-node-meta">
+                            <div class="training-node-target">
+                                <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                <span>{{ "services.training.page.course1.target" | t(locale) }}</span>
+                            </div>
+                            <a href="{{ "/services/training/ai-introductie/" | locale_url | withPathPrefix }}" class="training-onepager-btn training-onepager-btn--filled-cyan">
+                                {{ "services.training.page.detail.button" | t(locale) }}
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                            <a href="{{ "/assets/SmartAgents_AI_Introductie_Onepager.pdf" | withPathPrefix }}" target="_blank" rel="noopener noreferrer" class="training-onepager-btn training-onepager-btn--cyan">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                {{ "services.training.page.onepager.download" | t(locale) }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="training-connector training-connector--trunk"></div>
+                    <div class="training-node training-node--trunk">
+                        <div class="training-node-header">
+                            <span class="training-node-num">02</span>
+                            <span class="training-badge training-badge--everyone">{{ "services.training.page.tree.badge.everyone" | t(locale) }}</span>
+                            <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 01</span>
+                        </div>
+                        <h3 class="training-node-title">{{ "services.training.page.course2.title" | t(locale) }}</h3>
+                        <p class="training-node-desc">{{ "services.training.page.course2.desc" | t(locale) }}</p>
+                        <div class="training-node-meta">
+                            <div class="training-node-target">
+                                <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                <span>{{ "services.training.page.course2.target" | t(locale) }}</span>
+                            </div>
+                            <a href="{{ "/services/training/m365-copilot/" | locale_url | withPathPrefix }}" class="training-onepager-btn training-onepager-btn--filled-cyan">
+                                {{ "services.training.page.detail.button" | t(locale) }}
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                            <a href="{{ "/assets/SmartAgents_M365_Copilot_Onepager.pdf" | withPathPrefix }}" target="_blank" rel="noopener noreferrer" class="training-onepager-btn training-onepager-btn--cyan">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                {{ "services.training.page.onepager.download" | t(locale) }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORK VISUAL -->
+                <div class="training-fork" aria-hidden="true">
+                    <div class="training-fork-left"></div>
+                    <div class="training-fork-right"></div>
+                </div>
+
+                <!-- BRANCHES -->
+                <div class="training-branches">
+
+                    <!-- Management -->
+                    <div class="training-branch training-branch--management">
+                        <div class="training-path-heading">
+                            <span class="training-path-kicker">{{ "services.training.page.tree.path1" | t(locale) }}</span>
+                        </div>
+                        <div class="training-node training-node--management">
+                            <div class="training-node-header">
+                                <span class="training-badge training-badge--management">{{ "services.training.page.tree.badge.management" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.courseM.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.courseM.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.courseM.target" | t(locale) }}</span>
+                                </div>
+                                <a href="{{ "/services/training/c-level/" | locale_url | withPathPrefix }}" class="training-onepager-btn training-onepager-btn--filled-management">
+                                    {{ "services.training.page.detail.button" | t(locale) }}
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </a>
+                                <a href="{{ "/assets/SmartAgents_AI_C-Level_Onepager.pdf" | withPathPrefix }}" target="_blank" rel="noopener noreferrer" class="training-onepager-btn training-onepager-btn--management">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    {{ "services.training.page.onepager.download" | t(locale) }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deep Dive → Developers -->
+                    <div class="training-branch training-branch--deepdive">
+                        <div class="training-path-heading">
+                            <span class="training-path-kicker">{{ "services.training.page.tree.path2" | t(locale) }}</span>
+                        </div>
+                        <div class="training-node training-node--deepdive">
+                            <div class="training-node-header">
+                                <span class="training-badge training-badge--deepdive">{{ "services.training.page.tree.badge.deepdive" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} 02</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.course3.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.course3.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.course3.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="training-connector training-connector--deepdive"></div>
+                        <p class="training-path-continuation">{{ "services.training.page.tree.continues" | t(locale) }}</p>
+                        <div class="training-node training-node--developer">
+                            <div class="training-node-header">
+                                <span class="training-badge training-badge--developer">{{ "services.training.page.tree.badge.developers" | t(locale) }}</span>
+                                <span class="training-node-prereq-inline">{{ "services.training.page.tree.prereq" | t(locale) }} {{ "services.training.page.course3.title" | t(locale) }}</span>
+                            </div>
+                            <h3 class="training-node-title">{{ "services.training.page.courseD.title" | t(locale) }}</h3>
+                            <p class="training-node-desc">{{ "services.training.page.courseD.desc" | t(locale) }}</p>
+                            <div class="training-node-meta">
+                                <div class="training-node-target">
+                                    <span>{{ "services.training.page.tree.for" | t(locale) }}</span>
+                                    <span>{{ "services.training.page.courseD.target" | t(locale) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ "services.training.page.benefits.title" | t(locale) }}</h2>
+            <div class="page-benefits-grid">
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10"/>
+                            <path d="M12 20V4"/>
+                            <path d="M6 20v-6"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit1.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit1.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit2.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit2.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit3.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit3.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v4l3 3"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit4.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit4.desc" | t(locale) }}</p>
+                </div>
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.page.benefit5.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.page.benefit5.desc" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{ contactCtaSection("services.training.page.cta.title" | t(locale), "services.training.page.cta.text" | t(locale), "services.training.title" | t(locale)) }}

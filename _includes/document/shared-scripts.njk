@@ -1,0 +1,4 @@
+<script src="{{ "/header/site-shell.js" | withPathPrefix }}?v={{ assetsVersion }}"></script>
+{% for script in pageScripts or [] %}
+<script src="{{ script | withPathPrefix }}?v={{ assetsVersion }}"></script>
+{% endfor %}

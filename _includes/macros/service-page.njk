@@ -1,0 +1,167 @@
+{% macro serviceIcon(key) %}
+    {% if key == 'agentic' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 15h.01M16 15h.01"/></svg>
+    {% elif key == 'process' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+    {% elif key == 'training' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+    {% elif key == 'smartscan' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+    {% elif key == 'ontwerp' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+    {% elif key == 'ontwikkeling' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    {% elif key == 'implementatie' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+    {% elif key == 'optimalisatie' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+    {% endif %}
+{% endmacro %}
+
+{% macro serviceHero(title, subtitle, serviceKey) %}
+<section class="page-hero">
+    <div class="container">
+        {% if serviceKey %}
+        <div class="page-hero-icon">
+            {{ serviceIcon(serviceKey) }}
+        </div>
+        {% endif %}
+        <h1>{{ title }}</h1>
+        <p>{{ subtitle }}</p>
+    </div>
+</section>
+{% endmacro %}
+
+{% macro pageSection(title, sectionClass='page-section', contentClass='page-vision-text') %}
+<section class="{{ sectionClass }}">
+    <div class="container">
+        <h2 class="section-title">{{ title }}</h2>
+        {% if contentClass %}
+        <div class="{{ contentClass }}">
+            {{ caller() }}
+        </div>
+        {% else %}
+        {{ caller() }}
+        {% endif %}
+    </div>
+</section>
+{% endmacro %}
+
+{% macro roleItem(title, description, kicker='') %}
+<div class="page-role-item">
+    <div class="page-role-icon">
+        {{ caller() }}
+    </div>
+    <div>
+        {% if kicker %}
+        <span class="page-role-item-kicker">{{ kicker }}</span>
+        {% endif %}
+        <h3>{{ title }}</h3>
+        <p>{{ description }}</p>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro benefitCard(title, description) %}
+<div class="page-benefit-card">
+    <div class="page-benefit-icon">
+        {{ caller() }}
+    </div>
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+</div>
+{% endmacro %}
+
+{% macro deliverableCard(title, description) %}
+<div class="scan-deliverable-card">
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+</div>
+{% endmacro %}
+
+{% macro scanProcessSection(title, sectionClass='page-section page-section-alt') %}
+<section class="{{ sectionClass }}">
+    <div class="container">
+        <h2 class="section-title">{{ title }}</h2>
+        <div class="scan-process">
+            <div class="scan-process-line"></div>
+            {{ caller() }}
+        </div>
+    </div>
+</section>
+{% endmacro %}
+
+{% macro scanStep(side, number, title, description) %}
+<div class="scan-step scan-step-{{ side }}">
+    {% if side == 'right' %}
+    <div class="scan-step-spacer"></div>
+    {% endif %}
+    {% if side == 'left' %}
+    <div class="scan-step-content">
+        <div class="scan-step-num">{{ number }}</div>
+        <h3>{{ title }}</h3>
+        <p>{{ description }}</p>
+    </div>
+    {% endif %}
+    <div class="scan-step-node">
+        {{ caller() }}
+    </div>
+    {% if side == 'left' %}
+    <div class="scan-step-spacer"></div>
+    {% endif %}
+    {% if side == 'right' %}
+    <div class="scan-step-content">
+        <div class="scan-step-num">{{ number }}</div>
+        <h3>{{ title }}</h3>
+        <p>{{ description }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro contactCtaForm(subjectContext='') %}
+{% set subjectSuffix = (' — ' ~ subjectContext) if subjectContext else '' %}
+<form class="contact-form cta-contact-form" action="https://formsubmit.co/info@smartagents.be" method="POST">
+    <input type="hidden" name="_subject" value="{{ ('contact.form.subject' | t(locale)) ~ subjectSuffix }}">
+    <input type="hidden" name="_next" value="{{ page.url | absoluteUrl(baseUrl) }}">
+    <input type="hidden" name="_captcha" value="true">
+    <input type="text" name="_honey" style="display:none">
+    {% if subjectContext %}
+    <input type="hidden" name="page_context" value="{{ subjectContext }}">
+    {% endif %}
+    <div class="form-row">
+        <div class="form-group">
+            <label for="cta-name">{{ "contact.form.name" | t(locale) }}</label>
+            <input type="text" id="cta-name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="cta-email">{{ "contact.form.email" | t(locale) }}</label>
+            <input type="email" id="cta-email" name="email" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="cta-company">{{ "contact.form.company" | t(locale) }}</label>
+        <input type="text" id="cta-company" name="company">
+    </div>
+    <div class="form-group">
+        <label for="cta-message">{{ "contact.form.message" | t(locale) }}</label>
+        <textarea id="cta-message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary"
+      data-label-default="{{ 'contact.form.submit' | t(locale) }}"
+      data-label-success="{{ 'contact.form.success' | t(locale) }}"
+      data-label-error="{{ 'contact.form.error' | t(locale) }}">
+      {{ "contact.form.submit" | t(locale) }}
+    </button>
+</form>
+{% endmacro %}
+
+{% macro contactCtaSection(title, text, subjectContext='') %}
+<section class="page-cta">
+    <div class="container">
+        <h2>{{ title }}</h2>
+        <p>{{ text }}</p>
+        {{ contactCtaForm(subjectContext) }}
+    </div>
+</section>
+{% endmacro %}

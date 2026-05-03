@@ -9,7 +9,7 @@
 {%- set canonicalUrl = page.url | absoluteUrl(baseUrl) -%}
 {%- set ogLocale = "nl_BE" if locale == "nl" else "en_US" -%}
 {%- set ogLocaleAlternate = "en_US" if locale == "nl" else "nl_BE" -%}
-{%- set socialImageUrl = baseUrl + socialImage -%}
+{%- set socialImageUrl = socialImage | absoluteUrl(baseUrl) -%}
 {%- set socialImageAlt = socialAlt[locale] -%}
 <!DOCTYPE html>
 <html lang="{{ locale }}">
@@ -38,13 +38,18 @@
     <meta name="twitter:description" content="{{ resolvedDescription }}">
     <meta name="twitter:image" content="{{ socialImageUrl }}">
     <meta name="twitter:image:alt" content="{{ socialImageAlt }}">
-    {% include "layouts/shared/site-assets.njk" %}
-    {% include "pages/customerzone/head.njk" %}
-    {% include "layouts/shared/analytics.njk" %}
+    {% include "document/favicon.njk" %}
+    <link rel="stylesheet" href="{{ "/shared/css/base.css" | withPathPrefix }}?v={{ assetsVersion }}">
+    {% for stylesheet in pageStyles or [] %}
+    <link rel="stylesheet" href="{{ stylesheet | withPathPrefix }}?v={{ assetsVersion }}">
+    {% endfor %}
+    {% include "document/google-fonts.njk" %}
+    {% include "document/google-tag.njk" %}
 </head>
 <body>
     {{ content | safe }}
-    {% include "layouts/shared/color-runtime.njk" %}
-    {% include "pages/customerzone/scripts.njk" %}
+    {% for script in pageScripts or [] %}
+    <script src="{{ script | withPathPrefix }}?v={{ assetsVersion }}"></script>
+    {% endfor %}
 </body>
 </html>

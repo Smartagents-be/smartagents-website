@@ -1,0 +1,126 @@
+{% from "macros/service-page.njk" import serviceHero, pageSection, roleItem, benefitCard, deliverableCard, scanProcessSection, scanStep, contactCtaSection with context %}
+
+{{ serviceHero("services.optimalisatie.title" | t(locale), "services.optimalisatie.page.subtitle" | t(locale), "optimalisatie") }}
+
+{% call pageSection("services.optimalisatie.page.overview.title" | t(locale)) %}
+<p>{{ "services.optimalisatie.page.overview.text1" | t(locale) }}</p>
+<p style="margin-top: 1.5rem;">{{ "services.optimalisatie.page.overview.text2" | t(locale) }}</p>
+{% endcall %}
+
+{% call pageSection("services.optimalisatie.page.activities.title" | t(locale), "page-section page-section-alt", "page-role-grid") %}
+    {% call roleItem("services.optimalisatie.page.item1.title" | t(locale), "services.optimalisatie.page.item1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.optimalisatie.page.item2.title" | t(locale), "services.optimalisatie.page.item2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+        <polyline points="17 6 23 6 23 12"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.optimalisatie.page.item3.title" | t(locale), "services.optimalisatie.page.item3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.optimalisatie.page.item4.title" | t(locale), "services.optimalisatie.page.item4.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <polyline points="19 12 12 19 5 12"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.optimalisatie.page.item5.title" | t(locale), "services.optimalisatie.page.item5.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.optimalisatie.page.item6.title" | t(locale), "services.optimalisatie.page.item6.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
+
+{% call pageSection("services.optimalisatie.page.deliverables.title" | t(locale), "page-section", "scan-deliverables-grid") %}
+    {{ deliverableCard("services.optimalisatie.page.deliverable1.title" | t(locale), "services.optimalisatie.page.deliverable1.desc" | t(locale)) }}
+    {{ deliverableCard("services.optimalisatie.page.deliverable2.title" | t(locale), "services.optimalisatie.page.deliverable2.desc" | t(locale)) }}
+    {{ deliverableCard("services.optimalisatie.page.deliverable3.title" | t(locale), "services.optimalisatie.page.deliverable3.desc" | t(locale)) }}
+    {{ deliverableCard("services.optimalisatie.page.deliverable4.title" | t(locale), "services.optimalisatie.page.deliverable4.desc" | t(locale)) }}
+{% endcall %}
+
+{% call pageSection("services.optimalisatie.page.benefits.title" | t(locale), "page-section", "page-benefits-grid") %}
+    {% call benefitCard("services.optimalisatie.page.benefit1.title" | t(locale), "services.optimalisatie.page.benefit1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+        <polyline points="17 6 23 6 23 12"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.optimalisatie.page.benefit2.title" | t(locale), "services.optimalisatie.page.benefit2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.optimalisatie.page.benefit3.title" | t(locale), "services.optimalisatie.page.benefit3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.optimalisatie.page.benefit4.title" | t(locale), "services.optimalisatie.page.benefit4.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.optimalisatie.page.benefit5.title" | t(locale), "services.optimalisatie.page.benefit5.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="6" y1="20" x2="6" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="18" y1="20" x2="18" y2="14"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.optimalisatie.page.benefit6.title" | t(locale), "services.optimalisatie.page.benefit6.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+        <line x1="6" y1="1" x2="6" y2="4"/>
+        <line x1="10" y1="1" x2="10" y2="4"/>
+        <line x1="14" y1="1" x2="14" y2="4"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
+
+{% call scanProcessSection("services.optimalisatie.page.process.title" | t(locale)) %}
+    {% call scanStep("left", "01", "services.optimalisatie.page.step1.title" | t(locale), "services.optimalisatie.page.step1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </svg>
+    {% endcall %}
+    {% call scanStep("right", "02", "services.optimalisatie.page.step2.title" | t(locale), "services.optimalisatie.page.step2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="17 1 21 5 17 9"/>
+        <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+        <polyline points="7 23 3 19 7 15"/>
+        <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+    </svg>
+    {% endcall %}
+    {% call scanStep("left", "03", "services.optimalisatie.page.step3.title" | t(locale), "services.optimalisatie.page.step3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    {% endcall %}
+    {% call scanStep("right", "04", "services.optimalisatie.page.step4.title" | t(locale), "services.optimalisatie.page.step4.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
+
+{{ contactCtaSection("services.optimalisatie.page.cta.title" | t(locale), "services.optimalisatie.page.cta.text" | t(locale), "services.optimalisatie.title" | t(locale)) }}

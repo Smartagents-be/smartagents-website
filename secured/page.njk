@@ -1,0 +1,20 @@
+<header>
+  <div class="brand"><span class="brand-base">Smart</span><span class="brand-accent">Agents</span></div>
+  <div class="subtitle">Beveiligde documenten</div>
+</header>
+
+{% if securedFiles.length %}
+<div class="list">
+  {% for doc in securedFiles %}
+  <div class="item">
+    <span class="item-name">{{ doc.name }}</span>
+    <div class="actions">
+      {% if doc.html %}<a class="btn btn-view" href="{{ doc.html | withPathPrefix }}">Bekijken</a>{% endif %}
+      {% if doc.pdf %}<a class="btn btn-pdf" href="{{ doc.pdf | withPathPrefix }}" download>PDF</a>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="empty">Geen documenten beschikbaar.</p>
+{% endif %}

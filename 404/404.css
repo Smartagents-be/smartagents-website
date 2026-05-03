@@ -1,0 +1,28 @@
+.error-page-hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 0 5rem;
+}
+
+.error-page-body {
+    text-align: center;
+}
+
+.error-page-code {
+    font-size: clamp(4.5rem, 12vw, 6rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.error-page-title {
+    margin-bottom: 1.5rem;
+}
+
+.error-page-text {
+    color: var(--gray-light);
+    font-size: 1.1rem;
+    max-width: 30rem;
+    margin: 0 auto 2.5rem;
+}

@@ -1,0 +1,128 @@
+{% from "macros/service-page.njk" import serviceHero, pageSection, roleItem, benefitCard, deliverableCard, scanProcessSection, scanStep, contactCtaSection with context %}
+
+{{ serviceHero("services.smartscan.title" | t(locale), "services.smartscan.page.subtitle" | t(locale), "smartscan") }}
+
+{% call pageSection("services.smartscan.page.overview.title" | t(locale)) %}
+<p>{{ "services.smartscan.page.overview.text1" | t(locale) }}</p>
+<p style="margin-top: 1.5rem;">{{ "services.smartscan.page.overview.text2" | t(locale) }}</p>
+{% endcall %}
+
+{% call pageSection("services.smartscan.page.investigation.title" | t(locale), "page-section page-section-alt", "page-role-grid") %}
+    {% call roleItem("services.smartscan.page.item1.title" | t(locale), "services.smartscan.page.item1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2"/>
+        <path d="M8 21h8M12 17v4"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.smartscan.page.item2.title" | t(locale), "services.smartscan.page.item2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.smartscan.page.item3.title" | t(locale), "services.smartscan.page.item3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.smartscan.page.item4.title" | t(locale), "services.smartscan.page.item4.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.smartscan.page.item5.title" | t(locale), "services.smartscan.page.item5.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.smartscan.page.item6.title" | t(locale), "services.smartscan.page.item6.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        <path d="M4.93 4.93a10 10 0 0 0 0 14.14"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
+
+{% call pageSection("services.smartscan.page.deliverables.title" | t(locale), "page-section", "scan-deliverables-grid") %}
+    {{ deliverableCard("services.smartscan.page.deliverable1.title" | t(locale), "services.smartscan.page.deliverable1.desc" | t(locale)) }}
+    {{ deliverableCard("services.smartscan.page.deliverable2.title" | t(locale), "services.smartscan.page.deliverable2.desc" | t(locale)) }}
+    {{ deliverableCard("services.smartscan.page.deliverable3.title" | t(locale), "services.smartscan.page.deliverable3.desc" | t(locale)) }}
+    {{ deliverableCard("services.smartscan.page.deliverable4.title" | t(locale), "services.smartscan.page.deliverable4.desc" | t(locale)) }}
+{% endcall %}
+
+{% call pageSection("services.smartscan.page.benefits.title" | t(locale), "page-section", "page-benefits-grid") %}
+    {% call benefitCard("services.smartscan.page.benefit1.title" | t(locale), "services.smartscan.page.benefit1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.smartscan.page.benefit2.title" | t(locale), "services.smartscan.page.benefit2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.smartscan.page.benefit3.title" | t(locale), "services.smartscan.page.benefit3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.smartscan.page.benefit4.title" | t(locale), "services.smartscan.page.benefit4.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.smartscan.page.benefit5.title" | t(locale), "services.smartscan.page.benefit5.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.smartscan.page.benefit6.title" | t(locale), "services.smartscan.page.benefit6.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+        <polyline points="17 6 23 6 23 12"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
+
+{% call scanProcessSection("services.smartscan.page.process.title" | t(locale)) %}
+    {% call scanStep("left", "01", "services.smartscan.page.step1.title" | t(locale), "services.smartscan.page.step1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    {% endcall %}
+    {% call scanStep("right", "02", "services.smartscan.page.step2.title" | t(locale), "services.smartscan.page.step2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+    </svg>
+    {% endcall %}
+    {% call scanStep("left", "03", "services.smartscan.page.step3.title" | t(locale), "services.smartscan.page.step3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M20 20l-3.5-3.5"/>
+    </svg>
+    {% endcall %}
+    {% call scanStep("right", "04", "services.smartscan.page.step4.title" | t(locale), "services.smartscan.page.step4.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
+
+{{ contactCtaSection("services.smartscan.page.cta.title" | t(locale), "services.smartscan.page.cta.text" | t(locale), "services.smartscan.title" | t(locale)) }}

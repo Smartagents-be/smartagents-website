@@ -7,10 +7,10 @@ eleventyExcludeFromCollections: true
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {%- for p in collections.all %}
   {%- if not p.data.excludeFromSitemap %}
-  {%- set nlHref = baseUrl + p.data.nlPermalink %}
-  {%- set enHref = baseUrl + "/en" + p.data.nlPermalink %}
+  {%- set nlHref = p.data.nlPermalink | absoluteUrl(baseUrl) %}
+  {%- set enHref = ("/en" + p.data.nlPermalink) | absoluteUrl(baseUrl) %}
   <url>
-    <loc>{{ baseUrl }}{{ p.url }}</loc>
+    <loc>{{ p.url | absoluteUrl(baseUrl) }}</loc>
     <xhtml:link rel="alternate" hreflang="nl" href="{{ nlHref }}"/>
     <xhtml:link rel="alternate" hreflang="en" href="{{ enHref }}"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="{{ nlHref }}"/>
