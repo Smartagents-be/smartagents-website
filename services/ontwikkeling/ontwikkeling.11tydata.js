@@ -4,5 +4,6 @@ module.exports = buildServicePageData({
   nlPermalink: '/services/ontwikkeling/',
   pageKey: 'ontwikkeling',
   serviceNameKey: 'services.ontwikkeling.title',
-  pageStyles: ['/services/shared/scan-layout.css']
+  pageStyles: ['/services/shared/scan-layout.css'],
+  bodyDataService: 'ontwikkeling'
 });

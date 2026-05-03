@@ -129,6 +129,34 @@
     --service-color-08: var(--blue-08);
 }
 
+[data-service="ontwerp"], [data-panel="ontwerp"], [data-mobile-panel="ontwerp"] {
+    --service-color: var(--rose);
+    --service-color-20: var(--rose-20);
+    --service-color-15: var(--rose-15);
+    --service-color-08: var(--rose-08);
+}
+
+[data-service="ontwikkeling"], [data-panel="ontwikkeling"], [data-mobile-panel="ontwikkeling"] {
+    --service-color: var(--green);
+    --service-color-20: var(--green-20);
+    --service-color-15: var(--green-15);
+    --service-color-08: var(--green-08);
+}
+
+[data-service="implementatie"], [data-panel="implementatie"], [data-mobile-panel="implementatie"] {
+    --service-color: var(--amber);
+    --service-color-20: var(--amber-20);
+    --service-color-15: var(--amber-15);
+    --service-color-08: var(--amber-08);
+}
+
+[data-service="optimalisatie"], [data-panel="optimalisatie"], [data-mobile-panel="optimalisatie"] {
+    --service-color: var(--purple);
+    --service-color-20: var(--purple-20);
+    --service-color-15: var(--purple-15);
+    --service-color-08: var(--purple-08);
+}
+
 /* Reset & Base */
 *, *::before, *::after {
     box-sizing: border-box;

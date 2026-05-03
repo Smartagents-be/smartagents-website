@@ -4,5 +4,6 @@ module.exports = buildServicePageData({
   nlPermalink: '/services/optimalisatie-support/',
   pageKey: 'optimalisatie',
   serviceNameKey: 'services.optimalisatie.title',
-  pageStyles: ['/services/shared/scan-layout.css']
+  pageStyles: ['/services/shared/scan-layout.css'],
+  bodyDataService: 'optimalisatie'
 });

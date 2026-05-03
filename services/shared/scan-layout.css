@@ -37,7 +37,7 @@
     bottom: 0;
     width: 2px;
     transform: translateX(-50%);
-    background: linear-gradient(to bottom, transparent, var(--cyan-30) 8%, var(--cyan-30) 92%, transparent);
+    background: linear-gradient(to bottom, transparent, var(--service-color, var(--cyan-30)) 8%, var(--service-color, var(--cyan-30)) 92%, transparent);
 }
 
 .scan-step {
@@ -57,7 +57,7 @@
     height: 64px;
     border-radius: 50%;
     background: var(--dark-lighter);
-    border: 2px solid var(--cyan-30);
+    border: 2px solid var(--service-color, var(--cyan-30));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,14 +68,14 @@
 }
 
 .scan-step:hover .scan-step-node {
-    border-color: var(--cyan);
-    box-shadow: 0 0 24px var(--cyan-20);
+    border-color: var(--service-color, var(--cyan));
+    box-shadow: 0 0 24px var(--service-color-20, var(--cyan-20));
 }
 
 .scan-step-node svg {
     width: 24px;
     height: 24px;
-    color: var(--cyan);
+    color: var(--service-color, var(--cyan));
     opacity: 0.8;
 }
 
@@ -88,15 +88,15 @@
 }
 
 .scan-step:hover .scan-step-content {
-    border-color: var(--cyan-20);
-    background: var(--cyan-04);
+    border-color: var(--service-color-20, var(--cyan-20));
+    background: var(--service-color-08, var(--cyan-04));
 }
 
 .scan-step-num {
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: var(--cyan);
+    color: var(--service-color, var(--cyan));
     opacity: 0.7;
     margin-bottom: 8px;
 }
