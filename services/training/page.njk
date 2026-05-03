@@ -1,11 +1,8 @@
-    <section class="page-hero">
-        <div class="container">
-            <h1>{{ "services.training.title" | t(locale) }}</h1>
-            <p>{{ "services.training.page.subtitle" | t(locale) }}</p>
-        </div>
-    </section>
+    {% from "macros/service-page.njk" import serviceHero %}
 
-    <section class="page-section">
+    {{ serviceHero("services.training.title" | t(locale), "services.training.page.subtitle" | t(locale), "training") }}
+
+    <section class="page-section">        
         <div class="container">
             <h2 class="section-title">{{ "services.training.page.overview.title" | t(locale) }}</h2>
             <div class="page-vision-text">

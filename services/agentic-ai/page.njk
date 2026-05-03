@@ -1,183 +1,55 @@
-    <section class="page-hero">
-        <div class="container">
-            <h1>{{ "services.agentic.title" | t(locale) }}</h1>
-            <p>{{ "services.agentic.page.subtitle" | t(locale) }}</p>
-        </div>
-    </section>
+{% from "macros/service-page.njk" import serviceHero, pageSection, roleItem, benefitCard, ctaSection %}
 
-    <section class="page-section">
-        <div class="container">
-            <h2 class="section-title">{{ "services.agentic.page.overview.title" | t(locale) }}</h2>
-            <div class="page-vision-text">
-                <p>{{ "services.agentic.page.overview.text" | t(locale) }}</p>
-            </div>
-        </div>
-    </section>
+{{ serviceHero("services.agentic.title" | t(locale), "services.agentic.page.subtitle" | t(locale), "agentic") }}
 
-    <section class="page-section page-section-alt">
-        <div class="container">
-            <h2 class="section-title">{{ "services.agentic.page.features.title" | t(locale) }}</h2>
-            <div class="page-role-grid">
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3>{{ "services.agentic.page.feature1.title" | t(locale) }}</h3>
-                        <p>{{ "services.agentic.page.feature1.desc" | t(locale) }}</p>
-                    </div>
-                </div>
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3>{{ "services.agentic.page.feature2.title" | t(locale) }}</h3>
-                        <p>{{ "services.agentic.page.feature2.desc" | t(locale) }}</p>
-                    </div>
-                </div>
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3>{{ "services.agentic.page.feature3.title" | t(locale) }}</h3>
-                        <p>{{ "services.agentic.page.feature3.desc" | t(locale) }}</p>
-                    </div>
-                </div>
-                <div class="page-role-item">
-                    <div class="page-role-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                            <path d="M9 12l2 2 4-4"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3>{{ "services.agentic.page.feature4.title" | t(locale) }}</h3>
-                        <p>{{ "services.agentic.page.feature4.desc" | t(locale) }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+{% call pageSection("services.agentic.page.overview.title" | t(locale)) %}
+    <p>{{ "services.agentic.page.overview.text" | t(locale) }}</p>
+{% endcall %}
 
-    <section class="page-section">
-        <div class="container">
-            <h2 class="section-title">{{ "services.agentic.page.benefits.title" | t(locale) }}</h2>
-            <div class="page-benefits-grid">
-                <div class="page-benefit-card">
-                    <div class="page-benefit-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12 6 12 12 16 14"/>
-                        </svg>
-                    </div>
-                    <h3>{{ "services.agentic.page.benefit1.title" | t(locale) }}</h3>
-                    <p>{{ "services.agentic.page.benefit1.desc" | t(locale) }}</p>
-                </div>
-                <div class="page-benefit-card">
-                    <div class="page-benefit-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 20V10"/>
-                            <path d="M12 20V4"/>
-                            <path d="M6 20v-6"/>
-                        </svg>
-                    </div>
-                    <h3>{{ "services.agentic.page.benefit2.title" | t(locale) }}</h3>
-                    <p>{{ "services.agentic.page.benefit2.desc" | t(locale) }}</p>
-                </div>
-                <div class="page-benefit-card">
-                    <div class="page-benefit-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                        </svg>
-                    </div>
-                    <h3>{{ "services.agentic.page.benefit3.title" | t(locale) }}</h3>
-                    <p>{{ "services.agentic.page.benefit3.desc" | t(locale) }}</p>
-                </div>
-            </div>
-        </div>
-    </section>
+{% call pageSection("services.agentic.page.features.title" | t(locale), "page-section page-section-alt", "page-role-grid") %}
+    {% call roleItem("services.agentic.page.feature1.title" | t(locale), "services.agentic.page.feature1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.agentic.page.feature2.title" | t(locale), "services.agentic.page.feature2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.agentic.page.feature3.title" | t(locale), "services.agentic.page.feature3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+    </svg>
+    {% endcall %}
+    {% call roleItem("services.agentic.page.feature4.title" | t(locale), "services.agentic.page.feature4.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="M9 12l2 2 4-4"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
 
-    <section class="aanpak page-section">
-        <div class="container">
-            <h2 class="section-title">{{ "approach.title" | t(locale) }}</h2>
-            <p class="section-subtitle">{{ "approach.subtitle" | t(locale) }}</p>
+{% call pageSection("services.agentic.page.benefits.title" | t(locale), "page-section", "page-benefits-grid") %}
+    {% call benefitCard("services.agentic.page.benefit1.title" | t(locale), "services.agentic.page.benefit1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.agentic.page.benefit2.title" | t(locale), "services.agentic.page.benefit2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 20V10"/>
+        <path d="M12 20V4"/>
+        <path d="M6 20v-6"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("services.agentic.page.benefit3.title" | t(locale), "services.agentic.page.benefit3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
 
-            <div class="aanpak-timeline">
-                <div class="aanpak-step">
-                    <div class="aanpak-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="7"></circle>
-                            <path d="M20 20l-3.5-3.5"></path>
-                        </svg>
-                    </div>
-                    <div class="aanpak-number">01</div>
-                    <h3>{{ "approach.step1.title" | t(locale) }}</h3>
-                    <p>{{ "approach.step1.desc" | t(locale) }}</p>
-                    <a href="{{ "/services/smart-scan/" | locale_url | withPathPrefix }}" class="aanpak-link">{{ "approach.step1.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-                </div>
-                <div class="aanpak-step">
-                    <div class="aanpak-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 21h6"></path>
-                            <path d="M14.5 4.5a2.12 2.12 0 1 1 3 3L8 17l-4 1 1-4 9.5-9.5z"></path>
-                        </svg>
-                    </div>
-                    <div class="aanpak-number">02</div>
-                    <h3>{{ "approach.step2.title" | t(locale) }}</h3>
-                    <p>{{ "approach.step2.desc" | t(locale) }}</p>
-                </div>
-                <div class="aanpak-step">
-                    <div class="aanpak-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                            <line x1="10" y1="20" x2="14" y2="4"></line>
-                        </svg>
-                    </div>
-                    <div class="aanpak-number">03</div>
-                    <h3>{{ "approach.step3.title" | t(locale) }}</h3>
-                    <p>{{ "approach.step3.desc" | t(locale) }}</p>
-                </div>
-                <div class="aanpak-step">
-                    <div class="aanpak-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <div class="aanpak-number">04</div>
-                    <h3>{{ "approach.step4.title" | t(locale) }}</h3>
-                    <p>{{ "approach.step4.desc" | t(locale) }}</p>
-                </div>
-                <div class="aanpak-step">
-                    <div class="aanpak-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="6" y1="20" x2="6" y2="10"></line>
-                            <line x1="12" y1="20" x2="12" y2="4"></line>
-                            <line x1="18" y1="20" x2="18" y2="14"></line>
-                        </svg>
-                    </div>
-                    <div class="aanpak-number">05</div>
-                    <h3>{{ "approach.step5.title" | t(locale) }}</h3>
-                    <p>{{ "approach.step5.desc" | t(locale) }}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-cta">
-        <div class="container">
-            <h2>{{ "services.agentic.page.cta.title" | t(locale) }}</h2>
-            <p>{{ "services.agentic.page.cta.text" | t(locale) }}</p>
-            <a href="{{ "/" | locale_url | withPathPrefix }}#contact" class="btn btn-primary">{{ "services.agentic.page.cta.button" | t(locale) }}</a>
-        </div>
-    </section>
+{{ ctaSection("services.agentic.page.cta.title" | t(locale), "services.agentic.page.cta.text" | t(locale), "services.agentic.page.cta.button" | t(locale), ("/" | locale_url | withPathPrefix) ~ "#contact") }}

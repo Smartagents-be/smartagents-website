@@ -65,6 +65,25 @@ body[data-service] .page-hero {
     }
 }
 
+.page-hero-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--service-color, var(--cyan));
+    background: var(--service-color-08, var(--cyan-08));
+    border: 2px solid var(--service-color-20, var(--cyan-20));
+    border-radius: 16px;
+    box-shadow: 0 0 32px var(--service-color-15, var(--cyan-15));
+}
+
+.page-hero-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
 .page-hero h1 {
     margin-bottom: 20px;
     white-space: nowrap;

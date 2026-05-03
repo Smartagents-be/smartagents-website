@@ -1,9 +1,6 @@
-    <section class="page-hero">
-        <div class="container">
-            <h1>{{ "services.process.title" | t(locale) }}</h1>
-            <p>{{ "services.process.page.subtitle" | t(locale) }}</p>
-        </div>
-    </section>
+{% from "macros/service-page.njk" import serviceHero %}
+
+{{ serviceHero("services.process.title" | t(locale), "services.process.page.subtitle" | t(locale), "process") }}
 
     <section class="process-why">
         <div class="container">
