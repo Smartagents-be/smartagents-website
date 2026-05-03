@@ -1,4 +1,4 @@
-{% from "macros/service-page.njk" import serviceHero, pageSection, roleItem, benefitCard, deliverableCard, scanProcessSection, scanStep, ctaSection %}
+{% from "macros/service-page.njk" import serviceHero, pageSection, roleItem, benefitCard, deliverableCard, scanProcessSection, scanStep, contactCtaSection with context %}
 
 {{ serviceHero("services.ontwerp.title" | t(locale), "services.ontwerp.page.subtitle" | t(locale), "ontwerp") }}
 
@@ -125,4 +125,4 @@
     {% endcall %}
 {% endcall %}
 
-{{ ctaSection("services.ontwerp.page.cta.title" | t(locale), "services.ontwerp.page.cta.text" | t(locale), "services.ontwerp.page.cta.button" | t(locale), ("/" | locale_url | withPathPrefix) ~ "#contact") }}
+{{ contactCtaSection("services.ontwerp.page.cta.title" | t(locale), "services.ontwerp.page.cta.text" | t(locale), "services.ontwerp.title" | t(locale)) }}

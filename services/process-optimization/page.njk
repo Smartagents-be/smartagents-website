@@ -1,4 +1,4 @@
-{% from "macros/service-page.njk" import serviceHero %}
+{% from "macros/service-page.njk" import serviceHero, contactCtaSection with context %}
 
 {{ serviceHero("services.process.title" | t(locale), "services.process.page.subtitle" | t(locale), "process") }}
 
@@ -181,10 +181,4 @@
         </div>
     </section>
 
-    <section class="page-cta">
-        <div class="container">
-            <h2>{{ "services.process.page.cta.title" | t(locale) }}</h2>
-            <p>{{ "services.process.page.cta.text" | t(locale) }}</p>
-            <a href="{{ "/" | locale_url | withPathPrefix }}#contact" class="btn btn-primary">{{ "services.process.page.cta.button" | t(locale) }}</a>
-        </div>
-    </section>
+    {{ contactCtaSection("services.process.page.cta.title" | t(locale), "services.process.page.cta.text" | t(locale), "services.process.title" | t(locale)) }}

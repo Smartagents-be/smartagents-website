@@ -35,19 +35,29 @@
     margin-bottom: 20px;
 }
 
-.page-cta .btn {
-    width: 25%;
-    min-width: 200px;
-    margin: 0 auto;
-    box-shadow: 0 0 30px var(--cyan-40), 0 0 60px var(--cyan-20);
-}
-
 .page-cta > .container > p {
     font-size: 1.1rem;
     color: var(--gray-light);
     max-width: 650px;
     margin: 0 auto 30px;
     line-height: 1.7;
+}
+
+.page-cta .contact-form {
+    max-width: 720px;
+    margin: 32px auto 0;
+    text-align: left;
+}
+
+.page-cta .contact-form .btn {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+.page-cta .contact-form textarea {
+    min-height: 100px;
 }
 
 .page-cta-contacts {
@@ -72,10 +82,6 @@
 
 .page-cta-divider {
     color: var(--gray);
-}
-
-.page-cta-btn {
-    margin-top: 8px;
 }
 
 @media (max-width: 768px) {

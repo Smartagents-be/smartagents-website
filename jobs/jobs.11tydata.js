@@ -19,6 +19,7 @@ module.exports = {
     '/shared/css/page-role-grid.css',
     '/shared/css/page-benefits.css',
     '/shared/css/page-cta.css',
+    '/shared/css/forms.css',
     '/jobs/jobs.css',
     '/jobs/jobs-team.css'
   ],
@@ -26,6 +27,7 @@ module.exports = {
     '/shared/js/runtime/color-runtime.js',
     '/shared/js/effects/scroll-reveal.js',
     '/shared/js/effects/canvas-effects.js',
+    '/shared/js/forms/contact-form.js',
     '/jobs/jobs-carousel.js'
   ]
 };

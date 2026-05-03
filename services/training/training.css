@@ -373,14 +373,6 @@
     margin-bottom: 6px;
 }
 
-.page-cta-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 24px;
-}
-
 .training-day-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
