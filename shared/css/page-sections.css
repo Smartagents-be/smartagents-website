@@ -1,0 +1,27 @@
+/* Shared marketing page sections */
+.page-section {
+    padding: 100px 0;
+    background: var(--dark);
+}
+
+.page-section-alt {
+    background: var(--dark-lighter);
+}
+
+.page-vision-text {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.page-vision-text p {
+    font-size: 1.1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .page-section {
+        padding: 70px 0;
+    }
+}

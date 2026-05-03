@@ -1,0 +1,172 @@
+{% set k = "services.training.detail." ~ courseKey %}
+    <section class="page-hero">
+        <div class="container">
+            <span class="page-hero-kicker">{{ (k ~ ".kicker") | t(locale) }}</span>
+            <h1>{{ (k ~ ".title") | t(locale) }}</h1>
+            <p>{{ (k ~ ".subtitle") | t(locale) }}</p>
+            <div class="page-hero-meta">
+                <div class="page-hero-meta-pill">
+                    <span class="page-hero-meta-pill-label">{{ "services.training.detail.meta.duration.label" | t(locale) }}</span>
+                    <span class="page-hero-meta-pill-value">{{ (k ~ ".meta.duration") | t(locale) }}</span>
+                </div>
+                <div class="page-hero-meta-pill">
+                    <span class="page-hero-meta-pill-label">{{ "services.training.detail.meta.participants.label" | t(locale) }}</span>
+                    <span class="page-hero-meta-pill-value">{{ (k ~ ".meta.participants") | t(locale) }}</span>
+                </div>
+                <div class="page-hero-meta-pill">
+                    <span class="page-hero-meta-pill-label">{{ "services.training.detail.meta.location.label" | t(locale) }}</span>
+                    <span class="page-hero-meta-pill-value">{{ (k ~ ".meta.location") | t(locale) }}</span>
+                </div>
+                <div class="page-hero-meta-pill">
+                    <span class="page-hero-meta-pill-label">{{ "services.training.detail.meta.language.label" | t(locale) }}</span>
+                    <span class="page-hero-meta-pill-value">{{ (k ~ ".meta.language") | t(locale) }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ (k ~ ".overview.title") | t(locale) }}</h2>
+            <div class="page-vision-text">
+                <p>{{ (k ~ ".overview.text") | t(locale) }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section page-section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ (k ~ ".themes.title") | t(locale) }}</h2>
+            <div class="page-role-grid">
+                {% for n in [1, 2, 3, 4, 5, 6] %}
+                <div class="page-role-item">
+                    <div class="page-role-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v8M8 12h8"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="page-role-item-kicker">{{ (k ~ ".theme" ~ n ~ ".kicker") | t(locale) }}</span>
+                        <h3>{{ (k ~ ".theme" ~ n ~ ".title") | t(locale) }}</h3>
+                        <p>{{ (k ~ ".theme" ~ n ~ ".desc") | t(locale) }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">{{ (k ~ ".takeaway.title") | t(locale) }}</h2>
+            <div class="page-benefits-grid">
+                {% for n in [1, 2, 3, 4, 5] %}
+                <div class="page-benefit-card">
+                    <div class="page-benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <h3>{{ (k ~ ".takeaway" ~ n ~ ".title") | t(locale) }}</h3>
+                    <p>{{ (k ~ ".takeaway" ~ n ~ ".desc") | t(locale) }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section page-section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ (k ~ ".day.title") | t(locale) }}</h2>
+            <div class="training-day-grid">
+                {% for n in [1, 2, 3, 4] %}
+                <div class="training-day-block">
+                    <div class="training-day-number">{{ n }}</div>
+                    <div class="training-day-content">
+                        <span class="page-role-item-kicker">{{ (k ~ ".day" ~ n ~ ".label") | t(locale) }}</span>
+                        <h3>{{ (k ~ ".day" ~ n ~ ".title") | t(locale) }}</h3>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="page-vision-text">
+                <p><strong>{{ (k ~ ".recommendation") | t(locale) }}</strong></p>
+                <p>
+                    <span class="page-role-item-kicker">{{ (k ~ ".next.label") | t(locale) }}</span>
+                    {% set nextHref = (k ~ ".next.href") | t(locale) %}
+                    {% if nextHref and nextHref != (k ~ ".next.href") %}
+                        <a href="{{ nextHref | withPathPrefix }}">{{ (k ~ ".next.text") | t(locale) }}</a>
+                    {% else %}
+                        {{ (k ~ ".next.text") | t(locale) }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-cta">
+        <div class="container">
+            <h2>{{ (k ~ ".cta.title") | t(locale) }}</h2>
+            <p>{{ (k ~ ".cta.text") | t(locale) }}</p>
+            <form class="contact-form training-cta-form" action="https://formsubmit.co/info@smartagents.be" method="POST">
+                <input type="hidden" name="_subject" value="{{ 'contact.form.subject' | t(locale) }}">
+                <input type="hidden" name="_next" value="{{ page.url | absoluteUrl(baseUrl) }}">
+                <input type="hidden" name="_captcha" value="true">
+                <input type="text" name="_honey" style="display:none">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cta-name">{{ "contact.form.name" | t(locale) }}</label>
+                        <input type="text" id="cta-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cta-email">{{ "contact.form.email" | t(locale) }}</label>
+                        <input type="email" id="cta-email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cta-company">{{ "contact.form.company" | t(locale) }}</label>
+                    <input type="text" id="cta-company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="cta-intent">{{ "training.form.intent.label" | t(locale) }}</label>
+                    <div class="form-select-wrap">
+                        <select id="cta-intent" name="intent" required>
+                            <option value="" disabled selected>{{ "training.form.intent.default" | t(locale) }}</option>
+                            <option value="{{ 'training.form.intent.book' | t(locale) }}">{{ "training.form.intent.book" | t(locale) }}</option>
+                            <option value="{{ 'training.form.intent.info' | t(locale) }}">{{ "training.form.intent.info" | t(locale) }}</option>
+                            <option value="{{ 'training.form.intent.quote' | t(locale) }}">{{ "training.form.intent.quote" | t(locale) }}</option>
+                            <option value="{{ 'training.form.intent.other' | t(locale) }}">{{ "training.form.intent.other" | t(locale) }}</option>
+                        </select>
+                        <svg class="form-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cta-notes">{{ "training.form.notes.label" | t(locale) }}</label>
+                    <textarea id="cta-notes" name="message" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary contact-form-btn"
+                  data-label-default="{{ 'contact.form.submit' | t(locale) }}"
+                  data-label-success="{{ 'contact.form.success' | t(locale) }}"
+                  data-label-error="{{ 'contact.form.error' | t(locale) }}">
+                  {{ "contact.form.submit" | t(locale) }}
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <a href="{{ pdfHref | withPathPrefix }}" target="_blank" rel="noopener noreferrer" class="training-detail-pdf-fab" aria-label="{{ 'services.training.detail.cta.download' | t(locale) }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span class="fab-label">{{ "services.training.detail.cta.download" | t(locale) }}</span>
+    </a>

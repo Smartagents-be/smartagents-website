@@ -1,0 +1,161 @@
+/* Shared marketing forms */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--dark);
+    border: 1px solid var(--white-05);
+    border-radius: 0;
+    padding: 48px;
+    box-shadow: none;
+    position: relative;
+}
+
+.contact-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--service-color, var(--cyan));
+    pointer-events: none;
+    z-index: 2;
+}
+
+.contact-form::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    padding: 2px;
+    background: radial-gradient(
+        200px circle at var(--mx, 50%) var(--my, -60px),
+        var(--service-color, var(--cyan)),
+        transparent 100%
+    );
+    -webkit-mask:
+        linear-gradient(var(--white), var(--white)) content-box,
+        linear-gradient(var(--white), var(--white));
+    -webkit-mask-composite: destination-out;
+    mask:
+        linear-gradient(var(--white), var(--white)) content-box,
+        linear-gradient(var(--white), var(--white));
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 2;
+}
+
+.contact-form.is-lit::after {
+    opacity: 0.7;
+}
+
+.contact-form > * {
+    position: relative;
+    z-index: 1;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gray-light);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--dark);
+    border: 1px solid var(--white-10);
+    border-radius: 8px;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px var(--cyan-08);
+}
+
+.form-select-wrap {
+    position: relative;
+}
+
+.form-select-wrap select {
+    width: 100%;
+    padding: 14px 44px 14px 18px;
+    background: var(--dark);
+    border: 1px solid var(--white-10);
+    border-radius: 8px;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 1rem;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.form-select-wrap select:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px var(--cyan-08);
+}
+
+.form-select-wrap select option {
+    background: var(--dark-lighter);
+    color: var(--white);
+}
+
+.form-select-chevron {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    stroke: var(--gray-light);
+    pointer-events: none;
+    transition: stroke 0.2s ease;
+}
+
+.form-select-wrap:focus-within .form-select-chevron,
+.form-group:focus-within .form-select-chevron {
+    stroke: var(--cyan);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn {
+    width: 100%;
+}
+
+.form-group:focus-within label {
+    color: var(--cyan);
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}

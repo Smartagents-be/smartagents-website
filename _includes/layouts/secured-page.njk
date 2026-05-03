@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ locale or 'nl' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pageTitle }}</title>
+    <meta name="description" content="{{ pageDescription }}">
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="{{ themeColor }}">
+    {% include "document/favicon.njk" %}
+    <link rel="stylesheet" href="{{ "/shared/css/base.css" | withPathPrefix }}?v={{ assetsVersion }}">
+    {% for stylesheet in pageStyles or [] %}
+    <link rel="stylesheet" href="{{ stylesheet | withPathPrefix }}?v={{ assetsVersion }}">
+    {% endfor %}
+    {% include "document/google-tag.njk" %}
+</head>
+<body>
+    {{ content | safe }}
+</body>
+</html>

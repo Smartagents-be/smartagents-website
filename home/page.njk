@@ -1,0 +1,424 @@
+    <header class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-overlay"></div>
+
+        <!-- Desktop hero: title + CTA -->
+        <div class="hero-content hero-desktop-only">
+            <div class="hero-desktop-grid">
+                <div class="hero-desktop-logo" aria-hidden="true">
+                    <svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SmartAgents">
+                        <defs>
+                            <linearGradient id="heroDesktopLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--cyan)"/>
+                                <stop offset="50%" style="stop-color:var(--cyan)"/>
+                                <stop offset="100%" style="stop-color:var(--blue)"/>
+                            </linearGradient>
+                        </defs>
+                        <g stroke="url(#heroDesktopLogoGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+                            <line x1="24" y1="8" x2="12" y2="20"/>
+                            <line x1="24" y1="8" x2="36" y2="20"/>
+                            <line x1="12" y1="20" x2="24" y2="24"/>
+                            <line x1="36" y1="20" x2="24" y2="24"/>
+                            <line x1="12" y1="20" x2="12" y2="32"/>
+                            <line x1="36" y1="20" x2="36" y2="32"/>
+                            <line x1="24" y1="24" x2="24" y2="40"/>
+                            <line x1="12" y1="32" x2="24" y2="40"/>
+                            <line x1="36" y1="32" x2="24" y2="40"/>
+                        </g>
+                        <g fill="url(#heroDesktopLogoGradient)">
+                            <circle cx="24" cy="8" r="4"/>
+                            <circle cx="12" cy="20" r="3"/>
+                            <circle cx="36" cy="20" r="3"/>
+                            <circle cx="24" cy="24" r="3.5"/>
+                            <circle cx="12" cy="32" r="2.5"/>
+                            <circle cx="36" cy="32" r="2.5"/>
+                            <circle cx="24" cy="40" r="3"/>
+                        </g>
+                        <circle cx="24" cy="8" r="6" fill="none" stroke="url(#heroDesktopLogoGradient)" stroke-width="1" opacity="0.4"/>
+                    </svg>
+                </div>
+                <div class="hero-desktop-text">
+                    <h1>{{ "hero.title" | t(locale) | safe }}</h1>
+                    <p>{{ "hero.subtitle" | t(locale) }}</p>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn btn-primary">{{ "hero.cta.primary" | t(locale) }}</a>
+                        <a href="#services" class="btn btn-secondary">{{ "hero.cta.secondary" | t(locale) }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile hero: centered logo -->
+        <div class="hero-centered-logo hero-animate hero-mobile-only">
+            <svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="SmartAgents" role="img">
+                <defs>
+                    <linearGradient id="heroLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:var(--cyan)"/>
+                        <stop offset="50%" style="stop-color:var(--cyan)"/>
+                        <stop offset="100%" style="stop-color:var(--blue)"/>
+                    </linearGradient>
+                </defs>
+                <g stroke="url(#heroLogoGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+                    <line x1="24" y1="8" x2="12" y2="20"/>
+                    <line x1="24" y1="8" x2="36" y2="20"/>
+                    <line x1="12" y1="20" x2="24" y2="24"/>
+                    <line x1="36" y1="20" x2="24" y2="24"/>
+                    <line x1="12" y1="20" x2="12" y2="32"/>
+                    <line x1="36" y1="20" x2="36" y2="32"/>
+                    <line x1="24" y1="24" x2="24" y2="40"/>
+                    <line x1="12" y1="32" x2="24" y2="40"/>
+                    <line x1="36" y1="32" x2="24" y2="40"/>
+                </g>
+                <g fill="url(#heroLogoGradient)">
+                    <circle cx="24" cy="8" r="4"/>
+                    <circle cx="12" cy="20" r="3"/>
+                    <circle cx="36" cy="20" r="3"/>
+                    <circle cx="24" cy="24" r="3.5"/>
+                    <circle cx="12" cy="32" r="2.5"/>
+                    <circle cx="36" cy="32" r="2.5"/>
+                    <circle cx="24" cy="40" r="3"/>
+                </g>
+                <circle cx="24" cy="8" r="6" fill="none" stroke="url(#heroLogoGradient)" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span class="hero-logo-wordmark"><span class="hero-word">Smart</span><span class="hero-word hero-word-accent">Agents</span></span>
+            <span class="hero-logo-tagline">{{ "footer.tagline" | t(locale) }}</span>
+        </div>
+
+        <div class="hero-scroll-hint hero-animate-delayed">
+            <span>{{ "hero.scroll" | t(locale) }}</span>
+            <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+    </header>
+
+    <section class="hero-intro hero-intro-mobile-only">
+        <div class="container">
+            <div class="hero-intro-inner">
+                <div class="hero-intro-text">
+                    <h1>{{ "hero.title" | t(locale) | safe }}</h1>
+                    <p>{{ "hero.subtitle" | t(locale) }}</p>
+                </div>
+                <div class="hero-intro-stats">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="15">0</span>+</div>
+                        <div class="hero-stat-label">{{ "stats.agents" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="23">0</span>%</div>
+                        <div class="hero-stat-label">{{ "stats.cost" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="98">0</span>%</div>
+                        <div class="hero-stat-label">{{ "stats.satisfaction" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="24">0</span>/7</div>
+                        <div class="hero-stat-label">{{ "stats.support" | t(locale) }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision-mission" class="vision-mission">
+        <div class="container">
+            <div class="vm-grid">
+                <div class="vm-panel">
+                    <div class="vm-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="gradient-text">{{ "vision.title" | t(locale) }}</h3>
+                    <p class="vm-headline">{{ "vision.headline" | t(locale) }}</p>
+                    <p class="vm-text">{{ "vision.text" | t(locale) }}</p>
+                </div>
+                <div class="vm-divider"></div>
+                <div class="vm-panel">
+                    <div class="vm-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                        </svg>
+                    </div>
+                    <h3 class="gradient-text">{{ "mission.title" | t(locale) }}</h3>
+                    <p class="vm-headline">{{ "mission.headline" | t(locale) }}</p>
+                    <p class="vm-text">{{ "mission.text" | t(locale) }}</p>
+                </div>
+                <div class="vm-divider"></div>
+                <div class="vm-panel">
+                    <div class="vm-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3 class="gradient-text">{{ "values.title" | t(locale) }}</h3>
+                    <p class="vm-headline">{{ "values.headline" | t(locale) }}</p>
+                    <p class="vm-text">{{ "values.text" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">{{ "services.title" | t(locale) }}</h2>
+            <p class="section-subtitle">{{ "services.subtitle" | t(locale) }}</p>
+
+            <div class="services-feature-grid">
+                <a href="{{ "/services/training/" | locale_url | withPathPrefix }}" class="service-feature">
+                    <div class="service-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.training.title" | t(locale) }}</h3>
+                    <p>{{ "services.training.desc" | t(locale) }}</p>
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+                <a href="{{ "/services/process-optimization/" | locale_url | withPathPrefix }}" class="service-feature">
+                    <div class="service-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.process.title" | t(locale) }}</h3>
+                    <p>{{ "services.process.desc" | t(locale) }}</p>
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+                <a href="{{ "/services/agentic-ai/" | locale_url | withPathPrefix }}" class="service-feature">
+                    <div class="service-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+                        </svg>
+                    </div>
+                    <h3>{{ "services.agentic.title" | t(locale) }}</h3>
+                    <p>{{ "services.agentic.desc" | t(locale) }}</p>
+                    <span class="service-feature-link">{{ "services.learnmore" | t(locale) }} →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="aanpak" class="aanpak">
+        <div class="container">
+            <h2 class="section-title">{{ "approach.title" | t(locale) }}</h2>
+            <p class="section-subtitle">{{ "approach.subtitle" | t(locale) }}</p>
+
+            <div class="aanpak-timeline">
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="M20 20l-3.5-3.5"></path>
+                        </svg>
+                    </div>
+                    <div class="aanpak-number">01</div>
+                    <h3>{{ "approach.step1.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step1.desc" | t(locale) }}</p>
+                    <a href="{{ "/services/smart-scan/" | locale_url | withPathPrefix }}" class="aanpak-link">{{ "approach.step1.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21h6"></path>
+                            <path d="M14.5 4.5a2.12 2.12 0 1 1 3 3L8 17l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </div>
+                    <div class="aanpak-number">02</div>
+                    <h3>{{ "approach.step2.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step2.desc" | t(locale) }}</p>
+                    <a href="{{ "/services/ontwerp/" | locale_url | withPathPrefix }}" class="aanpak-link">{{ "approach.step2.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                            <line x1="10" y1="20" x2="14" y2="4"></line>
+                        </svg>
+                    </div>
+                    <div class="aanpak-number">03</div>
+                    <h3>{{ "approach.step3.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step3.desc" | t(locale) }}</p>
+                    <a href="{{ "/services/ontwikkeling/" | locale_url | withPathPrefix }}" class="aanpak-link">{{ "approach.step3.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <div class="aanpak-number">04</div>
+                    <h3>{{ "approach.step4.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step4.desc" | t(locale) }}</p>
+                    <a href="{{ "/services/implementatie/" | locale_url | withPathPrefix }}" class="aanpak-link">{{ "approach.step4.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="aanpak-step">
+                    <div class="aanpak-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="20" x2="6" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="18" y1="20" x2="18" y2="14"></line>
+                        </svg>
+                    </div>
+                    <div class="aanpak-number">05</div>
+                    <h3>{{ "approach.step5.title" | t(locale) }}</h3>
+                    <p>{{ "approach.step5.desc" | t(locale) }}</p>
+                    <a href="{{ "/services/optimalisatie-support/" | locale_url | withPathPrefix }}" class="aanpak-link">{{ "approach.step5.btn" | t(locale) }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">{{ "about.title" | t(locale) }}</h2>
+                    <p>{{ "about.desc" | t(locale) }}</p>
+
+                    <ul class="about-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature1" | t(locale) }}</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature2" | t(locale) }}</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature3" | t(locale) }}</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>{{ "about.feature4" | t(locale) }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-visual">
+                    <img src="{{ "/assets/logo.svg" | withPathPrefix }}" alt="SmartAgents" class="about-logo" width="160" height="160" decoding="async">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero-intro">
+        <div class="container">
+            <div class="hero-intro-inner">
+                <div class="hero-intro-stats">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="15">0</span>+</div>
+                        <div class="hero-stat-label">{{ "stats.agents" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="23">0</span>%</div>
+                        <div class="hero-stat-label">{{ "stats.cost" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="98">0</span>%</div>
+                        <div class="hero-stat-label">{{ "stats.satisfaction" | t(locale) }}</div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-number"><span class="stat-number" data-target="24">0</span>/7</div>
+                        <div class="hero-stat-label">{{ "stats.support" | t(locale) }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Testimonials tijdelijk verborgen — later terug toe te voegen
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">{{ "testimonials.title" | t(locale) }}</h2>
+            <p class="section-subtitle">{{ "testimonials.subtitle" | t(locale) }}</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">{{ "testimonials.1.text" | t(locale) }}</p>
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">{{ "testimonials.2.text" | t(locale) }}</p>
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">{{ "testimonials.3.text" | t(locale) }}</p>
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    #}
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">{{ "contact.title" | t(locale) }}</h2>
+            <p class="section-subtitle">{{ "contact.subtitle" | t(locale) }}</p>
+
+            <form class="contact-form" id="contact-form" action="https://formsubmit.co/info@smartagents.be" method="POST">
+                <input type="hidden" name="_subject" value="{{ 'contact.form.subject' | t(locale) }}">
+                <input type="hidden" name="_next" value="{{ ("/" | locale_url | withPathPrefix) | absoluteUrl(baseUrl) }}#contact">
+                <input type="hidden" name="_captcha" value="true">
+                <input type="text" name="_honey" style="display:none">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">{{ "contact.form.name" | t(locale) }}</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">{{ "contact.form.email" | t(locale) }}</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="company">{{ "contact.form.company" | t(locale) }}</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="message">{{ "contact.form.message" | t(locale) }}</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"
+                  data-label-default="{{ 'contact.form.submit' | t(locale) }}"
+                  data-label-success="{{ 'contact.form.success' | t(locale) }}"
+                  data-label-error="{{ 'contact.form.error' | t(locale) }}">
+                  {{ "contact.form.submit" | t(locale) }}
+                </button>
+            </form>
+        </div>
+    </section>

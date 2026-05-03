@@ -1,0 +1,55 @@
+/* Shared feature list rows */
+.page-role-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+@media (min-width: 768px) {
+    .page-role-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0 48px;
+    }
+}
+
+.page-role-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--white-05);
+}
+
+.page-role-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    background: var(--service-color-08, var(--cyan-08));
+    border: 1px solid var(--service-color, var(--cyan));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+    opacity: 0.9;
+}
+
+.page-role-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--cyan));
+}
+
+.page-role-item h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.page-role-item p {
+    color: var(--gray-light);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+}

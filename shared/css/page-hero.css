@@ -1,0 +1,102 @@
+/* Shared marketing page hero */
+.page-hero {
+    padding: 160px 24px 80px;
+    background: radial-gradient(ellipse 60% 60% at 50% 0%, var(--service-color-15, var(--cyan-15)) 0%, transparent 70%),
+    var(--dark);
+    text-align: center;
+    border-bottom: 1px solid var(--white-05);
+    border-top: 3px solid var(--service-color, var(--cyan));
+    position: relative;
+    overflow: hidden;
+}
+
+body[data-service] .page-hero {
+    margin-top: 68px;
+}
+
+#page-hero-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.page-hero .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto 28px;
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--service-color, var(--cyan));
+    background: var(--service-color-08, var(--cyan-08));
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--service-color, var(--cyan));
+    letter-spacing: 0.3px;
+    box-shadow: 0 0 20px var(--service-color-15, var(--cyan-15));
+}
+
+.page-hero-badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--service-color, var(--cyan));
+    box-shadow: 0 0 8px var(--service-color, var(--cyan));
+    animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.85);
+    }
+}
+
+.page-hero h1 {
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+.page-hero p {
+    font-size: 1.2rem;
+    color: var(--gray-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+    body[data-service] .page-hero,
+    body[data-page="jobs"] .page-hero {
+        margin-top: 0;
+        padding-top: 104px;
+    }
+
+    .page-hero {
+        padding: 62px 24px 60px;
+    }
+
+    .page-hero h1 {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 480px) {
+    body[data-service] .page-hero,
+    body[data-page="jobs"] .page-hero {
+        padding-top: 98px;
+    }
+}

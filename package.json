@@ -5,7 +5,9 @@
     "@11ty/eleventy": "^3.0.0"
   },
   "scripts": {
-    "build": "node scripts/clean-dist.mjs && eleventy && node scripts/check-dist.mjs",
+    "build": "node scripts/build-site.mjs",
+    "build:cloudflare": "node scripts/build-site.mjs --cloudflare",
+    "build:static": "node scripts/build-site.mjs --static",
     "start:local": "node scripts/start-local.mjs"
   }
 }

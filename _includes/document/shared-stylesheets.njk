@@ -1,0 +1,7 @@
+<link rel="stylesheet" href="{{ "/shared/css/base.css" | withPathPrefix }}?v={{ assetsVersion }}">
+<link rel="stylesheet" href="{{ "/header/navigation.css" | withPathPrefix }}?v={{ assetsVersion }}">
+<link rel="stylesheet" href="{{ "/header/site-shell.css" | withPathPrefix }}?v={{ assetsVersion }}">
+<link rel="stylesheet" href="{{ "/footer/footer.css" | withPathPrefix }}?v={{ assetsVersion }}">
+{% for stylesheet in pageStyles or [] %}
+<link rel="stylesheet" href="{{ stylesheet | withPathPrefix }}?v={{ assetsVersion }}">
+{% endfor %}

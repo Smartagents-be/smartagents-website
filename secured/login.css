@@ -1,0 +1,87 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--white);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem 2rem;
+  background: var(--dark-lighter);
+  border: 1px solid var(--white-10);
+  border-radius: 12px;
+}
+
+.brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--gray-light);
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--gray-light);
+  margin-bottom: 0.4rem;
+}
+
+input[type="password"] {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background: var(--dark-deep);
+  border: 1px solid var(--white-10);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input[type="password"].has-error {
+  border-color: var(--rose);
+}
+
+input[type="password"]:focus {
+  border-color: var(--cyan);
+}
+
+.error {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--rose);
+}
+
+button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--cyan);
+  color: var(--dark);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.brand-base { color: var(--white); }
+.brand-accent { color: var(--cyan); }

@@ -1,0 +1,57 @@
+/* Shared benefits list rows */
+.page-benefits-grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-benefit-card {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 16px;
+    row-gap: 4px;
+    align-items: start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--white-05);
+}
+
+.page-benefit-card:last-child {
+    border-bottom: none;
+}
+
+.page-benefit-icon {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 22px;
+    height: 22px;
+    background: none;
+    border-radius: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 3px;
+}
+
+.page-benefit-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--cyan));
+    opacity: 0.85;
+}
+
+.page-benefit-card h3 {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.page-benefit-card p {
+    grid-column: 2;
+    grid-row: 2;
+    color: var(--gray-light);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+}

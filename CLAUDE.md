@@ -1,17 +1,23 @@
-# CLAUDE.md
+# CLAUDE.md - Agent Entry Point
 
-## Color rules
+This file serves as the primary entry point for AI agents. 
 
-- Use `assets/css/base.css` as the single source of truth for runtime color tokens.
-- Always reference colors in templates, HTML, CSS, and JS through tokens from `base.css`.
-- Do not add literal color values outside `assets/css/base.css` for live site code.
-- Do not add inline `#hex`, `rgb()`, `rgba()`, or literal gradient color stops in templates, stylesheets, or JS.
-- Reuse an existing token before introducing a new tone.
-- Keep the token set intentionally small. Prefer the nearest existing tone over adding a barely different new one.
-- Keep the palette aligned with the SmartAgents design system: brand cyan / blue, dark neutrals, and the existing service/status accents.
-- For shared service theming, use the contextual `--service-color`, `--service-color-08`, `--service-color-15`, and `--service-color-20` vars instead of inventing page-specific color aliases.
-- If a new tone is truly required, add it to `base.css` first and then consume it everywhere via `var(--token)`.
-- Standalone pages should load `base.css`; they should not redefine the shared palette locally.
-- Exceptions:
-  - Static SVG asset files may keep embedded literal colors when they are treated as standalone artwork.
-  - JS may build `rgba(...)` strings only from RGB channel tokens defined in `base.css`; it should not introduce raw palette values itself.
+## Primary Documentation
+For all architectural, technical, and workflow guidelines, refer to:
+👉 **[AGENTS.md](./AGENTS.md)**
+
+## Quick Commands
+- **Build**: `npm run build` (Runs `check-dist.mjs` validation)
+- **Local Dev**: `npm run start:local`
+- **Static Build**: `npm run build:static` (Prunes secured content)
+
+## Tech Stack Summary
+- **SSG**: Eleventy 3.0 (Nunjucks)
+- **Styling**: Vanilla CSS with shared tokens (`shared/css/base.css`)
+- **I18n**: JSON-based (`i18n/`) with `t` filter
+- **Deploy**: Cloudflare Pages
+
+## Key Patterns
+- **Colocation**: Keep CSS/JS in the component/page folder.
+- **Data-Driven**: Use `.11tydata.js` for page configuration.
+- **Validation**: `scripts/check-dist.mjs` is the gatekeeper for the `dist/` folder.
