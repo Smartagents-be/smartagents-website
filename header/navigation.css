@@ -191,15 +191,16 @@
         background: var(--nav-surface);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border-left: 2px solid var(--service-color, var(--cyan));
+        border-top: 2px solid var(--service-color, var(--cyan));
         border-bottom: 1px solid var(--white-10);
         border-right: 1px solid var(--white-10);
+        border-left: 1px solid var(--white-10);
         overflow: hidden;
         z-index: 200;
         transform-origin: top left;
         opacity: 0;
         pointer-events: none;
-        transition: background 0.3s ease;
+        transition: background 0.3s ease, border-color 0.3s ease;
     }
     .navbar.scrolled .nav-viewport {
         background: var(--dark);
@@ -255,12 +256,22 @@
         width: 17px;
         height: 17px;
         flex-shrink: 0;
-        opacity: 0.6;
-        transition: opacity 0.15s ease;
+        opacity: 0.8;
+        transition: opacity 0.15s ease, transform 0.2s ease;
     }
+
+    .nav-panel a[data-nav-service="agentic"] svg { color: var(--cyan); }
+    .nav-panel a[data-nav-service="process"] svg { color: var(--amber); }
+    .nav-panel a[data-nav-service="training"] svg { color: var(--purple); }
+    .nav-panel a[data-nav-service="smartscan"] svg { color: var(--blue); }
+    .nav-panel a[data-nav-service="ontwerp"] svg { color: var(--rose); }
+    .nav-panel a[data-nav-service="ontwikkeling"] svg { color: var(--green); }
+    .nav-panel a[data-nav-service="implementatie"] svg { color: var(--amber); }
+    .nav-panel a[data-nav-service="optimalisatie"] svg { color: var(--purple); }
 
     .nav-panel a:hover svg {
         opacity: 1;
+        transform: scale(1.1);
     }
 
     .nav-panel a:hover {
@@ -629,13 +640,13 @@
         flex-direction: column;
         padding: 12px 24px 28px;
         gap: 0;
-        border-top: 1px solid var(--cyan-40);
+        border-top: 1px solid var(--service-color, var(--cyan-40));
         box-shadow: 0 16px 40px var(--black-50);
         display: flex;
         opacity: 0;
         transform: translateY(-8px);
         pointer-events: none;
-        transition: opacity 0.25s ease, transform 0.25s ease;
+        transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.3s ease;
     }
 
     .nav-links.active {
@@ -663,7 +674,7 @@
 
     .nav-links > li > a:hover,
     .nav-links > li > a.active {
-        color: var(--cyan);
+        color: var(--service-color, var(--cyan));
     }
 
     .nav-links > li.mobile-only > a {
@@ -693,13 +704,14 @@
         min-width: unset;
         background: transparent;
         border: none;
-        border-left: 2px solid var(--cyan-40);
+        border-left: 2px solid var(--service-color, var(--cyan-40));
         border-radius: 0;
         padding: 4px 0 8px 16px;
         margin-top: 0;
         box-shadow: none;
         flex-direction: column;
         gap: 0;
+        transition: border-color 0.3s ease;
     }
 
     .nav-dropdown.open .nav-submenu {
