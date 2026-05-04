@@ -97,10 +97,6 @@
     letter-spacing: 0.08em;
 }
 
-.flip-card--purple .flip-card-role {
-    color: var(--purple-soft);
-}
-
 /* Back */
 .flip-card-back {
     background: var(--bg-deep);
