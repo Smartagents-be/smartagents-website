@@ -98,17 +98,29 @@
 
     <section class="page-section">
         <div class="container">
-            <div class="page-vision-text">
-                <p><strong>{{ (k ~ ".recommendation") | t(locale) }}</strong></p>
-                <p>
-                    <span class="page-role-item-kicker">{{ (k ~ ".next.label") | t(locale) }}</span>
-                    {% set nextHref = (k ~ ".next.href") | t(locale) %}
-                    {% if nextHref and nextHref != (k ~ ".next.href") %}
-                        <a href="{{ nextHref | withPathPrefix }}">{{ (k ~ ".next.text") | t(locale) }}</a>
-                    {% else %}
-                        {{ (k ~ ".next.text") | t(locale) }}
+            <div class="training-followup-stack">
+                <div class="training-recommendation-note">
+                    <p class="training-followup-copy"><strong>{{ (k ~ ".recommendation") | t(locale) }}</strong></p>
+                </div>
+                {% set nextHref = (k ~ ".next.href") | t(locale) %}
+                {% set hasNextHref = nextHref and nextHref != (k ~ ".next.href") %}
+                {% if hasNextHref %}
+                <a href="{{ nextHref | withPathPrefix }}" class="training-next-step-card">
+                {% else %}
+                <div class="training-next-step-card">
+                {% endif %}
+                    <div class="training-next-step-main">
+                        <span class="page-role-item-kicker">{{ (k ~ ".next.label") | t(locale) }}</span>
+                        <p class="training-next-step-title">{{ (k ~ ".next.text") | t(locale) }}</p>
+                    </div>
+                    {% if hasNextHref %}
+                    <span class="training-next-step-arrow" aria-hidden="true">-&gt;</span>
                     {% endif %}
-                </p>
+                {% if hasNextHref %}
+                </a>
+                {% else %}
+                </div>
+                {% endif %}
             </div>
         </div>
     </section>
