@@ -100,6 +100,7 @@
 
     <!-- Right cluster: CTA + lang + MENU scramble -->
     <div class="navbar-right">
+        <a href="{{ "/customerzone/" | locale_url | withPathPrefix }}" class="btn btn-nav">{{ "nav.customerzone" | t(locale) }}</a>
         <button
             class="theme-toggle navbar-theme-toggle"
             type="button"
@@ -120,7 +121,6 @@
                 <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
             </svg>
         </button>
-        <a href="{{ "/customerzone/" | locale_url | withPathPrefix }}" class="btn btn-nav">{{ "nav.customerzone" | t(locale) }}</a>
         <div class="navbar-lang">
             <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl | withPathPrefix }}">EN</a>
             <a class="lang-btn {% if locale == 'nl' %}active{% endif %}" href="{{ nlUrl | withPathPrefix }}">NL</a>
