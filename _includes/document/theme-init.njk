@@ -1,0 +1,28 @@
+<script>
+(function() {
+    var storageKey = 'sa-theme';
+    var darkThemeColor = '#0f172a';
+    var lightThemeColor = '#f1f5f9';
+    var doc = document.documentElement;
+    var savedTheme = null;
+
+    try {
+        savedTheme = window.localStorage.getItem(storageKey);
+    } catch (error) {
+        savedTheme = null;
+    }
+
+    var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    var theme = savedTheme === 'light' || savedTheme === 'dark'
+        ? savedTheme
+        : (prefersLight ? 'light' : 'dark');
+
+    doc.dataset.theme = theme;
+    doc.style.colorScheme = theme;
+
+    var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', theme === 'light' ? lightThemeColor : darkThemeColor);
+    }
+})();
+</script>

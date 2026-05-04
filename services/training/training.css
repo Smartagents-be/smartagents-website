@@ -3,7 +3,7 @@
     max-width: 680px;
     margin: 0 auto 48px;
     text-align: center;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     font-size: 0.95rem;
     line-height: 1.75;
 }
@@ -21,16 +21,16 @@
 
 .training-node {
     width: 100%;
-    background: var(--white-05);
-    border: 1px solid var(--white-05);
+    background: var(--border);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 24px 28px;
 }
 
 .training-node--trunk {
     max-width: 600px;
-    border-color: var(--cyan-20);
-    border-left: 3px solid var(--cyan);
+    border-color: var(--accent-20);
+    border-left: 3px solid var(--accent);
 }
 
 .training-node--management {
@@ -53,7 +53,7 @@
 }
 
 .training-connector--trunk {
-    background: var(--cyan);
+    background: var(--accent);
 }
 
 .training-connector--deepdive {
@@ -80,7 +80,7 @@
     transform: translateX(-50%);
     width: 2px;
     height: 50%;
-    background: var(--cyan-20);
+    background: var(--accent-20);
 }
 
 /* Horizontal bridge between the two branches */
@@ -91,7 +91,7 @@
     left: calc(25% - 6px);
     right: calc(25% - 6px);
     height: 1px;
-    background: var(--white-10);
+    background: var(--border-strong);
 }
 
 .training-fork-left,
@@ -156,7 +156,7 @@
 }
 
 .training-node--trunk .training-node-num {
-    color: var(--cyan);
+    color: var(--accent);
 }
 
 .training-node--management .training-node-num {
@@ -178,7 +178,7 @@
 .training-node-prereq-inline {
     margin-left: auto;
     font-size: 0.65rem;
-    color: var(--white-20);
+    color: var(--border-stronger);
     letter-spacing: 0.04em;
 }
 
@@ -194,9 +194,9 @@
 }
 
 .training-badge--everyone {
-    background: var(--cyan-10);
-    color: var(--cyan);
-    border: 1px solid var(--cyan-20);
+    background: var(--accent-10);
+    color: var(--accent);
+    border: 1px solid var(--accent-20);
 }
 
 .training-badge--management {
@@ -226,14 +226,14 @@
 .training-node-title {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--white);
+    color: var(--fg);
     margin: 0 0 8px;
     line-height: 1.45;
 }
 
 .training-node-desc {
     font-size: 0.82rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     line-height: 1.65;
     margin: 0;
 }
@@ -241,7 +241,7 @@
 .training-node-meta {
     margin-top: 14px;
     padding-top: 12px;
-    border-top: 1px solid var(--white-05);
+    border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -253,7 +253,7 @@
     display: flex;
     gap: 6px;
     font-size: 0.72rem;
-    color: var(--white-40);
+    color: var(--fg-soft);
 }
 
 .training-node-target span:first-child {
@@ -279,14 +279,14 @@
 }
 
 .training-onepager-btn--cyan {
-    color: var(--cyan);
-    border-color: var(--cyan-20);
-    background: var(--cyan-08);
+    color: var(--accent);
+    border-color: var(--accent-20);
+    background: var(--accent-08);
 }
 
 .training-onepager-btn--cyan:hover {
-    background: var(--cyan-10);
-    box-shadow: 0 0 10px var(--cyan-15);
+    background: var(--accent-10);
+    box-shadow: 0 0 10px var(--accent-15);
 }
 
 .training-onepager-btn--management {
@@ -301,24 +301,24 @@
 }
 
 .training-onepager-btn--filled-cyan {
-    color: var(--dark);
-    border-color: var(--cyan);
-    background: var(--cyan);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+    background: var(--accent);
 }
 
 .training-onepager-btn--filled-cyan:hover {
-    background: var(--cyan);
-    box-shadow: 0 0 14px var(--cyan-30);
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent-30);
 }
 
 .training-onepager-btn--filled-management {
-    color: var(--dark-deep);
-    border-color: var(--purple-soft);
-    background: var(--purple-soft);
+    color: var(--sa-white);
+    border-color: var(--purple-soft-fill);
+    background: var(--purple-soft-fill);
 }
 
 .training-onepager-btn--filled-management:hover {
-    background: var(--purple-soft);
+    background: var(--purple-soft-fill);
     box-shadow: 0 0 14px var(--purple-soft-40);
 }
 
@@ -329,7 +329,7 @@
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--accent));
     margin-bottom: 14px;
 }
 
@@ -339,7 +339,7 @@
     gap: 16px 28px;
     margin-top: 28px;
     padding-top: 20px;
-    border-top: 1px solid var(--white-10);
+    border-top: 1px solid var(--border-strong);
 }
 
 .page-hero-meta-pill {
@@ -353,14 +353,14 @@
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--accent));
     opacity: 0.85;
 }
 
 .page-hero-meta-pill-value {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--white);
+    color: var(--fg);
 }
 
 .page-role-item-kicker {
@@ -369,7 +369,7 @@
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--accent));
     margin-bottom: 6px;
 }
 
@@ -384,9 +384,9 @@
     align-items: flex-start;
     gap: 16px;
     padding: 18px 16px;
-    border: 1px solid var(--white-10);
+    border: 1px solid var(--border-strong);
     border-radius: 12px;
-    background: var(--service-color-08, var(--cyan-04));
+    background: var(--service-color-08, var(--accent-04));
 }
 
 .training-day-number {
@@ -396,12 +396,12 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: var(--service-color-08, var(--cyan-10));
-    color: var(--service-color, var(--cyan));
+    background: var(--service-color-08, var(--accent-10));
+    color: var(--service-color, var(--accent));
     font-weight: 700;
     font-size: 0.95rem;
     flex-shrink: 0;
-    border: 1px solid var(--service-color-20, var(--cyan-30));
+    border: 1px solid var(--service-color-20, var(--accent-30));
 }
 
 .training-day-content {
@@ -438,7 +438,7 @@
         font-weight: 700;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--white-40);
+        color: var(--fg-soft);
     }
 
     .tmc-phase-dot {
@@ -449,8 +449,8 @@
     }
 
     .tmc-phase-dot--cyan {
-        background: var(--cyan);
-        box-shadow: 0 0 8px var(--cyan-60);
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent-60);
     }
 
     .tmc-phase-dot--purple {
@@ -479,7 +479,7 @@
     }
 
     .tmc-track-line--cyan {
-        background: linear-gradient(to bottom, var(--cyan-60), var(--cyan-10));
+        background: linear-gradient(to bottom, var(--accent-60), var(--accent-10));
     }
 
     .tmc-track-line--purple {
@@ -501,15 +501,15 @@
     .tmc-card {
         border-radius: 14px;
         padding: 16px 18px;
-        border: 1px solid var(--white-05);
-        background: var(--white-05);
+        border: 1px solid var(--border);
+        background: var(--border);
         display: flex;
         gap: 14px;
         align-items: flex-start;
     }
 
     .tmc-card--cyan {
-        border-left: 3px solid var(--cyan-40);
+        border-left: 3px solid var(--accent-40);
     }
 
     .tmc-card--management {
@@ -556,21 +556,21 @@
     .tmc-card-body h3 {
         font-size: 0.88rem;
         font-weight: 600;
-        color: var(--white);
+        color: var(--fg);
         margin: 0;
         line-height: 1.4;
     }
 
     .tmc-card-body p {
         font-size: 0.78rem;
-        color: var(--gray-light);
+        color: var(--fg-muted);
         line-height: 1.6;
         margin: 0;
     }
 
     .tmc-meta {
         font-size: 0.68rem;
-        color: var(--white-40);
+        color: var(--fg-soft);
     }
 
     .tmc-card-body .training-onepager-btn {
@@ -581,7 +581,7 @@
     .tmc-prereq-tag {
         font-size: 0.62rem;
         font-weight: 600;
-        color: var(--white-40);
+        color: var(--fg-soft);
         letter-spacing: 0.04em;
     }
 
@@ -597,7 +597,7 @@
     .tmc-picker-line {
         width: 2px;
         height: 24px;
-        background: linear-gradient(to bottom, var(--cyan-30), var(--white-10));
+        background: linear-gradient(to bottom, var(--accent-30), var(--border-strong));
         border-radius: 999px;
     }
 
@@ -606,7 +606,7 @@
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--white-40);
+        color: var(--fg-soft);
         margin: 0;
     }
 
@@ -625,9 +625,9 @@
         gap: 8px;
         padding: 16px 12px;
         border-radius: 14px;
-        border: 2px solid var(--white-10);
-        background: var(--white-05);
-        color: var(--white-40);
+        border: 2px solid var(--border-strong);
+        background: var(--border);
+        color: var(--fg-soft);
         font-size: 0.78rem;
         font-weight: 700;
         cursor: pointer;

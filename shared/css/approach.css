@@ -1,7 +1,7 @@
 /* Shared approach timeline */
 .aanpak {
     padding: 120px 0;
-    background: var(--dark);
+    background: var(--bg);
 }
 
 .aanpak-timeline {
@@ -17,7 +17,7 @@
     left: 4%;
     right: 4%;
     height: 2px;
-    background: linear-gradient(to right, transparent, var(--cyan-40) 8%, var(--cyan-40) 92%, transparent);
+    background: linear-gradient(to right, transparent, var(--accent-40) 8%, var(--accent-40) 92%, transparent);
 }
 
 .aanpak-step {
@@ -39,8 +39,8 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: var(--dark);
-    border: 2px solid var(--cyan-40);
+    background: var(--bg);
+    border: 2px solid var(--accent-40);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,21 +51,21 @@
 }
 
 .aanpak-step:hover .aanpak-icon {
-    border-color: var(--cyan);
-    background: var(--cyan-08);
-    box-shadow: 0 0 24px var(--cyan-20);
+    border-color: var(--accent);
+    background: var(--accent-08);
+    box-shadow: 0 0 24px var(--accent-20);
 }
 
 .aanpak-icon svg {
     width: 22px;
     height: 22px;
-    color: var(--cyan);
+    color: var(--accent);
 }
 
 .aanpak-number {
     font-size: 0.72rem;
     font-weight: 700;
-    color: var(--cyan);
+    color: var(--accent);
     letter-spacing: 0.15em;
     margin-bottom: 6px;
 }
@@ -76,7 +76,7 @@
 }
 
 .aanpak-step p {
-    color: var(--gray-light);
+    color: var(--fg-muted);
     font-size: 0.82rem;
     line-height: 1.65;
 }
@@ -89,9 +89,9 @@
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.04em;
-    color: var(--cyan);
+    color: var(--accent);
     text-decoration: underline;
-    text-decoration-color: var(--cyan-30);
+    text-decoration-color: var(--accent-30);
     text-underline-offset: 3px;
     transition: text-decoration-color 0.2s ease, gap 0.2s ease;
 }
@@ -104,7 +104,7 @@
 }
 
 .aanpak-link:hover {
-    text-decoration-color: var(--cyan);
+    text-decoration-color: var(--accent);
     gap: 10px;
 }
 
@@ -125,7 +125,7 @@
         bottom: 0;
         width: 2px;
         height: auto;
-        background: linear-gradient(to bottom, transparent, var(--cyan-40) 8%, var(--cyan-40) 92%, transparent);
+        background: linear-gradient(to bottom, transparent, var(--accent-40) 8%, var(--accent-40) 92%, transparent);
     }
 
     .aanpak-step {

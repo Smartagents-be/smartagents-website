@@ -6,7 +6,8 @@
     <title>{{ pageTitle }}</title>
     <meta name="description" content="{{ pageDescription }}">
     <meta name="robots" content="noindex, follow">
-    <meta name="theme-color" content="{{ themeColor }}">
+    <meta name="theme-color" content="#0f172a">
+    {% include "document/theme-init.njk" %}
     {% include "document/favicon.njk" %}
     <link rel="stylesheet" href="{{ "/shared/css/base.css" | withPathPrefix }}?v={{ assetsVersion }}">
     {% for stylesheet in pageStyles or [] %}

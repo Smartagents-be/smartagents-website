@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ "page.404.title" | t(locale) }}</title>
     <meta name="robots" content="noindex, follow">
-    <meta name="theme-color" content="{{ themeColor }}">
+    <meta name="theme-color" content="#0f172a">
+    {% include "document/theme-init.njk" %}
     {% set nlUrl = "/" %}
     {% set enUrl = "/en/" %}
     {% include "document/favicon.njk" %}

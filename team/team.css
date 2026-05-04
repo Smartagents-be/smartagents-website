@@ -49,7 +49,7 @@
 
 /* Front */
 .flip-card-front {
-    background: var(--dark);
+    background: var(--bg);
     display: flex;
     flex-direction: column;
 }
@@ -75,24 +75,24 @@
     object-fit: contain;
     padding: 24px;
     box-sizing: border-box;
-    background: var(--dark-deep);
+    background: var(--bg-deep);
 }
 
 .flip-card-front-info {
     padding: 1.25rem 1.5rem;
-    background: linear-gradient(to top, var(--dark-deep), var(--dark));
+    background: linear-gradient(to top, var(--bg-deep), var(--bg));
 }
 
 .flip-card-front-info h2 {
     margin: 0 0 0.25rem;
     font-size: 1.2rem;
-    color: var(--white);
+    color: var(--fg);
 }
 
 .flip-card-role {
     margin: 0;
     font-size: 0.85rem;
-    color: var(--cyan);
+    color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
@@ -103,33 +103,33 @@
 
 /* Back */
 .flip-card-back {
-    background: var(--dark-deep);
+    background: var(--bg-deep);
     transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     padding: 2rem;
-    border: 1px solid var(--cyan-15);
+    border: 1px solid var(--accent-15);
 }
 
 .flip-card-back h2 {
     margin: 0 0 0.75rem;
     font-size: 1.3rem;
-    color: var(--white);
+    color: var(--fg);
 }
 
 .flip-card-back-bio {
     margin: 0 0 1.25rem;
     font-size: 0.9rem;
     line-height: 1.6;
-    color: var(--white-75);
+    color: var(--fg-soft-strong);
 }
 
 .flip-card-skills {
     margin: 0 0 1.5rem;
     font-size: 0.82rem;
-    color: var(--cyan);
+    color: var(--accent);
     line-height: 1.8;
     font-weight: 500;
 }
@@ -146,14 +146,14 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1px solid var(--cyan-30);
-    color: var(--cyan);
+    border: 1px solid var(--accent-30);
+    color: var(--accent);
     transition: background 0.2s, border-color 0.2s;
 }
 
 .flip-card-social a:hover {
-    background: var(--cyan-10);
-    border-color: var(--cyan);
+    background: var(--accent-10);
+    border-color: var(--accent);
 }
 
 /* Agents card back */

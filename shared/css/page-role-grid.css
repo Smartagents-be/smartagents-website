@@ -17,15 +17,15 @@
     gap: 20px;
     align-items: flex-start;
     padding: 20px 0;
-    border-bottom: 1px solid var(--white-05);
+    border-bottom: 1px solid var(--border);
 }
 
 .page-role-icon {
     width: 36px;
     height: 36px;
     min-width: 36px;
-    background: var(--service-color-08, var(--cyan-08));
-    border: 1px solid var(--service-color, var(--cyan));
+    background: var(--service-color-08, var(--accent-08));
+    border: 1px solid var(--service-color, var(--accent));
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -38,8 +38,8 @@
 .page-role-icon svg {
     width: 18px;
     height: 18px;
-    stroke: var(--service-color, var(--cyan));
-    color: var(--service-color, var(--cyan));
+    stroke: var(--service-color, var(--accent));
+    color: var(--service-color, var(--accent));
 }
 
 .page-role-item h3 {
@@ -48,7 +48,7 @@
 }
 
 .page-role-item p {
-    color: var(--gray-light);
+    color: var(--fg-muted);
     font-size: 0.88rem;
     line-height: 1.6;
     margin: 0;

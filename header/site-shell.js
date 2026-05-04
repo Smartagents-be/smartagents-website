@@ -1,9 +1,96 @@
 (function() {
+    const THEME_STORAGE_KEY = 'sa-theme';
+    const THEME_COLOR_DARK = '#0f172a';
+    const THEME_COLOR_LIGHT = '#f1f5f9';
+
     function onReady(callback) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', callback, { once: true });
         } else {
             callback();
+        }
+    }
+
+    function readStoredTheme() {
+        try {
+            const theme = window.localStorage.getItem(THEME_STORAGE_KEY);
+            return theme === 'light' || theme === 'dark' ? theme : null;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function getPreferredTheme() {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark';
+    }
+
+    function getActiveTheme() {
+        const currentTheme = document.documentElement.dataset.theme;
+        if (currentTheme === 'light' || currentTheme === 'dark') {
+            return currentTheme;
+        }
+
+        return readStoredTheme() || getPreferredTheme();
+    }
+
+    function updateThemeColor(theme) {
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (!themeColorMeta) return;
+        themeColorMeta.setAttribute('content', theme === 'light' ? THEME_COLOR_LIGHT : THEME_COLOR_DARK);
+    }
+
+    function syncThemeToggles(theme) {
+        const isLight = theme === 'light';
+        document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+            button.setAttribute('aria-checked', String(isLight));
+            button.setAttribute('aria-label', isLight ? button.dataset.labelDark : button.dataset.labelLight);
+        });
+    }
+
+    function applyTheme(theme, persistPreference) {
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        updateThemeColor(theme);
+        syncThemeToggles(theme);
+        document.dispatchEvent(new CustomEvent('sa-theme-change', {
+            detail: { theme }
+        }));
+
+        if (!persistPreference) {
+            return;
+        }
+
+        try {
+            window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+        } catch (error) {
+            // Ignore storage failures and keep the in-memory theme state.
+        }
+    }
+
+    function initThemeToggle() {
+        applyTheme(getActiveTheme(), false);
+
+        document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const nextTheme = getActiveTheme() === 'light' ? 'dark' : 'light';
+                applyTheme(nextTheme, true);
+            });
+        });
+
+        const mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+        if (!mediaQuery) return;
+
+        const handlePreferenceChange = () => {
+            if (readStoredTheme()) return;
+            applyTheme(mediaQuery.matches ? 'light' : 'dark', false);
+        };
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+            mediaQuery.addEventListener('change', handlePreferenceChange);
+        } else if (typeof mediaQuery.addListener === 'function') {
+            mediaQuery.addListener(handlePreferenceChange);
         }
     }
 
@@ -211,6 +298,7 @@
     }
 
     onReady(() => {
+        initThemeToggle();
         initNavigation();
         initSmoothScroll();
         initFullscreenMenu();

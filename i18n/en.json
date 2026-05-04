@@ -285,6 +285,8 @@
   "nav.menu.close": "CLOSE",
   "hero.scroll": "scroll",
   "nav.customerzone": "Customer zone",
+  "nav.theme.toLight": "Switch to light mode",
+  "nav.theme.toDark": "Switch to dark mode",
   "customerzone.subtitle": "Your personal customer zone",
   "customerzone.username": "Username",
   "customerzone.password": "Password",

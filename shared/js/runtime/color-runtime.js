@@ -9,8 +9,13 @@ function rgbaString(rgbValue, alpha) {
     return 'rgba(' + rgbValue + ', ' + alpha + ')';
 }
 
+function readNumberToken(tokenName, target, fallbackValue) {
+    var parsed = parseFloat(readTokenValue(tokenName, target));
+    return Number.isFinite(parsed) ? parsed : fallbackValue;
+}
+
 function buildParticlePalette(target) {
-    return ['--cyan-rgb', '--blue-rgb']
+    return ['--accent-rgb', '--blue-rgb']
         .map(function(tokenName) {
             return readTokenValue(tokenName, target);
         })
@@ -19,6 +24,7 @@ function buildParticlePalette(target) {
 
 window.SmartAgentsColorRuntime = {
     readTokenValue: readTokenValue,
+    readNumberToken: readNumberToken,
     rgbaString: rgbaString,
     buildParticlePalette: buildParticlePalette
 };
