@@ -9,23 +9,6 @@
     overflow: hidden;
 }
 
-.page-cta::before {
-    content: 'START';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: clamp(6rem, 18vw, 14rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--white);
-    opacity: 0.02;
-    pointer-events: none;
-    white-space: nowrap;
-    z-index: 0;
-    line-height: 1;
-}
-
 .page-cta > .container {
     position: relative;
     z-index: 1;

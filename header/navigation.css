@@ -349,9 +349,19 @@
         display: flex;
         gap: 2px;
         background: var(--white-10);
-        padding: 3px;
-        border-radius: 8px;
+        padding: 2px;
+        border-radius: 7px;
         margin-right: 4px;
+    }
+
+    .navbar-lang .lang-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 42px;
+        padding: 5px 10px;
+        font-size: 0.8125rem;
+        font-weight: 600;
     }
 
     .navbar-right .btn-nav {
@@ -359,6 +369,10 @@
         background: var(--cyan);
         color: var(--dark);
         -webkit-text-fill-color: var(--dark);
+        padding: 8px 18px;
+        font-size: 0.8125rem;
+        border-radius: 8px;
+        box-shadow: 0 0 14px var(--cyan-30);
         margin-right: 44px;
     }
 
