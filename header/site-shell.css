@@ -62,7 +62,7 @@
     transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
-html[data-theme="light"] .theme-toggle-thumb {
+html[data-theme="dark"] .theme-toggle-thumb {
     transform: translateX(14px);
 }
 
