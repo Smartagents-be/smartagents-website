@@ -1,7 +1,7 @@
 (function() {
     const THEME_STORAGE_KEY = 'sa-theme';
     const THEME_COLOR_DARK = '#0f172a';
-    const THEME_COLOR_LIGHT = '#f1f5f9';
+    const THEME_COLOR_LIGHT = '#bfd6f1';
 
     function onReady(callback) {
         if (document.readyState === 'loading') {
