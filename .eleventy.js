@@ -132,14 +132,6 @@ module.exports = function(eleventyConfig) {
   const path = require('node:path');
   const { readFileSync } = fs;
   const { EleventyI18nPlugin } = require("@11ty/eleventy");
-  const baseStyles = readFileSync('./shared/css/base.css', 'utf8');
-  const themeColorMatch = baseStyles.match(/--cyan:\s*(#[0-9a-fA-F]{6})\s*;/);
-
-  if (!themeColorMatch) {
-      throw new Error('Could not resolve --cyan from shared/css/base.css');
-  }
-
-  const themeColor = themeColorMatch[1];
   const i18n = {
       en: JSON.parse(readFileSync('./i18n/en.json', 'utf8')),
       nl: JSON.parse(readFileSync('./i18n/nl.json', 'utf8'))
@@ -241,7 +233,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addGlobalData('baseDomain', BASE_DOMAIN);
   eleventyConfig.addGlobalData('pathPrefix', PATH_PREFIX);
   eleventyConfig.addGlobalData('assetsVersion', String(Date.now()));
-  eleventyConfig.addGlobalData('themeColor', themeColor);
 
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("shared");

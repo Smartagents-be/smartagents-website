@@ -1,11 +1,11 @@
 /* Shared marketing page hero */
 .page-hero {
     padding: 160px 24px 80px;
-    background: radial-gradient(ellipse 60% 60% at 50% 0%, var(--service-color-15, var(--cyan-15)) 0%, transparent 70%),
-    var(--dark);
+    background: radial-gradient(ellipse 60% 60% at 50% 0%, var(--service-color-15, var(--accent-15)) 0%, transparent 70%),
+    var(--bg);
     text-align: center;
-    border-bottom: 1px solid var(--white-05);
-    border-top: 3px solid var(--service-color, var(--cyan));
+    border-bottom: 1px solid var(--border);
+    border-top: 3px solid var(--service-color, var(--accent));
     position: relative;
     overflow: hidden;
 }
@@ -36,21 +36,21 @@ body[data-service] .page-hero {
     margin: 0 auto 28px;
     padding: 8px 20px;
     border-radius: 999px;
-    border: 1px solid var(--service-color, var(--cyan));
-    background: var(--service-color-08, var(--cyan-08));
+    border: 1px solid var(--service-color, var(--accent));
+    background: var(--service-color-08, var(--accent-08));
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--accent));
     letter-spacing: 0.3px;
-    box-shadow: 0 0 20px var(--service-color-15, var(--cyan-15));
+    box-shadow: 0 0 20px var(--service-color-15, var(--accent-15));
 }
 
 .page-hero-badge-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--service-color, var(--cyan));
-    box-shadow: 0 0 8px var(--service-color, var(--cyan));
+    background: var(--service-color, var(--accent));
+    box-shadow: 0 0 8px var(--service-color, var(--accent));
     animation: badge-pulse 2s ease-in-out infinite;
 }
 
@@ -72,11 +72,11 @@ body[data-service] .page-hero {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--service-color, var(--cyan));
-    background: var(--service-color-08, var(--cyan-08));
-    border: 2px solid var(--service-color-20, var(--cyan-20));
+    color: var(--service-color, var(--accent));
+    background: var(--service-color-08, var(--accent-08));
+    border: 2px solid var(--service-color-20, var(--accent-20));
     border-radius: 16px;
-    box-shadow: 0 0 32px var(--service-color-15, var(--cyan-15));
+    box-shadow: 0 0 32px var(--service-color-15, var(--accent-15));
 }
 
 .page-hero-icon svg {
@@ -91,7 +91,7 @@ body[data-service] .page-hero {
 
 .page-hero p {
     font-size: 1.2rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.7;

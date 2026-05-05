@@ -1,14 +1,17 @@
 /* Jobs page components */
 body[data-page="jobs"] {
-    --service-color: var(--cyan);
-    --service-color-20: var(--cyan-20);
-    --service-color-15: var(--cyan-15);
-    --service-color-08: var(--cyan-08);
+    --service-color: var(--accent);
+    --service-color-20: var(--accent-20);
+    --service-color-15: var(--accent-15);
+    --service-color-08: var(--accent-08);
+    --service-ink: var(--accent-ink);
+    --service-fill: var(--accent);
+    --service-fill-ink: var(--accent-ink);
 }
 
 .jc {
     border-radius: 20px;
-    border: 1px solid var(--white-05);
+    border: 1px solid var(--border);
 }
 
 .jc-track {
@@ -41,7 +44,7 @@ body[data-page="jobs"] {
 }
 
 .jc-slide[data-accent="cyan"] .jc-slide-inner {
-    border-left-color: var(--cyan-40);
+    border-left-color: var(--accent-40);
 }
 
 .jc-slide[data-accent="purple"] .jc-slide-inner {
@@ -55,13 +58,13 @@ body[data-page="jobs"] {
 .jc-slide-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--white);
+    color: var(--fg);
     margin: 10px 0 6px;
 }
 
 .jc-slide-subtitle {
     font-size: 0.85rem;
-    color: var(--white-40);
+    color: var(--fg-soft);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     font-weight: 600;
@@ -74,16 +77,16 @@ body[data-page="jobs"] {
     justify-content: center;
     gap: 20px;
     padding: 20px 0 28px;
-    border-top: 1px solid var(--white-05);
+    border-top: 1px solid var(--border);
 }
 
 .jc-btn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--white-10);
-    background: var(--white-05);
-    color: var(--white-40);
+    border: 1px solid var(--border-strong);
+    background: var(--border);
+    color: var(--fg-soft);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,9 +96,9 @@ body[data-page="jobs"] {
 }
 
 .jc-btn:hover {
-    border-color: var(--cyan);
-    color: var(--cyan);
-    background: var(--cyan-08);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-08);
 }
 
 .jc-btn svg {
@@ -114,24 +117,24 @@ body[data-page="jobs"] {
     height: 8px;
     border-radius: 50%;
     border: none;
-    background: var(--white-20);
+    background: var(--border-stronger);
     cursor: pointer;
     transition: all 0.25s ease;
     padding: 0;
 }
 
 .jc-dot--active {
-    background: var(--cyan);
+    background: var(--accent);
     width: 24px;
     border-radius: 999px;
-    box-shadow: 0 0 8px var(--cyan-40);
+    box-shadow: 0 0 8px var(--accent-40);
 }
 
 .jc-freelance-note {
     margin-top: 20px;
     text-align: center;
     font-size: 0.875rem;
-    color: var(--white-40);
+    color: var(--fg-soft);
 }
 
 .jobs-vacancy-tag {
@@ -148,9 +151,9 @@ body[data-page="jobs"] {
 }
 
 .jobs-vacancy-tag--cyan {
-    background: var(--cyan-08);
-    color: var(--cyan);
-    border: 1px solid var(--cyan-20);
+    background: var(--accent-08);
+    color: var(--accent);
+    border: 1px solid var(--accent-20);
 }
 
 .jobs-vacancy-tag--purple {
@@ -196,12 +199,12 @@ body[data-page="jobs"] {
 
 .jobs-team .jobs-team-content p {
     font-size: 1.05rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     line-height: 1.8;
 }
 
 .jobs-team .jobs-team-content strong {
-    color: var(--white);
+    color: var(--fg);
 }
 
 @media (max-width: 768px) {

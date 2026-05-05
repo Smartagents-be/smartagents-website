@@ -1,11 +1,11 @@
 /* Shared marketing page sections */
 .page-section {
     padding: 100px 0;
-    background: var(--dark);
+    background: var(--bg);
 }
 
 .page-section-alt {
-    background: var(--dark-lighter);
+    background: var(--bg-elevated);
 }
 
 .page-vision-text {
@@ -16,7 +16,7 @@
 
 .page-vision-text p {
     font-size: 1.1rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     line-height: 1.8;
 }
 

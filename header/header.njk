@@ -5,12 +5,12 @@
         <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
                 <linearGradient id="navLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:var(--cyan)"/>
-                    <stop offset="50%" style="stop-color:var(--cyan)"/>
+                    <stop offset="0%" style="stop-color:var(--accent)"/>
+                    <stop offset="50%" style="stop-color:var(--accent)"/>
                     <stop offset="100%" style="stop-color:var(--blue)"/>
                 </linearGradient>
             </defs>
-            <g stroke="url(#navLogoGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+            <g stroke="url(#navLogoGradient)" stroke-width="1.5" fill="none" style="opacity: var(--logo-node-stroke-opacity);">
                 <line x1="24" y1="8" x2="12" y2="20"/>
                 <line x1="24" y1="8" x2="36" y2="20"/>
                 <line x1="12" y1="20" x2="24" y2="24"/>
@@ -30,7 +30,7 @@
                 <circle cx="36" cy="32" r="2.5"/>
                 <circle cx="24" cy="40" r="3"/>
             </g>
-            <circle cx="24" cy="8" r="6" fill="none" stroke="url(#navLogoGradient)" stroke-width="1" opacity="0.4"/>
+            <circle cx="24" cy="8" r="6" fill="none" stroke="url(#navLogoGradient)" stroke-width="1" style="opacity: var(--logo-node-ring-opacity);"/>
         </svg>
         <span class="navbar-brand-block">
             <span class="navbar-brand-name">Smart<span class="navbar-brand-accent">Agents</span></span>
@@ -101,6 +101,26 @@
     <!-- Right cluster: CTA + lang + MENU scramble -->
     <div class="navbar-right">
         <a href="{{ "/customerzone/" | locale_url | withPathPrefix }}" class="btn btn-nav">{{ "nav.customerzone" | t(locale) }}</a>
+        <button
+            class="theme-toggle navbar-theme-toggle"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            aria-label="{{ 'nav.theme.toLight' | t(locale) }}"
+            data-theme-toggle
+            data-label-light="{{ 'nav.theme.toLight' | t(locale) }}"
+            data-label-dark="{{ 'nav.theme.toDark' | t(locale) }}">
+            <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"/>
+            </svg>
+            <span class="theme-toggle-track" aria-hidden="true">
+                <span class="theme-toggle-thumb"></span>
+            </span>
+            <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+            </svg>
+        </button>
         <div class="navbar-lang">
             <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl | withPathPrefix }}">EN</a>
             <a class="lang-btn {% if locale == 'nl' %}active{% endif %}" href="{{ nlUrl | withPathPrefix }}">NL</a>
@@ -151,6 +171,27 @@
         <a href="{{ "/jobs/" | locale_url | withPathPrefix }}">{{ "nav.jobs" | t(locale) }}</a>
     </nav>
 </div>
+
+<button
+    class="theme-toggle overlay-theme-toggle"
+    type="button"
+    role="switch"
+    aria-checked="false"
+    aria-label="{{ 'nav.theme.toLight' | t(locale) }}"
+    data-theme-toggle
+    data-label-light="{{ 'nav.theme.toLight' | t(locale) }}"
+    data-label-dark="{{ 'nav.theme.toDark' | t(locale) }}">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"/>
+    </svg>
+    <span class="theme-toggle-track" aria-hidden="true">
+        <span class="theme-toggle-thumb"></span>
+    </span>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+    </svg>
+</button>
 
 <!-- Lang switcher shown when overlay is open (mobile) -->
 <div class="overlay-lang-switcher" aria-hidden="true">

@@ -21,7 +21,7 @@
 }
 
 .error-page-text {
-    color: var(--gray-light);
+    color: var(--fg-muted);
     font-size: 1.1rem;
     max-width: 30rem;
     margin: 0 auto 2.5rem;
