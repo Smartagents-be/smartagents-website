@@ -6,7 +6,7 @@
         padding: 24px;
         position: relative;
         overflow: hidden;
-        background: var(--dark);
+        background: var(--bg);
     }
 
     .login-content {
@@ -22,7 +22,7 @@
         position: absolute;
         inset: 0;
         z-index: 1;
-        background: linear-gradient(135deg, var(--dark-95), var(--dark-50));
+        background: linear-gradient(135deg, var(--bg-overlay-strong), var(--bg-scrim));
     }
 
     /* Dashboard Preview — absolute positioned panels around the centered login */
@@ -36,8 +36,8 @@
 
     .dashboard-panel {
         position: absolute;
-        background: var(--dark-lighter);
-        border: 1px solid var(--white-10);
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-strong);
         border-radius: 16px;
         padding: 24px;
         width: 280px;
@@ -74,7 +74,7 @@
         margin-bottom: 20px;
         font-size: 0.85rem;
         font-weight: 600;
-        color: var(--white);
+        color: var(--fg);
     }
 
     .panel-header .panel-icon {
@@ -82,8 +82,8 @@
     }
 
     .panel-header .panel-badge {
-        background: var(--cyan-15);
-        color: var(--cyan);
+        background: var(--accent-15);
+        color: var(--accent);
         padding: 2px 10px;
         border-radius: 20px;
         font-size: 0.75rem;
@@ -97,8 +97,8 @@
         justify-content: space-between;
         padding: 8px 0;
         font-size: 0.8rem;
-        color: var(--white-75);
-        border-bottom: 1px solid var(--white-05);
+        color: var(--fg-soft-strong);
+        border-bottom: 1px solid var(--border);
     }
 
     .agent-row:last-child {
@@ -140,7 +140,7 @@
     .stat-value {
         font-size: 1.3rem;
         font-weight: 700;
-        color: var(--cyan);
+        color: var(--accent);
         margin-bottom: 4px;
     }
 
@@ -148,7 +148,7 @@
         font-size: 0.68rem;
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        color: var(--white-40);
+        color: var(--fg-soft);
     }
 
     .bar-chart {
@@ -160,7 +160,7 @@
 
     .bar {
         flex: 1;
-        background: linear-gradient(to top, var(--cyan-20), var(--cyan-40));
+        background: linear-gradient(to top, var(--accent-20), var(--accent-40));
         border-radius: 4px 4px 0 0;
     }
 
@@ -171,7 +171,7 @@
         gap: 10px;
         padding: 8px 0;
         font-size: 0.8rem;
-        color: var(--white-75);
+        color: var(--fg-soft-strong);
     }
 
     .activity-icon {
@@ -211,7 +211,7 @@
         align-items: center;
         margin-bottom: 8px;
         font-size: 0.78rem;
-        color: var(--white-75);
+        color: var(--fg-soft-strong);
     }
 
     .perf-change {
@@ -221,7 +221,7 @@
 
     .progress-bar {
         height: 8px;
-        background: var(--white-05);
+        background: var(--border);
         border-radius: 999px;
         overflow: hidden;
     }
@@ -229,7 +229,7 @@
     .progress-fill {
         height: 100%;
         border-radius: 999px;
-        background: linear-gradient(90deg, var(--cyan-40), var(--purple-60));
+        background: linear-gradient(90deg, var(--accent-40), var(--purple-60));
     }
 
     /* Center login card */
@@ -238,12 +238,12 @@
         z-index: 3;
         width: 100%;
         max-width: 440px;
-        background: var(--dark-95);
-        border: 1px solid var(--white-10);
+        background: var(--bg-overlay-strong);
+        border: 1px solid var(--border-strong);
         border-radius: 24px;
         padding: 44px 40px;
         backdrop-filter: blur(18px);
-        box-shadow: 0 32px 80px var(--black-50);
+        box-shadow: 0 32px 80px var(--shadow-strong);
     }
 
     .login-logo {
@@ -262,17 +262,17 @@
     .login-logo span {
         font-size: 1.1rem;
         font-weight: 600;
-        color: var(--white);
+        color: var(--fg);
     }
 
     .login-logo small {
-        color: var(--gray-light);
+        color: var(--fg-muted);
         font-size: 0.8rem;
         letter-spacing: 0.02em;
     }
 
     .login-subtitle {
-        color: var(--gray-light);
+        color: var(--fg-muted);
         margin-bottom: 28px;
     }
 
@@ -289,24 +289,24 @@
     .form-group label {
         font-size: 0.88rem;
         font-weight: 500;
-        color: var(--white);
+        color: var(--fg);
     }
 
     .form-group input {
         width: 100%;
-        border: 1px solid var(--white-10);
-        background: var(--white-05);
+        border: 1px solid var(--border-strong);
+        background: var(--border);
         border-radius: 12px;
         padding: 13px 14px;
-        color: var(--white);
+        color: var(--fg);
         font-size: 0.95rem;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .form-group input:focus {
         outline: none;
-        border-color: var(--cyan);
-        box-shadow: 0 0 0 3px var(--cyan-15);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-15);
     }
 
     .login-btn {
@@ -332,11 +332,11 @@
     }
 
     .login-back a {
-        color: var(--gray-light);
+        color: var(--fg-muted);
     }
 
     .login-back a:hover {
-        color: var(--cyan);
+        color: var(--accent);
     }
 
     .login-overlay {

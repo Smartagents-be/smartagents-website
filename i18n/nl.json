@@ -285,6 +285,8 @@
   "nav.menu.close": "SLUIT",
   "hero.scroll": "scrol",
   "nav.customerzone": "Klantenzone",
+  "nav.theme.toLight": "Schakel naar lichte modus",
+  "nav.theme.toDark": "Schakel naar donkere modus",
   "customerzone.subtitle": "Uw persoonlijke klantenzone",
   "customerzone.username": "Gebruikersnaam",
   "customerzone.password": "Wachtwoord",

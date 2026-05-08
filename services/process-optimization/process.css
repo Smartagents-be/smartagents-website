@@ -5,7 +5,7 @@
 /* Why section */
 .process-why {
     padding: 100px 0;
-    background: var(--dark);
+    background: var(--bg);
 }
 
 .process-why .section-title {
@@ -26,7 +26,7 @@
     font-size: 1.7rem;
     font-weight: 600;
     line-height: 1.4;
-    color: var(--white);
+    color: var(--fg);
 }
 
 .process-why-points {
@@ -41,20 +41,20 @@
     align-items: flex-start;
     gap: 14px;
     font-size: 1rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     line-height: 1.6;
 }
 
 .process-why-point-icon {
     flex-shrink: 0;
-    color: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--accent));
     margin-top: 1px;
 }
 
 /* Methodology timeline */
 .process-timeline {
     padding: 100px 0;
-    background: var(--dark-lighter);
+    background: var(--bg-elevated);
 }
 
 .process-timeline .section-title {
@@ -74,7 +74,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, transparent, var(--service-color-20, var(--cyan-30)) 8%, var(--service-color-20, var(--cyan-30)) 92%, transparent);
+    background: linear-gradient(to bottom, transparent, var(--service-color-20, var(--accent-30)) 8%, var(--service-color-20, var(--accent-30)) 92%, transparent);
     transform: translateX(-50%);
     pointer-events: none;
 }
@@ -95,9 +95,9 @@
 .process-phase-dot {
     width: 14px;
     height: 14px;
-    background: var(--service-color, var(--cyan));
+    background: var(--service-color, var(--accent));
     border-radius: 50%;
-    box-shadow: 0 0 12px var(--service-color-20, var(--cyan-40));
+    box-shadow: 0 0 12px var(--service-color-20, var(--accent-40));
     justify-self: center;
     position: relative;
     z-index: 1;
@@ -105,16 +105,16 @@
 }
 
 .process-phase-card {
-    background: var(--white-05);
-    border: 1px solid var(--service-color-15, var(--cyan-15));
+    background: var(--border);
+    border: 1px solid var(--service-color-15, var(--accent-15));
     border-radius: 12px;
     padding: 32px;
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .process-phase-card:hover {
-    border-color: var(--service-color-20, var(--cyan-30));
-    background: var(--white-05);
+    border-color: var(--service-color-20, var(--accent-30));
+    background: var(--border);
 }
 
 /* Left-side phase: card | dot | empty */
@@ -154,7 +154,7 @@
 .process-phase-number {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--service-color-20, var(--cyan-20));
+    color: var(--service-color-20, var(--accent-20));
     line-height: 1;
     margin-bottom: 12px;
     font-feature-settings: "tnum";
@@ -163,7 +163,7 @@
 .process-phase-icon {
     width: 32px;
     height: 32px;
-    color: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--accent));
     margin-bottom: 12px;
 }
 
@@ -174,13 +174,13 @@
 .process-phase-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--white);
+    color: var(--fg);
     margin-bottom: 10px;
 }
 
 .process-phase-desc {
     font-size: 0.9rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     line-height: 1.65;
     margin: 0;
 }
@@ -188,7 +188,7 @@
 /* Benefits — redesigned */
 .process-benefits {
     padding: 100px 0;
-    background: var(--dark);
+    background: var(--bg);
 }
 
 .process-benefits .section-title {
@@ -203,8 +203,8 @@
 }
 
 .process-benefit-card {
-    background: var(--white-05);
-    border: 1px solid var(--white-05);
+    background: var(--border);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 36px 28px;
     display: flex;
@@ -214,14 +214,14 @@
 }
 
 .process-benefit-card:hover {
-    border-color: var(--service-color-20, var(--cyan-20));
-    box-shadow: 0 0 30px var(--service-color-08, var(--cyan-08));
+    border-color: var(--service-color-20, var(--accent-20));
+    box-shadow: 0 0 30px var(--service-color-08, var(--accent-08));
 }
 
 .process-benefit-icon {
     width: 52px;
     height: 52px;
-    background: var(--service-color-08, var(--cyan-10));
+    background: var(--service-color-08, var(--accent-10));
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -233,19 +233,19 @@
 .process-benefit-icon svg {
     width: 26px;
     height: 26px;
-    stroke: var(--service-color, var(--cyan));
+    stroke: var(--service-color, var(--accent));
 }
 
 .process-benefit-card h3 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--white);
+    color: var(--fg);
     margin-bottom: 12px;
 }
 
 .process-benefit-card p {
     font-size: 0.9rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     line-height: 1.65;
     margin: 0;
 }
@@ -253,8 +253,8 @@
 /* What makes us different */
 .process-different {
     padding: 80px 0;
-    background: var(--dark-lighter);
-    border-top: 1px solid var(--white-05);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
 }
 
 .process-different .section-title {
@@ -276,7 +276,7 @@
     align-items: center;
     text-align: center;
     padding: 0 28px;
-    border-right: 1px solid var(--white-05);
+    border-right: 1px solid var(--border);
 }
 
 .process-different-item:last-child {
@@ -286,7 +286,7 @@
 .process-different-icon {
     width: 44px;
     height: 44px;
-    background: var(--service-color-08, var(--cyan-10));
+    background: var(--service-color-08, var(--accent-10));
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -298,19 +298,19 @@
 .process-different-icon svg {
     width: 22px;
     height: 22px;
-    stroke: var(--service-color, var(--cyan));
+    stroke: var(--service-color, var(--accent));
 }
 
 .process-different-label {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--white);
+    color: var(--fg);
     margin-bottom: 8px;
 }
 
 .process-different-tagline {
     font-size: 0.85rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     line-height: 1.55;
     margin: 0;
 }

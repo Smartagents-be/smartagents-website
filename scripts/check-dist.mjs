@@ -4,8 +4,11 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..');
 const distDir = path.resolve(__dirname, '..', 'dist');
 const textExtensions = new Set(['.html', '.xml', '.txt', '.css']);
+const sourceTextExtensions = new Set(['.css', '.js', '.mjs', '.njk', '.html']);
+const ignoredSourceDirs = new Set(['dist', 'node_modules', '.git']);
 const regexChecks = [
   {
     label: 'unresolved undefined.* output',
@@ -47,6 +50,13 @@ function extractCustomPropertyReferences(content) {
     name: match[1],
     hasFallback: Boolean(match[2])
   }));
+}
+
+function extractCustomPropertyLookupTokens(content) {
+  return Array.from(
+    content.matchAll(/\b(?:readTokenValue|readNumberToken|getPropertyValue)\s*\(\s*['"`](--[\w-]+)['"`]/g),
+    match => match[1]
+  );
 }
 
 function isPrimaryPage(file) {
@@ -91,7 +101,36 @@ function collectTextFiles(dir, files = []) {
   return files;
 }
 
+function collectSourceTextFiles(dir, files = []) {
+  for (const entry of readdirSync(dir)) {
+    if (ignoredSourceDirs.has(entry)) {
+      continue;
+    }
+
+    const fullPath = path.join(dir, entry);
+    const stats = statSync(fullPath);
+
+    if (stats.isDirectory()) {
+      collectSourceTextFiles(fullPath, files);
+      continue;
+    }
+
+    if (!sourceTextExtensions.has(path.extname(entry))) {
+      continue;
+    }
+
+    files.push({
+      fullPath,
+      relativePath: path.relative(repoRoot, fullPath).replace(/\\/g, '/'),
+      content: readFileSync(fullPath, 'utf8')
+    });
+  }
+
+  return files;
+}
+
 const textFiles = collectTextFiles(distDir);
+const sourceTextFiles = collectSourceTextFiles(repoRoot);
 const allFiles = new Set();
 function collectAllFiles(dir) {
   for (const entry of readdirSync(dir)) {
@@ -116,6 +155,10 @@ const sharedCssTokenDefinitions = new Set(
   textFiles
     .filter(file => file.relativePath.endsWith('.css'))
     .flatMap(file => extractCustomPropertyDefinitions(file.content))
+);
+
+const sourceTokenDefinitions = new Set(
+  sourceTextFiles.flatMap(file => extractCustomPropertyDefinitions(file.content))
 );
 
 for (const file of textFiles) {
@@ -216,6 +259,27 @@ for (const file of textFiles) {
     } else if (robotsMatch[1].trim() !== expectedRobots) {
       addFailure(normalizedPath, `unexpected robots meta tag, expected "${expectedRobots}"`, robotsMatch[0]);
     }
+}
+
+const jsTokenLookupPattern = /\b(?:readTokenValue|readNumberToken|getPropertyValue)\s*\(/;
+for (const file of sourceTextFiles) {
+  const { relativePath, content } = file;
+
+  if (!jsTokenLookupPattern.test(content)) {
+    continue;
+  }
+
+  const localTokenDefinitions = new Set(extractCustomPropertyDefinitions(content));
+  const tokenStrings = extractCustomPropertyLookupTokens(content);
+
+  for (const tokenString of tokenStrings) {
+    const tokenName = tokenString.slice(2);
+    if (localTokenDefinitions.has(tokenName) || sourceTokenDefinitions.has(tokenName)) {
+      continue;
+    }
+
+    addFailure(relativePath, 'undefined CSS custom property token used in source script', tokenString);
+  }
 }
 
 const securedDistDir = path.join(distDir, 'secured');

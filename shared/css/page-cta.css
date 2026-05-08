@@ -1,10 +1,10 @@
 /* Shared marketing page CTA */
 .page-cta {
     padding: 100px 24px;
-    background: radial-gradient(ellipse 70% 50% at 50% 30%, var(--cyan-10) 0%, transparent 70%),
-    linear-gradient(180deg, var(--dark) 0%, var(--dark-lighter) 100%);
+    background: radial-gradient(ellipse 70% 50% at 50% 30%, var(--accent-10) 0%, transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
     text-align: center;
-    border-top: 1px solid var(--white-05);
+    border-top: 1px solid var(--border);
     position: relative;
     overflow: hidden;
 }
@@ -20,7 +20,7 @@
 
 .page-cta > .container > p {
     font-size: 1.1rem;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     max-width: 650px;
     margin: 0 auto 30px;
     line-height: 1.7;
@@ -52,18 +52,18 @@
 }
 
 .page-cta-contacts a {
-    color: var(--cyan);
+    color: var(--accent);
     font-weight: 500;
     font-size: 1.05rem;
     transition: color 0.3s ease;
 }
 
 .page-cta-contacts a:hover {
-    color: var(--cyan);
+    color: var(--accent);
 }
 
 .page-cta-divider {
-    color: var(--gray);
+    color: var(--fg-subtle);
 }
 
 @media (max-width: 768px) {

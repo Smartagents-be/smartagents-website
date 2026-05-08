@@ -19,8 +19,8 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--dark-deep);
-  color: var(--white);
+  background: var(--bg-deep);
+  color: var(--fg);
   line-height: 1.6;
   font-size: 15px;
 }
@@ -32,14 +32,14 @@ body {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  background: var(--dark-deep);
+  background: var(--bg-deep);
 }
 
 .cover-bg {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, var(--cyan-08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, var(--accent-08) 0%, transparent 70%),
     radial-gradient(ellipse 40% 60% at 10% 80%, var(--purple-08) 0%, transparent 70%);
   pointer-events: none;
 }
@@ -48,8 +48,8 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(var(--white-05) 1px, transparent 1px),
-    linear-gradient(90deg, var(--white-05) 1px, transparent 1px);
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
@@ -81,7 +81,7 @@ body {
 }
 
 .logo-text span {
-  color: var(--cyan);
+  color: var(--accent);
 }
 
 .cover-badge {
@@ -89,9 +89,9 @@ body {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gray-light);
-  background: var(--white-05);
-  border: 1px solid var(--white-10);
+  color: var(--fg-muted);
+  background: var(--border);
+  border: 1px solid var(--border-strong);
   padding: 6px 14px;
   border-radius: 100px;
 }
@@ -111,7 +111,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--accent);
   margin-bottom: 24px;
   display: flex;
   align-items: center;
@@ -123,7 +123,7 @@ body {
   display: block;
   width: 32px;
   height: 2px;
-  background: var(--cyan);
+  background: var(--accent);
 }
 
 .cover-title {
@@ -133,19 +133,19 @@ body {
   font-weight: 400;
   max-width: 720px;
   margin-bottom: 8px;
-  color: var(--white);
+  color: var(--fg);
 }
 
 .cover-title em {
   font-style: italic;
-  color: var(--cyan);
+  color: var(--accent);
 }
 
 .cover-client {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(1.8rem, 3.5vw, 3rem);
   font-weight: 400;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   margin-top: 4px;
   margin-bottom: 48px;
 }
@@ -166,14 +166,14 @@ body {
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gray);
+  color: var(--fg-subtle);
   font-weight: 500;
 }
 
 .cover-meta-value {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--fg);
 }
 
 .cover-footer {
@@ -183,12 +183,12 @@ body {
   justify-content: space-between;
   position: relative;
   z-index: 2;
-  border-top: 1px solid var(--white-10);
+  border-top: 1px solid var(--border-strong);
 }
 
 .cover-footer-note {
   font-size: 0.75rem;
-  color: var(--gray);
+  color: var(--fg-subtle);
   max-width: 420px;
   line-height: 1.5;
 }
@@ -213,18 +213,18 @@ body {
 
 .ring-track {
   fill: none;
-  stroke: var(--white-10);
+  stroke: var(--border-strong);
   stroke-width: 6;
 }
 
 .ring-fill {
   fill: none;
-  stroke: var(--cyan);
+  stroke: var(--accent);
   stroke-width: 6;
   stroke-linecap: round;
   stroke-dasharray: 220;
   stroke-dashoffset: 44; /* 220 - (220 * 0.8) = 44 → 80% */
-  filter: drop-shadow(0 0 6px var(--cyan-60));
+  filter: drop-shadow(0 0 6px var(--accent-60));
 }
 
 .ring-label {
@@ -236,14 +236,14 @@ body {
   justify-content: center;
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--cyan);
+  color: var(--accent);
   line-height: 1;
 }
 
 .ring-label small {
   font-size: 0.55rem;
   font-weight: 500;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-top: 2px;
@@ -252,13 +252,13 @@ body {
 .ring-info h4 {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--fg);
   margin-bottom: 2px;
 }
 
 .ring-info p {
   font-size: 0.72rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   max-width: 140px;
   line-height: 1.4;
 }
@@ -268,19 +268,19 @@ body {
 
 .section {
   padding: 80px 56px;
-  border-bottom: 1px solid var(--white-05);
+  border-bottom: 1px solid var(--border);
 }
 
 .section:last-of-type { border-bottom: none; }
 
-.section-alt { background: var(--white-05); }
+.section-alt { background: var(--border); }
 
 .section-label {
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--accent);
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -291,7 +291,7 @@ body {
   content: '';
   width: 20px;
   height: 1.5px;
-  background: var(--cyan);
+  background: var(--accent);
 }
 
 .section-title {
@@ -303,7 +303,7 @@ body {
 }
 
 .section-intro {
-  color: var(--gray-light);
+  color: var(--fg-muted);
   max-width: 680px;
   font-size: 0.95rem;
   margin-bottom: 48px;
@@ -315,14 +315,14 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1px;
-  background: var(--white-10);
+  background: var(--border-strong);
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 40px;
 }
 
 .exec-stat {
-  background: var(--dark-lighter);
+  background: var(--bg-elevated);
   padding: 32px 28px;
   display: flex;
   flex-direction: column;
@@ -333,20 +333,20 @@ body {
   font-family: 'DM Serif Display', serif;
   font-size: 2.8rem;
   line-height: 1;
-  color: var(--cyan);
+  color: var(--accent);
 }
 
 .exec-stat-label {
   font-size: 0.8rem;
   font-weight: 500;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 .exec-stat-note {
   font-size: 0.78rem;
-  color: var(--gray);
+  color: var(--fg-subtle);
   margin-top: 4px;
 }
 
@@ -357,8 +357,8 @@ body {
 }
 
 .finding-card {
-  background: var(--white-05);
-  border: 1px solid var(--white-10);
+  background: var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 20px 22px;
   display: flex;
@@ -384,18 +384,18 @@ body {
 .finding-icon.green { background: var(--green-10); color: var(--green); }
 .finding-icon.blue  { background: var(--blue-10);  color: var(--blue);  }
 .finding-icon.amber { background: var(--amber-10); color: var(--amber); }
-.finding-icon.cyan  { background: var(--cyan-10);  color: var(--cyan);  }
+.finding-icon.cyan  { background: var(--accent-10);  color: var(--accent);  }
 
 .finding-body h4 {
   font-size: 0.88rem;
   font-weight: 600;
   margin-bottom: 4px;
-  color: var(--white);
+  color: var(--fg);
 }
 
 .finding-body p {
   font-size: 0.78rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   line-height: 1.5;
 }
 
@@ -408,7 +408,7 @@ body {
 }
 
 .context-text p {
-  color: var(--gray-light);
+  color: var(--fg-muted);
   font-size: 0.9rem;
   line-height: 1.75;
   margin-bottom: 16px;
@@ -420,7 +420,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0;
-  border: 1px solid var(--white-10);
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -430,19 +430,19 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 14px 18px;
-  border-bottom: 1px solid var(--white-05);
+  border-bottom: 1px solid var(--border);
   font-size: 0.82rem;
 }
 
 .context-detail-row:last-child { border-bottom: none; }
 
 .context-detail-key {
-  color: var(--gray);
+  color: var(--fg-subtle);
   font-weight: 500;
 }
 
 .context-detail-val {
-  color: var(--white);
+  color: var(--fg);
   font-weight: 600;
   text-align: right;
 }
@@ -455,8 +455,8 @@ body {
 }
 
 .domein-card {
-  background: var(--white-05);
-  border: 1px solid var(--white-10);
+  background: var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 22px 20px;
   display: flex;
@@ -472,7 +472,7 @@ body {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: var(--accent, var(--cyan));
+  background: var(--accent);
   opacity: 0.6;
 }
 
@@ -480,11 +480,11 @@ body {
   width: 38px;
   height: 38px;
   border-radius: 8px;
-  background: var(--accent-10, var(--cyan-10));
+  background: var(--accent-10);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent, var(--cyan));
+  color: var(--accent);
 }
 
 .domein-icon svg { width: 18px; height: 18px; }
@@ -492,12 +492,12 @@ body {
 .domein-card h3 {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--fg);
 }
 
 .domein-card p {
   font-size: 0.78rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   line-height: 1.55;
 }
 
@@ -516,7 +516,7 @@ body {
 
 .domein-pill.hoog  { background: var(--green-10); color: var(--green); }
 .domein-pill.midden { background: var(--amber-10); color: var(--amber); }
-.domein-pill.laag  { background: var(--white-05);  color: var(--gray-light); }
+.domein-pill.laag  { background: var(--border);  color: var(--fg-muted); }
 
 /* ── USE CASES ───────────────────────────────────────── */
 .usecase-list {
@@ -526,8 +526,8 @@ body {
 }
 
 .usecase {
-  background: var(--white-05);
-  border: 1px solid var(--white-10);
+  background: var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 12px;
   padding: 24px 26px;
   display: grid;
@@ -543,13 +543,13 @@ body {
   position: absolute;
   left: 0; top: 0; bottom: 0;
   width: 3px;
-  background: var(--uc-color, var(--cyan));
+  background: var(--uc-color, var(--accent));
 }
 
 .usecase-num {
   font-family: 'DM Serif Display', serif;
   font-size: 1.8rem;
-  color: var(--white-20);
+  color: var(--border-stronger);
   line-height: 1;
   min-width: 36px;
 }
@@ -558,12 +558,12 @@ body {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 6px;
-  color: var(--white);
+  color: var(--fg);
 }
 
 .usecase-body p {
   font-size: 0.82rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   line-height: 1.6;
   margin-bottom: 14px;
 }
@@ -581,9 +581,9 @@ body {
   text-transform: uppercase;
   padding: 3px 9px;
   border-radius: 100px;
-  background: var(--white-05);
-  color: var(--gray-light);
-  border: 1px solid var(--white-10);
+  background: var(--border);
+  color: var(--fg-muted);
+  border: 1px solid var(--border-strong);
 }
 
 .usecase-scores {
@@ -604,16 +604,16 @@ body {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gray);
+  color: var(--fg-subtle);
   display: flex;
   justify-content: space-between;
 }
 
-.score-label span { color: var(--white); }
+.score-label span { color: var(--fg); }
 
 .score-bar {
   height: 4px;
-  background: var(--white-10);
+  background: var(--border-strong);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -621,7 +621,7 @@ body {
 .score-fill {
   height: 100%;
   border-radius: 2px;
-  background: var(--uc-color, var(--cyan));
+  background: var(--uc-color, var(--accent));
 }
 
 /* ── PRIORITEITS MATRIX ──────────────────────────────── */
@@ -645,7 +645,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gray);
+  color: var(--fg-subtle);
 }
 
 .matrix-x-label {
@@ -658,7 +658,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gray);
+  color: var(--fg-subtle);
 }
 
 .matrix-grid {
@@ -679,9 +679,9 @@ body {
 }
 
 .matrix-quadrant.q-tl { background: var(--green-08); border: 1px solid var(--green-15); border-radius: 8px 0 0 0; }
-.matrix-quadrant.q-tr { background: var(--cyan-08);  border: 1px solid var(--cyan-15);  border-radius: 0 8px 0 0; }
+.matrix-quadrant.q-tr { background: var(--accent-08);  border: 1px solid var(--accent-15);  border-radius: 0 8px 0 0; }
 .matrix-quadrant.q-bl { background: var(--amber-08); border: 1px solid var(--amber-15); border-radius: 0 0 0 8px; }
-.matrix-quadrant.q-br { background: var(--white-05); border: 1px solid var(--white-10);       border-radius: 0 0 8px 0; }
+.matrix-quadrant.q-br { background: var(--border); border: 1px solid var(--border-strong);       border-radius: 0 0 8px 0; }
 
 .matrix-quadrant-label {
   font-size: 0.63rem;
@@ -721,7 +721,7 @@ body {
   grid-template-columns: 200px 1fr;
   gap: 32px;
   padding: 36px 0;
-  border-bottom: 1px solid var(--white-05);
+  border-bottom: 1px solid var(--border);
   position: relative;
 }
 
@@ -738,7 +738,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gray);
+  color: var(--fg-subtle);
 }
 
 .phase-title {
@@ -781,9 +781,9 @@ body {
   align-items: flex-start;
   gap: 12px;
   padding: 14px 16px;
-  background: var(--white-05);
+  background: var(--border);
   border-radius: 8px;
-  border: 1px solid var(--white-10);
+  border: 1px solid var(--border-strong);
 }
 
 .initiative-dot {
@@ -798,12 +798,12 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 2px;
-  color: var(--white);
+  color: var(--fg);
 }
 
 .initiative p {
   font-size: 0.75rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   line-height: 1.5;
 }
 
@@ -815,8 +815,8 @@ body {
 }
 
 .condition-card {
-  background: var(--white-05);
-  border: 1px solid var(--white-10);
+  background: var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 22px 20px;
 }
@@ -828,7 +828,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--white);
+  color: var(--fg);
 }
 
 .condition-card h3 .cond-dot {
@@ -847,7 +847,7 @@ body {
 
 .condition-list li {
   font-size: 0.78rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   line-height: 1.5;
   display: flex;
   gap: 8px;
@@ -856,7 +856,7 @@ body {
 
 .condition-list li::before {
   content: '→';
-  color: var(--gray);
+  color: var(--fg-subtle);
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -870,14 +870,14 @@ body {
 }
 
 .conclusie-text p {
-  color: var(--gray-light);
+  color: var(--fg-muted);
   font-size: 0.9rem;
   line-height: 1.75;
   margin-bottom: 16px;
 }
 
 .conclusie-text p strong {
-  color: var(--white);
+  color: var(--fg);
   font-weight: 600;
 }
 
@@ -885,7 +885,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0;
-  border: 1px solid var(--white-10);
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -895,7 +895,7 @@ body {
   align-items: flex-start;
   gap: 14px;
   padding: 16px 18px;
-  border-bottom: 1px solid var(--white-05);
+  border-bottom: 1px solid var(--border);
 }
 
 .next-step:last-child { border-bottom: none; }
@@ -904,14 +904,14 @@ body {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: var(--cyan-10);
-  border: 1px solid var(--cyan-20);
+  background: var(--accent-10);
+  border: 1px solid var(--accent-20);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.7rem;
   font-weight: 700;
-  color: var(--cyan);
+  color: var(--accent);
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -919,19 +919,19 @@ body {
 .next-step-body h4 {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--fg);
   margin-bottom: 2px;
 }
 
 .next-step-body p {
   font-size: 0.72rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
 }
 
 /* ── REPORT FOOTER ───────────────────────────────────── */
 .report-footer {
-  background: var(--dark-deep);
-  border-top: 1px solid var(--white-10);
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border-strong);
   padding: 40px 56px;
   display: flex;
   align-items: center;
@@ -954,12 +954,12 @@ body {
 
 .report-footer-contact p {
   font-size: 0.78rem;
-  color: var(--gray-light);
+  color: var(--fg-muted);
   line-height: 1.6;
 }
 
 .report-footer-contact a {
-  color: var(--cyan);
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
 }
@@ -969,9 +969,9 @@ body {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gray);
-  background: var(--white-05);
-  border: 1px solid var(--white-10);
+  color: var(--fg-subtle);
+  background: var(--border);
+  border: 1px solid var(--border-strong);
   padding: 6px 14px;
   border-radius: 100px;
 }
@@ -1016,8 +1016,8 @@ body {
       <svg class="logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:var(--cyan)"/>
-            <stop offset="50%" style="stop-color:var(--cyan)"/>
+            <stop offset="0%" style="stop-color:var(--accent)"/>
+            <stop offset="50%" style="stop-color:var(--accent)"/>
             <stop offset="100%" style="stop-color:var(--blue)"/>
           </linearGradient>
         </defs>
@@ -1248,7 +1248,7 @@ body {
       <p>CMR-verwerking, facturatie en tolcontrole zijn tijdrovend en sterk gestructureerd — ideaal voor automatisatie.</p>
       <span class="domein-pill hoog">● Hoog potentieel</span>
     </div>
-    <div class="domein-card" style="--accent:var(--cyan); --accent-10:var(--cyan-10)">
+    <div class="domein-card" style="--accent:var(--accent); --accent-10:var(--accent-10)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
@@ -1256,7 +1256,7 @@ body {
       <p>Lead scoring en proactieve klantcommunicatie bieden kansen, maar vereisen betere CRM-data als eerste stap.</p>
       <span class="domein-pill midden">● Matig potentieel</span>
     </div>
-    <div class="domein-card" style="--accent:var(--gray-light); --accent-10:var(--white-10)">
+    <div class="domein-card" style="--accent:var(--fg-muted); --accent-10:var(--border-strong)">
       <div class="domein-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
       </div>
@@ -1447,7 +1447,7 @@ body {
     </div>
 
     <!-- UC 7 -->
-    <div class="usecase" style="--uc-color:var(--gray)">
+    <div class="usecase" style="--uc-color:var(--fg-subtle)">
       <div class="usecase-num">07</div>
       <div class="usecase-body">
         <h3>HACCP-compliance documentatiebeheer</h3>
@@ -1461,15 +1461,15 @@ body {
       <div class="usecase-scores">
         <div class="score-row">
           <div class="score-label">Impact <span>Laag</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:40%; background:var(--gray)"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:40%; background:var(--fg-subtle)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Haalbaarheid <span>Matig</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:55%; background:var(--gray)"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:55%; background:var(--fg-subtle)"></div></div>
         </div>
         <div class="score-row">
           <div class="score-label">Prioriteit <span>★☆☆</span></div>
-          <div class="score-bar"><div class="score-fill" style="width:35%; background:var(--gray)"></div></div>
+          <div class="score-bar"><div class="score-fill" style="width:35%; background:var(--fg-subtle)"></div></div>
         </div>
       </div>
     </div>
@@ -1505,13 +1505,13 @@ body {
       </div>
       <!-- Q3: laag impact, laag haalbaarheid (later) -->
       <div class="matrix-quadrant q-bl">
-        <div class="matrix-quadrant-label" style="color:var(--gray)">Later evalueren</div>
+        <div class="matrix-quadrant-label" style="color:var(--fg-subtle)">Later evalueren</div>
         <!-- UC7 -->
-        <div class="matrix-dot" style="background:var(--white-20); border-color:var(--gray); color:var(--gray-light); top:25%; left:40%">UC7</div>
+        <div class="matrix-dot" style="background:var(--border-stronger); border-color:var(--fg-subtle); color:var(--fg-muted); top:25%; left:40%">UC7</div>
       </div>
       <!-- Q4: laag impact, hoog haalbaarheid (laaghangende fruit) -->
       <div class="matrix-quadrant q-br">
-        <div class="matrix-quadrant-label" style="color:var(--gray-light)">Plannen & integreren</div>
+        <div class="matrix-quadrant-label" style="color:var(--fg-muted)">Plannen & integreren</div>
         <!-- UC5, UC6 -->
         <div class="matrix-dot" style="background:var(--amber-15); border-color:var(--amber); color:var(--amber); top:30%; left:20%">UC5</div>
         <div class="matrix-dot" style="background:var(--amber-15); border-color:var(--amber); color:var(--amber); top:55%; right:20%">UC6</div>
@@ -1521,10 +1521,10 @@ body {
   </div>
 
   <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:20px; justify-content:flex-end;">
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--green-20); border:1.5px solid var(--green)"></span>Fase 1 — Quick win</span>
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--blue-20); border:1.5px solid var(--blue)"></span>Fase 2 — Strategisch</span>
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--amber-20); border:1.5px solid var(--amber)"></span>Fase 2 — Plannen</span>
-    <span style="font-size:0.72rem; color:var(--gray-light); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--white-20); border:1.5px solid var(--gray)"></span>Fase 3 — Later</span>
+    <span style="font-size:0.72rem; color:var(--fg-muted); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--green-20); border:1.5px solid var(--green)"></span>Fase 1 — Quick win</span>
+    <span style="font-size:0.72rem; color:var(--fg-muted); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--blue-20); border:1.5px solid var(--blue)"></span>Fase 2 — Strategisch</span>
+    <span style="font-size:0.72rem; color:var(--fg-muted); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--amber-20); border:1.5px solid var(--amber)"></span>Fase 2 — Plannen</span>
+    <span style="font-size:0.72rem; color:var(--fg-muted); display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--border-stronger); border:1.5px solid var(--fg-subtle)"></span>Fase 3 — Later</span>
   </div>
 </section>
 
@@ -1548,7 +1548,7 @@ body {
         </span>
       </div>
       <div class="phase-content">
-        <p style="font-size:0.82rem; color:var(--gray-light); margin-bottom:12px;">Focus op drie initiatieven met de hoogste impact en laagste implementatieweerstand. Directe ROI zichtbaar binnen kwartaal 1.</p>
+        <p style="font-size:0.82rem; color:var(--fg-muted); margin-bottom:12px;">Focus op drie initiatieven met de hoogste impact en laagste implementatieweerstand. Directe ROI zichtbaar binnen kwartaal 1.</p>
         <div class="phase-initiatives">
           <div class="initiative">
             <div class="initiative-dot" style="background:var(--green)"></div>
@@ -1585,7 +1585,7 @@ body {
         </span>
       </div>
       <div class="phase-content">
-        <p style="font-size:0.82rem; color:var(--gray-light); margin-bottom:12px;">Na consolidatie van fase 1 breiden we uit naar meer complexe toepassingen. Nadruk op datakwaliteit en adoptie.</p>
+        <p style="font-size:0.82rem; color:var(--fg-muted); margin-bottom:12px;">Na consolidatie van fase 1 breiden we uit naar meer complexe toepassingen. Nadruk op datakwaliteit en adoptie.</p>
         <div class="phase-initiatives">
           <div class="initiative">
             <div class="initiative-dot" style="background:var(--blue)"></div>
@@ -1622,17 +1622,17 @@ body {
         </span>
       </div>
       <div class="phase-content">
-        <p style="font-size:0.82rem; color:var(--gray-light); margin-bottom:12px;">Optimalisatie van bestaande systemen en uitbreiding naar sectorspecifieke kansen. Evalueer op basis van resultaten uit fase 1 en 2.</p>
+        <p style="font-size:0.82rem; color:var(--fg-muted); margin-bottom:12px;">Optimalisatie van bestaande systemen en uitbreiding naar sectorspecifieke kansen. Evalueer op basis van resultaten uit fase 1 en 2.</p>
         <div class="phase-initiatives">
           <div class="initiative">
-            <div class="initiative-dot" style="background:var(--gray)"></div>
+            <div class="initiative-dot" style="background:var(--fg-subtle)"></div>
             <div>
               <h4>UC7 — HACCP-compliance documentatiebeheer</h4>
               <p>Automatisatie van temperatuurlogboeken voor audits. Timing afhankelijk van sensordata-infrastructuur en regulatoire ontwikkelingen.</p>
             </div>
           </div>
           <div class="initiative">
-            <div class="initiative-dot" style="background:var(--gray)"></div>
+            <div class="initiative-dot" style="background:var(--fg-subtle)"></div>
             <div>
               <h4>Optimalisatie & schaling</h4>
               <p>Verbetering van modellen op basis van operationele feedback. Uitbreiding naar de Rotterdam-vestiging en eventuele nieuwe markten.</p>
@@ -1709,7 +1709,7 @@ body {
       <p>SmartAgents begeleidt u graag in de volgende stap: van dit rapport naar een concreet implementatietraject met duidelijke mijlpalen, een realistisch budget en een team dat u door het hele proces ondersteunt.</p>
     </div>
     <div>
-      <div style="font-size:0.72rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray); margin-bottom:12px;">Aanbevolen volgende stappen</div>
+      <div style="font-size:0.72rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--fg-subtle); margin-bottom:12px;">Aanbevolen volgende stappen</div>
       <div class="next-steps">
         <div class="next-step">
           <div class="next-step-n">1</div>
@@ -1760,8 +1760,8 @@ body {
     <svg width="40" height="40" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:var(--cyan)"/>
-          <stop offset="50%" style="stop-color:var(--cyan)"/>
+          <stop offset="0%" style="stop-color:var(--accent)"/>
+          <stop offset="50%" style="stop-color:var(--accent)"/>
           <stop offset="100%" style="stop-color:var(--blue)"/>
         </linearGradient>
       </defs>
@@ -1789,7 +1789,7 @@ body {
     <p>
       SmartAgents · Hasselt, België<br>
       <a href="mailto:info@smartagents.be">info@smartagents.be</a> · smartagents.be<br>
-      <span style="color:var(--gray); font-size:0.72rem;">Smart Scan uitgevoerd maart 2026</span>
+      <span style="color:var(--fg-subtle); font-size:0.72rem;">Smart Scan uitgevoerd maart 2026</span>
     </p>
   </div>
 </footer>

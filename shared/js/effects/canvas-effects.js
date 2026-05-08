@@ -19,8 +19,7 @@
         hero.prepend(canvas);
 
         const ctx = canvas.getContext('2d');
-        const colors = colorRuntime.buildParticlePalette(hero);
-        if (!colors.length) return;
+        let colors = [];
 
         let width;
         let height;
@@ -28,6 +27,10 @@
         let dpr;
         let animId;
         const connectionDistance = 120;
+        let lineOpacity;
+        let glowOpacity;
+        let nodeOpacity;
+        let nodePulseOpacity;
 
         function resize() {
             dpr = window.devicePixelRatio || 1;
@@ -38,6 +41,14 @@
             canvas.style.width = width + 'px';
             canvas.style.height = height + 'px';
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            lineOpacity = colorRuntime.readNumberToken('--page-particle-line-opacity', hero, 0.15);
+            glowOpacity = colorRuntime.readNumberToken('--page-particle-glow-opacity', hero, 0.04);
+            nodeOpacity = colorRuntime.readNumberToken('--page-particle-node-opacity', hero, 0.4);
+            nodePulseOpacity = colorRuntime.readNumberToken('--page-particle-node-pulse-opacity', hero, 0.3);
+        }
+
+        function refreshThemeValues() {
+            colors = colorRuntime.buildParticlePalette(hero);
         }
 
         function createNodes() {
@@ -67,7 +78,7 @@
                     const dy = nodes[i].y - nodes[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist >= connectionDistance) continue;
-                    const alpha = (1 - dist / connectionDistance) * 0.15;
+                    const alpha = (1 - dist / connectionDistance) * lineOpacity;
                     const color = nodes[i].color;
                     ctx.strokeStyle = colorRuntime.rgbaString(color, alpha);
                     ctx.lineWidth = 1;
@@ -86,12 +97,12 @@
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, node.radius + 3 + pulseSize * 2, 0, Math.PI * 2);
-                ctx.fillStyle = colorRuntime.rgbaString(color, 0.04);
+                ctx.fillStyle = colorRuntime.rgbaString(color, glowOpacity);
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fillStyle = colorRuntime.rgbaString(color, 0.4 + pulseSize * 0.3);
+                ctx.fillStyle = colorRuntime.rgbaString(color, nodeOpacity + pulseSize * nodePulseOpacity);
                 ctx.fill();
             }
         }
@@ -131,6 +142,8 @@
 
         function init() {
             resize();
+            refreshThemeValues();
+            if (!colors.length) return;
             createNodes();
             observer.observe(hero);
         }
@@ -143,6 +156,15 @@
 
         window.addEventListener('resize', () => {
             resize();
+            refreshThemeValues();
+            if (!colors.length) return;
+            createNodes();
+        });
+
+        document.addEventListener('sa-theme-change', () => {
+            resize();
+            refreshThemeValues();
+            if (!colors.length) return;
             createNodes();
         });
     }
@@ -155,8 +177,7 @@
         if (!colorRuntime) return;
 
         const ctx = canvas.getContext('2d');
-        const colors = colorRuntime.buildParticlePalette();
-        if (!colors.length) return;
+        let colors = [];
 
         let width;
         let height;
@@ -165,6 +186,10 @@
         let animId;
         const connectionDistance = 150;
         const isMobile = window.innerWidth < 768;
+        let lineOpacity;
+        let glowOpacity;
+        let nodeOpacity;
+        let nodePulseOpacity;
 
         function resize() {
             dpr = window.devicePixelRatio || 1;
@@ -176,6 +201,14 @@
             canvas.style.width = width + 'px';
             canvas.style.height = height + 'px';
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            lineOpacity = colorRuntime.readNumberToken('--particle-line-opacity', hero, 0.3);
+            glowOpacity = colorRuntime.readNumberToken('--particle-glow-opacity', hero, 0.08);
+            nodeOpacity = colorRuntime.readNumberToken('--particle-node-opacity', hero, 0.6);
+            nodePulseOpacity = colorRuntime.readNumberToken('--particle-node-pulse-opacity', hero, 0.4);
+        }
+
+        function refreshThemeValues() {
+            colors = colorRuntime.buildParticlePalette(canvas.parentElement);
         }
 
         function createNodes() {
@@ -205,7 +238,7 @@
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist >= connectionDistance) continue;
-                    const alpha = (1 - dist / connectionDistance) * 0.3;
+                    const alpha = (1 - dist / connectionDistance) * lineOpacity;
                     const color = nodes[i].color;
                     ctx.strokeStyle = colorRuntime.rgbaString(color, alpha);
                     ctx.lineWidth = 1;
@@ -224,12 +257,12 @@
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, node.radius + 4 + pulseSize * 3, 0, Math.PI * 2);
-                ctx.fillStyle = colorRuntime.rgbaString(color, 0.08);
+                ctx.fillStyle = colorRuntime.rgbaString(color, glowOpacity);
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fillStyle = colorRuntime.rgbaString(color, 0.6 + pulseSize * 0.4);
+                ctx.fillStyle = colorRuntime.rgbaString(color, nodeOpacity + pulseSize * nodePulseOpacity);
                 ctx.fill();
             }
         }
@@ -257,6 +290,8 @@
 
         function init() {
             resize();
+            refreshThemeValues();
+            if (!colors.length) return;
             createNodes();
             animate();
             document.addEventListener('visibilitychange', () => {
@@ -277,6 +312,15 @@
 
         window.addEventListener('resize', () => {
             resize();
+            refreshThemeValues();
+            if (!colors.length) return;
+            createNodes();
+        });
+
+        document.addEventListener('sa-theme-change', () => {
+            resize();
+            refreshThemeValues();
+            if (!colors.length) return;
             createNodes();
         });
     }

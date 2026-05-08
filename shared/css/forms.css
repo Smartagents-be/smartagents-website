@@ -2,8 +2,8 @@
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--dark);
-    border: 1px solid var(--white-05);
+    background: var(--bg);
+    border: 1px solid var(--border);
     border-radius: 0;
     padding: 48px;
     box-shadow: none;
@@ -17,7 +17,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: var(--service-color, var(--cyan));
+    background: var(--service-color, var(--accent));
     pointer-events: none;
     z-index: 2;
 }
@@ -30,16 +30,16 @@
     padding: 2px;
     background: radial-gradient(
         200px circle at var(--mx, 50%) var(--my, -60px),
-        var(--service-color, var(--cyan)),
+        var(--service-color, var(--accent)),
         transparent 100%
     );
     -webkit-mask:
-        linear-gradient(var(--white), var(--white)) content-box,
-        linear-gradient(var(--white), var(--white));
+        linear-gradient(var(--sa-white), var(--sa-white)) content-box,
+        linear-gradient(var(--sa-white), var(--sa-white));
     -webkit-mask-composite: destination-out;
     mask:
-        linear-gradient(var(--white), var(--white)) content-box,
-        linear-gradient(var(--white), var(--white));
+        linear-gradient(var(--sa-white), var(--sa-white)) content-box,
+        linear-gradient(var(--sa-white), var(--sa-white));
     mask-composite: exclude;
     pointer-events: none;
     opacity: 0;
@@ -69,7 +69,7 @@
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     font-weight: 500;
     transition: color 0.2s ease;
 }
@@ -78,10 +78,10 @@
 .form-group textarea {
     width: 100%;
     padding: 14px 18px;
-    background: var(--dark);
-    border: 1px solid var(--white-10);
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
     border-radius: 8px;
-    color: var(--white);
+    color: var(--fg);
     font-family: inherit;
     font-size: 1rem;
     transition: border-color 0.3s ease;
@@ -90,8 +90,8 @@
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--service-color, var(--cyan));
-    box-shadow: 0 0 0 3px var(--service-color-08, var(--cyan-08));
+    border-color: var(--service-color, var(--accent));
+    box-shadow: 0 0 0 3px var(--service-color-08, var(--accent-08));
 }
 
 .form-select-wrap {
@@ -101,10 +101,10 @@
 .form-select-wrap select {
     width: 100%;
     padding: 14px 44px 14px 18px;
-    background: var(--dark);
-    border: 1px solid var(--white-10);
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
     border-radius: 8px;
-    color: var(--white);
+    color: var(--fg);
     font-family: inherit;
     font-size: 1rem;
     appearance: none;
@@ -115,13 +115,13 @@
 
 .form-select-wrap select:focus {
     outline: none;
-    border-color: var(--service-color, var(--cyan));
-    box-shadow: 0 0 0 3px var(--service-color-08, var(--cyan-08));
+    border-color: var(--service-color, var(--accent));
+    box-shadow: 0 0 0 3px var(--service-color-08, var(--accent-08));
 }
 
 .form-select-wrap select option {
-    background: var(--dark-lighter);
-    color: var(--white);
+    background: var(--bg-elevated);
+    color: var(--fg);
 }
 
 .form-select-chevron {
@@ -131,14 +131,14 @@
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
-    stroke: var(--gray-light);
+    stroke: var(--fg-muted);
     pointer-events: none;
     transition: stroke 0.2s ease;
 }
 
 .form-select-wrap:focus-within .form-select-chevron,
 .form-group:focus-within .form-select-chevron {
-    stroke: var(--service-color, var(--cyan));
+    stroke: var(--service-color, var(--accent));
 }
 
 .form-group textarea {
@@ -151,7 +151,7 @@
 }
 
 .form-group:focus-within label {
-    color: var(--service-color, var(--cyan));
+    color: var(--service-color, var(--accent));
 }
 
 @media (max-width: 768px) {

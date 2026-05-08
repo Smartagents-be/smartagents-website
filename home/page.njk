@@ -9,12 +9,12 @@
                     <svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SmartAgents">
                         <defs>
                             <linearGradient id="heroDesktopLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:var(--cyan)"/>
-                                <stop offset="50%" style="stop-color:var(--cyan)"/>
+                                <stop offset="0%" style="stop-color:var(--accent)"/>
+                                <stop offset="50%" style="stop-color:var(--accent)"/>
                                 <stop offset="100%" style="stop-color:var(--blue)"/>
                             </linearGradient>
                         </defs>
-                        <g stroke="url(#heroDesktopLogoGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+                        <g stroke="url(#heroDesktopLogoGradient)" stroke-width="1.5" fill="none" style="opacity: var(--logo-node-stroke-opacity);">
                             <line x1="24" y1="8" x2="12" y2="20"/>
                             <line x1="24" y1="8" x2="36" y2="20"/>
                             <line x1="12" y1="20" x2="24" y2="24"/>
@@ -34,7 +34,7 @@
                             <circle cx="36" cy="32" r="2.5"/>
                             <circle cx="24" cy="40" r="3"/>
                         </g>
-                        <circle cx="24" cy="8" r="6" fill="none" stroke="url(#heroDesktopLogoGradient)" stroke-width="1" opacity="0.4"/>
+                        <circle cx="24" cy="8" r="6" fill="none" stroke="url(#heroDesktopLogoGradient)" stroke-width="1" style="opacity: var(--logo-node-ring-opacity);"/>
                     </svg>
                 </div>
                 <div class="hero-desktop-text">
@@ -53,12 +53,12 @@
             <svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="SmartAgents" role="img">
                 <defs>
                     <linearGradient id="heroLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:var(--cyan)"/>
-                        <stop offset="50%" style="stop-color:var(--cyan)"/>
+                        <stop offset="0%" style="stop-color:var(--accent)"/>
+                        <stop offset="50%" style="stop-color:var(--accent)"/>
                         <stop offset="100%" style="stop-color:var(--blue)"/>
                     </linearGradient>
                 </defs>
-                <g stroke="url(#heroLogoGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+                <g stroke="url(#heroLogoGradient)" stroke-width="1.5" fill="none" style="opacity: var(--logo-node-stroke-opacity);">
                     <line x1="24" y1="8" x2="12" y2="20"/>
                     <line x1="24" y1="8" x2="36" y2="20"/>
                     <line x1="12" y1="20" x2="24" y2="24"/>
@@ -78,7 +78,7 @@
                     <circle cx="36" cy="32" r="2.5"/>
                     <circle cx="24" cy="40" r="3"/>
                 </g>
-                <circle cx="24" cy="8" r="6" fill="none" stroke="url(#heroLogoGradient)" stroke-width="1" opacity="0.4"/>
+                <circle cx="24" cy="8" r="6" fill="none" stroke="url(#heroLogoGradient)" stroke-width="1" style="opacity: var(--logo-node-ring-opacity);"/>
             </svg>
             <span class="hero-logo-wordmark"><span class="hero-word">Smart</span><span class="hero-word hero-word-accent">Agents</span></span>
             <span class="hero-logo-tagline">{{ "footer.tagline" | t(locale) }}</span>

@@ -34,7 +34,7 @@
         right: 0;
         height: 68px;
         padding: 0 40px;
-        background: var(--nav-surface);
+        background: var(--bg-overlay);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         gap: 0;
@@ -43,8 +43,8 @@
 
     .navbar.scrolled {
         height: 60px;
-        background: var(--dark-95);
-        box-shadow: 0 1px 0 var(--white-05);
+        background: var(--bg-overlay-strong);
+        box-shadow: 0 1px 0 var(--border);
     }
 
     /* Logo */
@@ -70,19 +70,19 @@
     .navbar-brand-name {
         font-size: 1rem;
         font-weight: 700;
-        color: var(--white);
+        color: var(--fg);
         letter-spacing: -0.02em;
         line-height: 1.2;
     }
 
     .navbar-brand-accent {
-        color: var(--cyan);
+        color: var(--accent);
     }
 
     .navbar-tagline {
         font-size: 0.6rem;
         font-weight: 400;
-        color: var(--white);
+        color: var(--fg);
         letter-spacing: 0.02em;
         opacity: 0.7;
         line-height: 1;
@@ -101,7 +101,7 @@
     .navbar-link {
         font-size: 0.875rem;
         font-weight: 500;
-        color: var(--gray-light);
+        color: var(--fg-muted);
         padding: 6px 12px;
         border-radius: 6px;
         transition: color 0.2s ease, background 0.2s ease;
@@ -114,12 +114,12 @@
     }
 
     .navbar-link:hover {
-        color: var(--white);
-        background: var(--white-05);
+        color: var(--fg);
+        background: var(--border);
     }
 
     .navbar-link.active {
-        color: var(--white);
+        color: var(--fg);
     }
 
     /* Services dropdown */
@@ -188,13 +188,13 @@
         position: absolute;
         top: 100%; /* bottom edge of .navbar (which is position:fixed) */
         left: 0; /* overridden by JS to align with active trigger */
-        background: var(--nav-surface);
+        background: var(--bg-overlay);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border-top: 1px solid var(--white-10);
-        border-bottom: 1px solid var(--white-10);
-        border-right: 1px solid var(--white-10);
-        border-left: 2px solid var(--service-color, var(--cyan));
+        border-top: 1px solid var(--border-strong);
+        border-bottom: 1px solid var(--border-strong);
+        border-right: 1px solid var(--border-strong);
+        border-left: 2px solid var(--service-color, var(--accent));
         overflow: hidden;
         z-index: 200;
         transform-origin: top left;
@@ -203,7 +203,7 @@
         transition: background 0.3s ease, border-color 0.3s ease;
     }
     .navbar.scrolled .nav-viewport {
-        background: var(--dark);
+        background: var(--bg);
     }
 
     .nav-viewport.is-open {
@@ -241,7 +241,7 @@
     /* ── Panel link styles ────────────────────────────────────── */
     .nav-panel a {
         font-size: 0.8rem;
-        color: var(--white);
+        color: var(--fg);
         padding: 7px 10px;
         border-radius: 0;
         border: 1px solid transparent;
@@ -260,7 +260,7 @@
         transition: opacity 0.15s ease, transform 0.2s ease;
     }
 
-    .nav-panel a[data-nav-service="agentic"] svg { color: var(--cyan); }
+    .nav-panel a[data-nav-service="agentic"] svg { color: var(--accent); }
     .nav-panel a[data-nav-service="process"] svg { color: var(--amber); }
     .nav-panel a[data-nav-service="training"] svg { color: var(--purple); }
     .nav-panel a[data-nav-service="smartscan"] svg { color: var(--blue); }
@@ -275,17 +275,17 @@
     }
 
     .nav-panel a:hover {
-        background: var(--white-05);
+        background: var(--border);
         border-color: transparent;
         box-shadow: none;
-        color: var(--white);
+        color: var(--fg);
     }
 
     .nav-panel a[data-nav-service="agentic"]:hover {
-        background: var(--cyan-10);
-        border-color: var(--cyan-20);
-        box-shadow: 0 0 16px var(--cyan-20);
-        color: var(--cyan);
+        background: var(--accent-10);
+        border-color: var(--accent-20);
+        box-shadow: 0 0 16px var(--accent-20);
+        color: var(--accent);
     }
 
     .nav-panel a[data-nav-service="process"]:hover {
@@ -348,7 +348,7 @@
     .navbar-lang {
         display: flex;
         gap: 2px;
-        background: var(--white-10);
+        background: var(--border-strong);
         padding: 2px;
         border-radius: 7px;
         margin-right: 4px;
@@ -366,13 +366,13 @@
 
     .navbar-right .btn-nav {
         display: inline-flex;
-        background: var(--cyan);
-        color: var(--dark);
-        -webkit-text-fill-color: var(--dark);
+        background: var(--accent);
+        color: var(--accent-ink);
+        -webkit-text-fill-color: var(--accent-ink);
         padding: 8px 18px;
         font-size: 0.8125rem;
         border-radius: 8px;
-        box-shadow: 0 0 14px var(--cyan-30);
+        box-shadow: 0 0 14px var(--accent-30);
         margin-right: 44px;
     }
 
@@ -400,7 +400,7 @@
 }
 
 .logo span {
-    color: var(--cyan);
+    color: var(--accent);
     letter-spacing: -0.5px;
 }
 
@@ -411,17 +411,17 @@
 }
 
 .logo .logo-brand-name {
-    color: var(--white);
+    color: var(--fg);
 }
 
 .logo-accent {
-    color: var(--cyan);
+    color: var(--accent);
 }
 
 .logo-tagline {
     font-size: 0.55rem;
     font-weight: 400;
-    -webkit-text-fill-color: var(--white-75);
+    -webkit-text-fill-color: var(--fg-soft-strong);
     letter-spacing: 0.5px;
 }
 
@@ -437,7 +437,7 @@
     line-height: 1;
     margin-left: 20px;
     align-self: center;
-    box-shadow: 0 0 16px var(--cyan-40);
+    box-shadow: 0 0 16px var(--accent-40);
 }
 
 .nav-links {
@@ -447,17 +447,17 @@
 }
 
 .nav-links a {
-    color: var(--gray-light);
+    color: var(--fg-muted);
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: var(--white);
+    color: var(--fg);
 }
 
 .nav-links a.active {
-    color: var(--white);
+    color: var(--fg);
 }
 
 .mobile-only {
@@ -469,7 +469,7 @@
     display: flex;
     gap: 4px;
     margin-left: 30px;
-    background: var(--white-10);
+    background: var(--border-strong);
     padding: 4px;
     border-radius: 8px;
 }
@@ -477,7 +477,7 @@
 .lang-btn {
     background: transparent;
     border: none;
-    color: var(--gray-light);
+    color: var(--fg-muted);
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 0.875rem;
@@ -487,12 +487,12 @@
 }
 
 .lang-btn:hover {
-    color: var(--white);
+    color: var(--fg);
 }
 
 .lang-btn.active {
-    background: var(--cyan);
-    color: var(--dark);
+    background: var(--accent);
+    color: var(--accent-ink);
 }
 
 /* Nav Dropdown */
@@ -521,14 +521,14 @@
     left: 50%;
     transform: translateX(-50%);
     min-width: 220px;
-    background: var(--dark-lighter);
-    border: 1px solid var(--white-10);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
     border-radius: 12px;
     padding: 8px 0;
     margin-top: 16px;
     flex-direction: column;
     gap: 0;
-    box-shadow: 0 20px 40px var(--black-50);
+    box-shadow: 0 20px 40px var(--shadow-strong);
     z-index: 100;
 }
 
@@ -557,14 +557,14 @@
     display: block;
     padding: 10px 20px;
     font-size: 0.9rem;
-    color: var(--gray-light) !important;
+    color: var(--fg-muted) !important;
     transition: all 0.2s ease;
     white-space: nowrap;
 }
 
 .nav-submenu a:hover {
-    color: var(--white) !important;
-    background: var(--cyan-10);
+    color: var(--fg) !important;
+    background: var(--accent-10);
 }
 
 /* Home pill (top-left, mirrors MENU pill) */
@@ -573,10 +573,10 @@
     top: 18px;
     left: 16px;
     z-index: 2000;
-    background: var(--dark-deep-82);
+    background: var(--bg-overlay);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1.5px solid var(--cyan);
+    border: 1.5px solid var(--accent);
     border-radius: 999px;
     cursor: pointer;
     height: 42px;
@@ -584,7 +584,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--cyan);
+    color: var(--accent);
     text-decoration: none;
     font-size: 0.7rem;
     font-weight: 700;
@@ -593,8 +593,8 @@
 }
 
 .home-pill:hover {
-    background: var(--cyan-08);
-    box-shadow: 0 0 24px var(--cyan-20);
+    background: var(--accent-08);
+    box-shadow: 0 0 24px var(--accent-20);
 }
 
 .home-pill svg {
@@ -626,7 +626,7 @@
 .mobile-menu-btn span {
     width: 25px;
     height: 2px;
-    background: var(--white);
+    background: var(--fg);
     transition: all 0.3s ease;
 }
 
@@ -648,14 +648,14 @@
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--dark-95);
+        background: var(--bg-overlay-strong);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 12px 24px 28px;
         gap: 0;
-        border-top: 1px solid var(--service-color, var(--cyan-40));
-        box-shadow: 0 16px 40px var(--black-50);
+        border-top: 1px solid var(--service-color, var(--accent-40));
+        box-shadow: 0 16px 40px var(--shadow-strong);
         display: flex;
         opacity: 0;
         transform: translateY(-8px);
@@ -670,7 +670,7 @@
     }
 
     .nav-links > li {
-        border-bottom: 1px solid var(--white-10);
+        border-bottom: 1px solid var(--border-strong);
     }
 
     .nav-links > li:last-child {
@@ -683,19 +683,19 @@
         padding: 14px 0;
         font-size: 1rem;
         font-weight: 500;
-        color: var(--gray-light);
+        color: var(--fg-muted);
     }
 
     .nav-links > li > a:hover,
     .nav-links > li > a.active {
-        color: var(--service-color, var(--cyan));
+        color: var(--service-color, var(--accent));
     }
 
     .nav-links > li.mobile-only > a {
         display: inline-block;
         padding: 10px 24px;
-        background: var(--cyan);
-        color: var(--dark) !important;
+        background: var(--accent);
+        color: var(--accent-ink) !important;
         font-weight: 600;
         border-radius: 8px;
         width: 100%;
@@ -718,7 +718,7 @@
         min-width: unset;
         background: transparent;
         border: none;
-        border-left: 2px solid var(--service-color, var(--cyan-40));
+        border-left: 2px solid var(--service-color, var(--accent-40));
         border-radius: 0;
         padding: 4px 0 8px 16px;
         margin-top: 0;
@@ -735,12 +735,12 @@
     .nav-submenu a {
         padding: 8px 0;
         font-size: 0.875rem;
-        color: var(--gray-light);
+        color: var(--fg-muted);
     }
 
     .nav-submenu a:hover {
         background: transparent;
-        color: var(--cyan);
+        color: var(--accent);
     }
 
     .lang-switcher {

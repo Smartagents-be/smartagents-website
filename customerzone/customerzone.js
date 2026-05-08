@@ -8,14 +8,17 @@
         const ctx = canvas.getContext('2d');
         if (!colorRuntime) return;
 
-        const colors = colorRuntime.buildParticlePalette();
-        if (!colors.length) return;
+        let colors = [];
 
         let width;
         let height;
         let nodes;
         let dpr;
         const connectionDistance = 150;
+        let lineOpacity;
+        let glowOpacity;
+        let nodeOpacity;
+        let nodePulseOpacity;
 
         function resize() {
             dpr = window.devicePixelRatio || 1;
@@ -27,6 +30,14 @@
             canvas.style.width = width + 'px';
             canvas.style.height = height + 'px';
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            lineOpacity = colorRuntime.readNumberToken('--particle-line-opacity', parent, 0.3);
+            glowOpacity = colorRuntime.readNumberToken('--particle-glow-opacity', parent, 0.08);
+            nodeOpacity = colorRuntime.readNumberToken('--particle-node-opacity', parent, 0.6);
+            nodePulseOpacity = colorRuntime.readNumberToken('--particle-node-pulse-opacity', parent, 0.4);
+        }
+
+        function refreshThemeValues() {
+            colors = colorRuntime.buildParticlePalette(canvas.parentElement);
         }
 
         function createNodes() {
@@ -56,7 +67,7 @@
                     const dy = nodes[i].y - nodes[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist >= connectionDistance) continue;
-                    const alpha = (1 - dist / connectionDistance) * 0.3;
+                    const alpha = (1 - dist / connectionDistance) * lineOpacity;
                     const color = nodes[i].color;
                     ctx.strokeStyle = colorRuntime.rgbaString(color, alpha);
                     ctx.lineWidth = 1;
@@ -75,12 +86,12 @@
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, node.radius + 4 + pulseSize * 3, 0, Math.PI * 2);
-                ctx.fillStyle = colorRuntime.rgbaString(color, 0.08);
+                ctx.fillStyle = colorRuntime.rgbaString(color, glowOpacity);
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fillStyle = colorRuntime.rgbaString(color, 0.6 + pulseSize * 0.4);
+                ctx.fillStyle = colorRuntime.rgbaString(color, nodeOpacity + pulseSize * nodePulseOpacity);
                 ctx.fill();
             }
         }
@@ -107,6 +118,8 @@
 
         function init() {
             resize();
+            refreshThemeValues();
+            if (!colors.length) return;
             createNodes();
             animate();
         }
@@ -119,6 +132,15 @@
 
         window.addEventListener('resize', () => {
             resize();
+            refreshThemeValues();
+            if (!colors.length) return;
+            createNodes();
+        });
+
+        document.addEventListener('sa-theme-change', () => {
+            resize();
+            refreshThemeValues();
+            if (!colors.length) return;
             createNodes();
         });
     })();

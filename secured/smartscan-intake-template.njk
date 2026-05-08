@@ -18,74 +18,74 @@ permalink: /secured/smartscan-intake-template/
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--dark-deep);color:var(--white);line-height:1.6;font-size:14px;display:flex}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-deep);color:var(--fg);line-height:1.6;font-size:14px;display:flex}
 
 /* ── NAV ── */
-.sidenav{width:var(--nav-w);min-height:100vh;background:var(--dark);border-right:1px solid var(--white-10);position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column}
-.sidenav-logo{padding:20px 16px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--white-10)}
+.sidenav{width:var(--nav-w);min-height:100vh;background:var(--bg);border-right:1px solid var(--border-strong);position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column}
+.sidenav-logo{padding:20px 16px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border-strong)}
 .sidenav-logo svg{width:28px;height:28px}
 .sidenav-brand{font-size:.85rem;font-weight:700;letter-spacing:-.01em}
-.sidenav-brand span{color:var(--cyan)}
-.sidenav-doc{padding:12px 16px;border-bottom:1px solid var(--white-10)}
-.sidenav-doc p{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
-.sidenav-doc strong{font-size:.78rem;color:var(--gray-light);font-weight:500;line-height:1.4;display:block}
+.sidenav-brand span{color:var(--accent)}
+.sidenav-doc{padding:12px 16px;border-bottom:1px solid var(--border-strong)}
+.sidenav-doc p{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:4px}
+.sidenav-doc strong{font-size:.78rem;color:var(--fg-muted);font-weight:500;line-height:1.4;display:block}
 .nav-items{padding:8px 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:7px 16px;font-size:.75rem;color:var(--gray-light);cursor:pointer;transition:.15s;text-decoration:none;border-left:2px solid transparent}
-.nav-item:hover{color:var(--white);background:var(--white-05)}
-.nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:var(--cyan-10)}
-.nav-item .nav-num{font-size:.6rem;font-weight:700;width:16px;height:16px;border-radius:50%;background:var(--white-10);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gray)}
-.nav-item.active .nav-num{background:var(--cyan-20);color:var(--cyan)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 16px;font-size:.75rem;color:var(--fg-muted);cursor:pointer;transition:.15s;text-decoration:none;border-left:2px solid transparent}
+.nav-item:hover{color:var(--fg);background:var(--border)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-10)}
+.nav-item .nav-num{font-size:.6rem;font-weight:700;width:16px;height:16px;border-radius:50%;background:var(--border-strong);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--fg-subtle)}
+.nav-item.active .nav-num{background:var(--accent-20);color:var(--accent)}
 .nav-item.done .nav-num{background:var(--green-10);color:var(--green)}
-.nav-item.done{color:var(--gray-light)}
-.nav-footer{padding:12px 16px;border-top:1px solid var(--white-10);display:flex;flex-direction:column;gap:6px}
+.nav-item.done{color:var(--fg-muted)}
+.nav-footer{padding:12px 16px;border-top:1px solid var(--border-strong);display:flex;flex-direction:column;gap:6px}
 .nav-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:7px 12px;border-radius:6px;font-size:.72rem;font-weight:600;cursor:pointer;border:none;transition:.2s;letter-spacing:.02em}
-.nav-btn-save{background:var(--cyan-10);color:var(--cyan);border:1px solid var(--cyan-20)}
-.nav-btn-save:hover{background:var(--cyan-20)}
-.nav-btn-print{background:var(--white-05);color:var(--gray-light);border:1px solid var(--white-10)}
-.nav-btn-print:hover{background:var(--white-10);color:var(--white)}
-.save-status{font-size:.62rem;color:var(--gray);text-align:center;min-height:14px}
+.nav-btn-save{background:var(--accent-10);color:var(--accent);border:1px solid var(--accent-20)}
+.nav-btn-save:hover{background:var(--accent-20)}
+.nav-btn-print{background:var(--border);color:var(--fg-muted);border:1px solid var(--border-strong)}
+.nav-btn-print:hover{background:var(--border-strong);color:var(--fg)}
+.save-status{font-size:.62rem;color:var(--fg-subtle);text-align:center;min-height:14px}
 
 /* ── MAIN ── */
 .main{flex:1;min-width:0}
 
 /* ── COVER ── */
-.doc-cover{padding:48px 48px 40px;background:var(--dark);border-bottom:1px solid var(--white-10);position:relative;overflow:hidden}
-.doc-cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,var(--cyan-04) 0%,transparent 70%);pointer-events:none}
+.doc-cover{padding:48px 48px 40px;background:var(--bg);border-bottom:1px solid var(--border-strong);position:relative;overflow:hidden}
+.doc-cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,var(--accent-04) 0%,transparent 70%);pointer-events:none}
 .cover-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:32px}
-.cover-badge{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:100px;background:var(--cyan-10);color:var(--cyan);border:1px solid var(--cyan-20)}
+.cover-badge{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:100px;background:var(--accent-10);color:var(--accent);border:1px solid var(--accent-20)}
 .doc-cover h1{font-family:'DM Serif Display',serif;font-size:2.4rem;font-weight:400;line-height:1.1;margin-bottom:6px}
-.doc-cover h1 em{font-style:italic;color:var(--cyan)}
-.doc-cover .sub{color:var(--gray-light);font-size:.88rem;max-width:540px;margin-bottom:28px}
-.cover-meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--white-10);border-radius:8px;overflow:hidden}
-.cover-meta-cell{background:var(--dark-lighter);padding:14px 16px}
-.cover-meta-cell label{display:block;font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
-.cover-meta-cell input,.cover-meta-cell select{background:transparent;border:none;color:var(--white);font-family:inherit;font-size:.85rem;font-weight:600;width:100%;outline:none}
-.cover-meta-cell input::placeholder{color:var(--gray)}
-.cover-meta-cell select option{background:var(--dark-lighter)}
+.doc-cover h1 em{font-style:italic;color:var(--accent)}
+.doc-cover .sub{color:var(--fg-muted);font-size:.88rem;max-width:540px;margin-bottom:28px}
+.cover-meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-strong);border-radius:8px;overflow:hidden}
+.cover-meta-cell{background:var(--bg-elevated);padding:14px 16px}
+.cover-meta-cell label{display:block;font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:6px}
+.cover-meta-cell input,.cover-meta-cell select{background:transparent;border:none;color:var(--fg);font-family:inherit;font-size:.85rem;font-weight:600;width:100%;outline:none}
+.cover-meta-cell input::placeholder{color:var(--fg-subtle)}
+.cover-meta-cell select option{background:var(--bg-elevated)}
 
 /* ── SECTIONS ── */
-.doc-section{padding:40px 48px;border-bottom:1px solid var(--white-05)}
+.doc-section{padding:40px 48px;border-bottom:1px solid var(--border)}
 .doc-section:last-child{border-bottom:none}
 .section-header{margin-bottom:24px}
-.section-num{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.section-num::after{content:'';flex:1;height:1px;background:var(--white-10)}
+.section-num{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.section-num::after{content:'';flex:1;height:1px;background:var(--border-strong)}
 .section-title{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:400;margin-bottom:4px}
-.section-desc{font-size:.78rem;color:var(--gray-light);line-height:1.6;max-width:600px}
+.section-desc{font-size:.78rem;color:var(--fg-muted);line-height:1.6;max-width:600px}
 
 /* ── FORM ELEMENTS ── */
 .field-group{margin-bottom:16px}
-.field-group label{display:block;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
-.field-group .hint{font-size:.68rem;color:var(--gray);font-style:italic;margin-bottom:5px;font-weight:400;text-transform:none;letter-spacing:0}
+.field-group label{display:block;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:6px}
+.field-group .hint{font-size:.68rem;color:var(--fg-subtle);font-style:italic;margin-bottom:5px;font-weight:400;text-transform:none;letter-spacing:0}
 input[type=text],input[type=date],input[type=email],input[type=number],select,textarea{
-  width:100%;background:var(--white-05);border:1px solid var(--white-10);border-radius:6px;
-  color:var(--white);font-family:'Inter',sans-serif;font-size:.82rem;padding:9px 12px;
+  width:100%;background:var(--border);border:1px solid var(--border-strong);border-radius:6px;
+  color:var(--fg);font-family:'Inter',sans-serif;font-size:.82rem;padding:9px 12px;
   outline:none;transition:.15s;resize:vertical
 }
 input[type=text]:focus,input[type=date]:focus,input[type=email]:focus,input[type=number]:focus,select:focus,textarea:focus{
-  border-color:var(--cyan-30);background:var(--cyan-10)
+  border-color:var(--accent-30);background:var(--accent-10)
 }
-input::placeholder,textarea::placeholder{color:var(--gray)}
-select option{background:var(--dark-lighter);color:var(--white)}
+input::placeholder,textarea::placeholder{color:var(--fg-subtle)}
+select option{background:var(--bg-elevated);color:var(--fg)}
 textarea{min-height:72px;line-height:1.55}
 .textarea-sm{min-height:52px}
 .textarea-lg{min-height:110px}
@@ -96,97 +96,97 @@ textarea{min-height:72px;line-height:1.55}
 
 /* ── TABLE ── */
 .intake-table{width:100%;border-collapse:collapse;font-size:.78rem}
-.intake-table th{text-align:left;padding:8px 10px;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--white-10);background:var(--white-05)}
-.intake-table td{padding:0;border-bottom:1px solid var(--white-05)}
-.intake-table td input{background:transparent;border:none;width:100%;padding:9px 10px;color:var(--white);font-family:inherit;font-size:.78rem;outline:none}
-.intake-table td input:focus{background:var(--cyan-10)}
+.intake-table th{text-align:left;padding:8px 10px;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);border-bottom:1px solid var(--border-strong);background:var(--border)}
+.intake-table td{padding:0;border-bottom:1px solid var(--border)}
+.intake-table td input{background:transparent;border:none;width:100%;padding:9px 10px;color:var(--fg);font-family:inherit;font-size:.78rem;outline:none}
+.intake-table td input:focus{background:var(--accent-10)}
 .intake-table tr:last-child td{border-bottom:none}
-.table-add-row{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:.72rem;color:var(--gray);cursor:pointer;padding:5px 0;transition:.15s;width:fit-content}
-.table-add-row:hover{color:var(--cyan)}
+.table-add-row{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:.72rem;color:var(--fg-subtle);cursor:pointer;padding:5px 0;transition:.15s;width:fit-content}
+.table-add-row:hover{color:var(--accent)}
 
 /* ── CHECKBOXES ── */
 .check-group{display:flex;flex-direction:column;gap:6px}
 .check-item{display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:6px 10px;border-radius:6px;border:1px solid transparent;transition:.15s}
-.check-item:hover{background:var(--white-05);border-color:var(--white-10)}
-.check-item input[type=checkbox]{width:14px;height:14px;margin-top:2px;flex-shrink:0;accent-color:var(--cyan);cursor:pointer}
-.check-item input[type=checkbox]:checked+span{color:var(--white)}
-.check-item span{font-size:.8rem;color:var(--gray-light);line-height:1.45}
-.check-item.checked{background:var(--cyan-10);border-color:var(--cyan-20)}
+.check-item:hover{background:var(--border);border-color:var(--border-strong)}
+.check-item input[type=checkbox]{width:14px;height:14px;margin-top:2px;flex-shrink:0;accent-color:var(--accent);cursor:pointer}
+.check-item input[type=checkbox]:checked+span{color:var(--fg)}
+.check-item span{font-size:.8rem;color:var(--fg-muted);line-height:1.45}
+.check-item.checked{background:var(--accent-10);border-color:var(--accent-20)}
 .check-cols{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 
 /* ── SCORE DOTS ── */
 .score-wrap{display:flex;flex-direction:column;gap:4px}
 .score-label-row{display:flex;justify-content:space-between;align-items:center}
-.score-label-row span{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
-.score-label-row .score-val{color:var(--white);font-weight:700;font-size:.78rem}
+.score-label-row span{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-subtle)}
+.score-label-row .score-val{color:var(--fg);font-weight:700;font-size:.78rem}
 .score-dots{display:flex;gap:6px}
-.score-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--white-20);background:var(--white-05);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--gray);transition:.15s}
-.score-dot:hover{border-color:var(--white-20);color:var(--white)}
+.score-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border-stronger);background:var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--fg-subtle);transition:.15s}
+.score-dot:hover{border-color:var(--border-stronger);color:var(--fg)}
 .score-dot.active-1,.score-dot.active-2{border-color:var(--rose);background:var(--rose-20);color:var(--rose)}
 .score-dot.active-3{border-color:var(--amber);background:var(--amber-10);color:var(--amber)}
 .score-dot.active-4,.score-dot.active-5{border-color:var(--green);background:var(--green-20);color:var(--green)}
-.score-labels{display:flex;justify-content:space-between;font-size:.6rem;color:var(--gray)}
+.score-labels{display:flex;justify-content:space-between;font-size:.6rem;color:var(--fg-subtle)}
 
 /* ── DOMEIN CARDS ── */
-.domein-card{background:var(--white-05);border:1px solid var(--white-10);border-radius:10px;margin-bottom:16px;overflow:hidden}
-.domein-card-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid var(--white-10);transition:.15s;user-select:none}
-.domein-card-header:hover{background:var(--white-05)}
+.domein-card{background:var(--border);border:1px solid var(--border-strong);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.domein-card-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid var(--border-strong);transition:.15s;user-select:none}
+.domein-card-header:hover{background:var(--border)}
 .domein-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .domein-icon svg{width:15px;height:15px}
 .domein-card-header h3{font-size:.88rem;font-weight:600;flex:1}
-.domein-card-header .domein-score-preview{font-size:.72rem;color:var(--gray);display:flex;align-items:center;gap:8px}
-.domein-card-header .chevron{width:16px;height:16px;color:var(--gray);transition:.2s;flex-shrink:0}
+.domein-card-header .domein-score-preview{font-size:.72rem;color:var(--fg-subtle);display:flex;align-items:center;gap:8px}
+.domein-card-header .chevron{width:16px;height:16px;color:var(--fg-subtle);transition:.2s;flex-shrink:0}
 .domein-card-header.open .chevron{transform:rotate(180deg)}
 .domein-body{padding:20px 16px;display:none}
 .domein-body.open{display:block}
-.domein-sub{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--white-10)}
+.domein-sub{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border-strong)}
 .domein-sub:first-child{margin-top:0}
 
 /* ── USE CASE BUILDER ── */
 .uc-list{display:flex;flex-direction:column;gap:8px}
-.uc-item{display:grid;grid-template-columns:1fr 120px 120px 100px 36px;gap:8px;align-items:center;padding:10px 12px;background:var(--white-05);border:1px solid var(--white-10);border-radius:7px}
-.uc-item input{background:transparent;border:none;color:var(--white);font-family:inherit;font-size:.78rem;outline:none;width:100%}
-.uc-item select{background:transparent;border:1px solid var(--white-10);border-radius:4px;color:var(--white);font-family:inherit;font-size:.72rem;padding:4px 6px;outline:none}
-.uc-item select:focus{border-color:var(--cyan-30)}
-.uc-del{width:28px;height:28px;border-radius:5px;background:var(--white-05);border:1px solid var(--white-10);color:var(--gray);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.15s}
+.uc-item{display:grid;grid-template-columns:1fr 120px 120px 100px 36px;gap:8px;align-items:center;padding:10px 12px;background:var(--border);border:1px solid var(--border-strong);border-radius:7px}
+.uc-item input{background:transparent;border:none;color:var(--fg);font-family:inherit;font-size:.78rem;outline:none;width:100%}
+.uc-item select{background:transparent;border:1px solid var(--border-strong);border-radius:4px;color:var(--fg);font-family:inherit;font-size:.72rem;padding:4px 6px;outline:none}
+.uc-item select:focus{border-color:var(--accent-30)}
+.uc-del{width:28px;height:28px;border-radius:5px;background:var(--border);border:1px solid var(--border-strong);color:var(--fg-subtle);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.15s}
 .uc-del:hover{background:var(--rose-20);border-color:var(--rose);color:var(--rose)}
 .uc-header{display:grid;grid-template-columns:1fr 120px 120px 100px 36px;gap:8px;padding:0 12px 6px}
-.uc-header span{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+.uc-header span{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle)}
 
 /* ── READINESS TOTAL ── */
-.readiness-result{background:var(--dark-lighter);border:1px solid var(--white-10);border-radius:10px;padding:20px 24px;display:flex;align-items:center;gap:24px;margin-top:20px}
+.readiness-result{background:var(--bg-elevated);border:1px solid var(--border-strong);border-radius:10px;padding:20px 24px;display:flex;align-items:center;gap:24px;margin-top:20px}
 .readiness-ring{position:relative;width:80px;height:80px;flex-shrink:0}
 .readiness-ring svg{width:80px;height:80px;transform:rotate(-90deg)}
-.ring-track{fill:none;stroke:var(--white-10);stroke-width:6}
-.ring-fill{fill:none;stroke:var(--cyan);stroke-width:6;stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:201;transition:.5s;filter:drop-shadow(0 0 4px var(--cyan-30))}
-.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:var(--cyan);line-height:1}
-.ring-center small{font-size:.5rem;color:var(--gray-light);font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.ring-track{fill:none;stroke:var(--border-strong);stroke-width:6}
+.ring-fill{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:201;transition:.5s;filter:drop-shadow(0 0 4px var(--accent-30))}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:var(--accent);line-height:1}
+.ring-center small{font-size:.5rem;color:var(--fg-muted);font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
 .readiness-breakdown{flex:1}
 .readiness-breakdown h4{font-size:.82rem;font-weight:600;margin-bottom:6px}
-.readiness-breakdown p{font-size:.75rem;color:var(--gray-light);line-height:1.5}
+.readiness-breakdown p{font-size:.75rem;color:var(--fg-muted);line-height:1.5}
 .readiness-verdict{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-top:8px;display:inline-block}
 
 /* ── PRIORITERING MATRIX ── */
 .prio-matrix{display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:6px;height:340px;margin-bottom:12px}
-.prio-y{grid-row:1;grid-column:1;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
-.prio-x{grid-row:2;grid-column:2;text-align:center;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+.prio-y{grid-row:1;grid-column:1;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle)}
+.prio-x{grid-row:2;grid-column:2;text-align:center;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle)}
 .prio-grid{grid-row:1;grid-column:2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px}
 .pq{border-radius:4px;padding:10px;position:relative;overflow:hidden;min-height:0}
 .pq-tl{background:var(--green-08);border:1px solid var(--green-15);border-radius:6px 0 0 0}
-.pq-tr{background:var(--cyan-04);border:1px solid var(--cyan-15);border-radius:0 6px 0 0}
+.pq-tr{background:var(--accent-04);border:1px solid var(--accent-15);border-radius:0 6px 0 0}
 .pq-bl{background:var(--amber-08);border:1px solid var(--amber-15);border-radius:0 0 0 6px}
-.pq-br{background:var(--white-05);border:1px solid var(--white-10);border-radius:0 0 6px 0}
+.pq-br{background:var(--border);border:1px solid var(--border-strong);border-radius:0 0 6px 0}
 .pq-label{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
 .pq-tl .pq-label{color:var(--green)}
-.pq-tr .pq-label{color:var(--cyan)}
+.pq-tr .pq-label{color:var(--accent)}
 .pq-bl .pq-label{color:var(--amber)}
-.pq-br .pq-label{color:var(--gray)}
+.pq-br .pq-label{color:var(--fg-subtle)}
 .pq-dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
 .pq-dot{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:100px;cursor:default;white-space:nowrap}
 
 /* ── OBSERVATIES ── */
 .obs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.obs-card{background:var(--white-05);border:1px solid var(--white-10);border-radius:8px;padding:14px 16px}
+.obs-card{background:var(--border);border:1px solid var(--border-strong);border-radius:8px;padding:14px 16px}
 .obs-card h4{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
 .obs-card.green h4{color:var(--green)}
 .obs-card.amber h4{color:var(--amber)}
@@ -195,59 +195,59 @@ textarea{min-height:72px;line-height:1.55}
 
 /* ── ACTIEPUNTEN ── */
 .actie-list{display:flex;flex-direction:column;gap:8px}
-.actie-item{display:grid;grid-template-columns:1fr 140px 130px 36px;gap:8px;align-items:center;padding:10px 12px;background:var(--white-05);border:1px solid var(--white-10);border-radius:7px}
-.actie-item input[type=text]{background:transparent;border:none;color:var(--white);font-family:inherit;font-size:.78rem;outline:none;width:100%}
+.actie-item{display:grid;grid-template-columns:1fr 140px 130px 36px;gap:8px;align-items:center;padding:10px 12px;background:var(--border);border:1px solid var(--border-strong);border-radius:7px}
+.actie-item input[type=text]{background:transparent;border:none;color:var(--fg);font-family:inherit;font-size:.78rem;outline:none;width:100%}
 .actie-item input[type=date]{padding:4px 6px;font-size:.72rem;min-width:0}
-.actie-item select{background:transparent;border:1px solid var(--white-10);border-radius:4px;color:var(--white);font-family:inherit;font-size:.72rem;padding:4px 6px;outline:none}
+.actie-item select{background:transparent;border:1px solid var(--border-strong);border-radius:4px;color:var(--fg);font-family:inherit;font-size:.72rem;padding:4px 6px;outline:none}
 .actie-header{display:grid;grid-template-columns:1fr 140px 130px 36px;gap:8px;padding:0 12px 6px}
-.actie-header span{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+.actie-header span{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle)}
 
 /* ── RADIO SELECTOR ── */
 .radio-group{display:flex;flex-wrap:wrap;gap:6px}
 .radio-option{display:none}
-.radio-option+label{padding:5px 12px;border-radius:6px;border:1px solid var(--white-10);font-size:.75rem;color:var(--gray-light);cursor:pointer;transition:.15s;font-weight:500}
-.radio-option+label:hover{border-color:var(--white-20);color:var(--white)}
-.radio-option:checked+label{background:var(--cyan-10);border-color:var(--cyan-20);color:var(--cyan);font-weight:600}
+.radio-option+label{padding:5px 12px;border-radius:6px;border:1px solid var(--border-strong);font-size:.75rem;color:var(--fg-muted);cursor:pointer;transition:.15s;font-weight:500}
+.radio-option+label:hover{border-color:var(--border-stronger);color:var(--fg)}
+.radio-option:checked+label{background:var(--accent-10);border-color:var(--accent-20);color:var(--accent);font-weight:600}
 
 /* ── DIVIDER ── */
-.divider{height:1px;background:var(--white-05);margin:20px 0}
+.divider{height:1px;background:var(--border);margin:20px 0}
 
 /* ── PRINT ── */
 @media print{
-  body{background:var(--white);color:var(--dark);font-size:11px;display:block}
+  body{background:var(--sa-white);color:var(--sa-dark);font-size:11px;display:block}
   .sidenav{display:none}
   .main{width:100%}
-  .doc-cover{background:var(--white);border-bottom:2px solid var(--gray-light);padding:32px}
+  .doc-cover{background:var(--sa-white);border-bottom:2px solid var(--sa-gray-light);padding:32px}
   .doc-cover::before{display:none}
-  .doc-cover h1{color:var(--dark);font-size:1.8rem}
-  .doc-cover h1 em{color:var(--cyan)}
-  .doc-cover .sub{color:var(--gray)}
-  .doc-section{padding:24px 32px;border-bottom:1px solid var(--gray-light)}
-  input,textarea,select{background:var(--white)!important;border:1px solid var(--gray-light)!important;color:var(--dark)!important}
+  .doc-cover h1{color:var(--sa-dark);font-size:1.8rem}
+  .doc-cover h1 em{color:var(--accent)}
+  .doc-cover .sub{color:var(--sa-gray)}
+  .doc-section{padding:24px 32px;border-bottom:1px solid var(--sa-gray-light)}
+  input,textarea,select{background:var(--sa-white)!important;border:1px solid var(--sa-gray-light)!important;color:var(--sa-dark)!important}
   .domein-body{display:block!important}
-  .domein-card{border:1px solid var(--gray-light);background:var(--white)}
-  .domein-card-header{background:var(--white);border-bottom:1px solid var(--gray-light)}
-  .domein-card-header h3{color:var(--dark)}
-  .score-dot{border-color:var(--gray-light);background:var(--white);color:var(--gray)}
+  .domein-card{border:1px solid var(--sa-gray-light);background:var(--sa-white)}
+  .domein-card-header{background:var(--sa-white);border-bottom:1px solid var(--sa-gray-light)}
+  .domein-card-header h3{color:var(--sa-dark)}
+  .score-dot{border-color:var(--sa-gray-light);background:var(--sa-white);color:var(--sa-gray)}
   .score-dot.active-1,.score-dot.active-2{background:var(--rose-08);border-color:var(--rose);color:var(--rose)}
   .score-dot.active-3{background:var(--amber-08);border-color:var(--amber);color:var(--amber)}
   .score-dot.active-4,.score-dot.active-5{background:var(--green-08);border-color:var(--green);color:var(--green)}
-  .check-item{border-color:var(--gray-light)}
+  .check-item{border-color:var(--sa-gray-light)}
   .check-item.checked{background:var(--blue-08);border-color:var(--blue-20)}
-  .obs-card,.actie-item,.uc-item,.readiness-result,.domein-card{background:var(--white);border-color:var(--gray-light)}
-  .section-num{color:var(--cyan)}
-  .section-title{color:var(--dark)}
-  .cover-badge{background:var(--blue-08);color:var(--cyan);border-color:var(--blue-20)}
+  .obs-card,.actie-item,.uc-item,.readiness-result,.domein-card{background:var(--sa-white);border-color:var(--sa-gray-light)}
+  .section-num{color:var(--accent)}
+  .section-title{color:var(--sa-dark)}
+  .cover-badge{background:var(--blue-08);color:var(--accent);border-color:var(--blue-20)}
   .pq-tl{background:var(--green-08);border-color:var(--green-20)}
-  .pq-tr{background:var(--cyan-04);border-color:var(--cyan-20)}
+  .pq-tr{background:var(--accent-04);border-color:var(--accent-20)}
   .pq-bl{background:var(--amber-08);border-color:var(--amber-20)}
-  .pq-br{background:var(--white);border-color:var(--gray-light)}
+  .pq-br{background:var(--sa-white);border-color:var(--sa-gray-light)}
   .sidenav,.nav-footer,.nav-btn{display:none!important}
-  .cover-meta-cell{background:var(--white)}
-  .readiness-breakdown h4,.obs-card h4{color:var(--dark)}
-  .ring-fill{stroke:var(--cyan)}
-  .ring-center{color:var(--cyan)}
-  textarea{background:var(--white)!important}
+  .cover-meta-cell{background:var(--sa-white)}
+  .readiness-breakdown h4,.obs-card h4{color:var(--sa-dark)}
+  .ring-fill{stroke:var(--accent)}
+  .ring-center{color:var(--accent)}
+  textarea{background:var(--sa-white)!important}
 }
 </style>
     <!-- Google tag (gtag.js) -->
@@ -266,7 +266,7 @@ textarea{min-height:72px;line-height:1.55}
 <nav class="sidenav">
   <div class="sidenav-logo">
     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--cyan)"/><stop offset="100%" style="stop-color:var(--blue)"/></linearGradient></defs>
+      <defs><linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--accent)"/><stop offset="100%" style="stop-color:var(--blue)"/></linearGradient></defs>
       <g stroke="url(#ng)" stroke-width="1.5" fill="none" opacity="0.6"><line x1="24" y1="8" x2="12" y2="20"/><line x1="24" y1="8" x2="36" y2="20"/><line x1="12" y1="20" x2="24" y2="24"/><line x1="36" y1="20" x2="24" y2="24"/><line x1="12" y1="20" x2="12" y2="32"/><line x1="36" y1="20" x2="36" y2="32"/><line x1="24" y1="24" x2="24" y2="40"/><line x1="12" y1="32" x2="24" y2="40"/><line x1="36" y1="32" x2="24" y2="40"/></g>
       <g fill="url(#ng)"><circle cx="24" cy="8" r="4"/><circle cx="12" cy="20" r="3"/><circle cx="36" cy="20" r="3"/><circle cx="24" cy="24" r="3.5"/><circle cx="12" cy="32" r="2.5"/><circle cx="36" cy="32" r="2.5"/><circle cx="24" cy="40" r="3"/></g>
     </svg>
@@ -352,7 +352,7 @@ textarea{min-height:72px;line-height:1.55}
     <p class="section-desc">Noteer alle aanwezigen aan klant- en SmartAgents-zijde. Functietitel en afdeling helpen later om de context van antwoorden te duiden.</p>
   </div>
 
-  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Klant</p>
+  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:8px">Klant</p>
   <table class="intake-table" id="tbl_deelnemers">
     <thead><tr><th style="width:25%">Naam</th><th style="width:25%">Functie</th><th style="width:20%">Afdeling</th><th style="width:25%">E-mail / Tel</th></tr></thead>
     <tbody>
@@ -367,7 +367,7 @@ textarea{min-height:72px;line-height:1.55}
 
   <div class="divider"></div>
 
-  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">SmartAgents</p>
+  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:8px">SmartAgents</p>
   <table class="intake-table" id="tbl_sa">
     <thead><tr><th style="width:30%">Naam</th><th style="width:30%">Rol in dit traject</th><th>Opmerkingen</th></tr></thead>
     <tbody>
@@ -558,7 +558,7 @@ textarea{min-height:72px;line-height:1.55}
     <p class="section-desc">Een duidelijk beeld van de technologische omgeving bepaalt wat technisch haalbaar is. Vraag ook naar API-beschikbaarheid en datakwaliteit.</p>
   </div>
 
-  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Kernsystemen</p>
+  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:8px">Kernsystemen</p>
   <table class="intake-table" id="tbl_systemen">
     <thead><tr><th style="width:20%">Categorie</th><th style="width:25%">Systeem / tool</th><th style="width:15%">Leverancier</th><th style="width:10%">Jaar</th><th style="width:15%">API beschikbaar?</th><th>Opmerkingen</th></tr></thead>
     <tbody>
@@ -612,7 +612,7 @@ textarea{min-height:72px;line-height:1.55}
 
   <div class="divider"></div>
 
-  <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Datakwaliteit & beschikbaarheid</p>
+  <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:12px">Datakwaliteit & beschikbaarheid</p>
   <div class="grid-3">
     <div class="field-group">
       <label>Historische data aanwezig?</label>
@@ -672,7 +672,7 @@ textarea{min-height:72px;line-height:1.55}
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <div class="domein-body">
-      <p style="font-size:.78rem;color:var(--gray-light);margin-bottom:16px">Onderzoek: dagelijkse werking, kernprocessen, operationele bottlenecks, handmatige stappen, communicatie tussen teams.</p>
+      <p style="font-size:.78rem;color:var(--fg-muted);margin-bottom:16px">Onderzoek: dagelijkse werking, kernprocessen, operationele bottlenecks, handmatige stappen, communicatie tussen teams.</p>
 
       <div class="domein-sub">Procesbeschrijving</div>
       <div class="field-group">
@@ -747,7 +747,7 @@ textarea{min-height:72px;line-height:1.55}
       <div class="field-group">
         <label>Prioriteit dit domein</label>
         <div class="radio-group">
-          <input type="radio" name="d1_prio" id="d1p1" class="radio-option"><label for="d1p1" style="border-color:var(--white-20);color:var(--gray-light)">Niet relevant</label>
+          <input type="radio" name="d1_prio" id="d1p1" class="radio-option"><label for="d1p1" style="border-color:var(--border-stronger);color:var(--fg-muted)">Niet relevant</label>
           <input type="radio" name="d1_prio" id="d1p2" class="radio-option"><label for="d1p2" style="border-color:var(--amber-20)">Later evalueren</label>
           <input type="radio" name="d1_prio" id="d1p3" class="radio-option"><label for="d1p3" style="border-color:var(--blue-20)">Fase 2</label>
           <input type="radio" name="d1_prio" id="d1p4" class="radio-option"><label for="d1p4" style="border-color:var(--green-20)">Quick win</label>
@@ -831,7 +831,7 @@ textarea{min-height:72px;line-height:1.55}
   <!-- DOMEIN 4 -->
   <div class="domein-card">
     <div class="domein-card-header" onclick="toggleDomein(this)">
-      <div class="domein-icon" style="background:var(--cyan-10);color:var(--cyan)">
+      <div class="domein-icon" style="background:var(--accent-10);color:var(--accent)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       </div>
       <h3>Domein 4 — Administratie & opvolging</h3>
@@ -1018,7 +1018,7 @@ textarea{min-height:72px;line-height:1.55}
 
   <div class="grid-2">
     <div>
-      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:10px">Data & technologie</p>
+      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:10px">Data & technologie</p>
       <div class="check-group">
         <label class="check-item"><input type="checkbox"><span>Historische data beschikbaar (min. 12–18 maanden)</span></label>
         <label class="check-item"><input type="checkbox"><span>Data centraal toegankelijk (geen eilanden)</span></label>
@@ -1029,7 +1029,7 @@ textarea{min-height:72px;line-height:1.55}
       </div>
     </div>
     <div>
-      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:10px">Organisatie & adoptie</p>
+      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:10px">Organisatie & adoptie</p>
       <div class="check-group">
         <label class="check-item"><input type="checkbox"><span>Interne projecteigenaar aanwezig met mandaat</span></label>
         <label class="check-item"><input type="checkbox"><span>Eindgebruikers bereid om mee te denken (co-design)</span></label>
@@ -1040,7 +1040,7 @@ textarea{min-height:72px;line-height:1.55}
       </div>
     </div>
     <div>
-      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:10px">Governance & compliance</p>
+      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:10px">Governance & compliance</p>
       <div class="check-group">
         <label class="check-item"><input type="checkbox"><span>GDPR-toetsing mogelijk voor klantgerelateerde toepassingen</span></label>
         <label class="check-item"><input type="checkbox"><span>Menselijk toezicht op AI-beslissingen acceptabel</span></label>
@@ -1050,7 +1050,7 @@ textarea{min-height:72px;line-height:1.55}
       </div>
     </div>
     <div>
-      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:10px">Budget & besluitvorming</p>
+      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:10px">Budget & besluitvorming</p>
       <div class="check-group">
         <label class="check-item"><input type="checkbox"><span>Budget geïndiceerd of begroot voor AI-initiatieven</span></label>
         <label class="check-item"><input type="checkbox"><span>Beslissingsproces duidelijk (wie tekent off?)</span></label>
@@ -1146,10 +1146,10 @@ textarea{min-height:72px;line-height:1.55}
   <div class="prio-matrix">
     <div class="prio-y">Impact</div>
     <div class="prio-grid">
-      <div class="pq pq-tl"><div class="pq-label">Strategisch</div><div class="pq-dots" id="pq_tl"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--green-15);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--gray-light);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
-      <div class="pq pq-tr"><div class="pq-label">Quick wins</div><div class="pq-dots" id="pq_tr"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--cyan-15);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--gray-light);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
-      <div class="pq pq-bl"><div class="pq-label">Later</div><div class="pq-dots" id="pq_bl"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--amber-15);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--gray-light);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
-      <div class="pq pq-br"><div class="pq-label">Plannen</div><div class="pq-dots" id="pq_br"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--white-10);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--gray-light);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
+      <div class="pq pq-tl"><div class="pq-label">Strategisch</div><div class="pq-dots" id="pq_tl"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--green-15);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--fg-muted);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
+      <div class="pq pq-tr"><div class="pq-label">Quick wins</div><div class="pq-dots" id="pq_tr"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--accent-15);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--fg-muted);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
+      <div class="pq pq-bl"><div class="pq-label">Later</div><div class="pq-dots" id="pq_bl"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--amber-15);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--fg-muted);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
+      <div class="pq pq-br"><div class="pq-label">Plannen</div><div class="pq-dots" id="pq_br"></div><textarea style="background:transparent;border:none;border-top:1px solid var(--border-strong);margin-top:6px;padding-top:6px;font-size:.7rem;color:var(--fg-muted);resize:none;min-height:40px;width:100%;outline:none" placeholder="Use cases..."></textarea></div>
     </div>
     <div class="prio-x">Technische haalbaarheid →</div>
   </div>
@@ -1231,19 +1231,19 @@ textarea{min-height:72px;line-height:1.55}
   <div class="obs-cards">
     <div class="obs-card green">
       <h4>Sterke punten & kansen</h4>
-      <textarea style="background:transparent;border:none;width:100%;color:var(--gray-light);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Wat maakt deze klant goed geschikt? Waar zit echt potentieel?"></textarea>
+      <textarea style="background:transparent;border:none;width:100%;color:var(--fg-muted);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Wat maakt deze klant goed geschikt? Waar zit echt potentieel?"></textarea>
     </div>
     <div class="obs-card amber">
       <h4>Aandachtspunten & risico's</h4>
-      <textarea style="background:transparent;border:none;width:100%;color:var(--gray-light);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Wat baart zorgen? Weerstand, onduidelijkheden, te hoge verwachtingen?"></textarea>
+      <textarea style="background:transparent;border:none;width:100%;color:var(--fg-muted);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Wat baart zorgen? Weerstand, onduidelijkheden, te hoge verwachtingen?"></textarea>
     </div>
     <div class="obs-card blue">
       <h4>Sfeer & dynamiek in het gesprek</h4>
-      <textarea style="background:transparent;border:none;width:100%;color:var(--gray-light);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Wie domineerde? Waar was spanning? Wat werd niet gezegd maar wel uitgestraald?"></textarea>
+      <textarea style="background:transparent;border:none;width:100%;color:var(--fg-muted);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Wie domineerde? Waar was spanning? Wat werd niet gezegd maar wel uitgestraald?"></textarea>
     </div>
     <div class="obs-card rose">
       <h4>Interne politieke gevoeligheden</h4>
-      <textarea style="background:transparent;border:none;width:100%;color:var(--gray-light);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Zijn er interne conflicten, verborgen agenda's of beslissingsblokkers?"></textarea>
+      <textarea style="background:transparent;border:none;width:100%;color:var(--fg-muted);font-family:inherit;font-size:.78rem;resize:none;min-height:80px;outline:none" placeholder="Zijn er interne conflicten, verborgen agenda's of beslissingsblokkers?"></textarea>
     </div>
   </div>
 
@@ -1290,7 +1290,7 @@ textarea{min-height:72px;line-height:1.55}
     <p class="section-desc">Leg alle afgesproken acties vast met eigenaar en deadline. Maak onderscheid tussen acties voor de klant, voor SmartAgents en gedeelde stappen.</p>
   </div>
 
-  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Actielijst</p>
+  <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:8px">Actielijst</p>
   <div class="actie-header">
     <span>Actie</span><span>Verantwoordelijke</span><span>Deadline</span><span></span>
   </div>
@@ -1341,12 +1341,12 @@ textarea{min-height:72px;line-height:1.55}
   </div>
 
   <!-- Footer -->
-  <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--white-10);display:flex;align-items:center;justify-content:space-between">
+  <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border-strong);display:flex;align-items:center;justify-content:space-between">
     <div style="display:flex;align-items:center;gap:8px">
-      <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--cyan)"/><stop offset="100%" style="stop-color:var(--blue)"/></linearGradient></defs><g stroke="url(#fg)" stroke-width="1.5" fill="none" opacity="0.6"><line x1="24" y1="8" x2="12" y2="20"/><line x1="24" y1="8" x2="36" y2="20"/><line x1="12" y1="20" x2="24" y2="24"/><line x1="36" y1="20" x2="24" y2="24"/><line x1="12" y1="20" x2="12" y2="32"/><line x1="36" y1="20" x2="36" y2="32"/><line x1="24" y1="24" x2="24" y2="40"/><line x1="12" y1="32" x2="24" y2="40"/><line x1="36" y1="32" x2="24" y2="40"/></g><g fill="url(#fg)"><circle cx="24" cy="8" r="4"/><circle cx="12" cy="20" r="3"/><circle cx="36" cy="20" r="3"/><circle cx="24" cy="24" r="3.5"/><circle cx="12" cy="32" r="2.5"/><circle cx="36" cy="32" r="2.5"/><circle cx="24" cy="40" r="3"/></g></svg>
-      <span style="font-size:.8rem;font-weight:700;color:var(--gray-light)">Smart<span style="color:var(--cyan)">Agents</span> · Intern werkdocument</span>
+      <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--accent)"/><stop offset="100%" style="stop-color:var(--blue)"/></linearGradient></defs><g stroke="url(#fg)" stroke-width="1.5" fill="none" opacity="0.6"><line x1="24" y1="8" x2="12" y2="20"/><line x1="24" y1="8" x2="36" y2="20"/><line x1="12" y1="20" x2="24" y2="24"/><line x1="36" y1="20" x2="24" y2="24"/><line x1="12" y1="20" x2="12" y2="32"/><line x1="36" y1="20" x2="36" y2="32"/><line x1="24" y1="24" x2="24" y2="40"/><line x1="12" y1="32" x2="24" y2="40"/><line x1="36" y1="32" x2="24" y2="40"/></g><g fill="url(#fg)"><circle cx="24" cy="8" r="4"/><circle cx="12" cy="20" r="3"/><circle cx="36" cy="20" r="3"/><circle cx="24" cy="24" r="3.5"/><circle cx="12" cy="32" r="2.5"/><circle cx="36" cy="32" r="2.5"/><circle cx="24" cy="40" r="3"/></g></svg>
+      <span style="font-size:.8rem;font-weight:700;color:var(--fg-muted)">Smart<span style="color:var(--accent)">Agents</span> · Intern werkdocument</span>
     </div>
-    <span style="font-size:.7rem;color:var(--gray)">Vertrouwelijk — niet delen met klant</span>
+    <span style="font-size:.7rem;color:var(--fg-subtle)">Vertrouwelijk — niet delen met klant</span>
   </div>
 </section>
 
@@ -1386,7 +1386,7 @@ function calcReadiness(){
   verdict.style.display='inline-block';
   let label,desc,color;
   if(pct>=80){label='Sterk — klaar om te starten';desc='De organisatie heeft een solide basis voor AI. Quick wins zijn direct haalbaar.';color='var(--green)';verdict.style.background='var(--green-10)';verdict.style.color='var(--green)';}
-  else if(pct>=60){label='Goed — enkele randvoorwaarden aandacht';desc='Goede basis aanwezig. Enkele domeinen vragen voorbereiding voor vlotte implementatie.';color='var(--cyan)';verdict.style.background='var(--cyan-10)';verdict.style.color='var(--cyan)';}
+  else if(pct>=60){label='Goed — enkele randvoorwaarden aandacht';desc='Goede basis aanwezig. Enkele domeinen vragen voorbereiding voor vlotte implementatie.';color='var(--accent)';verdict.style.background='var(--accent-10)';verdict.style.color='var(--accent)';}
   else if(pct>=40){label='Matig — eerst fundering leggen';desc='Er zijn kansen maar ook significante drempels. Prioriteer randvoorwaarden voor de echte start.';color='var(--amber)';verdict.style.background='var(--amber-10)';verdict.style.color='var(--amber)';}
   else{label='Laag — grondig voorbereidingstraject nodig';desc='De organisatie is nog niet klaar voor autonome AI-implementatie. Start met een gestructureerd voorbereidingstraject.';color='var(--rose)';verdict.style.background='var(--rose-20)';verdict.style.color='var(--rose)';}
   document.getElementById('readiness_label').textContent=label;
