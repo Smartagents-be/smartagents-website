@@ -1,3 +1,5 @@
+.env
+.dev.vars
 .worktrees/
 dist/
 node_modules/

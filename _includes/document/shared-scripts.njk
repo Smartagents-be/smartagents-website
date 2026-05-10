@@ -2,3 +2,6 @@
 {% for script in pageScripts or [] %}
 <script src="{{ script | withPathPrefix }}?v={{ assetsVersion }}"></script>
 {% endfor %}
+{% for script in pageExternalScripts or [] %}
+<script src="{{ script }}" defer></script>
+{% endfor %}

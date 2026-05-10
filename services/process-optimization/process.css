@@ -74,7 +74,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, transparent, var(--service-color-20, var(--accent-30)) 8%, var(--service-color-20, var(--accent-30)) 92%, transparent);
+    background: linear-gradient(to bottom, transparent, var(--service-color-20, var(--accent-20)) 8%, var(--service-color-20, var(--accent-20)) 92%, transparent);
     transform: translateX(-50%);
     pointer-events: none;
 }
@@ -97,7 +97,7 @@
     height: 14px;
     background: var(--service-color, var(--accent));
     border-radius: 50%;
-    box-shadow: 0 0 12px var(--service-color-20, var(--accent-40));
+    box-shadow: 0 0 12px var(--service-color-20, var(--accent-20));
     justify-self: center;
     position: relative;
     z-index: 1;
@@ -113,7 +113,7 @@
 }
 
 .process-phase-card:hover {
-    border-color: var(--service-color-20, var(--accent-30));
+    border-color: var(--service-color-20, var(--accent-20));
     background: var(--border);
 }
 
@@ -221,7 +221,7 @@
 .process-benefit-icon {
     width: 52px;
     height: 52px;
-    background: var(--service-color-08, var(--accent-10));
+    background: var(--service-color-08, var(--accent-08));
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -286,7 +286,7 @@
 .process-different-icon {
     width: 44px;
     height: 44px;
-    background: var(--service-color-08, var(--accent-10));
+    background: var(--service-color-08, var(--accent-08));
     border-radius: 12px;
     display: flex;
     align-items: center;

@@ -11,7 +11,7 @@ function rgbaString(rgbValue, alpha) {
 
 function readNumberToken(tokenName, target, fallbackValue) {
     var parsed = parseFloat(readTokenValue(tokenName, target));
-    return Number.isFinite(parsed) ? parsed : fallbackValue;
+    return (typeof parsed === 'number' && isFinite(parsed)) ? parsed : fallbackValue;
 }
 
 function buildParticlePalette(target) {

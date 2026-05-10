@@ -390,10 +390,8 @@
             <h2 class="section-title">{{ "contact.title" | t(locale) }}</h2>
             <p class="section-subtitle">{{ "contact.subtitle" | t(locale) }}</p>
 
-            <form class="contact-form" id="contact-form" action="https://formsubmit.co/info@smartagents.be" method="POST">
+            <form class="contact-form" id="contact-form" action="/api/contact" method="POST">
                 <input type="hidden" name="_subject" value="{{ 'contact.form.subject' | t(locale) }}">
-                <input type="hidden" name="_next" value="{{ ("/" | locale_url | withPathPrefix) | absoluteUrl(baseUrl) }}#contact">
-                <input type="hidden" name="_captcha" value="true">
                 <input type="text" name="_honey" style="display:none">
                 <div class="form-row">
                     <div class="form-group">
@@ -413,6 +411,7 @@
                     <label for="message">{{ "contact.form.message" | t(locale) }}</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
+                <div class="cf-turnstile" data-sitekey="{{ site.turnstileSiteKey }}"></div>
                 <button type="submit" class="btn btn-primary"
                   data-label-default="{{ 'contact.form.submit' | t(locale) }}"
                   data-label-success="{{ 'contact.form.success' | t(locale) }}"

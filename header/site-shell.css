@@ -99,7 +99,7 @@ html[data-theme="dark"] .theme-toggle-icon--moon {
     background: var(--bg-overlay);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1.5px solid var(--accent);
+    border: 2px solid var(--accent);
     border-radius: 999px;
     cursor: pointer;
     height: 42px;

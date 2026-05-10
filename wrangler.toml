@@ -1,3 +1,7 @@
 name = "smartagents-website"
 compatibility_date = "2026-03-22"
 pages_build_output_dir = "dist"
+
+[[kv_namespaces]]
+binding = "CONTACT_RATE"
+id = "94bb38df336148fd8b6adbee674b17c3"
