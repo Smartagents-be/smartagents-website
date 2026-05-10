@@ -150,6 +150,12 @@
     width: 100%;
 }
 
+.contact-form .cf-turnstile {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
 .form-group:focus-within label {
     color: var(--service-color, var(--accent));
 }
