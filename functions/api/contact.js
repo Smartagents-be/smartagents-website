@@ -1,10 +1,20 @@
 const ALLOWED_ORIGINS = ['https://smartagents.be', 'https://www.smartagents.be'];
 
+function isAllowedOrigin(origin) {
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  try {
+    const { hostname } = new URL(origin);
+    return hostname.endsWith('.smartagents-website.pages.dev');
+  } catch {
+    return false;
+  }
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
   const origin = request.headers.get('Origin') || '';
-  if (!ALLOWED_ORIGINS.includes(origin)) {
+  if (!isAllowedOrigin(origin)) {
     return jsonResponse({ error: 'Forbidden' }, 403);
   }
 
