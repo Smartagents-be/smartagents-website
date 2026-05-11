@@ -143,14 +143,13 @@ async function forwardToN8n(body, webhookUrl, sharedSecret) {
 }
 
 async function forwardToFormSubmit(body) {
-  const { name, email, subject, message, company } = body;
-  const text = company ? `${message}\n\nBedrijf: ${company}` : message;
+  const { name, email, subject, message } = body;
 
   try {
     await fetch('https://formsubmit.co/ajax/info@smartagents.be', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, email, subject, message: text, _replyto: email })
+      body: JSON.stringify({ name, email, subject, message, _replyto: email })
     });
   } catch {
     // best-effort fallback, nothing more we can do
