@@ -121,10 +121,8 @@
 
 {% macro contactCtaForm(subjectContext='') %}
 {% set subjectSuffix = (' — ' ~ subjectContext) if subjectContext else '' %}
-<form class="contact-form cta-contact-form" action="https://formsubmit.co/info@smartagents.be" method="POST">
+<form class="contact-form cta-contact-form" action="/api/contact" method="POST">
     <input type="hidden" name="_subject" value="{{ ('contact.form.subject' | t(locale)) ~ subjectSuffix }}">
-    <input type="hidden" name="_next" value="{{ page.url | absoluteUrl(baseUrl) }}">
-    <input type="hidden" name="_captcha" value="true">
     <input type="text" name="_honey" style="display:none">
     {% if subjectContext %}
     <input type="hidden" name="page_context" value="{{ subjectContext }}">
@@ -147,6 +145,7 @@
         <label for="cta-message">{{ "contact.form.message" | t(locale) }}</label>
         <textarea id="cta-message" name="message" rows="4" required></textarea>
     </div>
+    <div class="cf-turnstile" data-sitekey="{{ site.turnstileSiteKey }}"></div>
     <button type="submit" class="btn btn-primary"
       data-label-default="{{ 'contact.form.submit' | t(locale) }}"
       data-label-success="{{ 'contact.form.success' | t(locale) }}"

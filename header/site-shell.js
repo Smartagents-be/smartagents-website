@@ -45,7 +45,10 @@
         const isLight = theme === 'light';
         document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
             button.setAttribute('aria-checked', String(isLight));
-            button.setAttribute('aria-label', isLight ? button.dataset.labelDark : button.dataset.labelLight);
+            const label = isLight ? button.dataset.labelDark : button.dataset.labelLight;
+            if (label) {
+                button.setAttribute('aria-label', label);
+            }
         });
     }
 

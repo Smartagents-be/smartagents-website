@@ -25,5 +25,8 @@ module.exports = {
     '/shared/js/effects/scroll-reveal.js',
     '/shared/js/effects/canvas-effects.js',
     '/home/services-split.js'
+  ],
+  pageExternalScripts: [
+    'https://challenges.cloudflare.com/turnstile/v0/api.js'
   ]
 };

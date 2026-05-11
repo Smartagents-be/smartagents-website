@@ -421,6 +421,7 @@
 .logo-tagline {
     font-size: 0.55rem;
     font-weight: 400;
+    color: var(--fg-soft-strong);
     -webkit-text-fill-color: var(--fg-soft-strong);
     letter-spacing: 0.5px;
 }

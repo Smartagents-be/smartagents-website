@@ -22,7 +22,7 @@
 .training-node {
     width: 100%;
     background: var(--border);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: 16px;
     padding: 24px 28px;
 }
@@ -178,7 +178,7 @@
 .training-node-prereq-inline {
     margin-left: auto;
     font-size: 0.65rem;
-    color: var(--border-stronger);
+    color: var(--fg-soft);
     letter-spacing: 0.04em;
 }
 
@@ -501,7 +501,7 @@
     .tmc-card {
         border-radius: 14px;
         padding: 16px 18px;
-        border: 1px solid var(--border);
+        border: 1px solid var(--border-strong);
         background: var(--border);
         display: flex;
         gap: 14px;
