@@ -54,16 +54,6 @@
             // n8n's classifier expects a `subject` — pull from the hidden _subject field.
             payload.subject = formData.get('_subject') || payload.subject || '';
 
-            // Fold optional metadata (company / intent / page_context) into the message
-            // so the LLM has full context for classification and reply.
-            const extras = [];
-            if (payload.company) extras.push(`Bedrijf: ${payload.company}`);
-            if (payload.intent) extras.push(`Intentie: ${payload.intent}`);
-            if (payload.page_context) extras.push(`Context: ${payload.page_context}`);
-            if (extras.length) {
-                payload.message = `${payload.message || ''}\n\n— ${extras.join(' · ')}`;
-            }
-
             button.disabled = true;
             button.textContent = '...';
 
