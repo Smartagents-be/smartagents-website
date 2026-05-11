@@ -22,8 +22,10 @@
           "value": "YOUR_CHANNEL_NAME",
           "mode": "name"
         },
-        "text": "=:rotating_light: *{{ $json.workflow.name }}* failed\n\n*Error:* {{ $json.error.message }}\n\n<{{ $json.execution.url }}|View execution>",
-        "otherOptions": {}
+        "text": "=:rotating_light: *{{ $json.workflow.name }}* failed\n\n*Error:* {{ $json.execution.error.message }}\n\n<{{ $json.execution.url }}|View execution>",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
       },
       "credentials": {
         "slackApi": {
