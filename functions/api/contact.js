@@ -50,7 +50,10 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: validationError }, 400);
   }
 
-  context.waitUntil(forwardToN8n(body, env.N8N_WEBHOOK_URL, env.N8N_SHARED_SECRET));
+  context.waitUntil(
+    forwardToN8n(body, env.N8N_WEBHOOK_URL, env.N8N_SHARED_SECRET)
+      .then(ok => { if (!ok) return forwardToFormSubmit(body); })
+  );
 
   return jsonResponse({ ok: true }, 200);
 }
@@ -136,6 +139,21 @@ async function forwardToN8n(body, webhookUrl, sharedSecret) {
     return res.ok;
   } catch {
     return false;
+  }
+}
+
+async function forwardToFormSubmit(body) {
+  const { name, email, subject, message, company } = body;
+  const text = company ? `${message}\n\nBedrijf: ${company}` : message;
+
+  try {
+    await fetch('https://formsubmit.co/ajax/info@smartagents.be', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, subject, message: text, _replyto: email })
+    });
+  } catch {
+    // best-effort fallback, nothing more we can do
   }
 }
 
