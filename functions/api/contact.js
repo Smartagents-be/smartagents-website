@@ -148,7 +148,11 @@ async function forwardToFormSubmit(body) {
   try {
     await fetch('https://formsubmit.co/ajax/info@smartagents.be', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Referer': 'https://smartagents.be'
+      },
       body: JSON.stringify({ name, email, subject, message, _replyto: email })
     });
   } catch {
