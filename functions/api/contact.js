@@ -50,10 +50,7 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: validationError }, 400);
   }
 
-  const forwarded = await forwardToN8n(body, env.N8N_WEBHOOK_URL, env.N8N_SHARED_SECRET);
-  if (!forwarded) {
-    return jsonResponse({ error: 'Upstream error' }, 502);
-  }
+  context.waitUntil(forwardToN8n(body, env.N8N_WEBHOOK_URL, env.N8N_SHARED_SECRET));
 
   return jsonResponse({ ok: true }, 200);
 }
