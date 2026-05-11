@@ -7,3 +7,4 @@ node_modules/
 .wrangler/
 .idea
 docs/superpowers/
+n8n/
