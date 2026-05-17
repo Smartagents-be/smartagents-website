@@ -145,7 +145,7 @@
         <label for="cta-message">{{ "contact.form.message" | t(locale) }}</label>
         <textarea id="cta-message" name="message" rows="4" required></textarea>
     </div>
-    <div class="cf-turnstile" data-sitekey="{{ site.turnstileSiteKey }}"></div>
+    <div class="cf-turnstile" data-sitekey="{{ site.turnstileSiteKey }}" data-appearance="interaction-only" data-size="flexible"></div>
     <button type="submit" class="btn btn-primary"
       data-label-default="{{ 'contact.form.submit' | t(locale) }}"
       data-label-success="{{ 'contact.form.success' | t(locale) }}"
