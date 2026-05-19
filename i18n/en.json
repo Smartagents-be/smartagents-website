@@ -33,6 +33,12 @@
   "services.training.title": "Training",
   "services.training.desc": "We help your people use AI in a smart and practical way in their daily work, regardless of their prior knowledge or experience level. Through focused workshops and training, we strengthen knowledge, confidence, and adoption across your organization.",
   "services.smartscan.title": "Smart Scan",
+
+  "home.smartspace.label": "New · Beta",
+  "home.smartspace.title": "SmartSpace",
+  "home.smartspace.pitch": "The central platform for your SME. Pluggable modules for email, invoices, quotes, tenders, calculations and more — all in one place.",
+  "home.smartspace.cta": "Discover SmartSpace",
+
   "approach.title": "Our approach",
   "approach.subtitle": "From idea to results in 5 steps",
   "approach.step1.title": "Smart Scan",

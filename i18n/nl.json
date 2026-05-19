@@ -33,6 +33,12 @@
   "services.training.title": "Training",
   "services.training.desc": "We helpen uw mensen AI slim en praktisch inzetten in hun dagelijkse werking, ongeacht hun voorkennis of ervaringsniveau. Met gerichte workshops en opleidingen versterken we kennis, vertrouwen en adoptie binnen uw organisatie.",
   "services.smartscan.title": "Smart Scan",
+
+  "home.smartspace.label": "Nieuw · Beta",
+  "home.smartspace.title": "SmartSpace",
+  "home.smartspace.pitch": "Het centrale platform voor uw KMO. Pluggable modules voor email, facturen, offertes, aanbestedingen, calculaties en meer — alles op één plek.",
+  "home.smartspace.cta": "Ontdek SmartSpace",
+
   "approach.title": "Ons plan van aanpak",
   "approach.subtitle": "Van idee tot resultaat in 5 stappen",
   "approach.step1.title": "Smart Scan",
