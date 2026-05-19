@@ -754,6 +754,11 @@
   "products.smartspace.overview.title": "Eén centraal platform",
   "products.smartspace.overview.text": "SmartSpace fungeert als centrale werkruimte voor uw bedrijf. Geen versnipperde tools meer: e-mails, facturen, offertes, aanbestedingen en calculaties komen samen op één platform — gevoed door uw bedrijfsdata en aangedreven door AI-modules die specifiek voor uw KMO werken. Pluggable: u kiest welke modules u activeert en wanneer. Klein beginnen, gericht uitbreiden.",
 
+  "products.smartspace.demo.title": "Zie SmartSpace in actie",
+  "products.smartspace.demo.subtitle": "Een korte rondleiding door het platform en de eerste modules.",
+  "products.smartspace.demo.aria": "Demo-video van het SmartSpace-platform",
+  "products.smartspace.demo.fallback": "Je browser ondersteunt geen ingebedde video. Neem contact op om de demo persoonlijk te bekijken.",
+
   "products.smartspace.modules.title": "Modules",
   "products.smartspace.modules.subtitle": "Onze huidige modules — en wat er nog aankomt.",
 

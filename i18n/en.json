@@ -754,6 +754,11 @@
   "products.smartspace.overview.title": "One central platform",
   "products.smartspace.overview.text": "SmartSpace acts as the central workspace for your business. No more fragmented tools: emails, invoices, quotes, tenders and calculations come together on one platform — fed by your business data and powered by AI modules built specifically for SMEs. Pluggable: you choose which modules to activate and when. Start small, expand deliberately.",
 
+  "products.smartspace.demo.title": "See SmartSpace in action",
+  "products.smartspace.demo.subtitle": "A short walkthrough of the platform and the first modules.",
+  "products.smartspace.demo.aria": "Demo video of the SmartSpace platform",
+  "products.smartspace.demo.fallback": "Your browser doesn't support embedded video. Get in touch to see the demo in person.",
+
   "products.smartspace.modules.title": "Modules",
   "products.smartspace.modules.subtitle": "Our current modules — and what's next.",
 
