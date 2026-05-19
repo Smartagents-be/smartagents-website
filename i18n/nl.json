@@ -4,6 +4,7 @@
   "page.404.text": "De pagina die u zoekt bestaat niet of is verplaatst.",
   "page.404.button": "Terug naar home",
   "nav.services": "Diensten",
+  "nav.products": "Producten",
   "nav.about": "Over ons",
   "nav.tagline": "Digitale collega's die nooit slapen",
   "nav.approach": "Onze aanpak",
@@ -740,5 +741,52 @@
   "services.process.page.diff3.label": "Continu verbeteren",
   "services.process.page.diff3.tagline": "Geen eenmalig project, maar een doorlopend proces",
   "services.process.page.diff4.label": "Sector-specifiek",
-  "services.process.page.diff4.tagline": "Diepgaande kennis van uw branche"
+  "services.process.page.diff4.tagline": "Diepgaande kennis van uw branche",
+
+  "products.smartspace.title": "SmartSpace",
+  "products.smartspace.beta.label": "Beta",
+  "products.smartspace.hero.subtitle": "Het centrale platform voor uw KMO — pluggable modules voor email, facturen, offertes, aanbestedingen en meer. Eén plek, uw data, AI-gedreven.",
+  "products.smartspace.hero.cta.primary": "Demo aanvragen",
+  "products.smartspace.hero.cta.secondary": "Bekijk de modules",
+
+  "products.smartspace.overview.title": "Eén centraal platform",
+  "products.smartspace.overview.text": "SmartSpace fungeert als centrale werkruimte voor uw bedrijf. Geen versnipperde tools meer: e-mails, facturen, offertes, aanbestedingen en calculaties komen samen op één platform — gevoed door uw bedrijfsdata en aangedreven door AI-modules die specifiek voor uw KMO werken. Pluggable: u kiest welke modules u activeert en wanneer. Klein beginnen, gericht uitbreiden.",
+
+  "products.smartspace.modules.title": "Modules",
+  "products.smartspace.modules.subtitle": "Onze huidige modules — en wat er nog aankomt.",
+
+  "products.smartspace.module.email.kicker": "MODULE 01",
+  "products.smartspace.module.email.title": "Email",
+  "products.smartspace.module.email.desc": "Automatische categorisatie, prioritering en behandeling van inkomende mails. Slimme drafts, doorzoekbare context, geen verloren follow-ups.",
+
+  "products.smartspace.module.invoices.kicker": "MODULE 02",
+  "products.smartspace.module.invoices.title": "Facturen",
+  "products.smartspace.module.invoices.desc": "Volg openstaande facturen automatisch op. Detectie, herinneringen, escalaties en betalingsstatus op één overzicht.",
+
+  "products.smartspace.module.quotes.kicker": "MODULE 03",
+  "products.smartspace.module.quotes.title": "Offertes & templates",
+  "products.smartspace.module.quotes.desc": "Genereer offertes, presentaties en bedrijfsdocumenten op basis van templates en uw eigen data. Consistent, snel, on-brand.",
+
+  "products.smartspace.module.tenders.kicker": "MODULE 04",
+  "products.smartspace.module.tenders.title": "Aanbestedingen",
+  "products.smartspace.module.tenders.desc": "Analyseer aanbestedingsdossiers efficiënter en bouw onderbouwde indieningen — van kwalificatie tot definitieve submissie.",
+
+  "products.smartspace.module.calculations.kicker": "MODULE 05",
+  "products.smartspace.module.calculations.title": "Calculaties",
+  "products.smartspace.module.calculations.desc": "Snelle, accurate calculaties op maat van uw business — herbruikbare regels, transparante berekeningen, exporteerbaar.",
+
+  "products.smartspace.module.more.kicker": "MODULE 06",
+  "products.smartspace.module.more.title": "Meer komt eraan",
+  "products.smartspace.module.more.desc": "Nieuwe modules in ontwikkeling. Een specifieke nood? Laat het ons weten — pilot-klanten sturen mee.",
+
+  "products.smartspace.benefits.title": "Waarom SmartSpace?",
+  "products.smartspace.benefit1.title": "Eén centrale plek",
+  "products.smartspace.benefit1.desc": "Geen versnipperde tools meer. Modules werken samen op één bron van waarheid.",
+  "products.smartspace.benefit2.title": "Pluggable & schaalbaar",
+  "products.smartspace.benefit2.desc": "Start klein, voeg modules toe wanneer u ze nodig hebt. Geen alles-of-niets.",
+  "products.smartspace.benefit3.title": "Op uw data, op uw maat",
+  "products.smartspace.benefit3.desc": "Modules draaien op uw bedrijfsdata met de juiste rechten, contexten en integraties.",
+
+  "products.smartspace.cta.title": "Word pilot-klant van SmartSpace",
+  "products.smartspace.cta.text": "We werken nu met een beperkte groep pilot-klanten. Geïnteresseerd in vroege toegang, persoonlijke onboarding en directe inspraak op nieuwe modules? Laat het ons weten."
 }
