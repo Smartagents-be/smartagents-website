@@ -1,0 +1,111 @@
+{% from "macros/service-page.njk" import serviceIcon, pageSection, roleItem, benefitCard, contactCtaSection with context %}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-icon">
+            {{ serviceIcon('smartspace') }}
+        </div>
+        <span class="smartspace-beta-pill">{{ "products.smartspace.beta.label" | t(locale) }}</span>
+        <h1>{{ "products.smartspace.title" | t(locale) }}</h1>
+        <p>{{ "products.smartspace.hero.subtitle" | t(locale) }}</p>
+        <div class="smartspace-hero-cta">
+            <a href="#contact" class="btn btn-primary">{{ "products.smartspace.hero.cta.primary" | t(locale) }}</a>
+            <a href="#modules" class="btn btn-secondary">{{ "products.smartspace.hero.cta.secondary" | t(locale) }}</a>
+        </div>
+    </div>
+</section>
+
+{% call pageSection("products.smartspace.overview.title" | t(locale)) %}
+    <p>{{ "products.smartspace.overview.text" | t(locale) }}</p>
+{% endcall %}
+
+<section id="modules" class="page-section page-section-alt">
+    <div class="container">
+        <h2 class="section-title">{{ "products.smartspace.modules.title" | t(locale) }}</h2>
+        <p class="section-subtitle">{{ "products.smartspace.modules.subtitle" | t(locale) }}</p>
+        <div class="page-role-grid">
+            {% call roleItem("products.smartspace.module.email.title" | t(locale), "products.smartspace.module.email.desc" | t(locale), "products.smartspace.module.email.kicker" | t(locale)) %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <polyline points="3 7 12 13 21 7"/>
+            </svg>
+            {% endcall %}
+            {% call roleItem("products.smartspace.module.invoices.title" | t(locale), "products.smartspace.module.invoices.desc" | t(locale), "products.smartspace.module.invoices.kicker" | t(locale)) %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="13" y2="17"/>
+            </svg>
+            {% endcall %}
+            {% call roleItem("products.smartspace.module.quotes.title" | t(locale), "products.smartspace.module.quotes.desc" | t(locale), "products.smartspace.module.quotes.kicker" | t(locale)) %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
+            {% endcall %}
+            {% call roleItem("products.smartspace.module.tenders.title" | t(locale), "products.smartspace.module.tenders.desc" | t(locale), "products.smartspace.module.tenders.kicker" | t(locale)) %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11l3 3L22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+            {% endcall %}
+            {% call roleItem("products.smartspace.module.calculations.title" | t(locale), "products.smartspace.module.calculations.desc" | t(locale), "products.smartspace.module.calculations.kicker" | t(locale)) %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <line x1="8" y1="6" x2="16" y2="6"/>
+                <line x1="8" y1="10" x2="10" y2="10"/>
+                <line x1="12" y1="10" x2="14" y2="10"/>
+                <line x1="16" y1="10" x2="16" y2="10"/>
+                <line x1="8" y1="14" x2="10" y2="14"/>
+                <line x1="12" y1="14" x2="14" y2="14"/>
+                <line x1="16" y1="14" x2="16" y2="14"/>
+                <line x1="8" y1="18" x2="14" y2="18"/>
+            </svg>
+            {% endcall %}
+            <div class="page-role-item is-coming">
+                <div class="page-role-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="16"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="page-role-item-kicker">{{ "products.smartspace.module.more.kicker" | t(locale) }}</span>
+                    <h3>{{ "products.smartspace.module.more.title" | t(locale) }}</h3>
+                    <p>{{ "products.smartspace.module.more.desc" | t(locale) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% call pageSection("products.smartspace.benefits.title" | t(locale), "page-section", "page-benefits-grid") %}
+    {% call benefitCard("products.smartspace.benefit1.title" | t(locale), "products.smartspace.benefit1.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="3"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("products.smartspace.benefit2.title" | t(locale), "products.smartspace.benefit2.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"/>
+        <rect x="14" y="3" width="7" height="7"/>
+        <rect x="3" y="14" width="7" height="7"/>
+        <path d="M14 17.5h7M17.5 14v7"/>
+    </svg>
+    {% endcall %}
+    {% call benefitCard("products.smartspace.benefit3.title" | t(locale), "products.smartspace.benefit3.desc" | t(locale)) %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+        <path d="M3 5v6a9 3 0 0 0 18 0V5"/>
+        <path d="M3 11v6a9 3 0 0 0 18 0v-6"/>
+    </svg>
+    {% endcall %}
+{% endcall %}
+
+<section id="contact">
+    {{ contactCtaSection("products.smartspace.cta.title" | t(locale), "products.smartspace.cta.text" | t(locale), "SmartSpace pilot") }}
+</section>

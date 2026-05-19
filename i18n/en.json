@@ -450,6 +450,8 @@
   "page.customerzone.description": "Log in to the SmartAgents customer zone to manage projects, track progress, and access your dashboard.",
   "page.smartscan.title": "Smart Scan | SmartAgents",
   "page.smartscan.description": "Discover where AI can have the most impact. Smart Scan maps your processes and bottlenecks clearly.",
+  "page.smartspace.title": "SmartSpace | SmartAgents",
+  "page.smartspace.description": "The central platform for your SME — pluggable modules for email, invoices, quotes, tenders and more. One place, your data, AI-powered.",
   "services.smartscan.page.subtitle": "We map out where AI can realistically make a difference in your organization today — no hype, no vague promises.",
   "services.smartscan.page.overview.title": "What is a Smart Scan?",
   "services.smartscan.page.overview.text1": "AI offers enormous opportunities, but not every application fits every organization. A Smart Scan gives you a clear and realistic picture of where AI can already create value today — tailored to your context, priorities, and ambitions.",

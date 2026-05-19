@@ -1,0 +1,32 @@
+/* ===========================
+   SmartSpace Product Page
+   =========================== */
+
+/* Beta pill */
+.smartspace-beta-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--service-color-15, rgba(139, 92, 246, 0.15));
+    color: var(--service-color, #8b5cf6);
+    margin-bottom: 16px;
+}
+
+/* Hero CTA row */
+.smartspace-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+/* Coming-soon module card */
+.page-role-item.is-coming {
+    opacity: 0.6;
+    border-style: dashed;
+}

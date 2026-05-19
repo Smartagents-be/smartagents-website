@@ -450,6 +450,8 @@
   "page.customerzone.description": "Log in op de SmartAgents klantenzone en beheer uw AI-projecten, bekijk voortgang en krijg toegang tot uw persoonlijk dashboard en rapportages.",
   "page.smartscan.title": "Smart Scan | SmartAgents",
   "page.smartscan.description": "Ontdek waar AI de meeste impact heeft. Smart Scan brengt processen en knelpunten concreet in kaart.",
+  "page.smartspace.title": "SmartSpace | SmartAgents",
+  "page.smartspace.description": "Het centrale platform voor uw KMO — pluggable modules voor email, facturen, offertes, aanbestedingen en meer. Eén plek, uw data, AI-gedreven.",
   "services.smartscan.page.subtitle": "Wij brengen in kaart waar AI vandaag realistisch het verschil maakt in uw organisatie — zonder hype, zonder vage beloftes.",
   "services.smartscan.page.overview.title": "Wat is een Smart Scan?",
   "services.smartscan.page.overview.text1": "AI biedt enorme mogelijkheden, maar niet elke toepassing past bij elke organisatie. Een Smart Scan geeft u een helder en realistisch beeld van waar AI vandaag al waarde kan opleveren — afgestemd op uw context, prioriteiten en ambities.",
