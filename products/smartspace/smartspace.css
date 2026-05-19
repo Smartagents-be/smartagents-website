@@ -30,3 +30,21 @@
     opacity: 0.6;
     border-style: dashed;
 }
+
+/* MODULE 01..06 kickers — monospace + accent, scoped to this page */
+body[data-service="smartspace"] .page-role-item-kicker {
+    display: inline-block;
+    margin-bottom: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--service-color, var(--accent));
+    text-transform: uppercase;
+}
+
+/* Coming-soon module card — icon also gets the dashed treatment */
+body[data-service="smartspace"] .page-role-item.is-coming .page-role-icon {
+    background: transparent;
+    border-style: dashed;
+}
