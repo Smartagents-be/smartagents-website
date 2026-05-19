@@ -26,7 +26,7 @@
 }
 
 /* Coming-soon module card */
-.page-role-item.is-coming {
+body[data-service="smartspace"] .page-role-item.is-coming {
     opacity: 0.6;
     border-style: dashed;
 }
