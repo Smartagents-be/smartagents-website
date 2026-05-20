@@ -113,3 +113,60 @@ body[data-service="smartspace"] .page-role-item.is-coming:hover {
     height: auto;
     background: #000;
 }
+
+/* FAQ section */
+.smartspace-faq {
+    max-width: 760px;
+    margin: 32px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.smartspace-faq-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-elevated, var(--bg));
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.smartspace-faq-item[open] {
+    border-color: var(--service-color, var(--accent));
+    box-shadow: 0 6px 24px var(--service-color-15, var(--accent-15));
+}
+
+.smartspace-faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 20px;
+    font-weight: 600;
+    color: var(--fg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.smartspace-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.smartspace-faq-item summary::after {
+    content: "+";
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--service-color, var(--accent));
+    transition: transform 0.18s ease;
+    line-height: 1;
+}
+
+.smartspace-faq-item[open] summary::after {
+    content: "−";
+}
+
+.smartspace-faq-item p {
+    margin: 0;
+    padding: 0 20px 18px;
+    color: var(--fg-muted);
+    line-height: 1.6;
+}

@@ -805,6 +805,18 @@
   "products.smartspace.benefit3.title": "Op uw data, op uw maat",
   "products.smartspace.benefit3.desc": "Modules draaien op uw bedrijfsdata met de juiste rechten, contexten en integraties.",
 
+  "products.smartspace.faq.title": "Veelgestelde vragen",
+  "products.smartspace.faq.q1.question": "Wat is SmartSpace precies?",
+  "products.smartspace.faq.q1.answer": "SmartSpace is een centraal platform voor KMO's, gebouwd door SmartAgents. Het bundelt AI-gedreven modules op uw bedrijfsdata: email-behandeling, opvolging van openstaande facturen, offertes en bedrijfsdocumenten, analyse en indiening van aanbestedingen, calculaties en meer. U activeert per module wat u nodig hebt.",
+  "products.smartspace.faq.q2.question": "Voor welke bedrijven is SmartSpace bedoeld?",
+  "products.smartspace.faq.q2.answer": "Voor Belgische en Europese KMO's die hun terugkerende administratieve en commerciële processen willen automatiseren zonder dat ze hiervoor zelf een AI-team moeten opbouwen. Vooral interessant voor bedrijven die werken met veel email, offertes, facturen of aanbestedingen.",
+  "products.smartspace.faq.q3.question": "Welke modules zijn er beschikbaar?",
+  "products.smartspace.faq.q3.answer": "Vijf actieve modules: Email (categorisatie en behandeling), Facturen (opvolging van openstaande facturen), Offertes & templates (genereren van offertes en bedrijfsdocumenten), Aanbestedingen (analyse en indiening) en Calculaties (snelle, accurate berekeningen op maat). Nieuwe modules komen er in samenspraak met pilot-klanten bij.",
+  "products.smartspace.faq.q4.question": "Hoe gaat SmartSpace om met onze bedrijfsdata?",
+  "products.smartspace.faq.q4.answer": "Modules werken op uw eigen bedrijfsdata met de juiste rechten en context per gebruiker. We bouwen integraties op maat met uw bestaande systemen (email, ERP, document management). Geen verspreide tools meer — alles draait op één bron van waarheid die u zelf controleert.",
+  "products.smartspace.faq.q5.question": "Hoe kan ik SmartSpace uitproberen?",
+  "products.smartspace.faq.q5.answer": "SmartSpace is momenteel in beta met een beperkte groep pilot-klanten. Pilot-klanten krijgen vroege toegang, persoonlijke onboarding en directe inspraak op de roadmap. Vul het formulier onderaan in of mail naar info@smartagents.be om uw interesse te laten weten.",
+
   "products.smartspace.cta.title": "Word pilot-klant van SmartSpace",
   "products.smartspace.cta.text": "We werken nu met een beperkte groep pilot-klanten. Geïnteresseerd in vroege toegang, persoonlijke onboarding en directe inspraak op nieuwe modules? Laat het ons weten."
 }

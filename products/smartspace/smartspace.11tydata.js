@@ -5,6 +5,6 @@ module.exports = buildServicePageData({
   pageKey: 'smartspace',
   serviceNameKey: 'products.smartspace.title',
   shellContext: 'products',
-  bodyDataService: 'smartspace',
+  schemaType: 'product',
   pageStyles: ['/products/smartspace/smartspace.css']
 });
