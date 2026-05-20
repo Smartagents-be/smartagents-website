@@ -11,8 +11,8 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: var(--service-color-15, rgba(139, 92, 246, 0.15));
-    color: var(--service-color, #8b5cf6);
+    background: var(--service-color-15);
+    color: var(--service-color);
     margin-bottom: 16px;
 }
 
@@ -25,10 +25,65 @@
     margin-top: 32px;
 }
 
-/* Coming-soon module card */
-body[data-service="smartspace"] .page-role-item.is-coming {
-    opacity: 0.6;
-    border-style: dashed;
+/* Hero "Bekijk de modules" secondary button — border matches the
+   violet "Demo aanvragen" primary, not the site cyan default. */
+body[data-service="smartspace"] .smartspace-hero-cta .btn-secondary {
+    border-color: var(--service-color, var(--accent));
+}
+
+body[data-service="smartspace"] .smartspace-hero-cta .btn-secondary:hover {
+    border-color: var(--service-color, var(--accent));
+    color: var(--service-color, var(--accent));
+}
+
+/* Module grid — card layout overrides the shared list look on this page */
+body[data-service="smartspace"] .page-role-grid {
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    body[data-service="smartspace"] .page-role-grid {
+        gap: 20px 24px;
+    }
+}
+
+body[data-service="smartspace"] .page-role-item {
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-elevated, var(--bg));
+    align-items: flex-start;
+    gap: 18px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+body[data-service="smartspace"] .page-role-item:hover {
+    border-color: var(--service-color, var(--accent));
+    box-shadow: 0 10px 28px var(--service-color-15, var(--accent-15));
+    transform: translateY(-1px);
+}
+
+body[data-service="smartspace"] .page-role-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    margin-top: 0;
+}
+
+body[data-service="smartspace"] .page-role-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+body[data-service="smartspace"] .page-role-item h3 {
+    font-size: 1.05rem;
+    margin: 0 0 6px;
+    line-height: 1.3;
+}
+
+body[data-service="smartspace"] .page-role-item p {
+    margin: 0;
+    line-height: 1.55;
 }
 
 /* MODULE 01..06 kickers — monospace + accent, scoped to this page */
@@ -43,10 +98,13 @@ body[data-service="smartspace"] .page-role-item-kicker {
     text-transform: uppercase;
 }
 
-/* Coming-soon module card — icon also gets the dashed treatment */
-body[data-service="smartspace"] .page-role-item.is-coming .page-role-icon {
-    background: transparent;
-    border-style: dashed;
+/* "Meer komt eraan" — solid card like the others, just visually muted */
+body[data-service="smartspace"] .page-role-item.is-coming {
+    opacity: 0.72;
+}
+
+body[data-service="smartspace"] .page-role-item.is-coming:hover {
+    opacity: 1;
 }
 
 /* Demo video section */
@@ -56,13 +114,70 @@ body[data-service="smartspace"] .page-role-item.is-coming .page-role-icon {
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border);
-    background: var(--bg-elevated, #000);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+    background: var(--bg-elevated);
+    box-shadow: 0 20px 60px var(--shadow-strong);
 }
 
 .smartspace-demo-video {
     display: block;
     width: 100%;
     height: auto;
-    background: #000;
+    background: var(--sa-black);
+}
+
+/* FAQ section */
+.smartspace-faq {
+    max-width: 760px;
+    margin: 32px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.smartspace-faq-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-elevated, var(--bg));
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.smartspace-faq-item[open] {
+    border-color: var(--service-color, var(--accent));
+    box-shadow: 0 6px 24px var(--service-color-15, var(--accent-15));
+}
+
+.smartspace-faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 20px;
+    font-weight: 600;
+    color: var(--fg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.smartspace-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.smartspace-faq-item summary::after {
+    content: "+";
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--service-color, var(--accent));
+    transition: transform 0.18s ease;
+    line-height: 1;
+}
+
+.smartspace-faq-item[open] summary::after {
+    content: "−";
+}
+
+.smartspace-faq-item p {
+    margin: 0;
+    padding: 0 20px 18px;
+    color: var(--fg-muted);
+    line-height: 1.6;
 }

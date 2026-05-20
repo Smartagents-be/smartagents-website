@@ -34,7 +34,9 @@ const noindexPages = new Set([
   'en/404.html',
   'customerzone/index.html',
   'en/customerzone/index.html',
-  'secured/index.html'
+  'secured/index.html',
+  'pitch/index.html',
+  'sales-deck/index.html'
 ]);
 
 function addFailure(file, label, sample) {

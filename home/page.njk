@@ -160,6 +160,26 @@
         </div>
     </section>
 
+    <section id="intro-video" class="home-intro-video">
+        <div class="container">
+            <h2 class="section-title">{{ "home.video.title" | t(locale) }}</h2>
+            <p class="section-subtitle">{{ "home.video.subtitle" | t(locale) }}</p>
+            <div class="home-intro-video-frame">
+                <video
+                    class="home-intro-video-player"
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="auto"
+                    aria-label="{{ 'home.video.aria' | t(locale) }}">
+                    <source src="{{ '/assets/smartagents.mp4' | withPathPrefix }}" type="video/mp4">
+                    {{ "home.video.fallback" | t(locale) }}
+                </video>
+            </div>
+        </div>
+    </section>
+
     <section id="services" class="services">
         <div class="container">
             <h2 class="section-title">{{ "services.title" | t(locale) }}</h2>
