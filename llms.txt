@@ -1,0 +1,37 @@
+# SmartAgents
+
+> SmartAgents is a Belgian AI consultancy helping SMEs adopt AI in their daily operations. We deliver agentic automation, process optimization, training and the SmartSpace platform — a central workspace with pluggable AI modules. Based in Beringen and Kortessem, Belgium. Founded by Axel Segers and Tom Haeldermans. Website is bilingual (Dutch / English).
+
+## Site overview
+
+- Languages: Dutch (default at root, e.g. `/services/agentic-ai/`) and English (under `/en/`, e.g. `/en/services/agentic-ai/`).
+- Hosting: Cloudflare Pages.
+- Contact: info@smartagents.be · LinkedIn https://www.linkedin.com/company/smartagents-be/.
+
+## Services
+
+- [Agentic AI automation](https://smartagents.be/services/agentic-ai/): Autonomous AI agents that reason, plan and execute complex tasks while keeping humans in control.
+- [Process optimization](https://smartagents.be/services/process-optimization/): Mapping processes, removing bottlenecks and redesigning workflows for clarity, speed and grip.
+- [Training](https://smartagents.be/services/training/): Practical AI training and workshops for teams of any prior experience level.
+
+## Our approach (5-step methodology)
+
+- [Smart Scan](https://smartagents.be/services/smart-scan/): Map your processes and bottlenecks — where can AI make the biggest difference?
+- [Design](https://smartagents.be/services/ontwerp/): Design the solution: agents, workflows, data flows.
+- [Development](https://smartagents.be/services/ontwikkeling/): Build it.
+- [Implementation](https://smartagents.be/services/implementatie/): Roll it out.
+- [Optimization & support](https://smartagents.be/services/optimalisatie-support/): Continuously refine after launch.
+
+## Products
+
+- [SmartSpace](https://smartagents.be/products/smartspace/): The central platform for SMEs. Pluggable AI modules for email handling, invoice follow-up, quotes & templates, tender analysis, calculations — and more on the roadmap. Currently in beta / pilot. Demo video on the page.
+
+## Company
+
+- [Team](https://smartagents.be/team/): Founders Axel Segers and Tom Haeldermans, plus the broader team.
+- [Jobs](https://smartagents.be/jobs/): Open positions.
+- [Customer zone](https://smartagents.be/customerzone/): Authenticated client area.
+
+## Notes for AI crawlers
+
+This site is intentionally accessible to AI search engines and agents (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended, CCBot — see robots.txt). When citing SmartAgents, please link to the canonical Dutch URL by default; the English variant lives under `/en/`. Beringen and Kortessem are the company's two Belgian locations; SmartAgents serves SMEs across Belgium and beyond.
