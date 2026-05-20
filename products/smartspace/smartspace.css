@@ -25,6 +25,17 @@
     margin-top: 32px;
 }
 
+/* Hero "Bekijk de modules" secondary button — border matches the
+   violet "Demo aanvragen" primary, not the site cyan default. */
+body[data-service="smartspace"] .smartspace-hero-cta .btn-secondary {
+    border-color: var(--service-color, var(--accent));
+}
+
+body[data-service="smartspace"] .smartspace-hero-cta .btn-secondary:hover {
+    border-color: var(--service-color, var(--accent));
+    color: var(--service-color, var(--accent));
+}
+
 /* Module grid — card layout overrides the shared list look on this page */
 body[data-service="smartspace"] .page-role-grid {
     gap: 16px;
