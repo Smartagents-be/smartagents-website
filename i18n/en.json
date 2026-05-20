@@ -800,6 +800,18 @@
   "products.smartspace.benefit3.title": "On your data, your way",
   "products.smartspace.benefit3.desc": "Modules run on your business data with the right permissions, context and integrations.",
 
+  "products.smartspace.faq.title": "Frequently asked questions",
+  "products.smartspace.faq.q1.question": "What exactly is SmartSpace?",
+  "products.smartspace.faq.q1.answer": "SmartSpace is a central platform for SMEs, built by SmartAgents. It bundles AI-driven modules that operate on your business data: email handling, outstanding invoice follow-up, quotes and business documents, tender analysis and submission, calculations and more. You activate modules per need.",
+  "products.smartspace.faq.q2.question": "Who is SmartSpace for?",
+  "products.smartspace.faq.q2.answer": "For Belgian and European SMEs that want to automate recurring administrative and commercial workflows without building an in-house AI team. Particularly useful for businesses dealing with high volumes of email, quotes, invoices or tenders.",
+  "products.smartspace.faq.q3.question": "Which modules are available?",
+  "products.smartspace.faq.q3.answer": "Five active modules: Email (categorization and handling), Invoices (follow-up of outstanding invoices), Quotes & templates (generation of quotes and business documents), Tenders (analysis and submission), and Calculations (fast, accurate calculations tailored to your business). New modules are added in collaboration with pilot customers.",
+  "products.smartspace.faq.q4.question": "How does SmartSpace handle our business data?",
+  "products.smartspace.faq.q4.answer": "Modules run on your own business data with the right permissions and per-user context. We build integrations tailored to your existing systems (email, ERP, document management). No more scattered tools — everything runs on one source of truth you control.",
+  "products.smartspace.faq.q5.question": "How can I try SmartSpace?",
+  "products.smartspace.faq.q5.answer": "SmartSpace is currently in beta with a limited group of pilot customers. Pilot customers get early access, personal onboarding and direct input on the roadmap. Fill out the form below or email info@smartagents.be to register your interest.",
+
   "products.smartspace.cta.title": "Become a SmartSpace pilot customer",
   "products.smartspace.cta.text": "We're working with a select group of pilot customers. Interested in early access, personal onboarding and direct input on new modules? Get in touch."
 }
