@@ -1,23 +1,43 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "name": "SmartAgents",
     "url": {{ siteRootUrl | dump | safe }},
     "logo": {{ ("/assets/logo.svg" | absoluteUrl(baseUrl)) | dump | safe }},
+    "image": {{ ("/assets/social-preview.webp" | absoluteUrl(baseUrl)) | dump | safe }},
     "description": {{ 'page.index.description' | t(locale) | dump | safe }},
+    "slogan": {{ 'footer.tagline' | t(locale) | dump | safe }},
     "email": "info@smartagents.be",
     "address": [
         {
             "@type": "PostalAddress",
             "addressLocality": "Beringen",
+            "addressRegion": "Limburg",
             "addressCountry": "BE"
         },
         {
             "@type": "PostalAddress",
             "addressLocality": "Kortessem",
+            "addressRegion": "Limburg",
             "addressCountry": "BE"
         }
+    ],
+    "areaServed": [
+        { "@type": "Country", "name": "Belgium" },
+        { "@type": "AdministrativeArea", "name": "European Union" }
+    ],
+    "knowsAbout": [
+        "Agentic AI",
+        "AI agents",
+        "Large language models",
+        "Business process automation",
+        "Process optimization",
+        "AI training and workshops",
+        "AI adoption for SMEs",
+        "Retrieval-augmented generation",
+        "Workflow automation",
+        "AI implementation"
     ],
     "founder": [
         {
