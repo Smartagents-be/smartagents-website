@@ -19,7 +19,7 @@
 {%- set socialImageAlt = socialAlt[locale] -%}
 {%- set bodyClass = "index-page" if pageKey == "index" else "" -%}
 {%- set bodyDataPage = pageKey if pageKey in ["jobs", "team"] else "" -%}
-{%- set bodyDataService = "training" if courseKey is defined else (pageKey if schemaType == "service" else "") -%}
+{%- set bodyDataService = "training" if courseKey is defined else (pageKey if schemaType in ["service", "product"] else "") -%}
 {%- set bodyTrainingDetail = courseKey if courseKey is defined else "" -%}
 <!DOCTYPE html>
 <html lang="{{ locale }}">

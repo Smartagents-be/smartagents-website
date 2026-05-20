@@ -198,6 +198,45 @@ module.exports = function(eleventyConfig) {
           schemas.push(buildBreadcrumb(locale, dict, baseUrl, pageUrl, serviceName, nlPermalink, PATH_PREFIX));
       }
 
+      else if (schemaType === 'product') {
+          const productName = dict[serviceNameKey] || pageTitle;
+          const productUrl = buildAbsoluteUrl(pageUrl, baseUrl, PATH_PREFIX);
+          const featureList = [
+              dict['products.smartspace.module.email.title'],
+              dict['products.smartspace.module.invoices.title'],
+              dict['products.smartspace.module.quotes.title'],
+              dict['products.smartspace.module.tenders.title'],
+              dict['products.smartspace.module.calculations.title']
+          ].filter(Boolean);
+          schemas.push({
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              name: productName,
+              description: pageDescription,
+              applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web',
+              url: productUrl,
+              image: pageImage,
+              creator: { '@type': 'Organization', name: 'SmartAgents', url: SITE_ROOT_URL },
+              provider: { '@type': 'Organization', name: 'SmartAgents', url: SITE_ROOT_URL },
+              audience: { '@type': 'BusinessAudience', audienceType: 'Small and medium enterprises' },
+              areaServed: { '@type': 'Country', name: 'Belgium' },
+              offers: {
+                  '@type': 'Offer',
+                  availability: 'https://schema.org/PreOrder',
+                  url: productUrl + '#contact',
+                  priceCurrency: 'EUR',
+                  price: 0,
+                  priceValidUntil: new Date(Date.UTC(new Date().getUTCFullYear() + 1, 11, 31)).toISOString().slice(0, 10),
+                  description: locale === 'nl'
+                      ? 'Beta — vraag pilot-toegang aan via het contactformulier.'
+                      : 'Beta — request pilot access via the contact form.'
+              },
+              featureList: featureList.join(', ')
+          });
+          schemas.push(buildBreadcrumb(locale, dict, baseUrl, pageUrl, productName, nlPermalink, PATH_PREFIX));
+      }
+
       else if (schemaType === 'jobs') {
           const datePosted = postedDate || new Date().toISOString().slice(0, 10);
           schemas.push({
