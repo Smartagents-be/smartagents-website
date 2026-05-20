@@ -19,27 +19,6 @@
     <p>{{ "products.smartspace.overview.text" | t(locale) }}</p>
 {% endcall %}
 
-<section id="demo" class="page-section smartspace-demo">
-    <div class="container">
-        <h2 class="section-title">{{ "products.smartspace.demo.title" | t(locale) }}</h2>
-        <p class="section-subtitle">{{ "products.smartspace.demo.subtitle" | t(locale) }}</p>
-        <div class="smartspace-demo-frame">
-            <video
-                class="smartspace-demo-video"
-                controls
-                autoplay
-                loop
-                muted
-                playsinline
-                preload="auto"
-                aria-label="{{ 'products.smartspace.demo.aria' | t(locale) }}">
-                <source src="{{ '/assets/smartspace-demo.mp4' | withPathPrefix }}" type="video/mp4">
-                {{ "products.smartspace.demo.fallback" | t(locale) }}
-            </video>
-        </div>
-    </div>
-</section>
-
 <section id="modules" class="page-section page-section-alt">
     <div class="container">
         <h2 class="section-title">{{ "products.smartspace.modules.title" | t(locale) }}</h2>
