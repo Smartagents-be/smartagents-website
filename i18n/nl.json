@@ -39,6 +39,11 @@
   "home.smartspace.pitch": "Het centrale platform voor uw KMO. Pluggable modules voor email, facturen, offertes, aanbestedingen, calculaties en meer — alles op één plek.",
   "home.smartspace.cta": "Ontdek SmartSpace",
 
+  "home.video.title": "Maak kennis met SmartAgents",
+  "home.video.subtitle": "Wie we zijn, hoe we werken, en wat AI voor uw KMO concreet betekent — in een minuut.",
+  "home.video.aria": "Introductievideo over SmartAgents",
+  "home.video.fallback": "Je browser ondersteunt geen ingebedde video. Neem contact op via info@smartagents.be om kennis te maken.",
+
   "approach.title": "Ons plan van aanpak",
   "approach.subtitle": "Van idee tot resultaat in 5 stappen",
   "approach.step1.title": "Smart Scan",

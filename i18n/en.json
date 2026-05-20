@@ -39,6 +39,11 @@
   "home.smartspace.pitch": "The central platform for your SME. Pluggable modules for email, invoices, quotes, tenders, calculations and more — all in one place.",
   "home.smartspace.cta": "Discover SmartSpace",
 
+  "home.video.title": "Meet SmartAgents",
+  "home.video.subtitle": "Who we are, how we work, and what AI means for your SME in concrete terms — in one minute.",
+  "home.video.aria": "Introduction video about SmartAgents",
+  "home.video.fallback": "Your browser doesn't support embedded video. Get in touch at info@smartagents.be to meet us.",
+
   "approach.title": "Our approach",
   "approach.subtitle": "From idea to results in 5 steps",
   "approach.step1.title": "Smart Scan",
