@@ -168,8 +168,11 @@
                 <video
                     class="home-intro-video-player"
                     controls
-                    preload="metadata"
+                    autoplay
+                    loop
+                    muted
                     playsinline
+                    preload="auto"
                     aria-label="{{ 'home.video.aria' | t(locale) }}">
                     <source src="{{ '/assets/smartagents.mp4' | withPathPrefix }}" type="video/mp4">
                     {{ "home.video.fallback" | t(locale) }}
