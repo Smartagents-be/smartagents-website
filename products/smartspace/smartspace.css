@@ -2,10 +2,13 @@
    SmartSpace Product Page
    =========================== */
 
-/* Hero "Demo aanvragen" button + contact form keep the site cyan
-   accent instead of the SmartSpace violet — same look as the
-   homepage form. Modules, beta pill, MODULE kickers etc. stay violet. */
+/* Hero "Demo aanvragen" button, modules grid, "Waarom SmartSpace?"
+   benefits grid and the contact form all use the site cyan accent
+   instead of the SmartSpace violet — same look as the homepage. Only
+   the beta pill and the hub-and-spoke hero icon stay violet. */
 body[data-service="smartspace"] .smartspace-hero-cta .btn-primary,
+body[data-service="smartspace"] #modules,
+body[data-service="smartspace"] .page-benefits-grid,
 body[data-service="smartspace"] .page-cta {
     --service-color: var(--accent);
     --service-color-08: var(--accent-08);
