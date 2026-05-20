@@ -46,6 +46,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </a>
         </div>
+        <a href="{{ "/products/smartspace/" | locale_url | withPathPrefix }}" class="navbar-link {% if shell.productsActive %}active{% endif %}">{{ "nav.smartspace" | t(locale) }}</a>
         <div class="navbar-dropdown" data-nav="1">
             <a href="{{ "/" | locale_url | withPathPrefix }}#aanpak" class="navbar-link navbar-dropdown-trigger">
                 {{ "nav.approach" | t(locale) }}
@@ -146,6 +147,7 @@
 <div class="fullscreen-nav-overlay" aria-hidden="true">
     <nav>
         <a href="{{ "/customerzone/" | locale_url | withPathPrefix }}" class="overlay-nav-cta">{{ "nav.customerzone" | t(locale) }}</a>
+        <a href="{{ "/products/smartspace/" | locale_url | withPathPrefix }}">{{ "nav.smartspace" | t(locale) }}</a>
         <div class="overlay-nav-group">
             <a href="{{ "/" | locale_url | withPathPrefix }}#aanpak" class="overlay-nav-group-label">{{ "nav.approach" | t(locale) }}</a>
             <div class="overlay-nav-subnav">

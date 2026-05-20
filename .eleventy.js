@@ -126,7 +126,7 @@ module.exports = function(eleventyConfig) {
   const PATH_PREFIX = normalizePathPrefix();
   const SITE_ROOT_URL = buildAbsoluteUrl('/', SITE_BASE_URL, PATH_PREFIX);
   const BASE_DOMAIN = new URL(SITE_ROOT_URL).hostname;
-  const colocatedAssetRoots = ['404', 'customerzone', 'footer', 'header', 'home', 'jobs', 'services', 'team'];
+  const colocatedAssetRoots = ['404', 'customerzone', 'footer', 'header', 'home', 'jobs', 'products', 'services', 'team'];
 
   const fs = require('node:fs');
   const path = require('node:path');

@@ -310,6 +310,16 @@
     --service-fill-ink: var(--sa-white);
 }
 
+[data-service="smartspace"], [data-panel="smartspace"], [data-mobile-panel="smartspace"] {
+    --service-color: var(--purple-soft);
+    --service-color-20: var(--purple-soft-20);
+    --service-color-15: var(--purple-soft-15);
+    --service-color-08: var(--purple-soft-08);
+    --service-ink: var(--sa-white);
+    --service-fill: var(--purple-soft-fill);
+    --service-fill-ink: var(--sa-white);
+}
+
 /* Reset & Base */
 *, *::before, *::after {
     box-sizing: border-box;

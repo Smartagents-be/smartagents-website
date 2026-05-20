@@ -6,6 +6,7 @@ module.exports = {
     logoSrc: "/assets/logo.svg",
     showValuesLink: true,
     servicesActive: "",
+    productsActive: "",
     jobsActive: ""
   },
   services: {
@@ -15,6 +16,17 @@ module.exports = {
     logoSrc: "/assets/logo.svg",
     showValuesLink: true,
     servicesActive: "active",
+    productsActive: "",
+    jobsActive: ""
+  },
+  products: {
+    homeHref: "/",
+    jobsHref: "/jobs/",
+    customerzoneHref: "/customerzone/",
+    logoSrc: "/assets/logo.svg",
+    showValuesLink: true,
+    servicesActive: "",
+    productsActive: "active",
     jobsActive: ""
   },
   jobs: {
@@ -24,7 +36,8 @@ module.exports = {
     logoSrc: "/assets/logo.svg",
     showValuesLink: true,
     jobsActive: "active",
-    servicesActive: ""
+    servicesActive: "",
+    productsActive: ""
   },
   team: {
     homeHref: "/",
@@ -34,6 +47,7 @@ module.exports = {
     showValuesLink: true,
     jobsActive: "",
     servicesActive: "",
+    productsActive: "",
     teamActive: "active"
   }
 };
