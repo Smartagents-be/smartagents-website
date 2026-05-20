@@ -27,8 +27,11 @@
             <video
                 class="smartspace-demo-video"
                 controls
-                preload="metadata"
+                autoplay
+                loop
+                muted
                 playsinline
+                preload="auto"
                 aria-label="{{ 'products.smartspace.demo.aria' | t(locale) }}">
                 <source src="{{ '/assets/smartspace-demo.mp4' | withPathPrefix }}" type="video/mp4">
                 {{ "products.smartspace.demo.fallback" | t(locale) }}
