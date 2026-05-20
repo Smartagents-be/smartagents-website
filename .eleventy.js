@@ -116,7 +116,7 @@ function collectSecuredStaticFiles(rootDir, fs, path) {
         fs,
         path,
         (fullPath) => {
-            return fullPath.endsWith('.css') || fullPath.endsWith('.pdf');
+            return fullPath.endsWith('.css') || fullPath.endsWith('.pdf') || fullPath.endsWith('.js');
         }
     );
 }
@@ -250,6 +250,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.ignores.add("dist/**");
   eleventyConfig.ignores.add(".claude/**");
+  eleventyConfig.ignores.add("temp/**");
   eleventyConfig.ignores.add("**/page.njk");
   eleventyConfig.ignores.add("services/training/detail.njk");
   eleventyConfig.ignores.add("header/*.njk");
