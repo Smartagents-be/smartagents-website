@@ -1,11 +1,14 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const require = createRequire(import.meta.url);
 const repoRoot = path.resolve(__dirname, '..');
 const distDir = path.resolve(__dirname, '..', 'dist');
+const presentations = require('../_data/presentations.js');
 const textExtensions = new Set(['.html', '.xml', '.txt', '.css']);
 const sourceTextExtensions = new Set(['.css', '.js', '.mjs', '.njk', '.html']);
 const ignoredSourceDirs = new Set(['dist', 'node_modules', '.git']);
@@ -29,14 +32,18 @@ const regexChecks = [
 ];
 
 const failures = [];
+function permalinkToOutputPath(permalink) {
+  const normalized = permalink.trim().replace(/^\/+/, '').replace(/\/+$/, '');
+  return normalized ? `${normalized}/index.html` : 'index.html';
+}
+
 const noindexPages = new Set([
   '404.html',
   'en/404.html',
   'customerzone/index.html',
   'en/customerzone/index.html',
   'secured/index.html',
-  'pitch/index.html',
-  'sales-deck/index.html'
+  ...Object.values(presentations).map(({ permalink }) => permalinkToOutputPath(permalink))
 ]);
 
 function addFailure(file, label, sample) {

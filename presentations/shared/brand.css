@@ -1,0 +1,34 @@
+/* ──────────────────────────────────────────────────────────────────
+   SmartAgents wordmark — shared across all presentation decks.
+   Self-contained: fixed brand colours, independent of per-deck tokens.
+
+   Markup:
+     <span class="sa-brand"><img src="assets/logo.svg" alt="">Smart<span class="accent">Agents</span></span>
+   On dark slides add the on-dark modifier:
+     <span class="sa-brand on-dark">…</span>
+   ────────────────────────────────────────────────────────────────── */
+.sa-brand {
+  display: inline-flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  color: #0f172a;            /* "Smart" — deep navy */
+}
+.sa-brand img,
+.sa-brand svg {
+  width: 27px;
+  height: 27px;
+  display: block;
+  flex-shrink: 0;
+  margin-right: 10px;        /* space sits only between glyph and word */
+}
+.sa-brand .accent {
+  color: #0891b2;            /* "Agents" — cyan */
+}
+
+/* dark slides */
+.sa-brand.on-dark { color: #f8fafc; }
+.sa-brand.on-dark .accent { color: #22d3ee; }

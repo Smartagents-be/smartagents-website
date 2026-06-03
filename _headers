@@ -4,6 +4,11 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
+# Keep internal presentation decks out of all search engine indexes.
+# "noindex, follow" matches the in-page robots meta (enforced by check-dist.mjs).
+/presentations/*
+  X-Robots-Tag: noindex, follow
+
 /assets/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 

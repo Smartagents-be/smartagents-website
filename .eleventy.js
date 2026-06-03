@@ -98,7 +98,9 @@ const colocatedAssetExtensions = new Set([
     '.png',
     '.jpg',
     '.jpeg',
-    '.avif'
+    '.avif',
+    '.mp3',
+    '.mp4'
 ]);
 
 function collectColocatedAssets(rootDir, fs, path) {
@@ -126,7 +128,7 @@ module.exports = function(eleventyConfig) {
   const PATH_PREFIX = normalizePathPrefix();
   const SITE_ROOT_URL = buildAbsoluteUrl('/', SITE_BASE_URL, PATH_PREFIX);
   const BASE_DOMAIN = new URL(SITE_ROOT_URL).hostname;
-  const colocatedAssetRoots = ['404', 'customerzone', 'footer', 'header', 'home', 'jobs', 'products', 'services', 'team'];
+  const colocatedAssetRoots = ['404', 'customerzone', 'footer', 'header', 'home', 'jobs', 'presentations', 'products', 'services', 'team'];
 
   const fs = require('node:fs');
   const path = require('node:path');
@@ -292,6 +294,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add(".claude/**");
   eleventyConfig.ignores.add("temp/**");
   eleventyConfig.ignores.add("**/page.njk");
+  eleventyConfig.ignores.add("presentations/**/slides/**/*.njk");
+  eleventyConfig.ignores.add("presentations/shared/**/*.njk");
   eleventyConfig.ignores.add("services/training/detail.njk");
   eleventyConfig.ignores.add("header/*.njk");
   eleventyConfig.ignores.add("footer/*.njk");

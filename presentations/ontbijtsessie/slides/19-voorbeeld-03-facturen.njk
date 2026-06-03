@@ -1,0 +1,94 @@
+<section data-label="19 Voorbeeld 03 · Facturen">
+  <div class="slide-frame split">
+
+    <div style="flex: 0 0 760px; background: var(--bg-alt); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; gap: 26px;">
+      <!-- animated invoice pipeline: in → read + recognise → booked -->
+      <div id="fac-demo" style="display: contents;">
+
+        <!-- ① factuur binnenkomt -->
+        <div id="fac-inv" class="off-step" style="background: var(--surface); border-radius: 14px; padding: 22px 28px; display: flex; align-items: center; gap: 20px;">
+          <div style="width: 48px; height: 48px; background: rgba(8,145,178,0.10); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 24px; font-weight: 600;">Factuur komt binnen</div>
+            <div style="font-size: 24px; color: var(--ink-4); margin-top: 2px;">PDF · scan · foto · UBL</div>
+          </div>
+          <span id="fac-inv-status" style="font-size: 19px; font-weight: 600; color: var(--accent); white-space: nowrap;"></span>
+        </div>
+
+        <div class="fac-ar off-step" style="text-align: center; font-size: 28px; color: var(--ink-4);">↓</div>
+
+        <!-- ② agent leest + herkent -->
+        <div id="fac-read" class="off-step" style="background: var(--surface); border-radius: 14px; padding: 22px 28px;">
+          <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="width: 48px; height: 48px; background: rgba(8,145,178,0.10); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 24px; font-weight: 600;">Agent leest + matcht</div>
+              <div style="font-size: 24px; color: var(--ink-4); margin-top: 2px;">Velden uitlezen, matchen met inkooporder</div>
+            </div>
+            <span id="fac-read-status" style="font-size: 19px; font-weight: 600; color: var(--accent); white-space: nowrap;"></span>
+          </div>
+          <div style="margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 24px;">
+            <div class="fac-field off-step" style="background: var(--bg); padding: 8px 12px; border-radius: 6px;"><span style="color: var(--ink-4);">Leverancier</span><br/><b>De Smet bvba</b></div>
+            <div class="fac-field off-step" style="background: var(--bg); padding: 8px 12px; border-radius: 6px;"><span style="color: var(--ink-4);">Bedrag</span><br/><b>€ 1.247,80 incl.</b></div>
+            <div class="fac-field off-step" style="background: var(--bg); padding: 8px 12px; border-radius: 6px;"><span style="color: var(--ink-4);">Inkooporder</span><br/><b>PO-2026-118 ✓</b></div>
+            <div class="fac-field off-step" style="background: var(--bg); padding: 8px 12px; border-radius: 6px;"><span style="color: var(--ink-4);">Confidence</span><br/><b style="color: var(--accent);">98%</b></div>
+          </div>
+        </div>
+
+        <div class="fac-ar off-step" style="text-align: center; font-size: 28px; color: var(--ink-4);">↓</div>
+
+        <!-- ③ geboekt -->
+        <div id="fac-booked" class="off-step" style="background: var(--ink); color: var(--on-dark); border-radius: 14px; padding: 22px 28px; display: flex; align-items: center; gap: 20px;">
+          <div style="width: 48px; height: 48px; background: rgba(34,211,238,0.18); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 24px; font-weight: 600; color: var(--on-dark);">Klaargezet in ClearFacts</div>
+            <div style="font-size: 24px; color: var(--on-dark-2); margin-top: 2px;">Je boekhouder controleert en boekt</div>
+          </div>
+          <span id="fac-badge" class="off-badge" style="flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px; background: rgba(34,211,238,0.18); color: #22d3ee; border-radius: 999px; padding: 7px 14px; font-size: 18px; font-weight: 700; white-space: nowrap;">✓ Klaar</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="flex: 1; padding: var(--pad-top) var(--pad-x) var(--pad-bottom) 80px; display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: baseline; gap: 20px;">
+        <span style="font-size: 88px; font-weight: 500; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -0.03em;">03</span>
+        <span class="eyebrow">Voorbeeld</span>
+      </div>
+      <div class="bs-pills" style="margin-top: 22px;">
+        <span class="bs-pill" style="--c: #06b6d4;">LLM</span>
+        <span class="bs-pill" style="--c: #4f6cf7;">RAG</span>
+        <span class="bs-pill" style="--c: #f59e0b;">Tools</span>
+        <span class="bs-pill" style="--c: #8b5cf6;">Agents</span>
+      </div>
+      <h2 class="title" style="margin-top: 24px;">Facturen automatisch<br/>naar de boekhouding.</h2>
+      <p class="body" style="margin-top: 32px;">
+        Geen facturen meer overtypen of doorsturen. Alles staat klaar voor je boekhouder, jij houdt tijd over voor je zaak.
+      </p>
+
+      <div style="margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+        <div>
+          <div class="eyebrow" style="color: var(--ink-4);">Foutmarge</div>
+          <div style="font-size: 64px; font-weight: 600; color: var(--accent); margin-top: 8px; font-variant-numeric: tabular-nums; letter-spacing: -0.03em;">&lt; 1%</div>
+        </div>
+        <div>
+          <div class="eyebrow" style="color: var(--ink-4);">Verwerkingstijd</div>
+          <div style="font-size: 64px; font-weight: 600; color: var(--accent); margin-top: 8px; font-variant-numeric: tabular-nums; letter-spacing: -0.03em;">8 sec</div>
+          <div class="small">per factuur, voorheen ~4 min</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="chrome">
+      <div class="sa-brand"><img src="assets/logo.svg" alt="">Smart<span class="accent">Agents</span></div>
+      <div>19 / 32</div>
+    </div>
+  </div>
+</section>
