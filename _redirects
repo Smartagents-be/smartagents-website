@@ -1,0 +1,5 @@
+# De pitch-deck verhuisde naar /presentations/pitch/, maar de oude korte link
+# is al gedeeld. Browsers behouden het #slide-fragment bij een redirect,
+# dus /pitch/#1 komt netjes uit op /presentations/pitch/#1.
+/pitch /presentations/pitch/ 301
+/pitch/* /presentations/pitch/:splat 301

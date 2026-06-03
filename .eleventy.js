@@ -281,6 +281,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("llms.txt");
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy({ "_headers": "_headers" });
+  eleventyConfig.addPassthroughCopy({ "_redirects": "_redirects" });
   colocatedAssetRoots.forEach((dir) => {
       collectColocatedAssets(dir, fs, path).forEach((file) => {
           eleventyConfig.addPassthroughCopy({ [file]: file });
