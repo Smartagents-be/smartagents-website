@@ -99,6 +99,7 @@
   "contact.form.success": "Message sent!",
   "contact.form.error": "Error - please try again",
   "contact.form.subject": "New message via smartagents.be",
+  "contact.phone.note": "Prefer to call? Reach us during office hours on <a href=\"tel:+3211111020\">+32 (0)11 111020</a>.",
   "footer.tagline": "Digital colleagues that never sleep.",
   "footer.quicklinks": "Quick links",
   "footer.office": "Office",
