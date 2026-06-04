@@ -67,6 +67,8 @@
     --accent-secure: #f43f5e;
     --accent-training: #8b5cf6;
     --accent-smartscan: #3b82f6;
+    --accent-smartspace: #00897e;        /* platform logo teal (oklch(0.567 0.1 184.994)) */
+    --accent-smartspace-bright: #29a798; /* on-dark step */
 
     /* ---------- Signature gradient ---------- */
     --sa-gradient: linear-gradient(135deg, var(--sa-purple-light) 0%, var(--sa-cyan) 35%);
