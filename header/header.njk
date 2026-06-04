@@ -56,6 +56,7 @@
         <a href="{{ "/" | locale_url | withPathPrefix }}#about" class="navbar-link">{{ "nav.about" | t(locale) }}</a>
         <a href="{{ "/" | locale_url | withPathPrefix }}#contact" class="navbar-link">{{ "nav.contact" | t(locale) }}</a>
         <a href="{{ "/team/" | locale_url | withPathPrefix }}" class="navbar-link {% if shell.teamActive %}active{% endif %}">{{ "nav.team" | t(locale) }}</a>
+        <a href="{{ "/blog/" | locale_url | withPathPrefix }}" class="navbar-link {% if shell.blogActive %}active{% endif %}">{{ "nav.blog" | t(locale) }}</a>
         <a href="{{ "/jobs/" | locale_url | withPathPrefix }}" class="navbar-link {% if shell.jobsActive %}active{% endif %}">{{ "nav.jobs" | t(locale) }}</a>
     </div>
 
@@ -169,6 +170,7 @@
         <a href="{{ "/" | locale_url | withPathPrefix }}#vision-mission">{{ "nav.values" | t(locale) }}</a>
         <a href="{{ "/" | locale_url | withPathPrefix }}#about">{{ "nav.about" | t(locale) }}</a>
         <a href="{{ "/team/" | locale_url | withPathPrefix }}">{{ "nav.team" | t(locale) }}</a>
+        <a href="{{ "/blog/" | locale_url | withPathPrefix }}">{{ "nav.blog" | t(locale) }}</a>
         <a href="{{ "/" | locale_url | withPathPrefix }}#contact">{{ "nav.contact" | t(locale) }}</a>
         <a href="{{ "/jobs/" | locale_url | withPathPrefix }}">{{ "nav.jobs" | t(locale) }}</a>
     </nav>
