@@ -12,8 +12,5 @@ module.exports = {
   },
   pageStyles: [
     '/blog/blog.css'
-  ],
-  pageScripts: [
-    '/blog/blog-filter.js'
   ]
 };
