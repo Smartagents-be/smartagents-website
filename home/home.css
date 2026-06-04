@@ -1228,9 +1228,9 @@
     align-items: center;
     padding: 32px;
     border-radius: 16px;
-    border: 1px solid var(--purple-soft-20);
+    border: 1px solid var(--teal-20);
     background:
-        radial-gradient(ellipse 80% 100% at 90% 50%, var(--purple-soft-08) 0%, transparent 65%),
+        radial-gradient(ellipse 80% 100% at 90% 50%, var(--teal-08) 0%, transparent 65%),
         var(--bg-elevated, var(--bg));
     text-decoration: none;
     color: inherit;
@@ -1240,8 +1240,8 @@
 .smartspace-spotlight-card:hover,
 .smartspace-spotlight-card:focus-visible {
     transform: translateY(-2px);
-    border-color: var(--purple-soft);
-    box-shadow: 0 18px 48px var(--purple-soft-15);
+    border-color: var(--teal);
+    box-shadow: 0 18px 48px var(--teal-15);
 }
 
 @media (min-width: 768px) {
@@ -1263,8 +1263,8 @@
     display: inline-block;
     padding: 4px 12px;
     border-radius: 999px;
-    background: var(--purple-soft-15);
-    color: var(--purple-soft-fill);
+    background: var(--teal-15);
+    color: var(--teal-fill);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 0.7rem;
     font-weight: 700;
@@ -1289,7 +1289,7 @@
 .smartspace-spotlight-cta {
     margin-top: 4px;
     font-weight: 600;
-    color: var(--purple-soft-fill);
+    color: var(--teal-fill);
     letter-spacing: 0.01em;
 }
 
