@@ -111,6 +111,19 @@
     --purple-soft-20: rgba(139, 92, 246, 0.2);
     --purple-soft-40: rgba(139, 92, 246, 0.4);
     --purple-soft-60: rgba(139, 92, 246, 0.6);
+
+    /* Teal family — SmartSpace brand, matches the platform logo
+       (oklch(0.567 0.1 184.994) = #00897e; --teal is its brighter on-dark step) */
+    --teal: #29a798;
+    --teal-light: #42c3a9;
+    --teal-fill: #00897e;
+    --teal-rgb: 41, 167, 152;
+    --teal-08: rgba(41, 167, 152, 0.08);
+    --teal-10: rgba(41, 167, 152, 0.1);
+    --teal-15: rgba(41, 167, 152, 0.15);
+    --teal-20: rgba(41, 167, 152, 0.2);
+    --teal-40: rgba(41, 167, 152, 0.4);
+    --teal-60: rgba(41, 167, 152, 0.6);
 }
 
 [data-theme="light"] {
@@ -311,12 +324,12 @@
 }
 
 [data-service="smartspace"], [data-panel="smartspace"], [data-mobile-panel="smartspace"] {
-    --service-color: var(--purple-soft);
-    --service-color-20: var(--purple-soft-20);
-    --service-color-15: var(--purple-soft-15);
-    --service-color-08: var(--purple-soft-08);
+    --service-color: var(--teal);
+    --service-color-20: var(--teal-20);
+    --service-color-15: var(--teal-15);
+    --service-color-08: var(--teal-08);
     --service-ink: var(--sa-white);
-    --service-fill: var(--purple-soft-fill);
+    --service-fill: var(--teal-fill);
     --service-fill-ink: var(--sa-white);
 }
 

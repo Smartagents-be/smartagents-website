@@ -26,7 +26,7 @@
 }
 
 /* Hero "Bekijk de modules" secondary button — border matches the
-   violet "Demo aanvragen" primary, not the site cyan default. */
+   teal "Demo aanvragen" primary, not the site cyan default. */
 body[data-service="smartspace"] .smartspace-hero-cta .btn-secondary {
     border-color: var(--service-color, var(--accent));
 }
