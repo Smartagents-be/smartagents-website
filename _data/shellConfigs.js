@@ -49,5 +49,16 @@ module.exports = {
     servicesActive: "",
     productsActive: "",
     teamActive: "active"
+  },
+  blog: {
+    homeHref: "/",
+    jobsHref: "/jobs/",
+    customerzoneHref: "/customerzone/",
+    logoSrc: "/assets/logo.svg",
+    showValuesLink: true,
+    jobsActive: "",
+    servicesActive: "",
+    productsActive: "",
+    blogActive: "active"
   }
 };
