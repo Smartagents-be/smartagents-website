@@ -1,0 +1,48 @@
+---
+layout: layouts/marketing-page.njk
+pageStyles:
+  - /blog/blog.css
+pageTitleKey: page.blog.title
+pageDescriptionKey: page.blog.description
+---
+<article class="blog-post">
+    <div class="container">
+        <a href="{{ '/blog/' | locale_url | withPathPrefix }}" class="blog-post-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+            </svg>
+            {{ 'blog.back.to.list' | t(locale) }}
+        </a>
+
+        <header class="blog-post-header">
+            <h1 class="blog-post-title">{{ title }}</h1>
+            <div class="blog-post-meta">
+                <ul class="blog-post-categories">
+                    {% for slug in categories %}
+                        {% for cat in blogCategories %}
+                            {% if cat.slug == slug %}
+                                <li class="blog-cat blog-cat--{{ cat.slug }}">{{ cat[locale] }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+                <span class="blog-post-date">
+                    {{ ('blog.published.on' | t(locale)) | replace('{date}', date | localeDate(locale)) }}
+                </span>
+            </div>
+        </header>
+
+        <div class="blog-post-body">
+            {{ content | safe }}
+        </div>
+
+        <a href="{{ '/blog/' | locale_url | withPathPrefix }}" class="blog-post-back blog-post-back--bottom">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+            </svg>
+            {{ 'blog.back.to.list' | t(locale) }}
+        </a>
+    </div>
+</article>
