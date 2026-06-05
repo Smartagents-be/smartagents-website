@@ -32,6 +32,12 @@ At the heart of SmartSpace are the AI agents. These are not bots that answer you
 
 Which agents are available and what they can handle is aligned to your organisation. The starting point is always your business context, not an off-the-shelf package.
 
+## We are our own first customer
+
+We are our own first customer: SmartSpace already runs inside SmartAgents.
+
+Concretely: we are building **SmartScan itself inside SmartSpace**. The assessment every customer starts with isn't a standalone tool — it's an application running on SmartSpace. What we promise to customers, we use ourselves every day.
+
 ## SmartSpace is in beta and we're looking for pilot members
 
 SmartSpace is currently in **beta**. We're rolling it out carefully, side by side with a small number of organisations that help shape the platform.

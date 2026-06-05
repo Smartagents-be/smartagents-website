@@ -95,6 +95,15 @@
     height: 100%;
 }
 
+.blog-card-image {
+    display: block;
+    width: calc(100% + 48px);
+    margin: -24px -24px 4px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #08182c;
+}
+
 .blog-card-categories,
 .blog-post-categories {
     list-style: none;
@@ -185,6 +194,16 @@
 .blog-post-back--bottom {
     margin-top: 56px;
     margin-bottom: 0;
+}
+
+.blog-post-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 40px;
+    background: #08182c;
 }
 
 .blog-post-header {

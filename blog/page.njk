@@ -23,9 +23,11 @@
                 {% set categorySlugs = post.data.categories | join(' ') %}
                 <li class="blog-card" data-categories="{{ categorySlugs }}">
                     <a href="{{ post.url | withPathPrefix }}" class="blog-card-link">
+                        {% if post.data.image %}
                         <div class="blog-card-thumb">
-                            <img src="{{ post.data.image }}" alt="{{ post.data.imageAlt or post.data.title }}" loading="lazy" decoding="async"{% if post.data.imagePosition %} style="object-position: {{ post.data.imagePosition }}"{% endif %}>
+                            <img src="{{ post.data.image | withPathPrefix }}" alt="{{ post.data.imageAlt or post.data.title }}" loading="lazy" decoding="async"{% if post.data.imagePosition %} style="object-position: {{ post.data.imagePosition }}"{% endif %}>
                         </div>
+                        {% endif %}
                         <ul class="blog-card-categories">
                             {% for slug in post.data.categories %}
                                 {% for cat in blogCategories %}

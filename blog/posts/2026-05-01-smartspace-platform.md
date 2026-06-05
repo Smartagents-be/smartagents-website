@@ -32,6 +32,12 @@ Het hart van SmartSpace zijn de AI agents. Dit zijn geen bots die je vraag beant
 
 Welke agents er beschikbaar zijn en wat ze aankunnen, stemmen we af op jouw organisatie. Het startpunt is altijd jouw bedrijfscontext, niet een standaardpakket.
 
+## Wij zijn onze eerste klant
+
+We zijn zelf onze eerste klant: SmartSpace draait al binnen SmartAgents.
+
+Concreet: we bouwen **SmartScan zelf binnen SmartSpace**. De doorlichting waarmee elke klant start is geen losse tool, maar een toepassing die op SmartSpace draait. Wat we aan klanten beloven, gebruiken we elke dag zelf.
+
 ## SmartSpace is in beta en we zoeken pilootklanten
 
 SmartSpace is momenteel in **beta**. We rollen het gecontroleerd uit, hand in hand met een beperkt aantal organisaties die mee vorm geven aan het platform.

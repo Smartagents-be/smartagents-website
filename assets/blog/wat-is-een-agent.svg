@@ -1,0 +1,93 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <defs>
+    <linearGradient id="wa-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1430"/>
+      <stop offset="55%" stop-color="#08182c"/>
+      <stop offset="100%" stop-color="#062420"/>
+    </linearGradient>
+    <radialGradient id="wa-bloom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00e8d8" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#00c8b8" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#00a090" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wa-center" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#80fff8"/>
+      <stop offset="100%" stop-color="#00b8a8"/>
+    </radialGradient>
+    <radialGradient id="wa-blue" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#7090f8"/>
+      <stop offset="100%" stop-color="#2040b0"/>
+    </radialGradient>
+    <radialGradient id="wa-cyan" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#60d8f0"/>
+      <stop offset="100%" stop-color="#0088b0"/>
+    </radialGradient>
+    <filter id="wa-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="wa-bigbloom" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="26"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#wa-bg)"/>
+
+  <!-- ambient bloom behind the agent -->
+  <circle cx="400" cy="225" r="150" fill="url(#wa-bloom)" filter="url(#wa-bigbloom)"/>
+
+  <!-- orbit rings: the agent reasoning outward -->
+  <g fill="none" stroke="#00c0b0" stroke-opacity="0.22">
+    <circle cx="400" cy="225" r="92"/>
+    <circle cx="400" cy="225" r="150"/>
+    <circle cx="400" cy="225" r="205"/>
+  </g>
+
+  <!-- radial connections from the central agent to its tools -->
+  <g stroke="#3fd0d0" stroke-width="0.9" stroke-opacity="0.5">
+    <line x1="400" y1="225" x2="232" y2="104"/>
+    <line x1="400" y1="225" x2="566" y2="96"/>
+    <line x1="400" y1="225" x2="640" y2="230"/>
+    <line x1="400" y1="225" x2="556" y2="356"/>
+    <line x1="400" y1="225" x2="372" y2="392"/>
+    <line x1="400" y1="225" x2="190" y2="318"/>
+    <line x1="400" y1="225" x2="150" y2="192"/>
+    <line x1="400" y1="225" x2="690" y2="150"/>
+  </g>
+  <!-- second-ring links -->
+  <g stroke="#3a6cf0" stroke-width="0.8" stroke-opacity="0.35">
+    <line x1="232" y1="104" x2="150" y2="192"/>
+    <line x1="566" y1="96" x2="690" y2="150"/>
+    <line x1="690" y1="150" x2="640" y2="230"/>
+    <line x1="640" y1="230" x2="556" y2="356"/>
+    <line x1="190" y1="318" x2="372" y2="392"/>
+    <line x1="150" y1="192" x2="190" y2="318"/>
+  </g>
+
+  <!-- midpoint pulses -->
+  <g fill="#bff7ff" opacity="0.55">
+    <circle cx="316" cy="164" r="1.8"/>
+    <circle cx="483" cy="160" r="1.8"/>
+    <circle cx="520" cy="290" r="1.6"/>
+    <circle cx="295" cy="271" r="1.6"/>
+    <circle cx="520" cy="187" r="1.4"/>
+  </g>
+
+  <!-- satellite tool nodes -->
+  <g>
+    <circle cx="232" cy="104" r="10" fill="url(#wa-blue)" filter="url(#wa-glow)"/><circle cx="232" cy="104" r="4.5" fill="#9aabff"/>
+    <circle cx="566" cy="96" r="11" fill="url(#wa-blue)" filter="url(#wa-glow)"/><circle cx="566" cy="96" r="5" fill="#9aabff"/>
+    <circle cx="690" cy="150" r="6" fill="url(#wa-cyan)" filter="url(#wa-glow)"/><circle cx="690" cy="150" r="2.4" fill="#bff0fa"/>
+    <circle cx="640" cy="230" r="10" fill="url(#wa-blue)" filter="url(#wa-glow)"/><circle cx="640" cy="230" r="4.5" fill="#9aabff"/>
+    <circle cx="556" cy="356" r="9" fill="url(#wa-blue)" filter="url(#wa-glow)"/><circle cx="556" cy="356" r="4" fill="#9aabff"/>
+    <circle cx="372" cy="392" r="6" fill="url(#wa-cyan)" filter="url(#wa-glow)"/><circle cx="372" cy="392" r="2.4" fill="#bff0fa"/>
+    <circle cx="190" cy="318" r="10" fill="url(#wa-blue)" filter="url(#wa-glow)"/><circle cx="190" cy="318" r="4.5" fill="#9aabff"/>
+    <circle cx="150" cy="192" r="9" fill="url(#wa-blue)" filter="url(#wa-glow)"/><circle cx="150" cy="192" r="4" fill="#9aabff"/>
+  </g>
+
+  <!-- central agent -->
+  <circle cx="400" cy="225" r="34" fill="#00d8c8" opacity="0.16" filter="url(#wa-bigbloom)"/>
+  <circle cx="400" cy="225" r="19" fill="url(#wa-center)" filter="url(#wa-glow)"/>
+  <circle cx="393" cy="218" r="6.5" fill="#ffffff" opacity="0.9"/>
+</svg>
