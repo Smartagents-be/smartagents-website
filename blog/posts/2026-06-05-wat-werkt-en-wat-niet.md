@@ -3,7 +3,7 @@ title: "Wat werkt en wat niet: hoe AI je werk fundamenteel verandert"
 date: 2026-06-05
 categories: [ai, tips]
 excerpt: "AI versterkt wat al goed was en maakt zwaktes pijnlijker zichtbaar. Wie dat begrijpt, werkt slimmer. Wie het mist, verliest terrein."
-image: /assets/blog/default-banner.webp
+image: /assets/blog/wat-werkt-en-wat-niet.png
 imageAlt: "Mens en AI samen aan het werk, versterking van menselijk potentieel"
 ---
 
