@@ -12,10 +12,8 @@
         savedTheme = null;
     }
 
-    var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-    var theme = savedTheme === 'light' || savedTheme === 'dark'
-        ? savedTheme
-        : (prefersLight ? 'light' : 'dark');
+    // Default to dark mode unless the visitor explicitly chose light.
+    var theme = savedTheme === 'light' ? 'light' : 'dark';
 
     doc.dataset.theme = theme;
     doc.style.colorScheme = theme;
