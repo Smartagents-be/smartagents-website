@@ -19,10 +19,13 @@
         </div>
 
         <ul class="blog-cards-grid">
-            {% for post in collections.blog | reverse %}
+            {% for post in collections.blog | byLocale(locale) | reverse %}
                 {% set categorySlugs = post.data.categories | join(' ') %}
                 <li class="blog-card" data-categories="{{ categorySlugs }}">
                     <a href="{{ post.url | withPathPrefix }}" class="blog-card-link">
+                        <div class="blog-card-thumb">
+                            <img src="{{ post.data.image }}" alt="{{ post.data.imageAlt or post.data.title }}" loading="lazy" decoding="async"{% if post.data.imagePosition %} style="object-position: {{ post.data.imagePosition }}"{% endif %}>
+                        </div>
                         <ul class="blog-card-categories">
                             {% for slug in post.data.categories %}
                                 {% for cat in blogCategories %}

@@ -13,6 +13,10 @@ pageDescriptionKey: page.blog.description
             {{ 'blog.back.to.list' | t(locale) }}
         </a>
 
+        <figure class="blog-post-banner">
+            <img src="{{ image }}" alt="{{ imageAlt or title }}" loading="eager" decoding="async"{% if imagePosition %} style="object-position: {{ imagePosition }}"{% endif %}>
+        </figure>
+
         <header class="blog-post-header">
             <h1 class="blog-post-title">{{ title }}</h1>
             <div class="blog-post-meta">

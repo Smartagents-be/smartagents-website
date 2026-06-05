@@ -155,6 +155,11 @@ module.exports = function(eleventyConfig) {
       return d.toISOString().slice(0, 10);
   });
 
+  // Filter a blog collection to only posts matching a given locale.
+  eleventyConfig.addFilter('byLocale', (collection, locale) =>
+      (collection || []).filter(item => item.data.locale === locale)
+  );
+
   // Locale-aware long date filter: {{ post.date | localeDate(locale) }}
   // Outputs e.g. "12 mei 2026" (nl) or "May 12, 2026" (en).
   eleventyConfig.addFilter('localeDate', (date, locale) => {

@@ -5,10 +5,14 @@ module.exports = {
   schemaType: 'blogPost',
   shellContext: 'blog',
   pageKey: 'blogPost',
-  socialImage: '/assets/social-preview.webp',
   socialAlt: {
     nl: 'SmartAgents Blog',
     en: 'SmartAgents Blog'
   },
-  permalink: '/blog/{{ page.fileSlug }}/'
+  permalink: '/blog/{{ page.fileSlug }}/',
+  image: '/assets/blog/default-banner.webp',
+  eleventyComputed: {
+    imageAlt: data => data.imageAlt || data.title || 'SmartAgents Blog',
+    socialImage: data => data.image || '/assets/blog/default-banner.webp'
+  }
 };
