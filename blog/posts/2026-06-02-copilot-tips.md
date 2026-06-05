@@ -3,6 +3,8 @@ title: "5 Copilot-snelkoppelingen die uw dag versnellen"
 date: 2026-06-02
 categories: [tips]
 excerpt: "Quick wins voor wie M365 Copilot dagelijks gebruikt."
+image: /assets/blog/copilot-tips.svg
+imageAlt: "Een centrale AI-spark omringd door zwevende Copilot-commando's en snelkoppelingen."
 ---
 
 Microsoft 365 Copilot zit verstopt in Word, Excel, Outlook en Teams, maar de meeste gebruikers raken er nauwelijks aan. Vijf snelkoppelingen waarmee u meteen meer rendement haalt:

@@ -3,6 +3,8 @@ title: "RPA versus AI-agents: wat kies je wanneer?"
 date: 2026-05-20
 categories: [ai, automatisatie]
 excerpt: "Klassieke RPA en moderne AI-agents zijn complementair. Een praktische beslisgids."
+image: /assets/blog/rpa-vs-agents.svg
+imageAlt: "Links een rigide lineaire RPA-keten, rechts een organisch vertakkend agent-netwerk."
 ---
 
 RPA (Robotic Process Automation) is fantastisch voor processen die altijd hetzelfde verlopen: gestructureerde input, vaste regels, voorspelbare output. Denk aan facturen kopiëren van het ene systeem naar het andere, of formulieren invullen op basis van een Excel-rij.

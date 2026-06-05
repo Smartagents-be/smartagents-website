@@ -3,6 +3,8 @@ title: "Wat is een AI-agent eigenlijk?"
 date: 2026-05-12
 categories: [ai]
 excerpt: "Een korte uitleg over wat AI-agents onderscheidt van klassieke automatisatie."
+image: /assets/blog/wat-is-een-agent.svg
+imageAlt: "Een centrale AI-agent verbonden met een netwerk van tools en kennisbronnen."
 ---
 
 AI-agents zijn meer dan een chatbot of een script. Ze nemen een doel aan, bedenken stappen, gebruiken tools en passen hun gedrag aan op wat ze onderweg leren. Dat maakt ze fundamenteel anders dan een traditionele workflow waar elke stap vooraf is vastgelegd.

@@ -13,6 +13,10 @@ pageDescriptionKey: page.blog.description
             {{ 'blog.back.to.list' | t(locale) }}
         </a>
 
+        {% if image %}
+            <img class="blog-post-image" src="{{ image | withPathPrefix }}" alt="{{ imageAlt }}" width="800" height="450" loading="eager" decoding="async">
+        {% endif %}
+
         <header class="blog-post-header">
             <h1 class="blog-post-title">{{ title }}</h1>
             <div class="blog-post-meta">

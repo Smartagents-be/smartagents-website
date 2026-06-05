@@ -3,6 +3,8 @@ title: "Case: Claes Logistics bespaart 200 uur per maand"
 date: 2026-05-28
 categories: [cases, automatisatie]
 excerpt: "Hoe een gerichte agent-implementatie repetitieve dossier-verwerking elimineerde."
+image: /assets/blog/case-claes-logistics.svg
+imageAlt: "Een logistieke route met hubs die opklimt als curve van bespaarde uren."
 ---
 
 Claes Logistics verwerkte elke maand duizenden inkomende transportdossiers. Voor elk dossier moest een medewerker tarieven controleren, gegevens overnemen in het ERP en bevestigingsmails versturen. Repetitief werk dat snel optelt: een team van vier mensen, fulltime bezig met copy-paste.

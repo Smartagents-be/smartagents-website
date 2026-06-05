@@ -461,6 +461,9 @@
                     {% if loop.index <= 3 %}
                         <li class="blog-card">
                             <a href="{{ post.url | withPathPrefix }}" class="blog-card-link">
+                                {% if post.data.image %}
+                                    <img class="blog-card-image" src="{{ post.data.image | withPathPrefix }}" alt="{{ post.data.imageAlt }}" width="800" height="450" loading="lazy" decoding="async">
+                                {% endif %}
                                 <ul class="blog-card-categories">
                                     {% for slug in post.data.categories %}
                                         {% for cat in blogCategories %}
