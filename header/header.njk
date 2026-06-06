@@ -76,6 +76,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                 {{ "services.training.title" | t(locale) }}
             </a>
+            <a href="{{ "/services/staffing/" | locale_url | withPathPrefix }}" data-nav-service="staffing">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                {{ "services.staffing.title" | t(locale) }}
+            </a>
         </div>
         <div class="nav-panel" data-panel="1">
             <a href="{{ "/services/smart-scan/" | locale_url | withPathPrefix }}" data-nav-service="smartscan">
@@ -187,6 +191,7 @@
                 <a href="{{ "/services/agentic-ai/" | locale_url | withPathPrefix }}">{{ "services.agentic.title" | t(locale) }}</a>
                 <a href="{{ "/services/process-optimization/" | locale_url | withPathPrefix }}">{{ "services.process.title" | t(locale) }}</a>
                 <a href="{{ "/services/training/" | locale_url | withPathPrefix }}">{{ "services.training.title" | t(locale) }}</a>
+                <a href="{{ "/services/staffing/" | locale_url | withPathPrefix }}">{{ "services.staffing.title" | t(locale) }}</a>
             </div>
         </div>
         <a href="{{ "/blog/" | locale_url | withPathPrefix }}">{{ "nav.blog" | t(locale) }}</a>
