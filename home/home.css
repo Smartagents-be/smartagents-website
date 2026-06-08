@@ -183,14 +183,8 @@
 
 .services-feature-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0;
-}
-
-@media (max-width: 1024px) {
-    .services-feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 .service-feature {
@@ -203,18 +197,8 @@
     border-bottom: 1px solid var(--border);
 }
 
-.service-feature:not(:nth-child(3n)) {
+.service-feature:nth-child(odd) {
     border-right: 1px solid var(--border);
-}
-
-@media (max-width: 1024px) {
-    .service-feature:not(:nth-child(3n)) {
-        border-right: none;
-    }
-
-    .service-feature:nth-child(odd) {
-        border-right: 1px solid var(--border);
-    }
 }
 
 .service-feature:hover {
