@@ -128,7 +128,7 @@ module.exports = function(eleventyConfig) {
   const PATH_PREFIX = normalizePathPrefix();
   const SITE_ROOT_URL = buildAbsoluteUrl('/', SITE_BASE_URL, PATH_PREFIX);
   const BASE_DOMAIN = new URL(SITE_ROOT_URL).hostname;
-  const colocatedAssetRoots = ['404', 'customerzone', 'footer', 'header', 'home', 'jobs', 'presentations', 'products', 'services', 'team'];
+  const colocatedAssetRoots = ['404', 'blog', 'customerzone', 'footer', 'header', 'home', 'jobs', 'presentations', 'products', 'services', 'team'];
 
   const fs = require('node:fs');
   const path = require('node:path');
@@ -155,6 +155,19 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter('dateToFormat', (date) => {
       const d = date instanceof Date ? date : new Date(date);
       return d.toISOString().slice(0, 10);
+  });
+
+  // Filter a blog collection to only posts matching a given locale.
+  eleventyConfig.addFilter('byLocale', (collection, locale) =>
+      (collection || []).filter(item => item.data.locale === locale)
+  );
+
+  // Locale-aware long date filter: {{ post.date | localeDate(locale) }}
+  // Outputs e.g. "12 mei 2026" (nl) or "May 12, 2026" (en).
+  eleventyConfig.addFilter('localeDate', (date, locale) => {
+      const d = date instanceof Date ? date : new Date(date);
+      const lang = locale === 'en' ? 'en-US' : 'nl-BE';
+      return d.toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' });
   });
 
   // Schema builder filter: {{ schemaData | buildSchema(locale) }}
@@ -283,6 +296,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "_headers": "_headers" });
   eleventyConfig.addPassthroughCopy({ "_redirects": "_redirects" });
   colocatedAssetRoots.forEach((dir) => {
+      if (!fs.existsSync(dir)) return;
       collectColocatedAssets(dir, fs, path).forEach((file) => {
           eleventyConfig.addPassthroughCopy({ [file]: file });
       });
@@ -293,6 +307,10 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.ignores.add("dist/**");
   eleventyConfig.ignores.add(".claude/**");
+  eleventyConfig.ignores.add("*.md");
+  eleventyConfig.ignores.add("**/README.md");
+  eleventyConfig.ignores.add("docs/**");
+  eleventyConfig.ignores.add("functions/**");
   eleventyConfig.ignores.add("temp/**");
   eleventyConfig.ignores.add("**/page.njk");
   eleventyConfig.ignores.add("presentations/**/slides/**/*.njk");
@@ -310,6 +328,6 @@ module.exports = function(eleventyConfig) {
     },
     pathPrefix: PATH_PREFIX ? `${PATH_PREFIX}/` : '/',
     htmlTemplateEngine: "njk",
-    templateFormats: ["html", "njk"]
+    templateFormats: ["html", "njk", "md"]
   };
 };

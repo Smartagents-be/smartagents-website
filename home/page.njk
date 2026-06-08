@@ -440,6 +440,67 @@
     </section>
     #}
 
+    <section id="blog" class="home-blog">
+        <div class="container">
+            <div class="home-blog-head">
+                <div>
+                    <h2 class="section-title">{{ "home.blog.title" | t(locale) }}</h2>
+                    <p class="section-subtitle">{{ "home.blog.subtitle" | t(locale) }}</p>
+                </div>
+                <a href="{{ "/blog/" | locale_url | withPathPrefix }}" class="home-blog-viewall">
+                    {{ "home.blog.viewall" | t(locale) }}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </a>
+            </div>
+
+            <ul class="blog-cards-grid">
+                {% for post in collections.blog | byLocale(locale) | reverse %}
+                    {% if loop.index <= 3 %}
+                        <li class="blog-card">
+                            <a href="{{ post.url | withPathPrefix }}" class="blog-card-link">
+                                {% if post.data.image %}
+                                <div class="blog-card-thumb">
+                                    <img src="{{ post.data.image | withPathPrefix }}" alt="{{ post.data.imageAlt or post.data.title }}" loading="lazy" decoding="async"{% if post.data.imagePosition %} style="object-position: {{ post.data.imagePosition }}"{% endif %}>
+                                </div>
+                                {% endif %}
+                                <ul class="blog-card-categories">
+                                    {% for slug in post.data.categories %}
+                                        {% for cat in blogCategories %}
+                                            {% if cat.slug == slug %}
+                                                <li class="blog-cat blog-cat--{{ cat.slug }}">{{ cat[locale] }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                                <h3 class="blog-card-title">{{ post.data.title }}</h3>
+                                <p class="blog-card-date">{{ post.data.date | localeDate(locale) }}</p>
+                                <p class="blog-card-excerpt">{{ post.data.excerpt }}</p>
+                                <span class="blog-card-read-more">
+                                    {{ "blog.read.more" | t(locale) }}
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                        <polyline points="12 5 19 12 12 19"/>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <a href="{{ "/blog/" | locale_url | withPathPrefix }}" class="home-blog-viewall home-blog-viewall--mobile">
+                {{ "home.blog.viewall" | t(locale) }}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">{{ "contact.title" | t(locale) }}</h2>

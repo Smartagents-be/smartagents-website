@@ -212,7 +212,7 @@
         }
 
         function createNodes() {
-            const count = isMobile ? 40 : 80;
+            const count = isMobile ? 6 : 18;
             nodes = [];
             for (let i = 0; i < count; i++) {
                 const color = colors[Math.floor(Math.random() * colors.length)];

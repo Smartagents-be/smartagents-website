@@ -15,6 +15,7 @@ module.exports = {
   pageStyles: [
     '/shared/css/scroll-reveal.css',
     '/home/home.css',
+    '/blog/blog.css',
     '/shared/css/approach.css',
     '/shared/css/forms.css'
   ],

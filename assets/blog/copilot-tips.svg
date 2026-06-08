@@ -1,0 +1,84 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <defs>
+    <linearGradient id="ct-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1430"/>
+      <stop offset="55%" stop-color="#08182c"/>
+      <stop offset="100%" stop-color="#062420"/>
+    </linearGradient>
+    <linearGradient id="ct-spark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#80fff8"/>
+      <stop offset="100%" stop-color="#00b8a8"/>
+    </linearGradient>
+    <radialGradient id="ct-bloom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00e8d8" stop-opacity="0.5"/>
+      <stop offset="55%" stop-color="#00c8b8" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#00a090" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ct-blue" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#7090f8"/>
+      <stop offset="100%" stop-color="#2040b0"/>
+    </radialGradient>
+    <filter id="ct-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ct-soft" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="24"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#ct-bg)"/>
+
+  <!-- bloom behind the spark -->
+  <circle cx="400" cy="225" r="150" fill="url(#ct-bloom)" filter="url(#ct-soft)"/>
+
+  <!-- connections from spark to command pills -->
+  <g stroke="#3fd0d0" stroke-width="0.9" stroke-opacity="0.45">
+    <line x1="400" y1="225" x2="190" y2="120"/>
+    <line x1="400" y1="225" x2="615" y2="118"/>
+    <line x1="400" y1="225" x2="650" y2="300"/>
+    <line x1="400" y1="225" x2="170" y2="320"/>
+    <line x1="400" y1="225" x2="395" y2="372"/>
+  </g>
+
+  <!-- floating command pills (keyboard shortcuts / slash commands) -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" font-weight="600">
+    <g>
+      <rect x="120" y="100" width="120" height="38" rx="19" fill="#16294a" stroke="#4f7df0" stroke-width="1.3"/>
+      <text x="180" y="124" fill="#bcd0ff" text-anchor="middle">/summarize</text>
+    </g>
+    <g>
+      <rect x="558" y="99" width="118" height="38" rx="19" fill="#16294a" stroke="#3fd0d0" stroke-width="1.3"/>
+      <text x="617" y="123" fill="#9af4ec" text-anchor="middle">/catchmeup</text>
+    </g>
+    <g>
+      <rect x="590" y="281" width="120" height="38" rx="19" fill="#16294a" stroke="#4f7df0" stroke-width="1.3"/>
+      <text x="650" y="305" fill="#bcd0ff" text-anchor="middle">⌘ Draft</text>
+    </g>
+    <g>
+      <rect x="104" y="301" width="132" height="38" rx="19" fill="#16294a" stroke="#3fd0d0" stroke-width="1.3"/>
+      <text x="170" y="325" fill="#9af4ec" text-anchor="middle">=EXPLAIN()</text>
+    </g>
+    <g>
+      <rect x="332" y="353" width="126" height="38" rx="19" fill="#16294a" stroke="#4f7df0" stroke-width="1.3"/>
+      <text x="395" y="377" fill="#bcd0ff" text-anchor="middle">Summary ✦</text>
+    </g>
+  </g>
+
+  <!-- connector endpoint dots on pills -->
+  <g fill="#bff7ff" opacity="0.6">
+    <circle cx="240" cy="119" r="2"/>
+    <circle cx="558" cy="118" r="2"/>
+    <circle cx="590" cy="300" r="2"/>
+    <circle cx="236" cy="320" r="2"/>
+    <circle cx="395" cy="353" r="2"/>
+  </g>
+
+  <!-- central AI spark (4-point star) -->
+  <circle cx="400" cy="225" r="40" fill="#00d8c8" opacity="0.16" filter="url(#ct-soft)"/>
+  <path d="M400 178 C 408 210 415 217 447 225 C 415 233 408 240 400 272 C 392 240 385 233 353 225 C 385 217 392 210 400 178 Z"
+        fill="url(#ct-spark)" filter="url(#ct-glow)"/>
+  <path d="M462 188 C 466 200 470 204 482 208 C 470 212 466 216 462 228 C 458 216 454 212 442 208 C 454 204 458 200 462 188 Z"
+        fill="#bdfff8" opacity="0.85"/>
+</svg>

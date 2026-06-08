@@ -21,9 +21,8 @@
     }
 
     function getPreferredTheme() {
-        return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
-            ? 'light'
-            : 'dark';
+        // Dark mode is the site default; OS preference is intentionally ignored.
+        return 'dark';
     }
 
     function getActiveTheme() {
@@ -81,20 +80,6 @@
                 applyTheme(nextTheme, true);
             });
         });
-
-        const mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
-        if (!mediaQuery) return;
-
-        const handlePreferenceChange = () => {
-            if (readStoredTheme()) return;
-            applyTheme(mediaQuery.matches ? 'light' : 'dark', false);
-        };
-
-        if (typeof mediaQuery.addEventListener === 'function') {
-            mediaQuery.addEventListener('change', handlePreferenceChange);
-        } else if (typeof mediaQuery.addListener === 'function') {
-            mediaQuery.addListener(handlePreferenceChange);
-        }
     }
 
     function initNavigation() {
@@ -219,6 +204,34 @@
         });
     }
 
+    function initSettingsMenu() {
+        const settings = document.querySelector('[data-navbar-settings]');
+        if (!settings) return;
+
+        const button = settings.querySelector('.navbar-settings-btn');
+        if (!button) return;
+
+        function setOpen(isOpen) {
+            settings.classList.toggle('is-open', isOpen);
+            button.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        button.addEventListener('click', () => {
+            setOpen(!settings.classList.contains('is-open'));
+        });
+
+        document.addEventListener('click', (e) => {
+            if (settings.contains(e.target)) return;
+            setOpen(false);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                setOpen(false);
+            }
+        });
+    }
+
     function initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
             anchor.addEventListener('click', function(e) {
@@ -303,6 +316,7 @@
     onReady(() => {
         initThemeToggle();
         initNavigation();
+        initSettingsMenu();
         initSmoothScroll();
         initFullscreenMenu();
     });
