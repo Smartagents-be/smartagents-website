@@ -37,7 +37,7 @@ Use this guide whenever writing or editing a SmartAgents blog post. Apply every 
 
 ## Language specifics (Dutch posts)
 
-- Lowercase "ai" and "ai agents" — consistent with existing posts.
+- Uppercase "AI" and "AI agents" — consistent with existing posts.
 - Product names always capitalised: SmartAgents, SmartSpace, SmartScan.
 - Avoid anglicisms when a plain Dutch word exists. "Doorlichting" not "assessment." "Toepassingen" not "applicaties" (unless quoting a UI term).
 - Use "jij/jouw" (informal you) throughout — never "u/uw."
