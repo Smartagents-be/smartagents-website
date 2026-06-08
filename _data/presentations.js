@@ -10,5 +10,8 @@ module.exports = {
   },
   ontbijtsessie: {
     permalink: '/presentations/ontbijtsessie/'
+  },
+  kbcStaffingPitch: {
+    permalink: '/presentations/kbc-staffing-pitch/'
   }
 };
