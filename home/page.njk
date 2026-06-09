@@ -230,6 +230,36 @@
         </div>
     </section>
 
+    {% set sectorList = sectors[locale] or sectors.nl %}
+    <section id="sectoren" class="sectors">
+        <div class="container">
+            <h2 class="section-title">{{ "sectors.title" | t(locale) }}</h2>
+            <p class="section-subtitle">{{ "sectors.subtitle" | t(locale) }}</p>
+
+            <div class="sector-tabs" role="tablist" aria-label="{{ 'sectors.title' | t(locale) }}">
+                {% for s in sectorList %}
+                <button type="button" class="sector-tab{% if loop.first %} is-active{% endif %}" role="tab" id="sector-tab-{{ s.id }}" aria-controls="sector-panel-{{ s.id }}" aria-selected="{% if loop.first %}true{% else %}false{% endif %}" data-sector="{{ s.id }}">{{ s.name }}</button>
+                {% endfor %}
+            </div>
+
+            {% for s in sectorList %}
+            <div class="sector-panel{% if loop.first %} is-active{% endif %}" id="sector-panel-{{ s.id }}" role="tabpanel" aria-labelledby="sector-tab-{{ s.id }}" data-sector="{{ s.id }}"{% if not loop.first %} hidden{% endif %}>
+                <ol class="sector-solutions">
+                    {% for sol in s.solutions %}
+                    <li class="sector-solution">
+                        <span class="sector-solution-num">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
+                        <div class="sector-solution-body">
+                            <h3 class="sector-solution-title">{{ sol.title }}</h3>
+                            <p class="sector-solution-desc">{{ sol.desc }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ol>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
     <section id="smartspace-spotlight" class="smartspace-spotlight">
         <div class="container">
             <a href="{{ '/products/smartspace/' | locale_url | withPathPrefix }}" class="smartspace-spotlight-card">

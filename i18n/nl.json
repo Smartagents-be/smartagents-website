@@ -36,6 +36,9 @@
   "services.staffing.desc": "De AI-markt is krap en op papier lijkt iedereen een expert. Wij sourcen en selecteren de juiste profielen voor elke organisatie en screenen ze als practitioners, niet als generalistische recruiters.",
   "services.smartscan.title": "Smart Scan",
 
+  "sectors.title": "AI in jouw sector",
+  "sectors.subtitle": "Elke sector heeft zijn eigen processen en knelpunten. Dit zijn enkele toepassingen waarmee we in uw sector het verschil maken.",
+
   "home.smartspace.label": "Nieuw · Beta",
   "home.smartspace.title": "SmartSpace",
   "home.smartspace.pitch": "Het centrale platform voor uw KMO. Pluggable modules voor email, facturen, offertes, aanbestedingen, calculaties en meer, allemaal op één plek.",
