@@ -1,0 +1,77 @@
+<section data-label="15 Bouwsteen · Agents" style="--accent: #8b5cf6;">
+  <div class="slide-frame">
+    <div style="display: flex; align-items: baseline; gap: 32px;">
+      <span style="font-size: 24px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-4);">Bouwsteen 04 / 04</span>
+      <span class="tag">Agents</span>
+    </div>
+    <h2 class="title" style="margin-top: 28px;">Een <span class="accent">digitale collega</span>, geen lineaire workflow.</h2>
+
+    <div style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 72px; margin-top: 44px; align-items: center; flex: 1;">
+
+      <div>
+        <p class="body">
+          Geef een agent een <b style="color: var(--ink);">doel</b>, geen stappenplan. Hij kiest zélf welke tools nodig zijn en in welke volgorde.
+        </p>
+        <div class="rule"></div>
+        <div style="display: flex; flex-direction: column; gap: 22px; margin-top: 8px;">
+          <div style="display: flex; gap: 20px; align-items: baseline;">
+            <span style="font-size: 24px; font-weight: 700; color: var(--accent); min-width: 32px;">↳</span>
+            <span style="font-size: 26px; line-height: 1.4; color: var(--ink-2);">Eén <b style="color: var(--ink);">ronde = 1 turn</b>: het model beslist, tools draaien, resultaat terug, en opnieuw.</span>
+          </div>
+          <div style="display: flex; gap: 20px; align-items: baseline;">
+            <span style="font-size: 24px; font-weight: 700; color: var(--accent); min-width: 32px;">↳</span>
+            <span style="font-size: 26px; line-height: 1.4; color: var(--ink-2);">Het model bepaalt <b style="color: var(--ink);">zelf wanneer het klaar is</b>: het stopt zodra het geen tool meer nodig heeft.</span>
+          </div>
+          <div style="display: flex; gap: 20px; align-items: baseline;">
+            <span style="font-size: 24px; font-weight: 700; color: var(--accent); min-width: 32px;">↳</span>
+            <span style="font-size: 26px; line-height: 1.4; color: var(--ink-2);">Vraagt jou om bevestiging op grenzen die jij vastlegt.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- animated agentic loop: model ⇄ tools, repeats until no tool-call -->
+      <div class="ag-stage">
+        <svg class="ag-ring-svg" viewBox="0 0 820 540" aria-hidden="true">
+          <circle class="ag-track" cx="410" cy="270" r="180"/>
+          <circle class="ag-flow"  cx="410" cy="270" r="180"/>
+          <!-- clockwise direction: top arc model→tools, bottom arc tools→model -->
+          <g transform="translate(410,90) rotate(0)"><path class="ag-chevron" d="M -9 -12 L 7 0 L -9 12"/></g>
+          <g transform="translate(410,450) rotate(180)"><path class="ag-chevron" d="M -9 -12 L 7 0 L -9 12"/></g>
+          <!-- prompt comes in, at the top (stops in the gap above node 1) -->
+          <path class="ag-io" d="M230 62 L230 166"/>
+          <g transform="translate(230,168) rotate(90)"><path class="ag-io-head" d="M -8 -10 L 6 0 L -8 10"/></g>
+          <!-- result goes out, at the bottom (starts below node 1, runs to the exit edge) -->
+          <path class="ag-io" d="M230 366 L230 458"/>
+          <g transform="translate(230,460) rotate(90)"><path class="ag-io-head" d="M -8 -10 L 6 0 L -8 10"/></g>
+        </svg>
+
+        <!-- prompt in -->
+        <div class="ag-entry">Jouw doel + beschikbare tools</div>
+
+        <!-- orbiting focus -->
+        <div class="ag-orbit"><div class="ag-comet"></div></div>
+
+        <!-- the two repeating steps -->
+        <div class="ag-node ag-node--decide">
+          <div class="ag-head"><span class="ag-num">1</span><span class="ag-name">Het model beslist</span></div>
+          <div class="ag-sub">Bekijkt de stand en kiest de volgende stap.</div>
+        </div>
+        <div class="ag-node ag-node--tools">
+          <div class="ag-head"><span class="ag-num">2</span><span class="ag-name">Tools draaien</span></div>
+          <div class="ag-sub">Voeren uit wat het model besliste. Resultaat gaat terug.</div>
+        </div>
+
+        <!-- exit: no more tool-calls -->
+        <div class="ag-exit">
+          <div class="ag-exit-tag">Model vraagt geen tool meer</div>
+          <div class="ag-exit-text">✓ Klaar, resultaat terug</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome">
+      <div class="sa-brand"><img src="assets/logo.svg" alt="">Smart<span class="accent">Agents</span></div>
+      <div>15 / 32</div>
+    </div>
+  </div>
+</section>

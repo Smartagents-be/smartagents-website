@@ -1,0 +1,86 @@
+<section data-label="22 Voorbeeld 06 · FAQ-bot">
+  <div class="slide-frame split">
+
+    <div style="flex: 1; padding: var(--pad-top) 80px var(--pad-bottom) var(--pad-x); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: baseline; gap: 20px;">
+        <span style="font-size: 88px; font-weight: 500; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -0.03em;">06</span>
+        <span class="eyebrow">Voorbeeld</span>
+      </div>
+      <div class="bs-pills" style="margin-top: 22px;">
+        <span class="bs-pill" style="--c: #06b6d4;">LLM</span>
+        <span class="bs-pill" style="--c: #4f6cf7;">RAG</span>
+        <span class="bs-pill" style="--c: #f59e0b;">Tools</span>
+      </div>
+      <h2 class="title" style="margin-top: 24px;">FAQ-bot voor je klantenservice.</h2>
+      <p class="body" style="margin-top: 32px;">
+        Tachtig procent van wat binnenkomt is herhaling. Bot vangt de eerstelijn op. Mens neemt over bij twijfel of emotie.
+      </p>
+
+      <div style="margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+        <div>
+          <div class="eyebrow" style="color: var(--ink-4);">Eerste respons</div>
+          <div style="font-size: 64px; font-weight: 600; color: var(--accent); margin-top: 8px; font-variant-numeric: tabular-nums; letter-spacing: -0.03em;">&lt; 2 sec</div>
+          <div class="small">Zonder wachtmuziek of wachtrij</div>
+        </div>
+        <div>
+          <div class="eyebrow" style="color: var(--ink-4);">Beschikbaar</div>
+          <div style="font-size: 64px; font-weight: 600; color: var(--accent); margin-top: 8px; font-variant-numeric: tabular-nums; letter-spacing: -0.03em;">24/7</div>
+          <div class="small">Ook 's nachts en in het weekend</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="flex: 0 0 660px; background: var(--bg-alt); padding: 48px 56px; display: flex; align-items: center; justify-content: center;">
+      <!-- animated support agent grounded in your knowledge base (mirrors my-video/SupportAgentCard) -->
+      <div id="faq-demo" style="width: 100%; max-width: 540px; background: var(--surface); border: 1px solid var(--border-soft); border-radius: 24px; box-shadow: 0 20px 50px rgba(15,23,42,0.12); overflow: hidden;">
+
+        <!-- header -->
+        <div style="display: flex; align-items: center; gap: 13px; padding: 18px 24px; border-bottom: 1px solid var(--border-soft);">
+          <div style="width: 40px; height: 40px; border-radius: 999px; background: rgba(8,145,178,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <img src="assets/logo.svg" alt="" style="width: 21px; height: 21px;" />
+          </div>
+          <div style="font-size: 22px; font-weight: 600; color: var(--ink); line-height: 1.1;">Support-agent</div>
+          <div style="margin-left: auto; font-size: 18px; font-weight: 600; color: #10b981;">● Online · 24/7</div>
+        </div>
+
+        <!-- knowledge base strip -->
+        <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-soft);">
+          <div style="font-size: 17px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 12px;">Jouw kennisbank</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="faq-kb" data-kb="0" style="display: inline-flex; align-items: center; gap: 7px; background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: 999px; padding: 7px 13px; font-size: 18px; color: var(--ink-3); font-weight: 600;">🌐 Website</span>
+            <span class="faq-kb" data-kb="1" style="display: inline-flex; align-items: center; gap: 7px; background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: 999px; padding: 7px 13px; font-size: 18px; color: var(--ink-3); font-weight: 600;">📦 Catalogus · 240</span>
+            <span class="faq-kb" data-kb="2" style="display: inline-flex; align-items: center; gap: 7px; background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: 999px; padding: 7px 13px; font-size: 18px; color: var(--ink-3); font-weight: 600;">💬 FAQ · 64</span>
+            <span class="faq-kb" data-kb="3" style="display: inline-flex; align-items: center; gap: 7px; background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: 999px; padding: 7px 13px; font-size: 18px; color: var(--ink-3); font-weight: 600;">🔧 Specs · 180</span>
+          </div>
+        </div>
+
+        <!-- chat -->
+        <div style="padding: 18px 24px; display: flex; flex-direction: column; gap: 12px;">
+
+          <div id="faq-c1" class="faq-step" style="align-self: flex-end; max-width: 82%; background: var(--accent); color: #fff; border-radius: 16px 16px 4px 16px; padding: 13px 18px; font-size: 21px; line-height: 1.4;">Heeft de ProBook 14 ook een USB-C aansluiting?</div>
+
+          <div id="faq-chip1" class="faq-step" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; background: color-mix(in srgb, var(--accent) 9%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-radius: 999px; padding: 6px 13px; font-size: 17px; color: var(--accent); font-weight: 600;">🔧 Technische specs geraadpleegd</div>
+
+          <div id="faq-r1" class="faq-step" style="align-self: flex-start; max-width: 90%; background: var(--bg-alt); color: var(--ink-2); border-radius: 16px 16px 16px 4px; padding: 14px 18px; font-size: 21px; line-height: 1.5;">Ja, de <b style="color: var(--ink);">ProBook 14 Slim</b> heeft USB-C (Thunderbolt 4), HDMI en een SD-kaartlezer.</div>
+
+          <div id="faq-c2" class="faq-step" style="align-self: flex-end; max-width: 82%; background: var(--accent); color: #fff; border-radius: 16px 16px 4px 16px; padding: 13px 18px; font-size: 21px; line-height: 1.4;">Ik zoek een laptop voor presentaties.</div>
+
+          <div id="faq-chip2" class="faq-step" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; background: color-mix(in srgb, var(--accent) 9%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-radius: 999px; padding: 6px 13px; font-size: 17px; color: var(--accent); font-weight: 600;">📦 Productcatalogus geraadpleegd</div>
+
+          <div id="faq-r2" class="faq-step" style="align-self: flex-start; max-width: 92%; background: var(--bg-alt); color: var(--ink-2); border-radius: 16px 16px 16px 4px; padding: 14px 18px; font-size: 21px; line-height: 1.5;">De <b style="color: var(--ink);">ProBook 14 Slim (€ 899)</b> is onze bestseller voor presentaties: licht, lange batterijduur en HDMI. <span style="color: var(--ink-4);">Zal ik hem in je winkelmandje plaatsen?</span></div>
+        </div>
+
+        <!-- tool action: add to cart -->
+        <div id="faq-cart-wrap" class="faq-step" style="padding: 14px 24px 20px; border-top: 1px solid var(--border-soft); display: flex; justify-content: center;">
+          <span id="faq-cart" class="faq-cart" style="display: inline-flex; align-items: center; gap: 9px; padding: 11px 22px; border-radius: 999px; font-size: 19px; font-weight: 700; color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); border: 1.5px solid color-mix(in srgb, var(--accent) 35%, transparent);">🛒 Toevoegen aan winkelmandje</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome">
+      <div class="sa-brand"><img src="assets/logo.svg" alt="">Smart<span class="accent">Agents</span></div>
+      <div>22 / 32</div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,86 @@
+<section data-label="05 Demo · App-builder">
+  <div class="slide-frame split">
+
+    <!-- LEFT · light content -->
+    <div style="flex: 1; padding: var(--pad-top) 80px var(--pad-bottom) var(--pad-x); display: flex; flex-direction: column; justify-content: center;">
+      <div class="eyebrow" style="color: #f43f5e;">Demo 02 · Software op aanvraag</div>
+      <h2 class="title" style="margin-top: 28px;">Eén zin.<br/>Eén <span class="accent">werkende app.</span></h2>
+
+      <div style="margin-top: 64px; display: flex; flex-direction: column; gap: 28px;">
+        <div style="display: flex; gap: 24px; align-items: baseline;">
+          <span style="font-size: 24px; font-weight: 700; color: #f43f5e; font-variant-numeric: tabular-nums; min-width: 32px;">1</span>
+          <span style="font-size: 30px; line-height: 1.35; color: var(--ink-2);">Beschrijf in gewone taal wat je wil.</span>
+        </div>
+        <div style="display: flex; gap: 24px; align-items: baseline;">
+          <span style="font-size: 24px; font-weight: 700; color: #f43f5e; font-variant-numeric: tabular-nums; min-width: 32px;">2</span>
+          <span style="font-size: 30px; line-height: 1.35; color: var(--ink-2);">AI schrijft en test de code.</span>
+        </div>
+        <div style="display: flex; gap: 24px; align-items: baseline;">
+          <span style="font-size: 24px; font-weight: 700; color: #f43f5e; font-variant-numeric: tabular-nums; min-width: 32px;">3</span>
+          <span style="font-size: 30px; line-height: 1.35; color: var(--ink-2);">90 seconden wachten op de build.</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 78px;">
+        <div class="eyebrow" style="font-size: 18px; color: var(--ink-4);">Use-cases</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 22px; max-width: 700px;">
+          <span class="tag">Interne tools</span>
+          <span class="tag">Calculators</span>
+          <span class="tag">Dashboards</span>
+          <span class="tag">Formulieren</span>
+          <span class="tag">Prototypes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT · dark studio panel -->
+    <div style="flex: 0 0 880px; background: var(--ink); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+      <!-- backdrop -->
+      <div style="position: absolute; inset: 0; background:
+            radial-gradient(ellipse 600px 500px at 50% 35%, rgba(244,63,94, 0.14), transparent 65%),
+            linear-gradient(180deg, #1e293b 0%, #0f172a 100%);"></div>
+
+      <!-- AI-studio venster: eender welke zin → build-animatie → werkend spel -->
+      <div class="ab-window" id="ab-demo" data-state="idle">
+        <div class="ab-head">
+          <span class="ab-dot" style="background: #f43f5e;"></span>
+          <span class="ab-dot" style="background: #f59e0b;"></span>
+          <span class="ab-dot" style="background: #10b981;"></span>
+          <span class="ab-title">AI-studio · nieuwe app</span>
+          <span class="ab-status" id="ab-status"></span>
+        </div>
+
+        <div class="ab-body">
+          <!-- state: idle -->
+          <div class="ab-state" id="ab-idle">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.7L19.6 10l-5.7 1.9L12 17.6l-1.9-5.7L4.4 10l5.7-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+            <h3>Wat zal ik voor je bouwen?</h3>
+            <p>Typ je idee hieronder en druk Enter.</p>
+          </div>
+
+          <!-- state: build -->
+          <div class="ab-state" id="ab-build">
+            <div class="ab-steps" id="ab-steps"></div>
+            <pre class="ab-code" id="ab-code"></pre>
+          </div>
+
+          <!-- state: game -->
+          <div class="ab-state" id="ab-game">
+            <canvas id="ab-canvas"></canvas>
+            <div class="ab-hint">Klik of spatie om te fladderen</div>
+          </div>
+        </div>
+
+        <div class="ab-foot">
+          <input id="ab-input" type="text" placeholder="Beschrijf de app die je wil bouwen…" autocomplete="off" />
+          <button id="ab-send">Bouw</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome">
+      <div class="sa-brand"><img src="assets/logo.svg" alt="">Smart<span class="accent">Agents</span></div>
+      <div>05 / 32</div>
+    </div>
+  </div>
+</section>

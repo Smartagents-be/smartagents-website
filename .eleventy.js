@@ -98,7 +98,9 @@ const colocatedAssetExtensions = new Set([
     '.png',
     '.jpg',
     '.jpeg',
-    '.avif'
+    '.avif',
+    '.mp3',
+    '.mp4'
 ]);
 
 function collectColocatedAssets(rootDir, fs, path) {
@@ -115,9 +117,7 @@ function collectSecuredStaticFiles(rootDir, fs, path) {
         rootDir,
         fs,
         path,
-        (fullPath) => {
-            return fullPath.endsWith('.css') || fullPath.endsWith('.pdf');
-        }
+        (fullPath) => colocatedAssetExtensions.has(path.extname(fullPath).toLowerCase()) && !fullPath.endsWith('.11tydata.js')
     );
 }
 
@@ -292,6 +292,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("llms.txt");
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy({ "_headers": "_headers" });
+  eleventyConfig.addPassthroughCopy({ "_redirects": "_redirects" });
   colocatedAssetRoots.forEach((dir) => {
       if (!fs.existsSync(dir)) return;
       collectColocatedAssets(dir, fs, path).forEach((file) => {
@@ -308,7 +309,10 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("**/README.md");
   eleventyConfig.ignores.add("docs/**");
   eleventyConfig.ignores.add("functions/**");
+  eleventyConfig.ignores.add("temp/**");
   eleventyConfig.ignores.add("**/page.njk");
+  eleventyConfig.ignores.add("secured/presentations/**/slides/**/*.njk");
+  eleventyConfig.ignores.add("secured/presentations/shared/**/*.njk");
   eleventyConfig.ignores.add("services/training/detail.njk");
   eleventyConfig.ignores.add("header/*.njk");
   eleventyConfig.ignores.add("footer/*.njk");

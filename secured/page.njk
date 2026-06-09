@@ -4,6 +4,7 @@
 </header>
 
 {% if securedFiles.length %}
+<h2 class="section-title">Documenten</h2>
 <div class="list">
   {% for doc in securedFiles %}
   <div class="item">
@@ -15,6 +16,22 @@
   </div>
   {% endfor %}
 </div>
-{% else %}
+{% endif %}
+
+{% if pitchDecks.length %}
+<h2 class="section-title">Pitches</h2>
+<div class="list">
+  {% for deck in pitchDecks %}
+  <div class="item">
+    <span class="item-name">{{ deck.name }}</span>
+    <div class="actions">
+      <a class="btn btn-view" href="{{ deck.html | withPathPrefix }}">Bekijken</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if not securedFiles.length and not pitchDecks.length %}
 <p class="empty">Geen documenten beschikbaar.</p>
 {% endif %}

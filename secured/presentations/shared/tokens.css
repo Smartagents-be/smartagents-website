@@ -1,0 +1,193 @@
+/* =============================================================
+   SmartAgents — Foundational tokens
+   Pulled from styles.css in smartagents-be/smartagents-website
+   Single source of truth for colors, type, spacing, shadows.
+   ============================================================= */
+
+:root {
+    /* ---------- Brand palette ---------- */
+    --sa-cyan: #00d8ff;            /* PRIMARY accent — CTAs, links, highlights */
+    --sa-cyan-22: #22d3ee;         /* Gradient mid-stop */
+    --sa-blue: #4f6cf7;            /* Gradient end-stop (logo, accents) */
+    --sa-purple: #6366f1;
+    --sa-purple-dark: #4f46e5;
+    --sa-purple-light: #a78bfa;
+
+    /* ---------- Neutrals (dark-first) ---------- */
+    --sa-dark: #0f172a;            /* Default page background */
+    --sa-dark-lighter: #1e293b;    /* Elevated surfaces, cards */
+    --sa-dark-deep: #090e16;       /* Deepest — pills, menus */
+    --sa-gray: #64748b;            /* Muted copy */
+    --sa-gray-light: #94a3b8;      /* Secondary copy, labels */
+    --sa-light: #f8fafc;           /* Default foreground on dark */
+    --sa-white: #ffffff;
+    --sa-black: #000000;
+
+    /* ---------- Alpha overlays ---------- */
+    --sa-white-05: rgba(255,255,255,0.05);
+    --sa-white-07: rgba(255,255,255,0.07);
+    --sa-white-10: rgba(255,255,255,0.10);
+    --sa-white-25: rgba(255,255,255,0.25);
+    --sa-white-40: rgba(255,255,255,0.40);
+    --sa-white-75: rgba(255,255,255,0.75);
+    --sa-black-10: rgba(0,0,0,0.10);
+    --sa-black-40: rgba(0,0,0,0.40);
+    --sa-black-50: rgba(0,0,0,0.50);
+    --sa-dark-60: rgba(15,23,42,0.6);
+    --sa-dark-80: rgba(15,23,42,0.8);
+    --sa-dark-95: rgba(15,23,42,0.95);
+    --sa-dark-deep-82: rgba(9,14,22,0.82);
+
+    /* Cyan glow tiers — the hero workhorse */
+    --sa-cyan-08: rgba(0,216,255,0.08);
+    --sa-cyan-15: rgba(0,216,255,0.15);
+    --sa-cyan-20: rgba(0,216,255,0.20);
+    --sa-cyan-30: rgba(0,216,255,0.30);
+    --sa-cyan-40: rgba(0,216,255,0.40);
+    --sa-cyan-60: rgba(0,216,255,0.60);
+
+    /* ---------- Semantic roles ---------- */
+    --bg: var(--sa-dark);
+    --bg-elevated: var(--sa-dark-lighter);
+    --bg-overlay: var(--sa-dark-deep-82);
+    --fg: var(--sa-light);
+    --fg-muted: var(--sa-gray-light);
+    --fg-subtle: var(--sa-gray);
+    --accent: var(--sa-cyan);
+    --accent-ink: var(--sa-dark);   /* text color on top of --accent */
+    --border: var(--sa-white-07);
+    --border-strong: var(--sa-white-10);
+    --focus-ring: 0 0 0 3px var(--sa-cyan-08);
+
+    /* ---------- Service accents (per-page colored glows) ---------- */
+    --accent-ai: #2563eb;
+    --accent-agentic: #06b6d4;
+    --accent-automation: #10b981;
+    --accent-process: #f59e0b;
+    --accent-secure: #f43f5e;
+    --accent-training: #8b5cf6;
+    --accent-smartscan: #3b82f6;
+    --accent-smartspace: #00897e;        /* platform logo teal (oklch(0.567 0.1 184.994)) */
+    --accent-smartspace-bright: #29a798; /* on-dark step */
+
+    /* ---------- Signature gradient ---------- */
+    --sa-gradient: linear-gradient(135deg, var(--sa-purple-light) 0%, var(--sa-cyan) 35%);
+    --sa-gradient-logo: linear-gradient(135deg, #00d8ff 0%, #22d3ee 50%, #4f6cf7 100%);
+
+    /* ---------- Typography ---------- */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+    /* Type scale — fluid where meaningful */
+    --fs-display: clamp(2.5rem, 5vw, 4rem);       /* h1 hero */
+    --fs-h1: clamp(2.4rem, 4vw, 3.4rem);          /* section h1 */
+    --fs-h2: clamp(2rem, 4vw, 3rem);              /* section titles */
+    --fs-h3: 1.5rem;
+    --fs-h4: 1.25rem;
+    --fs-lg: 1.15rem;
+    --fs-body: 1rem;
+    --fs-sm: 0.875rem;
+    --fs-xs: 0.75rem;
+    --fs-eyebrow: 0.68rem;                        /* uppercased eyebrow */
+    --fs-stat: clamp(2.6rem, 5vw, 3.5rem);        /* big numeric stats */
+
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-black: 800;
+
+    --lh-tight: 1.2;
+    --lh-snug: 1.3;
+    --lh-body: 1.6;
+    --lh-loose: 1.75;
+
+    --ls-tight: -0.03em;
+    --ls-normal: 0;
+    --ls-eyebrow: 0.18em;      /* SCROLL, MENU, section labels */
+    --ls-caps: 0.12em;
+
+    /* ---------- Radius ---------- */
+    --r-xs: 6px;
+    --r-sm: 8px;      /* buttons, inputs */
+    --r-md: 12px;     /* small cards, dropdowns */
+    --r-lg: 16px;     /* panels */
+    --r-xl: 20px;     /* big cards, form */
+    --r-pill: 999px;  /* nav pills, CTAs in overlay */
+
+    /* ---------- Spacing (4px baseline) ---------- */
+    --s-1: 4px;
+    --s-2: 8px;
+    --s-3: 12px;
+    --s-4: 16px;
+    --s-5: 20px;
+    --s-6: 24px;
+    --s-8: 32px;
+    --s-10: 40px;
+    --s-12: 48px;
+    --s-16: 64px;
+    --s-20: 80px;
+    --s-24: 96px;
+    --s-30: 120px;    /* section padding (py: 120px) */
+
+    /* ---------- Shadows / glow ---------- */
+    --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.10), 0 10px 10px -5px rgba(0,0,0,0.04);
+    --shadow-cta: 0 10px 40px var(--sa-cyan-40);
+    --glow-cyan-sm: 0 0 16px var(--sa-cyan-30);
+    --glow-cyan-md: 0 0 24px var(--sa-cyan-20);
+    --glow-cyan-lg: 0 0 60px var(--sa-cyan-40);
+
+    /* ---------- Motion ---------- */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+    --t-fast: 0.15s;
+    --t-med: 0.3s;
+    --t-slow: 0.5s;
+}
+
+/* =============================================================
+   Semantic defaults — opt in by applying class `sa` or using body.
+   ============================================================= */
+html { scroll-behavior: smooth; }
+
+.sa-body,
+body.sa {
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--fg);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sa h1, .sa h2, .sa h3, .sa h4,
+.sa-h1, .sa-h2, .sa-h3, .sa-h4 {
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    color: var(--fg);
+    margin: 0;
+}
+
+.sa h1, .sa-h1 { font-size: var(--fs-h1); }
+.sa h2, .sa-h2 { font-size: var(--fs-h2); }
+.sa h3, .sa-h3 { font-size: var(--fs-h3); }
+.sa h4, .sa-h4 { font-size: var(--fs-h4); }
+
+.sa-display     { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: var(--lh-tight); letter-spacing: var(--ls-tight); }
+.sa-eyebrow     { font-size: var(--fs-eyebrow); font-weight: var(--fw-bold); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--accent); }
+.sa-body-text   { font-size: var(--fs-body); color: var(--fg-muted); line-height: var(--lh-loose); }
+.sa-muted       { color: var(--fg-muted); }
+.sa-subtle      { color: var(--fg-subtle); }
+.sa-mono        { font-family: var(--font-mono); }
+
+.sa-gradient-text {
+    background: var(--sa-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.sa-accent-text  { color: var(--accent); }
