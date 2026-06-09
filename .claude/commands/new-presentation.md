@@ -89,7 +89,7 @@ permalink: "{{ presentations.myNewDeck.permalink }}"
 
 ## Step 4 — deck.css
 
-Copy from `presentations/staffing-pitch/deck.css` as your base. It contains all the shared component styles. Add slide-specific overrides or new components at the bottom.
+Copy from `presentations/pitch/deck.css` as your base. It contains all the shared component styles, plus the reusable variety patterns from the Design principles section below (`.frame-body`, `.cat-*`, `.problist`, `.checklist`, `.picks`, `.axis`). Add slide-specific overrides or new components at the bottom.
 
 ---
 
@@ -203,6 +203,63 @@ Use these classes in order of visual weight:
 | `.accent` | — | Inline cyan highlight on any text element |
 
 Eyebrow format: `<p class="eyebrow"><span class="num">01</span>Label text</p>`
+
+---
+
+## Design principles: visual variety and rhythm
+
+Three rules that keep a deck from feeling monotonous. Apply them to every deck. The reusable patterns ship in the `presentations/pitch/deck.css` base (Step 4); `presentations/advocatuur-pitch/` is a worked example that uses all of them.
+
+### 1. Not every slide is a card grid
+
+Cards (`.grid-3` / `.grid-4` of `.card`) are the default, but a deck where every slide is the same card grid reads as one long list. Vary the form to match the content, keeping the copy identical:
+
+- **Editorial list** (problem to consequence, item to detail): stacked rows split by a thin divider, each with an icon, a bold title and the detail after a `→`. See `.problist`.
+- **Checklist**: round check icons with title and one line, no boxes. Good for reassurance or trust slides. See `.checklist`.
+- **Numbered picks**: oversized `01 / 02 / 03` numerals in columns separated by vertical rules. Good for a short "where to start" shortlist. See `.picks`.
+- **Axis / spectrum**: a horizontal gradient line with labeled nodes between two poles. Good for an overview that has a direction (for example Proces to AI). See `.axis`.
+- **Steps**: the existing 4 to 5 column process row (`.steps`).
+
+Rule of thumb: if two consecutive slides would use the same layout, change one of them. A bundled set of near-identical slides (for example one detail slide per domain) may stay uniform on purpose; it is the surrounding framing slides that should differ.
+
+### 2. Title always at the top, content centered below
+
+The eyebrow and heading ALWAYS sit at the top of the frame. Everything below the heading goes in a `.frame-body` wrapper that fills the remaining height and centers its content vertically. A sparse slide then floats its content in the middle instead of clinging to the top, while the title stays put. A full slide is unaffected.
+
+```html
+<div class="frame">
+  <p class="eyebrow">…</p>
+  <h2 class="h2">…</h2>
+
+  <div class="frame-body">
+    <!-- grid / list / axis / etc. -->
+    <div class="callout">…</div>
+  </div>
+</div>
+```
+
+```css
+.frame-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.frame-body > :first-child { margin-top: 0 !important; }
+```
+
+Do NOT center the whole `.frame` (no `justify-content: center` on `.frame`): that drops the title to the middle too. Only `.frame-body` centers. The 88px footer clearance still applies because the frame keeps its bottom padding.
+
+### 3. Accent color and icon per domain
+
+When a deck has distinct domains or categories, give each its own accent color and a representative icon instead of leaving everything cyan. Near-identical slides become instantly distinguishable, and an overview slide visually ties to its detail slides.
+
+- Set the color once per slide on the section: `class="slide light cat-themed" style="--c: #4f46e5;"`.
+- A `cat-themed` slide flows `--c` (via `color-mix`) through the eyebrow, the `.accent` word in the heading, the header icon badge, the number chips and the callout.
+- Put a header icon badge next to the title with `.cat-head` + `.cat-icon`, using a stroke icon (Lucide style, `viewBox="0 0 24 24"`, `stroke-width="1.75"`).
+- Keep colors on-brand and cool (indigo, teal, cyan, violet, blue). Use amber only for a problem or pain slide, emerald for a safety or trust slide.
+- **Exception:** the SmartAgents wordmark in the footer stays cyan, always. Never let `--c` recolor it: `.chrome .brand .accent { color: var(--sa-cyan); }`.
 
 ---
 
@@ -361,6 +418,9 @@ All slide copy follows the SmartAgents writing standard. Apply the `/blog-style`
 - [ ] Cover uses `class="slide deeper"` with `<div class="glow"></div>`; all others use `class="slide light"` with `<div class="glow soft"></div>`
 - [ ] No slide overrides `padding-bottom` on `.frame`
 - [ ] No content sits in the bottom 88px of any slide
+- [ ] Layouts are varied: not every slide is the same card grid (see Design principles)
+- [ ] Title (eyebrow + heading) sits at the top of every slide; content below is wrapped in `.frame-body` and centered
+- [ ] Distinct domains each have their own accent color (`--c`) and header icon; the footer wordmark stays cyan
 - [ ] Route is registered in `_data/presentations.js`
 - [ ] `page.njk` includes all slide files in order
 - [ ] Assets copied to `presentations/<slug>/assets/`

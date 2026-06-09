@@ -42,6 +42,19 @@ body {
     flex-direction: column;
 }
 
+/* Title stays pinned at the top; everything below centers in the leftover space */
+.frame-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.frame-body > :first-child {
+    margin-top: 0 !important;
+}
+
 /* Glow */
 .glow {
     position: absolute;
@@ -1160,6 +1173,341 @@ h2.h2 {
     color: var(--fg-muted);
     line-height: 1.42;
     margin: 0;
+}
+
+/* ── Category header + theming (example slides 04–08) ─────────── */
+.cat-head {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 4px;
+}
+
+.cat-head .cat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+}
+
+.cat-head .cat-icon svg {
+    width: 52px;
+    height: 52px;
+}
+
+.cat-head .cat-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.cat-head .eyebrow {
+    margin-bottom: 14px;
+}
+
+.cat-head .h2 {
+    margin-bottom: 0;
+}
+
+/* Overview card (slide 03): category icon chip + matching top accent */
+.cat-card {
+    border-top: 3px solid var(--c);
+}
+
+.cat-card .cat-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+    margin-bottom: 4px;
+}
+
+.cat-card .cat-chip svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* When a slide carries a category accent, tint its recurring marks */
+.cat-themed .eyebrow {
+    color: var(--c);
+}
+
+.cat-themed .accent {
+    color: var(--c);
+}
+
+/* Brand wordmark stays cyan, never the slide's category accent */
+.chrome .brand .accent {
+    color: var(--sa-cyan);
+}
+
+.cat-themed .card .num-lg,
+.cat-themed .sec-card .sec-ic {
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border-color: color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+}
+
+.cat-themed .callout {
+    background: color-mix(in srgb, var(--c) 5%, transparent);
+    border-color: color-mix(in srgb, var(--c) 18%, transparent);
+}
+
+/* ── Problem → consequence list (slide 01) ────────────────────── */
+.problist {
+    display: flex;
+    flex-direction: column;
+    margin-top: 44px;
+}
+
+.prob-row {
+    display: grid;
+    grid-template-columns: 64px 0.9fr 1.3fr;
+    align-items: center;
+    gap: 32px;
+    padding: 32px 6px;
+    border-top: 1px solid var(--sa-white-10);
+}
+
+.prob-row:last-child {
+    border-bottom: 1px solid var(--sa-white-10);
+}
+
+.prob-ic {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+    flex-shrink: 0;
+}
+
+.prob-ic svg {
+    width: 30px;
+    height: 30px;
+}
+
+.prob-title {
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+}
+
+.prob-conseq {
+    font-size: 25px;
+    line-height: 1.42;
+    color: var(--fg-muted);
+}
+
+.prob-conseq .arr {
+    color: var(--c);
+    font-weight: 700;
+    margin-right: 12px;
+}
+
+/* ── Checklist (slide 09) ─────────────────────────────────────── */
+.checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 72px;
+    margin-top: 48px;
+}
+
+.check-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    align-items: start;
+    padding-top: 28px;
+    border-top: 1px solid var(--sa-white-10);
+}
+
+.check-item .ck {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+    flex-shrink: 0;
+}
+
+.check-item .ck svg {
+    width: 28px;
+    height: 28px;
+}
+
+.check-item h4 {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+    line-height: 1.12;
+}
+
+.check-item p {
+    font-size: 23px;
+    line-height: 1.45;
+    color: var(--fg-muted);
+    margin: 0;
+}
+
+/* ── Numbered picks (slide 10) ────────────────────────────────── */
+.picks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 52px;
+}
+
+.pick {
+    padding: 6px 48px;
+    border-left: 1px solid var(--sa-white-10);
+}
+
+.pick:first-child {
+    border-left: none;
+    padding-left: 6px;
+}
+
+.pick .pk-n {
+    font-size: 88px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--c);
+}
+
+.pick h3 {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 22px 0 10px;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+}
+
+.pick p {
+    font-size: 24px;
+    line-height: 1.45;
+    color: var(--fg-muted);
+    margin: 0;
+}
+
+/* ── Proces ↔ AI axis (slide 03) ──────────────────────────────── */
+.axis {
+    margin-top: 64px;
+}
+
+.axis-track {
+    display: flex;
+    align-items: flex-start;
+    gap: 34px;
+}
+
+.axis-pole {
+    flex-shrink: 0;
+    padding-top: 25px;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.axis-pole.left {
+    color: #4f46e5;
+}
+
+.axis-pole.right {
+    color: var(--sa-cyan);
+}
+
+.axis-rail {
+    position: relative;
+    flex: 1;
+}
+
+.axis-line {
+    position: absolute;
+    top: 37px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #4f46e5 0%, #0d9488 28%, #0891b2 60%, #7c3aed 80%, #2563eb 100%);
+    z-index: 0;
+}
+
+.axis-nodes {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.axis-node {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 0 16px;
+}
+
+.axis-node .nd-ic {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid var(--c);
+    color: var(--c);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--c) 22%, transparent);
+}
+
+.axis-node .nd-ic svg {
+    width: 34px;
+    height: 34px;
+}
+
+.axis-node .nd-range {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--c);
+    margin-top: 4px;
+}
+
+.axis-node h3 {
+    font-size: 27px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0;
+    line-height: 1.14;
+    letter-spacing: -0.01em;
 }
 
 /* KBC cover badge */
