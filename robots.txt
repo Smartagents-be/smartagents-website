@@ -1,6 +1,7 @@
 # General crawl policy
 User-agent: *
 Allow: /
+Disallow: /secured/
 
 # AI crawlers — explicitly welcomed for citation in generative search
 User-agent: GPTBot
