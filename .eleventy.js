@@ -117,9 +117,7 @@ function collectSecuredStaticFiles(rootDir, fs, path) {
         rootDir,
         fs,
         path,
-        (fullPath) => {
-            return fullPath.endsWith('.css') || fullPath.endsWith('.pdf') || fullPath.endsWith('.js');
-        }
+        (fullPath) => colocatedAssetExtensions.has(path.extname(fullPath).toLowerCase()) && !fullPath.endsWith('.11tydata.js')
     );
 }
 
@@ -128,7 +126,7 @@ module.exports = function(eleventyConfig) {
   const PATH_PREFIX = normalizePathPrefix();
   const SITE_ROOT_URL = buildAbsoluteUrl('/', SITE_BASE_URL, PATH_PREFIX);
   const BASE_DOMAIN = new URL(SITE_ROOT_URL).hostname;
-  const colocatedAssetRoots = ['404', 'blog', 'customerzone', 'footer', 'header', 'home', 'jobs', 'presentations', 'products', 'services', 'team'];
+  const colocatedAssetRoots = ['404', 'blog', 'customerzone', 'footer', 'header', 'home', 'jobs', 'products', 'services', 'team'];
 
   const fs = require('node:fs');
   const path = require('node:path');
@@ -313,8 +311,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("functions/**");
   eleventyConfig.ignores.add("temp/**");
   eleventyConfig.ignores.add("**/page.njk");
-  eleventyConfig.ignores.add("presentations/**/slides/**/*.njk");
-  eleventyConfig.ignores.add("presentations/shared/**/*.njk");
+  eleventyConfig.ignores.add("secured/presentations/**/slides/**/*.njk");
+  eleventyConfig.ignores.add("secured/presentations/shared/**/*.njk");
   eleventyConfig.ignores.add("services/training/detail.njk");
   eleventyConfig.ignores.add("header/*.njk");
   eleventyConfig.ignores.add("footer/*.njk");

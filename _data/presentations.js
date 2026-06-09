@@ -1,20 +1,20 @@
 module.exports = {
   pitch: {
-    permalink: '/presentations/pitch/'
+    permalink: '/secured/presentations/pitch/'
   },
   staffingPitch: {
-    permalink: '/presentations/staffing-pitch/'
+    permalink: '/secured/presentations/staffing-pitch/'
   },
   aiReadyOrganization: {
-    permalink: '/presentations/ai-ready-organization/'
+    permalink: '/secured/presentations/ai-ready-organization/'
   },
   ontbijtsessie: {
-    permalink: '/presentations/ontbijtsessie/'
+    permalink: '/secured/presentations/ontbijtsessie/'
   },
   kbcStaffingPitch: {
-    permalink: '/presentations/kbc-staffing-pitch/'
+    permalink: '/secured/presentations/kbc-staffing-pitch/'
   },
   advocatuurPitch: {
-    permalink: '/presentations/advocatuur-pitch/'
+    permalink: '/secured/presentations/advocatuur-pitch/'
   }
 };
