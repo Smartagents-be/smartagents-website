@@ -12,6 +12,7 @@ module.exports = {
   permalink: '/blog/{{ page.fileSlug }}/',
   image: '/assets/blog/default-banner.webp',
   eleventyComputed: {
+    nlPermalink: data => `/blog/${data.page.fileSlug}/`,
     imageAlt: data => data.imageAlt || data.title || 'SmartAgents Blog',
     socialImage: data => data.image || '/assets/blog/default-banner.webp'
   }
