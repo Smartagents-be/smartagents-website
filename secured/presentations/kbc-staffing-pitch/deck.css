@@ -959,6 +959,40 @@ h2.h2 {
     letter-spacing: 0.01em;
 }
 
+/* T-stem: vertical column of core specialisations forming the stem of the T */
+.t-stem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 30px;
+    position: relative;
+}
+
+.t-stem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 22px;
+    background: var(--sa-white-10);
+}
+
+.t-stem-label {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--fg-muted);
+    margin-bottom: 6px;
+}
+
+.t-stem .pill {
+    min-width: 260px;
+    text-align: center;
+}
+
 /* Proof / track record banner */
 .proof {
     margin-top: 28px;
@@ -1088,8 +1122,6 @@ h2.h2 {
 
 .bigthree-card {
     background: var(--sa-white-05);
-    border: 1px solid var(--sa-white-10);
-    border-top: 3px solid var(--sa-cyan);
     border-radius: 18px;
     padding: 32px 28px;
     display: flex;
@@ -1121,7 +1153,6 @@ h2.h2 {
 
 .sec-card {
     background: var(--sa-white-05);
-    border: 1px solid var(--sa-white-10);
     border-radius: 18px;
     padding: 26px 24px;
     display: flex;
@@ -1176,4 +1207,325 @@ h2.h2 {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--sa-cyan);
+}
+
+/* Frame body: title stays at top, content centers in leftover space */
+.frame-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.frame-body > :first-child {
+    margin-top: 0 !important;
+}
+
+/* ── Per-spoor accenten (staffing / training / project / security) ── */
+.track-staffing { --track: var(--accent-agentic); }
+.track-training { --track: var(--accent-training); }
+.track-project { --track: var(--accent-automation); }
+.track-security { --track: var(--accent-secure); }
+
+.track-staffing .frame .eyebrow,
+.track-training .frame .eyebrow,
+.track-project .frame .eyebrow,
+.track-security .frame .eyebrow,
+.track-staffing .frame .accent,
+.track-training .frame .accent,
+.track-project .frame .accent,
+.track-security .frame .accent,
+.track-staffing .frame .card .lab,
+.track-training .frame .card .lab,
+.track-project .frame .card .lab,
+.track-security .frame .card .lab {
+    color: var(--track);
+}
+
+.track-staffing .frame .callout,
+.track-training .frame .callout,
+.track-project .frame .callout,
+.track-security .frame .callout {
+    background: color-mix(in srgb, var(--track) 7%, transparent);
+    border-color: color-mix(in srgb, var(--track) 24%, transparent);
+}
+
+.track-staffing .frame .card li::before,
+.track-training .frame .card li::before,
+.track-project .frame .card li::before,
+.track-security .frame .card li::before {
+    background: var(--track);
+}
+
+.track-staffing .frame .num-lg,
+.track-training .frame .num-lg,
+.track-project .frame .num-lg,
+.track-security .frame .num-lg,
+.track-staffing .frame .sec-card .sec-ic,
+.track-training .frame .sec-card .sec-ic,
+.track-project .frame .sec-card .sec-ic,
+.track-security .frame .sec-card .sec-ic {
+    background: color-mix(in srgb, var(--track) 12%, transparent);
+    border-color: color-mix(in srgb, var(--track) 32%, transparent);
+    color: var(--track);
+}
+
+.track-project .frame .role-card,
+.track-training .frame .phase {
+    border-color: color-mix(in srgb, var(--track) 26%, var(--sa-white-10));
+}
+
+.track-project .frame .role-card h4,
+.track-training .frame .phase .ph,
+.track-training .frame .phase li::before {
+    color: var(--track);
+}
+
+/* AI Staffing slide: compactere typografie */
+section[data-label="AI Staffing"] .h2 {
+    font-size: 52px;
+}
+
+section[data-label="AI Staffing"] .card h3 {
+    font-size: 28px;
+}
+
+section[data-label="AI Staffing"] .card p,
+section[data-label="AI Staffing"] .card li {
+    font-size: 20px;
+}
+
+section[data-label="AI Staffing"] .card .num-lg {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    border-radius: 12px;
+}
+
+section[data-label="AI Staffing"] .card ul {
+    gap: 8px;
+}
+
+section[data-label="AI Staffing"] .card li {
+    display: block;
+    padding-left: 18px;
+    position: relative;
+}
+
+section[data-label="AI Staffing"] .card li::before {
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+}
+
+section[data-label="AI Staffing"] .callout {
+    font-size: 22px;
+    padding: 16px 24px;
+    margin-top: 20px;
+}
+
+/* ── Rollen slide: role card with a single topic-coloured icon ──── */
+.role-card .role-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.role-card .role-ic {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    background: color-mix(in srgb, var(--track, var(--sa-cyan)) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--track, var(--sa-cyan)) 30%, transparent);
+    color: var(--track, var(--sa-cyan));
+}
+
+.role-card .role-ic svg {
+    width: 26px;
+    height: 26px;
+}
+
+.role-card .role-head h4 {
+    margin: 0;
+}
+
+/* T-stem row: shared kernspecialisatie pills under the role cards */
+.t-stem {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 36px;
+}
+
+.t-stem-label {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--track, var(--sa-cyan));
+    margin-right: 6px;
+}
+
+/* ── Icon columns: ruled columns, no card boxes ───────────────── */
+.iconcols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 44px;
+}
+
+.iconcol {
+    padding: 6px 48px;
+    border-left: 1px solid var(--sa-white-10);
+    display: flex;
+    flex-direction: column;
+}
+
+.iconcol:first-child {
+    border-left: none;
+    padding-left: 6px;
+}
+
+.iconcol .ic {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+    margin-bottom: 22px;
+}
+
+.iconcol .ic svg {
+    width: 34px;
+    height: 34px;
+}
+
+.iconcol .lab {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c);
+    margin-bottom: 12px;
+}
+
+.iconcol h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 14px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+}
+
+.iconcol p {
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--fg-muted);
+    margin: 0;
+}
+
+/* ── Checklist: ruled rows with circular icon, no card boxes ──── */
+.checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 72px;
+    margin-top: 44px;
+}
+
+.checklist.cols-1 {
+    grid-template-columns: 1fr;
+    max-width: 1280px;
+}
+
+.check-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    align-items: start;
+    padding-top: 26px;
+    border-top: 1px solid var(--sa-white-10);
+}
+
+.check-item .ck {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+    flex-shrink: 0;
+}
+
+.check-item .ck svg {
+    width: 28px;
+    height: 28px;
+}
+
+.check-item h4 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+    line-height: 1.12;
+}
+
+.check-item p {
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--fg-muted);
+    margin: 0;
+}
+
+/* ── Numbered picks: oversized numerals in ruled columns ──────── */
+.picks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 48px;
+}
+
+.pick {
+    padding: 6px 48px;
+    border-left: 1px solid var(--sa-white-10);
+}
+
+.pick:first-child {
+    border-left: none;
+    padding-left: 6px;
+}
+
+.pick .pk-n {
+    font-size: 84px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--c);
+}
+
+.pick h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 20px 0 10px;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+}
+
+.pick p {
+    font-size: 23px;
+    line-height: 1.45;
+    color: var(--fg-muted);
+    margin: 0;
 }
