@@ -6,6 +6,7 @@
   },
   "scripts": {
     "build": "node scripts/build-site.mjs",
-    "dev": "node scripts/start-local.mjs"
+    "dev": "node scripts/start-local.mjs",
+    "export:pdfs": "node scripts/export-pitch-pdfs.mjs"
   }
 }
