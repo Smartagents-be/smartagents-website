@@ -278,6 +278,25 @@ h2.h2 {
     margin-bottom: 6px;
 }
 
+/* Themed icon badge inside a plain card (uses --c set inline) */
+.card .card-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+    color: var(--c);
+    margin-bottom: 4px;
+}
+
+.card .card-ico svg {
+    width: 30px;
+    height: 30px;
+}
+
 /* Per-service themed card (uses --c set inline) */
 .card.svc {
     padding: 30px 30px;
