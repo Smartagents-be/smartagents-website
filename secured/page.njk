@@ -26,6 +26,7 @@
     <span class="item-name">{{ deck.name }}</span>
     <div class="actions">
       <a class="btn btn-view" href="{{ deck.html | withPathPrefix }}">Bekijken</a>
+      {% if deck.pdf %}<a class="btn btn-pdf" href="{{ deck.pdf | withPathPrefix }}" download>PDF</a>{% endif %}
     </div>
   </div>
   {% endfor %}

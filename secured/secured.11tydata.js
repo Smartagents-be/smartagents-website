@@ -44,11 +44,17 @@ module.exports = function () {
     for (const entry of fs.readdirSync(presentationsDir, { withFileTypes: true })) {
       if (!entry.isDirectory() || entry.name === 'shared') continue;
       if (!fs.existsSync(path.join(presentationsDir, entry.name, 'index.njk'))) continue;
-      pitchDecks.push({
+      const deck = {
         name: DECK_NAMES[entry.name] || prettify(entry.name),
         slug: entry.name,
         html: `/secured/presentations/${entry.name}/`
-      });
+      };
+      // A pre-rendered <slug>.pdf next to the deck (see scripts/export-pitch-pdfs.mjs)
+      // is offered as a downloadable, shareable version.
+      if (fs.existsSync(path.join(presentationsDir, entry.name, `${entry.name}.pdf`))) {
+        deck.pdf = `/secured/presentations/${entry.name}/${entry.name}.pdf`;
+      }
+      pitchDecks.push(deck);
     }
   }
 

@@ -7,6 +7,7 @@
   "scripts": {
     "build": "node scripts/build-site.mjs",
     "dev": "node scripts/start-local.mjs",
-    "watch": "eleventy --serve"
+    "watch": "eleventy --serve",
+    "export:pdfs": "node scripts/export-pitch-pdfs.mjs"
   }
 }
