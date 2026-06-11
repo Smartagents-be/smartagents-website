@@ -278,17 +278,6 @@ h2.h2 {
     margin-bottom: 6px;
 }
 
-/* Title row with a themed icon next to the heading */
-.card .card-head {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.card .card-head h3 {
-    margin: 0;
-}
-
 /* Themed icon badge inside a plain card (uses --c set inline) */
 .card .card-ico {
     display: inline-flex;
@@ -302,10 +291,6 @@ h2.h2 {
     color: var(--c);
     margin-bottom: 4px;
     flex-shrink: 0;
-}
-
-.card .card-head .card-ico {
-    margin-bottom: 0;
 }
 
 .card .card-ico svg {
@@ -1404,6 +1389,26 @@ section[data-label="AI Staffing"] .callout {
     letter-spacing: 0.04em;
     color: var(--track, var(--sa-cyan));
     margin-right: 6px;
+}
+
+/* ── Icon + title on the same line ─────────────────────────────── */
+.icon-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.icon-title h3,
+.icon-title h4 {
+    margin: 0;
+}
+
+.icon-title .ic,
+.icon-title .card-ico,
+.icon-title .sec-ic {
+    margin-bottom: 0;
+    flex-shrink: 0;
 }
 
 /* ── Icon columns: ruled columns, no card boxes ───────────────── */
