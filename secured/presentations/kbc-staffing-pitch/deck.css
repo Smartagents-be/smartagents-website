@@ -1390,6 +1390,26 @@ section[data-label="AI Staffing"] .callout {
     margin-right: 6px;
 }
 
+/* ── Icon + title on the same line ─────────────────────────────── */
+.icon-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.icon-title h3,
+.icon-title h4 {
+    margin: 0;
+}
+
+.icon-title .ic,
+.icon-title .card-ico,
+.icon-title .sec-ic {
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
 /* ── Icon columns: ruled columns, no card boxes ───────────────── */
 .iconcols {
     display: grid;
