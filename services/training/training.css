@@ -111,7 +111,7 @@
     background: var(--purple-soft-40);
 }
 
-/* Drop to deepdive branch */
+/* Drop to developer branch */
 .training-fork-right::after {
     content: '';
     position: absolute;
@@ -120,19 +120,23 @@
     transform: translateX(-50%);
     width: 2px;
     height: 50%;
-    background: var(--blue-40);
+    background: var(--green-40);
 }
 
 .training-branches {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .training-branch {
     display: flex;
     flex-direction: column;
+}
+
+.training-branch .training-node {
+    flex: 1;
 }
 
 .training-path-heading,
@@ -163,7 +167,8 @@
     color: var(--purple-soft);
 }
 
-.training-node--management .training-node-target {
+.training-node--management .training-node-target,
+.training-node--developer .training-node-target {
     flex-basis: 100%;
 }
 
@@ -172,6 +177,25 @@
 }
 
 .training-node--developer .training-node-num {
+    color: var(--green);
+}
+
+.training-node-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.training-node-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.training-node-icon--management {
+    color: var(--purple-soft);
+}
+
+.training-node-icon--developer {
     color: var(--green);
 }
 
@@ -249,6 +273,18 @@
     gap: 10px;
 }
 
+.training-node--management,
+.training-node--developer {
+    display: flex;
+    flex-direction: column;
+}
+
+.training-node--management .training-node-meta,
+.training-node--developer .training-node-meta {
+    justify-content: flex-start;
+    margin-top: auto;
+}
+
 .training-node-target {
     display: flex;
     gap: 6px;
@@ -300,6 +336,17 @@
     box-shadow: 0 0 10px var(--purple-soft-20);
 }
 
+.training-onepager-btn--developer {
+    color: var(--green);
+    border-color: var(--green-20);
+    background: var(--green-08);
+}
+
+.training-onepager-btn--developer:hover {
+    background: var(--green-10);
+    box-shadow: 0 0 10px var(--green-20);
+}
+
 .training-onepager-btn--filled-cyan {
     color: var(--accent-ink);
     border-color: var(--accent);
@@ -320,6 +367,17 @@
 .training-onepager-btn--filled-management:hover {
     background: var(--purple-soft-fill);
     box-shadow: 0 0 14px var(--purple-soft-40);
+}
+
+.training-onepager-btn--filled-developer {
+    color: var(--sa-white);
+    border-color: var(--green);
+    background: var(--green);
+}
+
+.training-onepager-btn--filled-developer:hover {
+    background: var(--green);
+    box-shadow: 0 0 14px var(--green-40);
 }
 
 /* ── Training detail page components ── */
@@ -463,6 +521,11 @@
         box-shadow: 0 0 8px var(--blue-60);
     }
 
+    .tmc-phase-dot--green {
+        background: var(--green);
+        box-shadow: 0 0 8px var(--green-60);
+    }
+
     /* ── Track: left line + stacked cards ── */
     .tmc-track {
         display: flex;
@@ -488,6 +551,10 @@
 
     .tmc-track-line--blue {
         background: linear-gradient(to bottom, var(--blue-60), var(--green-20));
+    }
+
+    .tmc-track-line--green {
+        background: linear-gradient(to bottom, var(--green-60), var(--green-10));
     }
 
     .tmc-cards {
@@ -546,6 +613,12 @@
         align-items: center;
     }
 
+    .tmc-card-num--purple {
+        color: var(--purple-soft);
+        display: flex;
+        align-items: center;
+    }
+
     .tmc-card-body {
         flex: 1;
         display: flex;
@@ -576,6 +649,19 @@
     .tmc-card-body .training-onepager-btn {
         align-self: flex-start;
         margin-top: 4px;
+    }
+
+    .tmc-card-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-top: 4px;
+    }
+
+    .tmc-card-actions .training-onepager-btn {
+        align-self: auto;
+        margin-top: 0;
     }
 
     .tmc-prereq-tag {
@@ -648,11 +734,11 @@
         box-shadow: 0 0 20px var(--purple-soft-20);
     }
 
-    .tmc-picker-btn--deepdive.tmc-active {
-        border-color: var(--blue-60);
-        background: var(--blue-10);
-        color: var(--blue);
-        box-shadow: 0 0 20px var(--blue-20);
+    .tmc-picker-btn--developer.tmc-active {
+        border-color: var(--green-60);
+        background: var(--green-10);
+        color: var(--green);
+        box-shadow: 0 0 20px var(--green-20);
     }
 
     /* ── Path panels (show/hide) ── */

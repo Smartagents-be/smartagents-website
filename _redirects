@@ -7,3 +7,7 @@
 
 # Oude publieke deck-URLs doorsturen naar de beveiligde locatie.
 /presentations/* /secured/presentations/:splat 301
+
+# De c-level trainingspagina heet nu management.
+/services/training/c-level/ /services/training/management/ 301
+/en/services/training/c-level/ /en/services/training/management/ 301

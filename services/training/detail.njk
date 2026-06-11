@@ -104,6 +104,9 @@
                 </div>
                 {% set nextHref = (k ~ ".next.href") | t(locale) %}
                 {% set hasNextHref = nextHref and nextHref != (k ~ ".next.href") %}
+                {% set nextText = (k ~ ".next.text") | t(locale) %}
+                {% set hasNextText = nextText and nextText != (k ~ ".next.text") %}
+                {% if hasNextText %}
                 {% if hasNextHref %}
                 <a href="{{ nextHref | withPathPrefix }}" class="training-next-step-card">
                 {% else %}
@@ -111,7 +114,7 @@
                 {% endif %}
                     <div class="training-next-step-main">
                         <span class="page-role-item-kicker">{{ (k ~ ".next.label") | t(locale) }}</span>
-                        <p class="training-next-step-title">{{ (k ~ ".next.text") | t(locale) }}</p>
+                        <p class="training-next-step-title">{{ nextText }}</p>
                     </div>
                     {% if hasNextHref %}
                     <span class="training-next-step-arrow" aria-hidden="true">-&gt;</span>
@@ -120,6 +123,7 @@
                 </a>
                 {% else %}
                 </div>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

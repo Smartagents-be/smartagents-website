@@ -80,6 +80,8 @@
     --green-10: rgba(16, 185, 129, 0.1);
     --green-15: rgba(16, 185, 129, 0.15);
     --green-20: rgba(16, 185, 129, 0.2);
+    --green-40: rgba(16, 185, 129, 0.4);
+    --green-60: rgba(16, 185, 129, 0.6);
 
     /* Amber / orange family */
     --amber: #f59e0b;

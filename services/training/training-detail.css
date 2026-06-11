@@ -3,13 +3,23 @@
     background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
 }
 
-body[data-training-detail="c-level"] {
+body[data-training-detail="management"] {
     --service-color: var(--purple-soft);
     --service-color-20: var(--purple-soft-20);
     --service-color-15: var(--purple-soft-15);
     --service-color-08: var(--purple-soft-08);
     --service-ink: var(--sa-white);
     --service-fill: var(--purple-soft-fill);
+    --service-fill-ink: var(--sa-white);
+}
+
+body[data-training-detail="developers"] {
+    --service-color: var(--green);
+    --service-color-20: var(--green-20);
+    --service-color-15: var(--green-15);
+    --service-color-08: var(--green-08);
+    --service-ink: var(--sa-white);
+    --service-fill: var(--green);
     --service-fill-ink: var(--sa-white);
 }
 
