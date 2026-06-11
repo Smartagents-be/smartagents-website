@@ -1,61 +1,35 @@
 <!-- ════════════════ 06 · AI STAFFING ════════════════ -->
-  <style>
-    section[data-label="AI Staffing"] .h2 { font-size: 52px; }
-    section[data-label="AI Staffing"] .card h3 { font-size: 28px; }
-    section[data-label="AI Staffing"] .card p  { font-size: 20px; }
-    section[data-label="AI Staffing"] .card li { font-size: 20px; }
-    section[data-label="AI Staffing"] .card .num-lg { width: 48px; height: 48px; font-size: 22px; border-radius: 12px; }
-    section[data-label="AI Staffing"] .card ul { gap: 8px; }
-    section[data-label="AI Staffing"] .card li { display: block; padding-left: 18px; position: relative; }
-    section[data-label="AI Staffing"] .card li::before { position: absolute; left: 0; top: 0.15em; }
-    section[data-label="AI Staffing"] .callout { font-size: 22px; padding: 16px 24px; margin-top: 20px; }
-  </style>
-  <section data-label="AI Staffing" class="slide light">
+  <section data-label="AI Staffing" class="slide light track-staffing">
     <div class="glow soft"></div>
     <div class="frame">
       <p class="eyebrow"><span class="num">05</span>AI Staffing</p>
-      <h2 class="h2">De juiste AI-mensen vinden, <span class="accent">of uw eigen team versterken</span>.</h2>
+      <h2 class="h2">Developers die meteen <span class="accent">in KBC-teams kunnen meedraaien</span>.</h2>
 
-      <div class="grid-3" style="margin-top: 20px; align-items: stretch;">
-        <div class="card">
-          <div class="num-lg">01</div>
-          <h3>Sourcing &amp; selectie</h3>
-          <p>De AI-markt is krap. Wij vinden wie het écht kan.</p>
-          <ul>
-            <li><span>Netwerk van <strong>voorgekwalificeerd AI-talent</strong><span></li>
-            <li><span><strong>Voorgescreende shortlist</strong> i.p.v. maanden zoekwerk<span></li>
-            <li>Match op <strong>skills én cultuur</strong></li>
-          </ul>
+      <div class="frame-body">
+        <div class="picks" style="margin-top: 36px;">
+          <div class="pick" style="--c: var(--accent-agentic);">
+            <div class="pk-n">01</div>
+            <h3>Delivery-ready</h3>
+            <p>Developers die AI elke dag in hun engineeringpraktijk inzetten: agentic coding tools, MCP-servers, skills en subagents, niet als experiment maar als manier van werken.</p>
+          </div>
+          <div class="pick" style="--c: var(--accent-agentic);">
+            <div class="pk-n">02</div>
+            <h3>SmartAgents-gecertificeerd</h3>
+            <p>Gescreend door practitioners die zelf bouwen, met interne AI-native training en technische rugdekking vanuit SmartAgents.</p>
+          </div>
+          <div class="pick" style="--c: var(--accent-agentic);">
+            <div class="pk-n">03</div>
+            <h3>In jouw context</h3>
+            <p>De developer draait mee in jouw teams, ceremonies en tooling, binnen jouw security-, governance- en compliancekaders.</p>
+          </div>
         </div>
-        <div class="card">
-          <div class="num-lg">02</div>
-          <h3>Screening door practitioners</h3>
-          <p>We beoordelen kandidaten als <strong>bouwers</strong>, niet als generalisten.</p>
-          <ul>
-            <li><strong>Code, modellen en denkwerk</strong> inhoudelijk getoetst</li>
-            <li>Interviews door <strong>engineers die zelf bouwen</strong></li>
-            <li><strong>Realistische cases</strong>, geen strikvragen</li>
-            <li><strong>Eerlijk advies</strong>, ook als het géén match is</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="num-lg">03</div>
-          <h3>Training &amp; upskilling</h3>
-          <p>Uw <strong>eigen mensen</strong> naar AI-maturiteit, van dev-team tot directie.</p>
-          <ul>
-            <li><strong>Agentic development</strong> voor dev-teams</li>
-            <li><strong>AI-engineering practices</strong>, van prototype tot productie</li>
-            <li><strong>AI-adoptie &amp; tooling</strong> voor de hele organisatie</li>
-            <li>Op maat van <strong>uw stack en niveau</strong></li>
-          </ul>
-        </div>
-      </div>
 
-      <div class="callout">
-        Wij bouwen zelf agents en <strong>SmartSpace</strong>, ons eigen platform. Daarom herkennen we echte expertise aan de selectietafel.
+        <div class="callout">
+          Staffing is hier geen CV-stroom, maar <strong>gerichte versterking van bestaande deliveryteams</strong>.
+        </div>
       </div>
     </div>
     {% set slideNumber = "06" %}
-    {% set slideTotal = "16" %}
+    {% set slideTotal = "13" %}
     {% include "../../shared/chrome.njk" %}
   </section>
