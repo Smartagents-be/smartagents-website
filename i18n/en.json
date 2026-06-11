@@ -36,6 +36,9 @@
   "services.staffing.desc": "The AI market is tight and on paper everyone looks like an expert. We source and select the right profiles for any organization and screen them as practitioners, not as generalist recruiters.",
   "services.smartscan.title": "Smart Scan",
 
+  "sectors.title": "AI in your sector",
+  "sectors.subtitle": "Every sector has its own processes and bottlenecks. These are a few applications where we make the difference in your sector.",
+
   "home.smartspace.label": "New · Beta",
   "home.smartspace.title": "SmartSpace",
   "home.smartspace.pitch": "The central platform for your SME. Pluggable modules for email, invoices, quotes, tenders, calculations and more, all in one place.",
