@@ -278,6 +278,17 @@ h2.h2 {
     margin-bottom: 6px;
 }
 
+/* Title row with a themed icon next to the heading */
+.card .card-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.card .card-head h3 {
+    margin: 0;
+}
+
 /* Themed icon badge inside a plain card (uses --c set inline) */
 .card .card-ico {
     display: inline-flex;
@@ -290,6 +301,11 @@ h2.h2 {
     border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
     color: var(--c);
     margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+.card .card-head .card-ico {
+    margin-bottom: 0;
 }
 
 .card .card-ico svg {
