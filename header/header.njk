@@ -147,8 +147,9 @@
                 <div class="navbar-settings-row">
                     <span class="navbar-settings-label">{{ "nav.settings.language" | t(locale) }}</span>
                     <div class="navbar-lang">
-                        <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl | withPathPrefix }}">EN</a>
                         <a class="lang-btn {% if locale == 'nl' %}active{% endif %}" href="{{ nlUrl | withPathPrefix }}">NL</a>
+                        <a class="lang-btn {% if locale == 'fr' %}active{% endif %}" href="{{ frUrl | withPathPrefix }}">FR</a>
+                        <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl | withPathPrefix }}">EN</a>
                     </div>
                 </div>
             </div>
@@ -225,6 +226,7 @@
 
 <!-- Lang switcher shown when overlay is open (mobile) -->
 <div class="overlay-lang-switcher" aria-hidden="true">
-    <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl | withPathPrefix }}">EN</a>
     <a class="lang-btn {% if locale == 'nl' %}active{% endif %}" href="{{ nlUrl | withPathPrefix }}">NL</a>
+    <a class="lang-btn {% if locale == 'fr' %}active{% endif %}" href="{{ frUrl | withPathPrefix }}">FR</a>
+    <a class="lang-btn {% if locale == 'en' %}active{% endif %}" href="{{ enUrl | withPathPrefix }}">EN</a>
 </div>

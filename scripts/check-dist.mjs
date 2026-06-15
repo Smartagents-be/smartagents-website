@@ -40,8 +40,10 @@ function permalinkToOutputPath(permalink) {
 const noindexPages = new Set([
   '404.html',
   'en/404.html',
+  'fr/404.html',
   'customerzone/index.html',
   'en/customerzone/index.html',
+  'fr/customerzone/index.html',
   'secured/index.html',
   ...Object.values(presentations).map(({ permalink }) => permalinkToOutputPath(permalink))
 ]);
@@ -73,7 +75,7 @@ function isPrimaryPage(file) {
 }
 
 function isErrorPage(file) {
-  return file === '404.html' || file === 'en/404.html';
+  return file === '404.html' || file === 'en/404.html' || file === 'fr/404.html';
 }
 
 function isNoindexPage(file) {

@@ -9,14 +9,16 @@ eleventyExcludeFromCollections: true
   {%- if not p.data.excludeFromSitemap %}
   {%- set nlHref = p.data.nlPermalink | absoluteUrl(baseUrl) %}
   {%- set enHref = ("/en" + p.data.nlPermalink) | absoluteUrl(baseUrl) %}
+  {%- set frHref = ("/fr" + p.data.nlPermalink) | absoluteUrl(baseUrl) %}
   <url>
     <loc>{{ p.url | absoluteUrl(baseUrl) }}</loc>
     <xhtml:link rel="alternate" hreflang="nl" href="{{ nlHref }}"/>
     <xhtml:link rel="alternate" hreflang="en" href="{{ enHref }}"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="{{ frHref }}"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="{{ nlHref }}"/>
     <lastmod>{{ p.date | dateToFormat }}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>{{ "1.0" if p.url == "/" or p.url == "/en/" else "0.8" }}</priority>
+    <priority>{{ "1.0" if p.url == "/" or p.url == "/en/" or p.url == "/fr/" else "0.8" }}</priority>
   </url>
   {%- endif %}
   {%- endfor %}

@@ -7,7 +7,8 @@ module.exports = {
   pageKey: 'blogPost',
   socialAlt: {
     nl: 'SmartAgents Blog',
-    en: 'SmartAgents Blog'
+    en: 'SmartAgents Blog',
+    fr: 'SmartAgents Blog'
   },
   permalink: '/blog/{{ page.fileSlug }}/',
   image: '/assets/blog/default-banner.webp',
