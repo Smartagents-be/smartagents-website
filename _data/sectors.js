@@ -199,5 +199,104 @@ module.exports = {
         { title: 'Case summarisation', desc: 'Long files and reports summarised in seconds.' }
       ]
     }
+  ],
+
+  fr: [
+    {
+      id: 'bouw',
+      name: 'Construction',
+      solutions: [
+        { title: "Rédaction de devis", desc: "Métrés et devis générés à partir de votre propre base de prix." },
+        { title: "Planning de chantier", desc: "Planning et capacité adaptés à la météo, aux livraisons et à l'occupation." },
+        { title: "Analyse de plans", desc: "Plans et cahiers des charges analysés pour en extraire risques et quantités." },
+        { title: "Métré des quantités", desc: "Mesure automatique des quantités à partir des plans et des modèles." },
+        { title: "Suivi des sous-traitants", desc: "Documents, attestations et échéances suivis de façon centralisée." },
+        { title: "Rapports de sécurité", desc: "Rapports de chantier et documents de sécurité rédigés plus vite." },
+        { title: "Contrôle des factures", desc: "Factures entrantes rapprochées du bon de commande et de la livraison." },
+        { title: "Suivi de chantier par l'image", desc: "Photos de chantier étiquetées automatiquement et liées à la bonne phase." },
+        { title: "Veille des appels d'offres", desc: "Appels d'offres publics pertinents filtrés et résumés." },
+        { title: "Calcul a posteriori", desc: "Coûts réels comparés à l'estimation pour des devis plus précis." }
+      ]
+    },
+    {
+      id: 'distributie',
+      name: 'Distribution',
+      solutions: [
+        { title: "Prévision de la demande", desc: "Ventes prévues par article pour ajuster vos stocks." },
+        { title: "Optimisation des stocks", desc: "Points de commande et stock de sécurité calculés automatiquement." },
+        { title: "Traitement des commandes", desc: "Commandes entrantes lues automatiquement depuis les e-mails et PDF." },
+        { title: "Enrichissement des données produit", desc: "Descriptions et catégories de produits complétées automatiquement." },
+        { title: "Gestion des prix", desc: "Marges et prix concurrents surveillés et ajustés." },
+        { title: "Assistant service client", desc: "Questions sur la livraison et le stock répondues immédiatement." },
+        { title: "Suivi des fournisseurs", desc: "Délais et fiabilité mesurés par fournisseur." },
+        { title: "Gestion des retours", desc: "Retours classés et traités plus rapidement." },
+        { title: "Devis et commandes", desc: "Devis générés à partir de votre catalogue et de vos accords de prix." },
+        { title: "Détection des erreurs", desc: "Commandes et factures anormales signalées automatiquement." }
+      ]
+    },
+    {
+      id: 'transport',
+      name: 'Transport',
+      solutions: [
+        { title: "Planification des tournées", desc: "Itinéraires et chargements optimisés sur le temps, le coût et les émissions." },
+        { title: "Traitement des documents", desc: "CMR, lettres de voiture et documents douaniers lus automatiquement." },
+        { title: "Suivi des expéditions", desc: "Statut et retards signalés de façon proactive." },
+        { title: "Planification des capacités", desc: "Chauffeurs et véhicules adaptés à la demande." },
+        { title: "Calcul des tarifs", desc: "Devis et tarifs calculés par trajet et par chargement." },
+        { title: "Maintenance prédictive", desc: "Entretien des véhicules planifié avant toute immobilisation." },
+        { title: "Gestion des réclamations", desc: "Dossiers de dommages et réclamations résumés et traités plus vite." },
+        { title: "Contrôle de la facturation", desc: "Tournées rapprochées des factures et des prix contractuels." },
+        { title: "Douane et conformité", desc: "Documents vérifiés quant à leur exhaustivité et à la réglementation." },
+        { title: "Communication client", desc: "Confirmations de livraison et heures d'arrivée envoyées automatiquement." }
+      ]
+    },
+    {
+      id: 'maakindustrie',
+      name: 'Industrie manufacturière',
+      solutions: [
+        { title: "Planification de la production", desc: "Planning adapté aux commandes, au stock et à la capacité." },
+        { title: "Contrôle qualité", desc: "Inspection visuelle des produits par reconnaissance d'image." },
+        { title: "Maintenance prédictive", desc: "Pannes anticipées à partir des données machines." },
+        { title: "Calcul et devis", desc: "Devis de fabrication calculé à partir des plans et des nomenclatures." },
+        { title: "Instructions de travail", desc: "Instructions et documentation générées automatiquement." },
+        { title: "Stock et achats", desc: "Matières premières commandées à temps selon la consommation." },
+        { title: "Analyse des pannes", desc: "Causes des arrêts identifiées plus rapidement." },
+        { title: "Gestion documentaire", desc: "Normes, certificats et révisions gérés de façon centralisée." },
+        { title: "Consommation d'énergie", desc: "Consommation mesurée et optimisée par ligne." },
+        { title: "Suivi des commandes", desc: "Statut par commande visible de la commande à la livraison." }
+      ]
+    },
+    {
+      id: 'renewable',
+      name: 'Énergies renouvelables',
+      solutions: [
+        { title: "Prévision de production", desc: "Production solaire et éolienne prévue par installation." },
+        { title: "Planification de l'entretien", desc: "Inspections et entretien planifiés selon les performances." },
+        { title: "Détection des défaillances", desc: "Performances anormales des panneaux ou éoliennes signalées." },
+        { title: "Négoce d'énergie", desc: "Consommation et réinjection alignées sur les prix du marché." },
+        { title: "Dimensionnement et devis", desc: "Installations calculées à partir de la consommation et des données de toiture ou de terrain." },
+        { title: "Primes et réglementation", desc: "Aides et obligations pertinentes suivies." },
+        { title: "Gestion des dossiers", desc: "Demandes et contrôles suivis automatiquement." },
+        { title: "Inspection par l'image", desc: "Images de drone et images thermiques évaluées automatiquement." },
+        { title: "Vision de la consommation", desc: "Clients informés de leur consommation et de leurs économies." },
+        { title: "Rapports", desc: "Rapports de performance et de durabilité générés automatiquement." }
+      ]
+    },
+    {
+      id: 'diensten',
+      name: 'Secteur des services',
+      solutions: [
+        { title: "Rédaction de documents", desc: "Propositions, contrats et rapports rédigés plus vite." },
+        { title: "Assistant de connaissances", desc: "Vos documents et votre savoir-faire interrogeables en une seule question." },
+        { title: "Tri des e-mails", desc: "Courriers entrants classés et premières réponses préparées." },
+        { title: "Devis et propositions", desc: "Devis rédigés sur mesure selon la demande." },
+        { title: "Facturation et suivi", desc: "Factures établies et postes ouverts surveillés." },
+        { title: "Planning et réservations", desc: "Rendez-vous et capacité ajustés automatiquement." },
+        { title: "Assistant service client", desc: "Questions fréquentes répondues immédiatement et correctement." },
+        { title: "Rapports et analyses", desc: "Données de vos systèmes résumées en rapports clairs." },
+        { title: "Onboarding", desc: "Nouveaux clients et collaborateurs intégrés plus rapidement." },
+        { title: "Synthèse de dossiers", desc: "Longs dossiers et comptes rendus résumés en quelques secondes." }
+      ]
+    }
   ]
 };
