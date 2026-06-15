@@ -7,7 +7,8 @@ module.exports = {
   socialImage: '/assets/social-preview.webp',
   socialAlt: {
     nl: 'SmartAgents – AI-gedreven bedrijfsautomatisatie',
-    en: 'SmartAgents – AI-driven business automation'
+    en: 'SmartAgents – AI-driven business automation',
+    fr: 'SmartAgents – automatisation d\'entreprise pilotée par l\'IA'
   },
   metaAuthor: 'SmartAgents',
   schemaType: 'home',

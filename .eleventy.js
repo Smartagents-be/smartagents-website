@@ -134,7 +134,8 @@ module.exports = function(eleventyConfig) {
   const { EleventyI18nPlugin } = require("@11ty/eleventy");
   const i18n = {
       en: JSON.parse(readFileSync('./i18n/en.json', 'utf8')),
-      nl: JSON.parse(readFileSync('./i18n/nl.json', 'utf8'))
+      nl: JSON.parse(readFileSync('./i18n/nl.json', 'utf8')),
+      fr: JSON.parse(readFileSync('./i18n/fr.json', 'utf8'))
   };
 
   // Built-in i18n plugin — provides locale_url filter

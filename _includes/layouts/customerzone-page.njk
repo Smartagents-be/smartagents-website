@@ -4,11 +4,12 @@
 {%- set resolvedDescription = resolvedDescriptionKey | t(locale) -%}
 {%- set nlUrl = nlPermalink -%}
 {%- set enUrl = "/en" + nlPermalink -%}
+{%- set frUrl = "/fr" + nlPermalink -%}
 {%- set nlAltUrl = nlUrl | absoluteUrl(baseUrl) -%}
 {%- set enAltUrl = enUrl | absoluteUrl(baseUrl) -%}
+{%- set frAltUrl = frUrl | absoluteUrl(baseUrl) -%}
 {%- set canonicalUrl = page.url | absoluteUrl(baseUrl) -%}
-{%- set ogLocale = "nl_BE" if locale == "nl" else "en_US" -%}
-{%- set ogLocaleAlternate = "en_US" if locale == "nl" else "nl_BE" -%}
+{%- set ogLocale = "nl_BE" if locale == "nl" else ("fr_BE" if locale == "fr" else "en_US") -%}
 {%- set socialImageUrl = socialImage | absoluteUrl(baseUrl) -%}
 {%- set socialImageAlt = socialAlt[locale] -%}
 <!DOCTYPE html>
@@ -24,6 +25,7 @@
     <link rel="canonical" href="{{ canonicalUrl }}">
     <link rel="alternate" hreflang="nl" href="{{ nlAltUrl }}">
     <link rel="alternate" hreflang="en" href="{{ enAltUrl }}">
+    <link rel="alternate" hreflang="fr" href="{{ frAltUrl }}">
     <link rel="alternate" hreflang="x-default" href="{{ nlAltUrl }}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="SmartAgents">
@@ -31,7 +33,9 @@
     <meta property="og:description" content="{{ resolvedDescription }}">
     <meta property="og:url" content="{{ canonicalUrl }}">
     <meta property="og:locale" content="{{ ogLocale }}">
-    <meta property="og:locale:alternate" content="{{ ogLocaleAlternate }}">
+    {% if locale != "nl" %}<meta property="og:locale:alternate" content="nl_BE">{% endif %}
+    {% if locale != "en" %}<meta property="og:locale:alternate" content="en_US">{% endif %}
+    {% if locale != "fr" %}<meta property="og:locale:alternate" content="fr_BE">{% endif %}
     <meta property="og:image" content="{{ socialImageUrl }}">
     <meta property="og:image:alt" content="{{ socialImageAlt }}">
     <meta name="twitter:card" content="summary_large_image">

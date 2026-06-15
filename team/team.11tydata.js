@@ -8,7 +8,8 @@ module.exports = {
   socialImage: '/assets/social-preview.webp',
   socialAlt: {
     nl: 'SmartAgents – Het team achter intelligente AI-automatisatie',
-    en: 'SmartAgents – The team behind intelligent AI automation'
+    en: 'SmartAgents – The team behind intelligent AI automation',
+    fr: 'SmartAgents – l\'équipe derrière l\'automatisation intelligente par l\'IA'
   },
   pageStyles: [
     '/team/team.css'

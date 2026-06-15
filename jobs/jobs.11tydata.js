@@ -10,7 +10,8 @@ module.exports = {
   socialImage: '/assets/handshake.webp',
   socialAlt: {
     nl: 'Professionele handdruk tussen zakenpartners',
-    en: 'Professional handshake between business partners'
+    en: 'Professional handshake between business partners',
+    fr: 'Poignée de main professionnelle entre partenaires d\'affaires'
   },
   pageStyles: [
     '/shared/css/scroll-reveal.css',
