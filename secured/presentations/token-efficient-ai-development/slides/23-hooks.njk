@@ -14,22 +14,7 @@
 
       <div class="frame-body">
       <div class="grid-3" style="margin-top: 36px; align-content: start;">
-        <div class="card">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <h3>Hooks</h3>
-          <ul>
-            <li>Configured in <code>settings.json</code>.</li>
-            <li>For example auto-format after an edit, or block a command.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <h3>.cursor/hooks.json</h3>
-          <ul>
-            <li>Per project or user (<code>~/.cursor</code>).</li>
-            <li>Observe, block, or inject context.</li>
-          </ul>
-        </div>
+
         <div class="card">
           <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
           <h3>Agent hooks <span style="font-size: 0.6em; opacity: 0.7;">(preview)</span></h3>
@@ -38,10 +23,29 @@
             <li>Same events as the Claude format.</li>
           </ul>
         </div>
+
+        <div class="card">
+          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
+          <h3>Hooks</h3>
+          <ul>
+            <li>Configured in <code>settings.json</code>.</li>
+            <li>For example auto-format after an edit, or block a command.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
+          <h3>.cursor/hooks.json</h3>
+          <ul>
+            <li>Per project or user (<code>~/.cursor</code>).</li>
+            <li>Observe, block, or inject context.</li>
+          </ul>
+        </div>
+
       </div>
 
       <div class="callout">
-        Similar events, named per tool: Claude Code uses SessionStart, PreToolUse, PostToolUse, PreCompact, Stop; Copilot mirrors these PascalCase names; Cursor uses its own camelCase names like sessionStart, afterFileEdit and beforeShellExecution. <strong>Automate guardrails</strong> instead of typing them every time.
+        Similar events, named per tool: Copilot and Claude Code share PascalCase event names (SessionStart, PreToolUse, PostToolUse, PreCompact, Stop); Cursor uses its own camelCase names like sessionStart, afterFileEdit and beforeShellExecution. <strong>Automate guardrails</strong> instead of typing them every time.
       </div>
       </div>
     </div>
