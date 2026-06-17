@@ -20,16 +20,16 @@
           <div class="ide">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.cursor/rules/style.mdc</span>
+              <span class="ide-file">.cursor/rules/java.mdc</span>
             </div>
             <pre class="ide-body"><span class="cmt">---</span>
-<span class="key">globs</span>: <span class="str">"**/*.ts"</span>
+<span class="key">globs</span>: <span class="str">"**/*.java"</span>
 <span class="cmt">---</span>
-Use tabs.
-Write tests for
-every function.</pre>
+Use constructor injection.
+No field injection.
+Tests with JUnit 5.</pre>
           </div>
-          <p class="ide-cap">Rule activates for TypeScript files.</p>
+          <p class="ide-cap">Rule activates for Java files.</p>
         </div>
 
         <div class="ide-col">
@@ -40,11 +40,11 @@ every function.</pre>
               <span class="ide-file">CLAUDE.md</span>
             </div>
             <pre class="ide-body"><span class="key">## Style</span>
-- English in UI
-- No em-dash
+- Constructor injection
+- No field injection
 
-<span class="key">## Commands</span>
-- npm run build</pre>
+<span class="key">## Tests</span>
+- JUnit 5, AssertJ</pre>
           </div>
           <p class="ide-cap">Loaded automatically every session.</p>
         </div>
@@ -56,11 +56,10 @@ every function.</pre>
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
               <span class="ide-file">copilot-instructions.md</span>
             </div>
-            <pre class="ide-body">Use strict
-TypeScript.
-Follow the existing
-folder structure.
-Tests with Vitest.</pre>
+            <pre class="ide-body">Use constructor injection.
+Tests with JUnit 5.
+Format with Spotless
+before committing.</pre>
           </div>
           <p class="ide-cap">Applies repo-wide.</p>
         </div>

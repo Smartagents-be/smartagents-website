@@ -8,7 +8,7 @@
         </span>
         <div class="cat-text">
           <p class="eyebrow"><span class="num">22</span>Example</p>
-          <h2 class="h2"><span class="accent">Auto-format</span> after every edit.</h2>
+          <h2 class="h2"><span class="accent">Auto-format and test</span> after every edit.</h2>
         </div>
       </div>
 
@@ -26,12 +26,12 @@
   <span class="key">"hooks"</span>: {
     <span class="key">"PostToolUse"</span>: [
       { <span class="key">"command"</span>:
-        <span class="str">"npm run format"</span> }
+        <span class="str">"mvn -q spotless:apply"</span> }
     ]
   }
 }</pre>
           </div>
-          <p class="ide-cap">Runs after every tool action.</p>
+          <p class="ide-cap">Spotless formats after every tool action.</p>
         </div>
 
         <div class="ide-col">
@@ -46,12 +46,12 @@
   <span class="key">"hooks"</span>: {
     <span class="key">"afterFileEdit"</span>: [
       { <span class="key">"command"</span>:
-        <span class="str">"prettier -w"</span> }
+        <span class="str">"mvn -q spotless:apply"</span> }
     ]
   }
 }</pre>
           </div>
-          <p class="ide-cap">Per project or user.</p>
+          <p class="ide-cap">Formats on every file edit (camelCase event name).</p>
         </div>
 
         <div class="ide-col">
@@ -59,18 +59,18 @@
           <div class="ide">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.github/hooks/format.json</span>
+              <span class="ide-file">.github/hooks/test.json</span>
             </div>
             <pre class="ide-body">{
   <span class="key">"hooks"</span>: {
     <span class="key">"PostToolUse"</span>: [
       { <span class="key">"command"</span>:
-        <span class="str">"npm run lint"</span> }
+        <span class="str">"mvn -q test"</span> }
     ]
   }
 }</pre>
           </div>
-          <p class="ide-cap">Run locally (preview).</p>
+          <p class="ide-cap">Runs the test suite after every change (preview).</p>
         </div>
 
       </div>

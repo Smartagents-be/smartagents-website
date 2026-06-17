@@ -1,10 +1,28 @@
-<!-- ════════ 25 · STUB ════════ -->
-  <section data-label="lab-a2-extend" class="slide light">
+<!-- ════════════════ 25 · LAB A2: EXTEND ════════════════ -->
+  <section data-label="Lab A2: extend" class="slide light cat-themed" style="--c: #16a34a;">
     <div class="glow soft"></div>
     <div class="frame">
-      <p class="eyebrow"><span class="num">25</span>Lab A2: extend</p>
-      <h2 class="h2">Lab A2: extend.</h2>
-      <div class="frame-body"><div class="callout">Stub.</div></div>
+      <p class="eyebrow"><span class="num">25</span>Lab A2</p>
+      <h2 class="h2">Fix the bug and add rate-limiting with a <span class="accent">reusable setup</span>.</h2>
+
+      <div class="frame-body">
+      <div class="lab" style="margin-top: 20px; --c: #16a34a;">
+        <span class="lab-tag">Lab A2: extend the agent</span>
+        <h3>Add a rate-limit filter to token-efficient-workshop-java</h3>
+        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> fix the session-timeout bug and add a rate-limit servlet filter using a persistent instruction file, a reusable skill or command, and an automated hook.</p>
+        <ol>
+          <li>Add a <code>CLAUDE.md</code> (or equivalent instruction file) with the Java conventions: constructor injection, no field injection, tests with JUnit 5.</li>
+          <li>Create a skill or command for "add a servlet filter": <code>.claude/skills/add-filter/SKILL.md</code> with a description and step-by-step instructions.</li>
+          <li>Add a <code>PostToolUse</code> hook that runs <code>mvn -q spotless:apply</code> to format after every edit, plus a hook that runs <code>mvn -q test</code> to keep tests green.</li>
+          <li>Ask the agent to fix the session-timeout bug and add the rate-limit filter. Let it use the skill and verify the hook fires.</li>
+        </ol>
+        <p class="lab-out"><strong>Expected result:</strong> a working <code>RateLimitFilter.java</code>, green tests, and a reusable config that any future session can pick up without re-explaining the conventions.</p>
+      </div>
+
+      <div class="callout">
+        The instruction, skill, and hook are now part of the repo. The next developer (or next session) inherits the same guardrails for free.
+      </div>
+      </div>
     </div>
     {% set slideNumber = "25" %}
     {% set slideTotal = "50" %}

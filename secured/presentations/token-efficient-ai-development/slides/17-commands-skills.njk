@@ -1,5 +1,5 @@
-<!-- ════════════════ 17 · REUSABLE PROMPTS & COMMANDS ════════════════ -->
-  <section data-label="Commands" class="slide light cat-themed" style="--c: #db2777;">
+<!-- ════════════════ 17 · COMMANDS & SKILLS ════════════════ -->
+  <section data-label="Commands &amp; skills" class="slide light cat-themed" style="--c: #db2777;">
     <div class="glow soft"></div>
     <div class="frame">
       <div class="cat-head">
@@ -8,7 +8,7 @@
         </span>
         <div class="cat-text">
           <p class="eyebrow"><span class="num">17</span>Extend</p>
-          <h2 class="h2">Save recurring prompts and call them <span class="accent">on demand</span>.</h2>
+          <h2 class="h2">Package recurring prompts as <span class="accent">commands or skills</span>.</h2>
         </div>
       </div>
 
@@ -16,32 +16,32 @@
       <div class="grid-3" style="margin-top: 36px; align-content: start;">
         <div class="card">
           <span class="lab">Claude Code</span>
-          <h3>Slash commands</h3>
+          <h3>Commands &amp; skills</h3>
           <ul>
-            <li>Custom commands in <code>.claude/commands</code>, invoked with <code>/</code>.</li>
-            <li>Part of Skills since 2026; commands still work.</li>
+            <li>Custom commands merged into Skills; <code>.claude/commands</code> still works.</li>
+            <li>Commands in <code>.claude/commands</code>, skills in <code>.claude/skills</code>.</li>
           </ul>
         </div>
         <div class="card">
           <span class="lab">Cursor</span>
-          <h3>Commands</h3>
+          <h3>Skills <span style="font-size: 0.55em; opacity: 0.7;">(2.4+)</span></h3>
           <ul>
-            <li><code>.cursor/commands/*.md</code>.</li>
-            <li>Typed with <code>/</code> in the Agent.</li>
+            <li>Commands and skills both folded into Skills in Cursor 2.4 (Jan 2026); <code>/migrate-to-skills</code> converts old ones.</li>
+            <li>Invoke with <code>/</code> or let the agent pick by description.</li>
           </ul>
         </div>
         <div class="card">
           <span class="lab">GitHub Copilot</span>
-          <h3>Prompt files</h3>
+          <h3>Prompt files &amp; skills</h3>
           <ul>
-            <li><code>.github/prompts/*.prompt.md</code>, invoked with <code>/name</code>.</li>
-            <li>Frontmatter selects model, tools and agent.</li>
+            <li>Prompt files: <code>.github/prompts/*.prompt.md</code>, invoked with <code>/name</code>.</li>
+            <li>Skills: <code>.github/skills/&lt;name&gt;/SKILL.md</code>, invoked by description.</li>
           </ul>
         </div>
       </div>
 
       <div class="callout">
-        Write it once, well, then reuse endlessly. <strong>Saves tokens and gives consistent output</strong>.
+        <strong>Command vs. skill:</strong> a command is something you invoke; a skill is something the agent invokes by itself when the description matches the task.
       </div>
       </div>
     </div>
