@@ -344,7 +344,18 @@ h2.h2 {
     line-height: 1.35;
     color: var(--fg-muted);
     margin: 0;
+    /* Reserve two lines so captions of different length keep the screens above
+       the same height when several mockups sit side by side. */
+    min-height: 2.7em;
 }
+
+/* Per-brand tint for the mockup screens (subtle shift from the #1e1e2e base) */
+.ide-copilot, .ide-copilot .ide-body { background: #1a1e38; }   /* Copilot: blue */
+.ide-copilot .ide-bar { background: #141833; }
+.ide-claude, .ide-claude .ide-body { background: #2a1f18; }     /* Claude: orange */
+.ide-claude .ide-bar { background: #221913; }
+.ide-cursor, .ide-cursor .ide-body { background: #161519; }     /* Cursor: black */
+.ide-cursor .ide-bar { background: #100f13; }
 
 /* ── Decision matrix / cheat-sheet ──────────────────────────────────── */
 .matrix {
