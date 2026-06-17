@@ -19,28 +19,28 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </span>
           <div class="prob-title">Input tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Everything you send: system prompt, context, conversation history, files. The cheapest token type, but also the easiest to over-send.</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span>Everything you send: system prompt, context, history, files. The cheapest type, and the easiest to over-send.</div>
         </div>
         <div class="prob-row">
           <span class="prob-ic">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </span>
           <div class="prob-title">Output tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>About 5x more expensive than input</strong> on current Claude models, and roughly 3 to 6 times across providers. Every word the model writes costs several times what you paid to prompt it. The expensive side of the bill.</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>About 5x input</strong> on current Claude models, and roughly 3 to 6 times across providers. The expensive side of the bill.</div>
         </div>
         <div class="prob-row">
           <span class="prob-ic">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
           </span>
           <div class="prob-title">Cached input tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>About 0.1x input price (90% off)</strong> when a stable prefix repeats across requests. Identical system prompts, fixed instructions, and reused context qualify. Structure your prompts to exploit it.</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>About 0.1x input (90% off)</strong> when a stable prefix repeats. Identical system prompts and reused context qualify.</div>
         </div>
         <div class="prob-row">
           <span class="prob-ic">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
           </span>
           <div class="prob-title">Reasoning tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Hidden thinking steps in extended thinking models. <strong>Billed as output tokens</strong>, so they can dwarf the visible answer. A long reasoning chain on a short question can 10x the apparent output cost.</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span>Hidden thinking steps, <strong>billed as output</strong>. A long chain on a short question can dwarf the visible answer.</div>
         </div>
       </div>
 

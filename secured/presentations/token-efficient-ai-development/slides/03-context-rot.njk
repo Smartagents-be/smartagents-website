@@ -41,7 +41,7 @@
             <text x="540" y="296" text-anchor="middle" font-size="16" fill="#64748b">~113K tokens</text>
           </svg>
 
-          <p style="font-size: 17px; line-height: 1.4; color: #64748b; margin: 4px 0 0;">Chroma (2025) tested 18 models, including GPT-4.1, Claude 4, Gemini 2.5 and Qwen3. The same question is answered far more reliably with a focused prompt (~300 tokens) than with the full context (~113K tokens). Even simple tasks become less reliable as the input grows.</p>
+          <p style="font-size: 17px; line-height: 1.4; color: #64748b; margin: 4px 0 0;">Chroma (2025) tested 18 models including GPT-4.1, Claude 4, Gemini 2.5 and Qwen3. The same question is answered far more reliably with a focused prompt (~300 tokens) than the full context (~113K). Even simple tasks degrade as input grows.</p>
         </div>
 
         <!-- RIGHT: the two mechanisms -->
@@ -63,7 +63,6 @@
       <div class="callout">
         The rule of thumb for the whole course: find the smallest set of tokens with the most relevant information. <strong>Send signal, leave out noise</strong>.
       </div>
-      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 14px 4px 0;"><strong>Sources:</strong> Chroma, &ldquo;Evaluating LLMs at scale&rdquo; (chroma.sh, 2025) &middot; Anthropic, &ldquo;Effective context engineering&rdquo; (anthropic.com/engineering, 2025) &middot; Liu et al., &ldquo;Lost in the Middle&rdquo; (arXiv:2307.03172, 2023).</p>
       </div>
     </div>
     {% set slideNumber = "03" %}
