@@ -1,10 +1,33 @@
-<!-- ════════ 43 · STUB ════════ -->
-  <section data-label="trackB-recap" class="slide light">
+<!-- ════════════════ 43 · TRACK B RECAP ════════════════ -->
+  <section data-label="Track B recap" class="slide light cat-themed" style="--c: #16a34a;">
     <div class="glow soft"></div>
     <div class="frame">
-      <p class="eyebrow"><span class="num">43</span>Track B recap</p>
-      <h2 class="h2">Track B recap.</h2>
-      <div class="frame-body"><div class="callout">Stub.</div></div>
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">43</span>Track B recap</p>
+          <h2 class="h2">What the API track taught us.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <ul class="checklist" style="margin-top: 28px; font-size: 22px; gap: 16px;">
+        <li>Cache stable prefixes: system prompts and examples reused across calls drop input cost by up to 90%.</li>
+        <li>Batch and flex non-urgent work: the Batch API cuts cost 50% for anything that tolerates a delay.</li>
+        <li>Route by task: small or deterministic tasks go to a cheaper model; heavy reasoning goes to a larger one.</li>
+        <li>Tune effort before switching models: try a lower thinking budget first; the gain is often enough.</li>
+        <li>Cap output: structured output and <code>max_tokens</code> prevent runaway generation that costs 3 to 6 times input.</li>
+        <li>Measure cost per outcome: cost per merged PR or resolved issue, not cost per token.</li>
+        <li>Allocate to a user: tag every call with user and feature metadata so you know who incurs the cost.</li>
+        <li>Set a hard brake: <code>max_turns</code> and <code>max_budget_usd</code> in code, plus a workspace spend limit in the Console.</li>
+      </ul>
+
+      <div class="callout" style="margin-top: 28px;">
+        Track B covers the API layer. The closing section brings both tracks together and shows how to build a repeatable cost-control practice.
+      </div>
+      </div>
     </div>
     {% set slideNumber = "43" %}
     {% set slideTotal = "50" %}
