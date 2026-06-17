@@ -1,5 +1,5 @@
-<!-- ════════════════ 11 · EXAMPLE · IGNORE FILES ════════════════ -->
-  <section data-label="Example: ignore" class="slide light cat-themed" style="--c: #0ea5e9;">
+<!-- ════════════════ 26 · EXAMPLE · HOOKS ════════════════ -->
+  <section data-label="Example: hooks" class="slide light cat-themed" style="--c: #2563eb;">
     <div class="glow soft"></div>
     <div class="frame">
       <div class="cat-head">
@@ -7,8 +7,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </span>
         <div class="cat-text">
-          <p class="eyebrow"><span class="num">11</span>Example</p>
-          <h2 class="h2">How each tool excludes <span class="accent">noise</span>.</h2>
+          <p class="eyebrow"><span class="num">26</span>Example</p>
+          <h2 class="h2"><span class="accent">Auto-format and test</span> after every edit.</h2>
         </div>
       </div>
 
@@ -20,13 +20,18 @@
           <div class="ide ide-copilot">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.gitignore</span>
+              <span class="ide-file">.github/hooks/test.json</span>
             </div>
-            <pre class="ide-body">node_modules/
-dist/
-.env</pre>
+            <pre class="ide-body">{
+  <span class="key">"hooks"</span>: {
+    <span class="key">"PostToolUse"</span>: [
+      { <span class="key">"command"</span>:
+        <span class="str">"npm test"</span> }
+    ]
+  }
+}</pre>
           </div>
-          <p class="ide-cap">Respects <code>.gitignore</code>, like the rest.</p>
+          <p class="ide-cap">Runs the test suite after every change.</p>
         </div>
 
         <div class="ide-col">
@@ -37,12 +42,15 @@ dist/
               <span class="ide-file">.claude/settings.json</span>
             </div>
             <pre class="ide-body">{
-  <span class="key">"permissions"</span>: {
-    <span class="key">"deny"</span>: [<span class="str">"Read(.env)"</span>]
+  <span class="key">"hooks"</span>: {
+    <span class="key">"PostToolUse"</span>: [
+      { <span class="key">"command"</span>:
+        <span class="str">"npx prettier --write ."</span> }
+    ]
   }
 }</pre>
           </div>
-          <p class="ide-cap">Blocks reads with deny rules.</p>
+          <p class="ide-cap">Prettier formats after every tool action.</p>
         </div>
 
         <div class="ide-col">
@@ -50,20 +58,29 @@ dist/
           <div class="ide ide-cursor">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.cursorignore</span>
+              <span class="ide-file">.cursor/hooks.json</span>
             </div>
-            <pre class="ide-body"><span class="cmt"># exclude noise</span>
-node_modules/
-dist/
-.env</pre>
+            <pre class="ide-body">{
+  <span class="key">"version"</span>: 1,
+  <span class="key">"hooks"</span>: {
+    <span class="key">"afterFileEdit"</span>: [
+      { <span class="key">"command"</span>:
+        <span class="str">"npx prettier --write ."</span> }
+    ]
+  }
+}</pre>
           </div>
-          <p class="ide-cap">Its own ignore file, gitignore style.</p>
+          <p class="ide-cap">Formats on every file edit (camelCase event name).</p>
         </div>
 
       </div>
+
+      <div class="callout">
+        The guardrail runs by itself, <strong>no token or click needed</strong>.
+      </div>
       </div>
     </div>
-    {% set slideNumber = "11" %}
+    {% set slideNumber = "26" %}
     {% set slideTotal = "57" %}
     {% include "../../shared/chrome.njk" %}
   </section>

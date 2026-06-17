@@ -1,5 +1,5 @@
-<!-- ════════════════ 11 · EXAMPLE · IGNORE FILES ════════════════ -->
-  <section data-label="Example: ignore" class="slide light cat-themed" style="--c: #0ea5e9;">
+<!-- ════════════════ 24 · EXAMPLE · AGENTS & MODES ════════════════ -->
+  <section data-label="Example: agents" class="slide light cat-themed" style="--c: #ea580c;">
     <div class="glow soft"></div>
     <div class="frame">
       <div class="cat-head">
@@ -7,8 +7,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </span>
         <div class="cat-text">
-          <p class="eyebrow"><span class="num">11</span>Example</p>
-          <h2 class="h2">How each tool excludes <span class="accent">noise</span>.</h2>
+          <p class="eyebrow"><span class="num">24</span>Example</p>
+          <h2 class="h2">A reviewer with <span class="accent">its own tools</span>.</h2>
         </div>
       </div>
 
@@ -20,13 +20,16 @@
           <div class="ide ide-copilot">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.gitignore</span>
+              <span class="ide-file">reviewer.agent.md</span>
             </div>
-            <pre class="ide-body">node_modules/
-dist/
-.env</pre>
+            <pre class="ide-body"><span class="cmt">---</span>
+<span class="key">description</span>: <span class="str">"Reviewer"</span>
+<span class="key">tools</span>: [search, edit]
+<span class="cmt">---</span>
+You are a strict
+reviewer.</pre>
           </div>
-          <p class="ide-cap">Respects <code>.gitignore</code>, like the rest.</p>
+          <p class="ide-cap">Custom agent, formerly "chat mode".</p>
         </div>
 
         <div class="ide-col">
@@ -34,15 +37,16 @@ dist/
           <div class="ide ide-claude">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.claude/settings.json</span>
+              <span class="ide-file">.claude/agents/reviewer.md</span>
             </div>
-            <pre class="ide-body">{
-  <span class="key">"permissions"</span>: {
-    <span class="key">"deny"</span>: [<span class="str">"Read(.env)"</span>]
-  }
-}</pre>
+            <pre class="ide-body"><span class="cmt">---</span>
+<span class="key">name</span>: reviewer
+<span class="key">tools</span>: Read, Grep
+<span class="cmt">---</span>
+You are a strict
+code reviewer.</pre>
           </div>
-          <p class="ide-cap">Blocks reads with deny rules.</p>
+          <p class="ide-cap">Subagent with its own prompt and tools.</p>
         </div>
 
         <div class="ide-col">
@@ -50,20 +54,20 @@ dist/
           <div class="ide ide-cursor">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.cursorignore</span>
+              <span class="ide-file">Custom Mode · Settings</span>
             </div>
-            <pre class="ide-body"><span class="cmt"># exclude noise</span>
-node_modules/
-dist/
-.env</pre>
+            <pre class="ide-body"><span class="key">Model</span>:  claude-opus
+<span class="key">Tools</span>:  search, edit
+<span class="key">Prompt</span>: Strict
+        reviewer</pre>
           </div>
-          <p class="ide-cap">Its own ignore file, gitignore style.</p>
+          <p class="ide-cap">Mode with its own tool set (beta).</p>
         </div>
 
       </div>
       </div>
     </div>
-    {% set slideNumber = "11" %}
+    {% set slideNumber = "24" %}
     {% set slideTotal = "57" %}
     {% include "../../shared/chrome.njk" %}
   </section>
