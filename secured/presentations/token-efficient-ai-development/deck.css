@@ -1656,3 +1656,11 @@ h2.h2 {
     text-transform: uppercase;
     color: var(--sa-cyan);
 }
+
+/* ── Lab slide component ──────────────────────────────────────── */
+.lab { border: 2px solid color-mix(in srgb, var(--c) 55%, transparent); border-radius: 18px; padding: 28px 32px; background: color-mix(in srgb, var(--c) 6%, #fff); }
+.lab .lab-tag { display: inline-block; font-size: 16px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c); margin-bottom: 12px; }
+.lab h3 { margin: 0 0 10px; font-size: 30px; }
+.lab ol { margin: 0; padding-left: 22px; }
+.lab ol li { font-size: 22px; line-height: 1.5; margin: 4px 0; }
+.lab .lab-out { margin-top: 14px; font-size: 20px; color: var(--fg-muted); }

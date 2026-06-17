@@ -1,10 +1,50 @@
-<!-- ════════ 04 · STUB ════════ -->
-  <section data-label="meet-codebase" class="slide light">
+<!-- ════════════════ 04 · MEET THE CODEBASE ════════════════ -->
+  <section data-label="Meet the codebase" class="slide light cat-themed" style="--c: #0ea5e9;">
     <div class="glow soft"></div>
     <div class="frame">
-      <p class="eyebrow"><span class="num">04</span>Meet the codebase</p>
-      <h2 class="h2">Meet the codebase.</h2>
-      <div class="frame-body"><div class="callout">Stub.</div></div>
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">04</span>Running example</p>
+          <h2 class="h2">Meet the <span class="accent">codebase</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-2" style="margin-top: 20px;">
+
+        <div class="card">
+          <h3>The repo</h3>
+          <p style="font-size: 22px; color: var(--fg-muted);">A realistic Spring Boot service you will work on all day.</p>
+          <ul>
+            <li><strong>Stack:</strong> Spring Boot 3.x, Spring Security, Maven</li>
+            <li><strong>Name:</strong> <code>token-efficient-workshop-java</code></li>
+            <li><strong>Size:</strong> mid-size service, multiple packages, real config</li>
+            <li><strong>Goal:</strong> familiar enough to focus on token efficiency, not learning the framework</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Two tasks threaded through the day</h3>
+          <ul>
+            <li>
+              <strong>Task 1 (bug fix):</strong> a session-timeout value is misconfigured in the Spring Security config. Fix it cleanly with the model.
+            </li>
+            <li>
+              <strong>Task 2 (feature):</strong> add a rate-limit filter that caps requests per IP. Implement it without flooding the model with the whole codebase.
+            </li>
+          </ul>
+          <p style="font-size: 20px; color: var(--fg-subtle); margin-top: 8px;">Both tasks appear in Lab 0, Track A, and Track B, so you can compare approaches.</p>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        Two tracks run these same tasks differently. Track A works it in the editor; Track B automates around it via the API. Lab 0, next, gives you your unoptimized baseline.
+      </div>
+      </div>
     </div>
     {% set slideNumber = "04" %}
     {% set slideTotal = "50" %}

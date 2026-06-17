@@ -1,10 +1,54 @@
-<!-- ════════ 02 · STUB ════════ -->
-  <section data-label="anatomy-bill" class="slide light">
+<!-- ════════════════ 02 · ANATOMY OF A BILL ════════════════ -->
+  <section data-label="Anatomy of a bill" class="slide light cat-themed" style="--c: #4f46e5;">
     <div class="glow soft"></div>
     <div class="frame">
-      <p class="eyebrow"><span class="num">02</span>Anatomy of a bill</p>
-      <h2 class="h2">Anatomy of a bill.</h2>
-      <div class="frame-body"><div class="callout">Stub.</div></div>
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8H8"/><path d="M16 12H8"/><path d="M12 16H8"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">02</span>Token economics</p>
+          <h2 class="h2">The anatomy of an <span class="accent">LLM bill</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="problist">
+        <div class="prob-row">
+          <span class="prob-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </span>
+          <div class="prob-title">Input tokens</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span>Everything you send: system prompt, context, conversation history, files. The cheapest token type, but also the easiest to over-send.</div>
+        </div>
+        <div class="prob-row">
+          <span class="prob-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </span>
+          <div class="prob-title">Output tokens</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>About 5x more expensive than input</strong> across current Claude models. Every word the model writes costs five times what you paid to prompt it. The expensive side of the bill.</div>
+        </div>
+        <div class="prob-row">
+          <span class="prob-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </span>
+          <div class="prob-title">Cached input tokens</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>About 0.1x input price (90% off)</strong> when a stable prefix repeats across requests. Identical system prompts, fixed instructions, and reused context qualify. Structure your prompts to exploit it.</div>
+        </div>
+        <div class="prob-row">
+          <span class="prob-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </span>
+          <div class="prob-title">Reasoning tokens</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span>Hidden thinking steps in extended thinking models. <strong>Billed as output tokens</strong>, so they can dwarf the visible answer. A long reasoning chain on a short question can 10x the apparent output cost.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        Every lever in this workshop moves one of these four numbers. Output and reasoning are where the money is.
+        <span style="display: block; margin-top: 8px; font-size: 20px; color: var(--fg-subtle);">Source: Anthropic pricing (platform.claude.com), accessed 2026-06-17.</span>
+      </div>
+      </div>
     </div>
     {% set slideNumber = "02" %}
     {% set slideTotal = "50" %}
