@@ -1,0 +1,53 @@
+<!-- ════════════════ 35 · REASONING BUDGET ════════════════ -->
+  <section data-label="Reasoning budget" class="slide light cat-themed" style="--c: #7c3aed;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.142 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.142 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">35</span>API &amp; cost</p>
+          <h2 class="h2">Don't let the model <span class="accent">overthink</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 36px; align-content: start;">
+        <div class="card">
+          <span class="lab">Anthropic</span>
+          <h3>effort + adaptive</h3>
+          <ul>
+            <li>Steer depth with <code>effort</code>: <code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> / <code>max</code>.</li>
+            <li>Manual <code>budget_tokens</code> is legacy (Opus 4.8 rejects it).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="lab">OpenAI</span>
+          <h3>reasoning_effort</h3>
+          <ul>
+            <li><code>reasoning_effort</code>: <code>none</code> / <code>minimal</code> / <code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> (model-dependent).</li>
+            <li>Set to <code>none</code> or <code>low</code> for simple tasks.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="lab">Google Gemini</span>
+          <h3>thinkingLevel</h3>
+          <ul>
+            <li>Gemini 3: <code>minimal</code> to <code>high</code>. 2.5: <code>thinkingBudget</code> (<code>0</code> = off on Flash).</li>
+            <li>Fully off is not possible on Gemini 3 or Pro.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        Reasoning tokens are hidden, but billed as <strong>output</strong> (3-6x input). A short answer can drag along hundreds of thinking tokens.
+      </div>
+
+      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 14px 4px 0;"><strong>Sources:</strong> Anthropic adaptive thinking &amp; effort (docs.claude.com) &middot; OpenAI reasoning guide (developers.openai.com) &middot; Gemini thinking (ai.google.dev). &ldquo;You're charged for the full thinking tokens generated.&rdquo;</p>
+      </div>
+    </div>
+    {% set slideNumber = "35" %}
+    {% set slideTotal = "55" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>
