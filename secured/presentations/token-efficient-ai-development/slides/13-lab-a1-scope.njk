@@ -11,8 +11,8 @@
         <h3>Point the agent only at the files that matter</h3>
         <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> scope the session-timeout task to the smallest set of files with real signal, then compare the token cost to your Lab 0 baseline.</p>
         <ol>
-          <li>Identify the 1 or 2 files in <code>token-efficient-workshop-java</code> that own session timeout (hint: <code>SecurityConfig.java</code>).</li>
-          <li>Open a fresh session and point the agent only at those files: <code>@SecurityConfig.java</code> or equivalent, then ask it to fix the session-timeout bug.</li>
+          <li>Identify the 1 or 2 files in <code>token-efficient-workshop-node</code> that own session timeout (hint: <code>session.config.ts</code>).</li>
+          <li>Open a fresh session and point the agent only at those files: <code>@session.config.ts</code> or equivalent, then ask it to fix the session-timeout bug.</li>
           <li>Record input tokens, output tokens, and total cost. Compare against your Lab 0 baseline.</li>
         </ol>
         <p class="lab-out"><strong>Expected result:</strong> fewer input tokens than the baseline, the correct fix applied, and a faster response. The agent reads less, hallucinates less.</p>

@@ -26,12 +26,12 @@
   <span class="key">"hooks"</span>: {
     <span class="key">"PostToolUse"</span>: [
       { <span class="key">"command"</span>:
-        <span class="str">"mvn -q spotless:apply"</span> }
+        <span class="str">"npx prettier --write ."</span> }
     ]
   }
 }</pre>
           </div>
-          <p class="ide-cap">Spotless formats after every tool action.</p>
+          <p class="ide-cap">Prettier formats after every tool action.</p>
         </div>
 
         <div class="ide-col">
@@ -46,7 +46,7 @@
   <span class="key">"hooks"</span>: {
     <span class="key">"afterFileEdit"</span>: [
       { <span class="key">"command"</span>:
-        <span class="str">"mvn -q spotless:apply"</span> }
+        <span class="str">"npx prettier --write ."</span> }
     ]
   }
 }</pre>
@@ -65,7 +65,7 @@
   <span class="key">"hooks"</span>: {
     <span class="key">"PostToolUse"</span>: [
       { <span class="key">"command"</span>:
-        <span class="str">"mvn -q test"</span> }
+        <span class="str">"npm test"</span> }
     ]
   }
 }</pre>
