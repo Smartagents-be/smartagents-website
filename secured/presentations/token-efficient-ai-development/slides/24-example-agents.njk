@@ -23,11 +23,13 @@
               <span class="ide-file">reviewer.agent.md</span>
             </div>
             <pre class="ide-body"><span class="cmt">---</span>
-<span class="key">description</span>: <span class="str">"Reviewer"</span>
-<span class="key">tools</span>: [search, edit]
+<span class="key">description</span>: Reviews PRs
+<span class="key">tools</span>: [read, search]
 <span class="cmt">---</span>
-You are a strict
-reviewer.</pre>
+Review the changed files.
+Flag bugs, security risks,
+and missing tests. Cite
+file and line.</pre>
           </div>
           <p class="ide-cap">Custom agent, formerly "chat mode".</p>
         </div>
@@ -37,14 +39,16 @@ reviewer.</pre>
           <div class="ide ide-claude">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.claude/agents/reviewer.md</span>
+              <span class="ide-file">.claude/agents/code-reviewer.md</span>
             </div>
             <pre class="ide-body"><span class="cmt">---</span>
-<span class="key">name</span>: reviewer
+<span class="key">name</span>: code-reviewer
 <span class="key">tools</span>: Read, Grep
 <span class="cmt">---</span>
-You are a strict
-code reviewer.</pre>
+Review the staged diff.
+List bugs, security risks,
+and missing tests. Skip
+style nits.</pre>
           </div>
           <p class="ide-cap">Subagent with its own prompt and tools.</p>
         </div>
@@ -56,10 +60,11 @@ code reviewer.</pre>
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
               <span class="ide-file">Custom Mode · Settings</span>
             </div>
-            <pre class="ide-body"><span class="key">Model</span>:  claude-opus
-<span class="key">Tools</span>:  search, edit
-<span class="key">Prompt</span>: Strict
-        reviewer</pre>
+            <pre class="ide-body"><span class="key">Model</span>:  Sonnet 4.6
+<span class="key">Tools</span>:  Search, Read
+<span class="key">Prompt</span>: Review the
+        diff; flag bugs
+        and missing tests</pre>
           </div>
           <p class="ide-cap">Mode with its own tool set (beta).</p>
         </div>
