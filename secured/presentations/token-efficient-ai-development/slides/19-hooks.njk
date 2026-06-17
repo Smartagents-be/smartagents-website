@@ -1,0 +1,51 @@
+<!-- ════════════════ 19 · HOOKS & AUTOMATION ════════════════ -->
+  <section data-label="Hooks" class="slide light cat-themed" style="--c: #2563eb;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">19</span>Automation</p>
+          <h2 class="h2">Run scripts automatically on <span class="accent">events</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 36px; align-content: start;">
+        <div class="card">
+          <span class="lab">Claude Code</span>
+          <h3>Hooks</h3>
+          <ul>
+            <li>Configured in <code>settings.json</code>.</li>
+            <li>For example auto-format after an edit, or block a command.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="lab">Cursor</span>
+          <h3>.cursor/hooks.json</h3>
+          <ul>
+            <li>Per project or user (<code>~/.cursor</code>).</li>
+            <li>Observe, block, or inject context.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="lab">GitHub Copilot</span>
+          <h3>Agent hooks <span style="font-size: 0.6em; opacity: 0.7;">(preview)</span></h3>
+          <ul>
+            <li><code>.github/hooks/*.json</code>, run locally.</li>
+            <li>Same events as the Claude format.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        Shared events: SessionStart, PreToolUse, PostToolUse, PreCompact, Stop. <strong>Automate guardrails</strong> instead of typing them every time.
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "19" %}
+    {% set slideTotal = "41" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

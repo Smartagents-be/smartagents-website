@@ -16,5 +16,8 @@ module.exports = {
   },
   advocatuurPitch: {
     permalink: '/secured/presentations/advocatuur-pitch/'
+  },
+  tokenEfficientAiDevelopment: {
+    permalink: '/secured/presentations/token-efficient-ai-development/'
   }
 };

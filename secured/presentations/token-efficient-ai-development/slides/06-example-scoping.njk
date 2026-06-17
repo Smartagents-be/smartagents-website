@@ -1,0 +1,57 @@
+<!-- ════════════════ 06 · EXAMPLE · SCOPING ════════════════ -->
+  <section data-label="Example: scoping" class="slide light cat-themed" style="--c: #0ea5e9;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">06</span>Example</p>
+          <h2 class="h2">Scope it yourself or let it <span class="accent">discover</span>?</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab">Scope it yourself</span>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">Agent · prompt</span>
+            </div>
+            <pre class="ide-body"><span class="key">@auth/login.ts</span> <span class="key">@auth/session.ts</span>
+Fix the session timeout.</pre>
+          </div>
+          <p class="ide-cap">You know where it is: faster, more precise, fewer tokens.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab">Let it discover</span>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">claude — terminal</span>
+            </div>
+            <pre class="ide-body"><span class="pr">&gt;</span> Fix the session timeout in auth.
+<span class="ok">⏺</span> grep <span class="str">"session"</span> src/
+<span class="ok">⏺</span> read auth/session.ts</pre>
+          </div>
+          <p class="ide-cap">Unfamiliar or large codebase: the agent searches itself with grep.</p>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        Not sure? Give a starting point and let the agent expand. The goal stays the <strong>smallest set with signal</strong>, not the most context.
+      </div>
+
+      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 16px 4px 0;">Tokens: letting the agent search itself costs tokens per file read, unscoped it &ldquo;reads hundreds of files, filling the context&rdquo;, so scope the task. That said, fetching incrementally stays far cheaper than loading the whole codebase. <strong>Sources:</strong> Anthropic, &ldquo;Effective context engineering&rdquo; (anthropic.com/engineering) &middot; Claude Code best practices (code.claude.com/docs).</p>
+      </div>
+    </div>
+    {% set slideNumber = "06" %}
+    {% set slideTotal = "41" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

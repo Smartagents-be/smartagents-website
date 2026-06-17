@@ -1,0 +1,48 @@
+<!-- ════════════════ 24 · CACHING & BATCH ════════════════ -->
+  <section data-label="Caching & batch" class="slide light cat-themed" style="--c: #2563eb;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">24</span>API &amp; cost</p>
+          <h2 class="h2">Don't pay twice for <span class="accent">the same context</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="problist">
+        <div class="prob-row">
+          <span class="prob-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </span>
+          <div class="prob-title">Prompt caching</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span>Caching repeated prompt parts gives up to 90 percent off that input and far lower latency.</div>
+        </div>
+        <div class="prob-row">
+          <span class="prob-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </span>
+          <div class="prob-title">Batch API</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span>For non-urgent work like tests or documentation: 50 percent cheaper at the major providers.</div>
+        </div>
+        <div class="prob-row">
+          <span class="prob-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
+          </span>
+          <div class="prob-title">Structure for cache hits</div>
+          <div class="prob-conseq"><span class="arr">&rarr;</span>Put the fixed part such as the system prompt and examples first, the variable question last.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        One team cut its bill by <strong>more than half</strong>, just by structuring caching smartly.
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "24" %}
+    {% set slideTotal = "41" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>
