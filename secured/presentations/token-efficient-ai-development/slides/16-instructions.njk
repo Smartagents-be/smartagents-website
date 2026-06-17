@@ -1,0 +1,51 @@
+<!-- ════════════════ 16 · INSTRUCTIONS ════════════════ -->
+  <section data-label="Instructions" class="slide light cat-themed" style="--c: #7c3aed;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">16</span>Memory &amp; rules</p>
+          <h2 class="h2">Capture conventions once as <span class="accent">persistent instructions</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 36px; align-content: start;">
+        <div class="card">
+          <span class="lab">Claude Code</span>
+          <h3>CLAUDE.md</h3>
+          <ul>
+            <li>Project context, style and commands, loaded automatically every session.</li>
+            <li>Per project or globally in <code>~/.claude</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="lab">Cursor</span>
+          <h3>.cursor/rules</h3>
+          <ul>
+            <li>Modular <code>.mdc</code> rules with four triggers: Always Apply, Apply Intelligently, Apply to Specific Files, Apply Manually.</li>
+            <li>Split one bloated file into targeted rules.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="lab">GitHub Copilot</span>
+          <h3>copilot-instructions</h3>
+          <ul>
+            <li><code>.github/copilot-instructions.md</code> applies repo-wide.</li>
+            <li>Path-specific with <code>*.instructions.md</code> and <code>applyTo</code> globs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>AGENTS.md</strong> is the neutral standard that both Cursor and Copilot read. Good instructions save tokens: you don't re-explain conventions every prompt.
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "16" %}
+    {% set slideTotal = "51" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

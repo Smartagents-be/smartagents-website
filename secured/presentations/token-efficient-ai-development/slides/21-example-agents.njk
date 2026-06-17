@@ -1,0 +1,72 @@
+<!-- ════════════════ 21 · EXAMPLE · AGENTS & MODES ════════════════ -->
+  <section data-label="Example: agents" class="slide light cat-themed" style="--c: #ea580c;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">21</span>Example</p>
+          <h2 class="h2">A reviewer with <span class="accent">its own tools</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab">Claude Code</span>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.claude/agents/reviewer.md</span>
+            </div>
+            <pre class="ide-body"><span class="cmt">---</span>
+<span class="key">name</span>: reviewer
+<span class="key">tools</span>: Read, Grep
+<span class="cmt">---</span>
+You are a strict
+code reviewer.</pre>
+          </div>
+          <p class="ide-cap">Subagent with its own prompt and tools.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab">Cursor</span>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">Custom Mode · Settings</span>
+            </div>
+            <pre class="ide-body"><span class="key">Model</span>:  claude-opus
+<span class="key">Tools</span>:  search, edit
+<span class="key">Prompt</span>: Strict
+        reviewer</pre>
+          </div>
+          <p class="ide-cap">Mode with its own tool set (beta).</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab">GitHub Copilot</span>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">reviewer.agent.md</span>
+            </div>
+            <pre class="ide-body"><span class="cmt">---</span>
+<span class="key">description</span>: <span class="str">"Reviewer"</span>
+<span class="key">tools</span>: [search, edit]
+<span class="cmt">---</span>
+You are a strict
+reviewer.</pre>
+          </div>
+          <p class="ide-cap">Custom agent, formerly "chat mode".</p>
+        </div>
+
+      </div>      </div>
+    </div>
+    {% set slideNumber = "21" %}
+    {% set slideTotal = "51" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>
