@@ -350,12 +350,12 @@ h2.h2 {
 }
 
 /* Per-brand tint for the mockup screens (subtle shift from the #1e1e2e base) */
-.ide-copilot, .ide-copilot .ide-body { background: #19224d; }   /* Copilot: blue */
-.ide-copilot .ide-bar { background: #131a3d; }
-.ide-claude, .ide-claude .ide-body { background: #352310; }     /* Claude: orange */
-.ide-claude .ide-bar { background: #2b1c0a; }
-.ide-cursor, .ide-cursor .ide-body { background: #0d0d11; }     /* Cursor: black */
-.ide-cursor .ide-bar { background: #070709; }
+.ide-copilot, .ide-copilot .ide-body { background: #173a8f; }   /* Copilot: blue */
+.ide-copilot .ide-bar { background: #112c73; }
+.ide-claude, .ide-claude .ide-body { background: #5c3408; }     /* Claude: orange */
+.ide-claude .ide-bar { background: #472806; }
+.ide-cursor, .ide-cursor .ide-body { background: #050507; }     /* Cursor: black */
+.ide-cursor .ide-bar { background: #000000; }
 
 /* ── Decision matrix / cheat-sheet ──────────────────────────────────── */
 .matrix {
