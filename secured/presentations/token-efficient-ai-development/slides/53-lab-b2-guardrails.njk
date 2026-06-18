@@ -1,0 +1,29 @@
+<!-- ════════════════ 53 · LAB B2: GUARDRAILS ════════════════ -->
+  <section data-label="Lab B2: guardrails" class="slide light cat-themed" style="--c: #16a34a;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <p class="eyebrow"><span class="num">53</span>Lab B2</p>
+      <h2 class="h2">Put a real <span class="accent">brake</span> on the automation.</h2>
+
+      <div class="frame-body">
+      <div class="labcard" style="margin-top: 20px; --c: #16a34a;">
+        <span class="lab-tag">Lab B2: guardrails on the PR-review automation</span>
+        <h3>Cap the agent and tag every call with cost metadata</h3>
+        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> put a hard brake on the <code>token-efficient-workshop-node</code> PR-review agent so a runaway loop cannot run up an uncapped bill, and make per-feature cost visible.</p>
+        <ol>
+          <li>In your Agent SDK call, add <code>max_turns=20</code> and <code>max_budget_usd=5.00</code> to <code>ClaudeAgentOptions</code> (Python) or the equivalent TypeScript options. Trigger a run that would normally exceed the cap; confirm it stops with <code>error_max_budget_usd</code> or <code>error_max_turns</code>.</li>
+          <li>Open the Anthropic Console, go to your workspace, and set a monthly spend limit (for example, $200). Confirm the limit is saved; this blocks all workspace calls once the threshold is reached.</li>
+          <li>In every API call, pass a <code>metadata</code> object with at least <code>user_id</code> and a <code>feature</code> tag (for example, <code>pr-review</code>). Pull the usage logs and verify you can group spend by feature.</li>
+        </ol>
+        <p class="lab-out"><strong>Expected result:</strong> a run that stops cleanly at the SDK cap, a workspace limit that acts as a second line of defense, and a cost breakdown that shows exactly how much the PR-review feature costs per run.</p>
+      </div>
+
+      <div class="callout">
+        Two brakes are better than one: the SDK cap stops a single runaway call; the Console limit protects the whole workspace.
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "53" %}
+    {% set slideTotal = "62" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>
