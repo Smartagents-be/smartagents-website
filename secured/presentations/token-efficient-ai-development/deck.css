@@ -1669,12 +1669,12 @@ h2.h2 {
 }
 
 /* ── Lab slide component ──────────────────────────────────────── */
-.labcard { border: 2px solid color-mix(in srgb, var(--c) 55%, transparent); border-radius: 18px; padding: 28px 32px; background: color-mix(in srgb, var(--c) 6%, #fff); }
-.labcard .lab-tag { display: inline-block; font-size: 16px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c); margin-bottom: 12px; }
-.labcard h3 { margin: 0 0 10px; font-size: 30px; }
+.labcard { border: 2px solid color-mix(in srgb, var(--c) 55%, transparent); border-radius: 18px; padding: 36px 40px; background: color-mix(in srgb, var(--c) 6%, #fff); }
+.labcard .lab-tag { display: inline-block; font-size: 16px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c); margin-bottom: 14px; }
+.labcard h3 { margin: 0 0 14px; font-size: 30px; }
 .labcard ol { margin: 0; padding-left: 22px; }
-.labcard ol li { font-size: 22px; line-height: 1.5; margin: 4px 0; }
-.labcard .lab-out { margin-top: 14px; font-size: 20px; color: var(--fg-muted); }
+.labcard ol li { font-size: 22px; line-height: 1.55; margin: 12px 0; }
+.labcard .lab-out { margin-top: 20px; font-size: 20px; color: var(--fg-muted); }
 
 /* ── Brand icons (Cursor, Claude Code, GitHub Copilot) ──────────── */
 /* Monochrome stand-in marks. To use official logos, replace the data URI on each line below. */

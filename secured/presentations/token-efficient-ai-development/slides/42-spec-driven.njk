@@ -1,0 +1,58 @@
+<!-- ════════════════ 42 · SPEC-DRIVEN DEVELOPMENT ════════════════ -->
+  <section data-label="Spec-driven" class="slide light cat-themed" style="--c: #4f46e5;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h3"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">42</span>Workflow</p>
+          <h2 class="h2">For bigger work, write the <span class="accent">spec first</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="steps" style="margin-top: 40px; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;">
+        <div class="step">
+          <span class="n" style="color: var(--c);">01</span>
+          <h4>Spec</h4>
+          <p>What it must do, and the acceptance criteria.</p>
+        </div>
+        <div class="step-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+        <div class="step">
+          <span class="n" style="color: var(--c);">02</span>
+          <h4>Design</h4>
+          <p>Architecture, APIs, the files it touches.</p>
+        </div>
+        <div class="step-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+        <div class="step">
+          <span class="n" style="color: var(--c);">03</span>
+          <h4>Tasks</h4>
+          <p>Break it into small, autonomous steps.</p>
+        </div>
+        <div class="step-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+        <div class="step">
+          <span class="n" style="color: var(--c);">04</span>
+          <h4>Build</h4>
+          <p>Implement one task at a time, review each.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        Plan mode is the lightweight version; a <strong>spec is the durable one</strong> you review, commit, and implement against. Reach for it on big, multi-file features, not one-line diffs.
+      </div>
+
+      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 14px 4px 0;"><strong>Tools:</strong> GitHub Spec Kit (<code>/specify</code> &rarr; <code>/plan</code> &rarr; <code>/tasks</code>), Amazon Kiro (requirements / design / tasks), or Claude Code plan mode.</p>
+      </div>
+    </div>
+    {% set slideNumber = "42" %}
+    {% set slideTotal = "56" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

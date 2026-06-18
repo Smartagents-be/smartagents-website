@@ -9,22 +9,18 @@
       <div class="labcard" style="margin-top: 20px; --c: #16a34a;">
         <span class="lab-tag">Lab A2: extend the agent</span>
         <h3>Add rate-limit middleware to token-efficient-workshop-node</h3>
-        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> fix the session-timeout bug and add rate-limit middleware using a persistent instruction file, a reusable skill or command, and an automated hook.</p>
+        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> fix the session-timeout bug and add rate-limit middleware using a reusable instruction file, skill, and hook.</p>
         <ol>
           <li>Add a <code>CLAUDE.md</code> (or equivalent instruction file) with the TypeScript conventions: named exports, async/await, tests with Vitest.</li>
-          <li>Create a skill or command for "add Express middleware": <code>.claude/skills/add-middleware/SKILL.md</code> with a description and step-by-step instructions.</li>
+          <li>Create a skill or command for "add Express middleware": <code>.claude/skills/add-middleware/SKILL.md</code> with a description and steps.</li>
           <li>Add a <code>PostToolUse</code> hook that runs <code>npx prettier --write .</code> to format after every edit, plus a hook that runs <code>npm test</code> to keep tests green.</li>
           <li>Ask the agent to fix the session-timeout bug and add the rate-limit middleware. Let it use the skill and verify the hook fires.</li>
         </ol>
         <p class="lab-out"><strong>Expected result:</strong> a working <code>rateLimit.ts</code>, green tests, and a reusable config that any future session can pick up without re-explaining the conventions.</p>
       </div>
-
-      <div class="callout">
-        The instruction, skill, and hook are now part of the repo. The next developer (or next session) inherits the same guardrails for free.
-      </div>
       </div>
     </div>
     {% set slideNumber = "34" %}
-    {% set slideTotal = "62" %}
+    {% set slideTotal = "56" %}
     {% include "../../shared/chrome.njk" %}
   </section>

@@ -53,11 +53,9 @@ Fix the session timeout.</pre>
       <div class="callout">
 <strong>Define the context yourself by default.</strong> Let the agent discover only when you don't know where the code lives. Either way, aim for the smallest set with signal, not the most context.
       </div>
-
-      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 16px 4px 0;">Tokens: letting the agent search itself costs tokens per file read, unscoped it &ldquo;reads hundreds of files, filling the context&rdquo;, so scope the task. That said, fetching incrementally stays far cheaper than loading the whole codebase. <strong>Sources:</strong> Anthropic, &ldquo;Effective context engineering&rdquo; (anthropic.com/engineering) &middot; Claude Code best practices (code.claude.com/docs).</p>
       </div>
     </div>
     {% set slideNumber = "13" %}
-    {% set slideTotal = "62" %}
+    {% set slideTotal = "56" %}
     {% include "../../shared/chrome.njk" %}
   </section>

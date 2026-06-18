@@ -8,35 +8,16 @@
         </span>
         <div class="cat-text">
           <p class="eyebrow"><span class="num">33</span>Example</p>
-          <h2 class="h2">The same server, one <span class="accent">config file</span>.</h2>
+          <h2 class="h2">Configure once, then just <span class="accent">ask</span>.</h2>
         </div>
       </div>
 
       <div class="frame-body">
-      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
 
         <div class="ide-col">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
-          <div class="ide ide-copilot">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.vscode/mcp.json</span>
-            </div>
-            <pre class="ide-body">{
-  <span class="key">"servers"</span>: {
-    <span class="key">"postgres"</span>: {
-      <span class="key">"command"</span>: <span class="str">"npx"</span>,
-      <span class="key">"args"</span>: [<span class="str">"mcp-postgres"</span>]
-    }
-  }
-}</pre>
-          </div>
-          <p class="ide-cap">VS Code uses <code>servers</code> instead of <code>mcpServers</code>.</p>
-        </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <div class="ide ide-claude">
+          <span class="lab">1 &middot; Configure once</span>
+          <div class="ide">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
               <span class="ide-file">.mcp.json</span>
@@ -50,32 +31,33 @@
   }
 }</pre>
           </div>
-          <p class="ide-cap">Key <code>mcpServers</code>.</p>
+          <p class="ide-cap">Same JSON everywhere; Copilot uses <code>servers</code> and the path differs per tool (<code>.vscode/</code>, <code>.mcp.json</code>, <code>.cursor/</code>).</p>
         </div>
 
         <div class="ide-col">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <div class="ide ide-cursor">
+          <span class="lab">2 &middot; Then just ask</span>
+          <div class="ide ide-claude">
             <div class="ide-bar">
               <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.cursor/mcp.json</span>
+              <span class="ide-file">agent</span>
             </div>
-            <pre class="ide-body">{
-  <span class="key">"mcpServers"</span>: {
-    <span class="key">"postgres"</span>: {
-      <span class="key">"command"</span>: <span class="str">"npx"</span>,
-      <span class="key">"args"</span>: [<span class="str">"mcp-postgres"</span>]
-    }
-  }
-}</pre>
+            <pre class="ide-body"><span class="pr">&gt;</span> Which columns are on the
+  <span class="str">sessions</span> table? Write a query
+  for the ones active in the last hour.
+<span class="ok">⏺</span> postgres &middot; describe <span class="str">"sessions"</span>
+<span class="ok">⏺</span> postgres &middot; query (read-only)</pre>
           </div>
-          <p class="ide-cap">Same structure, different path.</p>
+          <p class="ide-cap">The agent reads the schema itself. You never pasted it.</p>
         </div>
 
+      </div>
+
+      <div class="callout">
+        MCP turns &ldquo;paste the schema, the log, the docs&rdquo; into <strong>&ldquo;the agent fetches exactly what it needs&rdquo;</strong>: less context, and always current.
       </div>
       </div>
     </div>
     {% set slideNumber = "33" %}
-    {% set slideTotal = "62" %}
+    {% set slideTotal = "56" %}
     {% include "../../shared/chrome.njk" %}
   </section>

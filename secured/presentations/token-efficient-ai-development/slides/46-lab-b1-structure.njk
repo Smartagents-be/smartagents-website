@@ -1,0 +1,25 @@
+<!-- ════════════════ 46 · LAB B1: TWO STRUCTURES ════════════════ -->
+  <section data-label="Lab B1: two structures" class="slide light cat-themed" style="--c: #16a34a;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <p class="eyebrow"><span class="num">46</span>Lab B1</p>
+      <h2 class="h2">Same bug, two <span class="accent">structures</span>.</h2>
+
+      <div class="frame-body">
+      <div class="labcard" style="margin-top: 20px; --c: #16a34a;">
+        <span class="lab-tag">Lab B1: measure what structure costs</span>
+        <h3>Fix the session-timeout bug on two branches of <code>token-efficient-workshop-node</code></h3>
+        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> both branches are the same app with the same session-timeout bug. Only the structure differs, so any token difference is the structure's doing. Fix it on each and compare what the agent has to read.</p>
+        <ol>
+          <li>Check out <code>lab/monolith</code>: the whole app in one ~625-line file, the bug buried among look-alike timeout helpers. Ask the agent to find and fix it; record the tokens read.</li>
+          <li>Check out <code>lab/structured</code>: the same app as small vertical slices (<code>auth/</code>, <code>snippets/</code>, <code>web/</code>). Same prompt, same model. Record again.</li>
+          <li>Compare. The fix is the same one-line unit change; the context needed to reach it is not.</li>
+        </ol>
+        <p class="lab-out"><strong>Expected result:</strong> an identical fix, but the structured branch needs a fraction of the tokens. The structure did the scoping for you.</p>
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "46" %}
+    {% set slideTotal = "56" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>
