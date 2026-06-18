@@ -1,0 +1,56 @@
+<!-- ════════════════ 51 · DECISION GUIDE ════════════════ -->
+  <section data-label="Decision guide" class="slide light cat-themed" style="--c: #4f46e5;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">51</span>Decision guide</p>
+          <h2 class="h2">Which lever for which <span class="accent">problem</span>?</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="matrix">
+        <div class="mx-h">Problem</div>
+        <div class="mx-h">Lever</div>
+        <div class="mx-h">Token impact</div>
+
+        <div>Repeated prefix (system, examples)</div>
+        <div>Prompt caching</div>
+        <div class="mx-impact">~90% off input (read 0.1x)</div>
+
+        <div>Simple task</div>
+        <div>Small model + low effort</div>
+        <div class="mx-impact">effort before switching models</div>
+
+        <div>Large or unfamiliar codebase</div>
+        <div>Scoping + just-in-time retrieval</div>
+        <div class="mx-impact">smallest high-signal set</div>
+
+        <div>Non-urgent bulk (tests, docs, evals)</div>
+        <div>Batch API</div>
+        <div class="mx-impact">50% off</div>
+
+        <div>Long, rambling output</div>
+        <div>Structured output + <code>max_tokens</code></div>
+        <div class="mx-impact">output = 3-6x input</div>
+
+        <div>Runaway cost</div>
+        <div>Guardrails (<code>max_turns</code>, spend limit)</div>
+        <div class="mx-impact">hard brake</div>
+      </div>
+
+      <div class="callout">
+        Start with the cheapest lever: <strong>effort and caching before you switch models</strong>.
+      </div>
+
+      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 14px 4px 0;"><strong>Sources:</strong> Anthropic choosing-a-model &amp; prompt caching (platform.claude.com). The ordering is our synthesis; Anthropic publishes a &ldquo;use when&rdquo; per lever, not a fixed ranking.</p>
+      </div>
+    </div>
+    {% set slideNumber = "51" %}
+    {% set slideTotal = "61" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

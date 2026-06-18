@@ -1,0 +1,81 @@
+<!-- ════════════════ 32 · EXAMPLE · MCP ════════════════ -->
+  <section data-label="Example: mcp" class="slide light cat-themed" style="--c: #9333ea;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">32</span>Example</p>
+          <h2 class="h2">The same server, one <span class="accent">config file</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
+          <div class="ide ide-copilot">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.vscode/mcp.json</span>
+            </div>
+            <pre class="ide-body">{
+  <span class="key">"servers"</span>: {
+    <span class="key">"postgres"</span>: {
+      <span class="key">"command"</span>: <span class="str">"npx"</span>,
+      <span class="key">"args"</span>: [<span class="str">"mcp-postgres"</span>]
+    }
+  }
+}</pre>
+          </div>
+          <p class="ide-cap">VS Code uses <code>servers</code> instead of <code>mcpServers</code>.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.mcp.json</span>
+            </div>
+            <pre class="ide-body">{
+  <span class="key">"mcpServers"</span>: {
+    <span class="key">"postgres"</span>: {
+      <span class="key">"command"</span>: <span class="str">"npx"</span>,
+      <span class="key">"args"</span>: [<span class="str">"mcp-postgres"</span>]
+    }
+  }
+}</pre>
+          </div>
+          <p class="ide-cap">Key <code>mcpServers</code>.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
+          <div class="ide ide-cursor">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.cursor/mcp.json</span>
+            </div>
+            <pre class="ide-body">{
+  <span class="key">"mcpServers"</span>: {
+    <span class="key">"postgres"</span>: {
+      <span class="key">"command"</span>: <span class="str">"npx"</span>,
+      <span class="key">"args"</span>: [<span class="str">"mcp-postgres"</span>]
+    }
+  }
+}</pre>
+          </div>
+          <p class="ide-cap">Same structure, different path.</p>
+        </div>
+
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "32" %}
+    {% set slideTotal = "61" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

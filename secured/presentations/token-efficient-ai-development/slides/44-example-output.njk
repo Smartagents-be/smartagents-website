@@ -1,0 +1,59 @@
+<!-- ════════════════ 44 · EXAMPLE · OUTPUT ════════════════ -->
+  <section data-label="Example: output" class="slide light cat-themed" style="--c: #0891b2;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">44</span>Example</p>
+          <h2 class="h2">Force <span class="accent">compact</span> output.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab">Structured output + limit</span>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">request</span>
+            </div>
+            <pre class="ide-body">{
+  <span class="key">"max_tokens"</span>: 512,
+  <span class="key">"output_config"</span>: {
+    <span class="key">"format"</span>: {
+      <span class="key">"type"</span>: <span class="str">"json_schema"</span>,
+      <span class="key">"schema"</span>: { ... }
+    }
+  }
+}</pre>
+          </div>
+          <p class="ide-cap">A schema forces JSON, no prose. <code>max_tokens</code> caps the length.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab">Ask only for the diff</span>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">prompt</span>
+            </div>
+            <pre class="ide-body">Return only the changed
+lines as a diff, not the
+whole file again.</pre>
+          </div>
+          <p class="ide-cap">Saves rewriting the whole file.</p>
+        </div>
+
+      </div>
+      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 14px 4px 0;"><strong>Source:</strong> Anthropic structured outputs (platform.claude.com/docs). Tip: measure with <code>count_tokens</code>, not tiktoken (OpenAI's tokenizer undercounts Claude).</p>
+      </div>
+    </div>
+    {% set slideNumber = "44" %}
+    {% set slideTotal = "61" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

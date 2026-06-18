@@ -1,0 +1,63 @@
+<!-- ════════════════ 12 · EXAMPLE · SCOPING ════════════════ -->
+  <section data-label="Example: scoping" class="slide light cat-themed" style="--c: #0ea5e9;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">12</span>Example</p>
+          <h2 class="h2">Scope it yourself or let it <span class="accent">discover</span>?</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
+
+        <div class="ide-col">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
+            <span class="lab">Scope it yourself</span>
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: var(--c); padding: 3px 9px; border-radius: 999px;">Preferred</span>
+          </div>
+          <div class="ide">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">Agent · prompt</span>
+            </div>
+            <pre class="ide-body"><span class="key">@session.config.ts</span> <span class="key">@auth.middleware.ts</span>
+Fix the session timeout.</pre>
+          </div>
+          <p class="ide-cap">Default when you know where it lives: faster, more precise, fewer tokens.</p>
+        </div>
+
+        <div class="ide-col">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
+            <span class="lab">Let it discover</span>
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b; background: rgba(100,116,139,0.15); padding: 3px 9px; border-radius: 999px;">Fallback</span>
+          </div>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">claude - terminal</span>
+            </div>
+            <pre class="ide-body"><span class="pr">&gt;</span> Fix the session timeout.
+<span class="ok">⏺</span> grep <span class="str">"session"</span> src
+<span class="ok">⏺</span> read session.config.ts</pre>
+          </div>
+          <p class="ide-cap">Only when the codebase is unfamiliar or large: the agent greps to find it, at the cost of extra reads.</p>
+        </div>
+
+      </div>
+
+      <div class="callout">
+<strong>Define the context yourself by default.</strong> Let the agent discover only when you don't know where the code lives. Either way, aim for the smallest set with signal, not the most context.
+      </div>
+
+      <p style="font-size: 15px; line-height: 1.45; color: #94a3b8; margin: 16px 4px 0;">Tokens: letting the agent search itself costs tokens per file read, unscoped it &ldquo;reads hundreds of files, filling the context&rdquo;, so scope the task. That said, fetching incrementally stays far cheaper than loading the whole codebase. <strong>Sources:</strong> Anthropic, &ldquo;Effective context engineering&rdquo; (anthropic.com/engineering) &middot; Claude Code best practices (code.claude.com/docs).</p>
+      </div>
+    </div>
+    {% set slideNumber = "12" %}
+    {% set slideTotal = "61" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

@@ -1690,3 +1690,39 @@ h2.h2 {
 .ide-openai .ide-bar { background: #0a2e22; }
 .ide-gemini, .ide-gemini .ide-body { background: #2e1d6b; }   /* Gemini: indigo */
 .ide-gemini .ide-bar { background: #241455; }
+
+/* ── App screenshots (Meet the codebase) ──────────────────────────── */
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; width: 100%; }
+.shot { border: 1px solid #20242e; border-radius: 14px; overflow: hidden; background: #0f1117; box-shadow: 0 20px 46px rgba(2, 6, 23, .18); }
+.shot .bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #161922; border-bottom: 1px solid #20242e; }
+.shot .bar i { width: 11px; height: 11px; border-radius: 50%; background: #2a2f3a; }
+.shot .bar small { margin-left: 10px; color: #6b7280; font-size: 15px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+.shot .cap { padding: 16px 20px; border-top: 1px solid #20242e; background: #12151d; }
+.shot .cap b { color: #e6e8ee; font-size: 20px; display: block; }
+.shot .cap p { color: #9aa3b2; font-size: 16px; margin: 5px 0 0; line-height: 1.4; }
+.shot.bad { border-color: rgba(245, 158, 11, .55); box-shadow: 0 20px 46px rgba(180, 83, 9, .22); }
+.shot .tag { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+.shot .tag i { width: 9px; height: 9px; border-radius: 50%; }
+.shot .tag.ok i { background: #22c55e; }
+.shot .tag.warn i { background: #f59e0b; }
+.shot .tag.ok { color: #4ade80; }
+.shot .tag.warn { color: #fbbf24; }
+.shots.compact { gap: 24px; }
+.shots.compact img { aspect-ratio: 16 / 7; }
+.shots.compact .bar { padding: 9px 14px; }
+.shots.compact .cap { padding: 12px 18px; }
+.shots.compact + .callout { margin-top: 22px; padding: 16px 24px; font-size: 22px; }
+
+/* ── Prompt block (verbatim prompt shown to the audience) ─────────────── */
+.prompt-block {
+    margin: 10px 0 4px;
+    padding: 14px 18px;
+    border-left: 3px solid var(--c, var(--sa-cyan));
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.04);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--fg);
+}

@@ -30,7 +30,7 @@
           <h3>Two tasks threaded through the day</h3>
           <ul>
             <li>
-              <strong>Task 1 (bug fix):</strong> a session-timeout value is misconfigured in the Express session config. Fix it cleanly with the model.
+              <strong>Task 1 (bug fix):</strong> logged-in users get logged out after about 30 seconds, even though the timeout is set to 30 minutes. The fix is small, but it does not live where you would first look. Trace it across a few files and fix it cleanly.
             </li>
             <li>
               <strong>Task 2 (feature):</strong> add rate-limit middleware that caps requests per IP. Implement it without flooding the model with the whole codebase.
@@ -43,6 +43,6 @@
       </div>
     </div>
     {% set slideNumber = "04" %}
-    {% set slideTotal = "57" %}
+    {% set slideTotal = "61" %}
     {% include "../../shared/chrome.njk" %}
   </section>
