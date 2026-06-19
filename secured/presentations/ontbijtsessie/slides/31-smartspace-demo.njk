@@ -8,31 +8,10 @@
     </div>
     <h2 class="title" style="margin-top: 24px;">SmartSpace in actie.</h2>
 
-    <!-- TODO: demo-video komt nog — vervang de placeholder hieronder door:
-         <video src="assets/smartspace-demo.mp4" controls poster="assets/smartspace-demo-poster.jpg"
-                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video> -->
     <div style="margin-top: 40px; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;">
-      <div style="position: relative; aspect-ratio: 16 / 9; height: 100%; max-height: 620px; max-width: 100%; background: var(--ink); border-radius: 24px; box-shadow: 0 30px 80px rgba(15,23,42,0.30), 0 0 0 1px color-mix(in srgb, var(--accent-smartspace) 25%, transparent); overflow: hidden; display: flex; align-items: center; justify-content: center;">
-
-        <!-- subtle glow -->
-        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 45%, color-mix(in srgb, var(--accent-smartspace-bright) 22%, transparent), transparent 70%);"></div>
-
-        <!-- play button -->
-        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 24px;">
-          <span style="display: inline-flex; align-items: center; justify-content: center; width: 120px; height: 120px; border-radius: 999px; background: color-mix(in srgb, var(--accent-smartspace-bright) 18%, transparent); border: 2px solid color-mix(in srgb, var(--accent-smartspace-bright) 55%, transparent); box-shadow: 0 0 60px color-mix(in srgb, var(--accent-smartspace-bright) 35%, transparent);">
-            <svg width="44" height="44" viewBox="0 0 24 24" fill="#42c3a9" stroke="none"><polygon points="7 4 21 12 7 20"/></svg>
-          </span>
-          <span style="font-size: 26px; font-weight: 600; color: rgba(248,250,252,0.85); letter-spacing: 0.01em;">Demo-video</span>
-        </div>
-
-        <!-- player bar mockup -->
-        <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 32px; display: flex; align-items: center; gap: 18px; background: linear-gradient(to top, rgba(2,6,23,0.65), transparent);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(248,250,252,0.85)" stroke="none"><polygon points="6 4 18 12 6 20"/></svg>
-          <div style="flex: 1; height: 6px; border-radius: 999px; background: rgba(248,250,252,0.20); overflow: hidden;">
-            <div style="width: 0%; height: 100%; background: var(--accent-smartspace-bright);"></div>
-          </div>
-          <span style="font-size: 17px; color: rgba(248,250,252,0.65); font-variant-numeric: tabular-nums;">0:00 / 2:30</span>
-        </div>
+      <div style="position: relative; aspect-ratio: 16 / 10; height: 100%; max-height: 620px; max-width: 100%; background: var(--ink); border-radius: 24px; box-shadow: 0 30px 80px rgba(15,23,42,0.30), 0 0 0 1px color-mix(in srgb, var(--accent-smartspace) 25%, transparent); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <video src="assets/smartspace-demo.mp4" controls playsinline preload="metadata" poster="assets/smartspace-demo-poster.jpg"
+               style="width: 100%; height: 100%; object-fit: contain; display: block;"></video>
       </div>
     </div>
 
