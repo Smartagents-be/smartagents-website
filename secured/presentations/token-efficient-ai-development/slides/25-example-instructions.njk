@@ -1,0 +1,73 @@
+<!-- ════════════════ 25 · EXAMPLE · INSTRUCTIONS ════════════════ -->
+  <section data-label="Example: instructions" class="slide light cat-themed" style="--c: #7c3aed;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">25</span>Example</p>
+          <h2 class="h2">The same conventions, <span class="accent">three files</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
+          <div class="ide ide-copilot">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">copilot-instructions.md</span>
+            </div>
+            <pre class="ide-body">Use named exports.
+Tests with Vitest.
+Format with Prettier
+before committing.</pre>
+          </div>
+          <p class="ide-cap">Applies repo-wide.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">CLAUDE.md</span>
+            </div>
+            <pre class="ide-body"><span class="key">## Style</span>
+- Named exports
+- Prefer async/await
+
+<span class="key">## Tests</span>
+- Vitest</pre>
+          </div>
+          <p class="ide-cap">Loaded automatically every session.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
+          <div class="ide ide-cursor">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.cursor/rules/typescript.mdc</span>
+            </div>
+            <pre class="ide-body"><span class="cmt">---</span>
+<span class="key">globs</span>: <span class="str">"**/*.ts"</span>
+<span class="cmt">---</span>
+Use named exports.
+Prefer async/await.
+Tests with Vitest.</pre>
+          </div>
+          <p class="ide-cap">Rule activates for TypeScript files.</p>
+        </div>
+
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "25" %}
+    {% set slideTotal = "56" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

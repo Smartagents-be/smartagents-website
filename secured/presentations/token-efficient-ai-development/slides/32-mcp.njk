@@ -1,0 +1,57 @@
+<!-- ════════════════ 32 · MCP ════════════════ -->
+  <section data-label="MCP" class="slide light cat-themed" style="--c: #9333ea;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">32</span>Extend</p>
+          <h2 class="h2">Connect the agent to <span class="accent">external tools and data</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 36px; align-content: start;">
+
+        <div class="card">
+          <span class="lab">Your database</span>
+          <h3>Schema &amp; queries</h3>
+          <ul>
+            <li>Ask what columns a table has, or run a read-only query, without pasting the schema into the prompt.</li>
+            <li style="color: #94a3b8;">Postgres / Neon MCP</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="lab">GitHub</span>
+          <h3>PRs, issues, CI</h3>
+          <ul>
+            <li>Read a PR or issue, pull the failing CI log, open a PR when done, all from the editor.</li>
+            <li style="color: #94a3b8;">GitHub MCP</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="lab">The running app</span>
+          <h3>Drive the browser</h3>
+          <ul>
+            <li>Let the agent open the page, click through a flow and read the console error itself.</li>
+            <li style="color: #94a3b8;">Playwright / Chrome DevTools MCP</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <p style="font-size: 17px; line-height: 1.45; color: #64748b; margin: 16px 4px 0;">Also part of daily work: live library docs (Context7), production errors (Sentry), tickets (Linear, Jira), design specs (Figma). Config lives per tool in <code>.vscode/mcp.json</code>, <code>.mcp.json</code> or <code>.cursor/mcp.json</code>.</p>
+
+      <div class="callout">
+        One open standard gives every agent access to the same tools and data. Two cautions: <strong>every server costs context</strong> (see the context rot slide), and external data is untrusted input that can carry <strong>prompt injection</strong>.
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "32" %}
+    {% set slideTotal = "56" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

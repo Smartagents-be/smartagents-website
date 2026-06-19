@@ -1,0 +1,58 @@
+<!-- ════════════════ 41 · EXAMPLE · PLAN ════════════════ -->
+  <section data-label="Example: plan" class="slide light cat-themed" style="--c: #4f46e5;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">41</span>Example</p>
+          <h2 class="h2">Agree the plan, <span class="accent">then</span> build.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab">1 &middot; Ask for a plan</span>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">Agent &middot; plan mode</span>
+            </div>
+            <pre class="ide-body"><span class="key">@auth.middleware.ts</span> <span class="key">@session.config.ts</span>
+<span class="pr">&gt;</span> Don't write code yet. Outline the
+  fix for the 30s timeout: which files,
+  which change, in what order.</pre>
+          </div>
+          <p class="ide-cap">Plan / ask mode won't edit files until you say go.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab">2 &middot; Review, then go</span>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">Agent &middot; reply</span>
+            </div>
+            <pre class="ide-body"><span class="ok">⏺</span> Plan: 1) read cookie maxAge in
+  session.config  2) fix the unit (s&rarr;ms)
+  3) add a regression test.
+<span class="pr">&gt;</span> Right. Apply step 1 only.</pre>
+          </div>
+          <p class="ide-cap">A wrong step here is one sentence to correct, not a diff to revert.</p>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        Cheap to steer early. Review the plan, then let it build &mdash; <strong>one step at a time</strong>.
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "41" %}
+    {% set slideTotal = "56" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

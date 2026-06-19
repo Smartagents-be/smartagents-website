@@ -1,0 +1,55 @@
+<!-- ════════════════ 22 · CONFIG · LOCATIONS ════════════════ -->
+  <section data-label="Config locations" class="slide light cat-themed" style="--c: #0ea5e9;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">22</span>Configuration</p>
+          <h2 class="h2">Where each tool keeps its <span class="accent">config</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 24px; align-content: start;">
+
+        <div class="card">
+          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
+          <ul>
+            <li><strong>Personal</strong> &middot; Copilot settings</li>
+            <li><strong>Project</strong> &middot; <code>.github/</code> (commit)</li>
+            <li><strong>Org</strong> &middot; organization instructions</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
+          <ul>
+            <li><strong>Personal</strong> &middot; <code>~/.claude/</code></li>
+            <li><strong>Project</strong> &middot; <code>.claude/</code>, <code>CLAUDE.md</code> (commit)</li>
+            <li><strong>Org</strong> &middot; managed policy</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
+          <ul>
+            <li><strong>Personal</strong> &middot; Settings &rarr; Rules, <code>~/.cursor/</code></li>
+            <li><strong>Project</strong> &middot; <code>.cursor/</code> (commit)</li>
+            <li><strong>Org</strong> &middot; team rules</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        Personal config follows you across every project. <strong>Project config lives in the repo</strong>, so it travels with the code and the whole team gets it.
+      </div>
+      </div>
+    </div>
+    {% set slideNumber = "22" %}
+    {% set slideTotal = "56" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>
