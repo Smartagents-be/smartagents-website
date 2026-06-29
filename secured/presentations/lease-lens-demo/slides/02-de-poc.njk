@@ -1,0 +1,42 @@
+<!-- ════════════════ 02 · DE POC ════════════════ -->
+  <section data-label="De POC" class="slide light cat-themed" style="--c: #d97706;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">02</span>Vertrekpunt</p>
+          <h2 class="h2">RentalCheck: 705 regels, <span class="accent">één bestand</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+        <div class="grid-3" style="margin-top: 32px;">
+          <div class="card">
+            <div class="num-lg">01</div>
+            <h3>Formulieren</h3>
+            <p>Woning, kamers, meters en schade in een tabblad-interface. Alles in &eacute;&eacute;n HTML-pagina, geen backend, geen opslag.</p>
+          </div>
+          <div class="card">
+            <div class="num-lg">02</div>
+            <h3>Foto-upload</h3>
+            <p>Afbeeldingen selecteren per kamer en per schade, max. 4 stuks per sectie. Opgeslagen als tijdelijke browser-blobs.</p>
+          </div>
+          <div class="card">
+            <div class="num-lg">03</div>
+            <h3>Rapport via Claude</h3>
+            <p>Directe Anthropic API-aanroep vanuit de browser met de API-sleutel hardcoded. Resultaat als platte tekst, geen PDF.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          Functioneel genoeg als demonstratie, maar niet uitbreidbaar, niet veilig en niet bruikbaar zonder internet.
+        </div>
+      </div>
+    </div>
+    {% set slideNumber = "02" %}
+    {% set slideTotal = "08" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

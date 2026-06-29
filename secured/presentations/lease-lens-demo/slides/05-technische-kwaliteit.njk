@@ -1,0 +1,77 @@
+<!-- ════════════════ 05 · TECHNISCHE KWALITEIT ════════════════ -->
+  <section data-label="Technische kwaliteit" class="slide light cat-themed" style="--c: #059669;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">05</span>Kwaliteit</p>
+          <h2 class="h2">Gebouwd voor de <span class="accent">lange termijn</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+        <div class="checklist" style="margin-top: 40px;">
+          <div class="check-item">
+            <span class="ck">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <h4>TypeScript + ESLint</h4>
+              <p>Statische typecontrole en complexiteitsgrenzen afgedwongen op elke functie.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="ck">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <h4>Vitest, 100% dekking</h4>
+              <p>Alle paden gedekt, inclusief offline sync, edge cases en API-foutscenario's.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="ck">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <h4>Hexagonale backend</h4>
+              <p>Domein volledig losgekoppeld van Spring, database en LLM-provider.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="ck">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <h4>Liquibase migraties</h4>
+              <p>Schema-wijzigingen versiebeheerd en herhaalbaar, geen verlies bij herontwikkeling.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="ck">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <h4>Testcontainers integratie</h4>
+              <p>Integratietests draaien op een echte Postgres-instantie, geen mocks op databaseniveau.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="ck">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <h4>Cloud Run + Cloud SQL</h4>
+              <p>Stateless dienst, meerdere instanties, sessie gedeeld via Postgres op Google Cloud.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% set slideNumber = "05" %}
+    {% set slideTotal = "08" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>

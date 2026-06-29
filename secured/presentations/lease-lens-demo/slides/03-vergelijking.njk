@@ -1,0 +1,69 @@
+<!-- ════════════════ 03 · VERGELIJKING POC VS LEASELENS ════════════════ -->
+  <section data-label="POC vs LeaseLens" class="slide light">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <p class="eyebrow"><span class="num">03</span>Verschil</p>
+      <h2 class="h2">Van 705 regels naar <span class="accent">35.000 regels</span> productiecode.</h2>
+
+      <div class="frame-body">
+        <div class="poc-vs">
+          <div class="vs-card poc">
+            <div class="vs-label">Proof of concept</div>
+            <div class="vs-stats">
+              <div class="vs-stat-item">
+                <div class="vs-num">1</div>
+                <div class="vs-lbl">bestand</div>
+              </div>
+              <div class="vs-stat-item">
+                <div class="vs-num">705</div>
+                <div class="vs-lbl">regels</div>
+              </div>
+              <div class="vs-stat-item">
+                <div class="vs-num">0</div>
+                <div class="vs-lbl">tests</div>
+              </div>
+            </div>
+            <ul class="vs-list">
+              <li>Alleen een basisformulier in de browser</li>
+              <li>Geen backend, geen database, geen API</li>
+              <li>Geen offline, geen PDF, geen authenticatie</li>
+              <li>API-sleutel zichtbaar in de browserbroncode</li>
+              <li>Niet uitbreidbaar zonder alles herschrijven</li>
+            </ul>
+          </div>
+
+          <div class="vs-card ll">
+            <div class="vs-label">LeaseLens</div>
+            <div class="vs-stats">
+              <div class="vs-stat-item">
+                <div class="vs-num">488</div>
+                <div class="vs-lbl">bestanden</div>
+              </div>
+              <div class="vs-stat-item">
+                <div class="vs-num">35k</div>
+                <div class="vs-lbl">regels</div>
+              </div>
+              <div class="vs-stat-item">
+                <div class="vs-num">100%</div>
+                <div class="vs-lbl">dekking</div>
+              </div>
+            </div>
+            <ul class="vs-list">
+              <li>React 19 + TypeScript frontend, Spring Boot backend</li>
+              <li>Offline-first PWA met IndexedDB en sync-wachtrij</li>
+              <li>PDF-rapporten, LLM-evaluatie en Google Drive</li>
+              <li>OAuth2-authenticatie, Cloud Run, Cloud SQL</li>
+              <li>Hexagonale architectuur, Testcontainers integratie</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          Niet herschreven om meer code te schrijven, maar om een product te bouwen dat <strong>dagelijks gebruikt</strong> kan worden.
+        </div>
+      </div>
+    </div>
+    {% set slideNumber = "03" %}
+    {% set slideTotal = "08" %}
+    {% include "../../shared/chrome.njk" %}
+  </section>
