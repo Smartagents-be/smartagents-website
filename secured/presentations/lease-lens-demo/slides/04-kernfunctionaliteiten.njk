@@ -7,13 +7,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         </span>
         <div class="cat-text">
-          <p class="eyebrow"><span class="num">02</span>Functionaliteit</p>
+          <p class="eyebrow"><span class="num">02</span>Plaatsbeschrijving</p>
           <h2 class="h2">Alles wat een plaatsbeschrijving nodig heeft, <span class="accent">op &eacute;&eacute;n plek</span>.</h2>
         </div>
       </div>
 
       <div class="frame-body">
-        <div class="grid-4" style="margin-top: 32px;">
+        <div class="grid-4" style="margin-top: 32px; grid-template-columns: repeat(3, 1fr);">
           <div class="card svc" style="--c: #0891b2;">
             <div class="svc-head">
               <span class="svc-icon">
@@ -44,19 +44,10 @@
             <p>Professionele rapporten gegenereerd in het Nederlands of Frans, met foto's, meterstand en AI-gegenereerde tekst per ruimte.</p>
           </div>
 
-          <div class="card svc" style="--c: #059669;">
-            <div class="svc-head">
-              <span class="svc-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-              </span>
-              <h3>Huurindexering</h3>
-            </div>
-            <p>Contracten uit Google Drive, indexberekening via StatBel, en een conceptbrief per huurder aangemaakt via Gmail.</p>
-          </div>
         </div>
       </div>
     </div>
     {% set slideNumber = "02" %}
-    {% set slideTotal = "06" %}
+    {% set slideTotal = "08" %}
     {% include "../../shared/chrome.njk" %}
   </section>
