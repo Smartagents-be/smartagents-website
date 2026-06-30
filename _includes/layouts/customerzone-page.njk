@@ -52,6 +52,7 @@
     {% include "document/google-tag.njk" %}
 </head>
 <body>
+    {% include "document/google-tag-noscript.njk" %}
     {{ content | safe }}
     {% for script in pageScripts or [] %}
     <script src="{{ script | withPathPrefix }}?v={{ assetsVersion }}"></script>
