@@ -19,5 +19,8 @@ module.exports = {
   },
   tokenEfficientAiDevelopment: {
     permalink: '/secured/presentations/token-efficient-ai-development/'
+  },
+  leaseLensDemo: {
+    permalink: '/secured/presentations/lease-lens-demo/'
   }
 };

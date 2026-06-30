@@ -81,6 +81,7 @@
     {% include "document/google-tag.njk" %}
 </head>
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}{% if bodyDataPage %} data-page="{{ bodyDataPage }}"{% endif %}{% if bodyDataService %} data-service="{{ bodyDataService }}"{% endif %}{% if bodyTrainingDetail %} data-training-detail="{{ bodyTrainingDetail }}"{% endif %}>
+    {% include "document/google-tag-noscript.njk" %}
     {% include "../../header/header.njk" %}
     {{ content | safe }}
     {% include "../../footer/footer.njk" %}
