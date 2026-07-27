@@ -22,5 +22,8 @@ module.exports = {
   },
   leaseLensDemo: {
     permalink: '/secured/presentations/lease-lens-demo/'
+  },
+  enterprisePitch: {
+    permalink: '/secured/presentations/enterprise-pitch/'
   }
 };
