@@ -1179,6 +1179,71 @@
     letter-spacing: 0.01em;
 }
 
+/* Phases (3-col) */
+.phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.phase {
+    background: var(--sa-white-05);
+    border: 1px solid var(--sa-white-10);
+    border-radius: 18px;
+    padding: 28px 26px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.phase .ph {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sa-cyan);
+}
+
+.phase h4 {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.phase ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.phase li {
+    font-size: 22px;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.35;
+}
+
+.phase li::before {
+    content: '→';
+    color: var(--sa-cyan);
+    flex-shrink: 0;
+    font-size: 18px;
+    margin-top: 0.2em;
+}
+
+.cat-themed .phase .ph,
+.cat-themed .phase li::before {
+    color: var(--c);
+}
+
 /* Big three benefit cards */
 .bigthree {
     display: grid;
