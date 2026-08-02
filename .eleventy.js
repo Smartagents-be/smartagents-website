@@ -1,10 +1,11 @@
 function buildBreadcrumb(locale, dict, baseUrl, pageUrl, currentLabel, nlPermalink, pathPrefix = '') {
-    const homePath = locale === 'en' ? '/en/' : '/';
+    const localePrefix = locale === 'nl' ? '' : `/${locale}`;
+    const homePath = `${localePrefix}/`;
     const homeUrl = buildAbsoluteUrl(homePath, baseUrl, pathPrefix);
     const homeLabel = dict['nav.home'] || 'Home';
     const items = [{ '@type': 'ListItem', position: 1, name: homeLabel, item: homeUrl }];
-    if (nlPermalink && nlPermalink.startsWith('/services/')) {
-        const servicesPath = locale === 'en' ? '/en/#services' : '/#services';
+    if (nlPermalink && nlPermalink.startsWith('/services/') && nlPermalink !== '/services/') {
+        const servicesPath = `${localePrefix}/services/`;
         const servicesUrl = buildAbsoluteUrl(servicesPath, baseUrl, pathPrefix);
         items.push({ '@type': 'ListItem', position: 2, name: dict['nav.services'], item: servicesUrl });
         items.push({ '@type': 'ListItem', position: 3, name: currentLabel, item: buildAbsoluteUrl(pageUrl, baseUrl, pathPrefix) });

@@ -9,6 +9,16 @@ module.exports = {
     productsActive: "",
     jobsActive: ""
   },
+  page: {
+    homeHref: "/",
+    jobsHref: "/jobs/",
+    customerzoneHref: "/customerzone/",
+    logoSrc: "/assets/logo.svg",
+    showValuesLink: true,
+    servicesActive: "",
+    productsActive: "",
+    jobsActive: ""
+  },
   services: {
     homeHref: "/",
     jobsHref: "/jobs/",

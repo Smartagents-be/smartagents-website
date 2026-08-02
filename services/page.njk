@@ -1,0 +1,15 @@
+{% from "macros/home-sections.njk" import servicesGrid with context %}
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>{{ "services.title" | t(locale) }}</h1>
+            <p>{{ "services.subtitle" | t(locale) }}</p>
+        </div>
+    </section>
+
+    {# Same id as the homepage anchor so /services/#services keeps working too. #}
+    <section id="services" class="page-section">
+        <div class="container">
+            {{ servicesGrid() }}
+        </div>
+    </section>

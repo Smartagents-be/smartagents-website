@@ -28,6 +28,29 @@
         </div>
     </section>
 
+    {# Optional promo video. Rendered only for courses that define a video source. #}
+    {% set videoSrc = (k ~ ".video.src") | t(locale) %}
+    {% if videoSrc != (k ~ ".video.src") %}
+    <section class="page-section page-section-alt training-detail-video">
+        <div class="container">
+            <h2 class="section-title">{{ (k ~ ".video.title") | t(locale) }}</h2>
+            <p class="section-subtitle">{{ (k ~ ".video.subtitle") | t(locale) }}</p>
+            <div class="training-detail-video-frame">
+                <video
+                    class="training-detail-video-player"
+                    controls
+                    playsinline
+                    preload="metadata"
+                    poster="{{ (k ~ ".video.poster") | t(locale) | withPathPrefix }}"
+                    aria-label="{{ (k ~ ".video.aria") | t(locale) }}">
+                    <source src="{{ videoSrc | withPathPrefix }}" type="video/mp4">
+                    {{ (k ~ ".video.fallback") | t(locale) }}
+                </video>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
     <section class="page-section">
         <div class="container">
             <h2 class="section-title">{{ (k ~ ".overview.title") | t(locale) }}</h2>
@@ -59,6 +82,26 @@
             </div>
         </div>
     </section>
+
+    {# Optional "what the course ships with" section. Rendered only when the course defines it. #}
+    {% set formatTitle = (k ~ ".format.title") | t(locale) %}
+    {% if formatTitle != (k ~ ".format.title") %}
+    <section class="page-section training-format-section">
+        <div class="container">
+            <h2 class="section-title">{{ formatTitle }}</h2>
+            <p class="section-subtitle">{{ (k ~ ".format.subtitle") | t(locale) }}</p>
+            <div class="training-format-grid">
+                {% for n in [1, 2, 3, 4, 5, 6] %}
+                <div class="training-format-card">
+                    <span class="page-role-item-kicker">{{ (k ~ ".format" ~ n ~ ".kicker") | t(locale) }}</span>
+                    <h3>{{ (k ~ ".format" ~ n ~ ".title") | t(locale) }}</h3>
+                    <p>{{ (k ~ ".format" ~ n ~ ".desc") | t(locale) }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
 
     <section class="page-section">
         <div class="container">

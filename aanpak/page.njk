@@ -1,0 +1,15 @@
+{% from "macros/home-sections.njk" import aanpakTimeline with context %}
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>{{ "approach.title" | t(locale) }}</h1>
+            <p>{{ "approach.subtitle" | t(locale) }}</p>
+        </div>
+    </section>
+
+    {# Same id as the homepage anchor so /aanpak/#aanpak keeps working too. #}
+    <section id="aanpak" class="page-section">
+        <div class="container">
+            {{ aanpakTimeline() }}
+        </div>
+    </section>
