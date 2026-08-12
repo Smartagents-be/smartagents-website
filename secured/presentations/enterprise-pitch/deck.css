@@ -1314,12 +1314,11 @@
     flex-shrink: 0;
 }
 
-/* ── Video slide: one 16:9 player, centred, with a caption ─────── */
+/* ── Video slide: one 16:9 player, centred ─────────────────────── */
 .video-stage {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 22px;
     min-height: 0;
 }
 
@@ -1339,13 +1338,4 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-
-.video-caption {
-    margin: 0;
-    max-width: 1100px;
-    text-align: center;
-    font-size: 24px;
-    line-height: 1.45;
-    color: var(--fg-subtle);
 }
