@@ -19,7 +19,7 @@ import { spawn } from 'node:child_process';
 
 const repoRoot = resolve(process.cwd());
 const distDir = resolve(repoRoot, 'dist');
-const presentationsDir = resolve(repoRoot, 'secured', 'presentations');
+const presentationsDir = resolve(repoRoot, 'src', 'content', 'secured', 'presentations');
 const host = '127.0.0.1';
 
 if (!existsSync(distDir)) {
@@ -79,7 +79,7 @@ function serveDist() {
 
 const decks = readdirSync(presentationsDir, { withFileTypes: true })
   .filter((e) => e.isDirectory() && e.name !== 'shared')
-  .filter((e) => existsSync(join(presentationsDir, e.name, 'index.njk')))
+  .filter((e) => existsSync(join(presentationsDir, e.name, 'deck.json')))
   .map((e) => e.name)
   .sort();
 

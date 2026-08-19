@@ -1,0 +1,13 @@
+# The root is not a page: every public URL is language-prefixed (static-i18n §1).
+# dist/index.html is the no-redirect fallback for hosts that ignore this file.
+/ /nl/ 302
+
+# Pitch-decks staan achter de secured-login onder /secured/presentations/.
+# De oude korte link en de vorige publieke /presentations/-paden zijn al
+# gedeeld. Browsers behouden het #slide-fragment bij een redirect, dus
+# /pitch/#1 komt netjes uit op de beveiligde deck-URL met hetzelfde fragment.
+/pitch /secured/presentations/pitch/ 301
+/pitch/* /secured/presentations/pitch/:splat 301
+
+# Oude publieke deck-URLs doorsturen naar de beveiligde locatie.
+/presentations/* /secured/presentations/:splat 301

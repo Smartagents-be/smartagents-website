@@ -1,0 +1,202 @@
+/* SmartAgents design tokens.
+   Lifted verbatim from the design system in the "Smartagents.be Redesign
+   Direction" project (homepage direction 1a). This file is the single source of
+   truth: build/render.mjs prepends it to critical.css and inlines the result in
+   every <head>, so main.css and every component can rely on it being present. */
+
+:root {
+  /* ---------------------------------------------------------------- *
+   * Colour — two darks, one accent, a lot of paper
+   * ---------------------------------------------------------------- */
+
+  /* ink and dark field */
+  --sa-ink: oklch(0.148 0.005 247.84);
+  --sa-field: oklch(0.183 0.022 252);
+  --sa-field-2: oklch(0.21 0.024 252);
+  --sa-field-line: oklch(0.3 0.03 250);
+
+  /* paper */
+  --sa-desk: oklch(0.94 0.004 247.84);
+  --sa-paper: oklch(0.9846 0.0017 247.84);
+  --sa-paper-2: oklch(0.985 0.003 247.84);
+  --sa-paper-3: oklch(0.998 0.002 247.84);
+  --sa-white: #fff;
+  --sa-wash: oklch(0.973 0.003 247.84);
+  --sa-wash-2: oklch(0.968 0.003 247.84);
+  --sa-wash-3: oklch(0.963 0.003 247.84);
+  --sa-wash-4: oklch(0.945 0.004 247.84);
+
+  /* greys and hairlines */
+  --sa-grey-1: oklch(0.3 0.01 247.84);
+  --sa-grey-2: oklch(0.34 0.01 247.84);
+  --sa-grey-3: oklch(0.42 0.014 247.84);
+  --sa-grey-4: oklch(0.45 0.014 247.84);
+  --sa-grey-5: oklch(0.46 0.014 247.84);
+  --sa-grey-6: oklch(0.56 0.018 247.84);
+  --sa-line: oklch(0.925 0.005 247.84);
+  --sa-line-2: oklch(0.9 0.006 247.84);
+  --sa-line-3: oklch(0.885 0.006 247.84);
+
+  /* one accent, two values: paper and field */
+  --sa-cyan: oklch(0.53 0.112 214);
+  --sa-cyan-hover: oklch(0.6 0.118 210);
+  --sa-cyan-bright: #00d8ff;
+  --sa-cyan-ink: oklch(0.16 0.02 220);
+  --sa-cyan-soft: oklch(0.53 0.112 214 / 0.2);
+  --sa-cyan-edge: oklch(0.53 0.112 214 / 0.55);
+
+  /* text on the dark field */
+  --sa-on-field: oklch(0.97 0.004 247.84);
+  --sa-on-field-muted: oklch(0.78 0.014 240);
+  --sa-on-field-faint: oklch(0.84 0.012 240);
+
+  /* semantic — surfaces */
+  --surface-desk: var(--sa-desk);
+  --surface-page: var(--sa-paper);
+  --surface-section: var(--sa-paper-2);
+  --surface-raised: var(--sa-white);
+  --surface-hover: var(--sa-wash);
+  --surface-menu-item: var(--sa-wash-2);
+  --surface-chip: var(--sa-wash-3);
+  --surface-nav-hover: var(--sa-wash-4);
+  --surface-input: var(--sa-paper-3);
+  --surface-dark: var(--sa-field);
+
+  /* semantic — text */
+  --text-strong: var(--sa-ink);
+  --text-body: var(--sa-grey-3);
+  --text-muted: var(--sa-grey-4);
+  --text-faint: var(--sa-grey-6);
+  --text-nav: var(--sa-grey-2);
+  --text-lead: var(--sa-grey-1);
+  --text-accent: var(--sa-cyan);
+  --text-on-dark: var(--sa-on-field);
+  --text-on-dark-muted: var(--sa-on-field-muted);
+  --text-on-dark-faint: var(--sa-on-field-faint);
+
+  /* semantic — borders */
+  --border-hairline: var(--sa-line);
+  --border-input: var(--sa-line-2);
+  --border-button: var(--sa-line-3);
+  --border-on-dark: var(--sa-field-line);
+
+  /* semantic — actions */
+  --action-primary-bg: var(--sa-ink);
+  --action-primary-fg: var(--sa-white);
+  --action-ondark-bg: var(--sa-cyan-bright);
+  --action-ondark-fg: var(--sa-cyan-ink);
+  --focus-ring: color-mix(in oklch, var(--sa-cyan) 14%, transparent);
+
+  /* ---------------------------------------------------------------- *
+   * Type — Geist at 650 for display, 400-450 for body
+   * ---------------------------------------------------------------- */
+
+  /* No webfont is loaded: fast-static-site SKILL.md §4 forbids third-party font
+     origins and no licensed Geist binaries were supplied. Geist is named first
+     so the intended face is used wherever it is installed; everything else
+     falls back to the platform UI face, which costs zero requests and zero CLS. */
+  --font-sans: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif-accent: "Instrument Serif", Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* The page never uses a size that is not on this list. Every step fluids down
+     on narrow viewports; the design doc value is the upper bound. */
+  --text-display: clamp(34px, 1.55rem + 2.4vw, 54px);
+  --text-h1-sub: clamp(27px, 1.35rem + 1.5vw, 38px);
+  --text-h2: clamp(25px, 1.3rem + 1.2vw, 34px);
+  --text-h2-sm: clamp(24px, 1.28rem + 1vw, 32px);
+  --text-h3: clamp(18px, 1.05rem + 0.3vw, 20px);
+  --text-h4: 19px;
+  --text-h5: 17px;
+  --text-lead: 16.5px;
+  --text-body-lg: 16px;
+  --text-body: 15.5px;
+  --text-ui: 15px;
+  --text-ui-sm: 14px;
+  --text-meta: 13.5px;
+  --text-meta-sm: 13px;
+  --text-micro: 12.5px;
+  --text-nano: 11px;
+
+  --weight-display: 650;
+  --weight-semibold: 600;
+  --weight-medium-plus: 550;
+  --weight-medium: 500;
+  --weight-book: 450;
+
+  --track-display: -0.032em;
+  --track-h2: -0.022em;
+  --track-h3: -0.014em;
+  --track-h5: -0.012em;
+  --track-ui: -0.005em;
+  --track-caps: 0.02em;
+
+  --leading-display: 1.03;
+  --leading-h2: 1.12;
+  --leading-body: 1.62;
+  --leading-body-tight: 1.6;
+  --leading-snug: 1.5;
+
+  /* ---------------------------------------------------------------- *
+   * Space — 104 between sections, 64 gutter, 72 column gap
+   * ---------------------------------------------------------------- */
+
+  --space-1: 2px;
+  --space-2: 5px;
+  --space-3: 7px;
+  --space-4: 10px;
+  --space-5: 14px;
+  --space-6: 18px;
+  --space-7: 22px;
+  --space-8: 26px;
+  --space-9: 28px;
+  --space-10: 30px;
+  --space-11: 36px;
+  --space-12: 46px;
+  --space-13: 56px;
+  --space-14: 64px;
+  --space-15: 72px;
+  --space-16: 104px;
+
+  --gutter-page: clamp(20px, 5vw, 64px);
+  --gap-column: clamp(28px, 5vw, 72px);
+  --section-rhythm: clamp(56px, 8vw, 104px);
+  --shell-width: 1180px;
+  --measure: 44ch;
+  --measure-display: 14ch;
+
+  /* ---------------------------------------------------------------- *
+   * Shape — 5 chip, 7 button, 8 nav, 11 menu item, 16 panel, 20 card, 26 shell
+   * ---------------------------------------------------------------- */
+
+  --radius-chip: 5px;
+  --radius-button: 7px;
+  --radius-nav: 8px;
+  --radius-menu-item: 11px;
+  --radius-panel: 16px;
+  --radius-card: 20px;
+  --radius-shell: 26px;
+  --radius-pill: 999px;
+
+  --shadow-shell: 0 30px 70px -34px oklch(0.148 0.03 247.84 / 0.32),
+    0 1px 2px 0 oklch(0.148 0.02 247.84 / 0.06);
+  --shadow-menu: 0 28px 60px -30px oklch(0.148 0.03 247.84 / 0.42),
+    0 2px 6px -2px oklch(0.148 0.02 247.84 / 0.08);
+  --shadow-lift: 0 12px 28px -14px oklch(0.148 0.03 247.84 / 0.5);
+  --shadow-lift-sm: 0 10px 24px -12px oklch(0.148 0.03 247.84 / 0.45);
+  --shadow-lift-dark: 0 10px 24px -12px oklch(0.05 0.02 240 / 0.6);
+
+  /* ---------------------------------------------------------------- *
+   * Motion — two speeds: travel and colour
+   * ---------------------------------------------------------------- */
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-move: 0.34s;
+  --dur-tint: 0.22s;
+  --dur-tint-fast: 0.2s;
+  --lift: translateY(-2px);
+  --transition-move: transform var(--dur-move) var(--ease-out-expo),
+    box-shadow var(--dur-move) var(--ease-out-expo);
+  --transition-tint: color var(--dur-tint) ease, background-color var(--dur-tint) ease,
+    border-color var(--dur-tint) ease;
+}

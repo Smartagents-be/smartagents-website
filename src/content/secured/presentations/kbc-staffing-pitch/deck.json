@@ -1,0 +1,24 @@
+{
+  "title": "SmartAgents × KBC | AI-native ontwikkelcapaciteit",
+  "description": "SmartAgents × KBC: AI-native ontwikkelcapaciteit via staffing, training en dedicated project teams.",
+  "fonts": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
+  "width": "1920",
+  "height": "1080",
+  "styles": [],
+  "scripts": [],
+  "slides": [
+    "01-cover",
+    "02-kbc-context",
+    "03-wie-zijn-wij",
+    "04-volledig-aanbod",
+    "05-waarom-smartagents",
+    "06-ai-staffing",
+    "07-staffing-aanpak",
+    "08-rollen",
+    "09-training",
+    "10-projecten",
+    "11-security",
+    "12-voordelen",
+    "13-over-smartagents"
+  ]
+}

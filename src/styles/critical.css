@@ -1,0 +1,787 @@
+/* Above-the-fold only: reset, the page frame, the header and the hero.
+   build/render.mjs prepends tokens.css and inlines the pair into every <head>.
+   Keep the combined block under 14 KB (fast-static-site SKILL.md §2). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  /* The sticky header covers the top of the page, so anchors need the offset. */
+  scroll-padding-top: 96px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background: var(--surface-page);
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-book);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--sa-cyan-hover);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--weight-display);
+  text-wrap: pretty;
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--sa-cyan) 26%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sa-cyan);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 100;
+  top: var(--space-4);
+  left: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-button);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-semibold);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  color: var(--action-primary-fg);
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * The page frame: edge to edge, no sheet, no desk
+ * ------------------------------------------------------------------ */
+
+/* Flex column so a short page still puts the footer at the bottom of the
+   viewport instead of leaving a band of bare background under it. */
+/* `clip`, not `hidden`: both keep the dark shapes from widening the page, but
+   `hidden` would make this a scroll container, which would pin the sticky
+   header to it instead of the viewport. The `hidden` first line keeps the
+   clipping on browsers without `clip` (Safari < 16); they lose only the stick. */
+.shell {
+  display: flex;
+  overflow: hidden;
+  overflow: clip;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  background: var(--surface-page);
+}
+
+/* ------------------------------------------------------------------ *
+ * Header
+ * ------------------------------------------------------------------ */
+
+.shell > main {
+  flex: 1 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  z-index: 60;
+  top: 0;
+  display: flex;
+  flex: none;
+  gap: var(--space-8);
+  align-items: center;
+  padding: var(--space-7) var(--gutter-page);
+  border-bottom: 1px solid var(--border-hairline);
+  background: var(--surface-page);
+}
+
+/* The wedge behind the logo: the first window onto the dark field. */
+.header-wedge {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(318px, 64%);
+  background: var(--surface-dark);
+  clip-path: polygon(0 0, 90% 0, 74.2% 100%, 0 100%);
+}
+
+.brand-link {
+  position: relative;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  color: var(--text-on-dark);
+  font-size: 16.5px;
+  font-weight: var(--weight-display);
+  letter-spacing: -0.01em;
+}
+
+.brand-link:hover {
+  color: var(--text-on-dark);
+}
+
+.brand-link .logo {
+  width: 34px;
+  height: 34px;
+}
+
+.logo--field {
+  color: var(--sa-cyan-bright);
+}
+
+.logo--ink {
+  color: var(--sa-cyan);
+}
+
+.brand-accent {
+  color: var(--sa-cyan-bright);
+}
+
+.site-nav {
+  position: relative;
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  margin-right: auto;
+  margin-left: clamp(20px, 5vw, 74px);
+  color: var(--text-nav);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.nav-link {
+  transition: var(--transition-tint);
+  padding: 9px var(--space-4);
+  border-radius: var(--radius-nav);
+  color: inherit;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background: var(--surface-nav-hover);
+  color: var(--text-strong);
+}
+
+/* Mega-menu. Hover and focus only: no JS, so it can never fail to open. */
+.nav-group {
+  position: relative;
+}
+
+.nav-group > .nav-link {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.nav-chevron {
+  display: inline-flex;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.nav-group:hover .nav-chevron,
+.nav-group:focus-within .nav-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-panel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 23px);
+  left: -10px;
+  transition: opacity var(--dur-tint) ease, transform var(--dur-move) var(--ease-out-expo),
+    visibility var(--dur-tint);
+  width: 660px;
+  padding: 12px;
+  border: 1px solid var(--border-hairline);
+  border-top: none;
+  border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-menu);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+}
+
+/* The panel floats 23px below the trigger. Without this bridge the pointer
+   leaves .nav-group crossing that gap and the panel closes under the cursor. */
+.nav-panel::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: 23px;
+}
+
+.nav-group:hover .nav-panel,
+.nav-group:focus-within .nav-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+}
+
+.nav-panel__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1);
+}
+
+.nav-panel__item {
+  transition: background-color var(--dur-tint-fast) ease;
+  display: block;
+  padding: var(--space-5) 16px;
+  border-radius: var(--radius-menu-item);
+  color: inherit;
+  white-space: normal;
+}
+
+.nav-panel__item:hover {
+  background: var(--surface-menu-item);
+  color: inherit;
+}
+
+.nav-panel__item b {
+  display: block;
+  color: var(--text-strong);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.012em;
+}
+
+.nav-panel__item span {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--sa-grey-5);
+  font-size: var(--text-micro);
+  line-height: var(--leading-snug);
+}
+
+.nav-panel__all {
+  transition: var(--transition-tint);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding: 13px 16px;
+  border-radius: var(--radius-menu-item);
+  background: var(--surface-menu-item);
+  color: var(--text-lead);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium-plus);
+}
+
+.nav-panel__all:hover {
+  background: var(--surface-dark);
+  color: var(--sa-white);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Language chip: real links, decided at build time (static-i18n §5). */
+.lang-switcher ul {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  list-style: none;
+}
+
+.lang-switcher a {
+  transition: var(--transition-tint);
+  display: block;
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-chip);
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+  text-transform: uppercase;
+}
+
+.lang-switcher a:hover {
+  color: var(--text-strong);
+}
+
+.lang-switcher a[aria-current="true"] {
+  background: var(--surface-chip);
+  color: var(--text-strong);
+}
+
+/* ------------------------------------------------------------------ *
+ * Buttons
+ * ------------------------------------------------------------------ */
+
+.btn {
+  transition: var(--transition-move), background-color var(--dur-tint) ease,
+    border-color var(--dur-tint) ease, color var(--dur-tint) ease;
+  display: inline-flex;
+  gap: 0.4em;
+  align-items: center;
+  padding: 13px var(--space-7);
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: var(--text-ui);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-ui);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+}
+
+.btn--primary:hover {
+  box-shadow: var(--shadow-lift);
+  color: var(--action-primary-fg);
+  transform: var(--lift);
+}
+
+.btn--ghost {
+  padding: 13px var(--space-6);
+  border: 1px solid var(--border-button);
+  background: var(--surface-raised);
+  color: var(--text-lead);
+  font-weight: var(--weight-medium-plus);
+}
+
+.btn--ghost:hover {
+  border-color: var(--sa-cyan);
+  color: var(--sa-cyan);
+}
+
+.btn--ondark {
+  background: var(--action-ondark-bg);
+  color: var(--action-ondark-fg);
+  font-size: var(--text-ui-sm);
+}
+
+.btn--ondark:hover {
+  box-shadow: var(--shadow-lift-dark);
+  color: var(--action-ondark-fg);
+  transform: var(--lift);
+}
+
+.btn--sm {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-ui-sm);
+}
+
+/* ------------------------------------------------------------------ *
+ * The dark field: every dark shape is one window onto the same network
+ * ------------------------------------------------------------------ */
+
+.field-slot {
+  position: absolute;
+  pointer-events: none;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-dark);
+}
+
+/* The clip lives on the element that carries data-magnet, never on a wrapper:
+   src/motion.js grows that element's box and remaps the outline into it, so a
+   clip applied one level up would no longer line up with the silhouette. */
+.field[data-clip="heroPetal"] {
+  clip-path: url(#heroPetal);
+}
+
+.field[data-clip="heroLobe"] {
+  clip-path: url(#heroLobe);
+}
+
+.field[data-clip="dnaField"] {
+  clip-path: url(#dnaField);
+}
+
+.field[data-clip="dnaBlob"] {
+  clip-path: url(#dnaBlob);
+}
+
+.field[data-clip="stackField"] {
+  clip-path: url(#stackField);
+}
+
+.field[data-clip="bandField"] {
+  clip-path: url(#bandField);
+}
+
+/* ------------------------------------------------------------------ *
+ * Hero
+ * ------------------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  background: var(--surface-section);
+}
+
+/* Both shapes hang off a page edge and stop short of the other three: an edge
+   cut by the hero's own bottom would read as clipped, not drawn. Every offset
+   is a share of the hero, never a pixel size — the shapes hold the same
+   proportion of the page at every width, which is what the design draws.
+   Sized by insets alone, never width/height — src/motion.js grows the box by
+   subtracting from all four offsets, and an explicit size would move the box
+   instead of growing it. */
+.hero__field--right {
+  inset: 0.8% 0 7.8% 56%;
+}
+
+.hero__field--left {
+  inset: 23.4% 44% 3.4% 0;
+}
+
+/* The orbit diagram: five rings struck from one origin off the left edge. It is
+   clipped to the hero by its own layer, never by `.hero` itself — the dark
+   shapes deform outside their box and must not be cut off with it. */
+.hero__orbits {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero__orbits-origin {
+  position: absolute;
+  top: 90px;
+  left: 12%;
+  width: 0;
+  height: 0;
+}
+
+.hero__ring {
+  position: absolute;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.hero__ring--01 {
+  inset: -260px auto auto -260px;
+  width: 520px;
+  height: 520px;
+  border-color: color-mix(in oklch, var(--sa-ink) 10%, transparent);
+}
+
+.hero__ring--02 {
+  inset: -390px auto auto -390px;
+  width: 780px;
+  height: 780px;
+  border-color: color-mix(in oklch, var(--sa-cyan) 20%, transparent);
+}
+
+.hero__ring--03 {
+  inset: -530px auto auto -530px;
+  width: 1060px;
+  height: 1060px;
+  border-style: dashed;
+  border-color: color-mix(in oklch, var(--sa-ink) 11%, transparent);
+}
+
+.hero__ring--04 {
+  inset: -680px auto auto -680px;
+  width: 1360px;
+  height: 1360px;
+  border-color: color-mix(in oklch, var(--sa-ink) 7%, transparent);
+}
+
+.hero__ring--05 {
+  inset: -845px auto auto -845px;
+  width: 1690px;
+  height: 1690px;
+  border-color: color-mix(in oklch, var(--sa-ink) 5%, transparent);
+}
+
+/* Three of the rings carry a node. The ring-sized box rotates; the node rides
+   its top edge and fades in and out over one turn, so it reads as one node
+   travelling rather than as a permanent dot. */
+.hero__orbit {
+  position: absolute;
+  animation: sa-orbit linear infinite;
+}
+
+.hero__orbit-node {
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  animation: sa-orbit-fade ease-in-out infinite;
+}
+
+.hero__orbit--01 {
+  inset: -390px auto auto -390px;
+  width: 780px;
+  height: 780px;
+  animation-duration: 34s;
+}
+
+.hero__orbit--01 .hero__orbit-node {
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  background: var(--sa-cyan);
+  box-shadow: 0 0 14px 2px color-mix(in oklch, var(--sa-cyan) 50%, transparent);
+  animation-duration: 34s;
+}
+
+.hero__orbit--02 {
+  inset: -530px auto auto -530px;
+  width: 1060px;
+  height: 1060px;
+  animation-duration: 62s;
+  animation-direction: reverse;
+}
+
+.hero__orbit--02 .hero__orbit-node {
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background: var(--sa-grey-1);
+  animation-duration: 62s;
+  animation-delay: -14s;
+}
+
+.hero__orbit--03 {
+  inset: -680px auto auto -680px;
+  width: 1360px;
+  height: 1360px;
+  animation-duration: 88s;
+}
+
+.hero__orbit--03 .hero__orbit-node {
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  background: color-mix(in oklch, var(--sa-cyan) 75%, transparent);
+  animation-duration: 88s;
+}
+
+@keyframes sa-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sa-orbit-fade {
+  0%,
+  4% {
+    opacity: 0;
+  }
+
+  12%,
+  34% {
+    opacity: 1;
+  }
+
+  44%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The rings stay; only the travelling nodes are motion. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__orbit {
+    display: none;
+  }
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 52%);
+  min-height: 820px;
+  padding: var(--section-rhythm) var(--gutter-page);
+  /* Deeper than the page gutter: the copy starts inboard of the lobe's tip. */
+  padding-left: calc(var(--gutter-page) + 17%);
+}
+
+/* The copy sits at the top of its column, not on the hero's centre line: the
+   petal's pinch is at mid-height, and the block reads better above it. */
+.hero__text {
+  align-self: start;
+}
+
+/* The wordmark sets its own width; only the claim is held to a measure, so the
+   two never fight over the same line length. */
+.hero h1 {
+  margin-bottom: var(--space-10);
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--track-display);
+}
+
+.hero__wordmark {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.hero__wordmark .logo {
+  flex: none;
+  width: 52px;
+  height: 52px;
+}
+
+.hero__wordmark .brand-accent {
+  color: var(--sa-cyan);
+}
+
+.hero__claim {
+  display: block;
+  margin-top: var(--space-4);
+  max-width: var(--measure-display);
+  color: var(--text-strong);
+  font-size: var(--text-h1-sub);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+/* Between the magnet breakpoint and the point where the hero stacks, the flanks
+   are too narrow to carry the shapes at their drawn size: both pull back into
+   their corner, and the lobe drops below the copy rather than rising behind it.
+   The copy keeps its column, so it never crosses the petal. */
+@media (max-width: 1080px) {
+  .hero__inner {
+    min-height: 720px;
+    padding-left: var(--gutter-page);
+  }
+
+  .hero__field--right {
+    inset: 4% 0 12% 62%;
+  }
+
+  .hero__field--left {
+    inset: 46% 66% 4% 0;
+  }
+}
+
+@media (max-width: 940px) {
+  .hero {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .hero__field {
+    position: relative;
+    inset: auto;
+    height: 180px;
+  }
+
+  /* One band is the whole dark field down here; a second one would just stack
+     another stripe under the copy. */
+  .hero__field--left {
+    display: none;
+  }
+
+  .field[data-clip="heroPetal"] {
+    clip-path: url(#heroBand);
+  }
+
+  .hero__inner {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 1180px) {
+  .site-nav {
+    display: none;
+  }
+}
+
+/* On a phone the wedge cannot be sized to the wordmark reliably across every
+   width, and a wordmark that slips off it is unreadable. The wedge goes; the
+   dark field still opens the page in the hero band, the SmartSpace band and the
+   footer. */
+@media (max-width: 620px) {
+  .site-header {
+    gap: var(--space-5);
+  }
+
+  .header-wedge {
+    display: none;
+  }
+
+  .brand-link,
+  .brand-link:hover {
+    gap: 9px;
+    color: var(--text-strong);
+    font-size: var(--text-ui);
+  }
+
+  .brand-link .brand-accent,
+  .brand-link .logo {
+    color: var(--sa-cyan);
+  }
+
+  .brand-link .logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header-actions .btn {
+    display: none;
+  }
+}

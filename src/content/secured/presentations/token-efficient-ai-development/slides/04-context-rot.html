@@ -1,0 +1,69 @@
+<!-- ════════════════ 04 · MENTAL MODEL ════════════════ -->
+  <section data-label="Mental model" class="slide light cat-themed" style="--c: #4f46e5;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.142 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.142 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">04</span>Mental model</p>
+          <h2 class="h2">Why less context often <span class="accent">works better</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div style="display: grid; grid-template-columns: 1.35fr 0.8fr; gap: 36px; margin-top: 20px; align-items: stretch;">
+
+        <!-- LEFT: context rot chart -->
+        <div class="card">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+            <h3 style="margin: 0;">Context rot</h3>
+            <span style="font-size: 18px; color: #64748b;">more context, less reliable answer</span>
+          </div>
+
+          <svg viewBox="0 0 760 300" width="100%" preserveAspectRatio="xMidYMid meet" style="height: auto; display: block;" role="img" aria-label="Bar chart: the same question is answered more reliably with a focused prompt of about 300 tokens than with the full context of about 113K tokens">
+            <!-- baseline -->
+            <line x1="60" y1="250" x2="740" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
+            <!-- y axis label -->
+            <text x="32" y="140" text-anchor="middle" font-size="15" fill="#94a3b8" transform="rotate(-90 32 140)">answer reliability</text>
+
+            <!-- Focused prompt -->
+            <rect x="150" y="46" width="180" height="204" rx="6" fill="#4f46e5"/>
+            <text x="240" y="34" text-anchor="middle" font-size="18" font-weight="600" fill="#4f46e5">high</text>
+            <text x="240" y="274" text-anchor="middle" font-size="18" font-weight="600" fill="#334155">Focused prompt</text>
+            <text x="240" y="296" text-anchor="middle" font-size="16" fill="#64748b">~300 tokens</text>
+
+            <!-- Volledige context -->
+            <rect x="450" y="168" width="180" height="82" rx="6" fill="#d97706"/>
+            <text x="540" y="156" text-anchor="middle" font-size="18" font-weight="600" fill="#d97706">much lower</text>
+            <text x="540" y="274" text-anchor="middle" font-size="18" font-weight="600" fill="#334155">Full context</text>
+            <text x="540" y="296" text-anchor="middle" font-size="16" fill="#64748b">~113K tokens</text>
+          </svg>
+
+          <p style="font-size: 17px; line-height: 1.4; color: #64748b; margin: 4px 0 0;">Chroma (July 2025) tested 18 models including GPT-4.1, Claude 4, Gemini 2.5 and Qwen3: the same question is answered far more reliably with a focused prompt than with the full context. Even simple tasks degrade as input grows.</p>
+        </div>
+
+        <!-- RIGHT: the two mechanisms -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="card" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h3>Attention budget</h3>
+            <p>A model spreads its attention across all tokens. The more you send, the thinner it gets per token, like a reader handed too much at once.</p>
+            <p style="font-size: 14px; color: #94a3b8; margin: 8px 0 0;">after Anthropic, &ldquo;Effective context engineering&rdquo; (2025)</p>
+          </div>
+          <div class="card" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h3>Lost in the middle</h3>
+            <p>Information in the middle of a long prompt is missed most often. Put what matters at the top or the bottom.</p>
+            <p style="font-size: 14px; color: #94a3b8; margin: 8px 0 0;">after Liu et al. (2023), &ldquo;Lost in the Middle&rdquo;</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        The rule of thumb for the whole course: find the smallest set of tokens with the most relevant information. <strong>Send signal, leave out noise</strong>.
+      </div>
+      </div>
+    </div>
+    <!--chrome 04/57-->
+  </section>

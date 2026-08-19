@@ -1,0 +1,73 @@
+<!-- ════════════════ 27 · EXAMPLE · COMMANDS & SKILLS ════════════════ -->
+  <section data-label="Example: commands &amp; skills" class="slide light cat-themed" style="--c: #db2777;">
+    <div class="glow soft"></div>
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">27</span>Example</p>
+          <h2 class="h2">A <span class="accent">/review command</span> and a <span class="accent">release-notes skill</span>.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-claude"></i>Command (you invoke)</span>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.claude/commands/review.md</span>
+            </div>
+            <pre class="ide-body">Review the diff for bugs
+and security issues.
+Give a short list.</pre>
+          </div>
+          <p class="ide-cap">Invoke with <code>/review</code>. Also works in Copilot and Cursor via <code>/review</code>.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-claude"></i>Skill (agent invokes)</span>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.claude/skills/release-notes/SKILL.md</span>
+            </div>
+            <pre class="ide-body"><span class="cmt">---</span>
+<span class="key">name</span>: release-notes
+<span class="key">description</span>: <span class="str">Generate release notes</span>
+  <span class="str">from the git log since the tag.</span>
+<span class="cmt">---</span>
+1. Read the git log
+2. Group by change type
+3. Write a changelog</pre>
+          </div>
+          <p class="ide-cap">The agent picks this skill when you ask for release notes.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot note</span>
+          <div class="ide ide-copilot">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.github/prompts/review.prompt.md</span>
+            </div>
+            <pre class="ide-body"><span class="cmt">---</span>
+<span class="key">description</span>: <span class="str">"Review the diff"</span>
+<span class="key">agent</span>: <span class="str">"copilot-gpt-4.1"</span>
+<span class="cmt">---</span>
+Review the diff for bugs
+and security issues.
+Give a short list.</pre>
+          </div>
+          <p class="ide-cap">Copilot prompt frontmatter uses <code>agent</code>, not <code>mode</code>.</p>
+        </div>
+
+      </div>
+      </div>
+    </div>
+    <!--chrome 27/57-->
+  </section>

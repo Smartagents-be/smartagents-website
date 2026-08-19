@@ -36,6 +36,14 @@ Cloudflare Pages Function that proxies contact form submissions to n8n.
 
 ## Related files
 
-- `_data/site.js` — exposes `site.turnstileSiteKey` to Nunjucks templates (falls back to Cloudflare test key locally)
-- `shared/js/forms/contact-form.js` — client-side form handler; POSTs to `/api/contact`
-- `home/page.njk`, `_includes/macros/service-page.njk`, `services/training/detail.njk` — contain the `<div class="cf-turnstile">` widget
+This endpoint currently has no front end: the contact form, its client-side
+handler and the Turnstile widget were removed with the rest of the old site
+ahead of the redesign. The function and its `CONTACT_RATE` KV binding are kept
+so the endpoint can be wired back up.
+
+When rebuilding the form:
+
+- Add the site key to a page module's context and render the `<div class="cf-turnstile">`
+  widget at build time (no runtime templating).
+- Put the form handler in a web component under `src/components/`, POSTing to
+  `/api/contact`. See `.claude/skills/webcomponent-mpa-spa/SKILL.md` §4.
