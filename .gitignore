@@ -9,3 +9,5 @@ node_modules/
 .idea
 docs/superpowers/
 n8n/
+.playwright-mcp/
+shots/

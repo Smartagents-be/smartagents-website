@@ -33,6 +33,38 @@ they are applied here.
   `npm run serve` still serves `dist/` exactly as it deploys.
 - **Deck PDFs**: `npm run export:pdfs` (needs a current `dist/`)
 
+## Deployment
+
+Cloudflare Pages, wired to the GitHub repo. There is no workflow file and never
+has been: Pages clones the branch, runs `npm ci` then `npm run build`, and
+publishes `dist/`. `main` is production, every other branch gets a preview URL.
+Nothing here is a GitHub Action, so a green local build is the only signal.
+
+- **`wrangler.toml` is the deployment config, not the dashboard.** Once a Pages
+  project has one, Cloudflare reads `pages_build_output_dir`, bindings and
+  `[vars]` from it and ignores the dashboard equivalents. Secrets
+  (`TURNSTILE_SECRET_KEY`, `N8N_SHARED_SECRET`, `EXPORT_PASSWORD`,
+  `EXPORT_SESSION_SECRET`) stay dashboard-managed; a binding a Function needs at
+  runtime belongs in the file. `functions/api/README.md` records one that is
+  still missing.
+- **Build-time variables are separate.** `TURNSTILE_SITE_KEY` and `SITE_ORIGIN`
+  are read by `build/lib/config.mjs` and `build/lib/i18n.mjs` while the site
+  renders, so they are ordinary Pages build settings and `wrangler.toml` does not
+  touch them. Both have fallbacks, so a missing one changes the output instead of
+  failing the build: no site key means the contact form keeps its `mailto:`
+  fallback.
+- **Node is pinned in `.nvmrc` (22.14.0), mirrored by `engines` in
+  `package.json`.** Vite 7 needs `^20.19 || >=22.12` and the Pages build image
+  defaults to a much older Node, so the pin is what keeps the build alive.
+- **The toolchain is a devDependency.** A build environment with
+  `NODE_ENV=production` makes `npm ci` skip it; `scripts/build-site.mjs` checks
+  for `vite` up front and says so rather than exiting silently.
+- **`dist/.vite/` is scaffolding.** `render.mjs` reads the manifest from it, then
+  `build-site.mjs` deletes the directory before `check-dist.mjs` runs, so it
+  never ships. Both validators already skip dot-entries at the root of `dist/`.
+- **`functions/` is picked up from the repo root**, not from `dist/`. Cloudflare
+  derives the routes from the file tree, which is why there is no `_routes.json`.
+
 ## Tech Stack
 
 - **Templating**: `build/lib/html.mjs` — a tagged template literal that escapes

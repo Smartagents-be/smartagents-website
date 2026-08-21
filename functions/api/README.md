@@ -31,19 +31,28 @@ Cloudflare Pages Function that proxies contact form submissions to n8n.
 |------|------|-------|
 | `CONTACT_RATE` | KV namespace | Rate limit counters, TTL 2h. ID in `wrangler.toml`. |
 | `TURNSTILE_SECRET_KEY` | Secret | Cloudflare Pages dashboard |
-| `N8N_WEBHOOK_URL` | Var | Defined in `wrangler.toml` `[vars]` |
+| `N8N_WEBHOOK_URL` | Var | **Not bound yet.** See the warning below. |
 | `N8N_SHARED_SECRET` | Secret | Cloudflare Pages dashboard. Must match n8n "Authorize header" Code node. |
+
+`wrangler.toml` has no `[vars]` block, so `env.N8N_WEBHOOK_URL` is `undefined`
+in production. `forwardToN8n` runs inside `context.waitUntil` and swallows its
+own errors, so a submission still answers `{ ok: true }` and is then dropped in
+silence. Add the webhook URL to `wrangler.toml`:
+
+```toml
+[vars]
+N8N_WEBHOOK_URL = "https://.../webhook/..."
+```
+
+Setting it in the Pages dashboard instead does not work: once a project has a
+`wrangler.toml`, Cloudflare reads bindings and plain vars from that file and
+ignores the dashboard's. Secrets stay dashboard-managed.
 
 ## Related files
 
-This endpoint currently has no front end: the contact form, its client-side
-handler and the Turnstile widget were removed with the rest of the old site
-ahead of the redesign. The function and its `CONTACT_RATE` KV binding are kept
-so the endpoint can be wired back up.
-
-When rebuilding the form:
-
-- Add the site key to a page module's context and render the `<div class="cf-turnstile">`
-  widget at build time (no runtime templating).
-- Put the form handler in a web component under `src/components/`, POSTing to
-  `/api/contact`. See `.claude/skills/webcomponent-mpa-spa/SKILL.md` §4.
+The front end is `src/components/contact-form/`: `contact-form.mjs` renders the
+section at build time, `contact-form.js` upgrades it in the browser and POSTs
+here. The form only posts to this endpoint when `TURNSTILE_SITE_KEY` is set as a
+**build** environment variable; without it the markup keeps its `mailto:`
+fallback and this function is never called. Build variables are ordinary Pages
+build settings and are unaffected by `wrangler.toml`.
