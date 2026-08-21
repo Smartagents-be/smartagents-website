@@ -20,8 +20,7 @@ function escapeHtml(str) {
 
 function loginPage(redirectTo, error, securedBasePath) {
   const safeRedirect = escapeHtml(redirectTo);
-  const siteBasePath = securedBasePath.replace(/\/secured$/, '');
-  const baseStylesheetHref = `${siteBasePath || ''}/shared/css/base.css`;
+  const baseStylesheetHref = buildSecuredPath(securedBasePath, '/base.css');
   const loginStylesheetHref = buildSecuredPath(securedBasePath, '/login.css');
   const loginAction = buildSecuredPath(securedBasePath, '/login');
   return `<!DOCTYPE html>
