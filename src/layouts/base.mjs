@@ -189,12 +189,28 @@ export function clipDefs() {
       'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
     dnaBlob:
       'M0.330,0.045 C0.560,-0.030 0.800,0.115 0.910,0.345 C1.020,0.580 0.980,0.845 0.790,0.955 C0.600,1.060 0.330,0.980 0.180,0.775 C0.035,0.575 0.010,0.325 0.140,0.170 C0.195,0.105 0.260,0.068 0.330,0.045 Z',
+    // Hoe een cursus verloopt: a stone standing on the hairline the tour hangs
+    // from. A taut edge runs from the high shoulder down to the blunt nose, the
+    // back is round, and the foot is the only flat: it stands on a fifth of its
+    // own width, so it reads as balanced, and the cursor rocks it without ever
+    // lifting it off the rule.
+    tourStone:
+      'M0.560,1.000 C0.740,0.995 0.880,0.930 0.945,0.800 C1.000,0.688 0.980,0.545 0.895,0.430 C0.800,0.302 0.640,0.190 0.470,0.120 C0.330,0.062 0.210,0.048 0.140,0.100 C0.060,0.160 0.030,0.320 0.055,0.510 C0.082,0.716 0.180,0.900 0.300,0.970 C0.375,1.014 0.450,1.004 0.560,1.000 Z',
+    // The counterweight, hung under the agentic engineering course: a flat top
+    // welded to the rule that closes the offer, and a free-hand underside. It
+    // is heaviest left of centre and runs out long and shallow to the right: one
+    // sweep from the deep point out to the tip, easing once on the way. That
+    // easing lifts 4px against a 118px shape and is drawn out over 37px, which
+    // is about the limit — twice the relief, or a second one beside it, and the
+    // underside stops reading as a drawn curve and starts reading as a row of
+    // scallops. Every join sits at an extreme with a level tangent, so there is
+    // no corner anywhere in it, and both ends return to the rule almost
+    // vertically, so the shape hangs off the line rather than resting on it.
+    tourDome:
+      'M0,0 L1,0 C0.978,0.150 0.835,0.330 0.780,0.330 C0.742,0.330 0.698,0.295 0.660,0.295 C0.560,0.295 0.340,1.000 0.230,1.000 C0.130,1.000 0.018,0.560 0,0 Z',
     // Digitale transformatie: a skewed slab behind the isometric stack
     stackField:
-      'M0.060,0.100 L1,0.030 L1,0.860 L0.060,0.930 C0.024,0.933 0,0.905 0,0.870 L0,0.160 C0,0.125 0.024,0.097 0.060,0.100 Z',
-    // SmartSpace: a chevroned full-width band
-    bandField:
-      'M0,0.034 L0.664,0.006 C0.690,0.002 0.708,0.012 0.722,0.036 L0.930,0.412 C0.957,0.462 0.957,0.538 0.930,0.588 L0.722,0.964 C0.708,0.988 0.690,0.998 0.664,0.994 L0,0.966 Z'
+      'M0.060,0.100 L1,0.030 L1,0.860 L0.060,0.930 C0.024,0.933 0,0.905 0,0.870 L0,0.160 C0,0.125 0.024,0.097 0.060,0.100 Z'
   };
 
   const defs = Object.entries(paths).map(
@@ -210,7 +226,7 @@ export function clipDefs() {
 
 // The nav in reading order. A section is an anchor on the homepage; `team` is
 // the one entry that is a page of its own, so it is resolved per language.
-const NAV_SECTIONS = ['dna', 'team', 'approach', 'smartspace', 'insights', 'contact'];
+const NAV_SECTIONS = ['dna', 'team', 'approach', 'insights', 'contact'];
 const SERVICES = ['process', 'agentic', 'training', 'staffing'];
 
 /** Where a nav key points from `lang`: a real page if it has one, else an anchor. */

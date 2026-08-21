@@ -458,8 +458,12 @@ select {
   clip-path: url(#stackField);
 }
 
-.field[data-clip="bandField"] {
-  clip-path: url(#bandField);
+.field[data-clip="tourStone"] {
+  clip-path: url(#tourStone);
+}
+
+.field[data-clip="tourDome"] {
+  clip-path: url(#tourDome);
 }
 
 /* ------------------------------------------------------------------ *
@@ -756,8 +760,7 @@ select {
 
 /* On a phone the wedge cannot be sized to the wordmark reliably across every
    width, and a wordmark that slips off it is unreadable. The wedge goes; the
-   dark field still opens the page in the hero band, the SmartSpace band and the
-   footer. */
+   dark field still opens the page in the hero band and the footer. */
 @media (max-width: 620px) {
   .site-header {
     gap: var(--space-5);

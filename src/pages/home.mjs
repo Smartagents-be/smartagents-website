@@ -10,7 +10,29 @@ const SERVICES = ['process', 'agentic', 'training', 'staffing'];
 const DNA = ['1', '2', '3', '4'];
 const TRANSFORMATION = ['1', '2', '3', '4'];
 const STEPS = ['1', '2', '3', '4', '5'];
-const ARTICLES = ['1', '2', '3'];
+/**
+ * The articles the homepage lists, newest first. Everything here is
+ * language-independent: the key names the piece, `thumb` is the stem of its
+ * derivations in `/media/insights/`, `widths` are the widths that stem was
+ * derived at (the launch photograph is a small original and stops at 480w),
+ * and `tags` name the shared `article.tag.*` labels. All prose comes from
+ * `t()` under `article.<key>.*`.
+ */
+const ARTICLES = [
+  { key: 'aviso', thumb: 'aviso', widths: [320, 480, 760], tags: ['news', 'ai'] },
+  { key: 'what-works', thumb: 'what-works', widths: [320, 480, 760], tags: ['ai', 'tips'] },
+  { key: 'smartspace', thumb: 'smartspace', widths: [320, 480, 760], tags: ['news', 'ai'] },
+  { key: 'launch', thumb: 'launch', widths: [320, 480], tags: ['news'] }
+];
+
+/**
+ * A thumbnail is 208px in the listing, 156px on a tablet and 116px once the
+ * row has only the page gutter left to give it.
+ */
+const THUMB_SIZES = '(max-width: 620px) 116px, (max-width: 1080px) 156px, 208px';
+
+const thumbSrcset = (stem, widths, extension) =>
+  widths.map((width) => `/media/insights/${stem}-${width}.${extension} ${width}w`).join(', ');
 
 /** `01`-style monospace index; numbers act as the icons in this system. */
 const index = (n) => String(n).padStart(2, '0');
@@ -218,23 +240,53 @@ ${join(steps)}
 }
 
 /* ------------------------------------------------------------------ *
- * Inzichten
+ * Inzichten — the one list on this page that carries pictures.
+ *
+ * The rows stay rows: a hairline list, not a grid of cards. A row is a
+ * thumbnail, then the title with its excerpt directly underneath, then the date
+ * and the category badges out at the row's right edge. The article therefore
+ * reads as one block in one measure, the row stays about as tall as its
+ * picture, and the meta anchors the row to the same right edge every other list
+ * on this page runs to.
+ *
+ * Each thumbnail is a 16:9 crop, framed like the founder portraits on the team
+ * page — hairline, card radius, and the same cool grade that pulls a
+ * photograph, an illustration and a screenshot into one family. See
+ * "Deviations from the design doc", item 5, in
+ * .claude/skills/smartagents-design/README.md.
  * ------------------------------------------------------------------ */
 
 function insights(t) {
-  const rows = ARTICLES.map(
-    (n) => html`<div class="article-row">
-    <span class="article-row__date">${t(`article.${n}.date`)}</span>
-    <span class="article-row__title">${t(`article.${n}.title`)}</span>
-    <span class="article-row__body">${t(`article.${n}.body`)}</span>
-  </div>`
-  );
+  const rows = ARTICLES.map(({ key, thumb, widths, tags }) => {
+    const chips = tags.map(
+      (tag) => html`<li id="home-insights-tag-${key}-${tag}" class="badge">${t(`article.tag.${tag}`)}</li>`
+    );
 
-  return html`<section class="section" id="insights">
-  <div class="section__head">
-    <h2 class="section-heading">${t('section.insights')}</h2>
+    return html`<article id="home-insights-item-${key}" class="article-row">
+    <figure id="home-insights-figure-${key}" class="article-row__figure">
+      <picture id="home-insights-picture-${key}">
+        <source id="home-insights-source-${key}" type="image/avif" srcset="${thumbSrcset(thumb, widths, 'avif')}" sizes="${THUMB_SIZES}">
+        <img id="home-insights-image-${key}" class="article-row__image" src="/media/insights/${thumb}-480.jpg" srcset="${thumbSrcset(thumb, widths, 'jpg')}" sizes="${THUMB_SIZES}" width="480" height="270" alt="${t(`article.${key}.alt`)}" loading="lazy" decoding="async">
+      </picture>
+    </figure>
+    <div id="home-insights-text-${key}" class="article-row__text">
+      <h3 id="home-insights-title-${key}" class="article-row__title">${t(`article.${key}.title`)}</h3>
+      <p id="home-insights-body-${key}" class="article-row__body">${t(`article.${key}.body`)}</p>
+    </div>
+    <div id="home-insights-meta-${key}" class="article-row__meta">
+      <span id="home-insights-date-${key}" class="article-row__date">${t(`article.${key}.date`)}</span>
+      <ul id="home-insights-tags-${key}" class="article-row__tags">
+${join(chips)}
+      </ul>
+    </div>
+  </article>`;
+  });
+
+  return html`<section class="section" id="insights" aria-labelledby="home-insights-heading">
+  <div id="home-insights-head" class="section__head">
+    <h2 id="home-insights-heading" class="section-heading">${t('section.insights')}</h2>
   </div>
-  <div class="rows">
+  <div id="home-insights-list" class="rows">
 ${join(rows)}
   </div>
 </section>`;

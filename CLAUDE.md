@@ -71,9 +71,9 @@ they are applied here.
   phrases for itself; everything else comes from the shared `contact.*` and
   `form.*` keys, so the two forms can never drift apart.
 - **`/media/` is the un-hashed public file namespace**: the training one-pagers
-  live in `public/media/` and the founder portraits in `public/media/team/`,
-  and both ship as-is. Only the two one-pagers of the courses in "Ons aanbod"
-  are linked; the awareness and management fiches are left over from the
+  live in `public/media/`, the founder portraits in `public/media/team/` and the
+  "Inzichten" thumbnails in `public/media/insights/`, and all three ship as-is.
+  Only the two one-pagers of the courses in "Ons aanbod" are linked; the awareness and management fiches are left over from the
   learning path that section replaced. A file authored inside a deck and shown
   on a public page too (today: the kata tour video) is never duplicated: it stays
   in the deck folder and `PROMO_MEDIA` in `build/render.mjs` copies it into the
@@ -99,15 +99,22 @@ they are applied here.
 
 - The decks still load Inter/Fraunces from Google Fonts, which `fast-static-site`
   §4 forbids. Self-host and subset when the decks are revised.
-- No build-step image pipeline. The team page is the only page with photography
-  and its two portraits were derived once, by hand, into `public/media/team/`:
-  a 2:3 crop at 320w, 440w and 880w, AVIF plus a JPEG fallback, wired up with
-  `<picture>` and `srcset` in `src/pages/team.mjs`. They open that page, so the
-  first one is also declared as `meta().preloadImage`. Everything else still
-  ships no images (the SmartSpace screenshot is a labelled placeholder). Turn
-  the derivation into a build step when a third page needs it; note that `sips`,
-  the only image tool on a stock Mac, cannot write WebP, which is why the
-  fallback is JPEG.
+- No build-step image pipeline. Two blocks carry pictures and both sets were
+  derived once, by hand, with `sips` — AVIF plus a JPEG fallback, wired up with
+  `<picture>` and `srcset`:
+  - `public/media/team/` — the founder portraits, a 2:3 crop at 320w, 440w and
+    880w (`src/pages/team.mjs`). They open the team page, so the first one is
+    also declared as `meta().preloadImage`.
+  - `public/media/insights/` — the homepage article thumbnails, a 16:9 crop at
+    320w, 480w and 760w, all lazy (`src/pages/home.mjs`). The sources are the
+    four blog post banners on `main`, under `assets/blog/`; `launch` stops at
+    480w because its original is only 542px wide.
+
+  `sips --cropOffset` is the top-left of the crop window in *points*, so set the
+  source to 72dpi first or the offset lands at half the distance, and never pass
+  `0 0` — it reads as "unset" and centres the crop. Turn the derivation into a
+  build step when a third block needs it; note that `sips`, the only image tool
+  on a stock Mac, cannot write WebP, which is why the fallback is JPEG.
 - Geist is named first in `--font-sans` but no binaries were supplied, so the
   platform face is what renders. Ask the client for the WOFF2 files.
 - Only the training service row links out; the other service rows and the

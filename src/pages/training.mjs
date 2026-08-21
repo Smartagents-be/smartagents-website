@@ -18,6 +18,9 @@ const LEARN = ['1', '2', '3', '4'];
 
 const BENEFITS = ['adoption', 'productivity', 'risk', 'return', 'autonomy'];
 
+/** What a participant walks away with, listed under `training.format.tags.title`. */
+const INCLUDED = ['material', 'exercises', 'labs', 'qa', 'slides', 'guidance'];
+
 /** The developer course tour, copied into dist/media/ by build/render.mjs. */
 const KATA_VIDEO = '/media/kata-agentic-engineering.mp4';
 const KATA_POSTER = '/media/kata-agentic-engineering-poster.jpg';
@@ -84,9 +87,6 @@ function why(t) {
   <div id="training-why-head" class="section__head">
     <h2 id="training-why-title" class="section-heading">${t('training.why.title')}</h2>
   </div>
-  <div id="training-why-body" class="section-body">
-    <p id="training-why-lead" class="section-body__lead">${t('training.why.body')}</p>
-  </div>
   <div id="training-why-rows" class="rows">
 ${join(rows)}
   </div>
@@ -145,17 +145,47 @@ ${join(columns)}
 
 /* ------------------------------------------------------------------ *
  * Hoe een cursus verloopt — the copy beside the developer course tour
+ *
+ * Two shapes of the dark field open the section, hung off the two rules that
+ * bound it. A half disc drops from the rule the offer closes on, just left of
+ * the split between the two courses, and a stone stands on the rule the tour
+ * hangs from, further right and a band lower — so the pair reads as one
+ * diagonal across the band rather than two ornaments.
+ * Each is pinned to its own rule, so the cursor swells and rocks them but never
+ * peels them off, and both are windows onto the one node field.
+ *
+ * The stone lives inside the section head, which is what puts its foot on the
+ * rule: the head's bottom edge is the tour's top border, whatever the heading
+ * does to the height above it. The disc hangs off the section's own top edge,
+ * which is the rule the offer closes on.
  * ------------------------------------------------------------------ */
 
 function format(t) {
   return html`<section id="training-format" class="section" aria-labelledby="training-format-title">
-  <div id="training-format-head" class="section__head">
+  <div id="training-format-dome-slot" class="field-slot tour__dome" aria-hidden="true">
+    <div id="training-format-dome" class="field" data-magnet data-magnet-free data-magnet-pin="top" data-magnet-points="280" data-magnet-amp="24" data-magnet-sigma="70" data-clip="tourDome"><sa-node-field id="training-format-dome-nodes"></sa-node-field></div>
+  </div>
+  <div id="training-format-head" class="section__head tour__ground">
     <h2 id="training-format-title" class="section-heading">${t('training.format.title')}</h2>
+    <div id="training-format-stone-slot" class="field-slot tour__stone" aria-hidden="true">
+      <div id="training-format-stone" class="field" data-magnet data-magnet-free data-magnet-pin="bottom" data-magnet-points="300" data-magnet-amp="42" data-magnet-sigma="70" data-clip="tourStone"><sa-node-field id="training-format-stone-nodes"></sa-node-field></div>
+    </div>
   </div>
   <div id="training-format-inner" class="tour">
     <div id="training-format-copy" class="tour__copy">
       <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
-      <p id="training-format-tags" class="tour__tags">${t('training.format.tags')}</p>
+      <p id="training-format-group" class="tour__meta">${t('training.format.group')}</p>
+      <div id="training-format-tags" class="tour__tags">
+        <p id="training-format-tags-title" class="tour__tags-title">${t('training.format.tags.title')}</p>
+        <ul id="training-format-tags-list" class="tour__tags-list">
+${join(
+        INCLUDED.map(
+          (key) => html`          <li id="training-format-tag-${key}" class="tour__tags-item">${t(`training.format.tags.${key}`)}</li>`
+        ),
+        '\n'
+      )}
+        </ul>
+      </div>
       <p id="training-format-accents" class="tour__body">${t('training.format.accents')}</p>
       <a id="training-format-cta" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
     </div>

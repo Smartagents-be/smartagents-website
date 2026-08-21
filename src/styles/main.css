@@ -676,115 +676,90 @@ a.row:hover .row__cue {
 }
 
 /* ------------------------------------------------------------------ *
- * SmartSpace — a chevroned full-width band
- * ------------------------------------------------------------------ */
-
-.band {
-  position: relative;
-  margin-top: 112px;
-  padding: 52px 0;
-  color: var(--text-on-dark);
-}
-
-.band__field {
-  inset: -46px 0 -72px;
-}
-
-.band__inner {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-12);
-  align-items: center;
-  padding: 80px clamp(var(--gutter-page), 26vw, 372px) 80px var(--gutter-page);
-}
-
-.band__eyebrow {
-  margin-bottom: var(--space-6);
-  color: var(--sa-cyan-bright);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-medium-plus);
-}
-
-.band h2 {
-  margin-bottom: var(--space-6);
-  padding-top: var(--space-7);
-  border-top: 2px solid var(--sa-cyan-bright);
-  font-size: var(--text-h2-sm);
-  line-height: 1.1;
-  letter-spacing: -0.024em;
-}
-
-.band p {
-  margin-bottom: var(--space-9);
-  max-width: var(--measure);
-  color: var(--text-on-dark-muted);
-  font-size: var(--text-lead);
-  line-height: var(--leading-body);
-}
-
-/* The team page closes on the same band with one column of copy instead of the
-   screenshot frame. The right padding stays, so the chevron point keeps its air. */
-/* Explicitly a placeholder: the design ships no photography and no mock UI. */
-.screenshot-frame {
-  display: flex;
-  height: 340px;
-  align-items: flex-end;
-  justify-content: center;
-  padding: var(--space-8);
-  border: 1px solid var(--border-on-dark);
-  border-radius: var(--radius-card);
-  background: repeating-linear-gradient(
-    135deg,
-    oklch(0.225 0.024 252) 0 9px,
-    oklch(0.203 0.022 252) 9px 18px
-  );
-  box-shadow: inset 0 0 0 9px var(--surface-dark), inset 0 0 0 10px oklch(0.285 0.03 250);
-}
-
-.screenshot-frame span {
-  padding: var(--space-3) 12px;
-  border: 1px solid var(--border-on-dark);
-  background: var(--sa-field-2);
-  color: var(--text-on-dark-muted);
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  text-align: center;
-}
-
-@media (max-width: 1000px) {
-  .band__inner {
-    grid-template-columns: 1fr;
-    padding-inline: var(--gutter-page);
-  }
-
-  /* The chevron point is drawn as a share of the band, so on a narrow viewport
-     it cuts straight through the copy and leaves white text on paper. Down here
-     the band is simply a full-width block. */
-  .field[data-clip="bandField"] {
-    clip-path: none;
-  }
-}
-
-/* ------------------------------------------------------------------ *
- * Inzichten
+ * Inzichten — a hairline list that carries pictures
+ *
+ * Three columns: the thumbnail, the title with its excerpt under it, and the
+ * meta out at the right edge. The row is then only as tall as its picture, the
+ * excerpt sits under the title it belongs to instead of a column away, and the
+ * list still spans the page the way the plain row lists do. Below 1080px there
+ * is no room to the right, so the meta moves above the title; the picture
+ * column narrows twice on the way down but the row never stacks, because four
+ * full-width thumbnails would turn a short list into a scroll.
  * ------------------------------------------------------------------ */
 
 .article-row {
   transition: var(--transition-move), var(--transition-tint);
   display: grid;
-  grid-template-columns: 130px 1fr 1.2fr;
+  grid-template-columns: 208px minmax(0, 1fr) auto;
+  grid-template-areas: "figure text meta";
   gap: var(--space-11);
-  align-items: baseline;
-  padding: var(--space-7) 0;
+  align-items: start;
+  padding: var(--space-9) 0;
   border-top: 1px solid var(--border-hairline);
   color: inherit;
+}
+
+.article-row__figure {
+  grid-area: figure;
+}
+
+.article-row__text {
+  grid-area: text;
+}
+
+.article-row__meta {
+  grid-area: meta;
+}
+
+/* Framed like the founder portraits on the team page: hairline, a radius, no
+   ring and no shadow. The ground under a lazy thumbnail is paper, not the navy
+   the portraits sit on: four navy blocks waiting for their image would put a
+   dark mass in the one section that has none. */
+.article-row__figure {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-input);
+}
+
+/* One grade over a photograph, an illustration and a screenshot is what makes
+   the four of them read as one column rather than three kinds of picture. */
+.article-row__image {
+  transition: filter var(--dur-move) var(--ease-out-expo);
+  width: 100%;
+  height: 100%;
+  filter: saturate(0.72) contrast(1.04);
+  object-fit: cover;
+}
+
+.article-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Ranged right, and pushed down by the difference between the badge's cap
+   height and the title's, so the date sits on the title's baseline. */
+.article-row__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 3px;
 }
 
 .article-row__date {
   color: var(--text-faint);
   font-size: var(--text-meta-sm);
   font-variant-numeric: tabular-nums;
+}
+
+.article-row__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .article-row__title {
@@ -794,6 +769,7 @@ a.row:hover .row__cue {
 }
 
 .article-row__body {
+  max-width: var(--measure);
   color: var(--text-muted);
   font-size: 14.5px;
   line-height: var(--leading-body-tight);
@@ -805,10 +781,36 @@ a.article-row:hover {
   transform: translateX(3px);
 }
 
-@media (max-width: 860px) {
+/* The grade is a decoration, not information, so it only lifts where there is
+   a link to reward the hover. */
+a.article-row:hover .article-row__image {
+  filter: none;
+}
+
+@media (max-width: 1080px) {
   .article-row {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
+    grid-template-columns: 156px minmax(0, 1fr);
+    /* The third row is the slack the picture leaves over: without it the meta
+       and the text share that height and the title drifts off the frame. */
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "figure meta"
+      "figure text"
+      "figure .";
+    gap: var(--space-5) var(--space-8);
+  }
+
+  .article-row__meta {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .article-row {
+    grid-template-columns: 116px minmax(0, 1fr);
+    gap: var(--space-4) var(--space-6);
+    padding: var(--space-8) 0;
   }
 }
 
@@ -1039,23 +1041,6 @@ sa-node-field {
 
 /* Prose under a heading, and the rows that follow it: the lead argues, the
    rows say what the training returns. */
-.section-body + .rows {
-  margin-top: var(--space-12);
-}
-
-/* A section that is one block of prose under its heading. */
-.section-body {
-  padding: var(--space-9) var(--space-9) 0;
-  border-top: 1px solid var(--border-hairline);
-}
-
-.section-body__lead {
-  max-width: 64ch;
-  color: var(--text-body);
-  font-size: var(--text-lead);
-  line-height: var(--leading-body);
-}
-
 /* Badges are one of the two places a pill is allowed (the other is the
    language chip). Sentence case, like everything else. */
 .badge {
@@ -1176,7 +1161,6 @@ sa-node-field {
 }
 
 @media (max-width: 620px) {
-  .section-body,
   .offer-course {
     padding-inline: 0;
   }
@@ -1216,6 +1200,65 @@ sa-node-field {
   border-top: 1px solid var(--border-hairline);
 }
 
+/* The head is the ground: its bottom edge is the rule the tour hangs from, so
+   anchoring the stone there puts its foot on the line however the heading
+   above it wraps. */
+.tour__ground {
+  position: relative;
+}
+
+/* Right-aligned to the video below it. Capped at 218px: the band the stone
+   stands in is the section rhythm plus the heading, and the rhythm stops
+   growing at 104px. That leaves ~50px of headroom at the widest viewport,
+   which is what keeps its swell (42px) below the rule closing the offer. */
+.tour__stone {
+  right: var(--space-9);
+  bottom: 0;
+  width: clamp(142px, 15.2vw, 218px);
+  aspect-ratio: 1.5 / 1;
+}
+
+/* Hung from the section's own top edge — the rule the offer closes on. It sits
+   on the left of the split between the two courses and crosses it by one step
+   of the scale, so it hangs under the corner where the column hairline meets
+   that rule instead of centring on either course. The offer is a two-column
+   grid inside the page gutters, so the split is at exactly 50% of this box.
+   At 2.6:1 the belly runs a little past the level of the heading's rule on a
+   wide viewport — which is only a level, not an obstacle: by then the shape
+   starts well right of where the longest heading ends. Where the two do share
+   a span, under about 1050px, the depth is back inside the section rhythm. */
+.tour__dome {
+  top: 0;
+  /* Offset from the split in the same units as the width, so the disc keeps its
+     distance from the stone: a fixed offset would let the two close on each
+     other as the viewport narrows and both shapes kept growing in vw. */
+  left: calc(50% + 3.9vw);
+  /* Not a plain vw: the stone grows with the viewport too, and both of them
+     plus the gutter eat into the run between the split and the stone faster
+     than the run itself grows. The offset term is what holds the gap open at
+     the narrow end while still letting the shape reach 308px at 1440. */
+  width: clamp(180px, calc(26vw - 66px), 340px);
+  aspect-ratio: 2.6 / 1;
+}
+
+/* Below the width the magnets run at, the longest of the three headings starts
+   reaching past the left end of the disc. Flatten it there so the belly keeps
+   clear of the heading's rule: this is the same 1080px line the magnets switch
+   off at, and the shape is static below it. */
+@media (max-width: 1080px) {
+  .tour__dome {
+    aspect-ratio: 2.95 / 1;
+  }
+}
+
+/* Stacked, the heading and the copy take the band back. */
+@media (max-width: 940px) {
+  .tour__dome,
+  .tour__stone {
+    display: none;
+  }
+}
+
 .tour__body {
   max-width: var(--measure);
   color: var(--text-body);
@@ -1223,8 +1266,20 @@ sa-node-field {
   line-height: var(--leading-body);
 }
 
-/* What a session is made of: one hairline-ruled line of parts, the same
-   micro type as the tag line on the team page. */
+/* The one hard fact about a session: how many people are in the room. Sits
+   under the copy in the micro size, so it reads as a specification rather than
+   another sentence. */
+.tour__meta {
+  margin-top: var(--space-5);
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+  line-height: var(--leading-body-tight);
+}
+
+/* What a session is made of: a hairline-ruled band, titled, holding the parts
+   as a list rather than one run-on line. */
 .tour__tags {
   margin-block: var(--space-7);
   padding-block: var(--space-5);
@@ -1234,6 +1289,27 @@ sa-node-field {
   color: var(--text-muted);
   font-size: var(--text-micro);
   line-height: var(--leading-body-tight);
+}
+
+.tour__tags-title {
+  margin-bottom: var(--space-4);
+  color: var(--text-body);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* Three rows, two columns: six short items read as one block instead of six
+   near-empty lines. The flow is by column, so the rows are the fixed side of
+   the grid and the list fills the first column top to bottom before the
+   second. */
+.tour__tags-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: var(--space-3) var(--space-7);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 /* The copy ends on a paragraph, so the button carries the air the removed

@@ -49,8 +49,8 @@ near-whites (0.9846 → 0.945 on hover); pure white is reserved for the mega-men
 the header logo, a petal and its counter-lobe on the hero's two flanks, a chevroned full-width
 band for SmartSpace, a disc for the DNA section — each carrying a live cyan node network (the logo motif in motion) that reads as
 one continuous field across the whole page. There is no illustration, no gradient background and
-no texture, and photography appears on exactly one page (see "Deviations", item 5). Screenshots
-appear as explicitly labelled placeholders.
+no texture, and pictures appear on exactly two surfaces (see "Deviations", item 5): the founders on
+the team page, and the thumbnails in the homepage's "Inzichten" list.
 
 **Type**: Geist (fallback Inter, system-ui) at 650 for display and headings, 600/550 for UI,
 400–450 for body. Tight tracking that loosens as size drops (−0.032em display → −0.005em UI).
@@ -108,7 +108,7 @@ The production implementation of all of this lives in `src/`; see `SKILL.md` for
 
 ## Deviations from the design doc
 
-The doc is a fixed 1180px canvas rendered in a preview host. Five things had to be decided
+The doc is a fixed 1180px canvas rendered in a preview host. Six things had to be decided
 outside it, and are decided the same way everywhere in `src/`:
 
 1. **Responsive behaviour.** The three page measures (`--gutter-page`, `--gap-column`,
@@ -123,16 +123,37 @@ outside it, and are decided the same way everywhere in `src/`:
    to detail pages that do not exist yet, so they render as plain rows (and drop the "Ontdek →"
    cue). Give `row()`/`articleRow()` an href in `src/pages/home.mjs` when those pages land and the
    hover, the arrow and the translate all come back.
-5. **The team page carries photography**, which the doc rules out everywhere else, and puts it in
-   the hero: under the headline, the two founders fill the rest of the opening screen side by
-   side, with the petal hung off the right edge and running past their feet. The petal and the
-   two portrait scrims are the whole dark field on that page — it closes on paper, because a
-   navy band under a pair of navy-scrimmed portraits was a third dark mass in one screen.
-   Each portrait *is* the card — a 2:3 crop, a 1px hairline, the card radius, no ring, no shadow
-   — and everything about the person is laid over its foot on a scrim of the same navy
-   (`color-mix` of `--sa-field`, 97% at the bottom to transparent at the top). The photograph
-   itself is graded `saturate(0.72) contrast(1.04)` so it cools towards the field; hover lifts
-   the grade, `hover: none` never applies it. Hairlines inside the overlay are white at low
-   alpha, not `--border-on-dark`, which disappears over a photograph. This is the only
-   photography on the public site. Anything new that wants a photograph is a new decision, not
-   a precedent.
+5. **Two surfaces carry pictures**, which the doc rules out everywhere else.
+
+   **The team page** puts photography in its hero: under the headline, the two founders fill the
+   rest of the opening screen side by side, with the petal hung off the right edge and running
+   past their feet. The petal and the two portrait scrims are the whole dark field on that page —
+   it closes on paper, because a navy band under a pair of navy-scrimmed portraits was a third
+   dark mass in one screen. Each portrait *is* the card — a 2:3 crop, a 1px hairline, the card
+   radius, no ring, no shadow — and everything about the person is laid over its foot on a scrim
+   of the same navy (`color-mix` of `--sa-field`, 97% at the bottom to transparent at the top).
+   Hairlines inside the overlay are white at low alpha, not `--border-on-dark`, which disappears
+   over a photograph.
+
+   **The homepage's "Inzichten" list** carries a thumbnail per article: a 208px 16:9 crop opening
+   the row, the title with its excerpt directly under it, and the date and category badges ranged
+   right at the row's end, so the row spans the page like every other list on it and stays about
+   as tall as its picture. Below 1080px the meta moves above the title; the row itself never
+   stacks. The list stays a hairline list — no cards, no shadows, no read-more cue while the
+   articles have nowhere to go.
+   The four pictures are a photograph, an illustration and a product screenshot, which is exactly
+   why the frame is fixed: 1px hairline, `--radius-panel`, over paper — the navy the portraits sit
+   on would put four dark blocks in the section while the lazy images load.
+
+   Both surfaces grade the picture itself `saturate(0.72) contrast(1.04)` so it cools towards the
+   field. On the portraits the grade is a decoration and hover lifts it, so a coarse pointer —
+   which has no hover to undo it — never gets it at all. On the thumbnails the grade is the thing
+   that makes three kinds of picture read as one column, so it stays put on every pointer and only
+   lifts once a row is a link. Anything else that wants a picture is a new decision, not a
+   precedent.
+
+6. **The SmartSpace band is not built.** The doc's chevroned navy band, its screenshot frame and
+   the *Ontdek SmartSpace* button are gone from the homepage, and with them the `bandField` clip
+   path, the `nav.smartspace` entry and the `smartspace.*` copy. The product is still named on
+   the site — the third article row is about it — but it has no section of its own. Bring the
+   band back only if SmartSpace gets a page to send people to.

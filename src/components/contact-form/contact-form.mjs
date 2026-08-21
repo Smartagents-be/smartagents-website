@@ -14,7 +14,7 @@ import { TURNSTILE_SITE_KEY } from '../../../build/lib/config.mjs';
 
 const PHONE = '+32 11 11 10 20';
 const PHONE_HREF = 'tel:+3211111020';
-const EMAIL = 'hallo@smartagents.be';
+const EMAIL = 'info@smartagents.be';
 
 /**
  * The contact section: the facts on the left, the form on the right.
