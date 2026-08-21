@@ -268,6 +268,32 @@ if (!allDistPaths.has(`${defaultLanguage.code}/index.html`)) {
 }
 
 /* ------------------------------------------------------------------ *
+ * 5b. The routing table: nothing may hide behind the catch-all
+ * ------------------------------------------------------------------ */
+
+// _redirects ends with a catch-all that sends an unprefixed URL to the default
+// language. It is followed whether or not an asset matches, so every top-level
+// entry in dist/ needs a rule of its own above it or it stops being reachable.
+const redirectRules = readFileSync(path.join(distDir, '_redirects'), 'utf8')
+  .split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('/'))
+  .map((line) => line.split(/\s+/)[0]);
+
+if (redirectRules.at(-1) !== '/*') {
+  fail('_redirects', 'the catch-all is not the last rule', redirectRules.at(-1) ?? 'no rules');
+}
+
+const covered = new Set(redirectRules.slice(0, -1));
+for (const entry of readdirSync(distDir, { withFileTypes: true })) {
+  if (entry.name.startsWith('.') || entry.name === '_redirects' || entry.name === '_headers') continue;
+  const rule = entry.isDirectory() ? `/${entry.name}/*` : `/${entry.name}`;
+  if (!covered.has(rule)) {
+    fail('_redirects', 'unreachable behind the catch-all', rule);
+  }
+}
+
+/* ------------------------------------------------------------------ *
  * 6. Source hygiene: no stale token lookups
  * ------------------------------------------------------------------ */
 

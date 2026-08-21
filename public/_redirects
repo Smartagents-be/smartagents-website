@@ -1,5 +1,7 @@
 # The root is not a page: every public URL is language-prefixed (static-i18n §1).
-# dist/index.html is the no-redirect fallback for hosts that ignore this file.
+# An unprefixed URL always resolves to Dutch, the default language; the visitor's
+# browser preference never decides. dist/index.html is the no-redirect fallback
+# for hosts that ignore this file and points at /nl/ too.
 / /nl/ 302
 
 # Pitch-decks staan achter de secured-login onder /secured/presentations/.

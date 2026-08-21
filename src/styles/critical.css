@@ -14,7 +14,7 @@ html {
   color-scheme: light;
   scroll-behavior: smooth;
   /* The sticky header covers the top of the page, so anchors need the offset. */
-  scroll-padding-top: 96px;
+  scroll-padding-top: 64px;
 }
 
 body {
@@ -135,7 +135,7 @@ select {
   flex: none;
   gap: var(--space-8);
   align-items: center;
-  padding: var(--space-7) var(--gutter-page);
+  padding: var(--space-4) var(--gutter-page);
   border-bottom: 1px solid var(--border-hairline);
   background: var(--surface-page);
 }
@@ -165,8 +165,8 @@ select {
 }
 
 .brand-link .logo {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
 }
 
 .logo--field {
@@ -196,7 +196,7 @@ select {
 
 .nav-link {
   transition: var(--transition-tint);
-  padding: 9px var(--space-4);
+  padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-nav);
   color: inherit;
 }
@@ -228,10 +228,13 @@ select {
   transform: rotate(180deg);
 }
 
+/* The panel hangs from the trigger, but has to meet the header's bottom edge:
+   the drop is the header's own vertical padding, so the two stay flush if that
+   padding ever changes. */
 .nav-panel {
   position: absolute;
   z-index: 40;
-  top: calc(100% + 23px);
+  top: calc(100% + var(--space-5));
   left: -10px;
   transition: opacity var(--dur-tint) ease, transform var(--dur-move) var(--ease-out-expo),
     visibility var(--dur-tint);
@@ -248,15 +251,15 @@ select {
   transform: translateY(-8px);
 }
 
-/* The panel floats 23px below the trigger. Without this bridge the pointer
-   leaves .nav-group crossing that gap and the panel closes under the cursor. */
+/* Without this bridge the pointer leaves .nav-group crossing the drop and the
+   panel closes under the cursor. */
 .nav-panel::before {
   content: '';
   position: absolute;
   right: 0;
   bottom: 100%;
   left: 0;
-  height: 23px;
+  height: var(--space-5);
 }
 
 .nav-group:hover .nav-panel,
@@ -413,7 +416,7 @@ select {
 }
 
 .btn--sm {
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-2) var(--space-6);
   font-size: var(--text-ui-sm);
 }
 
@@ -486,14 +489,14 @@ select {
 /* The orbit diagram: five rings struck from one origin off the left edge. It is
    clipped to the hero by its own layer, never by `.hero` itself — the dark
    shapes deform outside their box and must not be cut off with it. */
-.hero__orbits {
+.orbits {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
 
-.hero__orbits-origin {
+.orbits__origin {
   position: absolute;
   top: 90px;
   left: 12%;
@@ -501,27 +504,27 @@ select {
   height: 0;
 }
 
-.hero__ring {
+.orbits__ring {
   position: absolute;
   border: 1px solid;
   border-radius: 50%;
 }
 
-.hero__ring--01 {
+.orbits__ring--01 {
   inset: -260px auto auto -260px;
   width: 520px;
   height: 520px;
   border-color: color-mix(in oklch, var(--sa-ink) 10%, transparent);
 }
 
-.hero__ring--02 {
+.orbits__ring--02 {
   inset: -390px auto auto -390px;
   width: 780px;
   height: 780px;
   border-color: color-mix(in oklch, var(--sa-cyan) 20%, transparent);
 }
 
-.hero__ring--03 {
+.orbits__ring--03 {
   inset: -530px auto auto -530px;
   width: 1060px;
   height: 1060px;
@@ -529,14 +532,14 @@ select {
   border-color: color-mix(in oklch, var(--sa-ink) 11%, transparent);
 }
 
-.hero__ring--04 {
+.orbits__ring--04 {
   inset: -680px auto auto -680px;
   width: 1360px;
   height: 1360px;
   border-color: color-mix(in oklch, var(--sa-ink) 7%, transparent);
 }
 
-.hero__ring--05 {
+.orbits__ring--05 {
   inset: -845px auto auto -845px;
   width: 1690px;
   height: 1690px;
@@ -546,26 +549,26 @@ select {
 /* Three of the rings carry a node. The ring-sized box rotates; the node rides
    its top edge and fades in and out over one turn, so it reads as one node
    travelling rather than as a permanent dot. */
-.hero__orbit {
+.orbits__path {
   position: absolute;
   animation: sa-orbit linear infinite;
 }
 
-.hero__orbit-node {
+.orbits__node {
   position: absolute;
   left: 50%;
   border-radius: 50%;
   animation: sa-orbit-fade ease-in-out infinite;
 }
 
-.hero__orbit--01 {
+.orbits__path--01 {
   inset: -390px auto auto -390px;
   width: 780px;
   height: 780px;
   animation-duration: 34s;
 }
 
-.hero__orbit--01 .hero__orbit-node {
+.orbits__path--01 .orbits__node {
   top: -4px;
   width: 8px;
   height: 8px;
@@ -575,7 +578,7 @@ select {
   animation-duration: 34s;
 }
 
-.hero__orbit--02 {
+.orbits__path--02 {
   inset: -530px auto auto -530px;
   width: 1060px;
   height: 1060px;
@@ -583,7 +586,7 @@ select {
   animation-direction: reverse;
 }
 
-.hero__orbit--02 .hero__orbit-node {
+.orbits__path--02 .orbits__node {
   top: -3px;
   width: 6px;
   height: 6px;
@@ -593,14 +596,14 @@ select {
   animation-delay: -14s;
 }
 
-.hero__orbit--03 {
+.orbits__path--03 {
   inset: -680px auto auto -680px;
   width: 1360px;
   height: 1360px;
   animation-duration: 88s;
 }
 
-.hero__orbit--03 .hero__orbit-node {
+.orbits__path--03 .orbits__node {
   top: -2.5px;
   width: 5px;
   height: 5px;
@@ -638,7 +641,7 @@ select {
 
 /* The rings stay; only the travelling nodes are motion. */
 @media (prefers-reduced-motion: reduce) {
-  .hero__orbit {
+  .orbits__path {
     display: none;
   }
 }

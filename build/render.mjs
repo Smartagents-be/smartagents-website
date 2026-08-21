@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { minify } from 'html-minifier-terser';
 
-import { html, raw, join } from './lib/html.mjs';
+import { html, join } from './lib/html.mjs';
 import {
   languages,
   defaultLanguage,
@@ -23,13 +23,15 @@ import { basePage } from '../src/layouts/base.mjs';
 import { deckPage, securedIndexPage } from '../src/layouts/deck.mjs';
 
 import { page as homePage } from '../src/pages/home.mjs';
+import { page as trainingPage } from '../src/pages/training.mjs';
+import { page as teamPage } from '../src/pages/team.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(rootDir, 'dist');
 const contentDir = path.join(rootDir, 'src/content');
 
-const PAGES = [homePage, notFoundPage];
+const PAGES = [homePage, trainingPage, teamPage, notFoundPage];
 
 const MINIFY_OPTIONS = {
   collapseWhitespace: true,
@@ -108,8 +110,11 @@ async function renderRootFallback() {
       html`<li><a href="${pagePath(language.code)}" lang="${language.code}" hreflang="${language.code}">${language.name}</a></li>`
   );
 
-  // The host redirects / to a language (see _redirects). This file only matters
-  // when that redirect is unavailable, so it must work with no CSS and no JS.
+  // The host redirects / to the default language (see _redirects). This file only
+  // matters when that redirect is unavailable, so it must work with no CSS and no
+  // JS. It never negotiates: an unprefixed URL always resolves to the default
+  // language, the browser's own preference does not override it. The other
+  // languages stay one click away in the list below.
   await writeHtml(
     'index.html',
     html`<!doctype html>
@@ -121,16 +126,6 @@ async function renderRootFallback() {
 <title>SmartAgents</title>
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="${absolute(target)}">
-<script>
-(function () {
-  var supported = ${raw(JSON.stringify(languages.map((language) => language.code)))};
-  var preferred = (navigator.languages || [navigator.language || '']);
-  for (var i = 0; i < preferred.length; i++) {
-    var code = String(preferred[i]).slice(0, 2).toLowerCase();
-    if (supported.indexOf(code) !== -1) { location.replace('/' + code + '/'); return; }
-  }
-})();
-</script>
 </head>
 <body>
 <ul>
@@ -166,6 +161,29 @@ function copySecuredStatic() {
   };
 
   walk(source);
+}
+
+/* ------------------------------------------------------------------ *
+ * Promo media shared with the public site
+ * ------------------------------------------------------------------ */
+
+/**
+ * A few large media files are authored inside a deck and shown on a public page
+ * as well. `/secured/` is password-gated, so the public page cannot link to the
+ * deck's copy; the file stays in the repo once and is copied out to `/media/`
+ * here. Not content-hashed, so `_headers` gives it its own cache policy.
+ */
+const PROMO_MEDIA = [
+  'presentations/enterprise-pitch/assets/kata-agentic-engineering.mp4',
+  'presentations/enterprise-pitch/assets/kata-agentic-engineering-poster.jpg'
+];
+
+function copyPromoMedia() {
+  for (const file of PROMO_MEDIA) {
+    const target = path.join(distDir, 'media', path.basename(file));
+    mkdirSync(path.dirname(target), { recursive: true });
+    cpSync(path.join(contentDir, 'secured', file), target);
+  }
 }
 
 async function renderSecured() {
@@ -213,6 +231,58 @@ function renderSitemap(entries) {
   );
 }
 
+/**
+ * The authored rules in public/_redirects plus the catch-all that sends an
+ * unprefixed URL to the default language: `/training/` lands on `/nl/training/`.
+ *
+ * A catch-all in a _redirects file swallows everything after it, `/assets/*` and
+ * `/nl/*` included, because the file has no negative match and a redirect is
+ * followed whether or not an asset matches the request. The exclusion is a
+ * same-path 200 rewrite: the first matching rule wins and no later rule is
+ * considered, so the rule serves the file and hides it from the catch-all. That
+ * list is generated from what is actually in dist/, so a new top-level file or
+ * directory excludes itself by existing rather than by someone remembering to
+ * add a line here. Pages Functions never reach this table, so /api/ and
+ * /secured/ are handled before it applies.
+ *
+ * Cloudflare wants every static rule above the first rule with a splat, hence
+ * the two generated blocks around the authored one.
+ */
+function renderRedirects() {
+  // Cloudflare serves neither these nor dotfiles, so a rule for them would be dead.
+  const internal = new Set(['_redirects', '_headers']);
+  const entries = readdirSync(distDir, { withFileTypes: true }).filter(
+    (entry) => !internal.has(entry.name) && !entry.name.startsWith('.')
+  );
+
+  const files = entries
+    .filter((entry) => entry.isFile())
+    .map((entry) => `/${entry.name} /${entry.name} 200`)
+    .sort();
+  const directories = entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => `/${entry.name}/* /${entry.name}/:splat 200`)
+    .sort();
+
+  const authored = readFileSync(path.join(rootDir, 'public/_redirects'), 'utf8').trim();
+  const generated = [
+    '# Generated by build/render.mjs from the dist/ tree. Edit public/_redirects.',
+    '# Each rule below serves its own path and ends the lookup there, so the',
+    '# catch-all on the last line cannot swallow a URL that already resolves.',
+    ...files,
+    '',
+    authored,
+    '',
+    '# Generated: the same exclusion for every top-level directory.',
+    ...directories,
+    '',
+    `# Anything left is an unprefixed URL, so it resolves to ${defaultLanguage.name}.`,
+    `/* ${pagePath(defaultLanguage.code)}:splat 302`
+  ];
+
+  writeFileSync(path.join(distDir, '_redirects'), `${generated.join('\n')}\n`);
+}
+
 function renderServiceWorker(precache) {
   const template = readFileSync(path.join(rootDir, 'src/sw.js'), 'utf8');
   // The hashed asset names are the version: new assets mean a new cache.
@@ -241,12 +311,15 @@ const assets = loadManifest(distDir);
 const sitemapEntries = await renderPublicPages({ strings, criticalCss, assets });
 await renderRootFallback();
 const { decks, documents } = await renderSecured();
+copyPromoMedia();
 
 // Static files that ship as-is (favicon, any future robots additions).
 cpSync(path.join(rootDir, 'public'), distDir, { recursive: true });
 
 renderSitemap(sitemapEntries);
 renderServiceWorker(assets.precache);
+// Last: the pass-through list mirrors the finished dist/ tree.
+renderRedirects();
 
 assertNoMissingTranslations();
 

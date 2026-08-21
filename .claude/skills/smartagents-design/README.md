@@ -33,7 +33,7 @@ The site is Dutch-first (NL / FR / EN).
 - **Concrete over abstract**: "mail, facturen, offertes, aanbestedingen, calculaties",
   not "business processes".
 - **CTA vocabulary**: *Plan een gesprek* (primary, everywhere), *Bekijk wat we doen →*,
-  *Meer info →*, *Ontdek SmartSpace*, *Alle artikelen →*. Arrows are the literal character →,
+  *Ontdek →*, *Ontdek SmartSpace*, *Alle artikelen →*. Arrows are the literal character →,
   never an icon.
 - **No emoji.** Ever.
 - Dates: "12 juni 2026" — lowercase month, tabular numerals.
@@ -48,8 +48,9 @@ near-whites (0.9846 → 0.945 on hover); pure white is reserved for the mega-men
 **The dark field is the brand.** Large navy shapes cut with angular clip paths — a wedge behind
 the header logo, a petal and its counter-lobe on the hero's two flanks, a chevroned full-width
 band for SmartSpace, a disc for the DNA section — each carrying a live cyan node network (the logo motif in motion) that reads as
-one continuous field across the whole page. There is no photography, no illustration, no
-gradient background and no texture. Screenshots appear as explicitly labelled placeholders.
+one continuous field across the whole page. There is no illustration, no gradient background and
+no texture, and photography appears on exactly one page (see "Deviations", item 5). Screenshots
+appear as explicitly labelled placeholders.
 
 **Type**: Geist (fallback Inter, system-ui) at 650 for display and headings, 600/550 for UI,
 400–450 for body. Tight tracking that loosens as size drops (−0.032em display → −0.005em UI).
@@ -80,9 +81,11 @@ The node network drifts at 30fps and freezes under `prefers-reduced-motion`.
 ## Iconography
 
 The system is deliberately icon-poor. The only vector marks are the SmartAgents logo (light and
-dark) and a 9×6px chevron drawn inline in the nav. Everything else that would be an icon is a
-typographic arrow (→). Numbers act as icons: monospace `01–05` in cyan. **Do not introduce an
-icon library** — if a new surface truly needs one, raise it rather than picking one silently.
+dark), a 9×6px chevron drawn inline in the nav, and the LinkedIn "in" glyph on the team page's
+founder cards — a third-party *brand* mark, drawn inline in `currentColor`, not the first member
+of an icon set. Everything else that would be an icon is a typographic arrow (→). Numbers act as
+icons: monospace `01–05` in cyan. **Do not introduce an icon library** — if a new surface truly
+needs one, raise it rather than picking one silently.
 
 ## Fonts
 
@@ -105,7 +108,7 @@ The production implementation of all of this lives in `src/`; see `SKILL.md` for
 
 ## Deviations from the design doc
 
-The doc is a fixed 1180px canvas rendered in a preview host. Four things had to be decided
+The doc is a fixed 1180px canvas rendered in a preview host. Five things had to be decided
 outside it, and are decided the same way everywhere in `src/`:
 
 1. **Responsive behaviour.** The three page measures (`--gutter-page`, `--gap-column`,
@@ -117,6 +120,19 @@ outside it, and are decided the same way everywhere in `src/`:
 3. **The mega-menu is CSS-only** (`:hover, :focus-within`), so it can never fail to open and is
    reachable from the keyboard.
 4. **Rows are only links when there is somewhere to go.** The doc's service and article rows link
-   to detail pages that do not exist yet, so they render as plain rows (and drop the "Meer info →"
+   to detail pages that do not exist yet, so they render as plain rows (and drop the "Ontdek →"
    cue). Give `row()`/`articleRow()` an href in `src/pages/home.mjs` when those pages land and the
    hover, the arrow and the translate all come back.
+5. **The team page carries photography**, which the doc rules out everywhere else, and puts it in
+   the hero: under the headline, the two founders fill the rest of the opening screen side by
+   side, with the petal hung off the right edge and running past their feet. The petal and the
+   two portrait scrims are the whole dark field on that page — it closes on paper, because a
+   navy band under a pair of navy-scrimmed portraits was a third dark mass in one screen.
+   Each portrait *is* the card — a 2:3 crop, a 1px hairline, the card radius, no ring, no shadow
+   — and everything about the person is laid over its foot on a scrim of the same navy
+   (`color-mix` of `--sa-field`, 97% at the bottom to transparent at the top). The photograph
+   itself is graded `saturate(0.72) contrast(1.04)` so it cools towards the field; hover lifts
+   the grade, `hover: none` never applies it. Hairlines inside the overlay are white at low
+   alpha, not `--border-on-dark`, which disappears over a photograph. This is the only
+   photography on the public site. Anything new that wants a photograph is a new decision, not
+   a precedent.

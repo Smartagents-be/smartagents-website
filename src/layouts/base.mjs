@@ -6,8 +6,26 @@
 // design system: see .claude/skills/smartagents-design/README.md.
 import { html, raw, join, escapeHtml } from '../../build/lib/html.mjs';
 import { languages, defaultLanguage, absolute, pagePath } from '../../build/lib/i18n.mjs';
+import { page as trainingPage } from '../pages/training.mjs';
+import { page as teamPage } from '../pages/team.mjs';
 
 const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
+
+/**
+ * URL of the training detail page in this language, or null where the page is
+ * not published. It is the one service with a page of its own; every other
+ * service still points back at the homepage list (design README, "Deviations").
+ */
+export function trainingPath(lang) {
+  const slug = trainingPage.slugs[lang];
+  return slug === undefined ? null : pagePath(lang, slug);
+}
+
+/** URL of the team page in this language, or null where it is not published. */
+export function teamPath(lang) {
+  const slug = teamPage.slugs[lang];
+  return slug === undefined ? null : pagePath(lang, slug);
+}
 
 /**
  * @param {object} ctx
@@ -114,6 +132,27 @@ export function logoMark(surface, id) {
 </svg>`;
 }
 
+/**
+ * The orbit diagram behind a hero: five concentric rings struck from one origin
+ * off the left edge, three of them carrying a node that travels the ring and
+ * fades in and out as it goes. Pure texture, so it is `aria-hidden` and paints
+ * under both the copy and the dark shapes.
+ *
+ * @param {string} prefix — id prefix from the call site (element-ids §4).
+ */
+export function orbitRings(prefix, variant = '') {
+  const rings = ['01', '02', '03', '04', '05'];
+  const paths = ['01', '02', '03'];
+  const layer = variant ? `orbits ${variant}` : 'orbits';
+
+  return html`  <div id="${prefix}-orbits" class="${layer}" aria-hidden="true">
+    <div id="${prefix}-orbits-origin" class="orbits__origin">
+${join(rings.map((key) => html`      <div id="${prefix}-orbit-ring-${key}" class="orbits__ring orbits__ring--${key}"></div>`))}
+${join(paths.map((key) => html`      <div id="${prefix}-orbit-${key}" class="orbits__path orbits__path--${key}"><i id="${prefix}-orbit-node-${key}" class="orbits__node"></i></div>`))}
+    </div>
+  </div>`;
+}
+
 const CHEVRON = raw(
   '<span class="nav-chevron" aria-hidden="true"><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1.2 4.5 4.6 8 1.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
 );
@@ -169,20 +208,33 @@ export function clipDefs() {
  * Header and footer
  * ------------------------------------------------------------------ */
 
-const NAV_SECTIONS = ['dna', 'approach', 'smartspace', 'insights', 'contact'];
+// The nav in reading order. A section is an anchor on the homepage; `team` is
+// the one entry that is a page of its own, so it is resolved per language.
+const NAV_SECTIONS = ['dna', 'team', 'approach', 'smartspace', 'insights', 'contact'];
 const SERVICES = ['process', 'agentic', 'training', 'staffing'];
 
+/** Where a nav key points from `lang`: a real page if it has one, else an anchor. */
+function navHref(key, lang, home) {
+  return (key === 'team' && teamPath(lang)) || `${home}#${key}`;
+}
+
 export function siteHeader({ t, lang, alternates }) {
+  // Every section anchor is written against the homepage, so the header works
+  // the same from a detail page as it does from the homepage itself: on `/nl/`
+  // the browser treats `/nl/#dna` as a plain in-page jump.
+  const home = pagePath(lang);
+  const training = trainingPath(lang);
+
   const menuItems = SERVICES.map(
-    (key) => html`<a class="nav-panel__item" href="#services"><b>${t(`service.${key}.title`)}</b><span>${t(`service.${key}.menu`)}</span></a>`
+    (key) => html`<a class="nav-panel__item${key === 'training' && training ? ' nav-panel__item--feature' : ''}" href="${key === 'training' && training ? training : `${home}#services`}"><b>${t(`service.${key}.title`)}</b><span>${t(`service.${key}.menu`)}</span></a>`
   );
 
   const navLinks = NAV_SECTIONS.map(
-    (key) => html`<a class="nav-link" href="#${key}">${t(`nav.${key}`)}</a>`
+    (key) => html`<a class="nav-link" href="${navHref(key, lang, home)}">${t(`nav.${key}`)}</a>`
   );
 
   const mobileLinks = ['services', ...NAV_SECTIONS].map(
-    (key) => html`<a href="#${key}">${t(`nav.${key}`)}</a>`
+    (key) => html`<a href="${navHref(key, lang, home)}">${t(`nav.${key}`)}</a>`
   );
 
   return html`<header class="site-header">
@@ -190,12 +242,12 @@ export function siteHeader({ t, lang, alternates }) {
   <a class="brand-link" href="${pagePath(lang)}">${logoMark('field')}<span>Smart<span class="brand-accent">Agents</span></span></a>
   <nav class="site-nav" aria-label="${t('a11y.mainNav')}">
     <div class="nav-group">
-      <a class="nav-link" href="#services">${t('nav.services')}${CHEVRON}</a>
+      <a class="nav-link" href="${home}#services">${t('nav.services')}${CHEVRON}</a>
       <div class="nav-panel">
         <div class="nav-panel__grid">
 ${join(menuItems)}
         </div>
-        <a class="nav-panel__all" href="#services"><span>${t('nav.allServices')}</span><span aria-hidden="true">&rarr;</span></a>
+        <a class="nav-panel__all" href="${home}#services"><span>${t('nav.allServices')}</span><span aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
 ${join(navLinks)}
@@ -208,7 +260,7 @@ ${join(mobileLinks)}
   </details>
   <div class="header-actions">
 ${languageSwitcher(lang, alternates, t)}
-    <a class="btn btn--primary btn--sm" href="#contact">${t('cta.talk')}</a>
+    <a class="btn btn--primary btn--sm" href="${home}#contact">${t('cta.talk')}</a>
   </div>
 </header>`;
 }

@@ -19,6 +19,7 @@
   "cta.talk": "Plan een gesprek",
   "cta.seeWork": "Bekijk wat we doen",
   "cta.discoverSmartSpace": "Ontdek SmartSpace",
+  "cta.moreInfo": "Ontdek",
   "cta.send": "Verstuur",
 
   "hero.claim": "Digitale collega's die nooit slapen",
@@ -31,13 +32,13 @@
 
   "service.process.title": "Procesoptimalisatie",
   "service.process.menu": "Uw werking helder krijgen voor er één regel code is geschreven.",
-  "service.process.body": "Eerst uw werking helder krijgen: waar loopt het vast, wat is dubbel werk, wat kan gewoon weg. Vaak levert dat al winst op voor er één regel code is geschreven.",
+  "service.process.body": "AI opent nieuwe mogelijkheden in uw processen en maakt bestaande stappen beter. Wij helpen u die kansen te herkennen en ze ook echt te implementeren.",
   "service.agentic.title": "Agentic automatisatie",
   "service.agentic.menu": "Agents die plannen, lezen en meerstapstaken afwerken, met logs.",
-  "service.agentic.body": "Agents die zelf plannen, documenten lezen, systemen aanspreken en meerstapstaken afwerken. Met logs die u kan nalezen en een knop om ze te stoppen.",
+  "service.agentic.body": "Agents inbouwen in nieuwe of bestaande processen, zodat uw software gebouwd is voor wat er nog komt.",
   "service.training.title": "Training en coaching",
   "service.training.menu": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides.",
-  "service.training.body": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de hele organisatie, van bedienden en managers tot developers. Op maat gemaakt.",
+  "service.training.body": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de teams die met AI werken en voor de developers die ermee bouwen.",
   "service.staffing.title": "AI staffing",
   "service.staffing.menu": "Profielen gescreend op wat ze effectief gebouwd hebben.",
   "service.staffing.body": "Op papier is iedereen AI-expert. Wij screenen profielen zoals we zelf gescreend willen worden: op wat ze gebouwd hebben.",
@@ -103,6 +104,80 @@
   "form.sending": "Versturen…",
   "form.sent": "Bedankt. We nemen snel contact op.",
   "form.failed": "Versturen lukte niet. Mail ons gerust op hallo@smartagents.be.",
+
+  "training.title": "Training en coaching · SmartAgents",
+  "training.description": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Van een eerste kennismaking met AI tot developers die er dagelijks mee bouwen.",
+
+  "training.hero.eyebrow": "Training en coaching",
+  "training.hero.title": "Leer AI gebruiken als een professional",
+
+  "training.cta.offer": "Bekijk het aanbod",
+
+  "training.why.title": "Waarom investeren in AI-training?",
+  "training.why.body": "AI professioneel gebruiken is een vak: de juiste techniek voor de juiste taak, en zicht op wat elke vraag kost. Uw mensen leren dat van trainers die er elke dag zelf mee bouwen, en die hun trucjes gewoon doorgeven.",
+
+  "training.offer.title": "Ons aanbod",
+  "training.offer.learn": "Wat u leert",
+
+  "training.download": "Download de fiche (PDF)",
+
+  "training.course.business.title": "AI voor business teams",
+  "training.course.business.tools": "Een AI-subscriptie, eigen laptop",
+  "training.course.business.body": "U leert AI inzetten voor het werk dat elke week terugkomt: niet één slimme prompt, maar een werkwijze die u herhaalt en doorgeeft.",
+  "training.course.business.learn.1": "Vragen stellen die telkens hetzelfde resultaat geven",
+  "training.course.business.learn.2": "Terugkerend werk vastleggen als een workflow",
+  "training.course.business.learn.3": "Eenvoudige assistenten bouwen, zonder een regel code",
+  "training.course.business.learn.4": "Veilig omgaan met bedrijfsdata en gevoelig werk",
+  "training.course.agentic.title": "Agentic engineering",
+  "training.course.agentic.tools": "Een AI-subscriptie, een IDE, eigen laptop",
+  "training.course.agentic.body": "Leer AI engineers aan om AI kost-bewust en efficiënt te gebruiken om code te genereren en processen te optimaliseren.",
+  "training.course.agentic.learn.1": "Agents inzetten op een ticket, een bug, een refactor",
+  "training.course.agentic.learn.2": "Design patterns voor werk dat u uitbesteedt",
+  "training.course.agentic.learn.3": "Wat elke vraag kost, en hoe u die kost laag houdt",
+  "training.course.agentic.learn.4": "Codekwaliteit bewaken met review, tests en vangrails",
+
+  "training.format.title": "Hoe een cursus verloopt",
+  "training.format.body": "Geen presentatie waar u naar zit te kijken. Uitleg, oefeningen en labs wisselen elkaar af, met tijd voor uw eigen vragen en een trainer die over uw schouder meekijkt.",
+  "training.format.tags": "Cursusmateriaal · Oefeningen · Labs · Q&A · Slides · Begeleiding",
+  "training.format.accents": "De klemtoon ligt op wat u de dag erna gebruikt: slimmer omgaan met AI, zicht op wat elke vraag kost, en workflows die passen bij hoe uw team al werkt. De slides en het lesmateriaal blijven achteraf van u.",
+  "training.format.videoLabel": "Rondleiding door de developercursus van SmartAgents",
+  "training.format.fallback": "Bekijk de rondleiding (MP4)",
+
+
+  "training.benefit.adoption.title": "Snellere adoptie",
+  "training.benefit.adoption.body": "Teams die begrijpen wat AI doet, pakken nieuwe tools sneller op en vinden zelf toepassingen.",
+  "training.benefit.productivity.title": "Hogere productiviteit",
+  "training.benefit.productivity.body": "Medewerkers die AI-tools echt inzetten in hun dagelijkse werk, niet alleen tijdens een demo.",
+  "training.benefit.risk.title": "Minder risico",
+  "training.benefit.risk.body": "Wie de grenzen van AI kent, neemt betere beslissingen en vermijdt dure fouten.",
+  "training.benefit.return.title": "Blijvend rendement",
+  "training.benefit.return.body": "Training die beklijft, omdat er geoefend wordt op werk uit de eigen praktijk.",
+  "training.benefit.autonomy.title": "Minder afhankelijk van externen",
+  "training.benefit.autonomy.body": "Mensen die AI zelf toepassen, hebben minder hulp nodig voor routinewerk en kleine aanpassingen.",
+
+  "training.cta.title": "Klaar om uw team bij te scholen?",
+  "training.cta.body": "Vertel kort wie er getraind moet worden en waarop. We stellen een programma voor op maat, bij u op kantoor of remote, en zeggen ook wanneer een training niet nodig is.",
+
+  "nav.team": "Team",
+
+  "team.title": "Team · SmartAgents",
+  "team.description": "De mensen achter SmartAgents: Axel Segers en Tom Haeldermans, de twee oprichters van een bureau dat digitale collega's bouwt voor Belgische organisaties.",
+
+  "team.hero.title": "Ontmoet ons team",
+
+  "team.founders.title": "De oprichters",
+
+  "team.linkedinLabel": "op LinkedIn",
+
+  "team.person.axel.body": "Ondernemer met meer dan 25 jaar ervaring in digitale transformatie. Helpt organisaties om intelligente automatisatie te vinden die echt iets oplevert.",
+  "team.person.axel.tags": "Digitale transformatie · Strategie · Ondernemerschap · AI-adoptie",
+  "team.person.axel.portrait": "Axel Segers, oprichter van SmartAgents",
+  "team.person.tom.body": "Technisch architect, gespecialiseerd in agentic AI-systemen en automatisatie op enterprise-schaal. Bouwt oplossingen die schalen en blijven werken.",
+  "team.person.tom.tags": "Agentic AI · Enterprise architectuur · Automatisatie · Technisch ontwerp",
+  "team.person.tom.portrait": "Tom Haeldermans, oprichter van SmartAgents",
+
+  "team.cta.title": "Zullen we kennismaken?",
+  "team.cta.body": "Vertel kort wat er beter kan lopen. U krijgt een van ons twee aan tafel, en we zeggen ook wanneer u ons niet nodig hebt.",
 
   "footer.legal": "© 2026 SmartAgents · BE 1037.114.694",
   "footer.customerZone": "Klantenzone",

@@ -2,9 +2,9 @@
 // lucht") of the "Smartagents.be Redesign Direction" design project.
 // Structure, spacing, colour and motion all come from the design system:
 // see .claude/skills/smartagents-design/README.md.
-import { html, join, raw, escapeHtml } from '../../build/lib/html.mjs';
-import { TURNSTILE_SITE_KEY } from '../../build/lib/config.mjs';
-import { logoMark } from '../layouts/base.mjs';
+import { html, join, raw } from '../../build/lib/html.mjs';
+import { logoMark, orbitRings, trainingPath } from '../layouts/base.mjs';
+import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 const SERVICES = ['process', 'agentic', 'training', 'staffing'];
 const DNA = ['1', '2', '3', '4'];
@@ -28,14 +28,13 @@ export const page = {
     description: t('home.description')
   }),
 
-  render: ({ t }) => html`<main id="main" tabindex="-1">
+  render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
 ${hero(t)}
-${services(t)}
+${services(t, lang)}
 ${dna(t)}
 ${transformation(t)}
 ${approach(t)}
-${smartspace(t)}
 ${insights(t)}
 ${contact(t)}
 
@@ -55,7 +54,7 @@ ${contact(t)}
 
 function hero(t) {
   return html`<section id="home-hero" class="hero">
-${orbits()}
+${orbitRings('home-hero')}
   <div id="home-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
     <div id="home-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="home-hero-nodes-right"></sa-node-field></div>
   </div>
@@ -77,41 +76,42 @@ ${orbits()}
 </section>`;
 }
 
-/**
- * The orbit diagram behind the hero: five rings struck from one origin off the
- * left edge, three of them carrying a node that travels the ring and fades in
- * and out as it goes. Pure texture, so it is `aria-hidden` and paints under
- * both the copy and the two dark shapes.
- */
-function orbits() {
-  const rings = ['01', '02', '03', '04', '05'];
-  const paths = ['01', '02', '03'];
-
-  return html`  <div id="home-hero-orbits" class="hero__orbits" aria-hidden="true">
-    <div id="home-hero-orbits-origin" class="hero__orbits-origin">
-${join(rings.map((key) => html`      <div id="home-hero-orbit-ring-${key}" class="hero__ring hero__ring--${key}"></div>`))}
-${join(paths.map((key) => html`      <div id="home-hero-orbit-${key}" class="hero__orbit hero__orbit--${key}"><i id="home-hero-orbit-node-${key}" class="hero__orbit-node"></i></div>`))}
-    </div>
-  </div>`;
-}
-
 /* ------------------------------------------------------------------ *
  * Wat we doen — hairline-separated rows, not cards
+ *
+ * Training is the one service with a page of its own, so its row is the one
+ * that links: it gets the "Ontdek →" cue back, and the hover, the arrow and
+ * the translate come with it (design README, "Deviations" from the design doc,
+ * item 4).
  * ------------------------------------------------------------------ */
 
-function services(t) {
-  const rows = SERVICES.map(
-    (key) => html`<div class="row">
-    <span class="row__title">${t(`service.${key}.title`)}</span>
-    <span class="row__body">${t(`service.${key}.body`)}</span>
-  </div>`
-  );
+function services(t, lang) {
+  const training = trainingPath(lang);
 
-  return html`<section class="section" id="services">
-  <div class="section__head">
-    <h2 class="section-heading">${t('section.services')}</h2>
+  const rows = SERVICES.map((key) => {
+    const id = `home-services-row-${key}`;
+    const linked = key === 'training' && training;
+
+    const content = html`    <span id="${id}-title" class="row__title">${t(`service.${key}.title`)}</span>
+    <span id="${id}-body" class="row__body">${t(`service.${key}.body`)}</span>${linked
+      ? html`
+    <span id="${id}-cue" class="row__cue">${t('cta.moreInfo')} <span id="${id}-cue-arrow" aria-hidden="true">&rarr;</span></span>`
+      : ''}`;
+
+    return linked
+      ? html`<a id="${id}" class="row" href="${training}">
+${content}
+  </a>`
+      : html`<div id="${id}" class="row">
+${content}
+  </div>`;
+  });
+
+  return html`<section class="section" id="services" aria-labelledby="home-services-title">
+  <div id="home-services-head" class="section__head">
+    <h2 id="home-services-title" class="section-heading">${t('section.services')}</h2>
   </div>
-  <div class="rows">
+  <div id="home-services-rows" class="rows">
 ${join(rows)}
   </div>
 </section>`;
@@ -218,29 +218,6 @@ ${join(steps)}
 }
 
 /* ------------------------------------------------------------------ *
- * SmartSpace — the chevroned band
- * ------------------------------------------------------------------ */
-
-function smartspace(t) {
-  return html`<section class="band" id="smartspace">
-  <div class="field-slot band__field" aria-hidden="true">
-    <div class="field" data-magnet data-clip="bandField"><sa-node-field></sa-node-field></div>
-  </div>
-  <div class="band__inner">
-    <div>
-      <p class="band__eyebrow">${t('smartspace.eyebrow')}</p>
-      <h2>${t('smartspace.title')}</h2>
-      <p>${t('smartspace.body')}</p>
-      <a class="btn btn--ondark" href="#contact">${t('cta.discoverSmartSpace')}</a>
-    </div>
-    <div class="screenshot-frame" data-spotlight>
-      <span>${t('smartspace.screenshot')}</span>
-    </div>
-  </div>
-</section>`;
-}
-
-/* ------------------------------------------------------------------ *
  * Inzichten
  * ------------------------------------------------------------------ */
 
@@ -268,31 +245,10 @@ ${join(rows)}
  * ------------------------------------------------------------------ */
 
 function contact(t) {
-  return html`<section class="section" id="contact">
-  <div class="contact">
-    <div>
-      <h2 class="section-heading">${t('contact.title')}</h2>
-      <p class="contact__lede">${t('contact.lede')}</p>
-      <div class="contact__facts">
-        <span>${t('contact.callLabel')} <a href="tel:+3211111020">+32 11 11 10 20</a></span>
-        <span>${t('contact.mailLabel')} <a href="mailto:hallo@smartagents.be">hallo@smartagents.be</a></span>
-        <span>${t('contact.location')}</span>
-      </div>
-    </div>
-    <sa-contact-form${TURNSTILE_SITE_KEY ? raw(` data-sitekey="${escapeHtml(TURNSTILE_SITE_KEY)}"`) : ''} data-sending="${t('form.sending')}" data-sent="${t('form.sent')}" data-failed="${t('form.failed')}">
-      <form class="contact-form" method="post" action="mailto:hallo@smartagents.be" enctype="text/plain">
-        <div class="contact-form__pair">
-          <label class="field-label"><span>${t('form.name')}</span><input type="text" name="name" autocomplete="name" required></label>
-          <label class="field-label"><span>${t('form.company')}</span><input type="text" name="company" autocomplete="organization"></label>
-        </div>
-        <label class="field-label"><span>${t('form.email')}</span><input type="email" name="email" autocomplete="email" required></label>
-        <label class="field-label"><span>${t('form.message')}</span><textarea name="message" rows="5" required></textarea></label>
-        <div class="contact-form__foot">
-          <button class="btn btn--primary" type="submit">${t('cta.send')}</button>
-          <p class="form-status js-only" role="status" aria-live="polite"></p>
-        </div>
-      </form>
-    </sa-contact-form>
-  </div>
-</section>`;
+  return contactSection({
+    t,
+    prefix: 'home',
+    title: t('contact.title'),
+    lede: t('contact.lede')
+  });
 }

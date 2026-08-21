@@ -134,6 +134,12 @@
   padding-bottom: var(--space-12);
 }
 
+/* A closing block that is only a heading and a line or two. At the full
+   section rhythm it reads as a half-empty screen. */
+.section--close {
+  padding-top: var(--space-14);
+}
+
 .section-heading {
   display: inline-block;
   padding-top: var(--space-7);
@@ -159,7 +165,9 @@
 .row {
   transition: var(--transition-move), var(--transition-tint);
   display: grid;
-  grid-template-columns: 1fr 1.9fr auto;
+  /* The cue column is reserved on every row, cue or no cue: the bodies of a
+     list of rows have to start and end on the same line. */
+  grid-template-columns: 1fr 1.9fr 116px;
   gap: var(--gap-column);
   align-items: baseline;
   padding: var(--space-10) var(--space-9);
@@ -715,6 +723,8 @@ a.row:hover .row__cue {
   line-height: var(--leading-body);
 }
 
+/* The team page closes on the same band with one column of copy instead of the
+   screenshot frame. The right padding stays, so the chevron point keeps its air. */
 /* Explicitly a placeholder: the design ships no photography and no mock UI. */
 .screenshot-frame {
   display: flex;
@@ -746,6 +756,13 @@ a.row:hover .row__cue {
   .band__inner {
     grid-template-columns: 1fr;
     padding-inline: var(--gutter-page);
+  }
+
+  /* The chevron point is drawn as a share of the band, so on a narrow viewport
+     it cuts straight through the copy and leaves white text on paper. Down here
+     the band is simply a full-width block. */
+  .field[data-clip="bandField"] {
+    clip-path: none;
   }
 }
 
@@ -969,6 +986,530 @@ sa-node-field {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The one linked service row
+ *
+ * Training is the only service with a page behind it. It keeps the hairline
+ * every other row has; the "Ontdek →" cue and the hover are the whole
+ * difference.
+ * ------------------------------------------------------------------ */
+
+.nav-panel__item--feature b::after {
+  content: "\00a0\2192";
+  color: var(--text-accent);
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — the training page
+ * ------------------------------------------------------------------ */
+
+/* The homepage hero minus the wordmark and the orbits: shorter, and the copy
+   sits on the shape's centre line rather than above its pinch. */
+.hero--page .hero__inner {
+  align-content: center;
+  min-height: 540px;
+}
+
+.hero--page h1 {
+  max-width: 17ch;
+}
+
+.page-eyebrow {
+  margin-bottom: var(--space-6);
+  color: var(--text-accent);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* Below the point where the hero stacks, the copy is the whole width: a 52%
+   column with nothing beside it is just a narrow measure. */
+@media (max-width: 940px) {
+  .hero--page .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .hero--page h1 {
+    max-width: none;
+  }
+}
+
+/* Prose under a heading, and the rows that follow it: the lead argues, the
+   rows say what the training returns. */
+.section-body + .rows {
+  margin-top: var(--space-12);
+}
+
+/* A section that is one block of prose under its heading. */
+.section-body {
+  padding: var(--space-9) var(--space-9) 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.section-body__lead {
+  max-width: 64ch;
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* Badges are one of the two places a pill is allowed (the other is the
+   language chip). Sentence case, like everything else. */
+.badge {
+  display: inline-flex;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-chip);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* ------------------------------------------------------------------ *
+ * Ons aanbod — two courses side by side, the coming one as a row
+ *
+ * A vertical hairline does the splitting, so the pair reads as two columns of
+ * one page rather than two cards. A 56px cut of the section heading's cyan rule
+ * opens each column. No index, no card, no shadow.
+ * ------------------------------------------------------------------ */
+
+.offer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* title, body, label, list, platforms, link. The two courses span these six
+     rows as subgrids, so every hairline, label and link lines up across the
+     split whatever the language does to the copy. */
+  grid-template-rows: repeat(6, auto);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.offer-course {
+  display: grid;
+  grid-row: 1 / span 6;
+  grid-template-rows: subgrid;
+  align-content: start;
+  padding: var(--space-10) var(--space-9) var(--space-12);
+  /* Both columns close the block, so the hairline runs the full width whether
+     they sit side by side or stacked. */
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.offer-course + .offer-course {
+  border-left: 1px solid var(--border-hairline);
+}
+
+.offer-course__title {
+  font-size: var(--text-h2-sm);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+}
+
+.offer-course__body {
+  margin-top: var(--space-7);
+  color: var(--text-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+}
+
+.offer-course__learn {
+  margin: var(--space-9) 0 var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+.offer-course__list {
+  list-style: none;
+}
+
+.offer-course__item {
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--border-hairline);
+  color: var(--text-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body-tight);
+}
+
+.offer-course__list > :last-child {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* The platforms the course is taught on. No rule of its own: the list above
+   already closes on one. */
+.offer-course__tools {
+  margin-top: var(--space-6);
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+.offer-course__fiche {
+  transition: transform var(--dur-move) var(--ease-out-expo);
+  display: inline-block;
+  margin-top: var(--space-8);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium-plus);
+}
+
+.offer-course__fiche:hover {
+  transform: translateX(3px);
+}
+
+@media (max-width: 940px) {
+  .offer {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .offer-course {
+    display: block;
+    grid-row: auto;
+  }
+
+  .offer-course + .offer-course {
+    border-left: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .section-body,
+  .offer-course {
+    padding-inline: 0;
+  }
+}
+
+/* The hero's orbit diagram, reused as ground under a section. `.section` is
+   already positioned, so the layer clips to it; the content has to be lifted
+   over the rings the way `.hero__inner` lifts the hero copy. */
+.section--orbits > :not(.orbits) {
+  position: relative;
+}
+
+/* Struck from below the right column instead of the hero's top left, so the
+   arcs sweep up across the split rather than repeating the hero's geometry.
+   The origin sits close enough for the cyan ring to cross the section: hung
+   further out, only the two faintest rings would reach it. Dimmer than the
+   hero, because this is ground under a reading column, not the opening image. */
+.orbits--offer {
+  opacity: 0.8;
+}
+
+.orbits--offer .orbits__origin {
+  top: 104%;
+  left: 74%;
+}
+
+/* ------------------------------------------------------------------ *
+ * Hoe een cursus verloopt — copy beside the developer course tour
+ * ------------------------------------------------------------------ */
+
+.tour {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--gap-column);
+  align-items: start;
+  padding: var(--space-9) var(--space-9) 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.tour__body {
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* What a session is made of: one hairline-ruled line of parts, the same
+   micro type as the tag line on the team page. */
+.tour__tags {
+  margin-block: var(--space-7);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+/* The copy ends on a paragraph, so the button carries the air the removed
+   line used to. */
+.tour__copy .btn {
+  margin-top: var(--space-9);
+}
+
+@media (max-width: 940px) {
+  .tour {
+    grid-template-columns: 1fr;
+    gap: var(--space-11);
+  }
+}
+
+@media (max-width: 620px) {
+  .tour {
+    padding-inline: 0;
+  }
+}
+
+.video-frame {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-dark);
+  box-shadow: var(--shadow-lift-sm);
+}
+
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Without JS the sources are never swapped in, so the poster is all there is:
+   the link is the way to the file itself. */
+.video-block__fallback {
+  display: inline-block;
+  margin-top: var(--space-5);
+  font-size: var(--text-meta);
+}
+
+/* ------------------------------------------------------------------ *
+ * Closing call to action — the form itself stays on the homepage
+ * ------------------------------------------------------------------ */
+
+/* No padding under the button: `.site-footer` already carries a full
+   `--section-rhythm` of margin, and the two together left a dead half-screen. */
+.page-cta {
+  display: grid;
+  gap: var(--space-6);
+  justify-items: start;
+}
+
+.page-cta__body {
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — the team page
+ *
+ * The two founders are the hero: the headline and its lead sit at the top, the
+ * pair fills the rest of the opening screen. The portrait is the one photograph
+ * in the system, so it is framed like every other surface — a hairline, the
+ * card radius, no ring, no shadow — and graded cool and slightly flat so it
+ * sits next to the navy field instead of shouting over it. Hover returns it to
+ * full colour, which is the only reward the design allows itself here.
+ * ------------------------------------------------------------------ */
+
+/* The hero is its own grid: one column holding the head and the pair, with the
+   remaining width left to the petal. The orbits and the field are out of flow,
+   so they do not become grid items. */
+.hero--team {
+  display: grid;
+  grid-template-columns: minmax(0, 60%);
+  gap: var(--space-10);
+  padding: var(--space-14) var(--gutter-page) 0;
+}
+
+/* Pulled further right than the other heroes: it shares the hero with the pair
+   rather than standing in for them. The bottom offset is negative on purpose —
+   the petal runs out past the hero's own edge so its lower lobe straddles the
+   line the second portrait ends on and the tail carries on below it, which is
+   what keeps the shape from reading as cut off at the pair's feet.
+   The ceiling on that overhang is the contact section's top padding: the
+   section has no background of its own, so anything deeper than one
+   `--section-rhythm` would put navy behind the form's first row of fields. */
+.hero--team .hero__field--right {
+  inset: 0.8% 0 -10% 62%;
+}
+
+.team-hero__head {
+  position: relative;
+}
+
+.hero--team h1 {
+  /* `.hero h1` leaves room for the claim that follows it on the other heroes.
+     Here the pair follows, and the section's own gap is that spacing. */
+  margin-bottom: 0;
+  max-width: 15ch;
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--track-display);
+}
+
+.founders {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-7) clamp(24px, 2.8vw, 44px);
+}
+
+.founders__label {
+  grid-column: 1 / -1;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* The card is the portrait. Everything about the person is laid over its foot
+   on a scrim of the brand's own navy, so the photograph reads as one more
+   window onto the dark field rather than as a picture with a caption. */
+.person {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-dark);
+}
+
+.person__image {
+  transition: filter var(--dur-move) var(--ease-out-expo);
+  width: 100%;
+  height: 100%;
+  filter: saturate(0.72) contrast(1.04);
+  object-fit: cover;
+}
+
+.person:hover .person__image {
+  filter: none;
+}
+
+/* The gradient runs well past the text so the copy never sits on its own edge;
+   the top half of the frame stays the photograph. */
+.person__overlay {
+  position: absolute;
+  inset: auto 0 0;
+  padding: var(--space-14) var(--space-8) var(--space-8);
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--sa-field) 97%, transparent) 0%,
+    color-mix(in oklch, var(--sa-field) 90%, transparent) 44%,
+    transparent 100%
+  );
+  color: var(--text-on-dark);
+}
+
+.person__name {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--track-h3);
+}
+
+/* The one brand mark besides the logo and the nav chevron. It closes the card
+   under the expertise line, and is a square target rather than a text link,
+   so it carries its own hairline. */
+.person__link {
+  transition: var(--transition-tint);
+  display: grid;
+  width: 36px;
+  height: 36px;
+  margin-top: var(--space-6);
+  place-items: center;
+  /* `--border-on-dark` is a line for flat navy; over a photograph it vanishes,
+     so both hairlines in the overlay are white at low alpha instead. */
+  border: 1px solid color-mix(in oklch, var(--sa-white) 26%, transparent);
+  border-radius: var(--radius-button);
+  color: var(--text-on-dark);
+}
+
+.person__link:hover {
+  border-color: var(--sa-cyan-bright);
+  background: color-mix(in oklch, var(--sa-cyan-bright) 15%, transparent);
+  color: var(--sa-cyan-bright);
+}
+
+.person__body {
+  color: var(--text-on-dark-faint);
+  font-size: var(--text-ui-sm);
+  line-height: var(--leading-body-tight);
+}
+
+.person__tags {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid color-mix(in oklch, var(--sa-white) 20%, transparent);
+  color: var(--text-on-dark-muted);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+/* Between the magnet breakpoint and the point where the hero stacks the petal
+   pulls back into its corner, and the pair takes the width it leaves. */
+@media (max-width: 1080px) {
+  .hero--team {
+    grid-template-columns: minmax(0, 70%);
+  }
+
+  .hero--team .hero__field--right {
+    inset: 2% 0 -10% 72%;
+  }
+}
+
+/* Stacked. The base hero reverses its children so the band lands under the
+   copy; here the order is explicit instead, because the band belongs between
+   the lead and the faces rather than after them. */
+@media (max-width: 940px) {
+  /* The gutter moves from the section to its two blocks, so the band between
+     them can run edge to edge the way it does on every other hero. */
+  .hero--team {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: var(--space-12) 0 0;
+  }
+
+  .hero--team .team-hero__head,
+  .hero--team .founders {
+    padding-inline: var(--gutter-page);
+  }
+
+  .hero--team .team-hero__head {
+    order: 1;
+    margin-bottom: var(--space-9);
+  }
+
+  /* Back to a flat band under the copy. The insets that place the petal are
+     more specific than the base hero rule, so they have to be undone here. */
+  .hero--team .hero__field--right {
+    order: 2;
+    position: relative;
+    inset: auto;
+    /* Shallower than the other heroes': here the band sits between the
+       headline and the faces, so it is a divider, not the opening image. */
+    height: 132px;
+  }
+
+  .hero--team .founders {
+    order: 3;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-12);
+    margin-top: var(--space-9);
+  }
+
+  .hero--team h1 {
+    max-width: none;
+  }
+
+  .person {
+    max-width: 420px;
+  }
+}
+
+/* The grade is a decoration, not information: on a coarse pointer there is no
+   hover to undo it, so the portrait is simply itself. */
+@media (hover: none) {
+  .person__image {
+    filter: none;
   }
 }
 

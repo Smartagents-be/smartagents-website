@@ -19,6 +19,7 @@
   "cta.talk": "Planifier un entretien",
   "cta.seeWork": "Voir ce que nous faisons",
   "cta.discoverSmartSpace": "Découvrir SmartSpace",
+  "cta.moreInfo": "Découvrir",
   "cta.send": "Envoyer",
 
   "hero.claim": "Des collègues numériques qui ne dorment jamais",
@@ -31,13 +32,13 @@
 
   "service.process.title": "Optimisation des processus",
   "service.process.menu": "Clarifier votre fonctionnement avant la moindre ligne de code.",
-  "service.process.body": "D'abord clarifier votre fonctionnement : où ça bloque, ce qui est fait deux fois, ce qui peut simplement disparaître. Souvent, cela rapporte déjà avant la moindre ligne de code.",
+  "service.process.body": "L'IA ouvre de nouvelles possibilités dans vos processus et améliore les étapes existantes. Nous vous aidons à repérer ces occasions et à les mettre en œuvre.",
   "service.agentic.title": "Automatisation agentique",
   "service.agentic.menu": "Des agents qui planifient, lisent et mènent des tâches à plusieurs étapes, avec des logs.",
-  "service.agentic.body": "Des agents qui planifient eux-mêmes, lisent des documents, sollicitent vos systèmes et mènent à bien des tâches à plusieurs étapes. Avec des logs que vous pouvez relire et un bouton pour les arrêter.",
+  "service.agentic.body": "Intégrer des agents dans des processus nouveaux ou existants, pour que vos logiciels soient prêts pour la suite.",
   "service.training.title": "Formation et coaching",
   "service.training.menu": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement.",
-  "service.training.body": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement. Pour toute l'organisation, des employés et managers aux développeurs. Sur mesure.",
+  "service.training.body": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement. Pour les équipes qui travaillent avec l'IA et les développeurs qui construisent avec elle.",
   "service.staffing.title": "AI staffing",
   "service.staffing.menu": "Des profils évalués sur ce qu'ils ont réellement construit.",
   "service.staffing.body": "Sur papier, tout le monde est expert en IA. Nous évaluons les profils comme nous voudrions l'être nous-mêmes : sur ce qu'ils ont construit.",
@@ -103,6 +104,80 @@
   "form.sending": "Envoi…",
   "form.sent": "Merci. Nous vous recontactons rapidement.",
   "form.failed": "L'envoi n'a pas fonctionné. Écrivez-nous à hallo@smartagents.be.",
+
+  "training.title": "Formation et coaching · SmartAgents",
+  "training.description": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement. De la première découverte de l'IA aux développeurs qui construisent avec elle chaque jour.",
+
+  "training.hero.eyebrow": "Formation et coaching",
+  "training.hero.title": "Apprenez à utiliser l'IA comme un professionnel",
+
+  "training.cta.offer": "Voir notre offre",
+
+  "training.why.title": "Pourquoi investir dans la formation à l'IA ?",
+  "training.why.body": "Utiliser l'IA de façon professionnelle est un métier : la bonne technique pour la bonne tâche, et une vue claire sur ce que coûte chaque question. Vos équipes l'apprennent de formateurs qui construisent avec elle chaque jour, et qui transmettent simplement leurs astuces.",
+
+  "training.offer.title": "Notre offre",
+  "training.offer.learn": "Ce que vous apprenez",
+
+  "training.download": "Télécharger la fiche (PDF)",
+
+  "training.course.business.title": "L'IA pour les équipes business",
+  "training.course.business.tools": "Un abonnement IA, votre propre portable",
+  "training.course.business.body": "Vous apprenez à mettre l'IA sur le travail qui revient chaque semaine : pas un prompt malin, mais une façon de travailler qui se répète et se transmet.",
+  "training.course.business.learn.1": "Poser des questions qui donnent chaque fois le même résultat",
+  "training.course.business.learn.2": "Transformer le travail récurrent en workflow",
+  "training.course.business.learn.3": "Construire des assistants simples, sans une ligne de code",
+  "training.course.business.learn.4": "Traiter les données d'entreprise en toute sécurité",
+  "training.course.agentic.title": "Agentic engineering",
+  "training.course.agentic.tools": "Un abonnement IA, un IDE, votre propre portable",
+  "training.course.agentic.body": "Apprenez à vos AI engineers à utiliser l'IA de manière économe et efficace, pour générer du code et optimiser les processus.",
+  "training.course.agentic.learn.1": "Mettre des agents sur un ticket, un bug, un refactor",
+  "training.course.agentic.learn.2": "Des design patterns pour le travail que vous confiez",
+  "training.course.agentic.learn.3": "Ce que coûte chaque requête, et comment le garder bas",
+  "training.course.agentic.learn.4": "Garder la qualité du code : revue, tests, garde-fous",
+
+  "training.format.title": "Comment se déroule une formation",
+  "training.format.body": "Pas une présentation que l'on subit. Explications, exercices et labs alternent, avec du temps pour vos propres questions et un formateur qui regarde par-dessus votre épaule.",
+  "training.format.tags": "Support de cours · Exercices · Labs · Q&A · Slides · Accompagnement",
+  "training.format.accents": "L'accent est mis sur ce que vous utilisez dès le lendemain : un usage plus malin de l'IA, une vue claire sur ce que coûte chaque requête, et des workflows qui s'intègrent à la façon dont votre équipe travaille déjà. Les slides et le support de cours restent à vous ensuite.",
+  "training.format.videoLabel": "Visite guidée de la formation développeurs de SmartAgents",
+  "training.format.fallback": "Voir la visite guidée (MP4)",
+
+
+  "training.benefit.adoption.title": "Adoption plus rapide",
+  "training.benefit.adoption.body": "Les équipes qui comprennent ce que fait l'IA adoptent les nouveaux outils plus vite et trouvent elles-mêmes des applications.",
+  "training.benefit.productivity.title": "Productivité plus élevée",
+  "training.benefit.productivity.body": "Des collaborateurs qui utilisent vraiment les outils d'IA dans leur travail quotidien, pas seulement pendant une démo.",
+  "training.benefit.risk.title": "Moins de risques",
+  "training.benefit.risk.body": "Qui connaît les limites de l'IA prend de meilleures décisions et évite des erreurs coûteuses.",
+  "training.benefit.return.title": "Rendement durable",
+  "training.benefit.return.body": "Une formation qui reste, parce que les exercices viennent de votre propre pratique.",
+  "training.benefit.autonomy.title": "Moins de dépendance aux externes",
+  "training.benefit.autonomy.body": "Des collaborateurs qui appliquent l'IA eux-mêmes ont moins besoin d'aide pour le travail de routine et les petites adaptations.",
+
+  "training.cta.title": "Prêt à former votre équipe ?",
+  "training.cta.body": "Dites-nous brièvement qui doit être formé et sur quoi. Nous proposons un programme sur mesure, chez vous ou à distance, et nous disons aussi quand une formation n'est pas nécessaire.",
+
+  "nav.team": "Équipe",
+
+  "team.title": "Équipe · SmartAgents",
+  "team.description": "Les personnes derrière SmartAgents : Axel Segers et Tom Haeldermans, les deux fondateurs d'un bureau qui construit des collègues numériques pour les organisations belges.",
+
+  "team.hero.title": "Rencontrez notre équipe",
+
+  "team.founders.title": "Les fondateurs",
+
+  "team.linkedinLabel": "sur LinkedIn",
+
+  "team.person.axel.body": "Entrepreneur avec plus de 25 ans d'expérience en transformation digitale. Aide les organisations à trouver l'automatisation intelligente qui rapporte vraiment.",
+  "team.person.axel.tags": "Transformation digitale · Stratégie · Entrepreneuriat · Adoption de l'IA",
+  "team.person.axel.portrait": "Axel Segers, fondateur de SmartAgents",
+  "team.person.tom.body": "Architecte technique spécialisé en systèmes d'IA agentique et en automatisation à l'échelle de l'entreprise. Construit des solutions qui passent à l'échelle et continuent de fonctionner.",
+  "team.person.tom.tags": "IA agentique · Architecture d'entreprise · Automatisation · Conception technique",
+  "team.person.tom.portrait": "Tom Haeldermans, fondateur de SmartAgents",
+
+  "team.cta.title": "On fait connaissance ?",
+  "team.cta.body": "Dites-nous brièvement ce qui pourrait mieux tourner. Vous aurez l'un de nous deux à table, et nous vous dirons aussi quand vous n'avez pas besoin de nous.",
 
   "footer.legal": "© 2026 SmartAgents · BE 1037.114.694",
   "footer.customerZone": "Espace client",

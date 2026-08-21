@@ -19,6 +19,7 @@
   "cta.talk": "Book a call",
   "cta.seeWork": "See what we do",
   "cta.discoverSmartSpace": "Discover SmartSpace",
+  "cta.moreInfo": "Discover",
   "cta.send": "Send",
 
   "hero.claim": "Digital colleagues that never sleep",
@@ -31,13 +32,13 @@
 
   "service.process.title": "Process optimisation",
   "service.process.menu": "Getting your operation clear before a single line of code is written.",
-  "service.process.body": "First we get your operation clear: where it stalls, what is duplicated work, what can simply go. That often pays off before a single line of code is written.",
+  "service.process.body": "AI opens up new possibilities inside your processes and improves the steps you already have. We help you spot those opportunities and actually implement them.",
   "service.agentic.title": "Agentic automation",
   "service.agentic.menu": "Agents that plan, read and finish multi-step work, with logs.",
-  "service.agentic.body": "Agents that plan for themselves, read documents, talk to your systems and finish multi-step work. With logs you can read back and a button to stop them.",
+  "service.agentic.body": "Building agents into new or existing processes, so your software is built for what comes next.",
   "service.training.title": "Training and coaching",
   "service.training.menu": "Workshops built on projects, exercises and supporting slides.",
-  "service.training.body": "Workshops built on projects, exercises and supporting slides. For the whole organisation, from office staff and managers to developers. Made to measure.",
+  "service.training.body": "Workshops built on projects, exercises and supporting slides. For the teams who work with AI and the developers who build with it.",
   "service.staffing.title": "AI staffing",
   "service.staffing.menu": "Profiles screened on what they have actually built.",
   "service.staffing.body": "On paper everyone is an AI expert. We screen profiles the way we would want to be screened ourselves: on what they have built.",
@@ -103,6 +104,80 @@
   "form.sending": "Sending…",
   "form.sent": "Thank you. We will be in touch shortly.",
   "form.failed": "Sending did not work. Feel free to mail us at hallo@smartagents.be.",
+
+  "training.title": "Training and coaching · SmartAgents",
+  "training.description": "Workshops built on projects, exercises and supporting slides. From a first introduction to AI to developers who build with it every day.",
+
+  "training.hero.eyebrow": "Training and coaching",
+  "training.hero.title": "Learn to use AI like a professional",
+
+  "training.cta.offer": "See our courses",
+
+  "training.why.title": "Why invest in AI training?",
+  "training.why.body": "Using AI professionally is a craft: the right technique for the right task, and a clear view of what every question costs. Your people learn it from trainers who build with it every day, and who simply pass their tricks on.",
+
+  "training.offer.title": "Our courses",
+  "training.offer.learn": "What you learn",
+
+  "training.download": "Download the one-pager (PDF)",
+
+  "training.course.business.title": "AI for business teams",
+  "training.course.business.tools": "An AI subscription, your own laptop",
+  "training.course.business.body": "You learn to put AI on the work that comes back every week: not one clever prompt, but a way of working you repeat and hand on.",
+  "training.course.business.learn.1": "Asking questions that return the same result every time",
+  "training.course.business.learn.2": "Turning recurring work into a workflow",
+  "training.course.business.learn.3": "Building simple assistants, without a line of code",
+  "training.course.business.learn.4": "Handling company data and sensitive work safely",
+  "training.course.agentic.title": "Agentic engineering",
+  "training.course.agentic.tools": "An AI subscription, an IDE, your own laptop",
+  "training.course.agentic.body": "Teach AI engineers to use AI cost-consciously and efficiently, to generate code and optimise processes.",
+  "training.course.agentic.learn.1": "Putting agents on a ticket, a bug, a refactor",
+  "training.course.agentic.learn.2": "Design patterns for the work you hand over",
+  "training.course.agentic.learn.3": "What every question costs, and how to keep it down",
+  "training.course.agentic.learn.4": "Guarding code quality with review, tests and guardrails",
+
+  "training.format.title": "How a course runs",
+  "training.format.body": "Not a presentation you sit through. Explanation, exercises and labs alternate, with room for your own questions and a trainer looking over your shoulder.",
+  "training.format.tags": "Course material · Exercises · Labs · Q&A · Slides · Mentoring",
+  "training.format.accents": "The emphasis is on what you use the day after: smarter use of AI, a clear view of what every question costs, and workflows that fit the way your team already works. The slides and the course material stay yours afterwards.",
+  "training.format.videoLabel": "Tour of the SmartAgents developer course",
+  "training.format.fallback": "Watch the tour (MP4)",
+
+
+  "training.benefit.adoption.title": "Faster adoption",
+  "training.benefit.adoption.body": "Teams that understand what AI does pick up new tools faster and find their own use cases.",
+  "training.benefit.productivity.title": "Higher productivity",
+  "training.benefit.productivity.body": "People who really use AI tools in their daily work, not only during a demo.",
+  "training.benefit.risk.title": "Less risk",
+  "training.benefit.risk.body": "Anyone who knows the limits of AI makes better decisions and avoids expensive mistakes.",
+  "training.benefit.return.title": "Lasting return",
+  "training.benefit.return.body": "Training that sticks, because the exercises come from your own practice.",
+  "training.benefit.autonomy.title": "Less dependent on outside help",
+  "training.benefit.autonomy.body": "People who apply AI themselves need less help with routine work and small adjustments.",
+
+  "training.cta.title": "Ready to upskill your team?",
+  "training.cta.body": "Tell us briefly who needs training and on what. We propose a programme to measure, at your office or remote, and we also say when a training is not needed.",
+
+  "nav.team": "Team",
+
+  "team.title": "Team · SmartAgents",
+  "team.description": "The people behind SmartAgents: Axel Segers and Tom Haeldermans, the two founders of an agency that builds digital colleagues for Belgian organisations.",
+
+  "team.hero.title": "Meet our team",
+
+  "team.founders.title": "The founders",
+
+  "team.linkedinLabel": "on LinkedIn",
+
+  "team.person.axel.body": "Entrepreneur with more than 25 years in digital transformation. Helps organisations find the intelligent automation that actually pays off.",
+  "team.person.axel.tags": "Digital transformation · Strategy · Entrepreneurship · AI adoption",
+  "team.person.axel.portrait": "Axel Segers, founder of SmartAgents",
+  "team.person.tom.body": "Technical architect specialised in agentic AI systems and automation at enterprise scale. Builds solutions that scale and keep working.",
+  "team.person.tom.tags": "Agentic AI · Enterprise architecture · Automation · Technical design",
+  "team.person.tom.portrait": "Tom Haeldermans, founder of SmartAgents",
+
+  "team.cta.title": "Shall we get to know each other?",
+  "team.cta.body": "Tell us briefly what could run better. You get one of the two of us at the table, and we will also say when you do not need us.",
 
   "footer.legal": "© 2026 SmartAgents · BE 1037.114.694",
   "footer.customerZone": "Client zone",
