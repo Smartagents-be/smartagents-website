@@ -275,6 +275,30 @@ module.exports = function(eleventyConfig) {
           schemas.push(buildBreadcrumb(locale, dict, baseUrl, pageUrl, dict['nav.jobs'], nlPermalink, PATH_PREFIX));
       }
 
+      else if (schemaType === 'blogPost') {
+          const { title, excerpt, date } = pageData;
+          const postUrl = buildAbsoluteUrl(pageUrl, baseUrl, PATH_PREFIX);
+          const publishedDate = date instanceof Date ? date.toISOString().slice(0, 10) : date;
+          schemas.push({
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: title,
+              description: excerpt,
+              image: pageImage,
+              datePublished: publishedDate,
+              dateModified: publishedDate,
+              url: postUrl,
+              inLanguage: locale,
+              author: { '@type': 'Organization', name: 'SmartAgents', url: SITE_ROOT_URL },
+              publisher: {
+                  '@type': 'Organization',
+                  name: 'SmartAgents',
+                  logo: { '@type': 'ImageObject', url: buildAbsoluteUrl('/assets/logo.svg', baseUrl, PATH_PREFIX) }
+              },
+              mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl }
+          });
+      }
+
       const filtered = schemas.filter(Boolean);
       if (filtered.length === 0) return '';
       const payload = filtered.length === 1 ? filtered[0] : filtered;
