@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Scan Rapport — Claes Logistics NV</title>
 <meta name="robots" content="noindex, follow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#e9ebee">
+<link rel="stylesheet" href="/secured/tokens.css">
 <link rel="stylesheet" href="/secured/base.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,41 +14,26 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg-deep);
+  font-family: var(--font-sans);
+  background: var(--bg);
   color: var(--fg);
   line-height: 1.6;
   font-size: 15px;
 }
 
-/* ── COVER ──────────────────────────────────────────── */
+/* ── COVER ──────────────────────────────────────────────
+   The report opens on the dark field: one flat navy screen, no wash and
+   no grid behind it. `field` on the element is what flips the palette. */
 .cover {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  background: var(--bg-deep);
+  background: var(--bg);
 }
 
-.cover-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, var(--accent-08) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 60% at 10% 80%, var(--purple-08) 0%, transparent 70%);
-  pointer-events: none;
-}
 
-.cover-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-}
 
 .cover-header {
   display: flex;
@@ -87,7 +71,7 @@ body {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--fg-muted);
-  background: var(--border);
+  background: var(--wash-1);
   border: 1px solid var(--border-strong);
   padding: 6px 14px;
   border-radius: 100px;
@@ -124,7 +108,7 @@ body {
 }
 
 .cover-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-serif-accent);
   font-size: clamp(3rem, 6vw, 5.5rem);
   line-height: 1.05;
   font-weight: 400;
@@ -139,7 +123,7 @@ body {
 }
 
 .cover-client {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-serif-accent);
   font-size: clamp(1.8rem, 3.5vw, 3rem);
   font-weight: 400;
   color: var(--fg-muted);
@@ -198,13 +182,13 @@ body {
 
 .ring-wrap {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: 104px;
+  height: 104px;
 }
 
 .ring-wrap svg {
-  width: 88px;
-  height: 88px;
+  width: 104px;
+  height: 104px;
   transform: rotate(-90deg);
 }
 
@@ -237,11 +221,13 @@ body {
   line-height: 1;
 }
 
+/* The word has to clear the ring on both sides, so it is set small and
+   tight rather than tracked out like the other labels on this cover. */
 .ring-label small {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 500;
   color: var(--fg-muted);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-top: 2px;
 }
@@ -270,7 +256,7 @@ body {
 
 .section:last-of-type { border-bottom: none; }
 
-.section-alt { background: var(--border); }
+.section-alt { background: var(--sa-wash-3); }
 
 .section-label {
   font-size: 0.68rem;
@@ -292,7 +278,7 @@ body {
 }
 
 .section-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-serif-accent);
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 400;
   line-height: 1.15;
@@ -312,7 +298,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1px;
-  background: var(--border-strong);
+  background: var(--wash-2);
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 40px;
@@ -327,7 +313,7 @@ body {
 }
 
 .exec-stat-num {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-serif-accent);
   font-size: 2.8rem;
   line-height: 1;
   color: var(--accent);
@@ -354,7 +340,7 @@ body {
 }
 
 .finding-card {
-  background: var(--border);
+  background: var(--wash-1);
   border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 20px 22px;
@@ -452,7 +438,7 @@ body {
 }
 
 .domein-card {
-  background: var(--border);
+  background: var(--wash-1);
   border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 22px 20px;
@@ -507,13 +493,14 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 3px 9px;
+  border: 1px solid currentColor;
   border-radius: 100px;
   margin-top: auto;
 }
 
-.domein-pill.hoog  { background: var(--green-10); color: var(--green); }
-.domein-pill.midden { background: var(--amber-10); color: var(--amber); }
-.domein-pill.laag  { background: var(--border);  color: var(--fg-muted); }
+.domein-pill.hoog  { color: var(--green); }
+.domein-pill.midden { color: var(--amber); }
+.domein-pill.laag  { color: var(--fg-muted); }
 
 /* ── USE CASES ───────────────────────────────────────── */
 .usecase-list {
@@ -523,7 +510,7 @@ body {
 }
 
 .usecase {
-  background: var(--border);
+  background: var(--wash-1);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
   padding: 24px 26px;
@@ -544,9 +531,9 @@ body {
 }
 
 .usecase-num {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-serif-accent);
   font-size: 1.8rem;
-  color: var(--border-stronger);
+  color: var(--wash-line-strong);
   line-height: 1;
   min-width: 36px;
 }
@@ -578,16 +565,19 @@ body {
   text-transform: uppercase;
   padding: 3px 9px;
   border-radius: 100px;
-  background: var(--border);
+  background: var(--wash-1);
   color: var(--fg-muted);
   border: 1px solid var(--border-strong);
 }
 
+/* The widest label is "Haalbaarheid", tracked out and uppercased. The
+   column has to be wide enough for it and its value side by side, or the
+   two run together. */
 .usecase-scores {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 130px;
+  min-width: 176px;
 }
 
 .score-row {
@@ -597,20 +587,21 @@ body {
 }
 
 .score-label {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  color: var(--fg-subtle);
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--fg-subtle);
-  display: flex;
-  justify-content: space-between;
 }
 
 .score-label span { color: var(--fg); }
 
 .score-bar {
   height: 4px;
-  background: var(--border-strong);
+  background: var(--wash-2);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -678,7 +669,7 @@ body {
 .matrix-quadrant.q-tl { background: var(--green-08); border: 1px solid var(--green-15); border-radius: 8px 0 0 0; }
 .matrix-quadrant.q-tr { background: var(--accent-08);  border: 1px solid var(--accent-15);  border-radius: 0 8px 0 0; }
 .matrix-quadrant.q-bl { background: var(--amber-08); border: 1px solid var(--amber-15); border-radius: 0 0 0 8px; }
-.matrix-quadrant.q-br { background: var(--border); border: 1px solid var(--border-strong);       border-radius: 0 0 8px 0; }
+.matrix-quadrant.q-br { background: var(--wash-1); border: 1px solid var(--border-strong);       border-radius: 0 0 8px 0; }
 
 .matrix-quadrant-label {
   font-size: 0.63rem;
@@ -739,7 +730,7 @@ body {
 }
 
 .phase-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-serif-accent);
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.2;
@@ -778,7 +769,7 @@ body {
   align-items: flex-start;
   gap: 12px;
   padding: 14px 16px;
-  background: var(--border);
+  background: var(--wash-1);
   border-radius: 8px;
   border: 1px solid var(--border-strong);
 }
@@ -812,7 +803,7 @@ body {
 }
 
 .condition-card {
-  background: var(--border);
+  background: var(--wash-1);
   border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 22px 20px;
@@ -967,7 +958,7 @@ body {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--fg-subtle);
-  background: var(--border);
+  background: var(--wash-1);
   border: 1px solid var(--border-strong);
   padding: 6px 14px;
   border-radius: 100px;
@@ -988,6 +979,28 @@ body {
   .report-footer { flex-direction: column; gap: 20px; text-align: center; }
   .report-footer-contact { text-align: center; }
 }
+
+/* Phones. Everything still laid out in columns at 900 has one column here, and
+   the two blocks that carry a hard minimum width — the stat cells and the score
+   bars beside a use case — are the ones that were being cut off: their row
+   clips its overflow, so the numbers simply left the page. */
+@media (max-width: 600px) {
+  .cover-header, .cover-body, .cover-footer, .section { padding-left: 18px; padding-right: 18px; }
+  .section { padding-top: 48px; padding-bottom: 48px; }
+  /* The mark and the badge stop fitting on one line: the badge takes its own,
+     under the mark, rather than being pushed off the page. */
+  .cover-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .cover-badge { line-height: 1.5; }
+  .cover-meta { gap: 22px 32px; }
+  .exec-grid { grid-template-columns: 1fr; }
+  .exec-stat { padding: 24px 22px; }
+  .exec-stat-num { font-size: 2.2rem; }
+  /* The scores drop under the copy and run the full width of the card, which is
+     what a bar wants anyway. */
+  .usecase { grid-template-columns: auto 1fr; gap: 14px 16px; padding: 20px; }
+  .usecase-scores { grid-column: 1 / -1; min-width: 0; }
+  .usecase-num { font-size: 1.5rem; min-width: 26px; }
+}
 </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18080961249"></script>
@@ -1004,9 +1017,7 @@ body {
 <!-- ════════════════════════════════════════════
      COVER
 ════════════════════════════════════════════ -->
-<div class="cover">
-  <div class="cover-bg"></div>
-  <div class="cover-grid"></div>
+<div class="cover field">
 
   <header class="cover-header">
     <div class="logo">

@@ -12,9 +12,13 @@
 import { html, raw, escapeHtml } from '../../../build/lib/html.mjs';
 import { TURNSTILE_SITE_KEY } from '../../../build/lib/config.mjs';
 
-const PHONE = '+32 11 11 10 20';
-const PHONE_HREF = 'tel:+3211111020';
-const EMAIL = 'info@smartagents.be';
+// The three facts the section prints. Exported because the mobile menu sheet
+// and the sticky call button in src/layouts/base.mjs print the same two, and a
+// phone number that disagrees with itself across the page is worse than a
+// duplicated constant.
+export const PHONE = '+32 11 11 10 20';
+export const PHONE_HREF = 'tel:+3211111020';
+export const EMAIL = 'info@smartagents.be';
 
 /**
  * The contact section: the facts on the left, the form on the right.
@@ -30,7 +34,7 @@ export function contactSection({ t, prefix, title, lede }) {
 
   return html`<section class="section" id="contact" aria-labelledby="${id}-title">
   <div id="${id}" class="contact">
-    <div id="${id}-intro">
+    <div id="${id}-intro" class="contact__intro">
       <h2 id="${id}-title" class="section-heading">${title}</h2>
       <p id="${id}-lede" class="contact__lede">${lede}</p>
       <div id="${id}-facts" class="contact__facts">

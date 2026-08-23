@@ -187,7 +187,6 @@ ${join(
         </ul>
       </div>
       <p id="training-format-accents" class="tour__body">${t('training.format.accents')}</p>
-      <a id="training-format-cta" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
     </div>
     <div id="training-format-media" class="video-block">
       <sa-lazy-video id="training-format-video" class="video-frame">

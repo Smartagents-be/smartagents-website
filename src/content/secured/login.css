@@ -1,87 +1,107 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* The password gate. One panel on paper: the wordmark under a cut of the
+   cyan section rule, the field, the button. Nothing else is on the page,
+   so the panel carries the whole design — the hairline and the deep, soft
+   shell shadow the public site uses for its own raised surfaces. */
 
 body {
-  min-height: 100vh;
   display: flex;
+  min-height: 100svh;
+  /* The panel is the whole page here, so the padding is what keeps it off
+     the edge of a phone: without it the hairline runs along the screen. */
+  padding: clamp(20px, 5vw, 48px);
   align-items: center;
   justify-content: center;
-  background: var(--bg);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: var(--fg);
+  background: var(--bg-deep);
 }
 
 .card {
   width: 100%;
-  max-width: 400px;
-  padding: 2.5rem 2rem;
+  max-width: 420px;
+  padding: clamp(28px, 6vw, 44px) clamp(22px, 5vw, 38px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
   background: var(--bg-elevated);
-  border: 1px solid var(--border-strong);
-  border-radius: 12px;
+  box-shadow: var(--shadow-shell);
 }
 
 .brand {
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.4rem;
+  display: inline-block;
+  padding-top: 16px;
+  border-top: 2px solid var(--sa-cyan);
+  margin-bottom: 6px;
+  font-size: 22px;
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-display);
+  line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 0.9rem;
+  margin-bottom: 34px;
   color: var(--fg-muted);
-  margin-bottom: 2rem;
+  font-size: var(--fs-meta);
 }
 
 label {
   display: block;
-  font-size: 0.82rem;
+  margin-bottom: 7px;
   color: var(--fg-muted);
-  margin-bottom: 0.4rem;
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-medium-plus);
+  letter-spacing: var(--ls-ui);
 }
 
 input[type="password"] {
+  transition: var(--transition-tint), box-shadow var(--dur-tint) ease;
   width: 100%;
-  padding: 0.7rem 0.9rem;
-  background: var(--bg-deep);
+  padding: 13px 15px;
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: var(--r-button);
+  background: var(--bg-input);
   color: var(--fg);
-  font-size: 1rem;
+  font-family: inherit;
+  font-size: var(--fs-ui);
   outline: none;
-  transition: border-color 0.15s;
 }
 
+input[type="password"]:focus {
+  border-color: var(--sa-cyan);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* The wrong-password state is the field's own colour, not a second
+   element: the message under it says the rest. */
 input[type="password"].has-error {
   border-color: var(--rose);
 }
 
-input[type="password"]:focus {
-  border-color: var(--accent);
+input[type="password"].has-error:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 0 3px var(--rose-20);
 }
 
 .error {
-  margin-top: 0.5rem;
-  font-size: 0.82rem;
+  margin-top: 9px;
   color: var(--rose);
+  font-size: var(--fs-meta);
 }
 
 button {
-  margin-top: 1.5rem;
+  transition: var(--transition-move), var(--transition-tint);
   width: 100%;
-  padding: 0.75rem;
-  background: var(--accent);
-  color: var(--accent-ink);
+  margin-top: 26px;
+  padding: 13px 22px;
   border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  border-radius: var(--r-button);
+  background: var(--action-bg);
+  color: var(--action-fg);
+  font-family: inherit;
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-ui);
   cursor: pointer;
-  transition: opacity 0.15s;
 }
 
 button:hover {
-  opacity: 0.85;
+  transform: var(--lift);
+  box-shadow: var(--shadow-lift);
 }
-
-.brand-base { color: var(--fg); }
-.brand-accent { color: var(--accent); }

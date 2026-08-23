@@ -54,6 +54,32 @@ scan();
 document.addEventListener('page:change', () => scan());
 
 /* ------------------------------------------------------------------ *
+ * The menu disclosure
+ *
+ * The header menu is a <details>, so it opens and closes with no JS at all and
+ * the page is fully navigable without this. What it cannot do on its own is
+ * close: on a phone the panel is a full-height sheet and almost every entry in
+ * it is an anchor on the page behind it, so following one leaves the sheet
+ * standing over the section it just jumped to. Closing it here, and on Escape,
+ * is the whole of it.
+ * ------------------------------------------------------------------ */
+
+const navToggle = document.getElementById('nav-toggle');
+
+if (navToggle) {
+  navToggle.addEventListener('click', (event) => {
+    if (event.target.closest('a[href]')) navToggle.open = false;
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && navToggle.open) {
+      navToggle.open = false;
+      navToggle.querySelector('summary')?.focus();
+    }
+  });
+}
+
+/* ------------------------------------------------------------------ *
  * Page motion — spotlight, magnets. Decorative, so it waits.
  * ------------------------------------------------------------------ */
 

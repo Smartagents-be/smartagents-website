@@ -118,10 +118,35 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `data-magnet` and `data-clip`, with a `<sa-node-field>` inside. The clip path
   must sit on the same element as `data-magnet`: `src/motion.js` grows that
   element's box and remaps the outline into it.
+- **The tablet is drawn, so it is not invented.** `SmartAgents Homepage Tablet`
+  (834x1112) in the design project is the source for everything between the
+  desk and the phone, and three breakpoints carry it: 768px is where the header
+  stops being a nav bar, 1000px is where every list that runs two abreast starts
+  doing so, and 700px is where the hero stops being split. See "Deviations from
+  the design doc", item 1, in the `smartagents-design` README for what each one
+  changes; change a number there and in the CSS together.
 - **No third-party requests.** No webfonts, no icon library, no analytics on the
   public pages. Turnstile is the one exception and loads only on interaction.
-- **`/secured/` is self-contained** — its own `base.css`, `tokens.css` and
-  `deck-stage.js`, no dependency on the public site's assets.
+- **`/secured/` is self-contained but not off-brand.** It serves its own
+  `tokens.css`, `base.css` and `deck-stage.js` and links nothing from the public
+  build, yet `src/content/secured/tokens.css` carries the same values as
+  `src/styles/tokens.css`: paper, ink, the navy field, one cyan. Every page
+  behind the password reads it — the login gate, the overview, both Smart Scan
+  documents and all nine decks — so it is the one place a colour is defined
+  there. Keep it in step with the public token file.
+- **The dark field is a class in `/secured/`.** `.field` on any element flips
+  the semantic roles to their on-navy values, so a rule written once reads on
+  both grounds. A deck's cover carries it (`class="slide deeper field"`), and so
+  does any navy shape inside a paper slide: a chart card, a screenshot frame,
+  the closing contact strip. A slide without it is paper. The one thing that
+  breaks is painting `--sa-field` on an element and leaving the class off — the
+  text inside then stays ink on navy.
+- **The decks are paper with categorical colour.** `--sky`, `--blue`,
+  `--purple`, `--violet`, `--teal`, `--green`, `--amber` and `--rose` exist only
+  in the secured token file: a deck codes a section or a step by colour and the
+  public site never does. Each has an on-paper value and an on-navy step under
+  `.field`. Reach for `--accent` first; these are for when a thing is genuinely
+  one of several.
 - **Validation**: `scripts/check-dist.mjs` is the gatekeeper. It checks unresolved
   templates, broken internal links, missing alt text, undefined CSS custom
   properties, robots meta, the full hreflang contract, the routing table, and the
@@ -129,8 +154,16 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 
 ## Known follow-ups
 
-- The decks still load Inter/Fraunces from Google Fonts, which `fast-static-site`
-  §4 forbids. Self-host and subset when the decks are revised.
+- Nothing under `/secured/` loads a webfont any more: `deck.json` lost its
+  `fonts` entry and the Smart Scan documents lost their Google Fonts links, so
+  Geist-then-platform carries the sans and Georgia stands in for the serif
+  accent. The decks were drawn against Inter and the documents against DM Serif
+  Display, so a few headings set a little differently now. Supplying the Geist
+  and Instrument Serif binaries closes both that gap and the public site's.
+- The deck covers are flat navy. On the public site a `.field` carries a live
+  cyan node network, but `<sa-node-field>` paints from document coordinates and
+  a deck is a fixed 1920×1080 stage, so it was not ported. A stage-local variant
+  would put the brand's one moving element back on the covers.
 - No build-step image pipeline. Two blocks carry pictures and both sets were
   derived once, by hand, with `sips` — AVIF plus a JPEG fallback, wired up with
   `<picture>` and `srcset`:

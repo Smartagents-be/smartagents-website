@@ -5,7 +5,7 @@ deck-stage:not(:defined) {
 html, body {
     margin: 0;
     padding: 0;
-    background: #000;
+    background: var(--sa-ink);
 }
 
 body {
@@ -17,21 +17,23 @@ body {
     --pad-x: 120px;
     --pad-y: 100px;
     --pad-y-bottom: 88px;
-    --c: var(--sa-cyan);
+    --c: var(--accent);
 }
 
-/* ── Slide foundations ───────────────────────────────────────── */
+/* ── Slide foundations ───────────────────────────────────────────
+   Paper is the ground: tokens.css hands every slide the light palette
+   and the slides say so with `class="slide light"`. A cover or a divider
+   carries `field` instead, and the token file flips the same semantic
+   roles to their on-navy values — so the rules below are written once
+   and read correctly on both. */
 .slide {
-    background: var(--sa-dark);
+    background: var(--bg);
     color: var(--fg);
     font-family: var(--font-sans);
     overflow: hidden;
     position: relative;
 }
 
-.slide.deeper {
-    background: var(--sa-dark-deep);
-}
 
 .frame {
     position: absolute;
@@ -55,23 +57,8 @@ body {
     margin-top: 0 !important;
 }
 
-/* Glow */
-.glow {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(ellipse 1100px 700px at 18% 110%, var(--sa-cyan-15) 0%, transparent 55%),
-    radial-gradient(ellipse 1200px 800px at 92% -10%, rgba(79, 108, 247, 0.18) 0%, transparent 55%);
-    z-index: 0;
-}
 
-.glow.center {
-    background: radial-gradient(ellipse 1400px 900px at 50% 50%, var(--sa-cyan-15) 0%, transparent 60%);
-}
 
-.glow.soft {
-    background: radial-gradient(ellipse 900px 600px at 80% 100%, var(--sa-cyan-08) 0%, transparent 60%);
-}
 
 .frame > * {
     position: relative;
@@ -117,7 +104,7 @@ body {
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--sa-cyan);
+    color: var(--accent);
     margin: 0 0 28px;
 }
 
@@ -167,51 +154,14 @@ h2.h2 {
 }
 
 .accent {
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
-.gradient-text {
-    background: linear-gradient(135deg, #00d8ff 0%, #22d3ee 45%, #4f6cf7 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
+/* The system has one accent and no gradients; the class stays so
+   existing slide markup keeps its emphasis. */
+.gradient-text { color: var(--accent); }
 
-/* ── Light theme (white slides) ── */
-.slide.light {
-    --fg: #0f172a;
-    --fg-muted: #475569;
-    --fg-subtle: #64748b;
-    --sa-light: #0f172a;
-    --sa-white-05: rgba(15, 23, 42, 0.04);
-    --sa-white-07: rgba(15, 23, 42, 0.06);
-    --sa-white-10: rgba(15, 23, 42, 0.10);
-    --sa-white-25: rgba(15, 23, 42, 0.20);
-    --sa-cyan: #0891b2;
-    --sa-cyan-08: rgba(8, 145, 178, 0.06);
-    --sa-cyan-15: rgba(8, 145, 178, 0.10);
-    --sa-cyan-20: rgba(8, 145, 178, 0.16);
-    --sa-cyan-30: rgba(8, 145, 178, 0.26);
-    --sa-cyan-40: rgba(8, 145, 178, 0.42);
-    --sa-cyan-60: rgba(8, 145, 178, 0.60);
-    --sa-dark: #ffffff;
-    --sa-dark-deep: #f1f5f9;
-    --sa-dark-lighter: #f8fafc;
-    background: #ffffff !important;
-    color: #0f172a;
-}
 
-.slide.light .glow {
-    opacity: 0.55;
-    mix-blend-mode: multiply;
-}
-
-.slide.light .gradient-text {
-    background: linear-gradient(135deg, #0891b2 0%, #0e7490 45%, #4f46e5 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
 
 /* Card */
 .card {
@@ -229,7 +179,7 @@ h2.h2 {
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
 .card h3 {
@@ -273,13 +223,13 @@ h2.h2 {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--sa-cyan);
+    background: var(--accent);
 }
 
 .card code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 0.84em;
-    background: color-mix(in srgb, var(--c, var(--sa-cyan)) 14%, transparent);
+    background: color-mix(in srgb, var(--c, var(--accent)) 14%, transparent);
     padding: 1px 7px;
     border-radius: 6px;
     color: var(--fg);
@@ -296,8 +246,8 @@ h2.h2 {
 .ide {
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 28px oklch(0.148 0.03 247.84 / 0.12);
     background: #1e1e2e;
     display: flex;
     flex-direction: column;
@@ -349,7 +299,9 @@ h2.h2 {
     min-height: 2.7em;
 }
 
-/* Per-brand tint for the mockup screens (subtle shift from the #1e1e2e base) */
+/* Per-brand tint for the mockup screens. These are depicted editors, not
+   brand surface: the values stay literal so each screen keeps the dark
+   chrome the tool actually has. */
 .ide-copilot, .ide-copilot .ide-body { background: #173a8f; }   /* Copilot: blue */
 .ide-copilot .ide-bar { background: #112c73; }
 .ide-claude, .ide-claude .ide-body { background: #5c3408; }     /* Claude: orange */
@@ -362,11 +314,11 @@ h2.h2 {
     display: grid;
     grid-template-columns: 1.1fr 1fr 1.25fr;
     margin-top: 30px;
-    border-top: 1px solid rgba(15, 23, 42, 0.14);
+    border-top: 1px solid var(--border);
 }
 .matrix > div {
     padding: 15px 16px;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.10);
+    border-bottom: 1px solid var(--border);
     font-size: 23px;
     line-height: 1.3;
     color: var(--fg);
@@ -382,7 +334,7 @@ h2.h2 {
 .matrix code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 0.82em;
-    background: color-mix(in srgb, var(--c, var(--sa-cyan)) 14%, transparent);
+    background: color-mix(in srgb, var(--c, var(--accent)) 14%, transparent);
     padding: 1px 6px;
     border-radius: 6px;
 }
@@ -394,9 +346,9 @@ h2.h2 {
     width: 60px;
     height: 60px;
     border-radius: 14px;
-    background: var(--sa-cyan-15);
-    border: 1px solid var(--sa-cyan-30);
-    color: var(--sa-cyan);
+    background: var(--accent-15);
+    border: 1px solid var(--accent-30);
+    color: var(--accent);
     font-size: 26px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -449,14 +401,14 @@ h2.h2 {
     margin-top: auto;
     padding: 16px 20px;
     border-radius: 14px;
-    background: color-mix(in srgb, var(--accent-smartspace-bright) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent-smartspace-bright) 20%, transparent);
+    background: color-mix(in srgb, var(--accent-smartspace) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-smartspace) 20%, transparent);
 }
 
 .ss-tease .ss-ico {
     display: inline-flex;
     flex-shrink: 0;
-    color: var(--accent-smartspace-bright);
+    color: var(--accent-smartspace);
 }
 
 .ss-tease .ss-ico svg {
@@ -471,7 +423,7 @@ h2.h2 {
 }
 
 .ss-tease .ss-txt strong {
-    color: var(--accent-smartspace-bright);
+    color: var(--accent-smartspace);
     font-weight: 700;
 }
 
@@ -524,20 +476,19 @@ h2.h2 {
     display: inline-flex;
     align-items: center;
     gap: 18px;
-    color: var(--sa-cyan);
+    color: var(--accent);
     letter-spacing: 0.32em;
 }
 
 .cover-meta .cyan-bar .bar {
     width: 56px;
     height: 1px;
-    background: var(--sa-cyan-40);
+    background: var(--accent-40);
 }
 
 .cover-logo {
     width: 132px;
     height: 132px;
-    filter: drop-shadow(0 0 28px var(--sa-cyan-40));
 }
 
 .cover h1 {
@@ -561,7 +512,7 @@ h2.h2 {
 
 .cover .tagline {
     font-size: 28px;
-    color: var(--sa-cyan);
+    color: var(--accent);
     font-weight: 600;
     letter-spacing: 0.04em;
 }
@@ -604,7 +555,7 @@ h2.h2 {
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 0.18em;
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
 .step-head {
@@ -636,7 +587,7 @@ h2.h2 {
     font-size: 44px;
     line-height: 0.9;
     font-weight: 700;
-    color: var(--c, var(--sa-cyan));
+    color: var(--c, var(--accent));
     letter-spacing: -0.02em;
 }
 
@@ -695,13 +646,13 @@ h2.h2 {
 }
 
 .aanpak-choice .ac-opt--ss {
-    color: var(--accent-smartspace-bright);
-    background: color-mix(in srgb, var(--accent-smartspace-bright) 8%, transparent);
-    border-color: color-mix(in srgb, var(--accent-smartspace-bright) 30%, transparent);
+    color: var(--accent-smartspace);
+    background: color-mix(in srgb, var(--accent-smartspace) 8%, transparent);
+    border-color: color-mix(in srgb, var(--accent-smartspace) 30%, transparent);
 }
 
 .aanpak-choice .ac-opt--ss strong {
-    color: var(--accent-smartspace-bright);
+    color: var(--accent-smartspace);
     font-weight: 700;
 }
 
@@ -754,7 +705,7 @@ h2.h2 {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: var(--sa-cyan);
+    background: var(--accent);
     flex-shrink: 0;
 }
 
@@ -775,7 +726,7 @@ h2.h2 {
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: var(--sa-cyan);
+    background: var(--accent);
     flex-shrink: 0;
 }
 
@@ -840,7 +791,7 @@ h2.h2 {
     font-weight: 800;
     line-height: 0.92;
     letter-spacing: -0.04em;
-    color: var(--sa-cyan);
+    color: var(--accent);
     font-feature-settings: "tnum" 1;
 }
 
@@ -859,7 +810,7 @@ h2.h2 {
     font-weight: 800;
     line-height: 0.95;
     letter-spacing: -0.035em;
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
 .stat-block .lbl {
@@ -871,10 +822,10 @@ h2.h2 {
 
 /* Chart card */
 .chart-card {
-    background: #0f172a;
+    background: var(--sa-field);
     border-radius: 18px;
     padding: 32px 36px;
-    border: 1px solid rgba(15, 23, 42, 0.10);
+    border: 1px solid var(--border);
     overflow: hidden;
 }
 
@@ -882,8 +833,8 @@ h2.h2 {
 .founder {
     display: grid;
     grid-template-columns: 200px 1fr;
-    background: #f8fafc;
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: var(--sa-paper);
+    border: 1px solid var(--border);
     border-radius: 20px;
     overflow: hidden;
     min-height: 240px;
@@ -907,14 +858,14 @@ h2.h2 {
     font-size: 24px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #0891b2;
+    color: var(--accent);
     font-weight: 700;
 }
 
 .founder .info h3 {
     font-size: 36px;
     font-weight: 600;
-    color: #0f172a;
+    color: var(--fg);
     margin: 0;
     letter-spacing: -0.015em;
     line-height: 1.05;
@@ -922,7 +873,7 @@ h2.h2 {
 
 .founder .info p {
     font-size: 24px;
-    color: #475569;
+    color: var(--fg-muted);
     margin: 0;
     line-height: 1.45;
 }
@@ -930,7 +881,7 @@ h2.h2 {
 /* SmartSpace module pill */
 .mod {
     background: var(--sa-white-05);
-    border: 1px solid color-mix(in srgb, var(--accent-smartspace-bright) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-smartspace) 30%, transparent);
     border-radius: 14px;
     padding: 22px 24px;
     display: flex;
@@ -945,9 +896,9 @@ h2.h2 {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--accent-smartspace-bright);
+    background: var(--accent-smartspace);
     flex-shrink: 0;
-    box-shadow: 0 0 16px color-mix(in srgb, var(--accent-smartspace-bright) 40%, transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--accent-smartspace) 40%, transparent);
 }
 
 .beta-badge {
@@ -956,9 +907,9 @@ h2.h2 {
     gap: 10px;
     padding: 8px 18px;
     border-radius: 999px;
-    background: var(--sa-cyan-15);
-    border: 1px solid var(--sa-cyan-30);
-    color: var(--sa-cyan);
+    background: var(--accent-15);
+    border: 1px solid var(--accent-30);
+    color: var(--accent);
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -984,8 +935,8 @@ h2.h2 {
     margin-top: 32px;
     padding: 22px 28px;
     border-radius: 16px;
-    background: var(--sa-cyan-08);
-    border: 1px solid var(--sa-cyan-20);
+    background: var(--accent-08);
+    border: 1px solid var(--accent-20);
     font-size: 26px;
     line-height: 1.45;
     color: var(--fg-muted);
@@ -1059,7 +1010,7 @@ h2.h2 {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--sa-cyan);
+    background: var(--accent);
     flex-shrink: 0;
     margin-top: 0.45em;
 }
@@ -1089,8 +1040,8 @@ h2.h2 {
     display: flex;
     align-items: center;
     gap: 28px;
-    background: var(--sa-cyan-08);
-    border: 1px solid var(--sa-cyan-20);
+    background: var(--accent-08);
+    border: 1px solid var(--accent-20);
     border-radius: 18px;
     padding: 24px 32px;
 }
@@ -1104,7 +1055,7 @@ h2.h2 {
     min-width: 100px;
     padding: 16px 20px;
     border-radius: 14px;
-    background: var(--sa-cyan);
+    background: var(--accent);
     color: #05080d;
 }
 
@@ -1165,7 +1116,7 @@ h2.h2 {
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
 .phase h4 {
@@ -1196,7 +1147,7 @@ h2.h2 {
 
 .phase li::before {
     content: '→';
-    color: var(--sa-cyan);
+    color: var(--accent);
     flex-shrink: 0;
     font-size: 18px;
     margin-top: 0.2em;
@@ -1213,7 +1164,7 @@ h2.h2 {
 .bigthree-card {
     background: var(--sa-white-05);
     border: 1px solid var(--sa-white-10);
-    border-top: 3px solid var(--sa-cyan);
+    border-top: 3px solid var(--accent);
     border-radius: 18px;
     padding: 32px 28px;
     display: flex;
@@ -1224,7 +1175,7 @@ h2.h2 {
 .bigthree-card .h {
     font-size: 36px;
     font-weight: 800;
-    color: var(--sa-cyan);
+    color: var(--accent);
     letter-spacing: -0.02em;
 }
 
@@ -1260,9 +1211,9 @@ h2.h2 {
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: var(--sa-cyan-15);
-    border: 1px solid var(--sa-cyan-30);
-    color: var(--sa-cyan);
+    background: var(--accent-15);
+    border: 1px solid var(--accent-30);
+    color: var(--accent);
     flex-shrink: 0;
 }
 
@@ -1359,7 +1310,7 @@ h2.h2 {
 
 /* Brand wordmark stays cyan, never the slide's category accent */
 .chrome .brand .accent {
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
 .cat-themed .card .num-lg,
@@ -1576,11 +1527,11 @@ h2.h2 {
 }
 
 .axis-pole.left {
-    color: #4f46e5;
+    color: var(--purple);
 }
 
 .axis-pole.right {
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
 .axis-rail {
@@ -1595,7 +1546,7 @@ h2.h2 {
     right: 0;
     height: 3px;
     border-radius: 3px;
-    background: linear-gradient(90deg, #4f46e5 0%, #0d9488 28%, #0891b2 60%, #7c3aed 80%, #2563eb 100%);
+    background: linear-gradient(90deg, var(--purple) 0%, var(--teal) 28%, var(--accent) 60%, var(--violet) 80%, var(--blue) 100%);
     z-index: 0;
 }
 
@@ -1659,13 +1610,13 @@ h2.h2 {
     gap: 12px;
     padding: 10px 20px;
     border-radius: 999px;
-    background: var(--sa-cyan-15);
-    border: 1px solid var(--sa-cyan-30);
+    background: var(--accent-15);
+    border: 1px solid var(--accent-30);
     font-size: 22px;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--sa-cyan);
+    color: var(--accent);
 }
 
 /* ── Lab slide component ──────────────────────────────────────── */
@@ -1693,21 +1644,21 @@ h2.h2 {
 
 /* ── App screenshots (Meet the codebase) ──────────────────────────── */
 .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; width: 100%; }
-.shot { border: 1px solid #20242e; border-radius: 14px; overflow: hidden; background: #0f1117; box-shadow: 0 20px 46px rgba(2, 6, 23, .18); }
+.shot { border: 1px solid #20242e; border-radius: 14px; overflow: hidden; background: #0f1117; box-shadow: 0 20px 46px oklch(0.148 0.03 247.84 / .18); }
 .shot .bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #161922; border-bottom: 1px solid #20242e; }
 .shot .bar i { width: 11px; height: 11px; border-radius: 50%; background: #2a2f3a; }
-.shot .bar small { margin-left: 10px; color: #6b7280; font-size: 15px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.shot .bar small { margin-left: 10px; color: var(--sa-on-field-muted); font-size: 15px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
 .shot .cap { padding: 16px 20px; border-top: 1px solid #20242e; background: #12151d; }
-.shot .cap b { color: #e6e8ee; font-size: 20px; display: block; }
-.shot .cap p { color: #9aa3b2; font-size: 16px; margin: 5px 0 0; line-height: 1.4; }
+.shot .cap b { color: var(--sa-on-field); font-size: 20px; display: block; }
+.shot .cap p { color: var(--sa-on-field-muted); font-size: 16px; margin: 5px 0 0; line-height: 1.4; }
 .shot.bad { border-color: rgba(245, 158, 11, .55); box-shadow: 0 20px 46px rgba(180, 83, 9, .22); }
 .shot .tag { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
 .shot .tag i { width: 9px; height: 9px; border-radius: 50%; }
-.shot .tag.ok i { background: #22c55e; }
-.shot .tag.warn i { background: #f59e0b; }
-.shot .tag.ok { color: #4ade80; }
-.shot .tag.warn { color: #fbbf24; }
+.shot .tag.ok i { background: var(--green); }
+.shot .tag.warn i { background: var(--amber); }
+.shot .tag.ok { color: var(--green); }
+.shot .tag.warn { color: var(--amber); }
 .shots.compact { gap: 24px; }
 .shots.compact img { aspect-ratio: 16 / 7; }
 .shots.compact .bar { padding: 9px 14px; }
@@ -1716,10 +1667,10 @@ h2.h2 {
 
 /* ── Price comparison table (model token costs) ──────────────────────── */
 .pricecard { padding: 22px 26px; }
-.pricecard .pc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 12px; margin-bottom: 6px; border-bottom: 1px solid rgba(15, 23, 42, 0.1); }
+.pricecard .pc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 12px; margin-bottom: 6px; border-bottom: 1px solid var(--border); }
 .pricecard .pc-head h3 { margin: 0; font-size: 26px; }
 .pricecard .pc-unit { font-size: 15px; color: var(--fg-subtle); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
-.pc-row { display: grid; grid-template-columns: 1fr 86px 86px; align-items: center; gap: 14px; padding: 9px 0; border-bottom: 1px dashed rgba(15, 23, 42, 0.08); }
+.pc-row { display: grid; grid-template-columns: 1fr 86px 86px; align-items: center; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--border); }
 .pc-row:last-child { border-bottom: none; }
 .pc-name { font-size: 21px; font-weight: 600; color: var(--fg); }
 .pc-name small { display: block; font-size: 14px; font-weight: 500; color: var(--fg-subtle); }
@@ -1731,9 +1682,9 @@ h2.h2 {
 .prompt-block {
     margin: 10px 0 4px;
     padding: 14px 18px;
-    border-left: 3px solid var(--c, var(--sa-cyan));
+    border-left: 3px solid var(--c, var(--accent));
     border-radius: 8px;
-    background: rgba(15, 23, 42, 0.04);
+    background: var(--wash-1);
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 19px;
     line-height: 1.5;

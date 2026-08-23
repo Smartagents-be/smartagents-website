@@ -8,6 +8,7 @@ import { html, raw, join, escapeHtml } from '../../build/lib/html.mjs';
 import { languages, defaultLanguage, absolute, pagePath } from '../../build/lib/i18n.mjs';
 import { page as trainingPage } from '../pages/training.mjs';
 import { page as teamPage } from '../pages/team.mjs';
+import { PHONE, PHONE_HREF, EMAIL } from '../components/contact-form/contact-form.mjs';
 
 const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
 
@@ -104,6 +105,7 @@ ${siteHeader(ctx)}
 ${ctx.body}
 ${siteFooter(ctx)}
 </div>
+${mobileActions(ctx)}
 </body>
 </html>
 `;
@@ -182,6 +184,13 @@ export function clipDefs() {
       'M0,0.000 C0.032,0.155 0.090,0.315 0.175,0.450 C0.258,0.552 0.382,0.620 0.530,0.660 C0.642,0.690 0.732,0.708 0.800,0.708 C0.8263,0.708 0.8476,0.7286 0.8476,0.754 C0.8476,0.7794 0.8263,0.800 0.800,0.800 C0.560,0.812 0.320,0.826 0.170,0.878 C0.090,0.908 0.030,0.962 0,1 Z',
     // hero on narrow viewports: the same cut, laid flat under the copy
     heroBand: 'M0,0.18 L1,0 L1,0.82 L0,1 Z',
+    // hero on a phone: the petal again, but reduced to the sliver that fits
+    // beside a single column of copy. It leaves the top edge two thirds across,
+    // runs down and out to the right, pinches once where the claim passes, then
+    // swells back to the right edge. Welded to the top and the right, free of
+    // the other two, so it reads as one corner of the same shape.
+    heroSwoop:
+      'M0.670,0.000 C0.772,0.074 0.848,0.148 0.890,0.214 C0.922,0.270 0.912,0.324 0.878,0.368 C0.848,0.408 0.876,0.452 0.928,0.492 C0.966,0.522 0.990,0.552 1.000,0.578 L1.000,0.000 Z',
     // Ons DNA: a disc, and the same silhouette again as a mask for the helix
     dnaField:
       'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
@@ -245,13 +254,31 @@ export function siteHeader({ t, lang, alternates }) {
     (key) => html`<a class="nav-panel__item${key === 'training' && training ? ' nav-panel__item--feature' : ''}" href="${key === 'training' && training ? training : `${home}#services`}"><b>${t(`service.${key}.title`)}</b><span>${t(`service.${key}.menu`)}</span></a>`
   );
 
+  // The key rides along as a modifier class: the tablet header drops the one
+  // link that duplicates the button beside it, and it has to be nameable.
   const navLinks = NAV_SECTIONS.map(
-    (key) => html`<a class="nav-link" href="${navHref(key, lang, home)}">${t(`nav.${key}`)}</a>`
+    (key) => html`<a id="nav-link-${key}" class="nav-link nav-link--${key}" href="${navHref(key, lang, home)}">${t(`nav.${key}`)}</a>`
   );
 
-  const mobileLinks = ['services', ...NAV_SECTIONS].map(
-    (key) => html`<a href="${navHref(key, lang, home)}">${t(`nav.${key}`)}</a>`
+  // The disclosure panel is two panels in one: a compact dropdown from the
+  // point the nav bar folds (768px), and a full-height sheet on a phone. The
+  // sheet is the dropdown's list plus four things the header no longer has
+  // room for down there — the services under their own heading, the primary
+  // action, the language chips and the two ways to reach a person. All four
+  // are display:none above the phone breakpoint, so the dropdown is unchanged.
+  const sheetLinks = ['services', ...NAV_SECTIONS].map(
+    (key) => html`<a id="nav-sheet-link-${key}" class="nav-sheet__item" href="${navHref(key, lang, home)}">${t(`nav.${key}`)}${key === 'services' ? raw('<span id="nav-sheet-link-services-cue" class="nav-sheet__cue" aria-hidden="true">&rarr;</span>') : ''}</a>`
   );
+
+  const sheetServices = SERVICES.map(
+    (key) => html`      <a id="nav-sheet-service-${key}" class="nav-sheet__sub-item" href="${key === 'training' && training ? training : `${home}#services`}">${t(`service.${key}.title`)}</a>`
+  );
+
+  // The services list belongs under "Diensten", so it is spliced in after it
+  // rather than appended: the sheet reads in the same order as the nav bar.
+  const sheetBody = [sheetLinks[0], html`    <div id="nav-sheet-services" class="nav-sheet__sub">
+${join(sheetServices)}
+    </div>`, ...sheetLinks.slice(1)];
 
   return html`<header class="site-header">
   <div class="header-wedge" aria-hidden="true"><sa-node-field></sa-node-field></div>
@@ -268,17 +295,39 @@ ${join(menuItems)}
     </div>
 ${join(navLinks)}
   </nav>
-  <details class="nav-toggle">
-    <summary>${t('nav.menu')}${CHEVRON}</summary>
-    <nav class="nav-toggle__panel" aria-label="${t('a11y.mainNav')}">
-${join(mobileLinks)}
+  <details id="nav-toggle" class="nav-toggle">
+    <summary id="nav-toggle-summary"><span id="nav-toggle-label" class="nav-toggle__label">${t('nav.menu')}${CHEVRON}</span><span id="nav-toggle-burger" class="nav-toggle__burger" aria-hidden="true"><i></i><i></i></span></summary>
+    <nav id="nav-sheet" class="nav-toggle__panel" aria-label="${t('a11y.mainNav')}">
+${join(sheetBody)}
+    <a id="nav-sheet-cta" class="btn btn--primary nav-sheet__cta" href="${home}#contact">${t('cta.talk')}</a>
+${languageSwitcher(lang, alternates, t, 'nav-sheet')}
+    <div id="nav-sheet-facts" class="nav-sheet__facts">
+      <a id="nav-sheet-fact-call" href="${PHONE_HREF}">${PHONE}</a>
+      <a id="nav-sheet-fact-mail" href="mailto:${EMAIL}">${EMAIL}</a>
+    </div>
     </nav>
   </details>
   <div class="header-actions">
-${languageSwitcher(lang, alternates, t)}
+${languageSwitcher(lang, alternates, t, 'header')}
     <a class="btn btn--primary btn--sm" href="${home}#contact">${t('cta.talk')}</a>
   </div>
 </header>`;
+}
+
+/**
+ * The phone's action bar: a call button and the primary action, stuck to the
+ * bottom edge. It exists because the header's own CTA is dropped on a phone —
+ * without it there is no action on screen until the contact section scrolls
+ * into view. `position: sticky`, not fixed, so it ends up under the footer at
+ * the bottom of the page instead of covering it.
+ */
+export function mobileActions({ t, lang }) {
+  const home = pagePath(lang);
+
+  return html`<div id="mobile-actions" class="mobile-actions">
+  <a id="mobile-actions-call" class="mobile-actions__call" href="${PHONE_HREF}">${t('cta.call')}</a>
+  <a id="mobile-actions-talk" class="btn btn--primary mobile-actions__talk" href="${home}#contact">${t('cta.talk')}</a>
+</div>`;
 }
 
 export function siteFooter({ t }) {
@@ -292,15 +341,23 @@ export function siteFooter({ t }) {
 </footer>`;
 }
 
-/** Language switcher: real links to the same page, no JS (static-i18n §5). */
-export function languageSwitcher(currentLang, alternates, t) {
-  return html`<nav class="lang-switcher" aria-label="${t('a11y.language')}">
-  <ul>
+/**
+ * Language switcher: real links to the same page, no JS (static-i18n §5).
+ *
+ * The header prints it twice — once in the header actions and once inside the
+ * menu sheet, because on a phone the header has room for the brand and the
+ * menu trigger and nothing else. Exactly one of the two is ever displayed, so
+ * only one is ever in the accessibility tree; `prefix` keeps their ids apart
+ * (element-ids §4).
+ */
+export function languageSwitcher(currentLang, alternates, t, prefix) {
+  return html`<nav id="${prefix}-lang" class="lang-switcher" aria-label="${t('a11y.language')}">
+  <ul id="${prefix}-lang-list">
 ${join(
     alternates.map((alt) => {
       const language = languages.find((entry) => entry.code === alt.code);
       const current = alt.code === currentLang;
-      return html`    <li><a href="${new URL(alt.href).pathname}" lang="${alt.code}" hreflang="${alt.code}"${current ? raw(' aria-current="true"') : ''}><span class="visually-hidden">${language.name}</span><span aria-hidden="true">${alt.code}</span></a></li>`;
+      return html`    <li id="${prefix}-lang-item-${alt.code}"><a id="${prefix}-lang-link-${alt.code}" href="${new URL(alt.href).pathname}" lang="${alt.code}" hreflang="${alt.code}"${current ? raw(' aria-current="true"') : ''}><span class="visually-hidden">${language.name}</span><span aria-hidden="true">${alt.code}</span></a></li>`;
     })
   )}
   </ul>

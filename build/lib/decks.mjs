@@ -18,18 +18,30 @@ function prettify(slug) {
   return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-/** The per-slide footer: brand mark plus "05 / 10". */
-function chrome(slideNumber, slideTotal) {
+/**
+ * The per-slide footer: brand mark plus "05 / 10".
+ *
+ * The mark is an `<img>`, which cannot inherit `currentColor`, so the two
+ * surfaces are two files: the cyan-on-paper mark for a normal slide and the
+ * bright-on-navy one for a slide that carries `.field`.
+ */
+function chrome(slideNumber, slideTotal, onField) {
+  const mark = onField ? 'assets/logo-dark.svg' : 'assets/logo.svg';
   return html`<div class="chrome">
-  <span class="brand"><img src="assets/logo.svg" alt=""><span>Smart<span class="accent">Agents</span></span></span>
+  <span class="brand"><img src="${mark}" alt=""><span>Smart<span class="accent">Agents</span></span></span>
   ${slideNumber && slideTotal ? html`<span class="pageno">${slideNumber} / ${slideTotal}</span>` : ''}
 </div>`.toString();
 }
 
-/** Expand the `<!--chrome 05/10-->` markers the slides carry. */
+/**
+ * Expand the `<!--chrome 05/10-->` markers the slides carry. One fragment is
+ * one slide, so the section's own class list says which ground the footer
+ * lands on.
+ */
 function expandChrome(fragment) {
+  const onField = /<section[^>]*\bclass="[^"]*\bfield\b/.test(fragment);
   return fragment.replace(/<!--chrome(?:\s+([^/\s]+)\/([^\s]+))?-->/g, (match, number, total) =>
-    chrome(number, total)
+    chrome(number, total, onField)
   );
 }
 

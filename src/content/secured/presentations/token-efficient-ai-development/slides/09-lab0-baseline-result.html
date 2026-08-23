@@ -1,6 +1,5 @@
 <!-- ════════════════ 09 · LAB 0 · BASELINE RESULT ════════════════ -->
-  <section data-label="Lab 0: baseline result" class="slide light cat-themed" style="--c: #16a34a;">
-    <div class="glow soft"></div>
+  <section data-label="Lab 0: baseline result" class="slide light cat-themed" style="--c: var(--green);">
     <div class="frame">
       <p class="eyebrow"><span class="num">09</span>Lab 0 result</p>
       <h2 class="h2">The baseline, <span class="accent">in one number</span>.</h2>
@@ -10,13 +9,13 @@
           <div style="font-size: 200px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--c);">466k</div>
           <p style="font-size: 30px; color: var(--fg-muted); margin: 18px 0 0;">tokens to change <strong>one line</strong>. Like any real codebase, many modules here touch sessions, cookies, and timeouts, so unscoped the agent reads through them to find the one that matters</p>
           <div style="display: flex; justify-content: center; gap: 40px; margin: 28px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
-            <span style="font-size: 22px; color: var(--fg);"><strong>443k</strong> <span style="color: #94a3b8;">cache read</span></span>
-            <span style="font-size: 22px; color: var(--fg);"><strong>21k</strong> <span style="color: #94a3b8;">cache write</span></span>
-            <span style="font-size: 22px; color: var(--fg);"><strong>2.2k</strong> <span style="color: #94a3b8;">output</span></span>
-            <span style="font-size: 22px; color: var(--fg);"><strong>$0.29</strong> <span style="color: #94a3b8;">cost</span></span>
+            <span style="font-size: 22px; color: var(--fg);"><strong>443k</strong> <span style="color: var(--fg-subtle);">cache read</span></span>
+            <span style="font-size: 22px; color: var(--fg);"><strong>21k</strong> <span style="color: var(--fg-subtle);">cache write</span></span>
+            <span style="font-size: 22px; color: var(--fg);"><strong>2.2k</strong> <span style="color: var(--fg-subtle);">output</span></span>
+            <span style="font-size: 22px; color: var(--fg);"><strong>$0.29</strong> <span style="color: var(--fg-subtle);">cost</span></span>
           </div>
           <p style="font-size: 24px; color: var(--fg); margin: 26px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">cache read &asymp; context size &times; turns</p>
-          <p style="font-size: 20px; color: #94a3b8; margin: 12px auto 0; max-width: 1180px; line-height: 1.5;">Sonnet 4.6, medium effort. Every agent turn re-sends the whole context, the system prompt, tools, files, and conversation, so the bill is that context multiplied by the number of turns. A fresh session does not help: the cache just refills and is re-read on every step. Fewer turns and a smaller context is what beats this number.</p>
+          <p style="font-size: 20px; color: var(--fg-subtle); margin: 12px auto 0; max-width: 1180px; line-height: 1.5;">Sonnet 4.6, medium effort. Every agent turn re-sends the whole context, the system prompt, tools, files, and conversation, so the bill is that context multiplied by the number of turns. A fresh session does not help: the cache just refills and is re-read on every step. Fewer turns and a smaller context is what beats this number.</p>
         </div>
       </div>
     </div>

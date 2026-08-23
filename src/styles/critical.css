@@ -164,7 +164,12 @@ select {
   color: var(--text-on-dark);
 }
 
+/* `flex: none`: the header is a flex row, and on a narrow phone it runs out of
+   room. Without this the mark is the item that gives way and collapses to a
+   sliver — the copy beside it never shrinks, so the logo would take the whole
+   shortfall on its own. */
 .brand-link .logo {
+  flex: none;
   width: 30px;
   height: 30px;
 }
@@ -218,7 +223,11 @@ select {
   align-items: center;
 }
 
+/* `flex: none` for the same reason as the logo mark: it sits in a flex row
+   beside a word that will not shrink, so on a narrow phone it would be the
+   thing that disappears. */
 .nav-chevron {
+  flex: none;
   display: inline-flex;
   transition: transform 0.3s var(--ease-out-expo);
 }
@@ -706,10 +715,10 @@ select {
   align-items: center;
 }
 
-/* Between the magnet breakpoint and the point where the hero stacks, the flanks
-   are too narrow to carry the shapes at their drawn size: both pull back into
-   their corner, and the lobe drops below the copy rather than rising behind it.
-   The copy keeps its column, so it never crosses the petal. */
+/* Between the magnet breakpoint and the tablet, the flanks are too narrow to
+   carry the shapes at their drawn size: both pull back into their corner, and
+   the lobe drops below the copy rather than rising behind it. The copy keeps
+   its column, so it never crosses the petal. */
 @media (max-width: 1080px) {
   .hero__inner {
     min-height: 720px;
@@ -725,7 +734,57 @@ select {
   }
 }
 
-@media (max-width: 940px) {
+/* The tablet keeps the hero split. The artboard draws the copy in a column
+   just over half the page with the petal hung off the right edge beside it —
+   the desk's composition at the tablet's proportions, not a new one. The
+   counter-lobe goes: at this width the two shapes meet in the middle and the
+   copy loses the light ground it is ranged against. */
+@media (min-width: 700px) and (max-width: 940px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 57%);
+    min-height: clamp(470px, 66vw, 620px);
+  }
+
+  /* On the desk the copy sits above the petal's pinch. Here the shape is a
+     lobe hung off one edge with no pinch to clear, and the block reads on the
+     hero's centre line. */
+  .hero__text {
+    align-self: center;
+  }
+
+  /* The artboard turns the hero's hierarchy over: the wordmark steps back and
+     the sentence that carries the page becomes the largest thing on it, which
+     is what the phone already does. Both are held to the artboard's sizes at
+     its own width and scale from there. */
+  .hero__wordmark {
+    font-size: clamp(30px, 4.8vw, 40px);
+  }
+
+  .hero__wordmark .logo {
+    width: 1.05em;
+    height: 1.05em;
+  }
+
+  .hero__claim {
+    /* The claim is the largest thing here, so it sets its own line and needs
+       the air the wordmark used to give it from above. */
+    margin-top: var(--space-6);
+    max-width: none;
+    font-size: clamp(38px, 6.4vw, 54px);
+  }
+
+  .hero__field--right {
+    inset: 2.5% 0 9% 53%;
+  }
+
+  .hero__field--left {
+    display: none;
+  }
+}
+
+/* Under the tablet the petal lies flat as a band beneath the copy: there is no
+   longer a column to hang it beside. */
+@media (max-width: 699px) {
   .hero {
     display: flex;
     flex-direction: column-reverse;
@@ -747,47 +806,224 @@ select {
     clip-path: url(#heroBand);
   }
 
+  /* The 52% column is the share the copy takes of a hero it splits with the
+     petal. Once the shape has become a band under it there is nothing to split
+     with, and holding the copy to half the page only sets the headline in a
+     column narrower than the buttons under it. */
   .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
     min-height: 0;
   }
 }
 
-@media (max-width: 1180px) {
+/* ------------------------------------------------------------------ *
+ * The tablet header
+ *
+ * The tablet artboard ("SmartAgents Homepage Tablet", 834x1112) keeps the
+ * header a header: the sections, the language chips and the primary action
+ * all stay on one row. A disclosure over a page this wide reads as a phone
+ * control, and there is room for the row — but none of the desk's slack, so
+ * everything in it gives a little at once: the gutter, the gaps, the nav
+ * padding, the brand. The one thing that goes is the "Contact" link, because
+ * the button beside it already goes there.
+ * ------------------------------------------------------------------ */
+@media (min-width: 768px) and (max-width: 1180px) {
+  /* Every measurement in this row is fluid between the tablet's two ends:
+     at 834px, the artboard's own width, they land on the artboard's values,
+     and they tighten from there so the row still holds at 768px — the
+     narrowest width a tablet is held upright at, and the narrowest the six
+     items fit in the longest of the three languages. */
+  /* The header is taller here than on the desk, so the offset an anchor is
+     scrolled to has to grow with it. */
+  html {
+    scroll-padding-top: 76px;
+  }
+
+  .site-header {
+    gap: clamp(8px, 1.4vw, 14px);
+    /* The artboard's header is a hand taller than the desk's. */
+    min-height: 72px;
+    padding: var(--space-4) clamp(12px, 2.6vw, 22px);
+  }
+
+  .brand-link {
+    gap: clamp(7px, 1.1vw, 10px);
+    font-size: clamp(13.5px, 1.8vw, 16px);
+  }
+
+  .brand-link .logo {
+    width: clamp(22px, 3.1vw, 28px);
+    height: clamp(22px, 3.1vw, 28px);
+  }
+
+  /* The wedge is a share of the row, and the row lost the gutter that used to
+     stand in front of the brand. Narrowed with it, the cut lands clear of the
+     wordmark on one side and of the first nav item on the other — a nav link
+     half over navy is the one thing this row cannot afford. */
+  .header-wedge {
+    /* Steeper than the desk's cut, like the phone's, and wide enough to hold
+       the wordmark at every width and in all three languages: on a row this
+       full the slope is the only slack there is, so it has to be short. */
+    width: clamp(158px, 20.6vw, 212px);
+    clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+  }
+
+  /* Ranged right against the actions instead of ranged left off the brand:
+     the row has no width to spend on the gap the desk puts there. */
+  .site-nav {
+    margin-right: 0;
+    margin-left: auto;
+    font-size: clamp(12.5px, 1.62vw, 14px);
+  }
+
+  .nav-link {
+    padding-inline: clamp(3px, 0.85vw, 10px);
+  }
+
+  /* The button two items along already goes here. */
+  .nav-link--contact {
+    display: none;
+  }
+
+  .lang-switcher a {
+    padding-inline: clamp(5px, 0.7vw, 7px);
+  }
+
+  .header-actions {
+    gap: clamp(8px, 1.7vw, 18px);
+  }
+
+  .header-actions .btn--sm {
+    padding-inline: clamp(9px, 1.7vw, 18px);
+    font-size: clamp(12.5px, 1.62vw, 14px);
+  }
+
+  /* The mega-menu is drawn on a 1180px canvas and would hang off the right
+     edge here. It hangs off the trigger's right instead and stacks to one
+     column, which is the only way four items fit in the width left. */
+  .nav-panel {
+    right: -10px;
+    left: auto;
+    width: min(360px, 68vw);
+  }
+
+  .nav-panel__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Under the tablet the row folds into the disclosure. */
+@media (max-width: 767px) {
   .site-nav {
     display: none;
   }
 }
 
-/* On a phone the wedge cannot be sized to the wordmark reliably across every
-   width, and a wordmark that slips off it is unreadable. The wedge goes; the
-   dark field still opens the page in the hero band and the footer. */
+/* ------------------------------------------------------------------ *
+ * The phone
+ *
+ * The header carries the brand and one way into the menu, and nothing else:
+ * the language chips and the primary action move into the sheet, which is the
+ * only place down here with room to give them a touch target. That leaves the
+ * wedge its full share of a narrow row again, so the dark field still opens
+ * the page where the design has it open. A fixed 56px row, because the sheet
+ * hangs from the header's bottom edge and has to know where that is.
+ * ------------------------------------------------------------------ */
 @media (max-width: 620px) {
   .site-header {
-    gap: var(--space-5);
+    gap: var(--space-4);
+    height: 56px;
+    padding: 0 var(--gutter-page) 0 0;
   }
 
+  /* Steeper than the desk cut and welded to the top edge, so the wordmark sits
+     inside the wedge at every width a phone comes in. */
   .header-wedge {
-    display: none;
+    width: min(212px, 60%);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
   }
 
-  .brand-link,
-  .brand-link:hover {
+  .brand-link {
     gap: 9px;
-    color: var(--text-strong);
+    padding-left: var(--gutter-page);
     font-size: var(--text-ui);
   }
 
-  .brand-link .brand-accent,
   .brand-link .logo {
-    color: var(--sa-cyan);
+    width: 26px;
+    height: 26px;
   }
 
-  .brand-link .logo {
-    width: 28px;
-    height: 28px;
-  }
-
-  .header-actions .btn {
+  .header-actions {
     display: none;
+  }
+
+  /* The hero. Just above this the petal lies flat as a band under the copy; a
+     phone is too narrow for a band to read as anything but a stripe, so the
+     shape goes back into the top-right corner as the sliver of itself that
+     fits beside one column. It is welded to the top and right edges and free
+     of the other two, and the copy runs under it in a column that clears it. */
+  .hero {
+    display: block;
+    overflow: hidden;
+  }
+
+  .hero__field {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .hero__field--right {
+    inset: 0 0 auto 0;
+    height: 424px;
+  }
+
+  .field[data-clip="heroPetal"] {
+    clip-path: url(#heroSwoop);
+  }
+
+  .hero__inner {
+    z-index: 2;
+    padding: var(--space-11) var(--gutter-page) 0;
+  }
+
+  /* The wordmark stops growing with the page and the claim takes over as the
+     largest thing on it: one line of brand, then the sentence that carries the
+     page. The measure is a share of the column, not a character count — what
+     it has to clear is the shape beside it, which is a share too. */
+  .hero__wordmark {
+    font-size: 32px;
+  }
+
+  .hero__wordmark .logo {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hero__claim {
+    max-width: 74%;
+    font-size: var(--text-display);
+  }
+
+  /* Two buttons side by side leave neither of them a full thumb. Stacked, both
+     are the width of the column and both clear the 48px target. */
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .hero__actions .btn {
+    justify-content: center;
+    min-height: 48px;
+    padding-block: 0;
+  }
+}
+
+/* The narrowest phones: the brand gives up what the wedge cannot. */
+@media (max-width: 400px) {
+  .brand-link {
+    gap: var(--space-3);
+    font-size: var(--text-ui-sm);
   }
 }

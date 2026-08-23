@@ -284,4 +284,29 @@ if (!still.matches) {
 
   sync();
   magnetic.addEventListener('change', sync);
+
+  // Setting up a magnet is a measurement: the box is grown by BLEED in pixels
+  // and the authored outline is remapped into the bigger box using that box's
+  // own width and height. Both are only true at the size they were read at, so
+  // a window that changes size leaves every shape struck against a box that no
+  // longer exists — the silhouettes stretch and slide off the edges they are
+  // supposed to hang from. Crossing the breakpoint already rebuilt them, which
+  // is why this only ever showed up on a resize that stayed on one side of it.
+  // Struck again from the authored path, at the size the page now is.
+  let settle = 0;
+  addEventListener(
+    'resize',
+    () => {
+      if (!teardown) return;
+      clearTimeout(settle);
+      // Once the drag stops, not on every frame of it: a rebuild resamples ~480
+      // points per shape and the resting outline is not visible mid-drag anyway.
+      settle = setTimeout(() => {
+        if (!teardown) return;
+        teardown();
+        teardown = magnets();
+      }, 160);
+    },
+    { passive: true }
+  );
 }

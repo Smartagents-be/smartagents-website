@@ -29,7 +29,7 @@ export function deckPage(deck) {
 <title>${config.title}</title>
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 ${fonts}
-<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../../tokens.css">
 ${join(extraStyles)}
 <link rel="stylesheet" href="deck.css">
 </head>
@@ -47,32 +47,48 @@ ${join(extraScripts)}
 
 /** The /secured/ overview: internal documents and decks behind the password gate. */
 export function securedIndexPage({ documents, decks }) {
-  const list = (items) => html`<div class="list">
+  const list = (scope, items) => html`<ul id="${scope}-list" class="list">
 ${join(
     items.map(
-      (item) => html`  <div class="item">
-    <span class="item-name">${item.name}</span>
-    <div class="actions">
-      ${item.html ? html`<a class="btn btn-view" href="${item.html}">Bekijken</a>` : ''}
-      ${item.pdf ? html`<a class="btn btn-pdf" href="${item.pdf}" download>PDF</a>` : ''}
-    </div>
-  </div>`
+      (item) => html`  <li id="${scope}-item-${item.slug}" class="item">
+    <span id="${scope}-name-${item.slug}" class="item-name">${item.name}</span>
+    <span id="${scope}-actions-${item.slug}" class="actions">
+      ${
+        item.html
+          ? html`<a id="${scope}-view-${item.slug}" class="btn btn-view" href="${item.html}">Bekijken</a>`
+          : ''
+      }
+      ${
+        item.pdf
+          ? html`<a id="${scope}-pdf-${item.slug}" class="btn btn-pdf" href="${item.pdf}" download>PDF</a>`
+          : ''
+      }
+    </span>
+  </li>`
     )
   )}
-</div>`;
+</ul>`;
+
+  const section = (scope, title, items) => html`<section id="${scope}" class="group" aria-labelledby="${scope}-title">
+  <h2 id="${scope}-title" class="section-title">${title}</h2>
+  ${list(scope, items)}
+</section>`;
 
   const sections = [];
   if (documents.length) {
-    sections.push(html`<h2 class="section-title">Documenten</h2>`, list(documents));
+    sections.push(section('secured-documents', 'Documenten', documents));
   }
   if (decks.length) {
     sections.push(
-      html`<h2 class="section-title">Pitches</h2>`,
-      list(decks.map((deck) => ({ name: deck.name, html: deck.url, pdf: deck.pdf })))
+      section(
+        'secured-decks',
+        'Pitches',
+        decks.map((deck) => ({ slug: deck.slug, name: deck.name, html: deck.url, pdf: deck.pdf }))
+      )
     );
   }
   if (!sections.length) {
-    sections.push(html`<p class="empty">Geen documenten beschikbaar.</p>`);
+    sections.push(html`<p id="secured-empty" class="empty">Geen documenten beschikbaar.</p>`);
   }
 
   return html`<!doctype html>
@@ -83,16 +99,19 @@ ${join(
 <title>SmartAgents — Documenten</title>
 <meta name="description" content="Beveiligde documenten van SmartAgents.">
 <meta name="robots" content="noindex, follow">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#f9fafb">
+<link rel="stylesheet" href="/secured/tokens.css">
 <link rel="stylesheet" href="/secured/base.css">
 <link rel="stylesheet" href="/secured/overview.css">
 </head>
-<body>
-<header>
-  <div class="brand"><span class="brand-base">Smart</span><span class="brand-accent">Agents</span></div>
-  <div class="subtitle">Beveiligde documenten</div>
+<body id="secured-body">
+<header id="secured-header" class="page-head">
+  <p id="secured-brand" class="brand"><span id="secured-brand-base" class="brand-base">Smart</span><span id="secured-brand-accent" class="brand-accent">Agents</span></p>
+  <p id="secured-subtitle" class="subtitle">Beveiligde documenten</p>
 </header>
+<main id="secured-main">
 ${join(sections)}
+</main>
 </body>
 </html>
 `;

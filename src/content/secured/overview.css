@@ -1,87 +1,143 @@
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      background: var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: var(--fg);
-      padding: 3rem 1.5rem;
-    }
-    header {
-      max-width: 680px;
-      margin: 0 auto 2.5rem;
-    }
-    .brand {
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.3rem;
-    }
-    .subtitle {
-      font-size: 0.9rem;
-      color: var(--fg-subtle);
-    }
-    .list {
-      max-width: 680px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .section-title {
-      max-width: 680px;
-      margin: 2.25rem auto 0.9rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--fg-subtle);
-    }
-    .section-title:first-of-type {
-      margin-top: 0;
-    }
-    .item {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-strong);
-      border-radius: 10px;
-      padding: 1.1rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .item-name {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--fg);
-    }
-    .actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-shrink: 0;
-    }
-    .btn {
-      padding: 0.4rem 0.9rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity 0.15s;
-    }
-    .btn:hover { opacity: 0.8; }
-    .btn-view {
-      background: var(--accent);
-      color: var(--accent-ink);
-    }
-    .btn-pdf {
-      background: transparent;
-      border: 1px solid var(--border-strong);
-      color: var(--fg-muted);
-    }
-    .empty {
-      max-width: 680px;
-      margin: 0 auto;
-      color: var(--fg-subtle);
-      font-size: 0.9rem;
-    }
-    .brand-base { color: var(--fg); }
-    .brand-accent { color: var(--accent); }
+/* The /secured/ index. A list of documents is exactly the surface the
+   design system builds out of hairline-separated rows rather than cards:
+   one column, one rule between entries, the actions ranged right. Each
+   group opens with a heading under a 2px cut of the cyan rule. */
+
+body {
+  min-height: 100svh;
+  padding: clamp(40px, 8vw, 88px) clamp(20px, 5vw, 64px) clamp(56px, 9vw, 104px);
+  background: var(--bg);
+}
+
+.page-head,
+.group,
+.empty {
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+.page-head {
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.brand {
+  margin-bottom: 6px;
+  font-size: 22px;
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-display);
+  line-height: 1.1;
+}
+
+.subtitle {
+  color: var(--fg-muted);
+  font-size: var(--fs-meta);
+}
+
+.group + .group {
+  margin-top: clamp(40px, 6vw, 56px);
+}
+
+.section-title {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding-top: 16px;
+  border-top: 2px solid var(--sa-cyan);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-h3);
+}
+
+/* The rule between rows is the row's own top border, so the list needs no
+   separator element and the last row closes the group with a line too. */
+.item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 12px;
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--dur-tint) ease;
+}
+
+.item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.item:hover {
+  background: var(--bg-hover);
+}
+
+.item-name {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium-plus);
+  letter-spacing: var(--ls-ui);
+}
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.btn {
+  transition: var(--transition-move), var(--transition-tint);
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border: 1px solid transparent;
+  border-radius: var(--r-button);
+  font-size: var(--fs-ui-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-ui);
+  white-space: nowrap;
+}
+
+.btn-view {
+  background: var(--action-bg);
+  color: var(--action-fg);
+}
+
+.btn-view:hover {
+  transform: var(--lift);
+  box-shadow: var(--shadow-lift-sm);
+}
+
+.btn-pdf {
+  border-color: var(--border-stronger);
+  background: var(--bg-elevated);
+  color: var(--fg-muted);
+  font-weight: var(--fw-medium-plus);
+}
+
+.btn-pdf:hover {
+  border-color: var(--sa-cyan);
+  color: var(--sa-cyan);
+}
+
+.empty {
+  color: var(--fg-subtle);
+  font-size: var(--fs-body);
+}
+
+/* On a phone the name and its two buttons stop fitting on one line, and the
+   row answers by squeezing the name into a three-line column beside them.
+   The buttons drop under the name instead, and go full width so the pair
+   reads as one control strip rather than two stray pills. */
+@media (max-width: 560px) {
+  .item {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    padding-inline: 0;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  .btn {
+    flex: 1;
+    justify-content: center;
+    padding-block: 10px;
+  }
+}

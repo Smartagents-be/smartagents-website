@@ -101,13 +101,189 @@
   color: var(--text-strong);
 }
 
-@media (max-width: 1180px) {
+/* The word and its chevron. They used to be the summary's own two children;
+   they are wrapped now so the phone can hide the pair and leave the icon, so
+   the row they sat in has to be rebuilt one level down. */
+.nav-toggle__label {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* The five things the sheet adds to the dropdown. All of them are the header's
+   own furniture, moved: the services list off the mega-menu, the primary
+   action and the language chips out of the header actions, and the two ways to
+   reach a person off the contact section. Above the phone the header still has
+   room for its own, so none of this is shown. */
+.nav-toggle__burger,
+.nav-sheet__cue,
+.nav-sheet__sub,
+.nav-sheet__cta,
+.nav-sheet__facts,
+.nav-toggle__panel .lang-switcher {
+  display: none;
+}
+
+/* A tablet held upright still has room for the nav bar itself (see the tablet
+   header block in critical.css), so the disclosure only takes over under it. */
+@media (max-width: 767px) {
   .nav-toggle {
     display: block;
   }
 
   .header-actions {
     margin-left: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The same disclosure as a sheet
+ *
+ * On a phone the panel stops being a menu over the page and becomes the page:
+ * full height under the header, one link per row, at a size a thumb can hit
+ * without aiming. Still the one <details>, so it still needs no JS to open.
+ * ------------------------------------------------------------------ */
+
+@keyframes sa-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 620px) {
+  /* The trigger becomes an icon: at this width the word and the brand beside
+     it no longer both fit. The word stays as the button's accessible name. */
+  .nav-toggle__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .nav-toggle__burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-nav);
+    background: var(--surface-raised);
+  }
+
+  .nav-toggle__burger i {
+    width: 17px;
+    height: 1.5px;
+    border-radius: 2px;
+    background: var(--text-nav);
+  }
+
+  /* The icon is the whole target, so the summary stops drawing one of its own. */
+  .nav-toggle > summary,
+  .nav-toggle[open] > summary,
+  .nav-toggle > summary:hover {
+    padding: 0;
+    background: none;
+  }
+
+  /* The panel is fixed to the viewport, not hung off the trigger. */
+  .nav-toggle {
+    position: static;
+  }
+
+  .nav-toggle__panel {
+    position: fixed;
+    z-index: 80;
+    /* Welded to the header's bottom edge — the one place a phone measurement
+       is written twice, because the header is a fixed 56px row up there. */
+    inset: 56px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    width: auto;
+    min-width: 0;
+    padding: var(--space-6) var(--gutter-page) var(--space-8);
+    border: none;
+    border-radius: 0;
+    background: var(--surface-page);
+    box-shadow: none;
+    animation: sa-sheet-in var(--dur-move) var(--ease-out-expo) both;
+  }
+
+  /* `.nav-toggle__panel a` sets the dropdown's own type and padding and is two
+     classes deep, so every rule that has to beat it names the anchor too. */
+  .nav-toggle__panel a.nav-sheet__item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-5) var(--space-1);
+    border-bottom: 1px solid var(--border-hairline);
+    border-radius: 0;
+    font-size: var(--text-h3);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--track-h2);
+  }
+
+  .nav-sheet__cue {
+    display: inline;
+    color: var(--text-accent);
+  }
+
+  /* The services sit under their own entry rather than beside it: an indent
+     and a step down in size is all the hierarchy a list of four needs. */
+  .nav-sheet__sub {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-5) 0 var(--space-6);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+
+  .nav-toggle__panel a.nav-sheet__sub-item {
+    padding: var(--space-3) var(--space-1);
+    color: var(--text-body);
+    font-size: var(--text-ui);
+    font-weight: var(--weight-medium);
+  }
+
+  .nav-toggle__panel a.nav-sheet__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-8);
+    padding: 15px var(--space-7);
+    border-radius: var(--radius-button);
+    background: var(--action-primary-bg);
+    color: var(--action-primary-fg);
+    font-size: var(--text-body-lg);
+  }
+
+  .nav-toggle__panel .lang-switcher {
+    display: block;
+    margin-top: var(--space-7);
+  }
+
+  .nav-toggle__panel .lang-switcher a {
+    padding: var(--space-3) var(--space-5);
+  }
+
+  /* Pushed to the foot of the sheet, where a phone number belongs. */
+  .nav-sheet__facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: auto;
+    padding-top: var(--space-8);
+  }
+
+  .nav-toggle__panel .nav-sheet__facts a[href] {
+    padding: var(--space-2) var(--space-1);
+    color: var(--text-faint);
+    font-size: var(--text-meta);
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -152,6 +328,35 @@
 .section-link {
   font-size: var(--text-ui-sm);
   font-weight: var(--weight-medium-plus);
+}
+
+/* The rule over a heading is a cut of that heading's own width on a desk,
+   where the heading sits in a column with a page beside it. From the tablet
+   down the heading is the column, so the rule runs the width of the page with
+   it — and the head stops being a row, because as a flex item the heading
+   would only be as wide as its own longest line. */
+@media (max-width: 1000px) {
+  .section-heading {
+    display: block;
+  }
+
+  .section__head,
+  .section__head--wide {
+    display: block;
+  }
+}
+
+@media (max-width: 620px) {
+  .section__head,
+  .section__head--wide {
+    padding-bottom: var(--space-7);
+  }
+
+  /* The hero ends on its two buttons and the first section opens directly
+     under them. At the full rhythm that reads as a gap rather than a break. */
+  .hero + .section {
+    padding-top: var(--space-10);
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -205,11 +410,27 @@ a.row:hover .row__cue {
   transform: translateX(5px);
 }
 
-@media (max-width: 860px) {
+/* A row is three columns wide on a desk. Below that the title, the body and
+   the cue stack, and a stacked row uses about half the page — so on a tablet
+   the list runs two abreast, which is how the tablet artboard sets it. The
+   hairline stays on every cell, and the two that end a column close it. */
+@media (max-width: 1000px) {
   .row {
     grid-template-columns: 1fr;
     gap: var(--space-4);
     padding-inline: 0;
+  }
+}
+
+@media (min-width: 621px) and (max-width: 1000px) {
+  .rows--pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--gap-column);
+  }
+
+  .rows--pair > :nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--border-hairline);
   }
 }
 
@@ -292,20 +513,116 @@ a.row:hover .row__cue {
   border-bottom: 1px solid var(--border-hairline);
 }
 
-@media (max-width: 1000px) {
+/* On a tablet the disc stays beside the list rather than stacking above it:
+   400px of picture before the first word is most of the opening screen. It
+   swaps sides instead — hung off the right edge the way the phone hangs it,
+   but still in a column of its own, with the four entries in the 56% the
+   artboard leaves them. */
+@media (min-width: 621px) and (max-width: 1000px) {
   .dna {
-    grid-template-columns: 1fr;
-    gap: var(--space-11);
+    grid-template-columns: minmax(0, 56%) 1fr;
+    gap: var(--gap-column);
   }
 
   .dna__figure {
-    max-width: 298px;
+    order: 2;
+    margin-right: calc(-1 * var(--gutter-page));
+  }
+
+  .dna__list {
+    order: 1;
+    grid-template-columns: 1fr;
+  }
+
+  /* One column: the pair that closed the two columns is now one last entry. */
+  .dna__list > :nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .dna__list > :last-child {
+    border-bottom: 1px solid var(--border-hairline);
   }
 }
 
+/* On a phone the disc stops being a column of its own: stacked above the list
+   it is 400px of picture before the first word, and there is no width left to
+   put it beside one. It goes back over the list instead, hung off the right
+   edge and running off it, with the four entries in a column narrow enough to
+   pass under it. The blob follows it down the same edge. */
 @media (max-width: 620px) {
+  .dna {
+    display: block;
+    position: relative;
+  }
+
+  /* Both shapes are sized as a share of the page and hung a share of it past
+     the right edge, so the strip they leave the copy is the same strip at
+     every width a phone comes in. The disc starts at 70% of the column, the
+     blob at 76%; the entries below stop at 64% and 72%. */
+  .dna__figure {
+    position: absolute;
+    z-index: 2;
+    top: 4px;
+    right: -16%;
+    width: 46%;
+    max-width: none;
+    height: 302px;
+  }
+
+  /* The blob's offsets resolve against the figure, not the page, so its share
+     of the page is divided by the figure's: 34/46 wide, hung 8/46 past the
+     figure's own right edge. It hangs below the disc, so its top is a distance
+     down a box that is a fixed 302px tall. */
+  .dna__blob {
+    inset: 314px 17.4% auto auto;
+    width: 74%;
+    height: 152px;
+  }
+
+  /* The list gets the spine the steps get: one rule down the left, a dot on it
+     per entry, so four narrow blocks still read as one list. */
   .dna__list {
-    grid-template-columns: 1fr;
+    display: block;
+    padding-left: var(--space-7);
+    border-left: 1px solid var(--border-hairline);
+  }
+
+  /* The entries take a step down in size with the column: at 64% of a phone
+     there is no room for the 19px title the same entry gets across a desk,
+     and a two-word title that wraps reads as two entries. */
+  .dna__list .numbered {
+    position: relative;
+    gap: var(--space-5);
+    padding-block: var(--space-7);
+    width: 64%;
+  }
+
+  /* The last two clear the blob, which is smaller than the disc above it. */
+  .dna__list .numbered:nth-child(n + 3) {
+    width: 72%;
+  }
+
+  .dna__list .numbered__title {
+    font-size: var(--text-h5);
+  }
+
+  .dna__list .numbered p {
+    font-size: var(--text-ui-sm);
+  }
+
+  /* Struck against the title's middle, not against a spacing step: the dot is
+     7px and the row it marks is one line of 17px type over the entry's own top
+     padding. `left` is the list's padding plus half the dot, so it centres on
+     the rule rather than sitting beside it. */
+  .dna__list .numbered::before {
+    content: "";
+    position: absolute;
+    top: 32px;
+    left: -25px;
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-pill);
+    background: var(--sa-cyan);
   }
 
   .dna__list > :nth-last-child(-n + 2) {
@@ -556,8 +873,8 @@ a.row:hover .row__cue {
 
 @media (max-width: 1000px) {
   .transformation {
-    grid-template-columns: 1fr;
-    gap: var(--space-13);
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--gap-column);
   }
 
   .stack__field {
@@ -565,38 +882,134 @@ a.row:hover .row__cue {
   }
 }
 
-/* Too narrow for the callouts: the planes stay as the graphic, and the numbered
-   list directly above already names all four layers. */
-@media (max-width: 760px) {
+/* Too narrow for the callouts: the planes stay as the graphic, and the list
+   beside them already names all four layers. They centre on what is left of
+   the column and close up, which is the figure the tablet artboard draws. */
+@media (max-width: 1000px) {
   .stack {
-    height: 400px;
+    height: 322px;
   }
 
   .plane {
-    left: 42%;
-    width: 132px;
-    height: 132px;
-    margin-left: -66px;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin-left: -75px;
   }
 
   .plane--1 {
-    top: 70px;
+    top: 0;
   }
 
   .plane--2 {
-    top: 134px;
+    top: 52px;
   }
 
   .plane--3 {
-    top: 198px;
+    top: 104px;
   }
 
   .plane--4 {
-    top: 262px;
+    top: 156px;
   }
 
   .stack__label {
     display: none;
+  }
+}
+
+/* From the tablet down, the list and the stack no longer have a desk's worth
+   of light ground to sit on, and two grounds under one heading read as two
+   sections. So the pair becomes one dark block that runs to both page edges —
+   the four layers named on navy, the stack drawing them beside or beneath —
+   which is how the tablet artboard sets it. The shape the stack sat on is now
+   the same dark as the block behind it, so it stops being a shape and goes
+   back to being what it always was: the window the node network is seen
+   through. */
+@media (max-width: 1000px) {
+  .transformation {
+    position: relative;
+    overflow: hidden;
+    margin-inline: calc(-1 * var(--gutter-page));
+    padding: var(--space-11) var(--gutter-page) var(--space-12);
+    background: var(--surface-dark);
+  }
+
+  .transformation .numbered {
+    position: relative;
+    border-top-color: var(--border-on-dark);
+  }
+
+  .transformation .numbered:first-child {
+    border-top-color: var(--sa-cyan-edge);
+  }
+
+  .transformation__list > :last-child {
+    border-bottom-color: var(--border-on-dark);
+  }
+
+  .transformation .numbered__index {
+    color: oklch(0.6 0.03 245);
+  }
+
+  .transformation .numbered:first-child .numbered__index {
+    color: oklch(0.78 0.09 210);
+  }
+
+  .transformation .numbered__title {
+    color: var(--text-on-dark);
+  }
+
+  .transformation .numbered p {
+    color: var(--text-on-dark-muted);
+  }
+
+  /* Unclipped and faded in from the top: flat navy carries the copy and the
+     network gathers under the planes, which is the gradient the design draws
+     over this block. */
+  .stack__field {
+    clip-path: none;
+    mask-image: linear-gradient(to bottom, transparent, #000 34%);
+  }
+}
+
+/* On a phone the two halves can only sit one above the other, and the stack
+   runs to both page edges with the list above it. */
+@media (max-width: 620px) {
+  .transformation {
+    display: block;
+  }
+
+  .stack {
+    height: 250px;
+    margin-top: var(--space-8);
+  }
+
+  .stack__field {
+    inset: 0 calc(-1 * var(--gutter-page));
+  }
+
+  .plane {
+    left: 50%;
+    width: 118px;
+    height: 118px;
+    margin-left: -59px;
+  }
+
+  .plane--1 {
+    top: 12px;
+  }
+
+  .plane--2 {
+    top: 54px;
+  }
+
+  .plane--3 {
+    top: 96px;
+  }
+
+  .plane--4 {
+    top: 138px;
   }
 }
 
@@ -662,16 +1075,55 @@ a.row:hover .row__cue {
   line-height: var(--leading-body-tight);
 }
 
+/* Five steps in a row are a sequence read across, and the rule that separates
+   them lies along the top of each. Off the desk they no longer fit in a row,
+   and a sequence read down wants a spine: the rule stands up and runs down the
+   left of each step with its dot sitting on it, so the rules in a column meet
+   and draw one line. That is how the tablet artboard sets it, and the DNA list
+   takes the same figure. The rows close up for it — a gap between them would
+   break the line the rules are there to draw. */
 @media (max-width: 1000px) {
   .steps {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-11) var(--space-8);
+    gap: 0 var(--gap-column);
+  }
+
+  .step {
+    padding: 0 0 var(--space-11) var(--space-8);
+    border-top: none;
+    border-left: 1px solid var(--sa-line-2);
+  }
+
+  .step::before {
+    top: 6px;
+    left: -4px;
+  }
+
+  .step--first {
+    border-top: none;
+    border-left: 1px solid var(--sa-cyan);
+  }
+
+  .step--first::before {
+    top: 5px;
+    left: -4.5px;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 620px) {
   .steps {
-    grid-template-columns: 1fr;
+    display: block;
+  }
+
+  .step {
+    padding-bottom: var(--space-8);
+  }
+
+  /* Stacked, the last step ends the whole sequence: the line stops at the dot
+     that ends it rather than running past it. */
+  .step:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent;
   }
 }
 
@@ -787,7 +1239,9 @@ a.article-row:hover .article-row__image {
   filter: none;
 }
 
-@media (max-width: 1080px) {
+/* Below 1080px there is no room to the right for the meta, so it moves up
+   beside the title and the picture column narrows. */
+@media (min-width: 1001px) and (max-width: 1080px) {
   .article-row {
     grid-template-columns: 156px minmax(0, 1fr);
     /* The third row is the slack the picture leaves over: without it the meta
@@ -806,11 +1260,41 @@ a.article-row:hover .article-row__image {
   }
 }
 
-@media (max-width: 620px) {
+/* The two widths where the article stacks. On a tablet it stacks two abreast,
+   which is how the tablet artboard sets it and what a 156px stamp beside five
+   lines of type had been standing in for: the picture gets a column half the
+   page wide and the title, the excerpt and the meta read straight down under
+   it. Four of them are two rows, not four screens, which is the objection that
+   kept the row a row. Still no card — the framed thumbnail and the hairline
+   between the rows are the whole treatment, and there is no cue, no shadow and
+   no lift while the articles have nowhere to go. */
+@media (max-width: 1000px) {
   .article-row {
-    grid-template-columns: 116px minmax(0, 1fr);
-    gap: var(--space-4) var(--space-6);
-    padding: var(--space-8) 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "figure"
+      "text"
+      "meta";
+    gap: var(--space-5);
+    padding: var(--space-7) 0;
+  }
+
+  .article-row__meta {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 621px) and (max-width: 1000px) {
+  .rows--cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--gap-column);
+  }
+
+  .rows--cards > :nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--border-hairline);
   }
 }
 
@@ -915,8 +1399,92 @@ a.article-row:hover .article-row__image {
   color: oklch(0.52 0.16 25);
 }
 
-@media (max-width: 860px) {
+/* On a tablet the two halves stay side by side, but they stop being halves.
+   The heading and the lede run the width of the page and the row underneath is
+   the form against the three facts — the artboard's proportions, and the only
+   arrangement in which a form of full-width fields still gets a usable column.
+   `display: contents` lifts the intro's three children into the grid so the
+   order is a property of the layout and not a second copy of the markup. */
+@media (min-width: 621px) and (max-width: 1000px) {
   .contact {
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 0 var(--gap-column);
+  }
+
+  .contact__intro {
+    display: contents;
+  }
+
+  .contact__intro > .section-heading,
+  .contact__lede {
+    grid-column: 1 / -1;
+  }
+
+  sa-contact-form {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .contact__facts {
+    grid-column: 2;
+    grid-row: 3;
+  }
+}
+
+/* Two things a phone needs from a form. iOS Safari zooms the page in on any
+   field it has to render below 16px and never zooms back out, so the control
+   size is the one place the type scale does not decide; and a pair of fields
+   side by side stops being two fields and becomes two slots once the column is
+   this narrow. */
+@media (max-width: 620px) {
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px;
+  }
+}
+
+/* Stacked, the facts land between the lede and the form and push the fields a
+   screen down. They belong after the form on a phone: three lines that say
+   "or reach us another way" only make sense once the other way is on screen.
+   `display: contents` on the intro lifts its three children into the same flex
+   line, so the order is a property and not a second copy of the markup. */
+@media (max-width: 620px) {
+  .contact {
+    display: flex;
+    flex-direction: column;
+    /* The column gap belonged to the two-column layout. Stacked, the three
+       blocks already carry the spacing they want in their own margins. */
+    gap: 0;
+  }
+
+  .contact__intro {
+    display: contents;
+  }
+
+  .contact sa-contact-form {
+    order: 2;
+  }
+
+  .contact__facts {
+    order: 3;
+    margin-top: var(--space-10);
+  }
+
+  /* The submit takes the column, like every other button on a phone does. */
+  .contact-form__foot {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .contact-form__foot .btn {
+    justify-content: center;
+    min-height: 50px;
+    padding-block: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form__pair {
     grid-template-columns: 1fr;
   }
 }
@@ -958,6 +1526,63 @@ a.article-row:hover .article-row__image {
 
 .site-footer a:hover {
   color: var(--sa-cyan-bright);
+}
+
+/* ------------------------------------------------------------------ *
+ * The phone's action bar
+ *
+ * The header drops its primary action at this width, so without this there is
+ * nothing to act on until the contact section scrolls into view. Sticky, not
+ * fixed: it rides the bottom edge while there is page left and then settles
+ * under the footer, instead of covering the last line of it forever.
+ * ------------------------------------------------------------------ */
+
+.mobile-actions {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .mobile-actions {
+    position: sticky;
+    /* Under the header, which is what the open menu sheet stacks inside: the
+       sheet must cover this bar, not the other way round. */
+    z-index: 50;
+    bottom: 0;
+    display: flex;
+    flex: none;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-4) var(--gutter-page) calc(var(--space-4) + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border-hairline);
+    background: color-mix(in oklch, var(--surface-page) 92%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Sized by its word, not by a square: "Bel" is three letters and "Appeler"
+     is seven, and the button has to hold both without the action beside it
+     losing the rest of the row. */
+  .mobile-actions__call {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    padding-inline: var(--space-5);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-button);
+    background: var(--surface-raised);
+    color: var(--text-lead);
+    font-size: var(--text-ui-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .mobile-actions__talk {
+    flex: 1;
+    justify-content: center;
+    min-height: 48px;
+    padding-block: 0;
+  }
 }
 
 /* Pure-JS controls stay hidden until their component upgrades, so nothing
@@ -1027,8 +1652,9 @@ sa-node-field {
 }
 
 /* Below the point where the hero stacks, the copy is the whole width: a 52%
-   column with nothing beside it is just a narrow measure. */
-@media (max-width: 940px) {
+   column with nothing beside it is just a narrow measure. The tablet is not
+   that point — it keeps the split, so it keeps the column. */
+@media (max-width: 699px) {
   .hero--page .hero__inner {
     grid-template-columns: minmax(0, 1fr);
     min-height: 0;
@@ -1437,14 +2063,39 @@ sa-node-field {
 
 /* The card is the portrait. Everything about the person is laid over its foot
    on a scrim of the brand's own navy, so the photograph reads as one more
-   window onto the dark field rather than as a picture with a caption. */
+   window onto the dark field rather than as a picture with a caption.
+   The frame is not sized by a ratio, though. It was, at 2:3, and on a wide
+   viewport that is still what it comes to — but the copy laid over the foot is
+   a fixed block of prose that does not shrink with the column, so a card sized
+   by the ratio alone loses the same amount of photograph every time the column
+   narrows, and by the tablet widths there is no photograph left to see. So the
+   card is built the other way up: a band that is the portrait's own, plus
+   whatever the copy needs under it. The band is a share of the width, so it is
+   the ratio that gives way on a narrow column and never the face. */
 .person {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-card);
   background: var(--surface-dark);
+}
+
+/* 2:1.14 is the band that puts a full-width card back at the 2:3 the portraits
+   were cropped to. */
+.person::before {
+  content: "";
+  flex: none;
+  aspect-ratio: 2 / 1.14;
+}
+
+/* Out of flow, so the frame's height is the spacer and the copy: the portrait
+   fills whatever that comes to. */
+.person__picture {
+  position: absolute;
+  inset: 0;
 }
 
 .person__image {
@@ -1462,8 +2113,7 @@ sa-node-field {
 /* The gradient runs well past the text so the copy never sits on its own edge;
    the top half of the frame stays the photograph. */
 .person__overlay {
-  position: absolute;
-  inset: auto 0 0;
+  position: relative;
   padding: var(--space-14) var(--space-8) var(--space-8);
   background: linear-gradient(
     to top,
@@ -1520,14 +2170,24 @@ sa-node-field {
 }
 
 /* Between the magnet breakpoint and the point where the hero stacks the petal
-   pulls back into its corner, and the pair takes the width it leaves. */
+   pulls back into its corner, and the pair takes the width it leaves. It takes
+   more of it than the flank the petal used to keep: two portraits split what is
+   left, so every point the shape gives up here is worth twice as much to them,
+   and below this line the pair is what the page is about. */
 @media (max-width: 1080px) {
   .hero--team {
-    grid-template-columns: minmax(0, 70%);
+    grid-template-columns: minmax(0, 78%);
   }
 
   .hero--team .hero__field--right {
-    inset: 2% 0 -10% 72%;
+    inset: 2% 0 -10% 80%;
+  }
+
+  /* The deep top padding keeps the copy off the gradient's own edge. On a
+     column this narrow that edge is closer anyway, and the step it costs is
+     worth more to the portrait than to the scrim. */
+  .person__overlay {
+    padding-top: var(--space-12);
   }
 }
 
@@ -1555,7 +2215,12 @@ sa-node-field {
   }
 
   /* Back to a flat band under the copy. The insets that place the petal are
-     more specific than the base hero rule, so they have to be undone here. */
+     more specific than the base hero rule, so they have to be undone here —
+     and so is the outline, which the base hero only lays flat below 700px. */
+  .hero--team .field[data-clip="heroPetal"] {
+    clip-path: url(#heroBand);
+  }
+
   .hero--team .hero__field--right {
     order: 2;
     position: relative;
@@ -1565,19 +2230,40 @@ sa-node-field {
     height: 132px;
   }
 
+  /* The pair keeps its two columns here. The hero above it has stacked, so the
+     whole page width is theirs, and on a tablet held upright that is room for
+     both faces beside each other; one column under the other would leave a
+     third of the page empty down the right-hand side. */
   .hero--team .founders {
     order: 3;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-12);
+    gap: var(--space-12) var(--space-8);
     margin-top: var(--space-9);
   }
 
   .hero--team h1 {
     max-width: none;
   }
+}
+
+/* One column at last. A portrait is a frame with a paragraph laid over its
+   foot, and split two ways this is the width where the paragraph stops fitting
+   the frame; the cap is what keeps the single card from becoming a poster. */
+@media (max-width: 700px) {
+  .hero--team .founders {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
   .person {
     max-width: 420px;
+  }
+}
+
+/* On a phone the base hero's petal goes back into the top-right corner as a
+   sliver (critical.css). This hero's shape is still the divider between the
+   headline and the faces, so it keeps the flat cut it took on at 940px. */
+@media (max-width: 620px) {
+  .hero--team .field[data-clip="heroPetal"] {
+    clip-path: url(#heroBand);
   }
 }
 

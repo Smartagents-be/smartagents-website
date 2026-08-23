@@ -44,10 +44,11 @@ const LINKEDIN_MARK = raw(
 const PORTRAIT_WIDTHS = [320, 440, 880];
 
 /**
- * One founder column is about a third of the page above 940px and nearly the
- * whole width below it; 440w covers 1x on both and 880w covers 2x.
+ * One founder column is about a third of the page above 940px, half of it
+ * between there and 700px, and nearly the whole width below that; 440w covers
+ * 1x on all three and 880w covers 2x.
  */
-const PORTRAIT_SIZES = '(max-width: 940px) 92vw, 340px';
+const PORTRAIT_SIZES = '(max-width: 700px) 92vw, (max-width: 940px) 46vw, 340px';
 
 const srcset = (portrait, extension) =>
   PORTRAIT_WIDTHS.map((width) => `${portrait}-${width}.${extension} ${width}w`).join(', ');
@@ -118,7 +119,7 @@ function person({ t, key, name, portrait, linkedin, eager }) {
   const id = `team-person-${key}`;
 
   return html`    <article id="${id}" class="person">
-      <picture id="${id}-picture">
+      <picture id="${id}-picture" class="person__picture">
         <source id="${id}-source-avif" type="image/avif" srcset="${srcset(portrait, 'avif')}" sizes="${PORTRAIT_SIZES}">
         <img id="${id}-image" class="person__image" src="${portrait}-440.jpg" srcset="${srcset(portrait, 'jpg')}" sizes="${PORTRAIT_SIZES}" width="440" height="660" alt="${t(`team.person.${key}.portrait`)}" decoding="async"${eager ? '' : ' loading="lazy"'}>
       </picture>

@@ -26,10 +26,15 @@ const ARTICLES = [
 ];
 
 /**
- * A thumbnail is 208px in the listing, 156px on a tablet and 116px once the
- * row has only the page gutter left to give it.
+ * A thumbnail is 208px in the listing and 156px in the narrow band just under
+ * it. On a tablet the article stacks two abreast, so the picture is about half
+ * the content width; on a phone it takes the whole column, which is the
+ * viewport less the two gutters. The gutter itself is fluid, and `sizes` is
+ * resolved before any layout exists, so this names the widest each can be
+ * rather than the exact.
  */
-const THUMB_SIZES = '(max-width: 620px) 116px, (max-width: 1080px) 156px, 208px';
+const THUMB_SIZES =
+  '(max-width: 620px) calc(100vw - 40px), (max-width: 1000px) 44vw, (max-width: 1080px) 156px, 208px';
 
 const thumbSrcset = (stem, widths, extension) =>
   widths.map((width) => `/media/insights/${stem}-${width}.${extension} ${width}w`).join(', ');
@@ -133,7 +138,7 @@ ${content}
   <div id="home-services-head" class="section__head">
     <h2 id="home-services-title" class="section-heading">${t('section.services')}</h2>
   </div>
-  <div id="home-services-rows" class="rows">
+  <div id="home-services-rows" class="rows rows--pair">
 ${join(rows)}
   </div>
 </section>`;
@@ -286,7 +291,7 @@ ${join(chips)}
   <div id="home-insights-head" class="section__head">
     <h2 id="home-insights-heading" class="section-heading">${t('section.insights')}</h2>
   </div>
-  <div id="home-insights-list" class="rows">
+  <div id="home-insights-list" class="rows rows--cards">
 ${join(rows)}
   </div>
 </section>`;

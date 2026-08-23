@@ -1,6 +1,5 @@
 <!-- ════════════════ 07 · THE BUG ════════════════ -->
-  <section data-label="The bug" class="slide light cat-themed" style="--c: #d97706;">
-    <div class="glow soft"></div>
+  <section data-label="The bug" class="slide light cat-themed" style="--c: var(--amber);">
     <div class="frame">
       <div class="cat-head">
         <span class="cat-icon">
@@ -15,7 +14,7 @@
       <div class="frame-body">
         <p class="lede" style="margin: 0 0 20px; white-space: nowrap; font-size: 30px;">The session is meant to last 30 minutes, but active users get logged out after about 30 seconds.</p>
         <div class="shots compact">
-          <div class="shot">
+          <div class="shot field">
             <div class="bar"><i></i><i></i><i></i><small>localhost · /#0003</small></div>
             <img src="assets/app-signedin.png" alt="Snippet bin signed in as admin, viewing a snippet">
             <div class="cap">
@@ -23,7 +22,7 @@
               <p>Logged in as admin, reading a snippet. Everything is fine.</p>
             </div>
           </div>
-          <div class="shot bad">
+          <div class="shot bad field">
             <div class="bar"><i></i><i></i><i></i><small>localhost · my snippets</small></div>
             <img src="assets/app-expired.png" alt="Snippet bin login screen showing a session expired message">
             <div class="cap">

@@ -1,21 +1,22 @@
 /* ──────────────────────────────────────────────────────────────────
    SmartAgents wordmark — shared across all presentation decks.
-   Self-contained: fixed brand colours, independent of per-deck tokens.
+
+   Colour comes from tokens.css, which every deck loads first, so the
+   mark follows the ground it sits on: ink and the paper cyan on a light
+   slide, white and the bright cyan inside a `.field`.
 
    Markup:
      <span class="sa-brand"><img src="assets/logo.svg" alt="">Smart<span class="accent">Agents</span></span>
-   On dark slides add the on-dark modifier:
-     <span class="sa-brand on-dark">…</span>
    ────────────────────────────────────────────────────────────────── */
 .sa-brand {
   display: inline-flex;
   align-items: center;
   font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-ui);
   line-height: 1;
   white-space: nowrap;
-  color: #0f172a;            /* "Smart" — deep navy */
+  color: var(--fg);
 }
 .sa-brand img,
 .sa-brand svg {
@@ -26,9 +27,11 @@
   margin-right: 10px;        /* space sits only between glyph and word */
 }
 .sa-brand .accent {
-  color: #0891b2;            /* "Agents" — cyan */
+  color: var(--accent);
 }
 
-/* dark slides */
-.sa-brand.on-dark { color: #f8fafc; }
-.sa-brand.on-dark .accent { color: #22d3ee; }
+/* The modifier for a mark that sits on navy without the surrounding element
+   being a `.field`. Where the mark is inside one, the tokens above already
+   resolve to these values and the modifier is a no-op. */
+.sa-brand.on-dark { color: var(--sa-on-field); }
+.sa-brand.on-dark .accent { color: var(--sa-cyan-bright); }

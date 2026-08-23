@@ -15,7 +15,8 @@ export async function onRequest(context) {
   const securedBasePath = getSecuredBasePath(url.pathname);
   const publicAssetPaths = new Set([
     buildSecuredPath(securedBasePath, '/login.css'),
-    buildSecuredPath(securedBasePath, '/base.css')
+    buildSecuredPath(securedBasePath, '/base.css'),
+    buildSecuredPath(securedBasePath, '/tokens.css')
   ]);
 
   if (publicAssetPaths.has(url.pathname)) {

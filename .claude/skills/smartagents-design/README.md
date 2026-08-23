@@ -113,9 +113,30 @@ outside it, and are decided the same way everywhere in `src/`:
 
 1. **Responsive behaviour.** The three page measures (`--gutter-page`, `--gap-column`,
    `--section-rhythm`) and the type scale are fluid; the doc's value is always the upper bound.
-   Below 1080px the nav collapses to a disclosure and the two hero shapes pull back into their
-   corners so the copy keeps light ground, below 940px the hero petal becomes a flat band under
-   the copy, and the shell loses its radius and shadow below 1252px.
+   The desk's own composition holds down to 1080px, where the two hero shapes pull back into
+   their corners so the copy keeps light ground; the shell loses its radius and shadow below
+   1252px. Under that the doc has a second canvas of its own — see "The tablet" below — and the
+   phone is where the invention still happens.
+
+   **The tablet.** "SmartAgents Homepage Tablet" (834x1112) is drawn, and the site follows it.
+   Three thresholds carry it, and each says one thing:
+
+   - **768px — the header.** Above it the nav bar stays a bar: the sections, the language chips
+     and the primary action on one row, every measurement in it fluid so it lands on the
+     artboard's values at 834px and still holds at 768px in the longest of the three languages.
+     The one link that goes is "Contact", because the button beside it goes there. Under 768px
+     the row folds into the disclosure it has always folded into.
+   - **1000px — the columns.** Every list that is one column on a phone and three or five across
+     a desk runs two abreast between these two numbers: the services, the five steps, the four
+     articles. The steps and the DNA entries take the phone's vertical rule while they do, so a
+     column of them draws one line. The transformation becomes the phone's single dark block up
+     here too, with the list and the isometric stack still side by side inside it, and the
+     stack's callouts drop.
+   - **940px / 700px — the hero.** The hero stays split down to 700px with the copy in 57% and
+     the petal hung off the right edge; the counter-lobe goes, because at this width the two
+     shapes meet in the middle. The artboard also turns the hero's hierarchy over — the wordmark
+     steps back and the claim becomes the largest thing on the page — which is what the phone
+     already did. Under 700px the petal lies flat as a band, which is what 940px used to mean.
 2. **Fonts.** No webfont is loaded — see above.
 3. **The mega-menu is CSS-only** (`:hover, :focus-within`), so it can never fail to open and is
    reachable from the keyboard.
@@ -138,9 +159,11 @@ outside it, and are decided the same way everywhere in `src/`:
    **The homepage's "Inzichten" list** carries a thumbnail per article: a 208px 16:9 crop opening
    the row, the title with its excerpt directly under it, and the date and category badges ranged
    right at the row's end, so the row spans the page like every other list on it and stays about
-   as tall as its picture. Below 1080px the meta moves above the title; the row itself never
-   stacks. The list stays a hairline list — no cards, no shadows, no read-more cue while the
-   articles have nowhere to go.
+   as tall as its picture. Below 1080px the meta moves above the title, and below 1000px the
+   article stacks — but two abreast, which is how the tablet artboard sets it and what the 156px
+   stamp beside five lines of type had been standing in for. Four of them are two rows, not four
+   screens, which is the objection that kept the row a row. The list stays a hairline list — no
+   cards, no shadows, no read-more cue while the articles have nowhere to go.
    The four pictures are a photograph, an illustration and a product screenshot, which is exactly
    why the frame is fixed: 1px hairline, `--radius-panel`, over paper — the navy the portraits sit
    on would put four dark blocks in the section while the lazy images load.
