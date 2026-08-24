@@ -10,8 +10,14 @@ import { html, join } from '../../build/lib/html.mjs';
 import { fieldEchoes, orbitRings } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
-/** The two ways an AI-native engineer comes into a team. */
-const TRACKS = ['engineer', 'coaching'];
+/**
+ * The three ways this offer reaches a team: one engineer inside the project,
+ * coaching for the people who write the code, and coaching for the people who
+ * do not. The last one is the odd one out on purpose — it is the only track
+ * that never touches the codebase, which is why the onboarding section below
+ * speaks for the two that do.
+ */
+const TRACKS = ['engineer', 'developers', 'business'];
 
 /** The four `staffing.track.<key>.item.n` lines every track carries. */
 const TRACK_ITEMS = ['1', '2', '3', '4'];
@@ -95,20 +101,22 @@ ${orbitRings('staffing-hero')}
 }
 
 /* ------------------------------------------------------------------ *
- * Twee sporen — staffing and coaching, side by side
+ * Drie sporen — staffing and the two coachings, side by side
  *
  * The offer figure from the training page, stripped back: there is no fiche to
  * download and no line about how the track is bought, so the column is a name,
- * a paragraph and the list, and it closes on the last item. The two stand
- * either side of one hairline, so the reader compares them instead of
- * scrolling past them, and the orbit diagram returns behind the pair to give
- * the section ground of its own.
+ * a paragraph and the list, and it closes on the last item. The three stand
+ * between hairlines, so the reader compares them instead of scrolling past
+ * them, and the orbit diagram returns behind the row to give the section
+ * ground of its own. Three columns need the room a desk has, so this figure
+ * folds at 1000px rather than at the offer's own 940px.
  *
- * The section carries no visible heading — the two track names are the heading
- * here — so the name it is still known by moves to `aria-label`: a landmark
- * with no accessible name is one a screen reader cannot offer to jump to. The
- * cyan rule that would have sat over that heading stays: it is what says a new
- * section has started, and every other section on the site opens with one.
+ * The section carries no visible heading — the three track names are the
+ * heading here — so the name it is still known by moves to `aria-label`: a
+ * landmark with no accessible name is one a screen reader cannot offer to jump
+ * to. The cyan rule that would have sat over that heading stays: it is what
+ * says a new section has started, and every other section on the site opens
+ * with one.
  * ------------------------------------------------------------------ */
 
 /**

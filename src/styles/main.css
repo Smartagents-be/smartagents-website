@@ -2128,9 +2128,10 @@ sa-node-field {
   }
 }
 
-/* The offer figure, half the rows. A course is a name, a paragraph, a labelled
-   list, its tools and a link to its fiche; a track is a name, a paragraph and
-   the list, so the two columns span three rows instead of six. */
+/* The offer figure, three columns and half the rows. A course is a name, a
+   paragraph, a labelled list, its tools and a link to its fiche; a track is a
+   name, a paragraph and the list, so the columns span three rows instead of
+   six. */
 /* No section heading above it and nothing under it either, so neither hairline
    is separating anything: the one that opens the training page's offer would be
    the first thing on the section and read as a rule under the header rather
@@ -2145,17 +2146,38 @@ sa-node-field {
   border-bottom: none;
 }
 
-/* The subgrid is shorter than a course's, and only while the two are side by
-   side: under 941px `.offer` stops being a grid of columns at all, and a row
-   span left standing there puts both tracks in row one and lets the
-   auto-placement invent a second column for the one that no longer fits. */
-@media (min-width: 941px) {
+/* Three columns, and the subgrid that keeps their two hairlines and their list
+   rules level across the split. Both only while the three are side by side:
+   once the figure folds, a row span left standing there would put all three
+   tracks in row one and let the auto-placement invent columns for the two that
+   no longer fit. */
+@media (min-width: 1001px) {
   .offer--tracks {
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, auto);
   }
 
   .offer--tracks .offer-course {
     grid-row: 1 / span 3;
+  }
+}
+
+/* A third column needs a desk, so this figure folds at the tablet breakpoint
+   instead of at the offer's own 940px: below that the three tracks are a
+   single column, each one carrying its own list rules. */
+@media (max-width: 1000px) {
+  .offer--tracks {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .offer--tracks .offer-course {
+    display: block;
+    grid-row: auto;
+  }
+
+  .offer--tracks .offer-course + .offer-course {
+    border-left: none;
   }
 }
 

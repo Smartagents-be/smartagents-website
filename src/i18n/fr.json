@@ -169,14 +169,14 @@
   "training.cta.body": "Dites-nous brièvement qui doit être formé et sur quoi. Nous proposons un programme sur mesure, chez vous ou à distance, et nous disons aussi quand une formation n'est pas nécessaire.",
 
   "staffing.title": "AI staffing et coaching · SmartAgents",
-  "staffing.description": "Un ingénieur AI-native qui travaille au sein de votre projet, et un coaching qui embarque votre propre équipe. Un onboarding fixe, des cycles au rythme de votre équipe, un retour au management.",
+  "staffing.description": "Un ingénieur AI-native qui travaille au sein de votre projet, du coaching pour vos développeurs et des workflows IA pour vos équipes métier. Un onboarding fixe, des cycles au rythme de votre équipe, un retour au management.",
 
   "staffing.hero.eyebrow": "AI staffing et coaching",
   "staffing.hero.title": "Un ingénieur AI-native dans votre équipe",
 
-  "staffing.cta.tracks": "Voir les deux pistes",
+  "staffing.cta.tracks": "Voir les trois pistes",
 
-  "staffing.tracks.title": "Deux pistes",
+  "staffing.tracks.title": "Trois pistes",
 
   "staffing.track.engineer.title": "AI staffing",
   "staffing.track.engineer.body": "Nous plaçons un ingénieur AI-native dans votre projet. Il prend du travail comme tout autre membre de l'équipe et apporte la façon de travailler pour laquelle vous le faites venir.",
@@ -184,15 +184,22 @@
   "staffing.track.engineer.item.2": "Mettre des agents sur du vrai travail, pas sur un pilote",
   "staffing.track.engineer.item.3": "Construire avec vous l'automatisation autour du code",
   "staffing.track.engineer.item.4": "Transmettre à vos propres ingénieurs dès le premier jour",
-  "staffing.track.coaching.title": "Coaching",
-  "staffing.track.coaching.body": "Nous introduisons des patterns AI-native chez vos propres ingénieurs : expliquer, montrer, et travailler au même écran jusqu'à ce que cela reste.",
-  "staffing.track.coaching.item.1": "Introduire les patterns AI-native et les diffuser dans l'équipe",
-  "staffing.track.coaching.item.2": "Du coaching en tête-à-tête sur le travail du moment",
-  "staffing.track.coaching.item.3": "Du pair programming avec un ingénieur AI-native",
-  "staffing.track.coaching.item.4": "Créer l'occasion d'aller vraiment chercher l'IA",
+  "staffing.track.developers.title": "Coaching pour développeurs",
+  "staffing.track.developers.body": "Nous introduisons des patterns AI-native chez vos propres ingénieurs : expliquer, montrer, et travailler au même écran jusqu'à ce que cela reste.",
+  "staffing.track.developers.item.1": "Introduire les patterns AI-native et les diffuser dans l'équipe",
+  "staffing.track.developers.item.2": "Du coaching en tête-à-tête sur le travail du moment",
+  "staffing.track.developers.item.3": "Du pair programming avec un ingénieur AI-native",
+  "staffing.track.developers.item.4": "Créer l'occasion d'aller vraiment chercher l'IA",
+
+  "staffing.track.business.title": "Coaching pour les équipes métier",
+  "staffing.track.business.body": "Nous formons vos collaborateurs nous-mêmes : ce que l'IA peut faire et ce qu'elle ne peut pas, et comment l'utiliser sur le travail qui est sur leur bureau aujourd'hui.",
+  "staffing.track.business.item.1": "Dessiner des workflows IA pour le travail de vos équipes",
+  "staffing.track.business.item.2": "Construire des patterns réutilisables plutôt que des prompts isolés",
+  "staffing.track.business.item.3": "S'exercer sur de vrais dossiers, pas sur des exemples",
+  "staffing.track.business.item.4": "Prendre confiance pour aller chercher l'IA soi-même",
 
   "staffing.onboarding.title": "Comment se déroule l'onboarding",
-  "staffing.onboarding.lede": "Chaque mission commence de la même manière. Non parce que c'est un gabarit, mais parce que les trois étapes ont besoin l'une de l'autre : l'automatisation exige une configuration solide, et une configuration solide exige une base de code qui le mérite.",
+  "staffing.onboarding.lede": "Les deux pistes qui touchent au code commencent toujours de la même manière. Non parce que c'est un gabarit, mais parce que les trois étapes ont besoin l'une de l'autre : l'automatisation exige une configuration solide, et une configuration solide exige une base de code qui le mérite.",
   "staffing.step.audit.title": "Passer la base de code en revue",
   "staffing.step.audit.body": "Nous regardons d'abord l'état du code : structure, tests, dépendances. Si le niveau est trop bas, nous le remontons avant tout le reste.",
   "staffing.step.harden.title": "Solidifier la configuration",
@@ -202,7 +209,7 @@
 
   "staffing.cadence.eyebrow": "Retour",
   "staffing.cadence.title": "Le management suit",
-  "staffing.cadence.body": "Les deux pistes rapportent au rythme que vous demandez : chaque semaine, par sprint ou par mois. Court, concret, et avec ce qui ne marche pas.",
+  "staffing.cadence.body": "Chaque piste rapporte au rythme que vous demandez : chaque semaine, par sprint ou par mois. Court, concret, et avec ce qui ne marche pas.",
   "staffing.cadence.list": "Ce que vous entendez",
   "staffing.cadence.item.1": "Ce qui est fait, et ce qui reste",
   "staffing.cadence.item.2": "Où l'IA gagne du temps, et où non",
@@ -210,7 +217,7 @@
   "staffing.cadence.item.4": "Ce que le cycle suivant devrait reprendre",
 
   "staffing.cta.title": "Vous cherchez quelqu'un qui le fait déjà ?",
-  "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous proposons ce qui convient, staffing ou coaching, et nous disons aussi quand vous n'avez pas besoin de nous.",
+  "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous proposons la piste qui convient, et nous disons aussi quand vous n'avez pas besoin de nous.",
 
   "nav.team": "Équipe",
 
