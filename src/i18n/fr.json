@@ -35,10 +35,10 @@
   "service.agentic.title": "Automatisation agentique",
   "service.agentic.menu": "Des agents qui planifient, lisent et mènent des tâches à plusieurs étapes, avec des logs.",
   "service.agentic.body": "Intégrer des agents dans des processus nouveaux ou existants, pour que vos logiciels soient prêts pour la suite.",
-  "service.training.title": "Formation et coaching",
+  "service.training.title": "Formation",
   "service.training.menu": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement.",
   "service.training.body": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement. Pour les équipes qui travaillent avec l'IA et les développeurs qui construisent avec elle.",
-  "service.staffing.title": "AI staffing",
+  "service.staffing.title": "AI staffing et coaching",
   "service.staffing.menu": "Des profils évalués sur ce qu'ils ont réellement construit.",
   "service.staffing.body": "Sur papier, tout le monde est expert en IA. Nous évaluons les profils comme nous voudrions l'être nous-mêmes : sur ce qu'ils ont construit.",
 
@@ -111,10 +111,10 @@
   "form.sent": "Merci. Nous vous recontactons rapidement.",
   "form.failed": "L'envoi n'a pas fonctionné. Écrivez-nous à info@smartagents.be.",
 
-  "training.title": "Formation et coaching · SmartAgents",
+  "training.title": "Formation · SmartAgents",
   "training.description": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement. De la première découverte de l'IA aux développeurs qui construisent avec elle chaque jour.",
 
-  "training.hero.eyebrow": "Formation et coaching",
+  "training.hero.eyebrow": "Formation",
   "training.hero.title": "Apprenez à utiliser l'IA comme un professionnel",
 
   "training.cta.offer": "Voir notre offre",

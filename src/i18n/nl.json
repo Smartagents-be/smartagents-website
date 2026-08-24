@@ -35,10 +35,10 @@
   "service.agentic.title": "Agentic automatisatie",
   "service.agentic.menu": "Agents die plannen, lezen en meerstapstaken afwerken, met logs.",
   "service.agentic.body": "Agents inbouwen in nieuwe of bestaande processen, zodat uw software gebouwd is voor wat er nog komt.",
-  "service.training.title": "Training en coaching",
+  "service.training.title": "Training",
   "service.training.menu": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides.",
   "service.training.body": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de teams die met AI werken en voor de developers die ermee bouwen.",
-  "service.staffing.title": "AI staffing",
+  "service.staffing.title": "AI staffing en coaching",
   "service.staffing.menu": "Profielen gescreend op wat ze effectief gebouwd hebben.",
   "service.staffing.body": "Op papier is iedereen AI-expert. Wij screenen profielen zoals we zelf gescreend willen worden: op wat ze gebouwd hebben.",
 
@@ -111,10 +111,10 @@
   "form.sent": "Bedankt. We nemen snel contact op.",
   "form.failed": "Versturen lukte niet. Mail ons gerust op info@smartagents.be.",
 
-  "training.title": "Training en coaching · SmartAgents",
+  "training.title": "Training · SmartAgents",
   "training.description": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Van een eerste kennismaking met AI tot developers die er dagelijks mee bouwen.",
 
-  "training.hero.eyebrow": "Training en coaching",
+  "training.hero.eyebrow": "Training",
   "training.hero.title": "Leer AI gebruiken als een professional",
 
   "training.cta.offer": "Bekijk het aanbod",
