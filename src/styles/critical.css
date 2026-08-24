@@ -576,6 +576,19 @@ select {
   clip-path: url(#stackField);
 }
 
+/* The AI staffing page's own hero shape: an arch on the flank the petal is a
+   leaf on. It takes the petal's box too, so every rule that moves the petal
+   down the breakpoints moves this with it. */
+[data-clip="heroArch"] {
+  clip-path: url(#heroArch);
+}
+
+/* The band that closes the AI staffing page: two columns of copy on navy, its
+   right end cut back by a curve that answers the hero's arch. */
+[data-clip="cadenceBand"] {
+  clip-path: url(#cadenceBand);
+}
+
 [data-clip="tourStone"] {
   clip-path: url(#tourStone);
 }
@@ -1131,7 +1144,10 @@ select {
     display: none;
   }
 
-  [data-clip="heroPetal"] {
+  /* Both hero shapes are a flank on every other viewport and neither has a
+     flank left down here, so both become the same sliver across the top. */
+  [data-clip="heroPetal"],
+  [data-clip="heroArch"] {
     clip-path: url(#heroSwoop);
   }
 

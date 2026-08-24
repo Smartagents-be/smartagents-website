@@ -7,18 +7,27 @@
 import { html, raw, join, escapeHtml } from '../../build/lib/html.mjs';
 import { languages, defaultLanguage, absolute, pagePath } from '../../build/lib/i18n.mjs';
 import { page as trainingPage } from '../pages/training.mjs';
+import { page as staffingPage } from '../pages/staffing.mjs';
 import { page as teamPage } from '../pages/team.mjs';
 import { PHONE, PHONE_HREF, EMAIL } from '../components/contact-form/contact-form.mjs';
 
 const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
 
 /**
- * URL of the training detail page in this language, or null where the page is
- * not published. It is the one service with a page of its own; every other
- * service still points back at the homepage list (design README, "Deviations").
+ * The services that have a detail page of their own, keyed by the string the
+ * homepage rows, the mega menu and the phone sheet are all built from. A
+ * service that is not in here still points back at the homepage list, and
+ * renders without the "Ontdek →" cue (design README, "Deviations", item 4).
  */
-export function trainingPath(lang) {
-  const slug = trainingPage.slugs[lang];
+const SERVICE_PAGES = { training: trainingPage, staffing: staffingPage };
+
+/**
+ * URL of a service's detail page in this language, or null where there is none
+ * — either because the service has no page, or because that page is not
+ * published in this language.
+ */
+export function servicePath(key, lang) {
+  const slug = SERVICE_PAGES[key]?.slugs[lang];
   return slug === undefined ? null : pagePath(lang, slug);
 }
 
@@ -251,6 +260,37 @@ export function clipDefs() {
     // vertically, so the shape hangs off the line rather than resting on it.
     tourDome:
       'M0,0 L1,0 C0.978,0.150 0.835,0.330 0.780,0.330 C0.742,0.330 0.698,0.295 0.660,0.295 C0.560,0.295 0.340,1.000 0.230,1.000 C0.130,1.000 0.018,0.560 0,0 Z',
+    // AI staffing en coaching: the hero's shape on that page. Where the petal is
+    // a leaf hung off the right edge, this is an arch — but it takes the same
+    // flank the petal does and nothing more. One curve from the top edge, just
+    // past halfway across the box, bowing left and then sweeping back out to the
+    // bottom right corner; the top and right page edges close it.
+    //
+    // It is drawn as a quarter turn taken in two cubics that meet with identical
+    // tangents at 0.46,0.72, so the tangent rotates one way from end to end and
+    // there is no inflection anywhere along it. Both corners that remain sit on
+    // a page edge the shape is welded to. It meets the right edge just above the
+    // foot of its box rather than on the corner: run into the corner itself the
+    // curve grazes the box floor on the way in and the tip reads as clipped.
+    //
+    // Two things it must not become. Struck corner to corner with a shallow bow,
+    // it reads as a black triangle rather than as anything drawn. Opened up to
+    // fill the whole corner, it stops being a shape hung off an edge and becomes
+    // the ground the page is set on — which on this page also cost the hero a
+    // second silhouette in the opposite corner to balance it. Held to the
+    // petal's own flank it needs neither: one shape, one edge, the rest paper.
+    heroArch:
+      'M0.520,0 C0.300,0.220 0.280,0.520 0.460,0.720 C0.622,0.900 0.830,0.950 1,0.960 L1,0 Z',
+    // The band that closes the AI staffing page. Full width at the top, cut back
+    // to 86% at the foot by a curve rather than by the header wedge's straight
+    // slope: it leaves the top right corner going almost straight down, then
+    // eases left as it falls, so the band's end answers the arch above it
+    // instead of contradicting it. The cut used to take a quarter of the band
+    // and it had to, because the copy sat in one column and the rest was empty
+    // navy; with the block running in two columns the dead ground is a wedge
+    // instead of a half, reserved by the right padding on `.cadence__inner`.
+    // Below 1000px the clip is dropped and the band is a full-width block.
+    cadenceBand: 'M0,0 L1,0 C0.982,0.360 0.948,0.700 0.862,1 L0,1 Z',
     // Digitale transformatie: a skewed slab behind the isometric stack
     stackField:
       'M0.060,0.100 L1,0.030 L1,0.860 L0.060,0.930 C0.024,0.933 0,0.905 0,0.870 L0,0.160 C0,0.125 0.024,0.097 0.060,0.100 Z'
@@ -282,11 +322,13 @@ export function siteHeader({ t, lang, alternates }) {
   // the same from a detail page as it does from the homepage itself: on `/nl/`
   // the browser treats `/nl/#dna` as a plain in-page jump.
   const home = pagePath(lang);
-  const training = trainingPath(lang);
 
-  const menuItems = SERVICES.map(
-    (key) => html`<a class="nav-panel__item${key === 'training' && training ? ' nav-panel__item--feature' : ''}" href="${key === 'training' && training ? training : `${home}#services`}"><b>${t(`service.${key}.title`)}</b><span>${t(`service.${key}.menu`)}</span></a>`
-  );
+  // A service with a page of its own is the featured kind of menu item — the
+  // one that carries the arrow. The rest drop the reader on the homepage list.
+  const menuItems = SERVICES.map((key) => {
+    const href = servicePath(key, lang);
+    return html`<a class="nav-panel__item${href ? ' nav-panel__item--feature' : ''}" href="${href || `${home}#services`}"><b>${t(`service.${key}.title`)}</b><span>${t(`service.${key}.menu`)}</span></a>`;
+  });
 
   // The key rides along as a modifier class: the tablet header drops the one
   // link that duplicates the button beside it, and it has to be nameable.
@@ -305,7 +347,7 @@ export function siteHeader({ t, lang, alternates }) {
   );
 
   const sheetServices = SERVICES.map(
-    (key) => html`      <a id="nav-sheet-service-${key}" class="nav-sheet__sub-item" href="${key === 'training' && training ? training : `${home}#services`}">${t(`service.${key}.title`)}</a>`
+    (key) => html`      <a id="nav-sheet-service-${key}" class="nav-sheet__sub-item" href="${servicePath(key, lang) || `${home}#services`}">${t(`service.${key}.title`)}</a>`
   );
 
   // The services list belongs under "Diensten", so it is spliced in after it

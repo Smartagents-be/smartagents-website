@@ -3,7 +3,7 @@
 // Structure, spacing, colour and motion all come from the design system:
 // see .claude/skills/smartagents-design/README.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
-import { fieldEchoes, logoMark, orbitRings, trainingPath } from '../layouts/base.mjs';
+import { fieldEchoes, logoMark, orbitRings, servicePath } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 const SERVICES = ['process', 'agentic', 'training', 'staffing'];
@@ -108,27 +108,25 @@ ${orbitRings('home-hero')}
 /* ------------------------------------------------------------------ *
  * Wat we doen — hairline-separated rows, not cards
  *
- * Training is the one service with a page of its own, so its row is the one
- * that links: it gets the "Ontdek →" cue back, and the hover, the arrow and
- * the translate come with it (design README, "Deviations" from the design doc,
- * item 4).
+ * A service with a detail page of its own is a link, and gets the "Ontdek →"
+ * cue back along with the hover, the arrow and the translate. Training and AI
+ * staffing have one; the other two still land the reader on this list, so they
+ * stay plain rows (design README, "Deviations" from the design doc, item 4).
  * ------------------------------------------------------------------ */
 
 function services(t, lang) {
-  const training = trainingPath(lang);
-
   const rows = SERVICES.map((key) => {
     const id = `home-services-row-${key}`;
-    const linked = key === 'training' && training;
+    const href = servicePath(key, lang);
 
     const content = html`    <span id="${id}-title" class="row__title">${t(`service.${key}.title`)}</span>
-    <span id="${id}-body" class="row__body">${t(`service.${key}.body`)}</span>${linked
+    <span id="${id}-body" class="row__body">${t(`service.${key}.body`)}</span>${href
       ? html`
     <span id="${id}-cue" class="row__cue">${t('cta.moreInfo')} <span id="${id}-cue-arrow" aria-hidden="true">&rarr;</span></span>`
       : ''}`;
 
-    return linked
-      ? html`<a id="${id}" class="row" href="${training}">
+    return href
+      ? html`<a id="${id}" class="row" href="${href}">
 ${content}
   </a>`
       : html`<div id="${id}" class="row">

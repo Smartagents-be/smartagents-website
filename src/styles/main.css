@@ -330,6 +330,32 @@
   font-weight: var(--weight-medium-plus);
 }
 
+/* The cyan rule a section heading sits under, on its own. A section with no
+   heading still has to open the way every other one does — the rule is the
+   thing that says a new section has started — so it is cut to about the length
+   a heading's own rule runs to and carries the same air under it as a
+   `.section__head` does. Fluid, like the heading it stands in for: the rule
+   over a heading is that heading's width, and a fixed one would read as a
+   different length at every viewport beside the ones that are not. */
+.section-rule {
+  width: clamp(120px, 15vw, 216px);
+  height: 2px;
+  margin-bottom: var(--space-10);
+  background: var(--sa-cyan);
+}
+
+/* One paragraph of argument between a section heading and the block under it,
+   for a section whose figure needs a sentence before it reads. It starts on the
+   heading's own left edge and stops at the reading measure, so the heading, its
+   rule and this line all range off the same point. */
+.section-lede {
+  margin-bottom: var(--space-12);
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
 /* The rule over a heading is a cut of that heading's own width on a desk,
    where the heading sits in a column with a page beside it. From the tablet
    down the heading is the column, so the rule runs the width of the page with
@@ -1026,6 +1052,14 @@ a.row:hover .row__cue {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-8);
+}
+
+/* Three steps, not five: the onboarding pattern on the AI staffing page. It has
+   to sit here rather than with that page's own rules, because the two folds
+   below are written against `.steps` at the same specificity and the later
+   selector would win at every width. */
+.steps--three {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .step {
@@ -2047,6 +2081,227 @@ sa-node-field {
   display: inline-block;
   margin-top: var(--space-5);
   font-size: var(--text-meta);
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — AI staffing en coaching
+ *
+ * The page is the training page's parts rearranged: the same page hero, the
+ * same rows list, the same two-column offer. What is this page's own is the
+ * dark field. The hero carries the arch and its counter-lobe instead of the
+ * petal, and the page closes on a navy band that carries copy rather than on a
+ * pair of small decorative shapes.
+ * ------------------------------------------------------------------ */
+
+/* The hero's height is `.hero--page`'s and nothing here touches it. The copy is
+   centred in it, so a taller box on this page alone drops the headline below
+   the line the training page sets it on — and drops it by a different amount in
+   each language, because the block being centred is a different height in each.
+
+   Nor does anything here touch the shape's box. The arch is hung off the same
+   flank as the petal, at the petal's own insets, so `.hero__field--right` in
+   critical.css carries it at every width — including the phone, where both
+   become the same sliver across the top. This page used to override that box at
+   three breakpoints and add a second one on the left at two more; a shape that
+   sits where the shared one sits needs none of it. There is no counter-lobe:
+   the light half of the hero is the counterweight. */
+
+/* Struck from just off the left edge, a little above the middle of the pair, so
+   the arcs bow in under the first column and rise across the split rather than
+   sweeping up from a corner the way the training page's do. Same dimming: this
+   is ground under a reading column. */
+.orbits--tracks {
+  opacity: 0.8;
+}
+
+.orbits--tracks .orbits__origin {
+  top: 62%;
+  left: -6%;
+}
+
+/* On a phone the columns are the whole page, so an origin a few percent out
+   puts the two innermost rings straight through the reading measure. Half a
+   viewport out leaves only the faintest arcs reaching in. */
+@media (max-width: 620px) {
+  .orbits--tracks .orbits__origin {
+    left: -50%;
+  }
+}
+
+/* The offer figure, half the rows. A course is a name, a paragraph, a labelled
+   list, its tools and a link to its fiche; a track is a name, a paragraph and
+   the list, so the two columns span three rows instead of six. */
+/* No section heading above it and nothing under it either, so neither hairline
+   is separating anything: the one that opens the training page's offer would be
+   the first thing on the section and read as a rule under the header rather
+   than as a join, and the one that closes it would sit on whitespace with the
+   next section's own rule not far below. The vertical hairline between the two
+   columns is the only one this figure needs. */
+.offer--tracks {
+  border-top: none;
+}
+
+.offer--tracks .offer-course {
+  border-bottom: none;
+}
+
+/* The subgrid is shorter than a course's, and only while the two are side by
+   side: under 941px `.offer` stops being a grid of columns at all, and a row
+   span left standing there puts both tracks in row one and lets the
+   auto-placement invent a second column for the one that no longer fits. */
+@media (min-width: 941px) {
+  .offer--tracks {
+    grid-template-rows: repeat(3, auto);
+  }
+
+  .offer--tracks .offer-course {
+    grid-row: 1 / span 3;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Wat het management ziet — the navy band
+ *
+ * Full-bleed, so it is not a `.section`: it runs edge to edge between the two
+ * that flank it and carries the page gutter itself. The field is hung past both
+ * its own edges, which is what lets the band eat into the whitespace above and
+ * below without the sections around it having to know about it.
+ *
+ * The shape cuts the band's right end away on one long curve, so the run it
+ * takes is dead ground. Reserving it with padding rather than with a column
+ * means the copy never has to know where the cut is: it simply stops well left
+ * of the shallowest point the cut ever reaches.
+ *
+ * Inside that, two columns — what the reporting is, and what it covers. One
+ * column left two thirds of the band carrying nothing, which is the one thing a
+ * navy shape on this site may not do; it also made the band the tallest block
+ * on the page. The pair fills the width and the band loses a third of its
+ * height, so the cut can be a wedge off the corner instead of a quarter of the
+ * whole block.
+ * ------------------------------------------------------------------ */
+
+.cadence {
+  position: relative;
+  margin-top: var(--section-rhythm);
+  color: var(--text-on-dark);
+}
+
+/* The band eats into the whitespace on both sides of it. How far is what sets
+   its weight on the page as much as the padding inside does: hung deeper, it
+   stopped being a block between two sections and started being the page's
+   ground. */
+.cadence__field {
+  inset: -32px 0 -48px;
+}
+
+/* The right padding is the dead ground under the cut, plus air: the curve is
+   furthest left at the band's foot, at 86% of the page, and the second column
+   stops short of that at every width the clip is on. */
+.cadence__inner {
+  position: relative;
+  padding: var(--space-13) clamp(var(--gutter-page), 18vw, 270px) var(--space-13)
+    var(--gutter-page);
+}
+
+/* Two columns from the width this page's own two-column figure takes, not from
+   the line the clip is dropped at: between the two the band simply runs the
+   pair out to both gutters. The list is the shorter of the two, so nothing is
+   stretched to match — both hang from the top and the two labels sit on one
+   line. */
+@media (min-width: 941px) {
+  .cadence__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--gap-column);
+    align-items: start;
+  }
+}
+
+/* Cyan on navy, not the paper accent: this is the one block on the page where
+   the accent sits inside the field rather than beside it. */
+.cadence__eyebrow {
+  margin-bottom: var(--space-6);
+  color: var(--sa-cyan-bright);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium-plus);
+}
+
+.cadence__title {
+  display: inline-block;
+  margin-bottom: var(--space-6);
+  padding-top: var(--space-7);
+  border-top: 2px solid var(--sa-cyan-bright);
+  font-size: var(--text-h2-sm);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+}
+
+.cadence__body {
+  max-width: var(--measure);
+  color: var(--text-on-dark-muted);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* Stacked, the list is a block after the body; side by side it is a column of
+   its own and starts level with the eyebrow. */
+.cadence__list-block {
+  margin-top: var(--space-9);
+}
+
+@media (min-width: 941px) {
+  .cadence__list-block {
+    margin-top: 0;
+  }
+}
+
+.cadence__list-title {
+  margin-bottom: var(--space-4);
+  color: var(--text-on-dark-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* The offer column's list again, in its on-navy values: a hairline over every
+   item and one under the last, so the block closes. */
+.cadence__list {
+  max-width: var(--measure);
+  list-style: none;
+}
+
+.cadence__item {
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--border-on-dark);
+  color: var(--text-on-dark-muted);
+  font-size: var(--text-body);
+  line-height: var(--leading-body-tight);
+}
+
+.cadence__list > :last-child {
+  border-bottom: 1px solid var(--border-on-dark);
+}
+
+.cadence__inner .btn {
+  margin-top: var(--space-11);
+}
+
+/* The diagonal is drawn as a share of the band, so on a narrow viewport it cuts
+   through the copy and leaves white text on paper. Down here the band is simply
+   a full-width block, and the run it was reserving goes back to the gutter. */
+@media (max-width: 1000px) {
+  .field[data-clip="cadenceBand"] {
+    clip-path: none;
+  }
+
+  .cadence__inner {
+    padding-inline: var(--gutter-page);
+  }
+}
+
+@media (max-width: 620px) {
+  .cadence__inner {
+    padding-block: var(--space-13);
+  }
 }
 
 /* ------------------------------------------------------------------ *

@@ -75,7 +75,6 @@
   "step.5.title": "Optimalisatie",
   "step.5.body": "We blijven meten en bijsturen. Wat niet gebruikt wordt, halen we er weer uit.",
 
-
   "article.tag.news": "Nieuws",
   "article.tag.ai": "AI",
   "article.tag.tips": "Tips",
@@ -155,7 +154,6 @@
   "training.format.videoLabel": "Rondleiding door de developercursus van SmartAgents",
   "training.format.fallback": "Bekijk de rondleiding (MP4)",
 
-
   "training.benefit.adoption.title": "Snellere adoptie",
   "training.benefit.adoption.body": "Teams die begrijpen wat AI doet, pakken nieuwe tools sneller op en vinden zelf toepassingen.",
   "training.benefit.productivity.title": "Hogere productiviteit",
@@ -169,6 +167,50 @@
 
   "training.cta.title": "Klaar om uw team bij te scholen?",
   "training.cta.body": "Vertel kort wie er getraind moet worden en waarop. We stellen een programma voor op maat, bij u op kantoor of remote, en zeggen ook wanneer een training niet nodig is.",
+
+  "staffing.title": "AI staffing en coaching · SmartAgents",
+  "staffing.description": "Een AI-native engineer die meedraait in uw project, en coaching die uw eigen team meeneemt. Vaste onboarding, cycli op het ritme van uw team, terugkoppeling naar het management.",
+
+  "staffing.hero.eyebrow": "AI staffing en coaching",
+  "staffing.hero.title": "Een AI-native engineer in uw team",
+
+  "staffing.cta.tracks": "Bekijk de twee sporen",
+
+  "staffing.tracks.title": "Twee sporen",
+
+  "staffing.track.engineer.title": "AI staffing",
+  "staffing.track.engineer.body": "Wij zetten een AI-native engineer in uw project. Die neemt werk op zoals elk ander teamlid en brengt de werkwijze mee waarvoor u iemand haalt.",
+  "staffing.track.engineer.item.1": "Meedraaien in uw sprints, uw repository en uw review",
+  "staffing.track.engineer.item.2": "Agents inzetten op echt werk, niet op een proefproject",
+  "staffing.track.engineer.item.3": "De automatisatie rond de code mee opbouwen",
+  "staffing.track.engineer.item.4": "Overdragen aan uw eigen engineers vanaf dag één",
+  "staffing.track.coaching.title": "Coaching",
+  "staffing.track.coaching.body": "Wij brengen AI-native patronen binnen bij uw eigen engineers: uitleggen, voordoen, en samen aan hetzelfde scherm werken tot het blijft hangen.",
+  "staffing.track.coaching.item.1": "AI-native patronen introduceren en uitdragen in het team",
+  "staffing.track.coaching.item.2": "Eén-op-één coaching op het werk dat er vandaag ligt",
+  "staffing.track.coaching.item.3": "Pair programming met een AI-native engineer",
+  "staffing.track.coaching.item.4": "De aanleiding creëren om AI er ook echt bij te halen",
+
+  "staffing.onboarding.title": "Zo verloopt de onboarding",
+  "staffing.onboarding.lede": "Elke opdracht start op dezelfde manier. Niet omdat het een sjabloon is, maar omdat de drie stappen elkaar nodig hebben: automatisatie heeft een harde setup nodig, en een harde setup heeft een codebase nodig die het waard is.",
+  "staffing.step.audit.title": "Codebase doorlichten",
+  "staffing.step.audit.body": "We kijken eerst naar de staat van de code: structuur, tests, afhankelijkheden. Ligt het niveau te laag, dan brengen we het eerst omhoog.",
+  "staffing.step.harden.title": "Setup hard maken",
+  "staffing.step.harden.body": "Build, tests, linting en CI worden dichtgetimmerd, zodat automatisatie iets heeft om op te steunen en fouten vroeg naar boven komen.",
+  "staffing.step.cycle.title": "Bouwen in cycli",
+  "staffing.step.cycle.body": "Daarna wordt er gebouwd in cycli, met reviewmomenten op het ritme dat uw team al aanhoudt. Geen apart proces ernaast.",
+
+  "staffing.cadence.eyebrow": "Terugkoppeling",
+  "staffing.cadence.title": "Het management blijft mee",
+  "staffing.cadence.body": "Beide sporen rapporteren terug op het ritme dat u vraagt: wekelijks, per sprint of per maand. Kort, concreet, en met de dingen die niet lukken erbij.",
+  "staffing.cadence.list": "Wat u te horen krijgt",
+  "staffing.cadence.item.1": "Wat af is, en wat blijft liggen",
+  "staffing.cadence.item.2": "Waar AI tijd wint, en waar niet",
+  "staffing.cadence.item.3": "Hoe zelfstandig uw eigen team al werkt",
+  "staffing.cadence.item.4": "Wat de volgende cyclus zou moeten opnemen",
+
+  "staffing.cta.title": "Zoekt u iemand die dit al doet?",
+  "staffing.cta.body": "Vertel kort waar uw team op vastloopt en hoe het project er vandaag uitziet. We stellen voor wat past, staffing of coaching, en zeggen ook wanneer u ons niet nodig hebt.",
 
   "nav.team": "Team",
 

@@ -9,7 +9,7 @@ the single source of truth; every value here was lifted from it verbatim.
 
 SmartAgents (Beringen, Belgium — BE 1037.114.694) builds "digital colleagues": agentic AI
 automation for Belgian SMEs and enterprises. Four services — procesoptimalisatie, agentic
-automatisatie, training en coaching, AI staffing — plus their own product, **SmartSpace**
+automatisatie, training, AI staffing en coaching — plus their own product, **SmartSpace**
 (in beta): one workspace where a company's agents and its people sit side by side.
 The site is Dutch-first (NL / FR / EN).
 
@@ -51,6 +51,28 @@ band for SmartSpace, a disc for the DNA section — each carrying a live cyan no
 one continuous field across the whole page. There is no illustration, no gradient background and
 no texture, and pictures appear on exactly two surfaces (see "Deviations", item 5): the founders on
 the team page, and the thumbnails in the homepage's "Inzichten" list.
+
+A page may carry its own silhouette where that says something the shared ones do not. The AI
+staffing page opens on an arch — one curve off the right flank where the petal is a leaf — and
+closes on a band whose end is cut by a curve rather than by the doc's chevron point. Draw a new
+shape the way those are drawn: one closed subpath (a magnet resamples it into a single polyline, so
+two lobes written apart collapse into one), joins at the extremes with matching tangents so nothing
+corners mid-curve, and every corner that remains sitting on the page edge the shape is welded to.
+
+**A new silhouette takes the box a shared one would have taken.** The arch is hung off the same
+flank, at the same insets, as the petal it stands in for — which is what keeps a page's own shape a
+variation rather than a second composition, and is why the staffing page overrides no hero
+measurement at any breakpoint.
+
+**A shape must read as drawn, and it must not be the ground.** Two ways to lose that, both of them
+failed drafts of this one arch. Struck corner to corner with five points of bow across a 690px box,
+it read as a black triangle — no cursor, no node network and no light echo rescues a silhouette a
+reader has already filed as a triangle; a fifth of the span is the working figure for the bow.
+Opened up to fill the corner instead, it stopped being a shape hung off an edge, and a hero that
+has become half navy then wants a second silhouette in the opposite corner to balance it. One
+shape per hero, and the paper is its counterweight. The same holds for a shape carrying copy: navy
+behind a single column with the rest of the band empty is the page-scale version of the same
+mistake.
 
 **Type**: Geist (fallback Inter, system-ui) at 650 for display and headings, 600/550 for UI,
 400–450 for body. Tight tracking that loosens as size drops (−0.032em display → −0.005em UI).
@@ -151,9 +173,11 @@ outside it, and are decided the same way everywhere in `src/`:
 3. **The mega-menu is CSS-only** (`:hover, :focus-within`), so it can never fail to open and is
    reachable from the keyboard.
 4. **Rows are only links when there is somewhere to go.** The doc's service and article rows link
-   to detail pages that do not exist yet, so they render as plain rows (and drop the "Ontdek →"
-   cue). Give `row()`/`articleRow()` an href in `src/pages/home.mjs` when those pages land and the
-   hover, the arrow and the translate all come back.
+   to detail pages that mostly do not exist, so a row with no destination renders plain and drops
+   the "Ontdek →" cue. Two services now have a page — training and AI staffing and coaching — and
+   both rows link; the lookup is `servicePath(key, lang)` in `src/layouts/base.mjs`, and adding a
+   page to `SERVICE_PAGES` there brings the hover, the arrow and the translate back on the homepage
+   row, in the mega menu and in the phone sheet at once. The article rows are still plain.
 5. **Two surfaces carry pictures**, which the doc rules out everywhere else.
 
    **The team page** puts photography in its hero: under the headline, the two founders fill the
@@ -201,3 +225,12 @@ outside it, and are decided the same way everywhere in `src/`:
    path, the `nav.smartspace` entry and the `smartspace.*` copy. The product is still named on
    the site — the third article row is about it — but it has no section of its own. Bring the
    band back only if SmartSpace gets a page to send people to.
+
+   The **figure** did come back, once, on the AI staffing page: a full-bleed navy band carrying the
+   one thing both tracks share, what the client's management hears and when. It is the only navy
+   shape on the public site that carries copy rather than texture, which is what the doc's own band
+   always did. Its end is a curve, not the doc's chevron point, and the run that curve eats is
+   reserved by padding on `.cadence__inner` so the copy never has to know where the cut is; under
+   1000px the clip is dropped and the band is a plain full-width block. Reach for this only when a
+   block is genuinely the closing statement of a page — a second one on the same page would make
+   both read as cards.

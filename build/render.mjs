@@ -24,6 +24,7 @@ import { deckPage, securedIndexPage } from '../src/layouts/deck.mjs';
 
 import { page as homePage } from '../src/pages/home.mjs';
 import { page as trainingPage } from '../src/pages/training.mjs';
+import { page as staffingPage } from '../src/pages/staffing.mjs';
 import { page as teamPage } from '../src/pages/team.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
 
@@ -31,7 +32,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(rootDir, 'dist');
 const contentDir = path.join(rootDir, 'src/content');
 
-const PAGES = [homePage, trainingPage, teamPage, notFoundPage];
+const PAGES = [homePage, trainingPage, staffingPage, teamPage, notFoundPage];
 
 const MINIFY_OPTIONS = {
   collapseWhitespace: true,

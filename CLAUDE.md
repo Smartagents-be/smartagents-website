@@ -1,9 +1,9 @@
 # CLAUDE.md - Agent Entry Point
 
 Pre-rendered static site, no backend, no framework. The public site is the
-redesigned homepage plus two detail pages, training and team (NL / EN / FR);
-the password-gated `/secured/` area (internal documents and pitch decks) is
-live.
+redesigned homepage plus three detail pages — training, AI staffing and
+coaching, and team (NL / EN / FR); the password-gated `/secured/` area
+(internal documents and pitch decks) is live.
 
 ## Skills — read these first
 
@@ -118,6 +118,21 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `data-magnet` and `data-clip`, with a `<sa-node-field>` inside. The clip path
   must sit on the same element as `data-magnet`: `src/motion.js` grows that
   element's box and remaps the outline into it.
+- **A magnet resamples the clip path into one closed polyline**, so a silhouette
+  is always a single subpath: two lobes written as `M…Z M…Z` collapse into one
+  the moment the cursor comes near. `data-magnet-free` opts a shape out of the
+  guard that refuses a pull whose nearest point sits under the nav or past the
+  right page edge — take it only for a shape that is nowhere near either. The
+  AI staffing hero's arch runs the width of its flank directly under the
+  header, so it keeps the guard and pins its right edge instead.
+- **The AI staffing page's hero is one shape on the petal's own flank.**
+  `heroArch` is hung off the right edge in the box `.hero__field--right` gives
+  the petal, so every breakpoint that moves the petal moves the arch with it and
+  the page overrides nothing. It went through two drafts that both failed the
+  same way: a diagonal struck corner to corner with a shallow bow read as a black
+  triangle, and the cove that replaced it filled the whole corner and needed a
+  second silhouette in the opposite one to balance it. One shape, one edge, and
+  the light half of the hero as the counterweight.
 - **The tablet is drawn, so it is not invented.** `SmartAgents Homepage Tablet`
   (834x1112) in the design project is the source for everything between the
   desk and the phone, and three breakpoints carry it: 768px is where the header
@@ -185,9 +200,11 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   on a stock Mac, cannot write WebP, which is why the fallback is JPEG.
 - Geist is named first in `--font-sans` but no binaries were supplied, so the
   platform face is what renders. Ask the client for the WOFF2 files.
-- Only the training service row links out; the other service rows and the
-  article rows still have nowhere to go, so they stay plain rows without a
-  "Ontdek →" cue. See "Deviations from the design doc" in the
+- Two of the four service rows link out — training and AI staffing — through
+  `servicePath()` in `src/layouts/base.mjs`, which is the one place the homepage
+  rows, the mega menu and the phone sheet all ask. Procesoptimalisatie, agentic
+  automatisatie and the article rows still have nowhere to go, so they stay plain
+  rows without a "Ontdek →" cue. See "Deviations from the design doc" in the
   `smartagents-design` README.
 - The live site also has a Jobs page. It has not been redesigned yet, and
   nothing links to it.

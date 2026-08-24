@@ -75,7 +75,6 @@
   "step.5.title": "Optimisation",
   "step.5.body": "We keep measuring and adjusting. Whatever goes unused, we take back out.",
 
-
   "article.tag.news": "News",
   "article.tag.ai": "AI",
   "article.tag.tips": "Tips",
@@ -155,7 +154,6 @@
   "training.format.videoLabel": "Tour of the SmartAgents developer course",
   "training.format.fallback": "Watch the tour (MP4)",
 
-
   "training.benefit.adoption.title": "Faster adoption",
   "training.benefit.adoption.body": "Teams that understand what AI does pick up new tools faster and find their own use cases.",
   "training.benefit.productivity.title": "Higher productivity",
@@ -169,6 +167,50 @@
 
   "training.cta.title": "Ready to upskill your team?",
   "training.cta.body": "Tell us briefly who needs training and on what. We propose a programme to measure, at your office or remote, and we also say when a training is not needed.",
+
+  "staffing.title": "AI staffing and coaching · SmartAgents",
+  "staffing.description": "An AI-native engineer working inside your project, and coaching that brings your own team along. A fixed onboarding, cycles on your team's cadence, reporting to management.",
+
+  "staffing.hero.eyebrow": "AI staffing and coaching",
+  "staffing.hero.title": "An AI-native engineer in your team",
+
+  "staffing.cta.tracks": "See the two tracks",
+
+  "staffing.tracks.title": "Two tracks",
+
+  "staffing.track.engineer.title": "AI staffing",
+  "staffing.track.engineer.body": "We put an AI-native engineer in your project. They pick up work like any other team member and bring along the way of working you brought them in for.",
+  "staffing.track.engineer.item.1": "Working inside your sprints, your repository, your review",
+  "staffing.track.engineer.item.2": "Putting agents on real work, not on a pilot project",
+  "staffing.track.engineer.item.3": "Building up the automation around the code",
+  "staffing.track.engineer.item.4": "Handing over to your own engineers from day one",
+  "staffing.track.coaching.title": "Coaching",
+  "staffing.track.coaching.body": "We bring AI-native patterns to your own engineers: explaining, demonstrating, and working at the same screen until it sticks.",
+  "staffing.track.coaching.item.1": "Introducing AI-native patterns and spreading them through the team",
+  "staffing.track.coaching.item.2": "One-to-one coaching on the work that is on the table today",
+  "staffing.track.coaching.item.3": "Pair programming with an AI-native engineer",
+  "staffing.track.coaching.item.4": "Creating the occasion to actually reach for AI",
+
+  "staffing.onboarding.title": "How the onboarding runs",
+  "staffing.onboarding.lede": "Every engagement starts the same way. Not because it is a template, but because the three steps need each other: automation needs a hardened setup, and a hardened setup needs a codebase worth hardening.",
+  "staffing.step.audit.title": "Reviewing the codebase",
+  "staffing.step.audit.body": "We look at the state of the code first: structure, tests, dependencies. If the level is too low, we bring it up before anything else.",
+  "staffing.step.harden.title": "Hardening the setup",
+  "staffing.step.harden.body": "Build, tests, linting and CI are nailed down, so automation has something to lean on and mistakes surface early.",
+  "staffing.step.cycle.title": "Building in cycles",
+  "staffing.step.cycle.body": "After that we build in cycles, with review moments on the cadence your team already keeps. No separate process alongside it.",
+
+  "staffing.cadence.eyebrow": "Reporting",
+  "staffing.cadence.title": "Management stays with it",
+  "staffing.cadence.body": "Both tracks report back on the cadence you ask for: weekly, per sprint or per month. Short, concrete, and with the things that are not working included.",
+  "staffing.cadence.list": "What you hear",
+  "staffing.cadence.item.1": "What is done, and what is left",
+  "staffing.cadence.item.2": "Where AI wins time, and where it does not",
+  "staffing.cadence.item.3": "How independently your own team already works",
+  "staffing.cadence.item.4": "What the next cycle should pick up",
+
+  "staffing.cta.title": "Looking for someone who already does this?",
+  "staffing.cta.body": "Tell us briefly where your team is stuck and what the project looks like today. We propose what fits, staffing or coaching, and we also say when you do not need us.",
 
   "nav.team": "Team",
 
