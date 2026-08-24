@@ -466,6 +466,11 @@ a.row:hover .row__cue {
   line-height: var(--leading-body-tight);
 }
 
+/* An entry without its index: one column, so the copy starts at the rule. */
+.numbered--plain {
+  grid-template-columns: 1fr;
+}
+
 @media (max-width: 620px) {
   .numbered {
     padding-inline: 0;
@@ -1634,10 +1639,19 @@ sa-node-field {
  * ------------------------------------------------------------------ */
 
 /* The homepage hero minus the wordmark and the orbits: shorter, and the copy
-   sits on the shape's centre line rather than above its pinch. */
+   sits on the shape's centre line rather than above its pinch.
+   The copy starts at the page gutter, not inboard of it. On the homepage the
+   deep left padding clears the counter-lobe rising out of the bottom-left;
+   this hero has no lobe, so the inset buys nothing and costs the headline the
+   room it needs — held on the shape's centre line, it is at the height the
+   petal's tip curls back to, and from the desk breakpoint up it was running
+   onto the navy. At the gutter it clears the tip by a comfortable margin at
+   every width, and the hero's first line falls on the same left edge as every
+   heading under it. */
 .hero--page .hero__inner {
   align-content: center;
   min-height: 540px;
+  padding-left: var(--gutter-page);
 }
 
 .hero--page h1 {
@@ -1651,10 +1665,11 @@ sa-node-field {
   font-weight: var(--weight-medium-plus);
 }
 
-/* Below the point where the hero stacks, the copy is the whole width: a 52%
-   column with nothing beside it is just a narrow measure. The tablet is not
-   that point — it keeps the split, so it keeps the column. */
-@media (max-width: 699px) {
+/* Below the point where the hero stops splitting, the copy is the whole width:
+   a half-page column with nothing beside it is just a narrow measure. Only the
+   phone is that point — everything above it keeps the split, so it keeps the
+   column. */
+@media (max-width: 620px) {
   .hero--page .hero__inner {
     grid-template-columns: minmax(0, 1fr);
     min-height: 0;
@@ -1811,6 +1826,58 @@ sa-node-field {
 .orbits--offer .orbits__origin {
   top: 104%;
   left: 74%;
+}
+
+/* Inzichten: struck from just off the right edge, a little below the middle of
+   the list, so the arcs bow in across the meta column and rise over the rows
+   rather than sweeping up from a corner. Hung at 104% for the same reason the
+   offer's origin is: any further out and only the two faintest rings would
+   reach the section at all. Same dimming — this is ground under a reading
+   list. */
+.orbits--insights {
+  opacity: 0.8;
+}
+
+.orbits--insights .orbits__origin {
+  top: 58%;
+  left: 104%;
+}
+
+/* On a phone the rows are the full column, so an origin a few percent out is
+   only a few dozen pixels: the two innermost rings would cut straight through
+   the reading measure. Pushing the origin off the edge by half a viewport
+   leaves the outer, faintest arcs as the only ones that reach in. */
+@media (max-width: 620px) {
+  .orbits--insights .orbits__origin {
+    left: 150%;
+  }
+}
+
+/* The hero lights a node for about two fifths of its turn, which reads as a
+   blink on a ground this tall: by the time the eye finds one it is already
+   fading. Here it stays lit for roughly four fifths, so a node is seen to
+   travel the length of its arc rather than to appear somewhere on it. The
+   cycle still ends dark, so the jump back to the top of the ring is never
+   visible. */
+.orbits--insights .orbits__node {
+  animation-name: sa-orbit-fade-long;
+}
+
+@keyframes sa-orbit-fade-long {
+  0%,
+  3% {
+    opacity: 0;
+  }
+
+  9%,
+  76% {
+    opacity: 1;
+  }
+
+  86%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -2191,53 +2258,52 @@ sa-node-field {
   }
 }
 
-/* Stacked. The base hero reverses its children so the band lands under the
-   copy; here the order is explicit instead, because the band belongs between
-   the lead and the faces rather than after them. */
-@media (max-width: 940px) {
-  /* The gutter moves from the section to its two blocks, so the band between
-     them can run edge to edge the way it does on every other hero. */
+/* The tablet. The pair needs the whole page, so the hero splits horizontally
+   instead of the other way up: the headline keeps a column and the petal is
+   hung off the right edge beside it, exactly as on every other hero at this
+   width, with the two faces on the full width underneath. What used to be here
+   was a flat band between the headline and the faces, and it was the thing the
+   homepage hero already refuses at this width: a stripe the width of the page
+   under a block of copy reads as a misprint, and stretched across a tablet the
+   band's own slope flattened out into a diagonal rule. */
+@media (min-width: 621px) and (max-width: 940px) {
   .hero--team {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding: var(--space-12) 0 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+    gap: var(--space-12) var(--space-9);
+    padding-top: var(--space-12);
   }
 
-  .hero--team .team-hero__head,
-  .hero--team .founders {
-    padding-inline: var(--gutter-page);
-  }
-
+  /* The slot is placed, never auto-flowed: the field comes first in the markup
+     (it is out of flow everywhere else), so left to itself it would take the
+     headline's cell. */
   .hero--team .team-hero__head {
-    order: 1;
-    margin-bottom: var(--space-9);
+    display: grid;
+    grid-area: 1 / 1;
+    /* The petal is the tall thing in the row, so the headline reads on its
+       centre line rather than hanging at the top of an empty column. */
+    align-content: center;
   }
 
-  /* Back to a flat band under the copy. The insets that place the petal are
-     more specific than the base hero rule, so they have to be undone here —
-     and so is the outline, which the base hero only lays flat below 700px. */
-  .hero--team .field[data-clip="heroPetal"] {
-    clip-path: url(#heroBand);
-  }
-
+  /* In flow for the first time: the row it sits in is the shape's own height,
+     which is what keeps the headline's column from having to invent one. The
+     proportion is the petal's, not the column's — sized by aspect-ratio, which
+     the echoes follow like any other geometry — and the negative margin puts
+     the shape's welded edge back on the page edge, past the gutter the grid
+     item stops at. */
   .hero--team .hero__field--right {
-    order: 2;
     position: relative;
+    grid-area: 1 / 2;
     inset: auto;
-    /* Shallower than the other heroes': here the band sits between the
-       headline and the faces, so it is a divider, not the opening image. */
-    height: 132px;
+    aspect-ratio: 0.78;
+    margin-right: calc(-1 * var(--gutter-page));
   }
 
-  /* The pair keeps its two columns here. The hero above it has stacked, so the
-     whole page width is theirs, and on a tablet held upright that is room for
-     both faces beside each other; one column under the other would leave a
-     third of the page empty down the right-hand side. */
+  /* The pair takes the width the split above it does not need. On a tablet
+     held upright that is room for both faces beside each other; one column
+     under the other would leave a third of the page empty down the right. */
   .hero--team .founders {
-    order: 3;
+    grid-area: 2 / 1 / auto / -1;
     gap: var(--space-12) var(--space-8);
-    margin-top: var(--space-9);
   }
 
   .hero--team h1 {
@@ -2258,12 +2324,44 @@ sa-node-field {
   }
 }
 
-/* On a phone the base hero's petal goes back into the top-right corner as a
-   sliver (critical.css). This hero's shape is still the divider between the
-   headline and the faces, so it keeps the flat cut it took on at 940px. */
+/* The phone takes the base hero's treatment as written (critical.css): the
+   petal reduced to the sliver that fits across the top-right, welded to the
+   top and the right, with the copy running under it. This hero only has to
+   hand it back the geometry the desk's rules took away, and to give it a
+   shallower box — one headline here, where the other heroes carry a wordmark,
+   a claim and two buttons. */
 @media (max-width: 620px) {
-  .hero--team .field[data-clip="heroPetal"] {
-    clip-path: url(#heroBand);
+  .hero--team {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-11);
+    padding-top: var(--space-11);
+  }
+
+  .hero--team .hero__field--right {
+    inset: 0 0 auto 0;
+    height: 340px;
+  }
+
+  /* Above the shape's own layer: the sliver's box runs on past the last of it
+     that is painted. The minimum is what the shape leaves — the swoop's tail
+     comes down the right edge to 58% of the box, and the pair starts under
+     it, so the hairline that opens the list never crosses navy. */
+  .hero--team .team-hero__head {
+    z-index: 2;
+    display: grid;
+    align-content: center;
+    min-height: 150px;
+  }
+
+  /* The swoop leaves the top edge two thirds across and runs out to the right
+     from there, so the headline keeps the column left of where it starts. */
+  .hero--team h1 {
+    max-width: 74%;
+  }
+
+  .hero--team .founders {
+    z-index: 2;
+    gap: var(--space-12) var(--space-8);
   }
 }
 

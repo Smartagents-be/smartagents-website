@@ -8,7 +8,7 @@
 // cool, slightly desaturated grade that only lifts on hover.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
-import { orbitRings } from '../layouts/base.mjs';
+import { fieldEchoes, orbitRings } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /**
@@ -90,6 +90,7 @@ function hero(t) {
   return html`<section id="team-hero" class="hero hero--team" aria-labelledby="team-hero-title">
 ${orbitRings('team-hero')}
   <div id="team-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
+    ${fieldEchoes('team-hero-field-right', 'heroPetal', { pin: 'right' })}
     <div id="team-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="team-hero-nodes-right"></sa-node-field></div>
   </div>
   <div id="team-hero-head" class="team-hero__head">

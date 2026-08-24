@@ -125,18 +125,28 @@ outside it, and are decided the same way everywhere in `src/`:
      and the primary action on one row, every measurement in it fluid so it lands on the
      artboard's values at 834px and still holds at 768px in the longest of the three languages.
      The one link that goes is "Contact", because the button beside it goes there. Under 768px
-     the row folds into the disclosure it has always folded into.
+     the row folds into the disclosure it has always folded into — and the wedge folds with it,
+     down to the shape it takes on the phone: at the desk's 318px the cut runs past the trigger
+     and "Menu" is set on navy. The chips, the gaps and the button's flanks tighten at the same
+     line, so the four items clear the slope at 621px, the last width that still has them in the
+     row.
    - **1000px — the columns.** Every list that is one column on a phone and three or five across
      a desk runs two abreast between these two numbers: the services, the five steps, the four
      articles. The steps and the DNA entries take the phone's vertical rule while they do, so a
      column of them draws one line. The transformation becomes the phone's single dark block up
      here too, with the list and the isometric stack still side by side inside it, and the
      stack's callouts drop.
-   - **940px / 700px — the hero.** The hero stays split down to 700px with the copy in 57% and
-     the petal hung off the right edge; the counter-lobe goes, because at this width the two
-     shapes meet in the middle. The artboard also turns the hero's hierarchy over — the wordmark
-     steps back and the claim becomes the largest thing on the page — which is what the phone
-     already did. Under 700px the petal lies flat as a band, which is what 940px used to mean.
+   - **940px / 620px — the hero.** The hero stays split all the way down to the phone with the
+     copy in a column just over half the page and the petal hung off the right edge; the
+     counter-lobe goes, because at this width the two shapes meet in the middle. The column is
+     51%, not the artboard's 57%: the petal's tip reaches back to 54% of the page at mid-height,
+     which the artboard's own headline clears by a hair in one language at one width, and a
+     column that clears it in all three at every width in the band is worth the six points. The
+     artboard also turns the hero's hierarchy over — the wordmark steps back and the claim
+     becomes the largest thing on the page — which is what the phone already did. Both the column and the lobe are shares of the width, so the pair
+     holds to 621px; under it the phone takes over and the petal lies across the top of the copy
+     as a sliver. There is no flat band in between: a stripe the width of the page under a block
+     of copy read as a misprint, and the split it replaced still reads at 620px.
 2. **Fonts.** No webfont is loaded — see above.
 3. **The mega-menu is CSS-only** (`:hover, :focus-within`), so it can never fail to open and is
    reachable from the keyboard.
@@ -155,6 +165,17 @@ outside it, and are decided the same way everywhere in `src/`:
    of the same navy (`color-mix` of `--sa-field`, 97% at the bottom to transparent at the top).
    Hairlines inside the overlay are white at low alpha, not `--border-on-dark`, which disappears
    over a photograph.
+
+   Below 940px the pair needs the whole page, so this hero turns the split a quarter rather than
+   losing it: the headline keeps a column, the petal is hung off the right edge beside it at the
+   proportion it is drawn at, and the two faces run underneath on the full width. The shape is in
+   normal flow for the only time on the site — sized by `aspect-ratio`, with a negative margin
+   putting its welded edge back on the page edge — so the row it sits in *is* the petal's height
+   and the headline reads on its centre line. Under 621px the phone's own treatment takes over
+   unchanged: the sliver across the top-right, the headline under it. What this replaced was a
+   flat navy band between the headline and the faces, which is the thing the homepage hero
+   already refuses at this width; stretched across a tablet its slope flattened out and the band
+   read as a diagonal rule.
 
    **The homepage's "Inzichten" list** carries a thumbnail per article: a 208px 16:9 crop opening
    the row, the title with its excerpt directly under it, and the date and category badges ranged

@@ -4,7 +4,7 @@
 // language (hairlines, no numbering).
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
-import { orbitRings } from '../layouts/base.mjs';
+import { fieldEchoes, orbitRings } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /** The courses we run today, in the order they are offered. */
@@ -56,6 +56,7 @@ function hero(t) {
   return html`<section id="training-hero" class="hero hero--page">
 ${orbitRings('training-hero')}
   <div id="training-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
+    ${fieldEchoes('training-hero-field-right', 'heroPetal', { pin: 'right' })}
     <div id="training-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="training-hero-nodes-right"></sa-node-field></div>
   </div>
   <div id="training-hero-inner" class="hero__inner">
@@ -163,11 +164,13 @@ ${join(columns)}
 function format(t) {
   return html`<section id="training-format" class="section" aria-labelledby="training-format-title">
   <div id="training-format-dome-slot" class="field-slot tour__dome" aria-hidden="true">
+    ${fieldEchoes('training-format-dome', 'tourDome', { small: true, pin: 'top' })}
     <div id="training-format-dome" class="field" data-magnet data-magnet-free data-magnet-pin="top" data-magnet-points="280" data-magnet-amp="24" data-magnet-sigma="70" data-clip="tourDome"><sa-node-field id="training-format-dome-nodes"></sa-node-field></div>
   </div>
   <div id="training-format-head" class="section__head tour__ground">
     <h2 id="training-format-title" class="section-heading">${t('training.format.title')}</h2>
     <div id="training-format-stone-slot" class="field-slot tour__stone" aria-hidden="true">
+      ${fieldEchoes('training-format-stone', 'tourStone', { small: true, pin: 'bottom' })}
       <div id="training-format-stone" class="field" data-magnet data-magnet-free data-magnet-pin="bottom" data-magnet-points="300" data-magnet-amp="42" data-magnet-sigma="70" data-clip="tourStone"><sa-node-field id="training-format-stone-nodes"></sa-node-field></div>
     </div>
   </div>

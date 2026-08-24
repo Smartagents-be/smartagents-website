@@ -213,8 +213,24 @@ select {
 }
 
 /* Mega-menu. Hover and focus only: no JS, so it can never fail to open. */
+
+/* The trigger stretches to the header's content box so its bottom edge is the
+   header's, whatever the row is doing above it: the panel hangs off that edge,
+   and the drop below is then the header's own bottom padding and nothing else.
+   Measured off the trigger's own height instead, the drop is a different
+   distance at every breakpoint — the trigger is centred in a row the tablet
+   makes taller, so the same number leaves a gap at the desk and overlaps the
+   hairline on the tablet. Both nav and group stretch: the group is centred
+   inside the nav, so the nav has to reach the full height first. */
+.site-nav {
+  align-self: stretch;
+}
+
 .nav-group {
   position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
 }
 
 .nav-group > .nav-link {
@@ -238,12 +254,14 @@ select {
 }
 
 /* The panel hangs from the trigger, but has to meet the header's bottom edge:
-   the drop is the header's own vertical padding, so the two stay flush if that
-   padding ever changes. */
+   the drop is the header's own bottom padding plus its hairline, so the two
+   stay flush if that padding ever changes. `.nav-group` stretching is what
+   makes 100% the header's content bottom rather than the trigger's. */
 .nav-panel {
+  --nav-panel-drop: calc(var(--space-4) + 1px);
   position: absolute;
   z-index: 40;
-  top: calc(100% + var(--space-5));
+  top: calc(100% + var(--nav-panel-drop));
   left: -10px;
   transition: opacity var(--dur-tint) ease, transform var(--dur-move) var(--ease-out-expo),
     visibility var(--dur-tint);
@@ -268,7 +286,7 @@ select {
   right: 0;
   bottom: 100%;
   left: 0;
-  height: var(--space-5);
+  height: var(--nav-panel-drop);
 }
 
 .nav-group:hover .nav-panel,
@@ -444,34 +462,125 @@ select {
   background: var(--surface-dark);
 }
 
+/* The two echoes behind a shape: the same silhouette again, offset up and to
+   the left, painted cyan and fading out by mid-height. They sit before the
+   field in the markup and carry no z-index, so only the sliver that falls
+   outside the dark silhouette is ever visible — the shape lifts off the paper
+   and picks up a lit edge along its top.
+
+   They are struck from the same clip path as the field they copy, so a magnet
+   pull deforms all three at once instead of peeling the shadow off the shape;
+   src/motion.js grows their boxes along with the field's for the same reason.
+   Geometry comes from the field's own positioning class, never from an offset
+   of its own: the travel is a margin and nothing else, so a shape sized by
+   insets, by width or by aspect-ratio all land the copies on the same box.
+
+   `--field-echo-*` is a distance, so it is negated here rather than stored
+   negative: a token that reads as a length is easier to change than one that
+   reads as a direction. */
+.field-echo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* The offset is a margin, never an inset and never a transform. An inset is
+   what places the shapes, and what src/motion.js rewrites on every magnet, so
+   a copy that used one would be overwritten by both. A margin survives them,
+   and — unlike a transform — it can move three edges while holding the fourth,
+   which is the whole point below. */
+.field-echo--far {
+  margin: calc(-1 * var(--field-echo-far)) var(--field-echo-far) var(--field-echo-far)
+    calc(-1 * var(--field-echo-far));
+  background: linear-gradient(196deg, var(--sa-cyan-echo), transparent 54%);
+}
+
+.field-echo--near {
+  margin: calc(-1 * var(--field-echo-near)) var(--field-echo-near) var(--field-echo-near)
+    calc(-1 * var(--field-echo-near));
+  background: linear-gradient(
+    196deg,
+    var(--sa-cyan-echo-lit),
+    var(--sa-cyan-echo-mid) 44%,
+    transparent 68%
+  );
+}
+
+/* Small shapes: the stone, the dome and the blob are a fifth of the hero's
+   petal, and the desk's travel on one of those stops reading as a lift. */
+.field-echo--sm.field-echo--far {
+  margin: calc(-1 * var(--field-echo-far-sm)) var(--field-echo-far-sm) var(--field-echo-far-sm)
+    calc(-1 * var(--field-echo-far-sm));
+}
+
+.field-echo--sm.field-echo--near {
+  margin: calc(-1 * var(--field-echo-near-sm)) var(--field-echo-near-sm) var(--field-echo-near-sm)
+    calc(-1 * var(--field-echo-near-sm));
+}
+
+/* A shape welded to a page edge keeps its copies welded to it too. Moved as a
+   whole they pull off that edge, and the lift stops reading as one shape with
+   a lit side: it reads as three slabs stacked loose, with the two pale ones
+   ending in mid-air short of the edge the dark one still touches — or, where
+   that edge is the page's own, hanging off it.
+
+   So exactly one margin goes back to zero: the edge the shape hangs from. The
+   other three keep the full travel, which turns the move into a stretch away
+   from the weld and leaves the light where it was — every shape on the site is
+   lifted up and to the left, whichever edge it happens to hang from, and none
+   of them is lifted off that edge. It is what the artboard draws on the petal,
+   where all three right edges sit on the page edge and only the left one
+   travels, generalised to the other three welds.
+
+   Two classes, not one, and last in the block: the travel above is a `margin`
+   shorthand written at two classes as well, and these have to outrank it on
+   both counts to hold an edge back. */
+.field-echo.field-echo--pin-top {
+  margin-top: 0;
+}
+
+.field-echo.field-echo--pin-right {
+  margin-right: 0;
+}
+
+.field-echo.field-echo--pin-bottom {
+  margin-bottom: 0;
+}
+
+.field-echo.field-echo--pin-left {
+  margin-left: 0;
+}
+
 /* The clip lives on the element that carries data-magnet, never on a wrapper:
    src/motion.js grows that element's box and remaps the outline into it, so a
-   clip applied one level up would no longer line up with the silhouette. */
-.field[data-clip="heroPetal"] {
+   clip applied one level up would no longer line up with the silhouette. The
+   echoes carry `data-clip` too, which is why these are keyed on the attribute
+   rather than on `.field`. */
+[data-clip="heroPetal"] {
   clip-path: url(#heroPetal);
 }
 
-.field[data-clip="heroLobe"] {
+[data-clip="heroLobe"] {
   clip-path: url(#heroLobe);
 }
 
-.field[data-clip="dnaField"] {
+[data-clip="dnaField"] {
   clip-path: url(#dnaField);
 }
 
-.field[data-clip="dnaBlob"] {
+[data-clip="dnaBlob"] {
   clip-path: url(#dnaBlob);
 }
 
-.field[data-clip="stackField"] {
+[data-clip="stackField"] {
   clip-path: url(#stackField);
 }
 
-.field[data-clip="tourStone"] {
+[data-clip="tourStone"] {
   clip-path: url(#tourStone);
 }
 
-.field[data-clip="tourDome"] {
+[data-clip="tourDome"] {
   clip-path: url(#tourDome);
 }
 
@@ -625,6 +734,27 @@ select {
   animation-duration: 88s;
 }
 
+/* The outermost ring. Only a ground that is taller than the hero gives it room
+   to read, so nothing calls for it above the fold; `orbitRings` leaves it out
+   unless a call site asks for it. Counter-travelling, like 02. */
+.orbits__path--04 {
+  inset: -845px auto auto -845px;
+  width: 1690px;
+  height: 1690px;
+  animation-duration: 118s;
+  animation-direction: reverse;
+}
+
+.orbits__path--04 .orbits__node {
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  background: var(--sa-grey-1);
+  animation-duration: 118s;
+  animation-delay: -37s;
+}
+
 @keyframes sa-orbit {
   from {
     transform: rotate(0deg);
@@ -734,14 +864,21 @@ select {
   }
 }
 
-/* The tablet keeps the hero split. The artboard draws the copy in a column
-   just over half the page with the petal hung off the right edge beside it —
-   the desk's composition at the tablet's proportions, not a new one. The
-   counter-lobe goes: at this width the two shapes meet in the middle and the
-   copy loses the light ground it is ranged against. */
-@media (min-width: 700px) and (max-width: 940px) {
+/* The tablet keeps the hero split, and so does everything down to the phone.
+   The artboard draws the copy in a column just over half the page with the
+   petal hung off the right edge beside it — the desk's composition at the
+   tablet's proportions, not a new one — and the column and the lobe are both
+   shares of the width, so the pair holds all the way to the phone's own line.
+   The counter-lobe goes: at this width the two shapes meet in the middle and
+   the copy loses the light ground it is ranged against. */
+@media (min-width: 621px) and (max-width: 940px) {
+  /* 51%, not the artboard's 57%: the petal's tip reaches back to 54% of the
+     page at mid-height, and the artboard's own column ends a hair short of it
+     in one language at one width. A line of copy that fills the column has to
+     clear the shape at every width in the band and in all three, so the column
+     gives up the six points the tip needs. */
   .hero__inner {
-    grid-template-columns: minmax(0, 57%);
+    grid-template-columns: minmax(0, 51%);
     min-height: clamp(470px, 66vw, 620px);
   }
 
@@ -779,40 +916,6 @@ select {
 
   .hero__field--left {
     display: none;
-  }
-}
-
-/* Under the tablet the petal lies flat as a band beneath the copy: there is no
-   longer a column to hang it beside. */
-@media (max-width: 699px) {
-  .hero {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
-  .hero__field {
-    position: relative;
-    inset: auto;
-    height: 180px;
-  }
-
-  /* One band is the whole dark field down here; a second one would just stack
-     another stripe under the copy. */
-  .hero__field--left {
-    display: none;
-  }
-
-  .field[data-clip="heroPetal"] {
-    clip-path: url(#heroBand);
-  }
-
-  /* The 52% column is the share the copy takes of a hero it splits with the
-     petal. Once the shape has become a band under it there is nothing to split
-     with, and holding the copy to half the page only sets the headline in a
-     column narrower than the buttons under it. */
-  .hero__inner {
-    grid-template-columns: minmax(0, 1fr);
-    min-height: 0;
   }
 }
 
@@ -899,10 +1002,19 @@ select {
   }
 
   /* The mega-menu is drawn on a 1180px canvas and would hang off the right
-     edge here. It hangs off the trigger's right instead and stacks to one
-     column, which is the only way four items fit in the width left. */
+     edge here. It stacks to one column, which is the only way four items fit
+     in the width left, and it hangs off the right instead of the left.
+     Off the *nav's* right, not the trigger's: "Diensten" is the leftmost item
+     in the row, so a panel ranged against it runs off the left edge of the
+     viewport instead. Dropping the trigger's containing block hands the panel
+     to `.site-nav`, which is the one box that ends where the header's own
+     items begin. */
+  .nav-group {
+    position: static;
+  }
+
   .nav-panel {
-    right: -10px;
+    right: 0;
     left: auto;
     width: min(360px, 68vw);
   }
@@ -912,10 +1024,57 @@ select {
   }
 }
 
-/* Under the tablet the row folds into the disclosure. */
+/* ------------------------------------------------------------------ *
+ * Under the tablet: the row folds into the disclosure
+ *
+ * The links come off the row and go behind one trigger (`.nav-toggle`, in
+ * main.css), so the header carries the brand, that trigger, the language chips
+ * and the primary action. Four items where the desk had seven, but a third of
+ * the width — and the wedge is what gives: at the desk's 318px the cut runs
+ * past the trigger and "Menu" sits on navy, unreadable. It narrows to the
+ * shape it takes on the phone, cut to the brand and nothing more, and the row
+ * beside it tightens with it so the group clears the slope at 621px too, the
+ * narrowest width that still has the actions in the row.
+ * ------------------------------------------------------------------ */
 @media (max-width: 767px) {
   .site-nav {
     display: none;
+  }
+
+  /* Steeper than the desk cut and welded to the top edge, so the wordmark sits
+     inside the wedge at every width under the tablet. */
+  .header-wedge {
+    width: min(212px, 60%);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  }
+
+  .brand-link {
+    gap: 9px;
+    font-size: var(--text-ui);
+  }
+
+  .brand-link .logo {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Everything left of the page edge gives a little at once — the gap before
+     the actions, the gap inside them, the chips and the button's own flanks —
+     and the four items travel right together, off the slope. */
+  .site-header {
+    gap: var(--space-4);
+  }
+
+  .header-actions {
+    gap: var(--space-4);
+  }
+
+  .lang-switcher a {
+    padding-inline: var(--space-2);
+  }
+
+  .header-actions .btn--sm {
+    padding-inline: var(--space-5);
   }
 }
 
@@ -936,33 +1095,21 @@ select {
     padding: 0 var(--gutter-page) 0 0;
   }
 
-  /* Steeper than the desk cut and welded to the top edge, so the wordmark sits
-     inside the wedge at every width a phone comes in. */
-  .header-wedge {
-    width: min(212px, 60%);
-    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
-  }
-
+  /* The header lost its left padding, so the brand carries the gutter itself
+     and the wedge still starts at the page edge. */
   .brand-link {
-    gap: 9px;
     padding-left: var(--gutter-page);
-    font-size: var(--text-ui);
-  }
-
-  .brand-link .logo {
-    width: 26px;
-    height: 26px;
   }
 
   .header-actions {
     display: none;
   }
 
-  /* The hero. Just above this the petal lies flat as a band under the copy; a
-     phone is too narrow for a band to read as anything but a stripe, so the
-     shape goes back into the top-right corner as the sliver of itself that
-     fits beside one column. It is welded to the top and right edges and free
-     of the other two, and the copy runs under it in a column that clears it. */
+  /* The hero. Above this the copy keeps a column with the petal hung off the
+     right edge beside it; a phone is too narrow to split, so the shape stops
+     standing beside the copy and lies over it — the sliver of itself that fits
+     across the top, welded to the top, left and right edges and free of the
+     bottom, with the copy running under it in a column that clears it. */
   .hero {
     display: block;
     overflow: hidden;
@@ -978,19 +1125,31 @@ select {
     height: 424px;
   }
 
-  .field[data-clip="heroPetal"] {
+  /* One shape is the whole dark field down here; the counter-lobe has nothing
+     left to answer once the petal has stopped being a flank. */
+  .hero__field--left {
+    display: none;
+  }
+
+  [data-clip="heroPetal"] {
     clip-path: url(#heroSwoop);
   }
 
+  /* The half-page column is the share the copy takes of a hero it splits with
+     the petal. With the shape overhead there is nothing to split with, and
+     holding the copy to half the page only sets the headline in a column
+     narrower than the buttons under it. */
   .hero__inner {
     z-index: 2;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
     padding: var(--space-11) var(--gutter-page) 0;
   }
 
   /* The wordmark stops growing with the page and the claim takes over as the
      largest thing on it: one line of brand, then the sentence that carries the
      page. The measure is a share of the column, not a character count — what
-     it has to clear is the shape beside it, which is a share too. */
+     it has to clear is the shape above it, which is a share too. */
   .hero__wordmark {
     font-size: 32px;
   }
@@ -1000,13 +1159,21 @@ select {
     height: 34px;
   }
 
+  /* The measure belongs to the whole block, not to the claim alone. The
+     petal's tail comes down the right edge to 58% of the shape's height, well
+     past the last line of type, so anything in the copy that runs the full
+     column ends on navy — which is what the buttons under the claim did. One
+     share holds them all off it. */
+  .hero__text {
+    max-width: 80%;
+  }
+
   .hero__claim {
-    max-width: 74%;
     font-size: var(--text-display);
   }
 
   /* Two buttons side by side leave neither of them a full thumb. Stacked, both
-     are the width of the column and both clear the 48px target. */
+     are the width of the copy's measure and both clear the 48px target. */
   .hero__actions {
     flex-direction: column;
     align-items: stretch;

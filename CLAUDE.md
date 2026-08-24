@@ -121,10 +121,13 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 - **The tablet is drawn, so it is not invented.** `SmartAgents Homepage Tablet`
   (834x1112) in the design project is the source for everything between the
   desk and the phone, and three breakpoints carry it: 768px is where the header
-  stops being a nav bar, 1000px is where every list that runs two abreast starts
-  doing so, and 700px is where the hero stops being split. See "Deviations from
-  the design doc", item 1, in the `smartagents-design` README for what each one
-  changes; change a number there and in the CSS together.
+  stops being a nav bar (and the wedge narrows to the phone's, or the disclosure
+  under it sits on navy), 1000px is where every list that runs two abreast starts
+  doing so, and 620px is where the hero stops being split — the phone's own line,
+  because the column and the lobe are both shares of the width and hold to 621px.
+  See "Deviations from the design doc", item 1, in the `smartagents-design`
+  README for what each one changes; change a number there and in the CSS
+  together.
 - **No third-party requests.** No webfonts, no icon library, no analytics on the
   public pages. Turnstile is the one exception and loads only on interaction.
 - **`/secured/` is self-contained but not off-brand.** It serves its own

@@ -140,11 +140,15 @@ export function logoMark(surface, id) {
  * fades in and out as it goes. Pure texture, so it is `aria-hidden` and paints
  * under both the copy and the dark shapes.
  *
+ * A fourth node, on the outermost ring, is opt-in: it only reads on a ground
+ * tall enough to give that ring room, so a call site asks for it by name.
+ *
  * @param {string} prefix — id prefix from the call site (element-ids §4).
+ * @param {string} [variant] — extra class on the layer, e.g. `orbits--insights`.
+ * @param {string[]} [paths] — which rings carry a travelling node.
  */
-export function orbitRings(prefix, variant = '') {
+export function orbitRings(prefix, variant = '', paths = ['01', '02', '03']) {
   const rings = ['01', '02', '03', '04', '05'];
-  const paths = ['01', '02', '03'];
   const layer = variant ? `orbits ${variant}` : 'orbits';
 
   return html`  <div id="${prefix}-orbits" class="${layer}" aria-hidden="true">
@@ -153,6 +157,38 @@ ${join(rings.map((key) => html`      <div id="${prefix}-orbit-ring-${key}" class
 ${join(paths.map((key) => html`      <div id="${prefix}-orbit-${key}" class="orbits__path orbits__path--${key}"><i id="${prefix}-orbit-node-${key}" class="orbits__node"></i></div>`))}
     </div>
   </div>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * The echoes behind a dark shape
+ * ------------------------------------------------------------------ */
+
+/**
+ * Two copies of the shape's own silhouette, offset up and to the left, painted
+ * cyan and gone by mid-height. They go immediately before the `.field` they
+ * copy, inside whatever element positions it: they carry no geometry of their
+ * own, so a shape sized by insets, by width or by aspect-ratio all work the
+ * same and every breakpoint that moves the shape moves them with it.
+ *
+ * A shape wrapped in a `.field-slot` needs no `place`; one positioned by a
+ * class on the field itself passes that class, so the copies land on the same
+ * box (see the `.field-echo` block in critical.css).
+ *
+ * `pin` is the field's own `data-magnet-pin`: a shape welded to a page edge
+ * holds its copies against that edge rather than pulling them off it.
+ *
+ * @param {string} id — id prefix, normally the field's own id (element-ids §4).
+ * @param {string} clip — the clip path the field is struck from.
+ * @param {object} [options]
+ * @param {string} [options.place] — positioning class, when there is no slot.
+ * @param {boolean} [options.small] — shorter travel, for a shape under ~250px.
+ * @param {'top'|'right'|'bottom'|'left'} [options.pin] — the edge to hold.
+ */
+export function fieldEchoes(id, clip, { place = '', small = false, pin = '' } = {}) {
+  const extra = `${small ? ' field-echo--sm' : ''}${pin ? ` field-echo--pin-${pin}` : ''}${place ? ` ${place}` : ''}`;
+
+  return html`<div id="${id}-echo-far" class="field-echo field-echo--far${extra}" data-clip="${clip}" aria-hidden="true"></div>
+    <div id="${id}-echo-near" class="field-echo field-echo--near${extra}" data-clip="${clip}" aria-hidden="true"></div>`;
 }
 
 const CHEVRON = raw(
@@ -182,8 +218,6 @@ export function clipDefs() {
     // welded to their own page edge; neither touches the hero's other sides.
     heroLobe:
       'M0,0.000 C0.032,0.155 0.090,0.315 0.175,0.450 C0.258,0.552 0.382,0.620 0.530,0.660 C0.642,0.690 0.732,0.708 0.800,0.708 C0.8263,0.708 0.8476,0.7286 0.8476,0.754 C0.8476,0.7794 0.8263,0.800 0.800,0.800 C0.560,0.812 0.320,0.826 0.170,0.878 C0.090,0.908 0.030,0.962 0,1 Z',
-    // hero on narrow viewports: the same cut, laid flat under the copy
-    heroBand: 'M0,0.18 L1,0 L1,0.82 L0,1 Z',
     // hero on a phone: the petal again, but reduced to the sliver that fits
     // beside a single column of copy. It leaves the top edge two thirds across,
     // runs down and out to the right, pinches once where the claim passes, then

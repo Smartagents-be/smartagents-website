@@ -3,7 +3,7 @@
 // Structure, spacing, colour and motion all come from the design system:
 // see .claude/skills/smartagents-design/README.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
-import { logoMark, orbitRings, trainingPath } from '../layouts/base.mjs';
+import { fieldEchoes, logoMark, orbitRings, trainingPath } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 const SERVICES = ['process', 'agentic', 'training', 'staffing'];
@@ -83,9 +83,11 @@ function hero(t) {
   return html`<section id="home-hero" class="hero">
 ${orbitRings('home-hero')}
   <div id="home-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
+    ${fieldEchoes('home-hero-field-right', 'heroPetal', { pin: 'right' })}
     <div id="home-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="home-hero-nodes-right"></sa-node-field></div>
   </div>
   <div id="home-hero-field-slot-left" class="field-slot hero__field hero__field--left" aria-hidden="true">
+    ${fieldEchoes('home-hero-field-left', 'heroLobe', { pin: 'left' })}
     <div id="home-hero-field-left" class="field" data-magnet data-magnet-free data-magnet-pin="left" data-magnet-points="460" data-magnet-amp="60" data-magnet-sigma="100" data-clip="heroLobe"><sa-node-field id="home-hero-nodes-left"></sa-node-field></div>
   </div>
   <div id="home-hero-inner" class="hero__inner">
@@ -150,8 +152,7 @@ ${join(rows)}
 
 function dna(t) {
   const items = DNA.map(
-    (n) => html`<div class="numbered">
-      <span class="numbered__index" aria-hidden="true">${index(n)}</span>
+    (n) => html`<div class="numbered numbered--plain">
       <div>
         <div class="numbered__title">${t(`dna.${n}.title`)}</div>
         <p>${t(`dna.${n}.body`)}</p>
@@ -165,8 +166,10 @@ function dna(t) {
   </div>
   <div class="dna">
     <div class="dna__figure" aria-hidden="true">
+      ${fieldEchoes('home-dna-disc', 'dnaField', { place: 'dna__disc' })}
       <div class="field dna__disc" data-magnet data-clip="dnaField"></div>
       <div class="dna__helix"><sa-node-field variant="helix"></sa-node-field></div>
+      ${fieldEchoes('home-dna-blob', 'dnaBlob', { place: 'dna__blob', small: true })}
       <div class="field dna__blob" data-magnet data-magnet-free data-clip="dnaBlob"><sa-node-field></sa-node-field></div>
     </div>
     <div class="dna__list">
@@ -208,6 +211,7 @@ function transformation(t) {
 ${join(items)}
     </div>
     <div class="stack" aria-hidden="true">
+      ${fieldEchoes('home-stack-field', 'stackField', { place: 'stack__field' })}
       <div class="field stack__field" data-magnet data-clip="stackField"><sa-node-field></sa-node-field></div>
       <div class="stack__planes">
         <div class="plane plane--1"><div class="plane__quadrants">${cells(4)}</div></div>
@@ -287,7 +291,8 @@ ${join(chips)}
   </article>`;
   });
 
-  return html`<section class="section" id="insights" aria-labelledby="home-insights-heading">
+  return html`<section class="section section--orbits" id="insights" aria-labelledby="home-insights-heading">
+${orbitRings('home-insights', 'orbits--insights', ['01', '02', '03', '04'])}
   <div id="home-insights-head" class="section__head">
     <h2 id="home-insights-heading" class="section-heading">${t('section.insights')}</h2>
   </div>
