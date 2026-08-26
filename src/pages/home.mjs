@@ -5,25 +5,12 @@
 import { html, join, raw } from '../../build/lib/html.mjs';
 import { logoMark, orbitRings, servicePath } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
+import { INSIGHTS, insightPath, thumbSrcset } from './insights/insights.mjs';
 
 const SERVICES = ['process', 'agentic', 'training', 'staffing'];
 const DNA = ['1', '2', '3', '4'];
 const TRANSFORMATION = ['1', '2', '3', '4'];
 const STEPS = ['1', '2', '3', '4', '5'];
-/**
- * The articles the homepage lists, newest first. Everything here is
- * language-independent: the key names the piece, `thumb` is the stem of its
- * derivations in `/media/insights/`, `widths` are the widths that stem was
- * derived at (the launch photograph is a small original and stops at 480w),
- * and `tags` name the shared `article.tag.*` labels. All prose comes from
- * `t()` under `article.<key>.*`.
- */
-const ARTICLES = [
-  { key: 'aviso', thumb: 'aviso', widths: [320, 480, 760], tags: ['news', 'ai'] },
-  { key: 'what-works', thumb: 'what-works', widths: [320, 480, 760], tags: ['ai', 'tips'] },
-  { key: 'smartspace', thumb: 'smartspace', widths: [320, 480, 760], tags: ['news', 'ai'] },
-  { key: 'launch', thumb: 'launch', widths: [320, 480], tags: ['news'] }
-];
 
 /**
  * A thumbnail is 208px in the listing and 156px in the narrow band just under
@@ -35,9 +22,6 @@ const ARTICLES = [
  */
 const THUMB_SIZES =
   '(max-width: 620px) calc(100vw - 40px), (max-width: 1000px) 44vw, (max-width: 1080px) 156px, 208px';
-
-const thumbSrcset = (stem, widths, extension) =>
-  widths.map((width) => `/media/insights/${stem}-${width}.${extension} ${width}w`).join(', ');
 
 /** `01`-style monospace index; numbers act as the icons in this system. */
 const index = (n) => String(n).padStart(2, '0');
@@ -62,7 +46,7 @@ ${services(t, lang)}
 ${dna(t)}
 ${transformation(t)}
 ${approach(t)}
-${insights(t)}
+${insights(t, lang)}
 ${contact(t)}
 
 </main>`
@@ -258,14 +242,14 @@ ${join(steps)}
  * .claude/skills/smartagents-design/README.md.
  * ------------------------------------------------------------------ */
 
-function insights(t) {
-  const rows = ARTICLES.map(({ key, thumb, widths, tags }) => {
+function insights(t, lang) {
+  const rows = INSIGHTS.map(({ key, thumb, widths, tags }) => {
+    const href = insightPath(key, lang);
     const chips = tags.map(
       (tag) => html`<li id="home-insights-tag-${key}-${tag}" class="badge">${t(`article.tag.${tag}`)}</li>`
     );
 
-    return html`<article id="home-insights-item-${key}" class="article-row">
-    <figure id="home-insights-figure-${key}" class="article-row__figure">
+    const content = html`    <figure id="home-insights-figure-${key}" class="article-row__figure">
       <picture id="home-insights-picture-${key}">
         <source id="home-insights-source-${key}" type="image/avif" srcset="${thumbSrcset(thumb, widths, 'avif')}" sizes="${THUMB_SIZES}">
         <img id="home-insights-image-${key}" class="article-row__image" src="/media/insights/${thumb}-480.jpg" srcset="${thumbSrcset(thumb, widths, 'jpg')}" sizes="${THUMB_SIZES}" width="480" height="270" alt="${t(`article.${key}.alt`)}" loading="lazy" decoding="async">
@@ -273,14 +257,24 @@ function insights(t) {
     </figure>
     <div id="home-insights-text-${key}" class="article-row__text">
       <h3 id="home-insights-title-${key}" class="article-row__title">${t(`article.${key}.title`)}</h3>
-      <p id="home-insights-body-${key}" class="article-row__body">${t(`article.${key}.body`)}</p>
+      <p id="home-insights-body-${key}" class="article-row__body">${t(`article.${key}.body`)}</p>${href
+        ? html`
+      <span id="home-insights-cue-${key}" class="article-row__cue">${t('cta.moreInfo')} <span id="home-insights-cue-arrow-${key}" aria-hidden="true">&rarr;</span></span>`
+        : ''}
     </div>
     <div id="home-insights-meta-${key}" class="article-row__meta">
       <span id="home-insights-date-${key}" class="article-row__date">${t(`article.${key}.date`)}</span>
       <ul id="home-insights-tags-${key}" class="article-row__tags">
 ${join(chips)}
       </ul>
-    </div>
+    </div>`;
+
+    return href
+      ? html`<a id="home-insights-item-${key}" class="article-row" href="${href}">
+${content}
+  </a>`
+      : html`<article id="home-insights-item-${key}" class="article-row">
+${content}
   </article>`;
   });
 

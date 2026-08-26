@@ -110,14 +110,12 @@
   align-items: center;
 }
 
-/* The five things the sheet adds to the dropdown. All of them are the header's
-   own furniture, moved: the services list off the mega-menu, the primary
-   action and the language chips out of the header actions, and the two ways to
-   reach a person off the contact section. Above the phone the header still has
-   room for its own, so none of this is shown. */
+/* The four things the sheet adds to the dropdown. All of them are the header's
+   own furniture, moved: the primary action and the language chips out of the
+   header actions, the two ways to reach a person off the contact section, and
+   the burger the trigger becomes. Above the phone the header still has room for
+   its own, so none of this is shown. */
 .nav-toggle__burger,
-.nav-sheet__cue,
-.nav-sheet__sub,
 .nav-sheet__cta,
 .nav-sheet__facts,
 .nav-toggle__panel .lang-switcher {
@@ -218,36 +216,13 @@
   /* `.nav-toggle__panel a` sets the dropdown's own type and padding and is two
      classes deep, so every rule that has to beat it names the anchor too. */
   .nav-toggle__panel a.nav-sheet__item {
-    display: flex;
-    justify-content: space-between;
+    display: block;
     padding: var(--space-5) var(--space-1);
     border-bottom: 1px solid var(--border-hairline);
     border-radius: 0;
     font-size: var(--text-h3);
     font-weight: var(--weight-semibold);
     letter-spacing: var(--track-h2);
-  }
-
-  .nav-sheet__cue {
-    display: inline;
-    color: var(--text-accent);
-  }
-
-  /* The services sit under their own entry rather than beside it: an indent
-     and a step down in size is all the hierarchy a list of four needs. */
-  .nav-sheet__sub {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-5) 0 var(--space-6);
-    border-bottom: 1px solid var(--border-hairline);
-  }
-
-  .nav-toggle__panel a.nav-sheet__sub-item {
-    padding: var(--space-3) var(--space-1);
-    color: var(--text-body);
-    font-size: var(--text-ui);
-    font-weight: var(--weight-medium);
   }
 
   .nav-toggle__panel a.nav-sheet__cta {
@@ -1266,10 +1241,26 @@ a.row:hover .row__cue {
   line-height: var(--leading-body-tight);
 }
 
+/* An article with a page behind it gets the same "Ontdek \2192" cue a linked
+   service row gets, but inside the text column rather than in a reserved third
+   one: the row's third column is the date and the badges, and it is ranged
+   right against the page edge. */
+.article-row__cue {
+  transition: transform var(--dur-move) var(--ease-out-expo);
+  margin-top: var(--space-2);
+  color: var(--text-accent);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
 a.article-row:hover {
   background: var(--surface-hover);
   color: inherit;
   transform: translateX(3px);
+}
+
+a.article-row:hover .article-row__cue {
+  transform: translateX(5px);
 }
 
 /* The grade is a decoration, not information, so it only lifts where there is
@@ -1653,19 +1644,6 @@ sa-node-field {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* ------------------------------------------------------------------ *
- * The one linked service row
- *
- * Training is the only service with a page behind it. It keeps the hairline
- * every other row has; the "Ontdek →" cue and the hover are the whole
- * difference.
- * ------------------------------------------------------------------ */
-
-.nav-panel__item--feature b::after {
-  content: "\00a0\2192";
-  color: var(--text-accent);
 }
 
 /* ------------------------------------------------------------------ *
@@ -2646,6 +2624,256 @@ sa-node-field {
 @media (hover: none) {
   .person__image {
     filter: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — an insight
+ *
+ * The one page on the site that is read rather than scanned, and the only place
+ * copy runs long enough to need a heading level, a quote and a list inside a
+ * body. Everything else about it is the site's: the detail pages' hero with the
+ * petal on the right flank, the picture in the frame the homepage thumbnails
+ * use, the contact section at the foot.
+ * ------------------------------------------------------------------ */
+
+/* There is no hero on these pages, so the headline opens the article column
+   itself. An article headline is a sentence, not the brand's display voice, so
+   it is set one step down: at the display size two of the four run to three
+   lines, and the measure it would need is wider than the body it introduces. */
+.article__head {
+  padding-bottom: var(--space-13);
+}
+
+.article__head h1 {
+  margin-bottom: var(--space-8);
+  max-width: 26ch;
+  font-size: var(--text-h1-sub);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+}
+
+/* The excerpt the homepage row prints, printed again under the headline: a
+   reader who followed the row wants to see they landed on what they clicked. */
+/* Narrower than the body it introduces, which is what makes it read as a
+   standfirst rather than as the first paragraph — but not the 44ch every other
+   block on the site uses: beside a column this wide that reads as a stub. */
+.article-lede {
+  max-width: 62ch;
+  color: var(--text-muted);
+  font-size: var(--text-lead);
+}
+
+/* Where the other detail pages put their buttons. An article's next action is
+   to read it, so there is nothing to press — the date and the categories take
+   the row instead, in the styling the homepage row gives them. */
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  align-items: center;
+  margin-top: var(--space-9);
+}
+
+.article-meta__date {
+  color: var(--text-faint);
+  font-size: var(--text-meta-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.article-meta__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Two columns: the article takes the page, the rail takes a fixed 260px of it.
+   The proportions are the page's own — the hero splits 52/48 and every other
+   block on the site is a share of the width — so the article column is what is
+   left rather than a measure with dead space after it. Ranged left, never
+   centred: the copy's left edge is the page's on every page here. */
+.article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: var(--gap-column);
+  align-items: start;
+}
+
+.article__main {
+  min-width: 0;
+  max-width: var(--measure-prose);
+}
+
+/* A rail, not a second column: 260px on the right page gutter, so its right edge
+   is the nav's and the footer's. It sticks, and it clears the sticky header. */
+.article__rail {
+  position: sticky;
+  top: var(--space-16);
+}
+
+.article__rail-title {
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border-hairline);
+  color: var(--text-faint);
+  font-size: var(--text-meta-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
+.article__rail-list {
+  list-style: none;
+}
+
+/* The homepage's row idiom narrowed to a rail: a hairline under each, no card,
+   no thumbnail, and the same wash and 3px shift on hover. */
+.rail-row {
+  transition: var(--transition-move), var(--transition-tint);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--border-hairline);
+  color: inherit;
+}
+
+.rail-row:hover {
+  background: var(--surface-hover);
+  color: inherit;
+  transform: translateX(3px);
+}
+
+.rail-row__title {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-ui);
+  line-height: var(--leading-snug);
+}
+
+.rail-row__date {
+  color: var(--text-faint);
+  font-size: var(--text-meta-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.article__rail-foot {
+  padding-top: var(--space-6);
+}
+
+.article__rail-link {
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* The frame is the homepage thumbnail's: hairline, panel radius, paper under
+   the picture while it loads, and the same cool grade, because it is the same
+   picture. It is not full-bleed and it is not wider than the type: the widest
+   derivation is 760w and the smallest original is 542px across, so a banner
+   running the width of the page would be the one visibly soft picture on the
+   site. */
+.article__banner {
+  overflow: hidden;
+  margin-bottom: var(--space-13);
+  /* The widest derivation there is. The column is wider than this on a desk, so
+     the figure is inset rather than upscaled: 760px of pixels stretched across
+     980 is the one soft picture the design system refuses. */
+  max-width: 760px;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-input);
+}
+
+/* See BANNER_CAP in src/pages/insights/insights.mjs: the launch photograph's
+   original is 542px across, so it is shown at the width it has rather than
+   upscaled to fill the column. */
+.article__banner--short-source {
+  max-width: 480px;
+}
+
+/* The image carries the ratio itself rather than filling the figure with a
+   percentage height: `height: 100%` inside a box whose height comes from
+   `aspect-ratio` is resolved by Chromium and not by every engine, and one that
+   resolves it against `auto` collapses the picture to nothing. This needs no
+   percentage height at all. */
+.article__banner-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  filter: saturate(0.72) contrast(1.04);
+  object-fit: cover;
+}
+
+/* The body. Ink on paper at the body size, and one rhythm between blocks that
+   the headings and the quote open up on their own. */
+.prose {
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+}
+
+.prose > * + * {
+  margin-top: var(--space-8);
+}
+
+.prose__heading {
+  margin-top: var(--space-14);
+  font-size: var(--text-h3);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h3);
+}
+
+/* The one place the article raises its voice: the 2px cyan rule a section
+   heading sits under, stood on its side. No quotation marks and no italic —
+   the rule and the size are the whole signal. */
+.prose__quote {
+  margin-top: var(--space-13);
+  margin-bottom: var(--space-13);
+  padding-left: var(--space-9);
+  border-left: 2px solid var(--sa-cyan);
+}
+
+.prose__quote-text {
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--track-h3);
+}
+
+/* The site is icon-poor and its lists are hairline rows or cyan two-digit
+   indexes, neither of which works inside a paragraph's rhythm. A disc does,
+   and it is cyan for the same reason the indexes are. */
+.prose__list {
+  display: grid;
+  gap: var(--space-5);
+  padding-left: var(--space-7);
+  list-style: disc;
+}
+
+.prose__list li::marker {
+  color: var(--sa-cyan);
+}
+
+.prose strong {
+  font-weight: var(--weight-semibold);
+}
+
+/* Cyan is the accent colour of every link on the site, but inside a paragraph
+   colour alone is not a reliable cue, so a prose link is the one underlined
+   thing on the site. */
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Below the width where every other two-abreast list on the site collapses,
+   the rail drops under the article — which is where a "read next" block belongs
+   anyway, so it stops being sticky and stops being an aside beside anything. */
+@media (max-width: 1000px) {
+  .article {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  .article__rail {
+    position: static;
+    max-width: 520px;
   }
 }
 

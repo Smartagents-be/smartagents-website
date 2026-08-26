@@ -164,6 +164,12 @@
   --shell-width: 1180px;
   --measure: 44ch;
   --measure-display: 14ch;
+  /* Long-form only, and an outer bound rather than the width: the article column
+     takes whatever the page leaves beside the 260px rail, and this only stops it
+     running away on a very wide monitor. The doc's 44ch is right for the two or
+     three lines every marketing block runs to and far too narrow for twenty
+     paragraphs of one. Used on the insight pages and nowhere else. */
+  --measure-prose: 100ch;
 
   /* ---------------------------------------------------------------- *
    * Shape — 5 chip, 7 button, 8 nav, 11 menu item, 16 panel, 20 card, 26 shell

@@ -15,9 +15,10 @@ const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
 
 /**
  * The services that have a detail page of their own, keyed by the string the
- * homepage rows, the mega menu and the phone sheet are all built from. A
- * service that is not in here still points back at the homepage list, and
- * renders without the "Ontdek →" cue (design README, "Deviations", item 4).
+ * homepage rows, the nav bar and the phone sheet are all built from. A service
+ * that is not in here is a homepage row and nothing more: it stays out of the
+ * nav, and its row renders plain, without the "Ontdek →" cue (design README,
+ * "Deviations", item 4).
  */
 const SERVICE_PAGES = { training: trainingPage, staffing: staffingPage };
 
@@ -275,74 +276,77 @@ export function clipDefs() {
  * Header and footer
  * ------------------------------------------------------------------ */
 
-// The nav in reading order. A section is an anchor on the homepage; `team` is
-// the one entry that is a page of its own, so it is resolved per language.
-const NAV_SECTIONS = ['dna', 'team', 'approach', 'insights', 'contact'];
-const SERVICES = ['process', 'agentic', 'training', 'staffing'];
+/**
+ * The nav in reading order. Every entry is a destination that exists: the two
+ * services with a page behind them, the team page, and the two homepage
+ * sections a reader arrives looking for. Nothing here is a menu — the mega
+ * menu it replaced listed four services of which two had nowhere to go, and a
+ * dropdown whose only real items are two links is a lid over two links.
+ *
+ * What came off the bar — Ons DNA, Aanpak, Digitale transformatie — is still
+ * on the homepage in that order. Those are read on the way down, not aimed at.
+ */
+const NAV_ITEMS = ['training', 'staffing', 'team', 'insights', 'contact'];
 
-/** Where a nav key points from `lang`: a real page if it has one, else an anchor. */
+/**
+ * Where a nav key points from `lang`. A service and the team page resolve to a
+ * page, and to `null` in a language that page is not published in; everything
+ * else is a homepage anchor, which every language has.
+ */
 function navHref(key, lang, home) {
-  return (key === 'team' && teamPath(lang)) || `${home}#${key}`;
+  if (key === 'team') return teamPath(lang);
+  if (SERVICE_PAGES[key]) return servicePath(key, lang);
+  return `${home}#${key}`;
+}
+
+/**
+ * A service is named in the nav exactly as it is named in the homepage row and
+ * in its own hero, so the three can never drift: one service, one name.
+ */
+function navLabel(key, t) {
+  return SERVICE_PAGES[key] ? t(`service.${key}.title`) : t(`nav.${key}`);
 }
 
 export function siteHeader({ t, lang, alternates }) {
   // Every section anchor is written against the homepage, so the header works
   // the same from a detail page as it does from the homepage itself: on `/nl/`
-  // the browser treats `/nl/#dna` as a plain in-page jump.
+  // the browser treats `/nl/#insights` as a plain in-page jump.
   const home = pagePath(lang);
 
-  // A service with a page of its own is the featured kind of menu item — the
-  // one that carries the arrow. The rest drop the reader on the homepage list.
-  const menuItems = SERVICES.map((key) => {
-    const href = servicePath(key, lang);
-    return html`<a class="nav-panel__item${href ? ' nav-panel__item--feature' : ''}" href="${href || `${home}#services`}"><b>${t(`service.${key}.title`)}</b><span>${t(`service.${key}.menu`)}</span></a>`;
-  });
+  // A page that is not published in this language drops out of the nav rather
+  // than pointing at an anchor no page carries.
+  const items = NAV_ITEMS.map((key) => ({
+    key,
+    href: navHref(key, lang, home),
+    label: navLabel(key, t)
+  })).filter((item) => item.href !== null);
 
   // The key rides along as a modifier class: the tablet header drops the one
   // link that duplicates the button beside it, and it has to be nameable.
-  const navLinks = NAV_SECTIONS.map(
-    (key) => html`<a id="nav-link-${key}" class="nav-link nav-link--${key}" href="${navHref(key, lang, home)}">${t(`nav.${key}`)}</a>`
+  const navLinks = items.map(
+    ({ key, href, label }) => html`<a id="nav-link-${key}" class="nav-link nav-link--${key}" href="${href}">${label}</a>`
   );
 
-  // The disclosure panel is two panels in one: a compact dropdown from the
-  // point the nav bar folds (768px), and a full-height sheet on a phone. The
-  // sheet is the dropdown's list plus four things the header no longer has
-  // room for down there — the services under their own heading, the primary
-  // action, the language chips and the two ways to reach a person. All four
-  // are display:none above the phone breakpoint, so the dropdown is unchanged.
-  const sheetLinks = ['services', ...NAV_SECTIONS].map(
-    (key) => html`<a id="nav-sheet-link-${key}" class="nav-sheet__item" href="${navHref(key, lang, home)}">${t(`nav.${key}`)}${key === 'services' ? raw('<span id="nav-sheet-link-services-cue" class="nav-sheet__cue" aria-hidden="true">&rarr;</span>') : ''}</a>`
+  // The disclosure is two panels in one: a compact dropdown from the point the
+  // nav bar folds (768px), and a full-height sheet on a phone. Both carry the
+  // same list the bar does; the sheet adds three things the header no longer
+  // has room for down there — the primary action, the language chips and the
+  // two ways to reach a person. All three are display:none above the phone
+  // breakpoint, so the dropdown stays a plain list of links.
+  const sheetLinks = items.map(
+    ({ key, href, label }) => html`<a id="nav-sheet-link-${key}" class="nav-sheet__item" href="${href}">${label}</a>`
   );
-
-  const sheetServices = SERVICES.map(
-    (key) => html`      <a id="nav-sheet-service-${key}" class="nav-sheet__sub-item" href="${servicePath(key, lang) || `${home}#services`}">${t(`service.${key}.title`)}</a>`
-  );
-
-  // The services list belongs under "Diensten", so it is spliced in after it
-  // rather than appended: the sheet reads in the same order as the nav bar.
-  const sheetBody = [sheetLinks[0], html`    <div id="nav-sheet-services" class="nav-sheet__sub">
-${join(sheetServices)}
-    </div>`, ...sheetLinks.slice(1)];
 
   return html`<header class="site-header">
   <div class="header-wedge" aria-hidden="true"><sa-node-field></sa-node-field></div>
   <a class="brand-link" href="${pagePath(lang)}">${logoMark('field')}<span>Smart<span class="brand-accent">Agents</span></span></a>
   <nav class="site-nav" aria-label="${t('a11y.mainNav')}">
-    <div class="nav-group">
-      <a class="nav-link" href="${home}#services">${t('nav.services')}${CHEVRON}</a>
-      <div class="nav-panel">
-        <div class="nav-panel__grid">
-${join(menuItems)}
-        </div>
-        <a class="nav-panel__all" href="${home}#services"><span>${t('nav.allServices')}</span><span aria-hidden="true">&rarr;</span></a>
-      </div>
-    </div>
 ${join(navLinks)}
   </nav>
   <details id="nav-toggle" class="nav-toggle">
     <summary id="nav-toggle-summary"><span id="nav-toggle-label" class="nav-toggle__label">${t('nav.menu')}${CHEVRON}</span><span id="nav-toggle-burger" class="nav-toggle__burger" aria-hidden="true"><i></i><i></i></span></summary>
     <nav id="nav-sheet" class="nav-toggle__panel" aria-label="${t('a11y.mainNav')}">
-${join(sheetBody)}
+${join(sheetLinks)}
     <a id="nav-sheet-cta" class="btn btn--primary nav-sheet__cta" href="${home}#contact">${t('cta.talk')}</a>
 ${languageSwitcher(lang, alternates, t, 'nav-sheet')}
     <div id="nav-sheet-facts" class="nav-sheet__facts">

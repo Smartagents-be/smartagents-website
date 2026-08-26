@@ -1,9 +1,10 @@
 # CLAUDE.md - Agent Entry Point
 
 Pre-rendered static site, no backend, no framework. The public site is the
-redesigned homepage plus three detail pages — training, AI staffing and
-coaching, and team (NL / EN / FR); the password-gated `/secured/` area
-(internal documents and pitch decks) is live.
+redesigned homepage, three detail pages — training, AI staffing and coaching,
+and team — and the four "Inzichten" articles behind the homepage's article rows
+(NL / EN / FR); the password-gated `/secured/` area (internal documents and
+pitch decks) is live.
 
 ## Skills — read these first
 
@@ -92,6 +93,25 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   so dev routes like production. Nothing negotiates on `Accept-Language`.
 - **Pages are functions.** A page module exports `{ id, slugs, meta(t), render(ctx) }`
   and returns markup from the `html` tag. Never hard-code visible text: use `t()`.
+- **An insight is a page generated from a list.** `src/pages/insights/insights.mjs`
+  holds `INSIGHTS` — one entry per article, with its per-language slug under that
+  language's own word for the section (`inzichten/` · `insights/` · `analyses/`)
+  — and turns each entry into a page module, so `build/render.mjs` spreads
+  `insightPages` into `PAGES` and the homepage builds its rows from the same
+  list. Adding an article means adding an entry there plus a body module beside
+  it; nothing else has to be told. Title, excerpt, date, alt text and tag labels
+  come from the shared `article.*` keys the homepage row already prints, so the
+  list and the page it opens can never disagree. Only the long-form body lives
+  outside `src/i18n`: `prose.mjs` gives it four block types (`p`, `h2`, `quote`,
+  `list`) as tagged template literals — which is what lets a Dutch or French
+  sentence carry its apostrophes unescaped — and two inline marks, `**bold**` and
+  `[label](href)`. A href of `insight:<key>` resolves to that article in the
+  language being rendered, which is the only way a cross-article link stays
+  correct in three languages. The copy itself is the client's, ported verbatim
+  from the Eleventy blog on `main` under `blog/posts/`. These are the only public
+  pages with no hero and no dark shape: they open on the headline at the reading
+  measure, with the other three articles in a rail beside the body. See
+  "Deviations from the design doc", item 7, in the `smartagents-design` README.
 - **Decks are data.** Each deck is `deck.json` plus `slides/*.html` fragments.
   The `<!--chrome 05/10-->` marker expands to the slide footer at render time.
   Adding a deck means adding a folder; discovery is automatic.
@@ -191,7 +211,13 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   - `public/media/insights/` — the homepage article thumbnails, a 16:9 crop at
     320w, 480w and 760w, all lazy (`src/pages/home.mjs`). The sources are the
     four blog post banners on `main`, under `assets/blog/`; `launch` stops at
-    480w because its original is only 542px wide.
+    480w because its original is only 542px wide. The article page reuses the
+    same set as its banner, eagerly and at the reading measure rather than
+    full-bleed: 760w is the widest there is and the smallest original is 542px
+    across, so a banner running the width of the page would be the one visibly
+    soft picture on the site. Deriving wider crops is only possible for two of
+    the four — aviso is 1600px across and smartspace 3710px, what-works is 996px
+    and launch 542px.
 
   `sips --cropOffset` is the top-left of the crop window in *points*, so set the
   source to 72dpi first or the offset lands at half the distance, and never pass
@@ -202,9 +228,10 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   platform face is what renders. Ask the client for the WOFF2 files.
 - Two of the four service rows link out — training and AI staffing — through
   `servicePath()` in `src/layouts/base.mjs`, which is the one place the homepage
-  rows, the mega menu and the phone sheet all ask. Procesoptimalisatie, agentic
-  automatisatie and the article rows still have nowhere to go, so they stay plain
-  rows without a "Ontdek →" cue. See "Deviations from the design doc" in the
+  rows and the nav bar both ask. Procesoptimalisatie and agentic automatisatie
+  still have nowhere to go, so they stay plain rows without a "Ontdek →" cue, and
+  they are not in the nav. All four article rows now link, through
+  `insightPath()`. See "Deviations from the design doc" in the
   `smartagents-design` README.
 - The live site also has a Jobs page. It has not been redesigned yet, and
   nothing links to it.

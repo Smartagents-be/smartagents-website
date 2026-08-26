@@ -43,7 +43,8 @@ The site is Dutch-first (NL / FR / EN).
 **Two darks, one accent, a lot of paper.** Ink `oklch(0.148 0.005 247.84)` for text and primary
 buttons; navy field `oklch(0.183 0.022 252)` for every dark shape; cyan
 `oklch(0.53 0.112 214)` on paper and `#00d8ff` on the field. Nothing else. Paper is a stack of
-near-whites (0.9846 → 0.945 on hover); pure white is reserved for the mega-menu panel.
+near-whites (0.9846 → 0.945 on hover); pure white is reserved for a panel that floats over the
+page — today only the menu the header folds into under 768px.
 
 **The dark field is the brand.** Large navy shapes cut with angular clip paths — a wedge behind
 the header logo, a petal and its counter-lobe on the hero's two flanks, a chevroned full-width
@@ -130,7 +131,7 @@ The production implementation of all of this lives in `src/`; see `SKILL.md` for
 
 ## Deviations from the design doc
 
-The doc is a fixed 1180px canvas rendered in a preview host. Six things had to be decided
+The doc is a fixed 1180px canvas rendered in a preview host. Seven things had to be decided
 outside it, and are decided the same way everywhere in `src/`:
 
 1. **Responsive behaviour.** The three page measures (`--gutter-page`, `--gap-column`,
@@ -170,14 +171,23 @@ outside it, and are decided the same way everywhere in `src/`:
      as a sliver. There is no flat band in between: a stripe the width of the page under a block
      of copy read as a misprint, and the split it replaced still reads at 620px.
 2. **Fonts.** No webfont is loaded — see above.
-3. **The mega-menu is CSS-only** (`:hover, :focus-within`), so it can never fail to open and is
-   reachable from the keyboard.
+3. **The nav names destinations, not categories.** The doc draws a `Diensten` mega-menu over four
+   services; two of them have no page, and a dropdown whose real content is two links is a lid over
+   two links. The bar is the five things a reader can actually arrive at — the two services with a
+   page, the team page, and the Inzichten and Contact sections of the homepage — written out flat,
+   which is also what the disclosure under 768px and the phone sheet then carry, unchanged. Ons DNA,
+   Aanpak and Digitale transformatie came off the bar and stayed on the homepage: they are read on
+   the way down rather than aimed at. Put a section back in the nav only when it becomes a page.
+   `NAV_ITEMS` in `src/layouts/base.mjs` is the list, and a service is named there from
+   `service.<key>.title`, so its nav entry, its homepage row and its own hero can never drift.
 4. **Rows are only links when there is somewhere to go.** The doc's service and article rows link
    to detail pages that mostly do not exist, so a row with no destination renders plain and drops
    the "Ontdek →" cue. Two services now have a page — training and AI staffing and coaching — and
    both rows link; the lookup is `servicePath(key, lang)` in `src/layouts/base.mjs`, and adding a
    page to `SERVICE_PAGES` there brings the hover, the arrow and the translate back on the homepage
-   row, in the mega menu and in the phone sheet at once. The article rows are still plain.
+   row and puts the service in the nav at the same time. All four article rows link too, through
+   `insightPath(key, lang)` in `src/pages/insights/insights.mjs`; only Procesoptimalisatie and
+   agentic automatisatie are still plain.
 5. **Two surfaces carry pictures**, which the doc rules out everywhere else.
 
    **The team page** puts photography in its hero: under the headline, the two founders fill the
@@ -208,7 +218,16 @@ outside it, and are decided the same way everywhere in `src/`:
    article stacks — but two abreast, which is how the tablet artboard sets it and what the 156px
    stamp beside five lines of type had been standing in for. Four of them are two rows, not four
    screens, which is the objection that kept the row a row. The list stays a hairline list — no
-   cards, no shadows, no read-more cue while the articles have nowhere to go.
+   cards and no shadows — but every row is now a link and carries the "Ontdek →" cue, inside the
+   text column rather than in a reserved third one: the row's third column is the date and the
+   badges, and it is ranged right against the page edge.
+
+   **An insight's own page** shows the same thumbnail again, in the same frame, at the reading
+   measure. That is the third surface with a picture on it and it is not a new decision so much as
+   the same one twice: it is the picture the reader clicked, so showing anything else would be the
+   surprise. It is deliberately not full-bleed and not wider than the type — the widest derivation
+   is 760w and the smallest original is 542px across, so a banner running the width of the page
+   would be the one visibly soft picture on the site.
    The four pictures are a photograph, an illustration and a product screenshot, which is exactly
    why the frame is fixed: 1px hairline, `--radius-panel`, over paper — the navy the portraits sit
    on would put four dark blocks in the section while the lazy images load.
@@ -234,3 +253,60 @@ outside it, and are decided the same way everywhere in `src/`:
    1000px the clip is dropped and the band is a plain full-width block. Reach for this only when a
    block is genuinely the closing statement of a page — a second one on the same page would make
    both read as cards.
+
+7. **Long-form copy is a page type the doc never drew.** The four insight articles are the only
+   thing on the site that is read rather than scanned, and four decisions had to be made for them
+   that nothing else on the site needed.
+
+   **The measure is the page, not a measure.** Body copy is capped at 44ch everywhere, which is
+   right for the two or three lines a marketing block runs to and far too narrow for twenty
+   paragraphs of one: at the reading size 44ch is about fifty characters, and a column of that width
+   turns an article into a very tall thin ribbon. A capped column has a second problem here, which
+   two drafts of this page both had — set at 58ch and then at 72ch, it left 300–440px of dead page
+   between the prose and the rail, which is the same "single column with the rest empty" the band
+   rule already refuses. So the article column takes what the page leaves beside the rail, the way
+   the hero takes 52% and every other block on the site is a share of the width. On a 1440px desk
+   that is 965px, around 115 characters — long by the usual measure, and the client's call. The
+   levers if it ever wants tightening are the body size and `--measure-prose`, which is now only an
+   outer bound so the column cannot run away on a very wide monitor.
+
+   The standfirst under the headline sits at 62ch: narrower than the body it introduces, which is
+   what makes it read as a standfirst, but not the site's 44ch, which beside a column this wide
+   reads as a stub.
+
+   **The banner is inset, not stretched.** The column is wider than any derivation, so the figure is
+   capped at 760px — the widest there is — and sits inset in its column. An article whose widest
+   derivation cannot reach that stops at the width it does have: `BANNER_CAP` in
+   `src/pages/insights/insights.mjs` and `.article__banner--short-source`. Only the launch
+   photograph is in that position, at 480px, because its original is 542px across. Stretching 760px
+   of pixels across 965 is the one soft picture this system refuses.
+
+   **The other half of the page.** A single column of prose with the rest of the page empty is the
+   mistake this README already names at page scale — "navy behind a single column with the rest of
+   the band empty". The honest thing to put beside a page someone is reading is what else there is
+   to read, so the other three articles sit in a rail against the right edge: the homepage's row
+   idiom narrowed, hairline under each, title and date, no thumbnail, and it sticks so it is still
+   there at the foot of a long piece. Its track is a flat 260px on the right page gutter, so its
+   right edge is the nav's and the footer's and the only air between the two columns is the column
+   gap. Below 1000px — the same line every other two-abreast list collapses on — it drops under the
+   article, which is where a "read next" block belongs anyway.
+
+   **There is no hero, and no dark shape at all.** Every other page opens on one because it is
+   selling something and the petal is what says whose page it is. This one is a piece of writing, and
+   a 540px shape between the header and the first paragraph is a screen the reader has to scroll past
+   before they can start. So the page opens on the headline, at the measure the body runs at, and it
+   is the one page on the public site that is paper end to end. An article headline is a sentence, so
+   it is set at `--text-h1-sub` on a 26ch measure rather than at the display size: at the display
+   size two of the four run to three lines, and the brand's display voice is not what a piece of
+   writing opens in. Under it the excerpt the homepage row prints is printed again, then the date and
+   the category badges take the row the other detail pages give their buttons — an article's next
+   action is to read it, so there is nothing to press.
+
+   **Three marks inside the body, and no more.** A heading is `--text-h3` at the display weight. A
+   pull quote is the 2px cyan rule a section heading sits under, stood on its side — no quotation
+   marks, no italic, the rule and the size are the whole signal. A list is a disc with a cyan
+   marker, because the site's own list idioms (hairline rows, cyan two-digit indexes) do not survive
+   inside a paragraph's rhythm, and the marker is cyan for the same reason the indexes are. Inline
+   links are the one underlined thing on the site: cyan is the accent colour of every link here, and
+   inside a paragraph colour alone is not a reliable cue. Nothing else — no drop cap, no aside, no
+   figure inside the body.

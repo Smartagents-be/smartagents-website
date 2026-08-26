@@ -8,16 +8,13 @@
   "a11y.language": "Taal",
 
   "nav.menu": "Menu",
-  "nav.services": "Diensten",
-  "nav.dna": "Ons DNA",
-  "nav.approach": "Aanpak",
   "nav.insights": "Inzichten",
   "nav.contact": "Contact",
-  "nav.allServices": "Alle diensten en cases bekijken",
 
   "cta.talk": "Plan een gesprek",
   "cta.call": "Bel",
   "cta.seeWork": "Bekijk wat we doen",
+  "cta.allArticles": "Alle artikelen",
   "cta.moreInfo": "Ontdek",
   "cta.send": "Verstuur",
 
@@ -30,16 +27,12 @@
   "section.insights": "Inzichten",
 
   "service.process.title": "Procesoptimalisatie",
-  "service.process.menu": "Uw werking helder krijgen voor er één regel code is geschreven.",
   "service.process.body": "AI opent nieuwe mogelijkheden in uw processen en maakt bestaande stappen beter. Wij helpen u die kansen te herkennen en ze ook echt te implementeren.",
   "service.agentic.title": "Agentic automatisatie",
-  "service.agentic.menu": "Agents die plannen, lezen en meerstapstaken afwerken, met logs.",
   "service.agentic.body": "Agents inbouwen in nieuwe of bestaande processen, zodat uw software gebouwd is voor wat er nog komt.",
   "service.training.title": "Training",
-  "service.training.menu": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides.",
   "service.training.body": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de teams die met AI werken en voor de developers die ermee bouwen.",
   "service.staffing.title": "AI staffing en coaching",
-  "service.staffing.menu": "Profielen gescreend op wat ze effectief gebouwd hebben.",
   "service.staffing.body": "Op papier is iedereen AI-expert. Wij screenen profielen zoals we zelf gescreend willen worden: op wat ze gebouwd hebben.",
 
   "dna.1.title": "Praktijkmensen",
@@ -96,6 +89,8 @@
   "article.launch.body": "Waarom twee tech-ondernemers midden in de AI-golf een nieuw bedrijf starten: omdat “waar begin ik?” bij de meeste bedrijven onbeantwoord blijft.",
   "article.launch.alt": "Axel Segers en Tom Haeldermans, de oprichters van SmartAgents",
 
+
+  "insight.more": "Meer inzichten",
   "contact.title": "Zullen we eens praten",
   "contact.lede": "Vertel kort wat er beter kan lopen. We antwoorden zelf, meestal binnen een werkdag, en zeggen ook wanneer u ons niet nodig hebt.",
   "contact.callLabel": "Liever bellen?",

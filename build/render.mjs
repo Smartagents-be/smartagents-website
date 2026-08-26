@@ -27,12 +27,15 @@ import { page as trainingPage } from '../src/pages/training.mjs';
 import { page as staffingPage } from '../src/pages/staffing.mjs';
 import { page as teamPage } from '../src/pages/team.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
+import { insightPages } from '../src/pages/insights/insights.mjs';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(rootDir, 'dist');
 const contentDir = path.join(rootDir, 'src/content');
 
-const PAGES = [homePage, trainingPage, staffingPage, teamPage, notFoundPage];
+// The four insight pages are generated from one list; see
+// src/pages/insights/insights.mjs.
+const PAGES = [homePage, trainingPage, staffingPage, teamPage, ...insightPages, notFoundPage];
 
 const MINIFY_OPTIONS = {
   collapseWhitespace: true,

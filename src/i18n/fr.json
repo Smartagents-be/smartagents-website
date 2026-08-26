@@ -8,16 +8,13 @@
   "a11y.language": "Langue",
 
   "nav.menu": "Menu",
-  "nav.services": "Services",
-  "nav.dna": "Notre ADN",
-  "nav.approach": "Approche",
   "nav.insights": "Analyses",
   "nav.contact": "Contact",
-  "nav.allServices": "Voir tous les services et cas",
 
   "cta.talk": "Planifier un entretien",
   "cta.call": "Appeler",
   "cta.seeWork": "Voir ce que nous faisons",
+  "cta.allArticles": "Tous les articles",
   "cta.moreInfo": "Découvrir",
   "cta.send": "Envoyer",
 
@@ -30,16 +27,12 @@
   "section.insights": "Analyses",
 
   "service.process.title": "Optimisation des processus",
-  "service.process.menu": "Clarifier votre fonctionnement avant la moindre ligne de code.",
   "service.process.body": "L'IA ouvre de nouvelles possibilités dans vos processus et améliore les étapes existantes. Nous vous aidons à repérer ces occasions et à les mettre en œuvre.",
   "service.agentic.title": "Automatisation agentique",
-  "service.agentic.menu": "Des agents qui planifient, lisent et mènent des tâches à plusieurs étapes, avec des logs.",
   "service.agentic.body": "Intégrer des agents dans des processus nouveaux ou existants, pour que vos logiciels soient prêts pour la suite.",
   "service.training.title": "Formation",
-  "service.training.menu": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement.",
   "service.training.body": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement. Pour les équipes qui travaillent avec l'IA et les développeurs qui construisent avec elle.",
   "service.staffing.title": "AI staffing et coaching",
-  "service.staffing.menu": "Des profils évalués sur ce qu'ils ont réellement construit.",
   "service.staffing.body": "Sur papier, tout le monde est expert en IA. Nous évaluons les profils comme nous voudrions l'être nous-mêmes : sur ce qu'ils ont construit.",
 
   "dna.1.title": "Gens de terrain",
@@ -96,6 +89,8 @@
   "article.launch.body": "Pourquoi deux entrepreneurs tech lancent une nouvelle entreprise en pleine vague de l’IA : parce que « par où commencer ? » reste sans réponse dans la plupart des entreprises.",
   "article.launch.alt": "Axel Segers et Tom Haeldermans, les fondateurs de SmartAgents",
 
+
+  "insight.more": "Plus d'analyses",
   "contact.title": "On en parle",
   "contact.lede": "Dites-nous brièvement ce qui pourrait mieux tourner. Nous répondons nous-mêmes, en général dans la journée ouvrable, et nous disons aussi quand vous n'avez pas besoin de nous.",
   "contact.callLabel": "Vous préférez appeler ?",

@@ -22,7 +22,10 @@ already implemented:
 - Reveals, spotlight and the magnetic shapes: `src/motion.js`.
 
 All visible text goes through `t()` and lives in `src/i18n/*.json`. Never
-hard-code copy into a template.
+hard-code copy into a template. The one exception is the long-form body of an
+insight article, which lives in `src/pages/insights/<key>.mjs` keyed by
+language — see "Deviations from the design doc", item 7, in `README.md`, and the
+tokens portable copy has `--measure-prose` alongside `--measure` for it.
 
 If the user invokes this skill with no other guidance, ask what they want to
 build, ask a few questions, and act as an expert designer who outputs HTML

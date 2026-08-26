@@ -24,4 +24,6 @@
   --shell-width: 1180px;
   --measure: 44ch;
   --measure-display: 14ch;
+  /* Long-form only — the insight pages. See README.md, "Deviations", item 7. */
+  --measure-prose: 100ch;
 }

@@ -187,7 +187,6 @@ select {
 }
 
 .site-nav {
-  position: relative;
   display: flex;
   gap: var(--space-1);
   align-items: center;
@@ -212,143 +211,13 @@ select {
   color: var(--text-strong);
 }
 
-/* Mega-menu. Hover and focus only: no JS, so it can never fail to open. */
-
-/* The trigger stretches to the header's content box so its bottom edge is the
-   header's, whatever the row is doing above it: the panel hangs off that edge,
-   and the drop below is then the header's own bottom padding and nothing else.
-   Measured off the trigger's own height instead, the drop is a different
-   distance at every breakpoint — the trigger is centred in a row the tablet
-   makes taller, so the same number leaves a gap at the desk and overlaps the
-   hairline on the tablet. Both nav and group stretch: the group is centred
-   inside the nav, so the nav has to reach the full height first. */
-.site-nav {
-  align-self: stretch;
-}
-
-.nav-group {
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-}
-
-.nav-group > .nav-link {
-  display: inline-flex;
-  gap: var(--space-3);
-  align-items: center;
-}
-
-/* `flex: none` for the same reason as the logo mark: it sits in a flex row
-   beside a word that will not shrink, so on a narrow phone it would be the
-   thing that disappears. */
+/* The one chevron left in the header, on the menu trigger under 768px. It sits
+   in a flex row beside a word that will not shrink, so `flex: none` is what
+   keeps it from being the thing that disappears on a narrow phone. */
 .nav-chevron {
   flex: none;
   display: inline-flex;
   transition: transform 0.3s var(--ease-out-expo);
-}
-
-.nav-group:hover .nav-chevron,
-.nav-group:focus-within .nav-chevron {
-  transform: rotate(180deg);
-}
-
-/* The panel hangs from the trigger, but has to meet the header's bottom edge:
-   the drop is the header's own bottom padding plus its hairline, so the two
-   stay flush if that padding ever changes. `.nav-group` stretching is what
-   makes 100% the header's content bottom rather than the trigger's. */
-.nav-panel {
-  --nav-panel-drop: calc(var(--space-4) + 1px);
-  position: absolute;
-  z-index: 40;
-  top: calc(100% + var(--nav-panel-drop));
-  left: -10px;
-  transition: opacity var(--dur-tint) ease, transform var(--dur-move) var(--ease-out-expo),
-    visibility var(--dur-tint);
-  width: 660px;
-  padding: 12px;
-  border: 1px solid var(--border-hairline);
-  border-top: none;
-  border-radius: 0 0 var(--radius-panel) var(--radius-panel);
-  background: var(--surface-raised);
-  box-shadow: var(--shadow-menu);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(-8px);
-}
-
-/* Without this bridge the pointer leaves .nav-group crossing the drop and the
-   panel closes under the cursor. */
-.nav-panel::before {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: 100%;
-  left: 0;
-  height: var(--nav-panel-drop);
-}
-
-.nav-group:hover .nav-panel,
-.nav-group:focus-within .nav-panel {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: none;
-}
-
-.nav-panel__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-1);
-}
-
-.nav-panel__item {
-  transition: background-color var(--dur-tint-fast) ease;
-  display: block;
-  padding: var(--space-5) 16px;
-  border-radius: var(--radius-menu-item);
-  color: inherit;
-  white-space: normal;
-}
-
-.nav-panel__item:hover {
-  background: var(--surface-menu-item);
-  color: inherit;
-}
-
-.nav-panel__item b {
-  display: block;
-  color: var(--text-strong);
-  font-size: var(--text-ui-sm);
-  font-weight: var(--weight-semibold);
-  letter-spacing: -0.012em;
-}
-
-.nav-panel__item span {
-  display: block;
-  margin-top: var(--space-2);
-  color: var(--sa-grey-5);
-  font-size: var(--text-micro);
-  line-height: var(--leading-snug);
-}
-
-.nav-panel__all {
-  transition: var(--transition-tint);
-  display: flex;
-  justify-content: space-between;
-  margin-top: 6px;
-  padding: 13px 16px;
-  border-radius: var(--radius-menu-item);
-  background: var(--surface-menu-item);
-  color: var(--text-lead);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-medium-plus);
-}
-
-.nav-panel__all:hover {
-  background: var(--surface-dark);
-  color: var(--sa-white);
 }
 
 .header-actions {
@@ -858,8 +727,8 @@ select {
   /* Every measurement in this row is fluid between the tablet's two ends:
      at 834px, the artboard's own width, they land on the artboard's values,
      and they tighten from there so the row still holds at 768px — the
-     narrowest width a tablet is held upright at, and the narrowest the six
-     items fit in the longest of the three languages. */
+     narrowest width a tablet is held upright at, and the narrowest the four
+     items left in the row fit in the longest of the three languages. */
   /* The header is taller here than on the desk, so the offset an anchor is
      scrolled to has to grow with it. */
   html {
@@ -924,28 +793,6 @@ select {
     padding-inline: clamp(9px, 1.7vw, 18px);
     font-size: clamp(12.5px, 1.62vw, 14px);
   }
-
-  /* The mega-menu is drawn on a 1180px canvas and would hang off the right
-     edge here. It stacks to one column, which is the only way four items fit
-     in the width left, and it hangs off the right instead of the left.
-     Off the *nav's* right, not the trigger's: "Diensten" is the leftmost item
-     in the row, so a panel ranged against it runs off the left edge of the
-     viewport instead. Dropping the trigger's containing block hands the panel
-     to `.site-nav`, which is the one box that ends where the header's own
-     items begin. */
-  .nav-group {
-    position: static;
-  }
-
-  .nav-panel {
-    right: 0;
-    left: auto;
-    width: min(360px, 68vw);
-  }
-
-  .nav-panel__grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -953,7 +800,7 @@ select {
  *
  * The links come off the row and go behind one trigger (`.nav-toggle`, in
  * main.css), so the header carries the brand, that trigger, the language chips
- * and the primary action. Four items where the desk had seven, but a third of
+ * and the primary action. Four items where the desk had eight, but a third of
  * the width — and the wedge is what gives: at the desk's 318px the cut runs
  * past the trigger and "Menu" sits on navy, unreadable. It narrows to the
  * shape it takes on the phone, cut to the brand and nothing more, and the row
