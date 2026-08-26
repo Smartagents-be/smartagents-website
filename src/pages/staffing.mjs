@@ -7,7 +7,7 @@
 // page's pair of small decorative shapes.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
-import { fieldEchoes, orbitRings } from '../layouts/base.mjs';
+import { orbitRings } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /**
@@ -84,7 +84,6 @@ function hero(t) {
   return html`<section id="staffing-hero" class="hero hero--page hero--staffing">
 ${orbitRings('staffing-hero')}
   <div id="staffing-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    ${fieldEchoes('staffing-hero-field-right', 'heroArch', { pin: 'right' })}
     <div id="staffing-hero-field-right" class="field" data-magnet data-magnet-pin="right" data-magnet-points="520" data-magnet-amp="80" data-magnet-sigma="112" data-clip="heroArch"><sa-node-field id="staffing-hero-nodes-right"></sa-node-field></div>
   </div>
   <div id="staffing-hero-inner" class="hero__inner">

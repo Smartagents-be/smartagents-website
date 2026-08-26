@@ -77,25 +77,6 @@ function collectMagnets() {
       element.style[side] = `${(parseFloat(computed[side]) || 0) - BLEED}px`;
     }
 
-    // The echoes are struck from this same path, so they have to live in a box
-    // of the same size: the outline is remapped into the grown box below, and a
-    // copy left at its authored size would render that outline at a different
-    // scale and slide off the shape it is shadowing. Their authored geometry is
-    // the field's, so growing them by the same BLEED keeps all three congruent
-    // and leaves the transform that offsets them untouched.
-    const echoes = [];
-    for (const echo of element.parentElement.querySelectorAll(
-      `.field-echo[data-clip="${element.dataset.clip}"]`
-    )) {
-      const shape = getComputedStyle(echo);
-      const kept = {};
-      for (const side of SIDES) {
-        kept[side] = echo.style[side];
-        echo.style[side] = `${(parseFloat(shape[side]) || 0) - BLEED}px`;
-      }
-      echoes.push({ element: echo, restore: kept });
-    }
-
     const guarded = !element.hasAttribute('data-magnet-free');
     const points = sampled.map(([x, y]) => [
       (x * w + BLEED) / (w + 2 * BLEED),
@@ -114,7 +95,6 @@ function collectMagnets() {
       resting,
       original,
       restore,
-      echoes,
       // A shape whose top or right edge is tucked under the nav or a card must
       // not bulge there; `data-magnet-free` opts out of that guard.
       guarded,
@@ -277,9 +257,6 @@ function magnets() {
     for (const item of items) {
       item.path.setAttribute('d', item.original);
       for (const side of SIDES) item.element.style[side] = item.restore[side];
-      for (const echo of item.echoes) {
-        for (const side of SIDES) echo.element.style[side] = echo.restore[side];
-      }
     }
     items = [];
   };

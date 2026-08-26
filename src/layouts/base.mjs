@@ -168,38 +168,6 @@ ${join(paths.map((key) => html`      <div id="${prefix}-orbit-${key}" class="orb
   </div>`;
 }
 
-/* ------------------------------------------------------------------ *
- * The echoes behind a dark shape
- * ------------------------------------------------------------------ */
-
-/**
- * Two copies of the shape's own silhouette, offset up and to the left, painted
- * cyan and gone by mid-height. They go immediately before the `.field` they
- * copy, inside whatever element positions it: they carry no geometry of their
- * own, so a shape sized by insets, by width or by aspect-ratio all work the
- * same and every breakpoint that moves the shape moves them with it.
- *
- * A shape wrapped in a `.field-slot` needs no `place`; one positioned by a
- * class on the field itself passes that class, so the copies land on the same
- * box (see the `.field-echo` block in critical.css).
- *
- * `pin` is the field's own `data-magnet-pin`: a shape welded to a page edge
- * holds its copies against that edge rather than pulling them off it.
- *
- * @param {string} id — id prefix, normally the field's own id (element-ids §4).
- * @param {string} clip — the clip path the field is struck from.
- * @param {object} [options]
- * @param {string} [options.place] — positioning class, when there is no slot.
- * @param {boolean} [options.small] — shorter travel, for a shape under ~250px.
- * @param {'top'|'right'|'bottom'|'left'} [options.pin] — the edge to hold.
- */
-export function fieldEchoes(id, clip, { place = '', small = false, pin = '' } = {}) {
-  const extra = `${small ? ' field-echo--sm' : ''}${pin ? ` field-echo--pin-${pin}` : ''}${place ? ` ${place}` : ''}`;
-
-  return html`<div id="${id}-echo-far" class="field-echo field-echo--far${extra}" data-clip="${clip}" aria-hidden="true"></div>
-    <div id="${id}-echo-near" class="field-echo field-echo--near${extra}" data-clip="${clip}" aria-hidden="true"></div>`;
-}
-
 const CHEVRON = raw(
   '<span class="nav-chevron" aria-hidden="true"><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1.2 4.5 4.6 8 1.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
 );

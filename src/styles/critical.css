@@ -462,100 +462,11 @@ select {
   background: var(--surface-dark);
 }
 
-/* The two echoes behind a shape: the same silhouette again, offset up and to
-   the left, painted cyan and fading out by mid-height. They sit before the
-   field in the markup and carry no z-index, so only the sliver that falls
-   outside the dark silhouette is ever visible — the shape lifts off the paper
-   and picks up a lit edge along its top.
-
-   They are struck from the same clip path as the field they copy, so a magnet
-   pull deforms all three at once instead of peeling the shadow off the shape;
-   src/motion.js grows their boxes along with the field's for the same reason.
-   Geometry comes from the field's own positioning class, never from an offset
-   of its own: the travel is a margin and nothing else, so a shape sized by
-   insets, by width or by aspect-ratio all land the copies on the same box.
-
-   `--field-echo-*` is a distance, so it is negated here rather than stored
-   negative: a token that reads as a length is easier to change than one that
-   reads as a direction. */
-.field-echo {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-/* The offset is a margin, never an inset and never a transform. An inset is
-   what places the shapes, and what src/motion.js rewrites on every magnet, so
-   a copy that used one would be overwritten by both. A margin survives them,
-   and — unlike a transform — it can move three edges while holding the fourth,
-   which is the whole point below. */
-.field-echo--far {
-  margin: calc(-1 * var(--field-echo-far)) var(--field-echo-far) var(--field-echo-far)
-    calc(-1 * var(--field-echo-far));
-  background: linear-gradient(196deg, var(--sa-cyan-echo), transparent 54%);
-}
-
-.field-echo--near {
-  margin: calc(-1 * var(--field-echo-near)) var(--field-echo-near) var(--field-echo-near)
-    calc(-1 * var(--field-echo-near));
-  background: linear-gradient(
-    196deg,
-    var(--sa-cyan-echo-lit),
-    var(--sa-cyan-echo-mid) 44%,
-    transparent 68%
-  );
-}
-
-/* Small shapes: the stone, the dome and the blob are a fifth of the hero's
-   petal, and the desk's travel on one of those stops reading as a lift. */
-.field-echo--sm.field-echo--far {
-  margin: calc(-1 * var(--field-echo-far-sm)) var(--field-echo-far-sm) var(--field-echo-far-sm)
-    calc(-1 * var(--field-echo-far-sm));
-}
-
-.field-echo--sm.field-echo--near {
-  margin: calc(-1 * var(--field-echo-near-sm)) var(--field-echo-near-sm) var(--field-echo-near-sm)
-    calc(-1 * var(--field-echo-near-sm));
-}
-
-/* A shape welded to a page edge keeps its copies welded to it too. Moved as a
-   whole they pull off that edge, and the lift stops reading as one shape with
-   a lit side: it reads as three slabs stacked loose, with the two pale ones
-   ending in mid-air short of the edge the dark one still touches — or, where
-   that edge is the page's own, hanging off it.
-
-   So exactly one margin goes back to zero: the edge the shape hangs from. The
-   other three keep the full travel, which turns the move into a stretch away
-   from the weld and leaves the light where it was — every shape on the site is
-   lifted up and to the left, whichever edge it happens to hang from, and none
-   of them is lifted off that edge. It is what the artboard draws on the petal,
-   where all three right edges sit on the page edge and only the left one
-   travels, generalised to the other three welds.
-
-   Two classes, not one, and last in the block: the travel above is a `margin`
-   shorthand written at two classes as well, and these have to outrank it on
-   both counts to hold an edge back. */
-.field-echo.field-echo--pin-top {
-  margin-top: 0;
-}
-
-.field-echo.field-echo--pin-right {
-  margin-right: 0;
-}
-
-.field-echo.field-echo--pin-bottom {
-  margin-bottom: 0;
-}
-
-.field-echo.field-echo--pin-left {
-  margin-left: 0;
-}
-
 /* The clip lives on the element that carries data-magnet, never on a wrapper:
    src/motion.js grows that element's box and remaps the outline into it, so a
    clip applied one level up would no longer line up with the silhouette. The
-   echoes carry `data-clip` too, which is why these are keyed on the attribute
-   rather than on `.field`. */
+   rules are keyed on `data-clip` rather than on `.field` so the shape and the
+   clip stay named together. */
 [data-clip="heroPetal"] {
   clip-path: url(#heroPetal);
 }

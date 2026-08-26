@@ -45,21 +45,6 @@
   --sa-cyan-soft: oklch(0.53 0.112 214 / 0.2);
   --sa-cyan-edge: oklch(0.53 0.112 214 / 0.55);
 
-  /* The two echoes behind a dark shape. Each is the same silhouette offset up
-     and to the left, painted in a gradient that is lit at the top and gone by
-     mid-height: the shape reads as lifted off the paper and the accent comes
-     back onto a page that otherwise only carries it inside the field. */
-  --sa-cyan-echo: oklch(0.53 0.112 214 / 0.16);
-  --sa-cyan-echo-lit: oklch(0.62 0.118 210 / 0.5);
-  --sa-cyan-echo-mid: oklch(0.53 0.112 214 / 0.1);
-
-  /* How far each echo travels. The small pair is for a shape under about
-     250px, where the desk's offset would read as a halo rather than a lift. */
-  --field-echo-far: 16px;
-  --field-echo-near: 5px;
-  --field-echo-far-sm: 9px;
-  --field-echo-near-sm: 3px;
-
   /* text on the dark field */
   --sa-on-field: oklch(0.97 0.004 247.84);
   --sa-on-field-muted: oklch(0.78 0.014 240);

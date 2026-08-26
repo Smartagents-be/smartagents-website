@@ -66,7 +66,7 @@ measurement at any breakpoint.
 
 **A shape must read as drawn, and it must not be the ground.** Two ways to lose that, both of them
 failed drafts of this one arch. Struck corner to corner with five points of bow across a 690px box,
-it read as a black triangle — no cursor, no node network and no light echo rescues a silhouette a
+it read as a black triangle — neither the cursor nor the node network rescues a silhouette a
 reader has already filed as a triangle; a fifth of the span is the working figure for the bow.
 Opened up to fill the corner instead, it stopped being a shape hung off an edge, and a hero that
 has become half navy then wants a second silhouette in the opposite corner to balance it. One

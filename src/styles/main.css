@@ -2563,10 +2563,9 @@ sa-node-field {
 
   /* In flow for the first time: the row it sits in is the shape's own height,
      which is what keeps the headline's column from having to invent one. The
-     proportion is the petal's, not the column's — sized by aspect-ratio, which
-     the echoes follow like any other geometry — and the negative margin puts
-     the shape's welded edge back on the page edge, past the gutter the grid
-     item stops at. */
+     proportion is the petal's, not the column's — sized by aspect-ratio — and
+     the negative margin puts the shape's welded edge back on the page edge,
+     past the gutter the grid item stops at. */
   .hero--team .hero__field--right {
     position: relative;
     grid-area: 1 / 2;
