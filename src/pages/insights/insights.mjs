@@ -106,14 +106,17 @@ export const thumbSrcset = (stem, widths, extension) =>
   widths.map((width) => `/media/insights/${stem}-${width}.${extension} ${width}w`).join(', ');
 
 /**
- * The banner is the article's own thumbnail. The article column is wider than
- * any derivation on a desk, so the figure is capped at 760px — the widest there
- * is — and inset in its column rather than upscaled: `.article__banner` in
- * main.css carries that cap. Below the phone's line it takes the column less the
- * two gutters. `sizes` is resolved before any layout exists, so this names what
- * the figure can be rather than what it is.
+ * The opening figure is the article's own thumbnail. The article column is wider
+ * than any derivation on a desk, so it is capped at 760px — the widest there is
+ * — and inset in its column rather than upscaled: `.article__figure` in main.css
+ * carries that cap. Below the phone's line it takes the column less the two
+ * gutters. `sizes` is resolved before any layout exists, so this names what the
+ * figure can be rather than what it is.
+ *
+ * It is a figure, not a banner: the homepage's thumbnail is `article-row__figure`
+ * and this is the same picture on a second surface, so it takes the same word.
  */
-const BANNER_SIZES =
+const FIGURE_SIZES =
   '(max-width: 620px) calc(100vw - 40px), (max-width: 840px) calc(100vw - 80px), 760px';
 
 /**
@@ -121,7 +124,7 @@ const BANNER_SIZES =
  * does have. Only the launch photograph is in that position: its original is
  * 542px across, so it stops at 480w (CLAUDE.md, "No build-step image pipeline").
  */
-const BANNER_CAP = 760;
+const FIGURE_CAP = 760;
 
 /* ------------------------------------------------------------------ *
  * The page
@@ -155,7 +158,7 @@ ${contactSection({ t, prefix: scope, title: t('contact.title'), lede: t('contact
 }
 
 /* ------------------------------------------------------------------ *
- * The article — the head, the banner and the body in a column at the reading
+ * The article — the head, the figure and the body in a column at the reading
  * measure, and the other three articles in a rail beside it.
  *
  * There is no hero. Every other page opens on one because it is selling
@@ -201,10 +204,10 @@ ${join(chips)}
           </ul>
         </div>
       </header>
-      <figure id="${scope}-banner" class="article__banner${widths.at(-1) < BANNER_CAP ? ' article__banner--short-source' : ''}">
-        <picture id="${scope}-banner-picture">
-          <source id="${scope}-banner-source" type="image/avif" srcset="${thumbSrcset(thumb, widths, 'avif')}" sizes="${BANNER_SIZES}">
-          <img id="${scope}-banner-image" class="article__banner-image" src="/media/insights/${thumb}-480.jpg" srcset="${thumbSrcset(thumb, widths, 'jpg')}" sizes="${BANNER_SIZES}" width="480" height="270" alt="${t(`article.${key}.alt`)}" loading="eager" decoding="async">
+      <figure id="${scope}-figure" class="article__figure${widths.at(-1) < FIGURE_CAP ? ' article__figure--short-source' : ''}">
+        <picture id="${scope}-figure-picture">
+          <source id="${scope}-figure-source" type="image/avif" srcset="${thumbSrcset(thumb, widths, 'avif')}" sizes="${FIGURE_SIZES}">
+          <img id="${scope}-figure-image" class="article__figure-image" src="/media/insights/${thumb}-480.jpg" srcset="${thumbSrcset(thumb, widths, 'jpg')}" sizes="${FIGURE_SIZES}" width="480" height="270" alt="${t(`article.${key}.alt`)}" loading="eager" decoding="async">
         </picture>
       </figure>
       <div id="${scope}-body" class="prose">

@@ -31,6 +31,22 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+/**
+ * A response is only worth caching if it is what was asked for. A URL that
+ * matches nothing is answered by Cloudflare with index.html and a 200, not with
+ * an error (CLAUDE.md, "Known follow-ups"), so a missing asset comes back as
+ * HTML that `response.ok` calls fine. A cache-first handler that trusts `ok`
+ * then holds that HTML under the asset's own URL for as long as the cache lives:
+ * the image never loads again, its alt text shows on every later visit, and no
+ * amount of reloading helps because the network is never consulted. Checking the
+ * type is what keeps a soft 404 from becoming permanent.
+ */
+function isCacheable(response, expected) {
+  if (!response.ok) return false;
+  const type = response.headers.get('Content-Type') || '';
+  return expected ? type.startsWith(expected) : !type.startsWith('text/html');
+}
+
 /** Keep the image cache bounded. */
 async function trim(cacheName, limit) {
   const cache = await caches.open(cacheName);
@@ -70,7 +86,7 @@ async function handleAsset(request) {
   if (cached) return cached;
 
   const response = await fetch(request);
-  if (response.ok) await cache.put(request, response.clone());
+  if (isCacheable(response)) await cache.put(request, response.clone());
   return response;
 }
 
@@ -80,7 +96,7 @@ async function handleImage(request) {
   if (cached) return cached;
 
   const response = await fetch(request);
-  if (response.ok) {
+  if (isCacheable(response, 'image/')) {
     await cache.put(request, response.clone());
     trim(IMAGES, IMAGE_LIMIT);
   }

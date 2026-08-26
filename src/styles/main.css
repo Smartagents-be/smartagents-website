@@ -2764,11 +2764,8 @@ sa-node-field {
 
 /* The frame is the homepage thumbnail's: hairline, panel radius, paper under
    the picture while it loads, and the same cool grade, because it is the same
-   picture. It is not full-bleed and it is not wider than the type: the widest
-   derivation is 760w and the smallest original is 542px across, so a banner
-   running the width of the page would be the one visibly soft picture on the
-   site. */
-.article__banner {
+   picture. It is not full-bleed and not wider than the type. */
+.article__figure {
   overflow: hidden;
   margin-bottom: var(--space-13);
   /* The widest derivation there is. The column is wider than this on a desk, so
@@ -2781,10 +2778,10 @@ sa-node-field {
   background: var(--surface-input);
 }
 
-/* See BANNER_CAP in src/pages/insights/insights.mjs: the launch photograph's
+/* See FIGURE_CAP in src/pages/insights/insights.mjs: the launch photograph's
    original is 542px across, so it is shown at the width it has rather than
    upscaled to fill the column. */
-.article__banner--short-source {
+.article__figure--short-source {
   max-width: 480px;
 }
 
@@ -2793,7 +2790,7 @@ sa-node-field {
    `aspect-ratio` is resolved by Chromium and not by every engine, and one that
    resolves it against `auto` collapses the picture to nothing. This needs no
    percentage height at all. */
-.article__banner-image {
+.article__figure-image {
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;

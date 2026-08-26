@@ -212,10 +212,12 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
     320w, 480w and 760w, all lazy (`src/pages/home.mjs`). The sources are the
     four blog post banners on `main`, under `assets/blog/`; `launch` stops at
     480w because its original is only 542px wide. The article page reuses the
-    same set as its banner, eagerly and at the reading measure rather than
+    same set as its opening figure, eagerly and at the reading measure rather than
     full-bleed: 760w is the widest there is and the smallest original is 542px
-    across, so a banner running the width of the page would be the one visibly
-    soft picture on the site. Deriving wider crops is only possible for two of
+    across, so a figure running the width of the page would be the one visibly
+    soft picture on the site. Nothing in that markup is named "banner": an ad
+    blocker's generic lists key on the word in an id or a class, and the figure
+    rendered as its alt text until it was renamed. Deriving wider crops is only possible for two of
     the four — aviso is 1600px across and smartspace 3710px, what-works is 996px
     and launch 542px.
 
@@ -224,6 +226,24 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `0 0` — it reads as "unset" and centres the crop. Turn the derivation into a
   build step when a third block needs it; note that `sips`, the only image tool
   on a stock Mac, cannot write WebP, which is why the fallback is JPEG.
+
+  **Give every AVIF even pixel dimensions.** `sips` pads an odd dimension to the
+  next even one and writes a `clap` (clean aperture) box to crop it back.
+  Chromium and WebKit honour that box; Gecko decodes the image to 0×0, and
+  because a `<picture>` only falls back on an unsupported `type` and never on a
+  failed decode, the `<img>` renders its alt text instead of the JPEG that sits
+  right there in its `srcset`. It cost a long hunt: the file was valid AV1 Main
+  8-bit 4:2:0, served 200 `image/avif` byte-identical from both the dev server
+  and Cloudflare, and rendered in every engine but the one the reviewer used.
+  The 16:9 crops at 320w and 480w are 180 and 270 tall and were always fine; only
+  the 760w ones were 427 tall, so only they broke, and only where a layout picked
+  them — which is why the homepage thumbnails looked healthy the whole time. They
+  are now 760×428, re-encoded from their own JPEG so the crop could not shift
+  (`sips -z 428 760 <stem>-760.jpg`, then `sips -s format avif -s formatOptions
+  60`, which lands within a kilobyte of the originals). To check a file:
+  `xxd` it and look for `clap`, or scan the tree the way that hunt ended up
+  doing. A 1px height difference from the JPEG is invisible because the figure
+  crops to 16:9 with `object-fit: cover` anyway.
 - Geist is named first in `--font-sans` but no binaries were supplied, so the
   platform face is what renders. Ask the client for the WOFF2 files.
 - Two of the four service rows link out — training and AI staffing — through
@@ -238,4 +258,9 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 - A URL that matches no page is a soft 404: Cloudflare has no `404.html` at the
   root of `dist/`, so it falls back to serving `index.html` with a 200. The
   per-language 404s exist but only answer at `/{lang}/404/`. Writing the default
-  language's 404 to `dist/404.html` would give the real status code.
+  language's 404 to `dist/404.html` would give the real status code. Until it
+  does, note what that 200 means for anything cache-first: a missing image or
+  script comes back as HTML that `response.ok` calls fine, so `src/sw.js` checks
+  the `Content-Type` before it stores anything (`isCacheable`). Without that a
+  single soft 404 pins HTML under an asset's URL for the life of the cache, and
+  the asset then fails on every later visit with no way to reload out of it.

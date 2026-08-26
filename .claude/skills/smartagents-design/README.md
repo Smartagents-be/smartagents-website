@@ -274,12 +274,13 @@ outside it, and are decided the same way everywhere in `src/`:
    what makes it read as a standfirst, but not the site's 44ch, which beside a column this wide
    reads as a stub.
 
-   **The banner is inset, not stretched.** The column is wider than any derivation, so the figure is
+   **The opening figure is inset, not stretched.** The column is wider than any derivation, so it is
    capped at 760px — the widest there is — and sits inset in its column. An article whose widest
    derivation cannot reach that stops at the width it does have: `BANNER_CAP` in
-   `src/pages/insights/insights.mjs` and `.article__banner--short-source`. Only the launch
+   `src/pages/insights/insights.mjs` and `.article__figure--short-source`. Only the launch
    photograph is in that position, at 480px, because its original is 542px across. Stretching 760px
    of pixels across 965 is the one soft picture this system refuses.
+
 
    **The other half of the page.** A single column of prose with the rest of the page empty is the
    mistake this README already names at page scale — "navy behind a single column with the rest of
