@@ -1029,14 +1029,6 @@ a.row:hover .row__cue {
   gap: var(--space-8);
 }
 
-/* Three steps, not five: the onboarding pattern on the AI staffing page. It has
-   to sit here rather than with that page's own rules, because the two folds
-   below are written against `.steps` at the same specificity and the later
-   selector would win at every width. */
-.steps--three {
-  grid-template-columns: repeat(3, 1fr);
-}
-
 .step {
   position: relative;
   padding-top: var(--space-6);
@@ -2064,11 +2056,13 @@ sa-node-field {
 /* ------------------------------------------------------------------ *
  * Detail pages — AI staffing en coaching
  *
- * The page is the training page's parts rearranged: the same page hero, the
- * same rows list, the same two-column offer. What is this page's own is the
- * dark field. The hero carries the arch and its counter-lobe instead of the
- * petal, and the page closes on a navy band that carries copy rather than on a
- * pair of small decorative shapes.
+ * Three blocks: the page hero, the track panel, the form. The onboarding
+ * sequence and the navy reporting band that used to sit between the last two
+ * are gone — both said over two screens what the tracks already say in one.
+ *
+ * What is this page's own is the dark field. The hero carries an arch on the
+ * right flank and two pebbles that have come away from it, and the panel below
+ * is flanked by a leaf in the left gutter and a wedge under its far corner.
  * ------------------------------------------------------------------ */
 
 /* The hero's height is `.hero--page`'s and nothing here touches it. The copy is
@@ -2076,231 +2070,294 @@ sa-node-field {
    the line the training page sets it on — and drops it by a different amount in
    each language, because the block being centred is a different height in each.
 
-   Nor does anything here touch the shape's box. The arch is hung off the same
-   flank as the petal, at the petal's own insets, so `.hero__field--right` in
-   critical.css carries it at every width — including the phone, where both
-   become the same sliver across the top. This page used to override that box at
-   three breakpoints and add a second one on the left at two more; a shape that
-   sits where the shared one sits needs none of it. There is no counter-lobe:
-   the light half of the hero is the counterweight. */
+   The shape's box is this page's own, and only on a desk. Where the petal stops
+   at the hero's foot, the arch hangs 14% past it, so its tail runs on into the
+   section below and passes behind the track panel — which is the whole reason
+   that panel is opaque: the tail slides under it and comes back out in the
+   gutter, tying the two blocks together with no rule between them.
 
-/* Struck from just off the left edge, a little above the middle of the pair, so
-   the arcs bow in under the first column and rise across the split rather than
-   sweeping up from a corner the way the training page's do. Same dimming: this
-   is ground under a reading column. */
-.orbits--tracks {
-  opacity: 0.8;
-}
-
-.orbits--tracks .orbits__origin {
-  top: 62%;
-  left: -6%;
-}
-
-/* On a phone the columns are the whole page, so an origin a few percent out
-   puts the two innermost rings straight through the reading measure. Half a
-   viewport out leaves only the faintest arcs reaching in. */
-@media (max-width: 620px) {
-  .orbits--tracks .orbits__origin {
-    left: -50%;
+   Below the desk the page gives the box back: from the tablet down the shared
+   `.hero__field--right` carries the arch exactly as it carries the petal, and
+   on a phone both become the same sliver across the top. */
+@media (min-width: 1081px) {
+  .hero--staffing .hero__field--right {
+    inset: 0 0 -14% 52%;
   }
 }
 
-/* The offer figure, three columns and half the rows. A course is a name, a
-   paragraph, a labelled list, its tools and a link to its fiche; a track is a
-   name, a paragraph and the list, so the columns span three rows instead of
-   six. */
-/* No section heading above it and nothing under it either, so neither hairline
-   is separating anything: the one that opens the training page's offer would be
-   the first thing on the section and read as a rule under the header rather
-   than as a join, and the one that closes it would sit on whitespace with the
-   next section's own rule not far below. The vertical hairline between the two
-   columns is the only one this figure needs. */
-.offer--tracks {
-  border-top: none;
-}
-
-.offer--tracks .offer-course {
-  border-bottom: none;
-}
-
-/* Three columns, and the subgrid that keeps their two hairlines and their list
-   rules level across the split. Both only while the three are side by side:
-   once the figure folds, a row span left standing there would put all three
-   tracks in row one and let the auto-placement invent columns for the two that
-   no longer fit. */
-@media (min-width: 1001px) {
-  .offer--tracks {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
-  }
-
-  .offer--tracks .offer-course {
-    grid-row: 1 / span 3;
+/* Between the desk and the tablet the flank narrows, so the box pulls back and
+   the tail shortens with it: a tail struck as a share of a hero that is 100px
+   shorter reaches further into the section below, not less far. */
+@media (min-width: 941px) and (max-width: 1080px) {
+  .hero--staffing .hero__field--right {
+    inset: 0 0 -10% 60%;
   }
 }
 
-/* A third column needs a desk, so this figure folds at the tablet breakpoint
-   instead of at the offer's own 940px: below that the three tracks are a
-   single column, each one carrying its own list rules. */
-@media (max-width: 1000px) {
-  .offer--tracks {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-  }
+/* The pebbles are positioned inside the arch's own box rather than against the
+   hero, so every rule that moves the arch moves the pair with it and the three
+   never come apart. Sized by insets alone, never width/height — src/motion.js
+   grows a magnet's box by subtracting from all four offsets, and an explicit
+   size would move the box instead of growing it. */
+.hero__pebble--a {
+  inset: 39% 48% 33% 22%;
+}
 
-  .offer--tracks .offer-course {
-    display: block;
-    grid-row: auto;
-  }
+.hero__pebble--b {
+  inset: 17% 83.2% 68.8% 3%;
+}
 
-  .offer--tracks .offer-course + .offer-course {
-    border-left: none;
+/* The pebbles fall in the light half of the hero, and from the tablet down
+   there is no light half: the copy column is it. The arch stays, because it is
+   a flank; the pair would be two dark spots on the sentence. */
+@media (max-width: 940px) {
+  .hero--staffing .hero__pebble {
+    display: none;
   }
 }
 
 /* ------------------------------------------------------------------ *
- * Wat het management ziet — the navy band
+ * Wat we doen — the track panel
  *
- * Full-bleed, so it is not a `.section`: it runs edge to edge between the two
- * that flank it and carries the page gutter itself. The field is hung past both
- * its own edges, which is what lets the band eat into the whitespace above and
- * below without the sections around it having to know about it.
+ * The one figure on the page, so it is a panel rather than a row of columns:
+ * three rows on white, each a name and the three words that place it, opening
+ * onto a paragraph. Three columns side by side read as a price table and invite
+ * a comparison nobody makes; rows that open let a reader take the one that is
+ * theirs. The offer has never been a choice between three — it is one of three,
+ * and which one is obvious from the team asking.
  *
- * The shape cuts the band's right end away on one long curve, so the run it
- * takes is dead ground. Reserving it with padding rather than with a column
- * means the copy never has to know where the cut is: it simply stops well left
- * of the shallowest point the cut ever reaches.
- *
- * Inside that, two columns — what the reporting is, and what it covers. One
- * column left two thirds of the band carrying nothing, which is the one thing a
- * navy shape on this site may not do; it also made the band the tallest block
- * on the page. The pair fills the width and the band loses a third of its
- * height, so the cut can be a wedge off the corner instead of a quarter of the
- * whole block.
+ * The rows are `<details>` sharing one `name`, so the browser closes the open
+ * one when another opens and there is no script anywhere in it.
  * ------------------------------------------------------------------ */
 
-.cadence {
+.tracks {
   position: relative;
-  margin-top: var(--section-rhythm);
-  color: var(--text-on-dark);
 }
 
-/* The band eats into the whitespace on both sides of it. How far is what sets
-   its weight on the page as much as the padding inside does: hung deeper, it
-   stopped being a block between two sections and started being the page's
-   ground. */
-.cadence__field {
-  inset: -32px 0 -48px;
+/* Standing in the left page gutter beside the panel: the gutter carries a line
+   of movement instead of empty paper, and the panel gets an edge to sit
+   against. Welded to the page edge, free of everything else.
+
+   Its box is its own, and that is the whole point of it. Struck between the
+   panel's top and its foot, the leaf was a share of a box that changes height
+   every time a row opens — and worse than moving, it stretched: `src/motion.js`
+   freezes a magnet's insets in pixels when it sets the shape up, so a box that
+   grows afterwards grows the silhouette with it and the outline no longer fits
+   what it was sampled against. Anchored to the panel's top edge and sized from
+   the gutter it stands in, the leaf is simply still while the panel works.
+
+   The gutter is the only thing it measures, so the ratio does the rest: at
+   1 / 7 it lands within a few points of the height it was drawn at, and it
+   overhangs the panel's foot only when all three rows are closed — which reads
+   as a shape the panel is standing against, not as a shape that has slipped. */
+.tracks__leaf {
+  top: 0;
+  left: calc(-1 * var(--gutter-page));
+  width: calc(var(--gutter-page) + 16px);
+  aspect-ratio: 1 / 7;
 }
 
-/* The right padding is the dead ground under the cut, plus air: the curve is
-   furthest left at the band's foot, at 86% of the page, and the second column
-   stops short of that at every width the clip is on. */
-.cadence__inner {
-  position: relative;
-  padding: var(--space-13) clamp(var(--gutter-page), 18vw, 270px) var(--space-13)
-    var(--gutter-page);
+/* The counterweight, hung under the far corner of the same panel: it drops from
+   34px above the panel's foot so it reads as coming out from under it, and runs
+   out to the right into the whitespace before the form.
+
+   Anchored to the foot and given a height, not struck between the two edges:
+   this one is meant to travel with the panel — a shape hanging off a foot that
+   stays behind while the foot moves has come off it — and `bottom` plus a
+   height is what lets it follow without being stretched on the way. */
+.tracks__tail {
+  right: clamp(18px, 4vw, 60px);
+  bottom: calc(34px - clamp(78px, 8vw, 104px));
+  left: 60%;
+  height: clamp(78px, 8vw, 104px);
 }
 
-/* Two columns from the width this page's own two-column figure takes, not from
-   the line the clip is dropped at: between the two the band simply runs the
-   pair out to both gutters. The list is the shorter of the two, so nothing is
-   stretched to match — both hang from the top and the two labels sit on one
-   line. */
-@media (min-width: 941px) {
-  .cadence__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--gap-column);
-    align-items: start;
+/* Stacked, the panel is the page and the gutters are 20px: neither shape has
+   room left to stand in. */
+@media (max-width: 940px) {
+  .tracks__leaf,
+  .tracks__tail {
+    display: none;
   }
 }
 
-/* Cyan on navy, not the paper accent: this is the one block on the page where
-   the accent sits inside the field rather than beside it. */
-.cadence__eyebrow {
-  margin-bottom: var(--space-6);
-  color: var(--sa-cyan-bright);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-medium-plus);
+/* Opaque, and above the hero's tail: the tail passes behind it and comes out in
+   the gutter. `overflow: hidden` is what keeps the first and last rows inside
+   the panel's own corners.
+
+   No shadow. It is the hairline that holds the panel off the paper here, the
+   way every other edge on the site is a hairline — a drop shadow under a block
+   this size lifts it into a card, and the two dark shapes standing against it
+   are what give it its depth. */
+.tracks__panel {
+  /* A custom element, so it has no display of its own. */
+  display: block;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-raised);
 }
 
-.cadence__title {
-  display: inline-block;
-  margin-bottom: var(--space-6);
-  padding-top: var(--space-7);
-  border-top: 2px solid var(--sa-cyan-bright);
+.track {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.track:last-child {
+  border-bottom: none;
+}
+
+/* The whole row is the control, so it carries the padding and the pointer. The
+   marker goes: the chevron on the right is this row's disclosure cue, and a
+   second triangle on the left would be a second one. */
+.track__summary {
+  display: flex;
+  gap: clamp(var(--space-7), 3vw, var(--space-12));
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(var(--space-8), 3.2vw, var(--space-12))
+    clamp(var(--space-7), 3vw, var(--space-12));
+  color: var(--text-strong);
+  list-style: none;
+  cursor: pointer;
+  transition: color var(--dur-tint) ease;
+}
+
+.track__summary::-webkit-details-marker {
+  display: none;
+}
+
+.track__summary:hover {
+  color: var(--text-accent);
+}
+
+.track__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.track__title {
+  display: block;
+  max-width: 24ch;
   font-size: var(--text-h2-sm);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-h2);
   letter-spacing: var(--track-h2);
+  text-wrap: balance;
 }
 
-.cadence__body {
-  max-width: var(--measure);
-  color: var(--text-on-dark-muted);
+/* Three words under the name, not a list: they are what places the track, so
+   they run on one line and wrap as a sentence would. The row's own colour is
+   the heading's, so these stay muted and do not follow it to cyan on hover. */
+.track__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+  color: var(--text-muted);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-book);
+}
+
+.track__tag {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+/* The separator is drawn, not typed: a middle dot in the copy would be a
+   character three translators have to keep, and it would wrap with the word. */
+.track__tag + .track__tag::before {
+  content: "";
+  flex: none;
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: var(--radius-pill);
+  background: var(--mark-dot);
+}
+
+/* On a phone the three words do not fit on one line, and a dot that starts a
+   wrapped line reads as a bullet — with the first word left without one. Down
+   here they stack and the dots go: a column of three is already a list. */
+@media (max-width: 620px) {
+  .track__tags {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .track__tag + .track__tag::before {
+    display: none;
+  }
+}
+
+/* A chevron drawn from two borders on a square turned a quarter: the same mark
+   the nav uses, at the size a row this tall wants. It sits on the first line of
+   the name rather than on the row's centre, so it stays put when the three
+   words under it wrap to two lines. */
+.track__chevron {
+  position: relative;
+  flex: none;
+  margin-top: clamp(var(--space-4), 1vw, var(--space-5));
+  width: 11px;
+  height: 11px;
+  transition: transform var(--dur-move) var(--ease-out-expo);
+}
+
+.track__chevron::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--sa-cyan);
+  border-bottom: 1.5px solid var(--sa-cyan);
+  transform: rotate(45deg);
+}
+
+.track[open] .track__chevron {
+  transform: rotate(180deg);
+}
+
+/* A row that has been asked to close but is still collapsing: `<sa-accordion>`
+   holds `open` until the travel is over, and the chevron must not wait with it. */
+.track[open][data-closing] .track__chevron {
+  transform: rotate(0deg);
+}
+
+/* The box whose height travels, and the one that carries the padding: two
+   elements, because they cannot be one. A padded box cannot be animated to
+   nothing — its own padding is the floor its height stops at, so the row
+   collapses to a band of empty white and then snaps the rest of the way. */
+.track__panel {
+  overflow: hidden;
+}
+
+.track__inner {
+  padding: 0 clamp(var(--space-7), 3vw, var(--space-12))
+    clamp(var(--space-10), 3.4vw, var(--space-12));
+}
+
+/* Wider than the site's own measure: this paragraph is alone on white inside a
+   panel the width of the page, and at 44ch it reads as a column that has lost
+   the three beside it. */
+.track__body {
+  max-width: 56ch;
+  color: var(--text-body);
   font-size: var(--text-lead);
   line-height: var(--leading-body);
 }
 
-/* Stacked, the list is a block after the body; side by side it is a column of
-   its own and starts level with the eyebrow. */
-.cadence__list-block {
-  margin-top: var(--space-9);
-}
-
-@media (min-width: 941px) {
-  .cadence__list-block {
-    margin-top: 0;
-  }
-}
-
-.cadence__list-title {
-  margin-bottom: var(--space-4);
-  color: var(--text-on-dark-faint);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-medium-plus);
-}
-
-/* The offer column's list again, in its on-navy values: a hairline over every
-   item and one under the last, so the block closes. */
-.cadence__list {
-  max-width: var(--measure);
-  list-style: none;
-}
-
-.cadence__item {
-  padding-block: var(--space-4);
-  border-top: 1px solid var(--border-on-dark);
-  color: var(--text-on-dark-muted);
-  font-size: var(--text-body);
-  line-height: var(--leading-body-tight);
-}
-
-.cadence__list > :last-child {
-  border-bottom: 1px solid var(--border-on-dark);
-}
-
-.cadence__inner .btn {
-  margin-top: var(--space-11);
-}
-
-/* The diagonal is drawn as a share of the band, so on a narrow viewport it cuts
-   through the copy and leaves white text on paper. Down here the band is simply
-   a full-width block, and the run it was reserving goes back to the gutter. */
-@media (max-width: 1000px) {
-  .field[data-clip="cadenceBand"] {
-    clip-path: none;
-  }
-
-  .cadence__inner {
-    padding-inline: var(--gutter-page);
-  }
-}
-
-@media (max-width: 620px) {
-  .cadence__inner {
-    padding-block: var(--space-13);
+/* The row's own height is animated by `<sa-accordion>`, not from here: Gecko
+   supports `::details-content` but not `interpolate-size`, so a `block-size: 0`
+   -> `auto` transition on the pseudo travels in Blink and snaps in Firefox. The
+   chevron is the half of it CSS can still own on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .track__chevron {
+    transition: none;
   }
 }
 

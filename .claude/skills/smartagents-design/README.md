@@ -8,8 +8,8 @@ the single source of truth; every value here was lifted from it verbatim.
 ## The company
 
 SmartAgents (Beringen, Belgium — BE 1037.114.694) builds "digital colleagues": agentic AI
-automation for Belgian SMEs and enterprises. Four services — procesoptimalisatie, agentic
-automatisatie, training, AI staffing en coaching — plus their own product, **SmartSpace**
+automation for Belgian SMEs and enterprises. Three services — training, AI staffing en
+coaching, procesoptimalisatie — plus their own product, **SmartSpace**
 (in beta): one workspace where a company's agents and its people sit side by side.
 The site is Dutch-first (NL / FR / EN).
 
@@ -54,16 +54,26 @@ no texture, and pictures appear on exactly two surfaces (see "Deviations", item 
 the team page, and the thumbnails in the homepage's "Inzichten" list.
 
 A page may carry its own silhouette where that says something the shared ones do not. The AI
-staffing page opens on an arch — one curve off the right flank where the petal is a leaf — and
-closes on a band whose end is cut by a curve rather than by the doc's chevron point. Draw a new
-shape the way those are drawn: one closed subpath (a magnet resamples it into a single polyline, so
-two lobes written apart collapse into one), joins at the extremes with matching tangents so nothing
-corners mid-curve, and every corner that remains sitting on the page edge the shape is welded to.
+staffing page opens on an arch — one long descent off the right flank where the petal is a leaf —
+with two pebbles that have come away from it into the light half of the hero, and its offer sits
+between a leaf standing in the left gutter and a wedge under the far corner. Draw a new shape the
+way those are drawn: one closed subpath (a magnet resamples it into a single polyline, so two lobes
+written apart collapse into one), joins at the extremes with matching tangents so nothing corners
+mid-curve, and every corner that remains sitting on the page edge the shape is welded to.
 
-**A new silhouette takes the box a shared one would have taken.** The arch is hung off the same
-flank, at the same insets, as the petal it stands in for — which is what keeps a page's own shape a
-variation rather than a second composition, and is why the staffing page overrides no hero
-measurement at any breakpoint.
+**A new silhouette takes the box a shared one would have taken, until the composition needs its
+own.** The arch was first hung off the petal's exact insets, which is what keeps a page's own shape
+a variation rather than a second composition. The pebbles are what changed that: they are
+positioned inside the arch's box so the three move as one, and that box has to hang past the hero's
+foot for the arch's tail to run on into the section below and pass behind the panel there. So the
+staffing page overrides the hero box at the two desk breakpoints and gives it straight back from
+the tablet down, where the pebbles are dropped and the shared box carries the arch alone.
+
+**Free-floating shapes are what an arch welded along three sides buys.** Everything else on the
+site hangs from a page edge or from a rule. The two pebbles hang from nothing, and they read
+because the arch beside them is welded top, right and bottom: the pair says the ground has shed
+pieces, which needs a ground to have shed them from. Two of them, one heavy and one light, both
+drawn off-round — a circle beside a hand-drawn arch reads as a bullet, not as a shape.
 
 **A shape must read as drawn, and it must not be the ground.** Two ways to lose that, both of them
 failed drafts of this one arch. Struck corner to corner with five points of bow across a 690px box,
@@ -186,8 +196,8 @@ outside it, and are decided the same way everywhere in `src/`:
    both rows link; the lookup is `servicePath(key, lang)` in `src/layouts/base.mjs`, and adding a
    page to `SERVICE_PAGES` there brings the hover, the arrow and the translate back on the homepage
    row and puts the service in the nav at the same time. All four article rows link too, through
-   `insightPath(key, lang)` in `src/pages/insights/insights.mjs`; only Procesoptimalisatie and
-   agentic automatisatie are still plain.
+   `insightPath(key, lang)` in `src/pages/insights/insights.mjs`; only Procesoptimalisatie, which
+   closes the list, is still plain.
 5. **Two surfaces carry pictures**, which the doc rules out everywhere else.
 
    **The team page** puts photography in its hero: under the headline, the two founders fill the
@@ -245,14 +255,14 @@ outside it, and are decided the same way everywhere in `src/`:
    the site — the third article row is about it — but it has no section of its own. Bring the
    band back only if SmartSpace gets a page to send people to.
 
-   The **figure** did come back, once, on the AI staffing page: a full-bleed navy band carrying the
-   one thing both tracks share, what the client's management hears and when. It is the only navy
-   shape on the public site that carries copy rather than texture, which is what the doc's own band
-   always did. Its end is a curve, not the doc's chevron point, and the run that curve eats is
-   reserved by padding on `.cadence__inner` so the copy never has to know where the cut is; under
-   1000px the clip is dropped and the band is a plain full-width block. Reach for this only when a
-   block is genuinely the closing statement of a page — a second one on the same page would make
-   both read as cards.
+   The **figure** did come back once, on the AI staffing page — a full-bleed navy band carrying
+   what the client's management hears and when, the only navy shape on the public site that ever
+   carried copy rather than texture — and has since gone again with the section it belonged to.
+   It was built and it worked; what it could not survive was the page around it getting shorter.
+   A closing statement is only a closing statement while there is a page behind it to close, and
+   on a page of three blocks the band was the second of them. No navy shape on the public site
+   carries copy today. Bring one back only for a block that is genuinely the last word on a long
+   page; a second one anywhere near it would make both read as cards.
 
 7. **Long-form copy is a page type the doc never drew.** The four insight articles are the only
    thing on the site that is read rather than scanned, and four decisions had to be made for them

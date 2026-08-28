@@ -7,7 +7,10 @@ import { logoMark, orbitRings, servicePath } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 import { INSIGHTS, insightPath, thumbSrcset } from './insights/insights.mjs';
 
-const SERVICES = ['process', 'agentic', 'training', 'staffing'];
+// The two services with a detail page lead; procesoptimalisatie closes the
+// list. Agentic automatisatie is gone: it is what the staffing track does
+// inside a project, not a fourth thing to pick from.
+const SERVICES = ['training', 'staffing', 'process'];
 const DNA = ['1', '2', '3', '4'];
 const TRANSFORMATION = ['1', '2', '3', '4'];
 const STEPS = ['1', '2', '3', '4', '5'];
@@ -92,8 +95,9 @@ ${orbitRings('home-hero')}
  *
  * A service with a detail page of its own is a link, and gets the "Ontdek →"
  * cue back along with the hover, the arrow and the translate. Training and AI
- * staffing have one; the other two still land the reader on this list, so they
- * stay plain rows (design README, "Deviations" from the design doc, item 4).
+ * staffing have one and lead the list; procesoptimalisatie still lands the
+ * reader here, so it stays a plain row (design README, "Deviations" from the
+ * design doc, item 4).
  * ------------------------------------------------------------------ */
 
 function services(t, lang) {

@@ -357,16 +357,28 @@ select {
 }
 
 /* The AI staffing page's own hero shape: an arch on the flank the petal is a
-   leaf on. It takes the petal's box too, so every rule that moves the petal
-   down the breakpoints moves this with it. */
+   leaf on, and the two pebbles that have come away from it into the light half
+   of the hero. */
 [data-clip="heroArch"] {
   clip-path: url(#heroArch);
 }
 
-/* The band that closes the AI staffing page: two columns of copy on navy, its
-   right end cut back by a curve that answers the hero's arch. */
-[data-clip="cadenceBand"] {
-  clip-path: url(#cadenceBand);
+[data-clip="heroPebbleA"] {
+  clip-path: url(#heroPebbleA);
+}
+
+[data-clip="heroPebbleB"] {
+  clip-path: url(#heroPebbleB);
+}
+
+/* The pair that flanks the track panel on the same page: a leaf standing in the
+   left gutter and a wedge dropping from the far corner. */
+[data-clip="tracksLeaf"] {
+  clip-path: url(#tracksLeaf);
+}
+
+[data-clip="tracksTail"] {
+  clip-path: url(#tracksTail);
 }
 
 [data-clip="tourStone"] {

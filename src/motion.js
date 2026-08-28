@@ -103,8 +103,10 @@ function collectMagnets() {
       // a small one, or the pull reads as a spike rather than as a turn.
       amplitude: parseFloat(element.dataset.magnetAmp) || (guarded ? 92 : 34),
       sigma: parseFloat(element.dataset.magnetSigma) || 96,
-      // The page edge the shape hangs from, if any: it stays welded to it.
-      pin: element.dataset.magnetPin || null,
+      // The page edges the shape hangs from, if any: it stays welded to each of
+      // them. A comma-separated list, because a shape tucked into a corner is
+      // welded along two sides and a shape spanning a flank along three.
+      pins: (element.dataset.magnetPin || '').split(',').map((side) => side.trim()).filter(Boolean),
       active: false
     });
   }
@@ -206,19 +208,19 @@ function magnets() {
         let ux = dx * amplitude * falloff;
         let uy = dy * amplitude * falloff;
 
-        // A pinned shape stays welded to the page edge it hangs from: the pull
-        // fades to nothing over the last WELD pixels before that edge.
-        if (item.pin) {
+        // A pinned shape stays welded to every page edge it hangs from: the pull
+        // fades to nothing over the last WELD pixels before each of them.
+        for (const pin of item.pins) {
           const edge =
-            item.pin === 'left'
+            pin === 'left'
               ? px - BLEED
-              : item.pin === 'right'
+              : pin === 'right'
                 ? w - BLEED - px
-                : item.pin === 'top'
+                : pin === 'top'
                   ? py - BLEED
                   : h - BLEED - py;
           const weld = Math.min(1, Math.max(0, edge) / WELD);
-          if (item.pin === 'left' || item.pin === 'right') ux *= weld;
+          if (pin === 'left' || pin === 'right') ux *= weld;
           else uy *= weld;
         }
 

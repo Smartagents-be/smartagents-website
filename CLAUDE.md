@@ -138,21 +138,62 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `data-magnet` and `data-clip`, with a `<sa-node-field>` inside. The clip path
   must sit on the same element as `data-magnet`: `src/motion.js` grows that
   element's box and remaps the outline into it.
+- **A page's height is not a constant, and `<sa-node-field>` is anchored to the
+  document.** The shared field re-measures on every tick, and it used to re-seed
+  whenever the document grew or shrank by more than 2px — which is fine for a
+  page that only reflows on resize and is the network flying apart thirty times
+  a second on one that does not. The AI staffing accordion was the first block
+  on the site to move the document height at runtime and it found this. A field
+  that has changed size is now topped up rather than re-seeded, with enough
+  hysteresis that an opening row does not change the population at all, and
+  every window re-measures its slice because the shapes below a block that just
+  grew have all shifted. Anything else that animates a block's height inherits
+  this for free; anything that re-seeds will look the same way again.
+- **A magnet's box is frozen in pixels the moment it is set up**, and the
+  outline is sampled against the size it had then. So a shape may not be struck
+  between two edges that can move apart afterwards — it does not merely shift,
+  it stretches, and the silhouette stops fitting what it was sampled against.
+  Only a window resize rebuilds it. The AI staffing page has one of each: the
+  track panel's leaf is anchored to the panel's top and sized from the gutter,
+  so it is still while rows open; the wedge under the panel's foot is anchored
+  with `bottom` plus a height, so it travels with the foot at a constant size.
+  Sizing the `.field` itself is still insets-only — an explicit width or height
+  over-constrains the box and moves it instead of growing it — but the
+  `.field-slot` around it is ordinary CSS and is where a stable box belongs.
 - **A magnet resamples the clip path into one closed polyline**, so a silhouette
   is always a single subpath: two lobes written as `M…Z M…Z` collapse into one
   the moment the cursor comes near. `data-magnet-free` opts a shape out of the
   guard that refuses a pull whose nearest point sits under the nav or past the
-  right page edge — take it only for a shape that is nowhere near either. The
-  AI staffing hero's arch runs the width of its flank directly under the
-  header, so it keeps the guard and pins its right edge instead.
-- **The AI staffing page's hero is one shape on the petal's own flank.**
-  `heroArch` is hung off the right edge in the box `.hero__field--right` gives
-  the petal, so every breakpoint that moves the petal moves the arch with it and
-  the page overrides nothing. It went through two drafts that both failed the
-  same way: a diagonal struck corner to corner with a shallow bow read as a black
-  triangle, and the cove that replaced it filled the whole corner and needed a
-  second silhouette in the opposite one to balance it. One shape, one edge, and
-  the light half of the hero as the counterweight.
+  right page edge — take it only for a shape that is nowhere near either, or for
+  one that pins the edge it would have been guarded on. `data-magnet-pin` takes
+  a comma-separated list, so the AI staffing hero's arch, which runs the width
+  of its flank directly under the header, is free of the guard and welded along
+  `top,right,bottom` instead: a cursor up under the bar gets a swell that fades
+  to nothing before it can peel the shape off it.
+- **The AI staffing page's hero is an arch and two pebbles.** `heroArch` is hung
+  off the right edge and `heroPebbleA`/`heroPebbleB` are positioned inside the
+  arch's own box, so the three move as one and the page overrides only that box.
+  The box hangs 14% past the hero's foot: the arch's tail runs on into the
+  section below and passes behind the track panel there, which is the whole
+  reason that panel is opaque. The pebbles are the only free-floating dark
+  shapes on the site and they are dropped from the tablet down, where the shared
+  `.hero__field--right` carries the arch alone and the phone turns it into the
+  same sliver the petal becomes. The arch went through two drafts that both
+  failed the same way: a diagonal struck corner to corner with a shallow bow
+  read as a black triangle, and the cove that replaced it filled the whole
+  corner and needed a second silhouette in the opposite one to balance it.
+- **A disclosure is a `<details>`, and an accordion is three of them sharing a
+  `name`.** The AI staffing page's track panel is the only figure on the site
+  that opens and closes. The markup is what works with JS off — the rows open,
+  and the `name` group makes the browser close the open one — and
+  `<sa-accordion>` takes both over when it loads, because that is the only way
+  either of them travels rather than snaps. The CSS version came first and does
+  not work: Gecko supports `::details-content` but not `interpolate-size`, so
+  `block-size: 0` -> `auto` on the pseudo is not interpolable there and every
+  row arrives at full height. Two boxes inside the row, not one: a padded box
+  cannot be animated to nothing, because its own padding is the floor its height
+  stops at. The same no-JS-first reasoning is why the mobile nav is a
+  `<details>`.
 - **The tablet is drawn, so it is not invented.** `SmartAgents Homepage Tablet`
   (834x1112) in the design project is the source for everything between the
   desk and the phone, and three breakpoints carry it: 768px is where the header
@@ -246,12 +287,13 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   crops to 16:9 with `object-fit: cover` anyway.
 - Geist is named first in `--font-sans` but no binaries were supplied, so the
   platform face is what renders. Ask the client for the WOFF2 files.
-- Two of the four service rows link out — training and AI staffing — through
+- Two of the three service rows link out — training and AI staffing — through
   `servicePath()` in `src/layouts/base.mjs`, which is the one place the homepage
-  rows and the nav bar both ask. Procesoptimalisatie and agentic automatisatie
-  still have nowhere to go, so they stay plain rows without a "Ontdek →" cue, and
-  they are not in the nav. All four article rows now link, through
-  `insightPath()`. See "Deviations from the design doc" in the
+  rows and the nav bar both ask. They lead the list; Procesoptimalisatie still
+  has nowhere to go, so it closes the list as a plain row without a "Ontdek →"
+  cue and is not in the nav. Agentic automatisatie was dropped as a service of
+  its own — it is part of what the staffing track does inside a project. All
+  four article rows now link, through `insightPath()`. See "Deviations from the design doc" in the
   `smartagents-design` README.
 - The live site also has a Jobs page. It has not been redesigned yet, and
   nothing links to it.

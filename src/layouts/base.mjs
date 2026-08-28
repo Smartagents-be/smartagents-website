@@ -230,36 +230,44 @@ export function clipDefs() {
     tourDome:
       'M0,0 L1,0 C0.978,0.150 0.835,0.330 0.780,0.330 C0.742,0.330 0.698,0.295 0.660,0.295 C0.560,0.295 0.340,1.000 0.230,1.000 C0.130,1.000 0.018,0.560 0,0 Z',
     // AI staffing en coaching: the hero's shape on that page. Where the petal is
-    // a leaf hung off the right edge, this is an arch — but it takes the same
-    // flank the petal does and nothing more. One curve from the top edge, just
-    // past halfway across the box, bowing left and then sweeping back out to the
-    // bottom right corner; the top and right page edges close it.
+    // a leaf hung off the right edge, this is an arch — one long descent from
+    // the top edge, just under a third across the box, down to the bottom right
+    // corner, with the top and right page edges closing it.
     //
-    // It is drawn as a quarter turn taken in two cubics that meet with identical
-    // tangents at 0.46,0.72, so the tangent rotates one way from end to end and
-    // there is no inflection anywhere along it. Both corners that remain sit on
-    // a page edge the shape is welded to. It meets the right edge just above the
-    // foot of its box rather than on the corner: run into the corner itself the
-    // curve grazes the box floor on the way in and the tip reads as clipped.
+    // It is not one curve but three turns of the same curve, each easing out of
+    // the last: the outline leans left, catches, leans left again, catches
+    // again, and arrives at the corner almost level. Struck as a single sweep
+    // the same silhouette reads as a bevel; taken in steps it reads as drawn,
+    // and each catch is a place the cursor has something to pull on.
     //
     // Two things it must not become. Struck corner to corner with a shallow bow,
     // it reads as a black triangle rather than as anything drawn. Opened up to
     // fill the whole corner, it stops being a shape hung off an edge and becomes
-    // the ground the page is set on — which on this page also cost the hero a
-    // second silhouette in the opposite corner to balance it. Held to the
-    // petal's own flank it needs neither: one shape, one edge, the rest paper.
+    // the ground the page is set on. Held to a flank, it needs neither.
     heroArch:
-      'M0.520,0 C0.300,0.220 0.280,0.520 0.460,0.720 C0.622,0.900 0.830,0.950 1,0.960 L1,0 Z',
-    // The band that closes the AI staffing page. Full width at the top, cut back
-    // to 86% at the foot by a curve rather than by the header wedge's straight
-    // slope: it leaves the top right corner going almost straight down, then
-    // eases left as it falls, so the band's end answers the arch above it
-    // instead of contradicting it. The cut used to take a quarter of the band
-    // and it had to, because the copy sat in one column and the rest was empty
-    // navy; with the block running in two columns the dead ground is a wedge
-    // instead of a half, reserved by the right padding on `.cadence__inner`.
-    // Below 1000px the clip is dropped and the band is a full-width block.
-    cadenceBand: 'M0,0 L1,0 C0.982,0.360 0.948,0.700 0.862,1 L0,1 Z',
+      'M0.300,0 C0.520,0.070 0.610,0.180 0.600,0.320 C0.592,0.440 0.660,0.520 0.760,0.590 C0.860,0.660 0.900,0.730 0.890,0.830 C0.884,0.910 0.930,0.970 1,1 L1,0 Z',
+    // The two pebbles that fall away from the arch into the light half of the
+    // hero. Neither is welded to anything: they are the only free-floating dark
+    // shapes on the site, which is what makes the arch read as a shape that has
+    // shed pieces rather than as a wall. Both are drawn off-round — a circle
+    // beside a hand-drawn arch reads as a bullet — and the larger one carries
+    // the flatter side, so the pair has a heavy and a light.
+    heroPebbleA:
+      'M0.020,0.470 C0.035,0.225 0.190,0.055 0.430,0.022 C0.665,-0.010 0.945,0.135 0.982,0.398 C1.018,0.640 0.900,0.878 0.655,0.972 C0.430,1.058 0.115,0.905 0.045,0.690 C0.028,0.635 0.012,0.560 0.020,0.470 Z',
+    heroPebbleB:
+      'M0.010,0.430 C0.030,0.190 0.210,0.030 0.470,0.020 C0.720,0.010 0.985,0.180 0.995,0.430 C1.005,0.680 0.830,0.960 0.560,0.990 C0.320,1.015 0.060,0.850 0.020,0.620 C0.012,0.560 0.005,0.495 0.010,0.430 Z',
+    // "Wat we doen": a leaf standing in the left page gutter beside the track
+    // panel. Welded to the left page edge and free of everything else, it runs
+    // the height of the panel and pinches twice on the way down, so the gutter
+    // carries a line of movement rather than a bar.
+    tracksLeaf:
+      'M0,0.030 C0.350,0.015 0.780,0.045 0.850,0.115 C0.905,0.175 0.740,0.265 0.560,0.340 C0.400,0.407 0.290,0.470 0.330,0.545 C0.372,0.622 0.640,0.560 0.780,0.630 C0.905,0.693 0.870,0.760 0.700,0.828 C0.520,0.898 0.240,0.950 0,0.985 Z',
+    // The counterweight to the leaf, hung under the far corner of the same
+    // panel: a wedge that drops from the panel's foot and runs out to the right.
+    // The leaf holds the near edge and the wedge the far one, so the panel sits
+    // between two shapes on a diagonal rather than on top of a decoration.
+    tracksTail:
+      'M0.010,0 C0.012,0.340 0.055,0.610 0.130,0.720 C0.205,0.825 0.310,0.872 0.450,0.878 L0.520,0.878 C0.640,0.878 0.655,0.640 0.745,0.420 C0.815,0.250 0.905,0.105 1,0.055 L1,0 Z',
     // Digitale transformatie: a skewed slab behind the isometric stack
     stackField:
       'M0.060,0.100 L1,0.030 L1,0.860 L0.060,0.930 C0.024,0.933 0,0.905 0,0.870 L0,0.160 C0,0.125 0.024,0.097 0.060,0.100 Z'

@@ -36,6 +36,9 @@
   --sa-line: oklch(0.925 0.005 247.84);
   --sa-line-2: oklch(0.9 0.006 247.84);
   --sa-line-3: oklch(0.885 0.006 247.84);
+  /* Dark enough to read as a mark rather than as a rule: the dot that separates
+     two words on one line, never a border. */
+  --sa-line-4: oklch(0.74 0.012 247.84);
 
   /* one accent, two values: paper and field */
   --sa-cyan: oklch(0.53 0.112 214);
@@ -79,6 +82,7 @@
   --border-input: var(--sa-line-2);
   --border-button: var(--sa-line-3);
   --border-on-dark: var(--sa-field-line);
+  --mark-dot: var(--sa-line-4);
 
   /* semantic — actions */
   --action-primary-bg: var(--sa-ink);

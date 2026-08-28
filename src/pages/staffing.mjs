@@ -1,10 +1,9 @@
 // The AI staffing and coaching page: the detail page behind the "AI staffing en
-// coaching" service row on the homepage. It is built from the same parts as the
-// training page — a page hero, a rows list, a two-column offer — and departs
-// from it in one place: the dark field. The hero carries this page's own
-// silhouette — `heroArch`, an arch where the petal is a leaf, on the same flank
-// and no larger — and the page closes on a navy band instead of the training
-// page's pair of small decorative shapes.
+// coaching" service row on the homepage. Three blocks and nothing else — the
+// page hero, the offer, the form — because the offer is the page. It used to
+// carry an onboarding sequence and a navy reporting band under the offer as
+// well; both said in two screens what the tracks already say in one, and the
+// page now closes on the form while the reader is still on the offer.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
@@ -13,27 +12,13 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
 /**
  * The three ways this offer reaches a team: one engineer inside the project,
  * coaching for the people who write the code, and coaching for the people who
- * do not. The last one is the odd one out on purpose — it is the only track
- * that never touches the codebase, which is why the onboarding section below
- * speaks for the two that do.
+ * do not. Also the order they open in — the first is the one the page is titled
+ * after, so it is the one that stands open on arrival.
  */
 const TRACKS = ['engineer', 'developers', 'business'];
 
-/** The four `staffing.track.<key>.item.n` lines every track carries. */
-const TRACK_ITEMS = ['1', '2', '3', '4'];
-
-/**
- * The onboarding pattern. Every engagement starts here, in this order, because
- * the three depend on each other: automation needs a hard setup, and a hard
- * setup needs a codebase worth hardening.
- */
-const STEPS = ['audit', 'harden', 'cycle'];
-
-/** What the reporting covers, whichever track is running. */
-const CADENCE_ITEMS = ['1', '2', '3', '4'];
-
-/** `01`-style monospace index; numbers act as the icons in this system. */
-const index = (n) => String(n).padStart(2, '0');
+/** The three `staffing.track.<key>.tag.n` words each track is summarised by. */
+const TRACK_TAGS = ['1', '2', '3'];
 
 export const page = {
   id: 'staffing',
@@ -49,8 +34,6 @@ export const page = {
 
 ${hero(t)}
 ${tracks(t)}
-${onboarding(t)}
-${cadence(t)}
 ${contact(t)}
 
 </main>`;
@@ -59,32 +42,35 @@ ${contact(t)}
 
 /* ------------------------------------------------------------------ *
  * Hero — the page hero the training page opens on, carrying this page's own
- * shape instead of the petal.
+ * shapes instead of the petal.
  *
- * `heroArch` is the whole dark field of this hero: one shape on the right
- * flank, the same flank and the same box the petal takes on the training page,
- * with the copy ranged against it across paper. There were two before it —
- * corner to corner top right, the same curve turned half a turn bottom left —
- * and neither the pair nor the single cove that followed them earned the room
- * they took: a hero this size holds one silhouette, and the counterweight it
- * needs is the paper, not a second shape.
+ * Three shapes, one composition: an arch hung off the right flank, and two
+ * pebbles that have come away from it into the light half of the hero. The
+ * arch is the ground the page is set against; the pebbles are what says the
+ * ground is not a wall. They are the only free-floating dark shapes on the
+ * site — everything else is welded to a page edge or to a rule — and they earn
+ * it here because the arch itself is welded along three sides.
  *
- * The arch is the one hero shape on the site that keeps the nav guard. Its top
- * edge runs the width of the flank directly under the header, so a pull from up
- * there would peel it off the bar and open a stripe of paper between the two;
- * guarded, a cursor whose nearest point is in that band gets no swell at all.
- * It is pinned to the right page edge, the one it is welded to.
+ * The arch's box hangs past the hero's own foot, so its tail runs on into the
+ * section below and passes behind the track panel. That is the whole reason the
+ * panel is opaque: the tail slides under it and comes out in the gutter, which
+ * is what ties the two blocks together without a rule between them.
  *
- * The arch is sampled more densely than a shape this size normally is: its whole
- * free side is one long curve, and a pull reads as a fold rather than a swell if
- * the sampling cannot follow it.
+ * All three are `data-magnet-free`: none of them may be refused a pull by the
+ * nav guard, and the arch does not need it — pinned along its top edge, a
+ * cursor up under the header gets a swell that fades to nothing before it can
+ * peel the shape off the bar. The arch is sampled more densely than a shape
+ * this size normally is: its free side is three turns of one curve, and a pull
+ * reads as a fold rather than a swell if the sampling cannot follow it.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
   return html`<section id="staffing-hero" class="hero hero--page hero--staffing">
 ${orbitRings('staffing-hero')}
   <div id="staffing-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    <div id="staffing-hero-field-right" class="field" data-magnet data-magnet-pin="right" data-magnet-points="520" data-magnet-amp="80" data-magnet-sigma="112" data-clip="heroArch"><sa-node-field id="staffing-hero-nodes-right"></sa-node-field></div>
+    <div id="staffing-hero-field-arch" class="field" data-magnet data-magnet-free data-magnet-pin="top,right,bottom" data-magnet-points="340" data-magnet-amp="46" data-clip="heroArch"><sa-node-field id="staffing-hero-nodes-arch"></sa-node-field></div>
+    <div id="staffing-hero-field-pebble-a" class="field hero__pebble hero__pebble--a" data-magnet data-magnet-free data-magnet-points="200" data-magnet-amp="30" data-clip="heroPebbleA"><sa-node-field id="staffing-hero-nodes-pebble-a"></sa-node-field></div>
+    <div id="staffing-hero-field-pebble-b" class="field hero__pebble hero__pebble--b" data-magnet data-magnet-free data-magnet-points="160" data-magnet-amp="24" data-clip="heroPebbleB"><sa-node-field id="staffing-hero-nodes-pebble-b"></sa-node-field></div>
   </div>
   <div id="staffing-hero-inner" class="hero__inner">
     <div id="staffing-hero-text" class="hero__text">
@@ -100,128 +86,79 @@ ${orbitRings('staffing-hero')}
 }
 
 /* ------------------------------------------------------------------ *
- * Drie sporen — staffing and the two coachings, side by side
+ * Wat we doen — the three tracks, one open at a time
  *
- * The offer figure from the training page, stripped back: there is no fiche to
- * download and no line about how the track is bought, so the column is a name,
- * a paragraph and the list, and it closes on the last item. The three stand
- * between hairlines, so the reader compares them instead of scrolling past
- * them, and the orbit diagram returns behind the row to give the section
- * ground of its own. Three columns need the room a desk has, so this figure
- * folds at 1000px rather than at the offer's own 940px.
+ * The one figure on the page, so it gets to be a panel rather than a column:
+ * three rows on white, each a name and the three words that place it, opening
+ * onto a paragraph. Side by side as three columns the three read as a price
+ * table and the reader compares them; stacked as rows that open, the reader
+ * picks the one that is theirs and reads only that. The offer has never been a
+ * choice between three — it is one of three, and which one is obvious from the
+ * team asking.
  *
- * The section carries no visible heading — the three track names are the
- * heading here — so the name it is still known by moves to `aria-label`: a
- * landmark with no accessible name is one a screen reader cannot offer to jump
- * to. The cyan rule that would have sat over that heading stays: it is what
- * says a new section has started, and every other section on the site opens
- * with one.
+ * Every row is a `<details>` and they share a `name`, so the panel works with JS
+ * off: the rows open, and the browser closes the open one when another opens.
+ * `<sa-accordion>` takes both over when it loads, because that is the only way
+ * either of them travels rather than snaps — see the note at the top of
+ * `components/accordion/accordion.js`. The first row stands open, so the block
+ * never arrives as three closed bars.
+ *
+ * The panel is opaque and sits above the hero's tail, and it is flanked by two
+ * shapes of its own: the leaf in the left gutter and the tail-wedge dropping
+ * from the far corner, a diagonal across the block rather than an ornament on
+ * one side of it.
  * ------------------------------------------------------------------ */
 
 /**
- * One track: a column of hairline-separated blocks.
+ * One track: a summary that is a name and three words, and a body it opens on.
  *
  * @param {object} options
  * @param {Function} options.t
- * @param {string} options.key  track key, also the id suffix
+ * @param {string} options.key    track key, also the id suffix
+ * @param {boolean} options.open  whether the row stands open on arrival
  */
-function trackColumn({ t, key }) {
+function track({ t, key, open }) {
   const id = `staffing-track-${key}`;
 
-  const items = TRACK_ITEMS.map(
-    (n) => html`        <li id="${id}-item-${n}" class="offer-course__item">${t(`staffing.track.${key}.item.${n}`)}</li>`
+  const tags = TRACK_TAGS.map(
+    (n) => html`            <li id="${id}-tag-${n}" class="track__tag">${t(`staffing.track.${key}.tag.${n}`)}</li>`
   );
 
-  return html`    <article id="${id}" class="offer-course">
-      <h3 id="${id}-title" class="offer-course__title">${t(`staffing.track.${key}.title`)}</h3>
-      <p id="${id}-body" class="offer-course__body">${t(`staffing.track.${key}.body`)}</p>
-      <ul id="${id}-items" class="offer-course__list">
-${join(items)}
-      </ul>
-    </article>`;
+  return html`      <details id="${id}" class="track" name="staffing-track"${open ? ' open' : ''}>
+        <summary id="${id}-summary" class="track__summary">
+          <span id="${id}-head" class="track__head">
+            <span id="${id}-title" class="track__title">${t(`staffing.track.${key}.title`)}</span>
+            <ul id="${id}-tags" class="track__tags">
+${join(tags)}
+            </ul>
+          </span>
+          <span id="${id}-chevron" class="track__chevron" aria-hidden="true"></span>
+        </summary>
+        <div id="${id}-panel" class="track__panel">
+          <div id="${id}-panel-inner" class="track__inner">
+            <p id="${id}-body" class="track__body">${t(`staffing.track.${key}.body`)}</p>
+          </div>
+        </div>
+      </details>`;
 }
 
 function tracks(t) {
-  const columns = TRACKS.map((key) => trackColumn({ t, key }));
+  const rows = TRACKS.map((key, i) => track({ t, key, open: i === 0 }));
 
-  return html`<section id="tracks" class="section section--orbits" aria-label="${t('staffing.tracks.title')}">
-${orbitRings('staffing-tracks', 'orbits--tracks')}
-  <div id="staffing-tracks-rule" class="section-rule" aria-hidden="true"></div>
-  <div id="staffing-tracks-list" class="offer offer--tracks">
-${join(columns)}
+  return html`<section id="tracks" class="section" aria-labelledby="staffing-tracks-title">
+  <div id="staffing-tracks-head" class="section__head">
+    <h2 id="staffing-tracks-title" class="section-heading">${t('staffing.tracks.title')}</h2>
   </div>
-</section>`;
-}
-
-/* ------------------------------------------------------------------ *
- * Zo verloopt de onboarding — the three steps, always in this order
- *
- * The homepage's step figure, at three across instead of five: a rule along the
- * top of each with its dot sitting on it, standing up into a spine once the row
- * folds. A sequence, so it is numbered — this is the one list on the page that
- * is a path rather than a set.
- * ------------------------------------------------------------------ */
-
-function onboarding(t) {
-  const steps = STEPS.map(
-    (key, i) => html`    <div id="staffing-step-${key}" class="step${i === 0 ? ' step--first' : ''}">
-      <span id="staffing-step-${key}-index" class="step__index" aria-hidden="true">${index(i + 1)}</span>
-      <h3 id="staffing-step-${key}-title">${t(`staffing.step.${key}.title`)}</h3>
-      <p id="staffing-step-${key}-body">${t(`staffing.step.${key}.body`)}</p>
-    </div>`
-  );
-
-  return html`<section id="staffing-onboarding" class="section" aria-labelledby="staffing-onboarding-title">
-  <div id="staffing-onboarding-head" class="section__head">
-    <h2 id="staffing-onboarding-title" class="section-heading">${t('staffing.onboarding.title')}</h2>
-  </div>
-  <p id="staffing-onboarding-lede" class="section-lede">${t('staffing.onboarding.lede')}</p>
-  <div id="staffing-onboarding-steps" class="steps steps--three">
-${join(steps)}
-  </div>
-</section>`;
-}
-
-/* ------------------------------------------------------------------ *
- * Wat het management ziet — the navy band
- *
- * The one thing both tracks share is what leaves them: a report, on the cadence
- * the client asks for. It gets the page's second dark shape, and unlike every
- * other shape on the public site this one carries copy rather than texture —
- * which is what the design doc's own full-width band always did.
- * The band is full-bleed, so it sits between the two sections rather than
- * inside the page gutters; the right end is cut away by the shape, and the
- * inner block reserves that run with its own padding.
- *
- * It runs in two columns: what the reporting is, and what it covers. Stacked in
- * one, the block was a column of copy down the left of a band the width of the
- * page, and the two thirds of navy beside it carried nothing at all — the one
- * place on the site where the dark field was filler rather than a shape. Split,
- * the same words hold the band's width and it stands a third shorter.
- * ------------------------------------------------------------------ */
-
-function cadence(t) {
-  const items = CADENCE_ITEMS.map(
-    (n) => html`          <li id="staffing-cadence-item-${n}" class="cadence__item">${t(`staffing.cadence.item.${n}`)}</li>`
-  );
-
-  return html`<section id="staffing-cadence" class="cadence" aria-labelledby="staffing-cadence-title">
-  <div id="staffing-cadence-field-slot" class="field-slot cadence__field" aria-hidden="true">
-    <div id="staffing-cadence-field" class="field" data-magnet data-magnet-points="300" data-clip="cadenceBand"><sa-node-field id="staffing-cadence-nodes"></sa-node-field></div>
-  </div>
-  <div id="staffing-cadence-inner" class="cadence__inner">
-    <div id="staffing-cadence-lead" class="cadence__lead">
-      <p id="staffing-cadence-eyebrow" class="cadence__eyebrow">${t('staffing.cadence.eyebrow')}</p>
-      <h2 id="staffing-cadence-title" class="cadence__title">${t('staffing.cadence.title')}</h2>
-      <p id="staffing-cadence-body" class="cadence__body">${t('staffing.cadence.body')}</p>
-      <a id="staffing-cadence-cta" class="btn btn--ondark" href="#contact">${t('cta.talk')}</a>
+  <div id="staffing-tracks-ground" class="tracks">
+    <div id="staffing-tracks-leaf-slot" class="field-slot tracks__leaf" aria-hidden="true">
+      <div id="staffing-tracks-leaf" class="field" data-magnet data-magnet-free data-magnet-pin="left" data-magnet-points="260" data-magnet-amp="34" data-clip="tracksLeaf"><sa-node-field id="staffing-tracks-leaf-nodes"></sa-node-field></div>
     </div>
-    <div id="staffing-cadence-list-block" class="cadence__list-block">
-      <p id="staffing-cadence-list-title" class="cadence__list-title">${t('staffing.cadence.list')}</p>
-      <ul id="staffing-cadence-list" class="cadence__list">
-${join(items)}
-      </ul>
+    <div id="staffing-tracks-tail-slot" class="field-slot tracks__tail" aria-hidden="true">
+      <div id="staffing-tracks-tail" class="field" data-magnet data-magnet-free data-magnet-points="220" data-magnet-amp="30" data-clip="tracksTail"><sa-node-field id="staffing-tracks-tail-nodes"></sa-node-field></div>
     </div>
+    <sa-accordion id="staffing-tracks-panel" class="tracks__panel">
+${join(rows)}
+    </sa-accordion>
   </div>
 </section>`;
 }

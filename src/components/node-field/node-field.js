@@ -31,28 +31,57 @@ let fieldWidth = 0;
 let fieldHeight = 0;
 let timer = 0;
 
-function seed() {
-  const count = Math.max(
-    NODE_MIN,
-    Math.min(NODE_MAX, Math.round((fieldWidth * fieldHeight) / NODE_AREA))
-  );
-  nodes = Array.from({ length: count }, () => ({
+function makeNode() {
+  return {
     x: Math.random() * fieldWidth,
     y: Math.random() * fieldHeight,
     vx: (Math.random() - 0.5) * 0.16,
     vy: (Math.random() - 0.5) * 0.16,
     r: 1.4 + Math.random() * 1.5
-  }));
+  };
 }
 
+function population() {
+  return Math.max(
+    NODE_MIN,
+    Math.min(NODE_MAX, Math.round((fieldWidth * fieldHeight) / NODE_AREA))
+  );
+}
+
+function seed() {
+  nodes = Array.from({ length: population() }, makeNode);
+}
+
+/**
+ * Match the population to a field that has changed size, without disturbing the
+ * nodes already in it. Re-seeding is a whole new network, and a page's height is
+ * not a constant: the AI staffing page's accordion moves it every frame for a
+ * third of a second, and re-seeding on each of those frames was the network
+ * flying apart and reassembling thirty times a second, everywhere on the page at
+ * once. A taller document is the same field with more nodes in it.
+ */
+function refill() {
+  const target = population();
+  // Hysteresis, so a field that is growing is topped up two or three times on
+  // the way rather than on every frame — a node appearing is invisible among a
+  // thousand of them, a hundred appearing at once is not.
+  if (Math.abs(target - nodes.length) < Math.max(24, Math.round(target * 0.05))) return;
+  if (nodes.length > target) nodes.length = target;
+  else while (nodes.length < target) nodes.push(makeNode());
+}
+
+/** True when the field's document box moved, so every window has to re-measure
+    its slice of it — the shapes below a block that just grew have all shifted. */
 function measureField() {
   const root = document.documentElement;
   const width = Math.max(root.scrollWidth, innerWidth);
   const height = Math.max(root.scrollHeight, innerHeight);
-  if (Math.abs(width - fieldWidth) < 2 && Math.abs(height - fieldHeight) < 2) return;
+  if (Math.abs(width - fieldWidth) < 2 && Math.abs(height - fieldHeight) < 2) return false;
   fieldWidth = width;
   fieldHeight = height;
-  seed();
+  if (nodes.length) refill();
+  else seed();
+  return true;
 }
 
 function drift() {
@@ -68,7 +97,9 @@ function drift() {
 
 function tick() {
   drift();
-  measureField();
+  // A window whose document position has shifted is looking at the wrong slice
+  // until it is told: the field is anchored to the document, not to the shape.
+  if (measureField()) for (const view of windows) view.measure();
   for (const view of windows) view.draw();
 }
 
