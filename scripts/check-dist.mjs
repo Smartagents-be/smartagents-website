@@ -1,309 +1,320 @@
-import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { createRequire } from 'node:module';
+// Gatekeeper for dist/. Fails the build on correctness problems and on any
+// breach of the performance budgets in .claude/skills/fast-static-site/SKILL.md §1.
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { brotliCompressSync } from 'node:zlib';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
-const distDir = path.resolve(__dirname, '..', 'dist');
-const presentations = require('../_data/presentations.js');
-const textExtensions = new Set(['.html', '.xml', '.txt', '.css']);
-const sourceTextExtensions = new Set(['.css', '.js', '.mjs', '.njk', '.html']);
-const ignoredSourceDirs = new Set(['dist', 'node_modules', '.git']);
-const regexChecks = [
-  {
-    label: 'unresolved undefined.* output',
-    regex: /undefined\.[\w.-]+/g
-  },
-  {
-    label: 'unprocessed template marker',
-    regex: /\{\{[\s\S]*?\}\}|\{%[\s\S]*?%\}/g
-  },
-  {
-    label: 'raw translation key in output',
-    regex: /\b(?:page|services|jobs|team|contact|hero|nav|footer|customerzone|training|approach|vision|mission|about|stats|testimonials)\.(?!css\b|js\b|svg\b|webp\b|png\b|jpg\b|jpeg\b|pdf\b)[\w.-]+\b/g
-  },
-  {
-    label: 'local or development URL leaked into build output',
-    regex: /\b(?:https?:\/\/(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])|file:\/\/)/gi
-  }
-];
+const distDir = path.join(repoRoot, 'dist');
+
+const { languages, defaultLanguage } = await import('../build/lib/i18n.mjs');
+
+/* ------------------------------------------------------------------ *
+ * Budgets (fast-static-site §1)
+ * ------------------------------------------------------------------ */
+
+const BUDGETS = {
+  htmlCompressedBytes: 30 * 1024,
+  criticalJsCompressedBytes: 50 * 1024,
+  renderBlockingRequests: 3
+};
+
+const textExtensions = new Set(['.html', '.xml', '.txt', '.css', '.js']);
+const sourceTextExtensions = new Set(['.css', '.js', '.mjs', '.html']);
+const ignoredSourceDirs = new Set(['dist', 'node_modules', '.git', '.claude', '.idea']);
 
 const failures = [];
-function permalinkToOutputPath(permalink) {
-  const normalized = permalink.trim().replace(/^\/+/, '').replace(/\/+$/, '');
-  return normalized ? `${normalized}/index.html` : 'index.html';
-}
-
-const noindexPages = new Set([
-  '404.html',
-  'en/404.html',
-  'fr/404.html',
-  'customerzone/index.html',
-  'en/customerzone/index.html',
-  'fr/customerzone/index.html',
-  'secured/index.html',
-  ...Object.values(presentations).map(({ permalink }) => permalinkToOutputPath(permalink))
-]);
-
-function addFailure(file, label, sample) {
+function fail(file, label, sample) {
   failures.push({ file, label, sample });
 }
 
-function extractCustomPropertyDefinitions(content) {
-  return Array.from(content.matchAll(/--([\w-]+)\s*:/g), match => match[1]);
-}
+/* ------------------------------------------------------------------ *
+ * Collect
+ * ------------------------------------------------------------------ */
 
-function extractCustomPropertyReferences(content) {
-  return Array.from(content.matchAll(/var\(--([\w-]+)(\s*,[^)]*)?\)/g), match => ({
-    name: match[1],
-    hasFallback: Boolean(match[2])
-  }));
-}
-
-function extractCustomPropertyLookupTokens(content) {
-  return Array.from(
-    content.matchAll(/\b(?:readTokenValue|readNumberToken|getPropertyValue)\s*\(\s*['"`](--[\w-]+)['"`]/g),
-    match => match[1]
-  );
-}
-
-function isPrimaryPage(file) {
-  return file.endsWith('.html') && !file.startsWith('secured/') && !file.match(/secured\/.*\/index\.html/);
-}
-
-function isErrorPage(file) {
-  return file === '404.html' || file === 'en/404.html' || file === 'fr/404.html';
-}
-
-function isNoindexPage(file) {
-  if (noindexPages.has(file)) return true;
-  if (file.startsWith('secured/')) return true;
-  return false;
-}
-
-function hasFrontMatterLeak(content) {
-  return /(?:^|\n)---\s*\n(?:[\w-]+:\s*.*\n)+---\s*(?:\n|$)/m.test(content);
-}
-
-function collectTextFiles(dir, files = []) {
+function collect(dir, predicate, files = [], base = dir) {
   for (const entry of readdirSync(dir)) {
-    const fullPath = path.join(dir, entry);
-    const stats = statSync(fullPath);
-
-    if (stats.isDirectory()) {
-      collectTextFiles(fullPath, files);
+    if (ignoredSourceDirs.has(entry)) continue;
+    const full = path.join(dir, entry);
+    if (statSync(full).isDirectory()) {
+      collect(full, predicate, files, base);
       continue;
     }
-
-    if (!textExtensions.has(path.extname(entry))) {
-      continue;
-    }
-
+    if (!predicate(full)) continue;
     files.push({
-      fullPath,
-      relativePath: path.relative(distDir, fullPath),
-      content: readFileSync(fullPath, 'utf8')
+      fullPath: full,
+      relativePath: path.relative(base, full).replace(/\\/g, '/'),
+      content: readFileSync(full, 'utf8')
     });
   }
-
   return files;
 }
 
-function collectSourceTextFiles(dir, files = []) {
+const distFiles = collect(distDir, (file) => textExtensions.has(path.extname(file)));
+const sourceFiles = collect(repoRoot, (file) => sourceTextExtensions.has(path.extname(file)));
+
+const allDistPaths = new Set();
+(function walk(dir) {
   for (const entry of readdirSync(dir)) {
-    if (ignoredSourceDirs.has(entry)) {
-      continue;
-    }
-
-    const fullPath = path.join(dir, entry);
-    const stats = statSync(fullPath);
-
-    if (stats.isDirectory()) {
-      collectSourceTextFiles(fullPath, files);
-      continue;
-    }
-
-    if (!sourceTextExtensions.has(path.extname(entry))) {
-      continue;
-    }
-
-    files.push({
-      fullPath,
-      relativePath: path.relative(repoRoot, fullPath).replace(/\\/g, '/'),
-      content: readFileSync(fullPath, 'utf8')
-    });
+    const full = path.join(dir, entry);
+    if (statSync(full).isDirectory()) walk(full);
+    else allDistPaths.add(path.relative(distDir, full).replace(/\\/g, '/'));
   }
+})(distDir);
 
-  return files;
-}
+const htmlFiles = distFiles.filter((file) => file.relativePath.endsWith('.html'));
 
-const textFiles = collectTextFiles(distDir);
-const sourceTextFiles = collectSourceTextFiles(repoRoot);
-const allFiles = new Set();
-function collectAllFiles(dir) {
-  for (const entry of readdirSync(dir)) {
-    const fullPath = path.join(dir, entry);
-    const stats = statSync(fullPath);
-    if (stats.isDirectory()) {
-      collectAllFiles(fullPath);
-    } else {
-      allFiles.add(path.relative(distDir, fullPath).replace(/\\/g, '/'));
-    }
-  }
-}
-collectAllFiles(distDir);
+/** Public pages live under /{lang}/; everything else is the gated area or a fallback. */
+const isSecured = (file) => file.startsWith('secured/');
+const isRootFallback = (file) => file === 'index.html';
+const isPublicPage = (file) =>
+  file.endsWith('.html') && !isSecured(file) && !isRootFallback(file);
+const isNotFound = (file) => /(?:^|\/)404\/index\.html$/.test(file);
 
-for (const file of allFiles) {
-  if (/^[^/]+\/secured(?:\/|$)/.test(file)) {
-    addFailure(file, 'unexpected localized or nested secured route output', file);
-  }
-}
+/* ------------------------------------------------------------------ *
+ * 1. Nothing unresolved leaked into the output
+ * ------------------------------------------------------------------ */
 
-const sharedCssTokenDefinitions = new Set(
-  textFiles
-    .filter(file => file.relativePath.endsWith('.css'))
-    .flatMap(file => extractCustomPropertyDefinitions(file.content))
+const leakChecks = [
+  { label: 'unresolved undefined.* output', regex: /undefined\.[\w.-]+/ },
+  { label: 'unprocessed template marker', regex: /\{\{[\s\S]{0,200}?\}\}|\{%[\s\S]{0,200}?%\}/ },
+  { label: 'unreplaced build placeholder', regex: /__[A-Z][A-Z_]+__/ },
+  { label: 'unexpanded chrome marker', regex: /<!--\s*chrome/ },
+  { label: 'local or development URL in output', regex: /\b(?:https?:\/\/(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])|file:\/\/)/i },
+  { label: 'raw front matter block', regex: /(?:^|\n)---\s*\n(?:[\w-]+:\s*.*\n)+---\s*(?:\n|$)/ }
+];
+
+// Any i18n key appearing verbatim in the output means a translation was not applied.
+const i18nKeys = new Set(
+  languages.flatMap((language) =>
+    Object.keys(JSON.parse(readFileSync(path.join(repoRoot, 'src/i18n', `${language.code}.json`), 'utf8')))
+  )
 );
 
-const sourceTokenDefinitions = new Set(
-  sourceTextFiles.flatMap(file => extractCustomPropertyDefinitions(file.content))
-);
+for (const file of distFiles) {
+  for (const check of leakChecks) {
+    const match = file.content.match(check.regex);
+    if (match) fail(file.relativePath, check.label, match[0].slice(0, 80));
+  }
 
-for (const file of textFiles) {
-    const { relativePath, content } = file;
-    const normalizedPath = relativePath.replace(/\\/g, '/');
-
-    for (const check of regexChecks) {
-      const match = content.match(check.regex);
-      if (!match) {
-        continue;
-      }
-
-      addFailure(normalizedPath, check.label, match[0]);
+  if (!file.relativePath.endsWith('.html')) continue;
+  for (const key of i18nKeys) {
+    if (file.content.includes(`>${key}<`) || file.content.includes(`"${key}"`)) {
+      fail(file.relativePath, 'untranslated i18n key in output', key);
     }
-
-    // Broken internal link check (HTML only)
-    if (normalizedPath.endsWith('.html')) {
-      const hrefs = content.matchAll(/href="([^"#{][^"]+)"/g);
-      for (const match of hrefs) {
-        const href = match[1];
-        if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('//')) {
-          continue;
-        }
-
-        const linkPath = href.split(/[?#]/)[0];
-        let normalizedTarget;
-
-        if (linkPath.startsWith('/')) {
-            normalizedTarget = linkPath.slice(1);
-        } else {
-            // Resolve relative path against the current file's directory
-            const currentDir = path.dirname(normalizedPath);
-            normalizedTarget = path.normalize(path.join(currentDir, linkPath));
-        }
-
-        if (normalizedTarget === '.') normalizedTarget = 'index.html';
-        else if (normalizedTarget.endsWith('/')) normalizedTarget += 'index.html';
-        else if (!path.extname(normalizedTarget) && !normalizedTarget.endsWith('.html')) normalizedTarget = path.join(normalizedTarget, 'index.html');
-
-        // On Windows, normalizedTarget might use backslashes
-        const lookupTarget = normalizedTarget.replace(/\\/g, '/');
-
-        if (!allFiles.has(lookupTarget)) {
-            addFailure(normalizedPath, 'broken internal link', href);
-        }
-      }
-
-      // Missing alt text check
-      const imgs = content.matchAll(/<img\s+[^>]*src="([^"]+)"[^>]*>/g);
-      for (const match of imgs) {
-        const imgTag = match[0];
-        if (!imgTag.includes('alt=')) {
-          addFailure(normalizedPath, 'missing alt attribute on image', imgTag);
-        }
-      }
-    }
-
-    const localTokenDefinitions = new Set(extractCustomPropertyDefinitions(content));
-    const tokenReferences = extractCustomPropertyReferences(content);
-
-    for (const tokenReference of tokenReferences) {
-      if (tokenReference.hasFallback) {
-        continue;
-      }
-
-      const tokenName = tokenReference.name;
-      if (localTokenDefinitions.has(tokenName) || sharedCssTokenDefinitions.has(tokenName)) {
-        continue;
-      }
-
-      addFailure(normalizedPath, 'undefined CSS custom property', `--${tokenName}`);
-    }
-
-    if (!isPrimaryPage(normalizedPath)) {
-      continue;
-    }
-
-    if (hasFrontMatterLeak(content)) {
-      addFailure(normalizedPath, 'raw front matter block in output', '---');
-    }
-
-    const titleMatch = content.match(/<title>\s*([^<]*)\s*<\/title>/i);
-    if (!titleMatch || titleMatch[1].trim().length === 0) {
-      addFailure(normalizedPath, 'empty or missing <title>', '<title>');
-    }
-
-    if (!isErrorPage(normalizedPath)) {
-      const descriptionMatch = content.match(/<meta\s+name="description"\s+content="([^"]*)"/i);
-      if (!descriptionMatch || descriptionMatch[1].trim().length === 0) {
-        addFailure(normalizedPath, 'empty or missing meta description', '<meta name="description">');
-      }
-    }
-
-    const robotsMatch = content.match(/<meta\s+name="robots"\s+content="([^"]*)"/i);
-    const expectedRobots = isNoindexPage(normalizedPath) ? 'noindex, follow' : 'index, follow';
-    if (!robotsMatch) {
-      addFailure(normalizedPath, 'missing robots meta tag', '<meta name="robots">');
-    } else if (robotsMatch[1].trim() !== expectedRobots) {
-      addFailure(normalizedPath, `unexpected robots meta tag, expected "${expectedRobots}"`, robotsMatch[0]);
-    }
+  }
 }
 
-const jsTokenLookupPattern = /\b(?:readTokenValue|readNumberToken|getPropertyValue)\s*\(/;
-for (const file of sourceTextFiles) {
+/* ------------------------------------------------------------------ *
+ * 2. Links, images, CSS custom properties
+ * ------------------------------------------------------------------ */
+
+const cssTokenDefinitions = new Set(
+  distFiles.flatMap((file) => [...file.content.matchAll(/--([\w-]+)\s*:/g)].map((m) => m[1]))
+);
+
+for (const file of distFiles) {
   const { relativePath, content } = file;
 
-  if (!jsTokenLookupPattern.test(content)) {
-    continue;
+  // Scripts set custom properties at runtime, so only stylesheets and documents
+  // can be checked statically.
+  if (relativePath.endsWith('.css') || relativePath.endsWith('.html')) {
+    for (const reference of content.matchAll(/var\(--([\w-]+)(\s*,[^)]*)?\)/g)) {
+      if (reference[2]) continue; // has a fallback
+      if (cssTokenDefinitions.has(reference[1])) continue;
+      fail(relativePath, 'undefined CSS custom property', `--${reference[1]}`);
+    }
   }
 
-  const localTokenDefinitions = new Set(extractCustomPropertyDefinitions(content));
-  const tokenStrings = extractCustomPropertyLookupTokens(content);
+  if (!relativePath.endsWith('.html')) continue;
 
-  for (const tokenString of tokenStrings) {
-    const tokenName = tokenString.slice(2);
-    if (localTokenDefinitions.has(tokenName) || sourceTokenDefinitions.has(tokenName)) {
+  for (const match of content.matchAll(/href="([^"#{][^"]*)"/g)) {
+    const href = match[1];
+    if (/^(?:https?:)?\/\//.test(href) || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('data:')) {
       continue;
     }
 
-    addFailure(relativePath, 'undefined CSS custom property token used in source script', tokenString);
+    const linkPath = href.split(/[?#]/)[0];
+    if (!linkPath) continue;
+
+    let target = linkPath.startsWith('/')
+      ? linkPath.slice(1)
+      : path.normalize(path.join(path.dirname(relativePath), linkPath));
+
+    if (target === '.' || target === '') target = 'index.html';
+    else if (target.endsWith('/')) target += 'index.html';
+    else if (!path.extname(target)) target = path.join(target, 'index.html');
+
+    if (!allDistPaths.has(target.replace(/\\/g, '/'))) {
+      fail(relativePath, 'broken internal link', href);
+    }
+  }
+
+  for (const match of content.matchAll(/<img\s[^>]*>/g)) {
+    if (!match[0].includes('alt=')) fail(relativePath, 'missing alt attribute on image', match[0].slice(0, 80));
   }
 }
 
-const securedDistDir = path.join(distDir, 'secured');
-try {
-  const securedEntries = readdirSync(securedDistDir);
-  const unexpectedTopLevelSecuredHtml = securedEntries.filter((entry) => entry.endsWith('.html') && entry !== 'index.html');
+/* ------------------------------------------------------------------ *
+ * 3. Per-page metadata and i18n contract (static-i18n §2)
+ * ------------------------------------------------------------------ */
 
-  for (const entry of unexpectedTopLevelSecuredHtml) {
-    addFailure(`secured/${entry}`, 'unexpected top-level secured html output', entry);
+for (const { relativePath, content } of htmlFiles) {
+  const title = content.match(/<title>\s*([^<]*?)\s*<\/title>/i);
+  if (!title || !title[1]) fail(relativePath, 'empty or missing <title>', '<title>');
+
+  const robots = content.match(/<meta\s+name="robots"\s+content="([^"]*)"/i);
+  const expectedRobots =
+    isSecured(relativePath) || isRootFallback(relativePath) || isNotFound(relativePath)
+      ? 'noindex, follow'
+      : 'index, follow';
+
+  if (!robots) fail(relativePath, 'missing robots meta tag', '<meta name="robots">');
+  else if (robots[1].trim() !== expectedRobots) {
+    fail(relativePath, `unexpected robots meta, expected "${expectedRobots}"`, robots[1]);
   }
-} catch {
-  // No secured output directory is also valid for some build targets.
+
+  if (!isPublicPage(relativePath)) continue;
+
+  const description = content.match(/<meta\s+name="description"\s+content="([^"]*)"/i);
+  if (!description || !description[1].trim()) {
+    fail(relativePath, 'empty or missing meta description', '<meta name="description">');
+  }
+
+  const langAttr = content.match(/<html\s+lang="([^"]+)"\s+dir="([^"]+)"/i);
+  if (!langAttr) fail(relativePath, 'missing lang and dir on <html>', '<html>');
+
+  if (!/<link rel="canonical" href="[^"]+"/.test(content)) {
+    fail(relativePath, 'missing canonical link', '<link rel="canonical">');
+  }
+
+  // hreflang must list every language plus x-default.
+  const hreflangs = new Set([...content.matchAll(/<link rel="alternate" hreflang="([^"]+)"/g)].map((m) => m[1]));
+  for (const language of languages) {
+    if (!hreflangs.has(language.code)) {
+      fail(relativePath, 'missing hreflang alternate', language.code);
+    }
+  }
+  if (!hreflangs.has('x-default')) fail(relativePath, 'missing hreflang x-default', 'x-default');
 }
+
+/* ------------------------------------------------------------------ *
+ * 4. Performance budgets (public pages only; /secured/ is internal)
+ * ------------------------------------------------------------------ */
+
+for (const { relativePath, content, fullPath } of htmlFiles) {
+  if (!isPublicPage(relativePath)) continue;
+
+  const compressed = brotliCompressSync(readFileSync(fullPath)).length;
+  if (compressed > BUDGETS.htmlCompressedBytes) {
+    fail(relativePath, `HTML over budget (${BUDGETS.htmlCompressedBytes} B brotli)`, `${compressed} B`);
+  }
+
+  const head = content.match(/<head>([\s\S]*?)<\/head>/i)?.[1] ?? '';
+
+  const blockingScripts = [...head.matchAll(/<script\b([^>]*)>/g)].filter((match) => {
+    const attrs = match[1];
+    if (!/\ssrc=/.test(attrs)) return false;
+    return !/\b(?:defer|async)\b/.test(attrs) && !/type="module"/.test(attrs);
+  });
+  for (const script of blockingScripts) {
+    fail(relativePath, 'render-blocking classic script in head', script[0].slice(0, 80));
+  }
+
+  const blockingStyles = [...head.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*>/g)].filter(
+    (match) => !/media="print"/.test(match[0])
+  );
+  if (blockingStyles.length > BUDGETS.renderBlockingRequests) {
+    fail(
+      relativePath,
+      `more than ${BUDGETS.renderBlockingRequests} render-blocking stylesheets`,
+      String(blockingStyles.length)
+    );
+  }
+
+  if (!/<style>/.test(head)) {
+    fail(relativePath, 'no inline critical CSS in head', '<style>');
+  }
+}
+
+// Critical JS budget: the entry chunk plus anything it statically pulls in.
+const entryJs = [...allDistPaths].filter((file) => /^assets\/app\.[^/]+\.js$/.test(file));
+for (const file of entryJs) {
+  const compressed = brotliCompressSync(readFileSync(path.join(distDir, file))).length;
+  if (compressed > BUDGETS.criticalJsCompressedBytes) {
+    fail(file, `entry JS over budget (${BUDGETS.criticalJsCompressedBytes} B brotli)`, `${compressed} B`);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 5. Required output files
+ * ------------------------------------------------------------------ */
+
+const required = ['index.html', 'sitemap.xml', 'robots.txt', 'sw.js', '_headers', '_redirects', 'favicon.svg'];
+for (const file of required) {
+  if (!allDistPaths.has(file)) fail(file, 'required output file missing', file);
+}
+
+for (const language of languages) {
+  for (const file of [`${language.code}/index.html`, `${language.code}/404/index.html`]) {
+    if (!allDistPaths.has(file)) fail(file, 'missing language output', language.code);
+  }
+}
+
+if (!allDistPaths.has(`${defaultLanguage.code}/index.html`)) {
+  fail('index.html', 'default language home missing', defaultLanguage.code);
+}
+
+/* ------------------------------------------------------------------ *
+ * 5b. The routing table: nothing may hide behind the catch-all
+ * ------------------------------------------------------------------ */
+
+// _redirects ends with a catch-all that sends an unprefixed URL to the default
+// language. It is followed whether or not an asset matches, so every top-level
+// entry in dist/ needs a rule of its own above it or it stops being reachable.
+const redirectRules = readFileSync(path.join(distDir, '_redirects'), 'utf8')
+  .split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('/'))
+  .map((line) => line.split(/\s+/)[0]);
+
+if (redirectRules.at(-1) !== '/*') {
+  fail('_redirects', 'the catch-all is not the last rule', redirectRules.at(-1) ?? 'no rules');
+}
+
+const covered = new Set(redirectRules.slice(0, -1));
+for (const entry of readdirSync(distDir, { withFileTypes: true })) {
+  if (entry.name.startsWith('.') || entry.name === '_redirects' || entry.name === '_headers') continue;
+  const rule = entry.isDirectory() ? `/${entry.name}/*` : `/${entry.name}`;
+  if (!covered.has(rule)) {
+    fail('_redirects', 'unreachable behind the catch-all', rule);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 6. Source hygiene: no stale token lookups
+ * ------------------------------------------------------------------ */
+
+const sourceTokenDefinitions = new Set(
+  sourceFiles.flatMap((file) => [...file.content.matchAll(/--([\w-]+)\s*:/g)].map((m) => m[1]))
+);
+
+for (const file of sourceFiles) {
+  if (!/\b(?:readTokenValue|readNumberToken|getPropertyValue)\s*\(/.test(file.content)) continue;
+  for (const match of file.content.matchAll(
+    /\b(?:readTokenValue|readNumberToken|getPropertyValue)\s*\(\s*['"`](--[\w-]+)['"`]/g
+  )) {
+    const token = match[1].slice(2);
+    if (sourceTokenDefinitions.has(token)) continue;
+    fail(file.relativePath, 'undefined CSS custom property in source script', match[1]);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Report
+ * ------------------------------------------------------------------ */
 
 if (failures.length > 0) {
   console.error('Build sanity check failed.');
@@ -313,4 +324,11 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Build sanity check passed.');
+const publicPages = htmlFiles.filter((file) => isPublicPage(file.relativePath));
+const largest = Math.max(
+  ...publicPages.map((file) => brotliCompressSync(readFileSync(file.fullPath)).length)
+);
+console.log(
+  `Build sanity check passed. ${htmlFiles.length} pages, ` +
+    `largest public page ${largest} B brotli (budget ${BUDGETS.htmlCompressedBytes} B).`
+);

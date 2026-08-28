@@ -1,0 +1,309 @@
+/* =============================================================
+   SmartAgents — tokens for the password-gated area.
+
+   The whole of /secured/ reads this one file: the login gate, the
+   documents overview, the standalone Smart Scan documents and every
+   presentation deck. Values are lifted from src/styles/tokens.css, the
+   public site's single source of truth, so the two sides of the password
+   share one palette. Keep the two in step; do not redefine a token
+   downstream.
+
+   The system is paper-first — "two darks, one accent, a lot of paper".
+   Ink and the navy field are the only darks; cyan is the only accent;
+   everything else is a near-white. A dark shape is opt-in: put `.field`
+   on it and the semantic roles below flip to their on-navy values.
+   ============================================================= */
+
+:root {
+    /* ---------- Palette: ink and the dark field ---------- */
+    --sa-ink: oklch(0.148 0.005 247.84);
+    --sa-field: oklch(0.183 0.022 252);
+    --sa-field-2: oklch(0.21 0.024 252);
+    --sa-field-line: oklch(0.3 0.03 250);
+
+    /* ---------- Palette: paper ---------- */
+    --sa-desk: oklch(0.94 0.004 247.84);
+    --sa-paper: oklch(0.9846 0.0017 247.84);
+    --sa-paper-2: oklch(0.985 0.003 247.84);
+    --sa-paper-3: oklch(0.998 0.002 247.84);
+    --sa-white: #fff;
+    --sa-wash: oklch(0.973 0.003 247.84);
+    --sa-wash-2: oklch(0.968 0.003 247.84);
+    --sa-wash-3: oklch(0.963 0.003 247.84);
+    --sa-wash-4: oklch(0.945 0.004 247.84);
+
+    /* ---------- Palette: greys and hairlines ---------- */
+    --sa-grey-1: oklch(0.3 0.01 247.84);
+    --sa-grey-2: oklch(0.34 0.01 247.84);
+    --sa-grey-3: oklch(0.42 0.014 247.84);
+    --sa-grey-4: oklch(0.45 0.014 247.84);
+    --sa-grey-6: oklch(0.56 0.018 247.84);
+    --sa-line: oklch(0.925 0.005 247.84);
+    --sa-line-2: oklch(0.9 0.006 247.84);
+    --sa-line-3: oklch(0.885 0.006 247.84);
+
+    /* ---------- Palette: one accent, two values ----------
+       The dark value is for paper, the bright one for the navy field. */
+    --sa-cyan: oklch(0.53 0.112 214);
+    --sa-cyan-hover: oklch(0.6 0.118 210);
+    --sa-cyan-bright: #00d8ff;
+    --sa-cyan-ink: oklch(0.16 0.02 220);
+
+    /* ---------- Palette: text on the field ---------- */
+    --sa-on-field: oklch(0.97 0.004 247.84);
+    --sa-on-field-muted: oklch(0.78 0.014 240);
+    --sa-on-field-faint: oklch(0.84 0.012 240);
+
+    /* ---------- Legacy palette aliases ----------
+       Deck CSS still names the darks by their old palette names. They now
+       resolve to the field, so a deck that paints with them lands on the
+       brand navy instead of the retired slate. */
+    --sa-dark: var(--sa-field);
+    --sa-dark-deep: var(--sa-ink);
+    --sa-dark-lighter: var(--sa-field-2);
+    --sa-gray: var(--sa-grey-6);
+    --sa-gray-light: var(--sa-grey-4);
+    --sa-light: var(--sa-on-field);
+
+    /* ---------- Semantic roles: paper is the default ---------- */
+    --bg: var(--sa-paper);
+    --bg-deep: var(--sa-desk);
+    --bg-elevated: var(--sa-white);
+    --bg-hover: var(--sa-wash);
+    --bg-input: var(--sa-paper-3);
+
+    --fg: var(--sa-ink);
+    --fg-muted: var(--sa-grey-3);
+    --fg-subtle: var(--sa-grey-6);
+
+    --border: var(--sa-line);
+    --border-strong: var(--sa-line-2);
+    --border-stronger: var(--sa-line-3);
+
+    --accent: var(--sa-cyan);
+    --accent-hover: var(--sa-cyan-hover);
+    --accent-ink: var(--sa-white);
+    --accent-04: color-mix(in oklch, var(--sa-cyan) 4%, transparent);
+    --accent-08: color-mix(in oklch, var(--sa-cyan) 8%, transparent);
+    --accent-10: color-mix(in oklch, var(--sa-cyan) 10%, transparent);
+    --accent-15: color-mix(in oklch, var(--sa-cyan) 15%, transparent);
+    --accent-20: color-mix(in oklch, var(--sa-cyan) 20%, transparent);
+    --accent-30: color-mix(in oklch, var(--sa-cyan) 30%, transparent);
+    --accent-40: color-mix(in oklch, var(--sa-cyan) 40%, transparent);
+    --accent-60: color-mix(in oklch, var(--sa-cyan) 60%, transparent);
+
+    /* Primary action is ink, not accent — cyan is for rules and marks. */
+    --action-bg: var(--sa-ink);
+    --action-fg: var(--sa-white);
+    --focus-ring: color-mix(in oklch, var(--sa-cyan) 14%, transparent);
+
+    /* ---------- Ink washes ----------
+       The tints a card or a chip sits on. On paper these are ink at a low
+       alpha; `.field` swaps them for white so the same rule works on navy. */
+    --wash-1: color-mix(in oklch, var(--sa-ink) 3%, transparent);
+    --wash-2: color-mix(in oklch, var(--sa-ink) 5%, transparent);
+    --wash-line: color-mix(in oklch, var(--sa-ink) 10%, transparent);
+    --wash-line-strong: color-mix(in oklch, var(--sa-ink) 20%, transparent);
+
+    /* Deck CSS names these after the colour they used to be. They are ink
+       here and white inside `.field`. */
+    --sa-white-05: var(--wash-1);
+    --sa-white-07: var(--wash-2);
+    --sa-white-10: var(--wash-line);
+    --sa-white-25: var(--wash-line-strong);
+
+    /* ---------- Categorical hues ----------
+       Not brand colours, and deliberately absent from the public site: the
+       Smart Scan documents separate a status from a score from a priority,
+       and a deck codes a section or a step by colour. Both need more than
+       one hue, so the set is declared here once instead of being invented
+       per document. Every value is the step that clears AA on paper, and
+       each carries the same wash tiers as the accent. Reach for the accent
+       first; use these only when a thing is genuinely one of several. */
+    --sky: #0369a1;
+    --sky-08: rgba(3, 105, 161, 0.08);
+    --sky-10: rgba(3, 105, 161, 0.1);
+    --sky-15: rgba(3, 105, 161, 0.15);
+    --sky-20: rgba(3, 105, 161, 0.2);
+
+    --blue: #1d4ed8;
+    --blue-08: rgba(29, 78, 216, 0.08);
+    --blue-10: rgba(29, 78, 216, 0.1);
+    --blue-15: rgba(29, 78, 216, 0.15);
+    --blue-20: rgba(29, 78, 216, 0.2);
+
+    --purple: #4f46e5;
+    --purple-08: rgba(79, 70, 229, 0.08);
+    --purple-10: rgba(79, 70, 229, 0.1);
+    --purple-15: rgba(79, 70, 229, 0.15);
+    --purple-20: rgba(79, 70, 229, 0.2);
+
+    --violet: #7c3aed;
+    --violet-08: rgba(124, 58, 237, 0.08);
+    --violet-10: rgba(124, 58, 237, 0.1);
+    --violet-15: rgba(124, 58, 237, 0.15);
+    --violet-20: rgba(124, 58, 237, 0.2);
+
+    --teal: #0d7d70;
+    --teal-08: rgba(13, 125, 112, 0.08);
+    --teal-10: rgba(13, 125, 112, 0.1);
+    --teal-15: rgba(13, 125, 112, 0.15);
+    --teal-20: rgba(13, 125, 112, 0.2);
+
+    --green: #047857;
+    --green-08: rgba(4, 120, 87, 0.08);
+    --green-10: rgba(4, 120, 87, 0.1);
+    --green-15: rgba(4, 120, 87, 0.15);
+    --green-20: rgba(4, 120, 87, 0.2);
+
+    --amber: #b45309;
+    --amber-08: rgba(180, 83, 9, 0.08);
+    --amber-10: rgba(180, 83, 9, 0.1);
+    --amber-15: rgba(180, 83, 9, 0.15);
+    --amber-20: rgba(180, 83, 9, 0.2);
+
+    --rose: #be123c;
+    --rose-08: rgba(190, 18, 60, 0.08);
+    --rose-10: rgba(190, 18, 60, 0.1);
+    --rose-15: rgba(190, 18, 60, 0.15);
+    --rose-20: rgba(190, 18, 60, 0.2);
+
+    /* SmartSpace teal — the platform logo, not a decoration. */
+    --accent-smartspace: #00897e;
+    --accent-smartspace-bright: #29a798;
+
+    /* Deck slides tag a service with these. They are the hues above under
+       the names the slide markup uses. */
+    --accent-ai: var(--blue);
+    --accent-agentic: var(--accent);
+    --accent-automation: var(--green);
+    --accent-process: var(--amber);
+    --accent-secure: var(--rose);
+    --accent-training: var(--purple);
+    --accent-smartscan: var(--blue);
+
+    /* ---------- Type ----------
+       No webfont is loaded: fast-static-site SKILL.md §4 forbids
+       third-party font origins and no licensed Geist binaries were
+       supplied. Geist is named first so the intended face is used wherever
+       it is installed; the platform UI face carries the rest at zero
+       requests and zero layout shift. */
+    --font-sans: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-serif-accent: "Instrument Serif", Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --fs-h1: clamp(27px, 1.35rem + 1.5vw, 38px);
+    --fs-h2: clamp(25px, 1.3rem + 1.2vw, 34px);
+    --fs-h3: clamp(18px, 1.05rem + 0.3vw, 20px);
+    --fs-h4: 19px;
+    --fs-lead: 16.5px;
+    --fs-body: 15.5px;
+    --fs-ui: 15px;
+    --fs-ui-sm: 14px;
+    --fs-meta: 13.5px;
+    --fs-micro: 12.5px;
+    --fs-nano: 11px;
+
+    --fw-book: 450;
+    --fw-medium: 500;
+    --fw-medium-plus: 550;
+    --fw-semibold: 600;
+    --fw-display: 650;
+
+    --ls-display: -0.032em;
+    --ls-h2: -0.022em;
+    --ls-h3: -0.014em;
+    --ls-ui: -0.005em;
+    --ls-caps: 0.02em;
+
+    --lh-display: 1.03;
+    --lh-tight: 1.12;
+    --lh-snug: 1.5;
+    --lh-body: 1.62;
+
+    /* ---------- Shape ---------- */
+    --r-chip: 5px;
+    --r-button: 7px;
+    --r-nav: 8px;
+    --r-menu-item: 11px;
+    --r-panel: 16px;
+    --r-card: 20px;
+    --r-shell: 26px;
+    --r-pill: 999px;
+
+    /* Deep, wide and very soft — never a tight drop shadow. */
+    --shadow-shell: 0 30px 70px -34px oklch(0.148 0.03 247.84 / 0.32),
+        0 1px 2px 0 oklch(0.148 0.02 247.84 / 0.06);
+    --shadow-lift: 0 12px 28px -14px oklch(0.148 0.03 247.84 / 0.5);
+    --shadow-lift-sm: 0 10px 24px -12px oklch(0.148 0.03 247.84 / 0.45);
+
+    /* ---------- Motion: two speeds, travel and colour ---------- */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-move: 0.34s;
+    --dur-tint: 0.22s;
+    --lift: translateY(-2px);
+    --transition-move: transform var(--dur-move) var(--ease-out-expo),
+        box-shadow var(--dur-move) var(--ease-out-expo);
+    --transition-tint: color var(--dur-tint) ease,
+        background-color var(--dur-tint) ease, border-color var(--dur-tint) ease;
+}
+
+/* =============================================================
+   The dark field.
+
+   One class, applied to any navy shape: a deck's cover slide, a document
+   cover, a band. Inside it every semantic role above points at its
+   on-navy value, so a rule written once reads correctly on both grounds.
+   ============================================================= */
+.field {
+    --bg: var(--sa-field);
+    --bg-deep: var(--sa-ink);
+    --bg-elevated: var(--sa-field-2);
+    --bg-hover: color-mix(in oklch, var(--sa-white) 6%, transparent);
+    --bg-input: var(--sa-ink);
+
+    --fg: var(--sa-on-field);
+    --fg-muted: var(--sa-on-field-muted);
+    --fg-subtle: var(--sa-on-field-faint);
+
+    --border: color-mix(in oklch, var(--sa-white) 8%, transparent);
+    --border-strong: var(--sa-field-line);
+    --border-stronger: color-mix(in oklch, var(--sa-white) 24%, transparent);
+
+    --accent: var(--sa-cyan-bright);
+    --accent-hover: var(--sa-cyan-bright);
+    --accent-ink: var(--sa-cyan-ink);
+    --accent-04: color-mix(in oklch, var(--sa-cyan-bright) 6%, transparent);
+    --accent-08: color-mix(in oklch, var(--sa-cyan-bright) 10%, transparent);
+    --accent-10: color-mix(in oklch, var(--sa-cyan-bright) 12%, transparent);
+    --accent-15: color-mix(in oklch, var(--sa-cyan-bright) 18%, transparent);
+    --accent-20: color-mix(in oklch, var(--sa-cyan-bright) 24%, transparent);
+    --accent-30: color-mix(in oklch, var(--sa-cyan-bright) 34%, transparent);
+    --accent-40: color-mix(in oklch, var(--sa-cyan-bright) 45%, transparent);
+    --accent-60: color-mix(in oklch, var(--sa-cyan-bright) 65%, transparent);
+
+    --action-bg: var(--sa-cyan-bright);
+    --action-fg: var(--sa-cyan-ink);
+
+    --wash-1: color-mix(in oklch, var(--sa-white) 5%, transparent);
+    --wash-2: color-mix(in oklch, var(--sa-white) 7%, transparent);
+    --wash-line: color-mix(in oklch, var(--sa-white) 12%, transparent);
+    --wash-line-strong: color-mix(in oklch, var(--sa-white) 25%, transparent);
+
+    --accent-smartspace: var(--accent-smartspace-bright);
+
+    /* The categorical hues again, one step up: the paper values are tuned
+       to clear AA on near-white and go muddy on navy. Same names, so a rule
+       written once reads on both grounds. */
+    --sky: #38bdf8;
+    --blue: #7aa2f7;
+    --purple: #a5b4fc;
+    --violet: #c4b5fd;
+    --teal: #2dd4bf;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+
+    background: var(--bg);
+    color: var(--fg);
+}

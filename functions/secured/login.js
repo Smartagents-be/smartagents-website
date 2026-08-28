@@ -20,8 +20,8 @@ function escapeHtml(str) {
 
 function loginPage(redirectTo, error, securedBasePath) {
   const safeRedirect = escapeHtml(redirectTo);
-  const siteBasePath = securedBasePath.replace(/\/secured$/, '');
-  const baseStylesheetHref = `${siteBasePath || ''}/shared/css/base.css`;
+  const tokensStylesheetHref = buildSecuredPath(securedBasePath, '/tokens.css');
+  const baseStylesheetHref = buildSecuredPath(securedBasePath, '/base.css');
   const loginStylesheetHref = buildSecuredPath(securedBasePath, '/login.css');
   const loginAction = buildSecuredPath(securedBasePath, '/login');
   return `<!DOCTYPE html>
@@ -29,22 +29,25 @@ function loginPage(redirectTo, error, securedBasePath) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#e9ebee">
   <title>SmartAgents — Beveiligde documenten</title>
+  <link rel="stylesheet" href="${tokensStylesheetHref}">
   <link rel="stylesheet" href="${baseStylesheetHref}">
   <link rel="stylesheet" href="${loginStylesheetHref}">
 </head>
-<body>
-  <div class="card">
-    <div class="brand"><span class="brand-base">Smart</span><span class="brand-accent">Agents</span></div>
-    <div class="subtitle">Beveiligde documenten</div>
-    <form method="POST" action="${loginAction}">
-      <input type="hidden" name="redirect" value="${safeRedirect}">
-      <label for="password">Wachtwoord</label>
-      <input type="password" id="password" name="password" class="${error ? 'has-error' : ''}" autofocus autocomplete="current-password">
-      ${error ? '<div class="error">Ongeldig wachtwoord. Probeer opnieuw.</div>' : ''}
-      <button type="submit">Toegang</button>
+<body id="login-body">
+  <main id="login-card" class="card">
+    <p id="login-brand" class="brand"><span id="login-brand-base" class="brand-base">Smart</span><span id="login-brand-accent" class="brand-accent">Agents</span></p>
+    <p id="login-subtitle" class="subtitle">Beveiligde documenten</p>
+    <form id="login-form" method="POST" action="${loginAction}">
+      <input id="login-redirect" type="hidden" name="redirect" value="${safeRedirect}">
+      <label id="login-password-label" for="login-password">Wachtwoord</label>
+      <input type="password" id="login-password" name="password" class="${error ? 'has-error' : ''}"${error ? ' aria-describedby="login-error" aria-invalid="true"' : ''} autofocus autocomplete="current-password">
+      ${error ? '<p id="login-error" class="error" role="alert">Ongeldig wachtwoord. Probeer opnieuw.</p>' : ''}
+      <button id="login-submit" type="submit">Toegang</button>
     </form>
-  </div>
+  </main>
 </body>
 </html>`;
 }

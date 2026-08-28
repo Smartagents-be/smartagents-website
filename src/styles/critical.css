@@ -1,0 +1,982 @@
+/* Above-the-fold only: reset, the page frame, the header and the hero.
+   build/render.mjs prepends tokens.css and inlines the pair into every <head>.
+   Keep the combined block under 14 KB (fast-static-site SKILL.md §2). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  /* The sticky header covers the top of the page, so anchors need the offset. */
+  scroll-padding-top: 64px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background: var(--surface-page);
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-book);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--sa-cyan-hover);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--weight-display);
+  text-wrap: pretty;
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--sa-cyan) 26%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sa-cyan);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 100;
+  top: var(--space-4);
+  left: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-button);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-semibold);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  color: var(--action-primary-fg);
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * The page frame: edge to edge, no sheet, no desk
+ * ------------------------------------------------------------------ */
+
+/* Flex column so a short page still puts the footer at the bottom of the
+   viewport instead of leaving a band of bare background under it. */
+/* `clip`, not `hidden`: both keep the dark shapes from widening the page, but
+   `hidden` would make this a scroll container, which would pin the sticky
+   header to it instead of the viewport. The `hidden` first line keeps the
+   clipping on browsers without `clip` (Safari < 16); they lose only the stick. */
+.shell {
+  display: flex;
+  overflow: hidden;
+  overflow: clip;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  background: var(--surface-page);
+}
+
+/* ------------------------------------------------------------------ *
+ * Header
+ * ------------------------------------------------------------------ */
+
+.shell > main {
+  flex: 1 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  z-index: 60;
+  top: 0;
+  display: flex;
+  flex: none;
+  gap: var(--space-8);
+  align-items: center;
+  padding: var(--space-4) var(--gutter-page);
+  border-bottom: 1px solid var(--border-hairline);
+  background: var(--surface-page);
+}
+
+/* The wedge behind the logo: the first window onto the dark field. */
+.header-wedge {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(318px, 64%);
+  background: var(--surface-dark);
+  clip-path: polygon(0 0, 90% 0, 74.2% 100%, 0 100%);
+}
+
+.brand-link {
+  position: relative;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  color: var(--text-on-dark);
+  font-size: 16.5px;
+  font-weight: var(--weight-display);
+  letter-spacing: -0.01em;
+}
+
+.brand-link:hover {
+  color: var(--text-on-dark);
+}
+
+/* `flex: none`: the header is a flex row, and on a narrow phone it runs out of
+   room. Without this the mark is the item that gives way and collapses to a
+   sliver — the copy beside it never shrinks, so the logo would take the whole
+   shortfall on its own. */
+.brand-link .logo {
+  flex: none;
+  width: 30px;
+  height: 30px;
+}
+
+.logo--field {
+  color: var(--sa-cyan-bright);
+}
+
+.logo--ink {
+  color: var(--sa-cyan);
+}
+
+.brand-accent {
+  color: var(--sa-cyan-bright);
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  margin-right: auto;
+  margin-left: clamp(20px, 5vw, 74px);
+  color: var(--text-nav);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.nav-link {
+  transition: var(--transition-tint);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-nav);
+  color: inherit;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background: var(--surface-nav-hover);
+  color: var(--text-strong);
+}
+
+/* The one chevron left in the header, on the menu trigger under 768px. It sits
+   in a flex row beside a word that will not shrink, so `flex: none` is what
+   keeps it from being the thing that disappears on a narrow phone. */
+.nav-chevron {
+  flex: none;
+  display: inline-flex;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Language chip: real links, decided at build time (static-i18n §5). */
+.lang-switcher ul {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  list-style: none;
+}
+
+.lang-switcher a {
+  transition: var(--transition-tint);
+  display: block;
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-chip);
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+  text-transform: uppercase;
+}
+
+.lang-switcher a:hover {
+  color: var(--text-strong);
+}
+
+.lang-switcher a[aria-current="true"] {
+  background: var(--surface-chip);
+  color: var(--text-strong);
+}
+
+/* ------------------------------------------------------------------ *
+ * Buttons
+ * ------------------------------------------------------------------ */
+
+.btn {
+  transition: var(--transition-move), background-color var(--dur-tint) ease,
+    border-color var(--dur-tint) ease, color var(--dur-tint) ease;
+  display: inline-flex;
+  gap: 0.4em;
+  align-items: center;
+  padding: 13px var(--space-7);
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: var(--text-ui);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-ui);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+}
+
+.btn--primary:hover {
+  box-shadow: var(--shadow-lift);
+  color: var(--action-primary-fg);
+  transform: var(--lift);
+}
+
+.btn--ghost {
+  padding: 13px var(--space-6);
+  border: 1px solid var(--border-button);
+  background: var(--surface-raised);
+  color: var(--text-lead);
+  font-weight: var(--weight-medium-plus);
+}
+
+.btn--ghost:hover {
+  border-color: var(--sa-cyan);
+  color: var(--sa-cyan);
+}
+
+.btn--ondark {
+  background: var(--action-ondark-bg);
+  color: var(--action-ondark-fg);
+  font-size: var(--text-ui-sm);
+}
+
+.btn--ondark:hover {
+  box-shadow: var(--shadow-lift-dark);
+  color: var(--action-ondark-fg);
+  transform: var(--lift);
+}
+
+.btn--sm {
+  padding: var(--space-2) var(--space-6);
+  font-size: var(--text-ui-sm);
+}
+
+/* ------------------------------------------------------------------ *
+ * The dark field: every dark shape is one window onto the same network
+ * ------------------------------------------------------------------ */
+
+.field-slot {
+  position: absolute;
+  pointer-events: none;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-dark);
+}
+
+/* The clip lives on the element that carries data-magnet, never on a wrapper:
+   src/motion.js grows that element's box and remaps the outline into it, so a
+   clip applied one level up would no longer line up with the silhouette. The
+   rules are keyed on `data-clip` rather than on `.field` so the shape and the
+   clip stay named together. */
+[data-clip="heroPetal"] {
+  clip-path: url(#heroPetal);
+}
+
+[data-clip="heroLobe"] {
+  clip-path: url(#heroLobe);
+}
+
+[data-clip="dnaField"] {
+  clip-path: url(#dnaField);
+}
+
+[data-clip="dnaBlob"] {
+  clip-path: url(#dnaBlob);
+}
+
+[data-clip="stackField"] {
+  clip-path: url(#stackField);
+}
+
+/* The AI staffing page's own hero shape: an arch on the flank the petal is a
+   leaf on, and the two pebbles that have come away from it into the light half
+   of the hero. */
+[data-clip="heroArch"] {
+  clip-path: url(#heroArch);
+}
+
+[data-clip="heroPebbleA"] {
+  clip-path: url(#heroPebbleA);
+}
+
+[data-clip="heroPebbleB"] {
+  clip-path: url(#heroPebbleB);
+}
+
+/* The pair that flanks the track panel on the same page: a leaf standing in the
+   left gutter and a wedge dropping from the far corner. */
+[data-clip="tracksLeaf"] {
+  clip-path: url(#tracksLeaf);
+}
+
+[data-clip="tracksTail"] {
+  clip-path: url(#tracksTail);
+}
+
+[data-clip="tourStone"] {
+  clip-path: url(#tourStone);
+}
+
+[data-clip="tourDome"] {
+  clip-path: url(#tourDome);
+}
+
+/* ------------------------------------------------------------------ *
+ * Hero
+ * ------------------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  background: var(--surface-section);
+}
+
+/* Both shapes hang off a page edge and stop short of the other three: an edge
+   cut by the hero's own bottom would read as clipped, not drawn. Every offset
+   is a share of the hero, never a pixel size — the shapes hold the same
+   proportion of the page at every width, which is what the design draws.
+   Sized by insets alone, never width/height — src/motion.js grows the box by
+   subtracting from all four offsets, and an explicit size would move the box
+   instead of growing it. */
+.hero__field--right {
+  inset: 0.8% 0 7.8% 56%;
+}
+
+.hero__field--left {
+  inset: 23.4% 44% 3.4% 0;
+}
+
+/* The orbit diagram: five rings struck from one origin off the left edge. It is
+   clipped to the hero by its own layer, never by `.hero` itself — the dark
+   shapes deform outside their box and must not be cut off with it. */
+.orbits {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.orbits__origin {
+  position: absolute;
+  top: 90px;
+  left: 12%;
+  width: 0;
+  height: 0;
+}
+
+.orbits__ring {
+  position: absolute;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.orbits__ring--01 {
+  inset: -260px auto auto -260px;
+  width: 520px;
+  height: 520px;
+  border-color: color-mix(in oklch, var(--sa-ink) 10%, transparent);
+}
+
+.orbits__ring--02 {
+  inset: -390px auto auto -390px;
+  width: 780px;
+  height: 780px;
+  border-color: color-mix(in oklch, var(--sa-cyan) 20%, transparent);
+}
+
+.orbits__ring--03 {
+  inset: -530px auto auto -530px;
+  width: 1060px;
+  height: 1060px;
+  border-style: dashed;
+  border-color: color-mix(in oklch, var(--sa-ink) 11%, transparent);
+}
+
+.orbits__ring--04 {
+  inset: -680px auto auto -680px;
+  width: 1360px;
+  height: 1360px;
+  border-color: color-mix(in oklch, var(--sa-ink) 7%, transparent);
+}
+
+.orbits__ring--05 {
+  inset: -845px auto auto -845px;
+  width: 1690px;
+  height: 1690px;
+  border-color: color-mix(in oklch, var(--sa-ink) 5%, transparent);
+}
+
+/* Three of the rings carry a node. The ring-sized box rotates; the node rides
+   its top edge and fades in and out over one turn, so it reads as one node
+   travelling rather than as a permanent dot. */
+.orbits__path {
+  position: absolute;
+  animation: sa-orbit linear infinite;
+}
+
+.orbits__node {
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  animation: sa-orbit-fade ease-in-out infinite;
+}
+
+.orbits__path--01 {
+  inset: -390px auto auto -390px;
+  width: 780px;
+  height: 780px;
+  animation-duration: 34s;
+}
+
+.orbits__path--01 .orbits__node {
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  background: var(--sa-cyan);
+  box-shadow: 0 0 14px 2px color-mix(in oklch, var(--sa-cyan) 50%, transparent);
+  animation-duration: 34s;
+}
+
+.orbits__path--02 {
+  inset: -530px auto auto -530px;
+  width: 1060px;
+  height: 1060px;
+  animation-duration: 62s;
+  animation-direction: reverse;
+}
+
+.orbits__path--02 .orbits__node {
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background: var(--sa-grey-1);
+  animation-duration: 62s;
+  animation-delay: -14s;
+}
+
+.orbits__path--03 {
+  inset: -680px auto auto -680px;
+  width: 1360px;
+  height: 1360px;
+  animation-duration: 88s;
+}
+
+.orbits__path--03 .orbits__node {
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  background: color-mix(in oklch, var(--sa-cyan) 75%, transparent);
+  animation-duration: 88s;
+}
+
+/* The outermost ring. Only a ground that is taller than the hero gives it room
+   to read, so nothing calls for it above the fold; `orbitRings` leaves it out
+   unless a call site asks for it. Counter-travelling, like 02. */
+.orbits__path--04 {
+  inset: -845px auto auto -845px;
+  width: 1690px;
+  height: 1690px;
+  animation-duration: 118s;
+  animation-direction: reverse;
+}
+
+.orbits__path--04 .orbits__node {
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  background: var(--sa-grey-1);
+  animation-duration: 118s;
+  animation-delay: -37s;
+}
+
+@keyframes sa-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sa-orbit-fade {
+  0%,
+  4% {
+    opacity: 0;
+  }
+
+  12%,
+  34% {
+    opacity: 1;
+  }
+
+  44%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The rings stay; only the travelling nodes are motion. */
+@media (prefers-reduced-motion: reduce) {
+  .orbits__path {
+    display: none;
+  }
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 52%);
+  min-height: 820px;
+  padding: var(--section-rhythm) var(--gutter-page);
+  /* Deeper than the page gutter: the copy starts inboard of the lobe's tip. */
+  padding-left: calc(var(--gutter-page) + 17%);
+}
+
+/* The copy sits at the top of its column, not on the hero's centre line: the
+   petal's pinch is at mid-height, and the block reads better above it. */
+.hero__text {
+  align-self: start;
+}
+
+/* The wordmark sets its own width; only the claim is held to a measure, so the
+   two never fight over the same line length. */
+.hero h1 {
+  margin-bottom: var(--space-10);
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--track-display);
+}
+
+.hero__wordmark {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.hero__wordmark .logo {
+  flex: none;
+  width: 52px;
+  height: 52px;
+}
+
+.hero__wordmark .brand-accent {
+  color: var(--sa-cyan);
+}
+
+.hero__claim {
+  display: block;
+  margin-top: var(--space-4);
+  max-width: var(--measure-display);
+  color: var(--text-strong);
+  font-size: var(--text-h1-sub);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+/* Between the magnet breakpoint and the tablet, the flanks are too narrow to
+   carry the shapes at their drawn size: both pull back into their corner, and
+   the lobe drops below the copy rather than rising behind it. The copy keeps
+   its column, so it never crosses the petal. */
+@media (max-width: 1080px) {
+  .hero__inner {
+    min-height: 720px;
+    padding-left: var(--gutter-page);
+  }
+
+  .hero__field--right {
+    inset: 4% 0 12% 62%;
+  }
+
+  .hero__field--left {
+    inset: 46% 66% 4% 0;
+  }
+}
+
+/* The tablet keeps the hero split, and so does everything down to the phone.
+   The artboard draws the copy in a column just over half the page with the
+   petal hung off the right edge beside it — the desk's composition at the
+   tablet's proportions, not a new one — and the column and the lobe are both
+   shares of the width, so the pair holds all the way to the phone's own line.
+   The counter-lobe goes: at this width the two shapes meet in the middle and
+   the copy loses the light ground it is ranged against. */
+@media (min-width: 621px) and (max-width: 940px) {
+  /* 51%, not the artboard's 57%: the petal's tip reaches back to 54% of the
+     page at mid-height, and the artboard's own column ends a hair short of it
+     in one language at one width. A line of copy that fills the column has to
+     clear the shape at every width in the band and in all three, so the column
+     gives up the six points the tip needs. */
+  .hero__inner {
+    grid-template-columns: minmax(0, 51%);
+    min-height: clamp(470px, 66vw, 620px);
+  }
+
+  /* On the desk the copy sits above the petal's pinch. Here the shape is a
+     lobe hung off one edge with no pinch to clear, and the block reads on the
+     hero's centre line. */
+  .hero__text {
+    align-self: center;
+  }
+
+  /* The artboard turns the hero's hierarchy over: the wordmark steps back and
+     the sentence that carries the page becomes the largest thing on it, which
+     is what the phone already does. Both are held to the artboard's sizes at
+     its own width and scale from there. */
+  .hero__wordmark {
+    font-size: clamp(30px, 4.8vw, 40px);
+  }
+
+  .hero__wordmark .logo {
+    width: 1.05em;
+    height: 1.05em;
+  }
+
+  .hero__claim {
+    /* The claim is the largest thing here, so it sets its own line and needs
+       the air the wordmark used to give it from above. */
+    margin-top: var(--space-6);
+    max-width: none;
+    font-size: clamp(38px, 6.4vw, 54px);
+  }
+
+  .hero__field--right {
+    inset: 2.5% 0 9% 53%;
+  }
+
+  .hero__field--left {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The tablet header
+ *
+ * The tablet artboard ("SmartAgents Homepage Tablet", 834x1112) keeps the
+ * header a header: the sections, the language chips and the primary action
+ * all stay on one row. A disclosure over a page this wide reads as a phone
+ * control, and there is room for the row — but none of the desk's slack, so
+ * everything in it gives a little at once: the gutter, the gaps, the nav
+ * padding, the brand. The one thing that goes is the "Contact" link, because
+ * the button beside it already goes there.
+ * ------------------------------------------------------------------ */
+@media (min-width: 768px) and (max-width: 1180px) {
+  /* Every measurement in this row is fluid between the tablet's two ends:
+     at 834px, the artboard's own width, they land on the artboard's values,
+     and they tighten from there so the row still holds at 768px — the
+     narrowest width a tablet is held upright at, and the narrowest the four
+     items left in the row fit in the longest of the three languages. */
+  /* The header is taller here than on the desk, so the offset an anchor is
+     scrolled to has to grow with it. */
+  html {
+    scroll-padding-top: 76px;
+  }
+
+  .site-header {
+    gap: clamp(8px, 1.4vw, 14px);
+    /* The artboard's header is a hand taller than the desk's. */
+    min-height: 72px;
+    padding: var(--space-4) clamp(12px, 2.6vw, 22px);
+  }
+
+  .brand-link {
+    gap: clamp(7px, 1.1vw, 10px);
+    font-size: clamp(13.5px, 1.8vw, 16px);
+  }
+
+  .brand-link .logo {
+    width: clamp(22px, 3.1vw, 28px);
+    height: clamp(22px, 3.1vw, 28px);
+  }
+
+  /* The wedge is a share of the row, and the row lost the gutter that used to
+     stand in front of the brand. Narrowed with it, the cut lands clear of the
+     wordmark on one side and of the first nav item on the other — a nav link
+     half over navy is the one thing this row cannot afford. */
+  .header-wedge {
+    /* Steeper than the desk's cut, like the phone's, and wide enough to hold
+       the wordmark at every width and in all three languages: on a row this
+       full the slope is the only slack there is, so it has to be short. */
+    width: clamp(158px, 20.6vw, 212px);
+    clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+  }
+
+  /* Ranged right against the actions instead of ranged left off the brand:
+     the row has no width to spend on the gap the desk puts there. */
+  .site-nav {
+    margin-right: 0;
+    margin-left: auto;
+    font-size: clamp(12.5px, 1.62vw, 14px);
+  }
+
+  .nav-link {
+    padding-inline: clamp(3px, 0.85vw, 10px);
+  }
+
+  /* The button two items along already goes here. */
+  .nav-link--contact {
+    display: none;
+  }
+
+  .lang-switcher a {
+    padding-inline: clamp(5px, 0.7vw, 7px);
+  }
+
+  .header-actions {
+    gap: clamp(8px, 1.7vw, 18px);
+  }
+
+  .header-actions .btn--sm {
+    padding-inline: clamp(9px, 1.7vw, 18px);
+    font-size: clamp(12.5px, 1.62vw, 14px);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Under the tablet: the row folds into the disclosure
+ *
+ * The links come off the row and go behind one trigger (`.nav-toggle`, in
+ * main.css), so the header carries the brand, that trigger, the language chips
+ * and the primary action. Four items where the desk had eight, but a third of
+ * the width — and the wedge is what gives: at the desk's 318px the cut runs
+ * past the trigger and "Menu" sits on navy, unreadable. It narrows to the
+ * shape it takes on the phone, cut to the brand and nothing more, and the row
+ * beside it tightens with it so the group clears the slope at 621px too, the
+ * narrowest width that still has the actions in the row.
+ * ------------------------------------------------------------------ */
+@media (max-width: 767px) {
+  .site-nav {
+    display: none;
+  }
+
+  /* Steeper than the desk cut and welded to the top edge, so the wordmark sits
+     inside the wedge at every width under the tablet. */
+  .header-wedge {
+    width: min(212px, 60%);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  }
+
+  .brand-link {
+    gap: 9px;
+    font-size: var(--text-ui);
+  }
+
+  .brand-link .logo {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Everything left of the page edge gives a little at once — the gap before
+     the actions, the gap inside them, the chips and the button's own flanks —
+     and the four items travel right together, off the slope. */
+  .site-header {
+    gap: var(--space-4);
+  }
+
+  .header-actions {
+    gap: var(--space-4);
+  }
+
+  .lang-switcher a {
+    padding-inline: var(--space-2);
+  }
+
+  .header-actions .btn--sm {
+    padding-inline: var(--space-5);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The phone
+ *
+ * The header carries the brand and one way into the menu, and nothing else:
+ * the language chips and the primary action move into the sheet, which is the
+ * only place down here with room to give them a touch target. That leaves the
+ * wedge its full share of a narrow row again, so the dark field still opens
+ * the page where the design has it open. A fixed 56px row, because the sheet
+ * hangs from the header's bottom edge and has to know where that is.
+ * ------------------------------------------------------------------ */
+@media (max-width: 620px) {
+  .site-header {
+    gap: var(--space-4);
+    height: 56px;
+    padding: 0 var(--gutter-page) 0 0;
+  }
+
+  /* The header lost its left padding, so the brand carries the gutter itself
+     and the wedge still starts at the page edge. */
+  .brand-link {
+    padding-left: var(--gutter-page);
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  /* The hero. Above this the copy keeps a column with the petal hung off the
+     right edge beside it; a phone is too narrow to split, so the shape stops
+     standing beside the copy and lies over it — the sliver of itself that fits
+     across the top, welded to the top, left and right edges and free of the
+     bottom, with the copy running under it in a column that clears it. */
+  .hero {
+    display: block;
+    overflow: hidden;
+  }
+
+  .hero__field {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .hero__field--right {
+    inset: 0 0 auto 0;
+    height: 424px;
+  }
+
+  /* One shape is the whole dark field down here; the counter-lobe has nothing
+     left to answer once the petal has stopped being a flank. */
+  .hero__field--left {
+    display: none;
+  }
+
+  /* Both hero shapes are a flank on every other viewport and neither has a
+     flank left down here, so both become the same sliver across the top. */
+  [data-clip="heroPetal"],
+  [data-clip="heroArch"] {
+    clip-path: url(#heroSwoop);
+  }
+
+  /* The half-page column is the share the copy takes of a hero it splits with
+     the petal. With the shape overhead there is nothing to split with, and
+     holding the copy to half the page only sets the headline in a column
+     narrower than the buttons under it. */
+  .hero__inner {
+    z-index: 2;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding: var(--space-11) var(--gutter-page) 0;
+  }
+
+  /* The wordmark stops growing with the page and the claim takes over as the
+     largest thing on it: one line of brand, then the sentence that carries the
+     page. The measure is a share of the column, not a character count — what
+     it has to clear is the shape above it, which is a share too. */
+  .hero__wordmark {
+    font-size: 32px;
+  }
+
+  .hero__wordmark .logo {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* The measure belongs to the whole block, not to the claim alone. The
+     petal's tail comes down the right edge to 58% of the shape's height, well
+     past the last line of type, so anything in the copy that runs the full
+     column ends on navy — which is what the buttons under the claim did. One
+     share holds them all off it. */
+  .hero__text {
+    max-width: 80%;
+  }
+
+  .hero__claim {
+    font-size: var(--text-display);
+  }
+
+  /* Two buttons side by side leave neither of them a full thumb. Stacked, both
+     are the width of the copy's measure and both clear the 48px target. */
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .hero__actions .btn {
+    justify-content: center;
+    min-height: 48px;
+    padding-block: 0;
+  }
+}
+
+/* The narrowest phones: the brand gives up what the wedge cannot. */
+@media (max-width: 400px) {
+  .brand-link {
+    gap: var(--space-3);
+    font-size: var(--text-ui-sm);
+  }
+}

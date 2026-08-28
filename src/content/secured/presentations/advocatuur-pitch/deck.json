@@ -1,0 +1,22 @@
+{
+  "title": "SmartAgents — Advocatuur",
+  "description": "SmartAgents: procesoptimalisatie en AI voor advocatenkantoren, met het beroepsgeheim als uitgangspunt.",
+  "width": "1920",
+  "height": "1080",
+  "styles": [],
+  "scripts": [],
+  "slides": [
+    "00-cover",
+    "01-waarom-nu",
+    "02-onze-aanpak",
+    "03-de-20-kansen",
+    "04-dossier-risico",
+    "05-tijd-organisatie",
+    "06-documenten",
+    "07-kennis-research",
+    "08-communicatie-schaal",
+    "09-beroepsgeheim",
+    "10-waar-beginnen",
+    "11-volgende-stap"
+  ]
+}

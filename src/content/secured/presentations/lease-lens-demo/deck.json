@@ -1,0 +1,19 @@
+{
+  "title": "SmartAgents — LeaseLens Demo",
+  "description": "LeaseLens: digitale plaatsbeschrijvingen met foto's, AI-beoordeling en PDF-rapporten voor verhuurders en vastgoedbeheerders.",
+  "width": "1920",
+  "height": "1080",
+  "styles": [],
+  "scripts": [],
+  "slides": [
+    "00-cover",
+    "03-vergelijking",
+    "04-kernfunctionaliteiten",
+    "04b-huurindexering",
+    "05-technische-kwaliteit",
+    "06-inspectie-workflow",
+    "06b-indexatie-workflow",
+    "07-demo",
+    "08-volgende-stap"
+  ]
+}

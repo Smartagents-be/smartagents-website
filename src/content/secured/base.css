@@ -1,0 +1,113 @@
+/* =============================================================
+   SmartAgents — base layer for the password-gated shell.
+
+   Reset and element defaults for the login gate, the documents overview
+   and the standalone Smart Scan documents. All three pair it with
+   tokens.css, which must be linked first. The presentation decks do not
+   load this file: a deck sets its own type sizes against a fixed stage,
+   so an element default would only be something to override.
+   ============================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Paper-first, so form controls and scrollbars render light. */
+    color-scheme: light;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--fg);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: var(--fw-display);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-h2);
+    color: var(--fg);
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); letter-spacing: var(--ls-h3); }
+h4 { font-size: var(--fs-h4); letter-spacing: var(--ls-h3); }
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition-tint);
+}
+
+ul {
+    list-style: none;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
+/* One focus treatment across the area: the accent ring, never a removed
+   outline. Pointer clicks do not raise it; keyboard focus always does. */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--r-chip);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* The wordmark: "Smart" in ink, "Agents" in the accent. Both halves take
+   their colour from the surrounding field, so the same markup reads on
+   paper and on navy. */
+.brand-base { color: var(--fg); }
+.brand-accent { color: var(--accent); }
+
+/* Named for the gradient it used to be. The system has one accent and no
+   gradients; the class stays so existing markup keeps its emphasis. */
+.gradient-text {
+    color: var(--accent);
+    -webkit-text-fill-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,0 +1,26 @@
+<!-- ════════════════ 08 · LAB 0: BASELINE ════════════════ -->
+  <section data-label="Lab 0: baseline" class="slide light cat-themed" style="--c: var(--green);">
+    <div class="frame">
+      <p class="eyebrow"><span class="num">08</span>Lab 0</p>
+      <h2 class="h2">Measure your <span class="accent">baseline</span>.</h2>
+
+      <div class="frame-body">
+      <div class="labcard" style="margin-top: 20px;">
+        <span class="lab-tag">Lab 0: baseline measurement</span>
+        <h3>Fix the session-timeout bug, unoptimized</h3>
+        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> record your token count and cost before applying any technique. This is the number to beat in Labs A1 and B1.</p>
+        <ol>
+          <li>Open <code>token-efficient-workshop-node</code> in your AI coding tool.</li>
+          <li>Give it only the symptom: no scoping, no ignore files, no file hints. Use this exact prompt:
+            <div class="prompt-block">Logged-in users get logged out after about 30 seconds, even though the session is supposed to last 30 minutes. Find the cause and fix it.</div>
+          </li>
+          <li>After the response, record input, output, and cached tokens (cache reads count) plus total cost.
+            <div style="font-size: 18px; color: var(--fg-muted); margin-top: 8px; line-height: 1.5;">Where to read it: <code>/cost</code> in Claude Code, the Chat Debug View in Copilot, or the Usage page on the Cursor dashboard. <code>npx ccusage</code> adds a per-session breakdown.</div>
+          </li>
+        </ol>
+        <p class="lab-out"><strong>Expected result:</strong> a baseline number that will shrink as you apply each technique. Keep it, you will compare it at the end of each part.</p>
+      </div>
+      </div>
+    </div>
+    <!--chrome 08/57-->
+  </section>

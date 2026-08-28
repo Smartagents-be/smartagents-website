@@ -1,0 +1,20 @@
+:root {
+  --radius-chip: 5px;
+  --radius-button: 7px;
+  --radius-nav: 8px;
+  --radius-menu-item: 11px;
+  --radius-panel: 16px;
+  --radius-card: 20px;
+  --radius-shell: 26px;
+  --radius-pill: 999px;
+
+  /* deep, wide and very soft — never a tight drop shadow */
+  --shadow-shell: 0 30px 70px -34px oklch(0.148 0.03 247.84 / 0.32), 0 1px 2px 0 oklch(0.148 0.02 247.84 / 0.06);
+  --shadow-menu: 0 28px 60px -30px oklch(0.148 0.03 247.84 / 0.42), 0 2px 6px -2px oklch(0.148 0.02 247.84 / 0.08);
+  --shadow-lift: 0 12px 28px -14px oklch(0.148 0.03 247.84 / 0.5);
+  --shadow-lift-sm: 0 10px 24px -12px oklch(0.148 0.03 247.84 / 0.45);
+  --shadow-lift-dark: 0 10px 24px -12px oklch(0.05 0.02 240 / 0.6);
+
+  --rule-accent: 2px solid var(--sa-cyan);
+  --rule-hairline: 1px solid var(--sa-line);
+}

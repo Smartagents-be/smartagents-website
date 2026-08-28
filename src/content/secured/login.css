@@ -1,0 +1,107 @@
+/* The password gate. One panel on paper: the wordmark under a cut of the
+   cyan section rule, the field, the button. Nothing else is on the page,
+   so the panel carries the whole design — the hairline and the deep, soft
+   shell shadow the public site uses for its own raised surfaces. */
+
+body {
+  display: flex;
+  min-height: 100svh;
+  /* The panel is the whole page here, so the padding is what keeps it off
+     the edge of a phone: without it the hairline runs along the screen. */
+  padding: clamp(20px, 5vw, 48px);
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-deep);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: clamp(28px, 6vw, 44px) clamp(22px, 5vw, 38px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-shell);
+}
+
+.brand {
+  display: inline-block;
+  padding-top: 16px;
+  border-top: 2px solid var(--sa-cyan);
+  margin-bottom: 6px;
+  font-size: 22px;
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-display);
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin-bottom: 34px;
+  color: var(--fg-muted);
+  font-size: var(--fs-meta);
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--fg-muted);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-medium-plus);
+  letter-spacing: var(--ls-ui);
+}
+
+input[type="password"] {
+  transition: var(--transition-tint), box-shadow var(--dur-tint) ease;
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-button);
+  background: var(--bg-input);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: var(--fs-ui);
+  outline: none;
+}
+
+input[type="password"]:focus {
+  border-color: var(--sa-cyan);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* The wrong-password state is the field's own colour, not a second
+   element: the message under it says the rest. */
+input[type="password"].has-error {
+  border-color: var(--rose);
+}
+
+input[type="password"].has-error:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 0 3px var(--rose-20);
+}
+
+.error {
+  margin-top: 9px;
+  color: var(--rose);
+  font-size: var(--fs-meta);
+}
+
+button {
+  transition: var(--transition-move), var(--transition-tint);
+  width: 100%;
+  margin-top: 26px;
+  padding: 13px 22px;
+  border: none;
+  border-radius: var(--r-button);
+  background: var(--action-bg);
+  color: var(--action-fg);
+  font-family: inherit;
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-ui);
+  cursor: pointer;
+}
+
+button:hover {
+  transform: var(--lift);
+  box-shadow: var(--shadow-lift);
+}

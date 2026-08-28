@@ -1,0 +1,237 @@
+- generic [active] [ref=f64e1]:
+  - link "Naar de inhoud" [ref=f64e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f64e3]:
+    - banner [ref=f64e4]:
+      - link "SmartAgents" [ref=f64e8] [cursor=pointer]:
+        - /url: /nl/
+      - navigation "Hoofdnavigatie" [ref=f64e22]:
+        - link "Diensten" [ref=f64e24] [cursor=pointer]:
+          - /url: /nl/#services
+        - link "Ons DNA" [ref=f64e28] [cursor=pointer]:
+          - /url: /nl/#dna
+        - link "Team" [ref=f64e29] [cursor=pointer]:
+          - /url: /nl/team/
+        - link "Aanpak" [ref=f64e30] [cursor=pointer]:
+          - /url: /nl/#approach
+        - link "Inzichten" [ref=f64e31] [cursor=pointer]:
+          - /url: /nl/#insights
+        - link "Contact" [ref=f64e32] [cursor=pointer]:
+          - /url: /nl/#contact
+      - generic [ref=f64e33]:
+        - navigation "Taal" [ref=f64e34]:
+          - list [ref=f64e35]:
+            - listitem [ref=f64e36]:
+              - link "Nederlands" [ref=f64e37] [cursor=pointer]:
+                - /url: /nl/
+                - text: nl
+            - listitem [ref=f64e39]:
+              - link "English" [ref=f64e40] [cursor=pointer]:
+                - /url: /en/
+                - text: en
+            - listitem [ref=f64e42]:
+              - link "Français" [ref=f64e43] [cursor=pointer]:
+                - /url: /fr/
+                - text: fr
+        - link "Plan een gesprek" [ref=f64e45] [cursor=pointer]:
+          - /url: /nl/#contact
+    - main [ref=f64e46]:
+      - generic [ref=f64e49]:
+        - heading "SmartAgents Digitale collega's die nooit slapen" [level=1] [ref=f64e50]:
+          - generic [ref=f64e51]: SmartAgents
+          - generic [ref=f64e65]: Digitale collega's die nooit slapen
+        - generic [ref=f64e66]:
+          - link "Plan een gesprek" [ref=f64e67] [cursor=pointer]:
+            - /url: "#contact"
+          - link "Bekijk wat we doen" [ref=f64e68] [cursor=pointer]:
+            - /url: "#services"
+            - text: Bekijk wat we doen
+            - generic [ref=f64e69]: →
+      - region [ref=f64e70]:
+        - heading "Wat we doen" [level=2] [ref=f64e72]
+        - generic [ref=f64e73]:
+          - generic [ref=f64e74]:
+            - generic [ref=f64e75]: Procesoptimalisatie
+            - generic [ref=f64e76]: AI opent nieuwe mogelijkheden in uw processen en maakt bestaande stappen beter. Wij helpen u die kansen te herkennen en ze ook echt te implementeren.
+          - generic [ref=f64e77]:
+            - generic [ref=f64e78]: Agentic automatisatie
+            - generic [ref=f64e79]: Agents inbouwen in nieuwe of bestaande processen, zodat uw software gebouwd is voor wat er nog komt.
+          - link "Training en coaching Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de teams die met AI werken en voor de developers die ermee bouwen. Ontdek" [ref=f64e80] [cursor=pointer]:
+            - /url: /nl/training/
+            - generic [ref=f64e81]: Training en coaching
+            - generic [ref=f64e82]: Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de teams die met AI werken en voor de developers die ermee bouwen.
+            - generic [ref=f64e83]: Ontdek →
+          - generic [ref=f64e84]:
+            - generic [ref=f64e85]: AI staffing
+            - generic [ref=f64e86]: "Op papier is iedereen AI-expert. Wij screenen profielen zoals we zelf gescreend willen worden: op wat ze gebouwd hebben."
+      - generic [ref=f64e87]:
+        - heading "Ons DNA" [level=2] [ref=f64e89]
+        - generic [ref=f64e96]:
+          - generic [ref=f64e97]:
+            - generic [ref=f64e98]: "01"
+            - generic [ref=f64e99]:
+              - generic [ref=f64e100]: Praktijkmensen
+              - paragraph [ref=f64e101]: We gebruiken AI-tooling elke dag zelf. Wat we u aanraden, draait eerst bij ons.
+          - generic [ref=f64e102]:
+            - generic [ref=f64e103]: "02"
+            - generic [ref=f64e104]:
+              - generic [ref=f64e105]: Software engineers
+              - paragraph [ref=f64e106]: We hebben ruime ervaring in enterprise-systemen, van analyse tot uitbouw.
+          - generic [ref=f64e107]:
+            - generic [ref=f64e108]: "03"
+            - generic [ref=f64e109]:
+              - generic [ref=f64e110]: Innovators
+              - paragraph [ref=f64e111]: Nieuwe technologie trekt ons aan, en geeft ons energie.
+          - generic [ref=f64e112]:
+            - generic [ref=f64e113]: "04"
+            - generic [ref=f64e114]:
+              - generic [ref=f64e115]: Partners
+              - paragraph [ref=f64e116]: We zoeken gelijkgestemde bedrijven die willen groeien, en blijven tot dat ook gebeurt.
+      - generic [ref=f64e117]:
+        - heading "Digitale transformatie" [level=2] [ref=f64e119]
+        - generic [ref=f64e120]:
+          - generic [ref=f64e121]:
+            - generic [ref=f64e122]:
+              - generic [ref=f64e123]: "01"
+              - generic [ref=f64e124]:
+                - generic [ref=f64e125]: Strategie en visie op AI
+                - paragraph [ref=f64e126]: Strategische AI-implementatie, organisatiebreed.
+            - generic [ref=f64e127]:
+              - generic [ref=f64e128]: "02"
+              - generic [ref=f64e129]:
+                - generic [ref=f64e130]: Procesoptimalisatie
+                - paragraph [ref=f64e131]: Processen herleiden tot wat waarde toevoegt.
+            - generic [ref=f64e132]:
+              - generic [ref=f64e133]: "03"
+              - generic [ref=f64e134]:
+                - generic [ref=f64e135]: Opleiding
+                - paragraph [ref=f64e136]: Uw mensen leren werken met de laatste AI-technieken.
+            - generic [ref=f64e137]:
+              - generic [ref=f64e138]: "04"
+              - generic [ref=f64e139]:
+                - generic [ref=f64e140]: Toepassing
+                - paragraph [ref=f64e141]: Uitrollen in uw eigen systemen en bijsturen.
+          - generic [ref=f64e142]:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: "01"
+                  - text: Strategie en visie
+              - generic:
+                - generic:
+                  - generic: "02"
+                  - text: Procesoptimalisatie
+              - generic:
+                - generic:
+                  - generic: "03"
+                  - text: Opleiding
+              - generic:
+                - generic:
+                  - generic: "04"
+                  - text: Toepassing
+      - generic [ref=f64e146]:
+        - heading "Van vraag tot werkende oplossing" [level=2] [ref=f64e148]
+        - generic [ref=f64e149]:
+          - generic [ref=f64e150]:
+            - text: "01"
+            - heading "SmartScan" [level=3] [ref=f64e151]
+            - paragraph [ref=f64e152]: We brengen processen en knelpunten in kaart en zeggen eerlijk waar AI niets toevoegt.
+          - generic [ref=f64e153]:
+            - text: "02"
+            - heading "Ontwerp" [level=3] [ref=f64e154]
+            - paragraph [ref=f64e155]: We tekenen de nieuwe workflow uit en kiezen waar agents en integraties het meeste opleveren.
+          - generic [ref=f64e156]:
+            - text: "03"
+            - heading "Ontwikkeling" [level=3] [ref=f64e157]
+            - paragraph [ref=f64e158]: We bouwen in korte rondes. U test mee op echte dossiers en stuurt bij terwijl het ontstaat.
+          - generic [ref=f64e159]:
+            - text: "04"
+            - heading "Implementatie" [level=3] [ref=f64e160]
+            - paragraph [ref=f64e161]: Uitrollen in uw omgeving, koppelen aan uw systemen, en de mensen erbij die ermee moeten werken.
+          - generic [ref=f64e162]:
+            - text: "05"
+            - heading "Optimalisatie" [level=3] [ref=f64e163]
+            - paragraph [ref=f64e164]: We blijven meten en bijsturen. Wat niet gebruikt wordt, halen we er weer uit.
+      - region [ref=f64e165]:
+        - heading "Inzichten" [level=2] [ref=f64e167]
+        - generic [ref=f64e168]:
+          - article [ref=f64e169]:
+            - figure [ref=f64e170]:
+              - img "SmartAgents geeft een AI-demo tijdens de ontbijtsessie met Aviso+" [ref=f64e172]
+            - generic [ref=f64e173]:
+              - heading "AI die je morgen al kan gebruiken" [level=3] [ref=f64e174]
+              - paragraph [ref=f64e175]: Verslag van onze ontbijtsessie met Aviso+, voor KMO-ondernemers die vandaag willen beginnen.
+            - generic [ref=f64e176]:
+              - generic [ref=f64e177]: 12 juni 2026
+              - list [ref=f64e178]:
+                - listitem [ref=f64e179]: Nieuws
+                - listitem [ref=f64e180]: AI
+          - article [ref=f64e181]:
+            - figure [ref=f64e182]:
+              - img "Illustratie van mensen en robots die samen aan rapporten en dashboards werken" [ref=f64e184]
+            - generic [ref=f64e185]:
+              - heading "Wat werkt en wat niet" [level=3] [ref=f64e186]
+              - paragraph [ref=f64e187]: AI versterkt wat al goed liep en maakt zwakke plekken pijnlijk zichtbaar. Waar dat in de praktijk op neerkomt.
+            - generic [ref=f64e188]:
+              - generic [ref=f64e189]: 5 juni 2026
+              - list [ref=f64e190]:
+                - listitem [ref=f64e191]: AI
+                - listitem [ref=f64e192]: Tips
+          - article [ref=f64e193]:
+            - figure [ref=f64e194]:
+              - img "Schermafbeelding van SmartSpace, met de applicaties links en een gesprek met de agent" [ref=f64e196]
+            - generic [ref=f64e197]:
+              - 'heading "SmartSpace: één plek waar AI je werk doet" [level=3] [ref=f64e198]'
+              - paragraph [ref=f64e199]: Waarom we een eigen platform bouwden in plaats van elke klant een losse verzameling scripts te geven.
+            - generic [ref=f64e200]:
+              - generic [ref=f64e201]: 1 mei 2026
+              - list [ref=f64e202]:
+                - listitem [ref=f64e203]: Nieuws
+                - listitem [ref=f64e204]: AI
+          - article [ref=f64e205]:
+            - figure [ref=f64e206]:
+              - img "Axel Segers en Tom Haeldermans, de oprichters van SmartAgents" [ref=f64e208]
+            - generic [ref=f64e209]:
+              - heading "Hello world, hello AI era" [level=3] [ref=f64e210]
+              - paragraph [ref=f64e211]: "Waarom twee tech-ondernemers midden in de AI-golf een nieuw bedrijf starten: omdat “waar begin ik?” bij de meeste bedrijven onbeantwoord blijft."
+            - generic [ref=f64e212]:
+              - generic [ref=f64e213]: 21 april 2026
+              - list [ref=f64e214]:
+                - listitem [ref=f64e215]: Nieuws
+      - region [ref=f64e216]:
+        - generic [ref=f64e217]:
+          - generic [ref=f64e218]:
+            - heading "Zullen we eens praten" [level=2] [ref=f64e219]
+            - paragraph [ref=f64e220]: Vertel kort wat er beter kan lopen. We antwoorden zelf, meestal binnen een werkdag, en zeggen ook wanneer u ons niet nodig hebt.
+            - generic [ref=f64e221]:
+              - generic [ref=f64e222]:
+                - text: Liever bellen?
+                - link "+32 11 11 10 20" [ref=f64e223] [cursor=pointer]:
+                  - /url: tel:+3211111020
+              - generic [ref=f64e224]:
+                - text: Of mail naar
+                - link "info@smartagents.be" [ref=f64e225] [cursor=pointer]:
+                  - /url: mailto:info@smartagents.be
+              - generic [ref=f64e226]: Beringen, België
+          - generic [ref=f64e228]:
+            - generic [ref=f64e229]:
+              - generic [ref=f64e230]:
+                - generic [ref=f64e231]: Naam
+                - textbox "Naam" [ref=f64e232]
+              - generic [ref=f64e233]:
+                - generic [ref=f64e234]: Bedrijf
+                - textbox "Bedrijf" [ref=f64e235]
+            - generic [ref=f64e236]:
+              - generic [ref=f64e237]: E-mail
+              - textbox "E-mail" [ref=f64e238]
+            - generic [ref=f64e239]:
+              - generic [ref=f64e240]: Wat loopt er vandaag moeilijk?
+              - textbox "Wat loopt er vandaag moeilijk?" [ref=f64e241]
+            - button "Verstuur" [ref=f64e243] [cursor=pointer]
+    - contentinfo [ref=f64e244]:
+      - generic [ref=f64e247]: © 2026 SmartAgents · BE 1037.114.694
+      - navigation "Footernavigatie" [ref=f64e248]:
+        - link "Klantenzone" [ref=f64e249] [cursor=pointer]:
+          - /url: /secured/
+        - link "LinkedIn" [ref=f64e250] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/smartagents-be/

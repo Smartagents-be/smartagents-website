@@ -1,0 +1,19 @@
+{
+  "title": "SmartAgents — AI Staffing",
+  "description": "SmartAgents: AI-staffing en training voor je organisatie.",
+  "width": "1920",
+  "height": "1080",
+  "styles": [],
+  "scripts": [],
+  "slides": [
+    "01-cover",
+    "02-wie-zijn-wij",
+    "03-wat-we-doen",
+    "04-plan-van-aanpak",
+    "05-waarom-smartagents",
+    "06-rollen",
+    "07-training-upskilling",
+    "08-voordelen",
+    "09-over-smartagents"
+  ]
+}

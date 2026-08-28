@@ -1,0 +1,83 @@
+<!-- ════════════════ 31 · EXAMPLE · HOOKS ════════════════ -->
+  <section data-label="Example: hooks" class="slide light cat-themed" style="--c: var(--blue);">
+    <div class="frame">
+      <div class="cat-head">
+        <span class="cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <div class="cat-text">
+          <p class="eyebrow"><span class="num">31</span>Example</p>
+          <h2 class="h2"><span class="accent">Auto-format and test</span> after every edit.</h2>
+        </div>
+      </div>
+
+      <div class="frame-body">
+      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
+          <div class="ide ide-copilot">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.github/hooks/test.json</span>
+            </div>
+            <pre class="ide-body">{
+  <span class="key">"hooks"</span>: {
+    <span class="key">"PostToolUse"</span>: [
+      { <span class="key">"command"</span>:
+        <span class="str">"npm test"</span> }
+    ]
+  }
+}</pre>
+          </div>
+          <p class="ide-cap">Runs the test suite after every change.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
+          <div class="ide ide-claude">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.claude/settings.json</span>
+            </div>
+            <pre class="ide-body">{
+  <span class="key">"hooks"</span>: {
+    <span class="key">"PostToolUse"</span>: [
+      { <span class="key">"command"</span>:
+        <span class="str">"npx prettier --write ."</span> }
+    ]
+  }
+}</pre>
+          </div>
+          <p class="ide-cap">Prettier formats after every tool action.</p>
+        </div>
+
+        <div class="ide-col">
+          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
+          <div class="ide ide-cursor">
+            <div class="ide-bar">
+              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
+              <span class="ide-file">.cursor/hooks.json</span>
+            </div>
+            <pre class="ide-body">{
+  <span class="key">"version"</span>: 1,
+  <span class="key">"hooks"</span>: {
+    <span class="key">"afterFileEdit"</span>: [
+      { <span class="key">"command"</span>:
+        <span class="str">"npx prettier --write ."</span> }
+    ]
+  }
+}</pre>
+          </div>
+          <p class="ide-cap">Formats on every file edit (camelCase event name).</p>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        The guardrail runs by itself, <strong>no token or click needed</strong>.
+      </div>
+      </div>
+    </div>
+    <!--chrome 31/57-->
+  </section>

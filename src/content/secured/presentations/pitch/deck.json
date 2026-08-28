@@ -1,0 +1,19 @@
+{
+  "title": "SmartAgents — Intro",
+  "description": "SmartAgents: intelligente automatisatie voor je bedrijf.",
+  "width": "1920",
+  "height": "1080",
+  "styles": [],
+  "scripts": [],
+  "slides": [
+    "01-cover",
+    "02-wie-zijn-wij",
+    "03-kernservices",
+    "04-plan-van-aanpak",
+    "05-waarom-smartagents",
+    "06-sectoren",
+    "07-smartspace",
+    "08-meetbare-impact",
+    "09-over-smartagents"
+  ]
+}

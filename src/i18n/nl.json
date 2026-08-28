@@ -1,0 +1,223 @@
+{
+  "home.title": "SmartAgents · Digitale collega's die nooit slapen",
+  "home.description": "SmartAgents bouwt digitale collega's voor Belgische organisaties: training, AI staffing en coaching, en procesoptimalisatie.",
+
+  "a11y.skip": "Naar de inhoud",
+  "a11y.mainNav": "Hoofdnavigatie",
+  "a11y.footerNav": "Footernavigatie",
+  "a11y.language": "Taal",
+
+  "nav.menu": "Menu",
+  "nav.insights": "Inzichten",
+  "nav.contact": "Contact",
+
+  "cta.talk": "Plan een gesprek",
+  "cta.call": "Bel",
+  "cta.seeWork": "Bekijk wat we doen",
+  "cta.allArticles": "Alle artikelen",
+  "cta.moreInfo": "Ontdek",
+  "cta.send": "Verstuur",
+
+  "hero.claim": "Digitale collega's die nooit slapen",
+
+  "section.services": "Wat we doen",
+  "section.dna": "Ons DNA",
+  "section.transformation": "Digitale transformatie",
+  "section.approach": "Van vraag tot werkende oplossing",
+  "section.insights": "Inzichten",
+
+  "service.process.title": "Procesoptimalisatie",
+  "service.process.body": "AI opent nieuwe mogelijkheden in uw processen en maakt bestaande stappen beter. Wij helpen u die kansen te herkennen en ze ook echt te implementeren.",
+  "service.training.title": "Training",
+  "service.training.body": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de teams die met AI werken en voor de developers die ermee bouwen.",
+  "service.staffing.title": "AI staffing en coaching",
+  "service.staffing.body": "Op papier is iedereen AI-expert. Wij screenen profielen zoals we zelf gescreend willen worden: op wat ze gebouwd hebben.",
+
+  "dna.1.title": "Praktijkmensen",
+  "dna.1.body": "We gebruiken AI-tooling elke dag zelf. Wat we u aanraden, draait eerst bij ons.",
+  "dna.2.title": "Software engineers",
+  "dna.2.body": "We hebben ruime ervaring in enterprise-systemen, van analyse tot uitbouw.",
+  "dna.3.title": "Innovators",
+  "dna.3.body": "Nieuwe technologie trekt ons aan, en geeft ons energie.",
+  "dna.4.title": "Partners",
+  "dna.4.body": "We zoeken gelijkgestemde bedrijven die willen groeien, en blijven tot dat ook gebeurt.",
+
+  "transformation.1.title": "Strategie en visie op AI",
+  "transformation.1.label": "Strategie en visie",
+  "transformation.1.body": "Strategische AI-implementatie, organisatiebreed.",
+  "transformation.2.title": "Procesoptimalisatie",
+  "transformation.2.label": "Procesoptimalisatie",
+  "transformation.2.body": "Processen herleiden tot wat waarde toevoegt.",
+  "transformation.3.title": "Opleiding",
+  "transformation.3.label": "Opleiding",
+  "transformation.3.body": "Uw mensen leren werken met de laatste AI-technieken.",
+  "transformation.4.title": "Toepassing",
+  "transformation.4.label": "Toepassing",
+  "transformation.4.body": "Uitrollen in uw eigen systemen en bijsturen.",
+
+  "step.1.title": "SmartScan",
+  "step.1.body": "We brengen processen en knelpunten in kaart en zeggen eerlijk waar AI niets toevoegt.",
+  "step.2.title": "Ontwerp",
+  "step.2.body": "We tekenen de nieuwe workflow uit en kiezen waar agents en integraties het meeste opleveren.",
+  "step.3.title": "Ontwikkeling",
+  "step.3.body": "We bouwen in korte rondes. U test mee op echte dossiers en stuurt bij terwijl het ontstaat.",
+  "step.4.title": "Implementatie",
+  "step.4.body": "Uitrollen in uw omgeving, koppelen aan uw systemen, en de mensen erbij die ermee moeten werken.",
+  "step.5.title": "Optimalisatie",
+  "step.5.body": "We blijven meten en bijsturen. Wat niet gebruikt wordt, halen we er weer uit.",
+
+  "article.tag.news": "Nieuws",
+  "article.tag.ai": "AI",
+  "article.tag.tips": "Tips",
+
+  "article.aviso.date": "12 juni 2026",
+  "article.aviso.title": "AI die je morgen al kan gebruiken",
+  "article.aviso.body": "Verslag van onze ontbijtsessie met Aviso+, voor KMO-ondernemers die vandaag willen beginnen.",
+  "article.aviso.alt": "SmartAgents geeft een AI-demo tijdens de ontbijtsessie met Aviso+",
+  "article.what-works.date": "5 juni 2026",
+  "article.what-works.title": "Wat werkt en wat niet",
+  "article.what-works.body": "AI versterkt wat al goed liep en maakt zwakke plekken pijnlijk zichtbaar. Waar dat in de praktijk op neerkomt.",
+  "article.what-works.alt": "Illustratie van mensen en robots die samen aan rapporten en dashboards werken",
+  "article.smartspace.date": "1 mei 2026",
+  "article.smartspace.title": "SmartSpace: één plek waar AI je werk doet",
+  "article.smartspace.body": "Waarom we een eigen platform bouwden in plaats van elke klant een losse verzameling scripts te geven.",
+  "article.smartspace.alt": "Schermafbeelding van SmartSpace, met de applicaties links en een gesprek met de agent",
+  "article.launch.date": "21 april 2026",
+  "article.launch.title": "Hello world, hello AI era",
+  "article.launch.body": "Waarom twee tech-ondernemers midden in de AI-golf een nieuw bedrijf starten: omdat “waar begin ik?” bij de meeste bedrijven onbeantwoord blijft.",
+  "article.launch.alt": "Axel Segers en Tom Haeldermans, de oprichters van SmartAgents",
+
+
+  "insight.more": "Meer inzichten",
+  "contact.title": "Zullen we eens praten",
+  "contact.lede": "Vertel kort wat er beter kan lopen. We antwoorden zelf, meestal binnen een werkdag, en zeggen ook wanneer u ons niet nodig hebt.",
+  "contact.callLabel": "Liever bellen?",
+  "contact.mailLabel": "Of mail naar",
+  "contact.location": "Beringen, België",
+
+  "form.name": "Naam",
+  "form.company": "Bedrijf",
+  "form.email": "E-mail",
+  "form.message": "Wat loopt er vandaag moeilijk?",
+  "form.sending": "Versturen…",
+  "form.sent": "Bedankt. We nemen snel contact op.",
+  "form.failed": "Versturen lukte niet. Mail ons gerust op info@smartagents.be.",
+
+  "training.title": "Training · SmartAgents",
+  "training.description": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Van een eerste kennismaking met AI tot developers die er dagelijks mee bouwen.",
+
+  "training.hero.eyebrow": "Training",
+  "training.hero.title": "Leer AI gebruiken als een professional",
+
+  "training.cta.offer": "Bekijk het aanbod",
+
+  "training.why.title": "Waarom investeren in AI-training?",
+
+  "training.offer.title": "Ons aanbod",
+  "training.offer.learn": "Wat u leert",
+
+  "training.download": "Download de fiche (PDF)",
+
+  "training.course.business.title": "AI voor business teams",
+  "training.course.business.tools": "Een AI-subscriptie, eigen laptop",
+  "training.course.business.body": "U leert AI inzetten voor het werk dat elke week terugkomt: niet één slimme prompt, maar een werkwijze die u herhaalt en doorgeeft.",
+  "training.course.business.learn.1": "Vragen stellen die telkens hetzelfde resultaat geven",
+  "training.course.business.learn.2": "Terugkerend werk vastleggen als een workflow",
+  "training.course.business.learn.3": "Eenvoudige assistenten bouwen, zonder een regel code",
+  "training.course.business.learn.4": "Veilig omgaan met bedrijfsdata en gevoelig werk",
+  "training.course.agentic.title": "Agentic engineering",
+  "training.course.agentic.tools": "Een AI-subscriptie, een IDE, eigen laptop",
+  "training.course.agentic.body": "Leer AI engineers aan om AI kost-bewust en efficiënt te gebruiken om code te genereren en processen te optimaliseren.",
+  "training.course.agentic.learn.1": "Agents inzetten op een ticket, een bug, een refactor",
+  "training.course.agentic.learn.2": "Design patterns voor werk dat u uitbesteedt",
+  "training.course.agentic.learn.3": "Wat elke vraag kost, en hoe u die kost laag houdt",
+  "training.course.agentic.learn.4": "Codekwaliteit bewaken met review, tests en vangrails",
+
+  "training.format.title": "Hoe een cursus verloopt",
+  "training.format.body": "Geen presentatie waar u naar zit te kijken. Uitleg, oefeningen en labs wisselen elkaar af, met tijd voor uw eigen vragen en een trainer die over uw schouder meekijkt.",
+  "training.format.group": "Groepen van 5 tot 20 deelnemers per sessie.",
+  "training.format.tags.title": "U krijgt",
+  "training.format.tags.material": "Cursusmateriaal",
+  "training.format.tags.exercises": "Oefeningen",
+  "training.format.tags.labs": "Labs",
+  "training.format.tags.qa": "Q&A",
+  "training.format.tags.slides": "Slides",
+  "training.format.tags.guidance": "Begeleiding",
+  "training.format.accents": "De klemtoon ligt op wat u de dag erna gebruikt: slimmer omgaan met AI, zicht op wat elke vraag kost, en workflows die passen bij hoe uw team al werkt. De slides en het lesmateriaal blijven achteraf van u.",
+  "training.format.videoLabel": "Rondleiding door de developercursus van SmartAgents",
+  "training.format.fallback": "Bekijk de rondleiding (MP4)",
+
+  "training.benefit.adoption.title": "Snellere adoptie",
+  "training.benefit.adoption.body": "Teams die begrijpen wat AI doet, pakken nieuwe tools sneller op en vinden zelf toepassingen.",
+  "training.benefit.productivity.title": "Hogere productiviteit",
+  "training.benefit.productivity.body": "Medewerkers leren hun werk parallelliseren met AI, in plaats van taak na taak af te werken.",
+  "training.benefit.risk.title": "Minder risico",
+  "training.benefit.risk.body": "Wie de grenzen van AI kent, neemt betere beslissingen en vermijdt dure fouten.",
+  "training.benefit.return.title": "Kostenbewust",
+  "training.benefit.return.body": "Deelnemers leren tokens afstemmen op de taak: het lichtste model dat de klus aankan.",
+  "training.benefit.autonomy.title": "Minder afhankelijk van externen",
+  "training.benefit.autonomy.body": "Mensen die AI zelf toepassen, hebben minder hulp nodig voor routinewerk en kleine aanpassingen.",
+
+  "training.cta.title": "Klaar om uw team bij te scholen?",
+  "training.cta.body": "Vertel kort wie er getraind moet worden en waarop. We stellen een programma voor op maat, bij u op kantoor of remote, en zeggen ook wanneer een training niet nodig is.",
+
+  "staffing.title": "AI staffing en coaching · SmartAgents",
+  "staffing.description": "Een AI-native engineer die meedraait in uw project, coaching voor uw developers en AI-workflows voor uw business teams. Eén spoor per team, gekozen op wat er vandaag vastloopt.",
+
+  "staffing.hero.eyebrow": "AI staffing en coaching",
+  "staffing.hero.title": "Een AI-native engineer in uw team",
+
+  "staffing.cta.tracks": "Bekijk het aanbod",
+
+  "staffing.tracks.title": "Wat we doen",
+
+  "staffing.track.engineer.title": "AI engineer staffing",
+  "staffing.track.engineer.tag.1": "Direct impact op uw project",
+  "staffing.track.engineer.tag.2": "Agents op uw codebase",
+  "staffing.track.engineer.tag.3": "Expert AI-gebruik",
+  "staffing.track.engineer.body": "Wij zetten een AI-native engineer in uw project. Die draait mee in uw sprints, uw repository en uw review, en bouwt de automatisatie rond de code mee op, met overdracht aan uw eigen engineers vanaf dag één.",
+
+  "staffing.track.developers.title": "Coaching voor developers",
+  "staffing.track.developers.tag.1": "Eén-op-één coaching",
+  "staffing.track.developers.tag.2": "Pair programming",
+  "staffing.track.developers.tag.3": "Async workflows opstellen",
+  "staffing.track.developers.body": "Wij brengen AI-native patronen binnen bij uw eigen engineers: uitleggen, voordoen en samen aan hetzelfde scherm werken op het werk dat er vandaag ligt, tot het blijft hangen.",
+
+  "staffing.track.business.title": "Coaching voor business teams",
+  "staffing.track.business.tag.1": "AI technieken",
+  "staffing.track.business.tag.2": "Workflows uittekenen",
+  "staffing.track.business.tag.3": "Herbruikbare patronen",
+  "staffing.track.business.body": "Wij leiden uw medewerkers zelf op: wat AI wel en niet kan, en hoe ze het inzetten op hun eigen dossiers. Herbruikbare patronen in plaats van losse prompts.",
+
+  "staffing.cta.title": "Zoekt u iemand die dit al doet?",
+  "staffing.cta.body": "Vertel kort waar uw team op vastloopt en hoe het project er vandaag uitziet. We stellen het spoor voor dat past, en zeggen ook wanneer u ons niet nodig hebt.",
+
+  "nav.team": "Team",
+
+  "team.title": "Team · SmartAgents",
+  "team.description": "De mensen achter SmartAgents: Axel Segers en Tom Haeldermans, de twee oprichters van een bureau dat digitale collega's bouwt voor Belgische organisaties.",
+
+  "team.hero.title": "Ontmoet ons team",
+
+  "team.founders.title": "De oprichters",
+
+  "team.linkedinLabel": "op LinkedIn",
+
+  "team.person.axel.body": "Ondernemer met meer dan 25 jaar ervaring in digitale transformatie. Helpt organisaties om intelligente automatisatie te vinden die echt iets oplevert.",
+  "team.person.axel.tags": "Digitale transformatie · Strategie · Ondernemerschap · AI-adoptie",
+  "team.person.axel.portrait": "Axel Segers, oprichter van SmartAgents",
+  "team.person.tom.body": "Technisch architect, gespecialiseerd in agentic AI-systemen en automatisatie op enterprise-schaal. Bouwt oplossingen die schalen en blijven werken.",
+  "team.person.tom.tags": "Agentic AI · Enterprise architectuur · Automatisatie · Technisch ontwerp",
+  "team.person.tom.portrait": "Tom Haeldermans, oprichter van SmartAgents",
+
+  "team.cta.title": "Zullen we kennismaken?",
+  "team.cta.body": "Vertel kort wat er beter kan lopen. U krijgt een van ons twee aan tafel, en we zeggen ook wanneer u ons niet nodig hebt.",
+
+  "footer.legal": "© 2026 SmartAgents · BE 1037.114.694",
+  "footer.customerZone": "Klantenzone",
+
+  "notfound.title": "Pagina niet gevonden",
+  "notfound.description": "Deze pagina bestaat niet (of niet meer).",
+  "notfound.tagline": "Deze pagina bestaat niet (of niet meer).",
+  "notfound.home": "Terug naar de startpagina"
+}

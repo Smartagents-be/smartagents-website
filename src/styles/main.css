@@ -1,0 +1,2964 @@
+/* Bundled and hashed by Vite, loaded after the inlined critical block.
+   Everything below the fold and everything non-blocking lives here.
+   Tokens come from src/styles/tokens.css, which is inlined in the <head>. */
+
+/* Layer 2 of the MPA-feels-like-SPA stack: cross-document view transitions.
+   CSS only, zero JS, ignored by browsers that do not support it.
+   See .claude/skills/webcomponent-mpa-spa/SKILL.md §2. */
+@view-transition {
+  navigation: auto;
+}
+
+@keyframes sa-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sa-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 120ms ease-out both sa-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 160ms ease-in both sa-fade-in;
+}
+
+/* Persistent chrome keeps its own name so it does not cross-fade. */
+.site-header {
+  view-transition-name: header;
+}
+
+/* ------------------------------------------------------------------ *
+ * Mobile navigation — a disclosure, no JS
+ * ------------------------------------------------------------------ */
+
+.nav-toggle {
+  position: relative;
+  display: none;
+  margin-left: auto;
+}
+
+.nav-toggle > summary {
+  transition: var(--transition-tint);
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: 9px var(--space-4);
+  border-radius: var(--radius-nav);
+  color: var(--text-nav);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium);
+  list-style: none;
+  cursor: pointer;
+}
+
+.nav-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-toggle[open] > summary,
+.nav-toggle > summary:hover {
+  background: var(--surface-nav-hover);
+  color: var(--text-strong);
+}
+
+.nav-toggle[open] .nav-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-toggle__panel {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 14px);
+  right: 0;
+  display: grid;
+  width: max-content;
+  min-width: 220px;
+  padding: var(--space-4);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-menu);
+}
+
+.nav-toggle__panel a {
+  transition: background-color var(--dur-tint-fast) ease;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-menu-item);
+  color: var(--text-strong);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium);
+}
+
+.nav-toggle__panel a:hover {
+  background: var(--surface-menu-item);
+  color: var(--text-strong);
+}
+
+/* The word and its chevron. They used to be the summary's own two children;
+   they are wrapped now so the phone can hide the pair and leave the icon, so
+   the row they sat in has to be rebuilt one level down. */
+.nav-toggle__label {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* The four things the sheet adds to the dropdown. All of them are the header's
+   own furniture, moved: the primary action and the language chips out of the
+   header actions, the two ways to reach a person off the contact section, and
+   the burger the trigger becomes. Above the phone the header still has room for
+   its own, so none of this is shown. */
+.nav-toggle__burger,
+.nav-sheet__cta,
+.nav-sheet__facts,
+.nav-toggle__panel .lang-switcher {
+  display: none;
+}
+
+/* A tablet held upright still has room for the nav bar itself (see the tablet
+   header block in critical.css), so the disclosure only takes over under it. */
+@media (max-width: 767px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .header-actions {
+    margin-left: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The same disclosure as a sheet
+ *
+ * On a phone the panel stops being a menu over the page and becomes the page:
+ * full height under the header, one link per row, at a size a thumb can hit
+ * without aiming. Still the one <details>, so it still needs no JS to open.
+ * ------------------------------------------------------------------ */
+
+@keyframes sa-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 620px) {
+  /* The trigger becomes an icon: at this width the word and the brand beside
+     it no longer both fit. The word stays as the button's accessible name. */
+  .nav-toggle__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .nav-toggle__burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-nav);
+    background: var(--surface-raised);
+  }
+
+  .nav-toggle__burger i {
+    width: 17px;
+    height: 1.5px;
+    border-radius: 2px;
+    background: var(--text-nav);
+  }
+
+  /* The icon is the whole target, so the summary stops drawing one of its own. */
+  .nav-toggle > summary,
+  .nav-toggle[open] > summary,
+  .nav-toggle > summary:hover {
+    padding: 0;
+    background: none;
+  }
+
+  /* The panel is fixed to the viewport, not hung off the trigger. */
+  .nav-toggle {
+    position: static;
+  }
+
+  .nav-toggle__panel {
+    position: fixed;
+    z-index: 80;
+    /* Welded to the header's bottom edge — the one place a phone measurement
+       is written twice, because the header is a fixed 56px row up there. */
+    inset: 56px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    width: auto;
+    min-width: 0;
+    padding: var(--space-6) var(--gutter-page) var(--space-8);
+    border: none;
+    border-radius: 0;
+    background: var(--surface-page);
+    box-shadow: none;
+    animation: sa-sheet-in var(--dur-move) var(--ease-out-expo) both;
+  }
+
+  /* `.nav-toggle__panel a` sets the dropdown's own type and padding and is two
+     classes deep, so every rule that has to beat it names the anchor too. */
+  .nav-toggle__panel a.nav-sheet__item {
+    display: block;
+    padding: var(--space-5) var(--space-1);
+    border-bottom: 1px solid var(--border-hairline);
+    border-radius: 0;
+    font-size: var(--text-h3);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--track-h2);
+  }
+
+  .nav-toggle__panel a.nav-sheet__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-8);
+    padding: 15px var(--space-7);
+    border-radius: var(--radius-button);
+    background: var(--action-primary-bg);
+    color: var(--action-primary-fg);
+    font-size: var(--text-body-lg);
+  }
+
+  .nav-toggle__panel .lang-switcher {
+    display: block;
+    margin-top: var(--space-7);
+  }
+
+  .nav-toggle__panel .lang-switcher a {
+    padding: var(--space-3) var(--space-5);
+  }
+
+  /* Pushed to the foot of the sheet, where a phone number belongs. */
+  .nav-sheet__facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: auto;
+    padding-top: var(--space-8);
+  }
+
+  .nav-toggle__panel .nav-sheet__facts a[href] {
+    padding: var(--space-2) var(--space-1);
+    color: var(--text-faint);
+    font-size: var(--text-meta);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Sections and headings
+ * ------------------------------------------------------------------ */
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding: var(--section-rhythm) var(--gutter-page) 0;
+}
+
+.section__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: var(--space-10);
+}
+
+.section__head--wide {
+  padding-bottom: var(--space-12);
+}
+
+/* A closing block that is only a heading and a line or two. At the full
+   section rhythm it reads as a half-empty screen. */
+.section--close {
+  padding-top: var(--space-14);
+}
+
+.section-heading {
+  display: inline-block;
+  padding-top: var(--space-7);
+  border-top: 2px solid var(--sa-cyan);
+  font-size: var(--text-h2);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+}
+
+.section-link {
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* The cyan rule a section heading sits under, on its own. A section with no
+   heading still has to open the way every other one does — the rule is the
+   thing that says a new section has started — so it is cut to about the length
+   a heading's own rule runs to and carries the same air under it as a
+   `.section__head` does. Fluid, like the heading it stands in for: the rule
+   over a heading is that heading's width, and a fixed one would read as a
+   different length at every viewport beside the ones that are not. */
+.section-rule {
+  width: clamp(120px, 15vw, 216px);
+  height: 2px;
+  margin-bottom: var(--space-10);
+  background: var(--sa-cyan);
+}
+
+/* One paragraph of argument between a section heading and the block under it,
+   for a section whose figure needs a sentence before it reads. It starts on the
+   heading's own left edge and stops at the reading measure, so the heading, its
+   rule and this line all range off the same point. */
+.section-lede {
+  margin-bottom: var(--space-12);
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* The rule over a heading is a cut of that heading's own width on a desk,
+   where the heading sits in a column with a page beside it. From the tablet
+   down the heading is the column, so the rule runs the width of the page with
+   it — and the head stops being a row, because as a flex item the heading
+   would only be as wide as its own longest line. */
+@media (max-width: 1000px) {
+  .section-heading {
+    display: block;
+  }
+
+  .section__head,
+  .section__head--wide {
+    display: block;
+  }
+}
+
+@media (max-width: 620px) {
+  .section__head,
+  .section__head--wide {
+    padding-bottom: var(--space-7);
+  }
+
+  /* The hero ends on its two buttons and the first section opens directly
+     under them. At the full rhythm that reads as a gap rather than a break. */
+  .hero + .section {
+    padding-top: var(--space-10);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Rows — hairline-separated lists, never cards
+ * ------------------------------------------------------------------ */
+
+.rows > :last-child {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.row {
+  transition: var(--transition-move), var(--transition-tint);
+  display: grid;
+  /* The cue column is reserved on every row, cue or no cue: the bodies of a
+     list of rows have to start and end on the same line. */
+  grid-template-columns: 1fr 1.9fr 116px;
+  gap: var(--gap-column);
+  align-items: baseline;
+  padding: var(--space-10) var(--space-9);
+  border-top: 1px solid var(--border-hairline);
+  color: inherit;
+}
+
+.row__title {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-h3);
+}
+
+.row__body {
+  color: var(--text-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+}
+
+.row__cue {
+  transition: transform var(--dur-move) var(--ease-out-expo);
+  color: var(--text-accent);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium-plus);
+  white-space: nowrap;
+}
+
+a.row:hover {
+  background: var(--surface-hover);
+  color: inherit;
+  transform: translateX(3px);
+}
+
+a.row:hover .row__cue {
+  transform: translateX(5px);
+}
+
+/* A row is three columns wide on a desk. Below that the title, the body and
+   the cue stack, and a stacked row uses about half the page — so on a tablet
+   the list runs two abreast, which is how the tablet artboard sets it. The
+   hairline stays on every cell, and the two that end a column close it. */
+@media (max-width: 1000px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding-inline: 0;
+  }
+}
+
+@media (min-width: 621px) and (max-width: 1000px) {
+  .rows--pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--gap-column);
+  }
+
+  .rows--pair > :nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--border-hairline);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Numbered items — monospace indexes act as the icons
+ * ------------------------------------------------------------------ */
+
+.numbered {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-7);
+  align-items: baseline;
+  padding: var(--space-9);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.numbered__index {
+  color: var(--text-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+}
+
+.numbered__title {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-h3);
+}
+
+.numbered p {
+  margin-top: var(--space-3);
+  color: var(--text-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body-tight);
+}
+
+/* An entry without its index: one column, so the copy starts at the rule. */
+.numbered--plain {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 620px) {
+  .numbered {
+    padding-inline: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Ons DNA
+ * ------------------------------------------------------------------ */
+
+.dna {
+  display: grid;
+  grid-template-columns: 298px 1fr;
+  gap: var(--space-13);
+  align-items: start;
+}
+
+.dna__figure {
+  position: relative;
+  height: 436px;
+}
+
+.dna__disc {
+  inset: 0;
+}
+
+.dna__helix {
+  position: absolute;
+  inset: 0;
+  clip-path: url(#dnaFieldMask);
+  pointer-events: none;
+}
+
+.dna__blob {
+  inset: 10px 198px 310px -6px;
+}
+
+.dna__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1) var(--space-12);
+}
+
+.dna__list > :nth-last-child(-n + 2) {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* On a tablet the disc stays beside the list rather than stacking above it:
+   400px of picture before the first word is most of the opening screen. It
+   swaps sides instead — hung off the right edge the way the phone hangs it,
+   but still in a column of its own, with the four entries in the 56% the
+   artboard leaves them. */
+@media (min-width: 621px) and (max-width: 1000px) {
+  .dna {
+    grid-template-columns: minmax(0, 56%) 1fr;
+    gap: var(--gap-column);
+  }
+
+  .dna__figure {
+    order: 2;
+    margin-right: calc(-1 * var(--gutter-page));
+  }
+
+  .dna__list {
+    order: 1;
+    grid-template-columns: 1fr;
+  }
+
+  /* One column: the pair that closed the two columns is now one last entry. */
+  .dna__list > :nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .dna__list > :last-child {
+    border-bottom: 1px solid var(--border-hairline);
+  }
+}
+
+/* On a phone the disc stops being a column of its own: stacked above the list
+   it is 400px of picture before the first word, and there is no width left to
+   put it beside one. It goes back over the list instead, hung off the right
+   edge and running off it, with the four entries in a column narrow enough to
+   pass under it. The blob follows it down the same edge. */
+@media (max-width: 620px) {
+  .dna {
+    display: block;
+    position: relative;
+  }
+
+  /* Both shapes are sized as a share of the page and hung a share of it past
+     the right edge, so the strip they leave the copy is the same strip at
+     every width a phone comes in. The disc starts at 70% of the column, the
+     blob at 76%; the entries below stop at 64% and 72%. */
+  .dna__figure {
+    position: absolute;
+    z-index: 2;
+    top: 4px;
+    right: -16%;
+    width: 46%;
+    max-width: none;
+    height: 302px;
+  }
+
+  /* The blob's offsets resolve against the figure, not the page, so its share
+     of the page is divided by the figure's: 34/46 wide, hung 8/46 past the
+     figure's own right edge. It hangs below the disc, so its top is a distance
+     down a box that is a fixed 302px tall. */
+  .dna__blob {
+    inset: 314px 17.4% auto auto;
+    width: 74%;
+    height: 152px;
+  }
+
+  /* The list gets the spine the steps get: one rule down the left, a dot on it
+     per entry, so four narrow blocks still read as one list. */
+  .dna__list {
+    display: block;
+    padding-left: var(--space-7);
+    border-left: 1px solid var(--border-hairline);
+  }
+
+  /* The entries take a step down in size with the column: at 64% of a phone
+     there is no room for the 19px title the same entry gets across a desk,
+     and a two-word title that wraps reads as two entries. */
+  .dna__list .numbered {
+    position: relative;
+    gap: var(--space-5);
+    padding-block: var(--space-7);
+    width: 64%;
+  }
+
+  /* The last two clear the blob, which is smaller than the disc above it. */
+  .dna__list .numbered:nth-child(n + 3) {
+    width: 72%;
+  }
+
+  .dna__list .numbered__title {
+    font-size: var(--text-h5);
+  }
+
+  .dna__list .numbered p {
+    font-size: var(--text-ui-sm);
+  }
+
+  /* Struck against the title's middle, not against a spacing step: the dot is
+     7px and the row it marks is one line of 17px type over the entry's own top
+     padding. `left` is the list's padding plus half the dot, so it centres on
+     the rule rather than sitting beside it. */
+  .dna__list .numbered::before {
+    content: "";
+    position: absolute;
+    top: 32px;
+    left: -25px;
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-pill);
+    background: var(--sa-cyan);
+  }
+
+  .dna__list > :nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .dna__list > :last-child {
+    border-bottom: 1px solid var(--border-hairline);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Digitale transformatie — an isometric stack over the dark field
+ * ------------------------------------------------------------------ */
+
+.transformation {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: var(--space-14);
+  align-items: start;
+}
+
+.transformation__list {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.transformation__list > :last-child {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.stack {
+  position: relative;
+  height: 520px;
+}
+
+.stack__field {
+  inset: -40px -170px -40px -10px;
+}
+
+.stack__planes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.plane {
+  position: absolute;
+  left: 29%;
+  width: 166px;
+  height: 166px;
+  margin-left: -83px;
+  border: 1px solid oklch(0.72 0.02 240 / 0.26);
+  background: linear-gradient(oklch(0.97 0.006 240 / 0.035), oklch(0.97 0.006 240 / 0.035)),
+    var(--surface-dark);
+  transform: rotateX(58deg) rotateZ(45deg);
+}
+
+.plane--1 {
+  z-index: 4;
+  top: 101px;
+  border-color: oklch(0.66 0.12 210);
+  background: linear-gradient(var(--sa-cyan-soft), var(--sa-cyan-soft)), var(--surface-dark);
+}
+
+.plane--2 {
+  z-index: 3;
+  top: 181px;
+  border-color: oklch(0.72 0.02 240 / 0.38);
+  background: linear-gradient(oklch(0.97 0.006 240 / 0.05), oklch(0.97 0.006 240 / 0.05)),
+    var(--surface-dark);
+}
+
+.plane--3 {
+  z-index: 2;
+  top: 261px;
+}
+
+.plane--4 {
+  z-index: 1;
+  top: 341px;
+  border-color: oklch(0.72 0.02 240 / 0.18);
+  background: linear-gradient(oklch(0.97 0.006 240 / 0.025), oklch(0.97 0.006 240 / 0.025)),
+    var(--surface-dark);
+}
+
+.plane__quadrants {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid: 1fr 1fr / 1fr 1fr;
+}
+
+.plane__quadrants i:nth-child(1) {
+  border-right: 1px solid oklch(0.66 0.12 210 / 0.4);
+  border-bottom: 1px solid oklch(0.66 0.12 210 / 0.4);
+}
+
+.plane__quadrants i:nth-child(2) {
+  border-bottom: 1px solid oklch(0.66 0.12 210 / 0.4);
+}
+
+.plane__quadrants i:nth-child(3) {
+  border-right: 1px solid oklch(0.66 0.12 210 / 0.4);
+}
+
+.plane__rows {
+  position: absolute;
+  inset: 12px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--space-5);
+  padding: var(--space-5);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.plane__rows i {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.plane__rows i::before,
+.plane__rows i::after {
+  content: "";
+  background: oklch(0.72 0.02 240 / 0.24);
+}
+
+.plane__rows i::before {
+  width: 14px;
+  height: 14px;
+}
+
+.plane__rows i::after {
+  flex: 1;
+  height: 2px;
+}
+
+.plane__grid {
+  position: absolute;
+  inset: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--space-5);
+  padding: var(--space-5);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.plane__grid i {
+  border: 1px solid oklch(0.72 0.02 240 / 0.26);
+}
+
+.plane__grid i:nth-child(odd) {
+  background: oklch(0.72 0.02 240 / 0.12);
+}
+
+.plane__cells {
+  position: absolute;
+  inset: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  padding: 12px;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.plane__cells i {
+  border-right: 1px solid oklch(0.72 0.02 240 / 0.16);
+  border-bottom: 1px solid oklch(0.72 0.02 240 / 0.16);
+}
+
+.plane__cells i:nth-child(6n + 1) {
+  background: oklch(0.53 0.112 214 / 0.16);
+}
+
+.plane__cells i:nth-child(5n + 3) {
+  background: oklch(0.53 0.112 214 / 0.1);
+}
+
+.stack__label {
+  position: absolute;
+  z-index: 6;
+  left: 52.5%;
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  transform: translateY(-50%);
+}
+
+.stack__label::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: oklch(0.36 0.025 250);
+}
+
+.stack__label span {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid oklch(0.32 0.03 250);
+  border-radius: var(--radius-chip);
+  color: var(--text-on-dark-faint);
+  font-size: var(--text-meta-sm);
+  font-weight: var(--weight-book);
+  white-space: nowrap;
+}
+
+.stack__label b {
+  color: oklch(0.6 0.03 245);
+  font-family: var(--font-mono);
+  font-size: var(--text-nano);
+  font-weight: var(--weight-medium);
+}
+
+.stack__label--active::before {
+  background: oklch(0.55 0.075 218);
+}
+
+.stack__label--active span {
+  border-color: var(--sa-cyan-edge);
+  background: var(--sa-cyan-soft);
+  color: oklch(0.97 0.006 240);
+  font-weight: var(--weight-semibold);
+}
+
+.stack__label--active b {
+  color: oklch(0.78 0.09 210);
+}
+
+.stack__label--1 {
+  top: 184px;
+}
+
+.stack__label--2 {
+  top: 264px;
+}
+
+.stack__label--3 {
+  top: 344px;
+}
+
+.stack__label--4 {
+  top: 424px;
+}
+
+@media (max-width: 1000px) {
+  .transformation {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--gap-column);
+  }
+
+  .stack__field {
+    inset: -40px -10px;
+  }
+}
+
+/* Too narrow for the callouts: the planes stay as the graphic, and the list
+   beside them already names all four layers. They centre on what is left of
+   the column and close up, which is the figure the tablet artboard draws. */
+@media (max-width: 1000px) {
+  .stack {
+    height: 322px;
+  }
+
+  .plane {
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin-left: -75px;
+  }
+
+  .plane--1 {
+    top: 0;
+  }
+
+  .plane--2 {
+    top: 52px;
+  }
+
+  .plane--3 {
+    top: 104px;
+  }
+
+  .plane--4 {
+    top: 156px;
+  }
+
+  .stack__label {
+    display: none;
+  }
+}
+
+/* From the tablet down, the list and the stack no longer have a desk's worth
+   of light ground to sit on, and two grounds under one heading read as two
+   sections. So the pair becomes one dark block that runs to both page edges —
+   the four layers named on navy, the stack drawing them beside or beneath —
+   which is how the tablet artboard sets it. The shape the stack sat on is now
+   the same dark as the block behind it, so it stops being a shape and goes
+   back to being what it always was: the window the node network is seen
+   through. */
+@media (max-width: 1000px) {
+  .transformation {
+    position: relative;
+    overflow: hidden;
+    margin-inline: calc(-1 * var(--gutter-page));
+    padding: var(--space-11) var(--gutter-page) var(--space-12);
+    background: var(--surface-dark);
+  }
+
+  .transformation .numbered {
+    position: relative;
+    border-top-color: var(--border-on-dark);
+  }
+
+  .transformation .numbered:first-child {
+    border-top-color: var(--sa-cyan-edge);
+  }
+
+  .transformation__list > :last-child {
+    border-bottom-color: var(--border-on-dark);
+  }
+
+  .transformation .numbered__index {
+    color: oklch(0.6 0.03 245);
+  }
+
+  .transformation .numbered:first-child .numbered__index {
+    color: oklch(0.78 0.09 210);
+  }
+
+  .transformation .numbered__title {
+    color: var(--text-on-dark);
+  }
+
+  .transformation .numbered p {
+    color: var(--text-on-dark-muted);
+  }
+
+  /* Unclipped and faded in from the top: flat navy carries the copy and the
+     network gathers under the planes, which is the gradient the design draws
+     over this block. */
+  .stack__field {
+    clip-path: none;
+    mask-image: linear-gradient(to bottom, transparent, #000 34%);
+  }
+}
+
+/* On a phone the two halves can only sit one above the other, and the stack
+   runs to both page edges with the list above it. */
+@media (max-width: 620px) {
+  .transformation {
+    display: block;
+  }
+
+  .stack {
+    height: 250px;
+    margin-top: var(--space-8);
+  }
+
+  .stack__field {
+    inset: 0 calc(-1 * var(--gutter-page));
+  }
+
+  .plane {
+    left: 50%;
+    width: 118px;
+    height: 118px;
+    margin-left: -59px;
+  }
+
+  .plane--1 {
+    top: 12px;
+  }
+
+  .plane--2 {
+    top: 54px;
+  }
+
+  .plane--3 {
+    top: 96px;
+  }
+
+  .plane--4 {
+    top: 138px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Aanpak — five steps
+ * ------------------------------------------------------------------ */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-8);
+}
+
+.step {
+  position: relative;
+  padding-top: var(--space-6);
+  border-top: 1px solid oklch(0.9 0.006 247.84);
+}
+
+.step::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: oklch(0.86 0.008 247.84);
+}
+
+.step--first {
+  border-top: 2px solid var(--sa-cyan);
+}
+
+.step--first::before {
+  top: -5px;
+  width: 8px;
+  height: 8px;
+  background: var(--sa-cyan);
+}
+
+.step__index {
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.step--first .step__index {
+  color: var(--text-accent);
+}
+
+.step h3 {
+  margin: var(--space-4) 0 var(--space-3);
+  font-size: var(--text-h5);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+.step p {
+  color: var(--text-muted);
+  font-size: var(--text-ui-sm);
+  line-height: var(--leading-body-tight);
+}
+
+/* Five steps in a row are a sequence read across, and the rule that separates
+   them lies along the top of each. Off the desk they no longer fit in a row,
+   and a sequence read down wants a spine: the rule stands up and runs down the
+   left of each step with its dot sitting on it, so the rules in a column meet
+   and draw one line. That is how the tablet artboard sets it, and the DNA list
+   takes the same figure. The rows close up for it — a gap between them would
+   break the line the rules are there to draw. */
+@media (max-width: 1000px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 var(--gap-column);
+  }
+
+  .step {
+    padding: 0 0 var(--space-11) var(--space-8);
+    border-top: none;
+    border-left: 1px solid var(--sa-line-2);
+  }
+
+  .step::before {
+    top: 6px;
+    left: -4px;
+  }
+
+  .step--first {
+    border-top: none;
+    border-left: 1px solid var(--sa-cyan);
+  }
+
+  .step--first::before {
+    top: 5px;
+    left: -4.5px;
+  }
+}
+
+@media (max-width: 620px) {
+  .steps {
+    display: block;
+  }
+
+  .step {
+    padding-bottom: var(--space-8);
+  }
+
+  /* Stacked, the last step ends the whole sequence: the line stops at the dot
+     that ends it rather than running past it. */
+  .step:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Inzichten — a hairline list that carries pictures
+ *
+ * Three columns: the thumbnail, the title with its excerpt under it, and the
+ * meta out at the right edge. The row is then only as tall as its picture, the
+ * excerpt sits under the title it belongs to instead of a column away, and the
+ * list still spans the page the way the plain row lists do. Below 1080px there
+ * is no room to the right, so the meta moves above the title; the picture
+ * column narrows twice on the way down but the row never stacks, because four
+ * full-width thumbnails would turn a short list into a scroll.
+ * ------------------------------------------------------------------ */
+
+.article-row {
+  transition: var(--transition-move), var(--transition-tint);
+  display: grid;
+  grid-template-columns: 208px minmax(0, 1fr) auto;
+  grid-template-areas: "figure text meta";
+  gap: var(--space-11);
+  align-items: start;
+  padding: var(--space-9) 0;
+  border-top: 1px solid var(--border-hairline);
+  color: inherit;
+}
+
+.article-row__figure {
+  grid-area: figure;
+}
+
+.article-row__text {
+  grid-area: text;
+}
+
+.article-row__meta {
+  grid-area: meta;
+}
+
+/* Framed like the founder portraits on the team page: hairline, a radius, no
+   ring and no shadow. The ground under a lazy thumbnail is paper, not the navy
+   the portraits sit on: four navy blocks waiting for their image would put a
+   dark mass in the one section that has none. */
+.article-row__figure {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-input);
+}
+
+/* One grade over a photograph, an illustration and a screenshot is what makes
+   the four of them read as one column rather than three kinds of picture. */
+.article-row__image {
+  transition: filter var(--dur-move) var(--ease-out-expo);
+  width: 100%;
+  height: 100%;
+  filter: saturate(0.72) contrast(1.04);
+  object-fit: cover;
+}
+
+.article-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Ranged right, and pushed down by the difference between the badge's cap
+   height and the title's, so the date sits on the title's baseline. */
+.article-row__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 3px;
+}
+
+.article-row__date {
+  color: var(--text-faint);
+  font-size: var(--text-meta-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.article-row__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.article-row__title {
+  font-size: var(--text-h5);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-h5);
+}
+
+.article-row__body {
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: var(--leading-body-tight);
+}
+
+/* An article with a page behind it gets the same "Ontdek \2192" cue a linked
+   service row gets, but inside the text column rather than in a reserved third
+   one: the row's third column is the date and the badges, and it is ranged
+   right against the page edge. */
+.article-row__cue {
+  transition: transform var(--dur-move) var(--ease-out-expo);
+  margin-top: var(--space-2);
+  color: var(--text-accent);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
+a.article-row:hover {
+  background: var(--surface-hover);
+  color: inherit;
+  transform: translateX(3px);
+}
+
+a.article-row:hover .article-row__cue {
+  transform: translateX(5px);
+}
+
+/* The grade is a decoration, not information, so it only lifts where there is
+   a link to reward the hover. */
+a.article-row:hover .article-row__image {
+  filter: none;
+}
+
+/* Below 1080px there is no room to the right for the meta, so it moves up
+   beside the title and the picture column narrows. */
+@media (min-width: 1001px) and (max-width: 1080px) {
+  .article-row {
+    grid-template-columns: 156px minmax(0, 1fr);
+    /* The third row is the slack the picture leaves over: without it the meta
+       and the text share that height and the title drifts off the frame. */
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "figure meta"
+      "figure text"
+      "figure .";
+    gap: var(--space-5) var(--space-8);
+  }
+
+  .article-row__meta {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+}
+
+/* The two widths where the article stacks. On a tablet it stacks two abreast,
+   which is how the tablet artboard sets it and what a 156px stamp beside five
+   lines of type had been standing in for: the picture gets a column half the
+   page wide and the title, the excerpt and the meta read straight down under
+   it. Four of them are two rows, not four screens, which is the objection that
+   kept the row a row. Still no card — the framed thumbnail and the hairline
+   between the rows are the whole treatment, and there is no cue, no shadow and
+   no lift while the articles have nowhere to go. */
+@media (max-width: 1000px) {
+  .article-row {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "figure"
+      "text"
+      "meta";
+    gap: var(--space-5);
+    padding: var(--space-7) 0;
+  }
+
+  .article-row__meta {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 621px) and (max-width: 1000px) {
+  .rows--cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--gap-column);
+  }
+
+  .rows--cards > :nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--border-hairline);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Contact
+ * ------------------------------------------------------------------ */
+
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-column);
+}
+
+.contact h2 {
+  margin-bottom: var(--space-6);
+}
+
+.contact__lede {
+  margin-bottom: var(--space-11);
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+.contact__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  color: var(--sa-grey-2);
+  font-size: var(--text-ui);
+}
+
+.contact__facts > * {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.contact__facts a {
+  font-variant-numeric: tabular-nums;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.contact-form__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.field-label {
+  display: grid;
+  gap: 6px;
+}
+
+.field-label > span {
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+.contact-form input,
+.contact-form textarea {
+  transition: var(--transition-tint), box-shadow var(--dur-tint) ease;
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-button);
+  background: var(--surface-input);
+  font-size: var(--text-ui);
+  outline: none;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--sa-cyan);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.contact-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-status {
+  color: var(--text-muted);
+  font-size: var(--text-ui-sm);
+}
+
+.form-status[data-state="error"] {
+  color: oklch(0.52 0.16 25);
+}
+
+/* On a tablet the two halves stay side by side, but they stop being halves.
+   The heading and the lede run the width of the page and the row underneath is
+   the form against the three facts — the artboard's proportions, and the only
+   arrangement in which a form of full-width fields still gets a usable column.
+   `display: contents` lifts the intro's three children into the grid so the
+   order is a property of the layout and not a second copy of the markup. */
+@media (min-width: 621px) and (max-width: 1000px) {
+  .contact {
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 0 var(--gap-column);
+  }
+
+  .contact__intro {
+    display: contents;
+  }
+
+  .contact__intro > .section-heading,
+  .contact__lede {
+    grid-column: 1 / -1;
+  }
+
+  sa-contact-form {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .contact__facts {
+    grid-column: 2;
+    grid-row: 3;
+  }
+}
+
+/* Two things a phone needs from a form. iOS Safari zooms the page in on any
+   field it has to render below 16px and never zooms back out, so the control
+   size is the one place the type scale does not decide; and a pair of fields
+   side by side stops being two fields and becomes two slots once the column is
+   this narrow. */
+@media (max-width: 620px) {
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px;
+  }
+}
+
+/* Stacked, the facts land between the lede and the form and push the fields a
+   screen down. They belong after the form on a phone: three lines that say
+   "or reach us another way" only make sense once the other way is on screen.
+   `display: contents` on the intro lifts its three children into the same flex
+   line, so the order is a property and not a second copy of the markup. */
+@media (max-width: 620px) {
+  .contact {
+    display: flex;
+    flex-direction: column;
+    /* The column gap belonged to the two-column layout. Stacked, the three
+       blocks already carry the spacing they want in their own margins. */
+    gap: 0;
+  }
+
+  .contact__intro {
+    display: contents;
+  }
+
+  .contact sa-contact-form {
+    order: 2;
+  }
+
+  .contact__facts {
+    order: 3;
+    margin-top: var(--space-10);
+  }
+
+  /* The submit takes the column, like every other button on a phone does. */
+  .contact-form__foot {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .contact-form__foot .btn {
+    justify-content: center;
+    min-height: 50px;
+    padding-block: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form__pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Footer
+ * ------------------------------------------------------------------ */
+
+.site-footer {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--section-rhythm);
+  padding: var(--space-8) var(--gutter-page);
+  background: var(--surface-dark);
+  color: var(--text-on-dark-muted);
+  font-size: var(--text-micro);
+}
+
+/* The footer is another window onto the dark field, so the text sits above it. */
+.site-footer > span,
+.site-footer > nav {
+  position: relative;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+}
+
+.site-footer a {
+  transition: color var(--dur-tint) ease;
+  color: inherit;
+}
+
+.site-footer a:hover {
+  color: var(--sa-cyan-bright);
+}
+
+/* ------------------------------------------------------------------ *
+ * The phone's action bar
+ *
+ * The header drops its primary action at this width, so without this there is
+ * nothing to act on until the contact section scrolls into view. Sticky, not
+ * fixed: it rides the bottom edge while there is page left and then settles
+ * under the footer, instead of covering the last line of it forever.
+ * ------------------------------------------------------------------ */
+
+.mobile-actions {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .mobile-actions {
+    position: sticky;
+    /* Under the header, which is what the open menu sheet stacks inside: the
+       sheet must cover this bar, not the other way round. */
+    z-index: 50;
+    bottom: 0;
+    display: flex;
+    flex: none;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-4) var(--gutter-page) calc(var(--space-4) + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border-hairline);
+    background: color-mix(in oklch, var(--surface-page) 92%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Sized by its word, not by a square: "Bel" is three letters and "Appeler"
+     is seven, and the button has to hold both without the action beside it
+     losing the rest of the row. */
+  .mobile-actions__call {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    padding-inline: var(--space-5);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-button);
+    background: var(--surface-raised);
+    color: var(--text-lead);
+    font-size: var(--text-ui-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .mobile-actions__talk {
+    flex: 1;
+    justify-content: center;
+    min-height: 48px;
+    padding-block: 0;
+  }
+}
+
+/* Pure-JS controls stay hidden until their component upgrades, so nothing
+   shifts on hydration (webcomponent-mpa-spa §4). */
+sa-lazy-video:not(:defined) .js-only,
+sa-contact-form:not(:defined) .js-only {
+  visibility: hidden;
+}
+
+sa-node-field {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  ::view-transition-group(*) {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — the training page
+ * ------------------------------------------------------------------ */
+
+/* The homepage hero minus the wordmark and the orbits: shorter, and the copy
+   sits on the shape's centre line rather than above its pinch.
+   The copy starts at the page gutter, not inboard of it. On the homepage the
+   deep left padding clears the counter-lobe rising out of the bottom-left;
+   this hero has no lobe, so the inset buys nothing and costs the headline the
+   room it needs — held on the shape's centre line, it is at the height the
+   petal's tip curls back to, and from the desk breakpoint up it was running
+   onto the navy. At the gutter it clears the tip by a comfortable margin at
+   every width, and the hero's first line falls on the same left edge as every
+   heading under it. */
+.hero--page .hero__inner {
+  align-content: center;
+  min-height: 540px;
+  padding-left: var(--gutter-page);
+}
+
+.hero--page h1 {
+  max-width: 17ch;
+}
+
+.page-eyebrow {
+  margin-bottom: var(--space-6);
+  color: var(--text-accent);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* Below the point where the hero stops splitting, the copy is the whole width:
+   a half-page column with nothing beside it is just a narrow measure. Only the
+   phone is that point — everything above it keeps the split, so it keeps the
+   column. */
+@media (max-width: 620px) {
+  .hero--page .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .hero--page h1 {
+    max-width: none;
+  }
+}
+
+/* Prose under a heading, and the rows that follow it: the lead argues, the
+   rows say what the training returns. */
+/* Badges are one of the two places a pill is allowed (the other is the
+   language chip). Sentence case, like everything else. */
+.badge {
+  display: inline-flex;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-chip);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* ------------------------------------------------------------------ *
+ * Ons aanbod — two courses side by side, the coming one as a row
+ *
+ * A vertical hairline does the splitting, so the pair reads as two columns of
+ * one page rather than two cards. A 56px cut of the section heading's cyan rule
+ * opens each column. No index, no card, no shadow.
+ * ------------------------------------------------------------------ */
+
+.offer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* title, body, label, list, platforms, link. The two courses span these six
+     rows as subgrids, so every hairline, label and link lines up across the
+     split whatever the language does to the copy. */
+  grid-template-rows: repeat(6, auto);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.offer-course {
+  display: grid;
+  grid-row: 1 / span 6;
+  grid-template-rows: subgrid;
+  align-content: start;
+  padding: var(--space-10) var(--space-9) var(--space-12);
+  /* Both columns close the block, so the hairline runs the full width whether
+     they sit side by side or stacked. */
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.offer-course + .offer-course {
+  border-left: 1px solid var(--border-hairline);
+}
+
+.offer-course__title {
+  font-size: var(--text-h2-sm);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+}
+
+.offer-course__body {
+  margin-top: var(--space-7);
+  color: var(--text-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+}
+
+.offer-course__learn {
+  margin: var(--space-9) 0 var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+.offer-course__list {
+  list-style: none;
+}
+
+.offer-course__item {
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--border-hairline);
+  color: var(--text-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body-tight);
+}
+
+.offer-course__list > :last-child {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* The platforms the course is taught on. No rule of its own: the list above
+   already closes on one. */
+.offer-course__tools {
+  margin-top: var(--space-6);
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+.offer-course__fiche {
+  transition: transform var(--dur-move) var(--ease-out-expo);
+  display: inline-block;
+  margin-top: var(--space-8);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium-plus);
+}
+
+.offer-course__fiche:hover {
+  transform: translateX(3px);
+}
+
+@media (max-width: 940px) {
+  .offer {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .offer-course {
+    display: block;
+    grid-row: auto;
+  }
+
+  .offer-course + .offer-course {
+    border-left: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .offer-course {
+    padding-inline: 0;
+  }
+}
+
+/* The hero's orbit diagram, reused as ground under a section. `.section` is
+   already positioned, so the layer clips to it; the content has to be lifted
+   over the rings the way `.hero__inner` lifts the hero copy. */
+.section--orbits > :not(.orbits) {
+  position: relative;
+}
+
+/* Struck from below the right column instead of the hero's top left, so the
+   arcs sweep up across the split rather than repeating the hero's geometry.
+   The origin sits close enough for the cyan ring to cross the section: hung
+   further out, only the two faintest rings would reach it. Dimmer than the
+   hero, because this is ground under a reading column, not the opening image. */
+.orbits--offer {
+  opacity: 0.8;
+}
+
+.orbits--offer .orbits__origin {
+  top: 104%;
+  left: 74%;
+}
+
+/* Inzichten: struck from just off the right edge, a little below the middle of
+   the list, so the arcs bow in across the meta column and rise over the rows
+   rather than sweeping up from a corner. Hung at 104% for the same reason the
+   offer's origin is: any further out and only the two faintest rings would
+   reach the section at all. Same dimming — this is ground under a reading
+   list. */
+.orbits--insights {
+  opacity: 0.8;
+}
+
+.orbits--insights .orbits__origin {
+  top: 58%;
+  left: 104%;
+}
+
+/* On a phone the rows are the full column, so an origin a few percent out is
+   only a few dozen pixels: the two innermost rings would cut straight through
+   the reading measure. Pushing the origin off the edge by half a viewport
+   leaves the outer, faintest arcs as the only ones that reach in. */
+@media (max-width: 620px) {
+  .orbits--insights .orbits__origin {
+    left: 150%;
+  }
+}
+
+/* The hero lights a node for about two fifths of its turn, which reads as a
+   blink on a ground this tall: by the time the eye finds one it is already
+   fading. Here it stays lit for roughly four fifths, so a node is seen to
+   travel the length of its arc rather than to appear somewhere on it. The
+   cycle still ends dark, so the jump back to the top of the ring is never
+   visible. */
+.orbits--insights .orbits__node {
+  animation-name: sa-orbit-fade-long;
+}
+
+@keyframes sa-orbit-fade-long {
+  0%,
+  3% {
+    opacity: 0;
+  }
+
+  9%,
+  76% {
+    opacity: 1;
+  }
+
+  86%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Hoe een cursus verloopt — copy beside the developer course tour
+ * ------------------------------------------------------------------ */
+
+.tour {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--gap-column);
+  align-items: start;
+  padding: var(--space-9) var(--space-9) 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+/* The head is the ground: its bottom edge is the rule the tour hangs from, so
+   anchoring the stone there puts its foot on the line however the heading
+   above it wraps. */
+.tour__ground {
+  position: relative;
+}
+
+/* Right-aligned to the video below it. Capped at 218px: the band the stone
+   stands in is the section rhythm plus the heading, and the rhythm stops
+   growing at 104px. That leaves ~50px of headroom at the widest viewport,
+   which is what keeps its swell (42px) below the rule closing the offer. */
+.tour__stone {
+  right: var(--space-9);
+  bottom: 0;
+  width: clamp(142px, 15.2vw, 218px);
+  aspect-ratio: 1.5 / 1;
+}
+
+/* Hung from the section's own top edge — the rule the offer closes on. It sits
+   on the left of the split between the two courses and crosses it by one step
+   of the scale, so it hangs under the corner where the column hairline meets
+   that rule instead of centring on either course. The offer is a two-column
+   grid inside the page gutters, so the split is at exactly 50% of this box.
+   At 2.6:1 the belly runs a little past the level of the heading's rule on a
+   wide viewport — which is only a level, not an obstacle: by then the shape
+   starts well right of where the longest heading ends. Where the two do share
+   a span, under about 1050px, the depth is back inside the section rhythm. */
+.tour__dome {
+  top: 0;
+  /* Offset from the split in the same units as the width, so the disc keeps its
+     distance from the stone: a fixed offset would let the two close on each
+     other as the viewport narrows and both shapes kept growing in vw. */
+  left: calc(50% + 3.9vw);
+  /* Not a plain vw: the stone grows with the viewport too, and both of them
+     plus the gutter eat into the run between the split and the stone faster
+     than the run itself grows. The offset term is what holds the gap open at
+     the narrow end while still letting the shape reach 308px at 1440. */
+  width: clamp(180px, calc(26vw - 66px), 340px);
+  aspect-ratio: 2.6 / 1;
+}
+
+/* Below the width the magnets run at, the longest of the three headings starts
+   reaching past the left end of the disc. Flatten it there so the belly keeps
+   clear of the heading's rule: this is the same 1080px line the magnets switch
+   off at, and the shape is static below it. */
+@media (max-width: 1080px) {
+  .tour__dome {
+    aspect-ratio: 2.95 / 1;
+  }
+}
+
+/* Stacked, the heading and the copy take the band back. */
+@media (max-width: 940px) {
+  .tour__dome,
+  .tour__stone {
+    display: none;
+  }
+}
+
+.tour__body {
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* The one hard fact about a session: how many people are in the room. Sits
+   under the copy in the micro size, so it reads as a specification rather than
+   another sentence. */
+.tour__meta {
+  margin-top: var(--space-5);
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+  line-height: var(--leading-body-tight);
+}
+
+/* What a session is made of: a hairline-ruled band, titled, holding the parts
+   as a list rather than one run-on line. */
+.tour__tags {
+  margin-block: var(--space-7);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+.tour__tags-title {
+  margin-bottom: var(--space-4);
+  color: var(--text-body);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* Three rows, two columns: six short items read as one block instead of six
+   near-empty lines. The flow is by column, so the rows are the fixed side of
+   the grid and the list fills the first column top to bottom before the
+   second. */
+.tour__tags-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: var(--space-3) var(--space-7);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The copy ends on a paragraph, so the button carries the air the removed
+   line used to. */
+.tour__copy .btn {
+  margin-top: var(--space-9);
+}
+
+@media (max-width: 940px) {
+  .tour {
+    grid-template-columns: 1fr;
+    gap: var(--space-11);
+  }
+}
+
+@media (max-width: 620px) {
+  .tour {
+    padding-inline: 0;
+  }
+}
+
+.video-frame {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-dark);
+  box-shadow: var(--shadow-lift-sm);
+}
+
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Without JS the sources are never swapped in, so the poster is all there is:
+   the link is the way to the file itself. */
+.video-block__fallback {
+  display: inline-block;
+  margin-top: var(--space-5);
+  font-size: var(--text-meta);
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — AI staffing en coaching
+ *
+ * Three blocks: the page hero, the track panel, the form. The onboarding
+ * sequence and the navy reporting band that used to sit between the last two
+ * are gone — both said over two screens what the tracks already say in one.
+ *
+ * What is this page's own is the dark field. The hero carries an arch on the
+ * right flank and two pebbles that have come away from it, and the panel below
+ * is flanked by a leaf in the left gutter and a wedge under its far corner.
+ * ------------------------------------------------------------------ */
+
+/* The hero's height is `.hero--page`'s and nothing here touches it. The copy is
+   centred in it, so a taller box on this page alone drops the headline below
+   the line the training page sets it on — and drops it by a different amount in
+   each language, because the block being centred is a different height in each.
+
+   The shape's box is this page's own, and only on a desk. Where the petal stops
+   at the hero's foot, the arch hangs 14% past it, so its tail runs on into the
+   section below and passes behind the track panel — which is the whole reason
+   that panel is opaque: the tail slides under it and comes back out in the
+   gutter, tying the two blocks together with no rule between them.
+
+   Below the desk the page gives the box back: from the tablet down the shared
+   `.hero__field--right` carries the arch exactly as it carries the petal, and
+   on a phone both become the same sliver across the top. */
+@media (min-width: 1081px) {
+  .hero--staffing .hero__field--right {
+    inset: 0 0 -14% 52%;
+  }
+}
+
+/* Between the desk and the tablet the flank narrows, so the box pulls back and
+   the tail shortens with it: a tail struck as a share of a hero that is 100px
+   shorter reaches further into the section below, not less far. */
+@media (min-width: 941px) and (max-width: 1080px) {
+  .hero--staffing .hero__field--right {
+    inset: 0 0 -10% 60%;
+  }
+}
+
+/* The pebbles are positioned inside the arch's own box rather than against the
+   hero, so every rule that moves the arch moves the pair with it and the three
+   never come apart. Sized by insets alone, never width/height — src/motion.js
+   grows a magnet's box by subtracting from all four offsets, and an explicit
+   size would move the box instead of growing it. */
+.hero__pebble--a {
+  inset: 39% 48% 33% 22%;
+}
+
+.hero__pebble--b {
+  inset: 17% 83.2% 68.8% 3%;
+}
+
+/* The pebbles fall in the light half of the hero, and from the tablet down
+   there is no light half: the copy column is it. The arch stays, because it is
+   a flank; the pair would be two dark spots on the sentence. */
+@media (max-width: 940px) {
+  .hero--staffing .hero__pebble {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Wat we doen — the track panel
+ *
+ * The one figure on the page, so it is a panel rather than a row of columns:
+ * three rows on white, each a name and the three words that place it, opening
+ * onto a paragraph. Three columns side by side read as a price table and invite
+ * a comparison nobody makes; rows that open let a reader take the one that is
+ * theirs. The offer has never been a choice between three — it is one of three,
+ * and which one is obvious from the team asking.
+ *
+ * The rows are `<details>` sharing one `name`, so the browser closes the open
+ * one when another opens and there is no script anywhere in it.
+ * ------------------------------------------------------------------ */
+
+.tracks {
+  position: relative;
+}
+
+/* Standing in the left page gutter beside the panel: the gutter carries a line
+   of movement instead of empty paper, and the panel gets an edge to sit
+   against. Welded to the page edge, free of everything else.
+
+   Its box is its own, and that is the whole point of it. Struck between the
+   panel's top and its foot, the leaf was a share of a box that changes height
+   every time a row opens — and worse than moving, it stretched: `src/motion.js`
+   freezes a magnet's insets in pixels when it sets the shape up, so a box that
+   grows afterwards grows the silhouette with it and the outline no longer fits
+   what it was sampled against. Anchored to the panel's top edge and sized from
+   the gutter it stands in, the leaf is simply still while the panel works.
+
+   The gutter is the only thing it measures, so the ratio does the rest: at
+   1 / 7 it lands within a few points of the height it was drawn at, and it
+   overhangs the panel's foot only when all three rows are closed — which reads
+   as a shape the panel is standing against, not as a shape that has slipped. */
+.tracks__leaf {
+  top: 0;
+  left: calc(-1 * var(--gutter-page));
+  width: calc(var(--gutter-page) + 16px);
+  aspect-ratio: 1 / 7;
+}
+
+/* The counterweight, hung under the far corner of the same panel: it drops from
+   34px above the panel's foot so it reads as coming out from under it, and runs
+   out to the right into the whitespace before the form.
+
+   Anchored to the foot and given a height, not struck between the two edges:
+   this one is meant to travel with the panel — a shape hanging off a foot that
+   stays behind while the foot moves has come off it — and `bottom` plus a
+   height is what lets it follow without being stretched on the way. */
+.tracks__tail {
+  right: clamp(18px, 4vw, 60px);
+  bottom: calc(34px - clamp(78px, 8vw, 104px));
+  left: 60%;
+  height: clamp(78px, 8vw, 104px);
+}
+
+/* Stacked, the panel is the page and the gutters are 20px: neither shape has
+   room left to stand in. */
+@media (max-width: 940px) {
+  .tracks__leaf,
+  .tracks__tail {
+    display: none;
+  }
+}
+
+/* Opaque, and above the hero's tail: the tail passes behind it and comes out in
+   the gutter. `overflow: hidden` is what keeps the first and last rows inside
+   the panel's own corners.
+
+   No shadow. It is the hairline that holds the panel off the paper here, the
+   way every other edge on the site is a hairline — a drop shadow under a block
+   this size lifts it into a card, and the two dark shapes standing against it
+   are what give it its depth. */
+.tracks__panel {
+  /* A custom element, so it has no display of its own. */
+  display: block;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-raised);
+}
+
+.track {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.track:last-child {
+  border-bottom: none;
+}
+
+/* The whole row is the control, so it carries the padding and the pointer. The
+   marker goes: the chevron on the right is this row's disclosure cue, and a
+   second triangle on the left would be a second one. */
+.track__summary {
+  display: flex;
+  gap: clamp(var(--space-7), 3vw, var(--space-12));
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(var(--space-8), 3.2vw, var(--space-12))
+    clamp(var(--space-7), 3vw, var(--space-12));
+  color: var(--text-strong);
+  list-style: none;
+  cursor: pointer;
+  transition: color var(--dur-tint) ease;
+}
+
+.track__summary::-webkit-details-marker {
+  display: none;
+}
+
+.track__summary:hover {
+  color: var(--text-accent);
+}
+
+.track__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.track__title {
+  display: block;
+  max-width: 24ch;
+  font-size: var(--text-h2-sm);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+  text-wrap: balance;
+}
+
+/* Three words under the name, not a list: they are what places the track, so
+   they run on one line and wrap as a sentence would. The row's own colour is
+   the heading's, so these stay muted and do not follow it to cyan on hover. */
+.track__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+  color: var(--text-muted);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-book);
+}
+
+.track__tag {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+/* The separator is drawn, not typed: a middle dot in the copy would be a
+   character three translators have to keep, and it would wrap with the word. */
+.track__tag + .track__tag::before {
+  content: "";
+  flex: none;
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: var(--radius-pill);
+  background: var(--mark-dot);
+}
+
+/* On a phone the three words do not fit on one line, and a dot that starts a
+   wrapped line reads as a bullet — with the first word left without one. Down
+   here they stack and the dots go: a column of three is already a list. */
+@media (max-width: 620px) {
+  .track__tags {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .track__tag + .track__tag::before {
+    display: none;
+  }
+}
+
+/* A chevron drawn from two borders on a square turned a quarter: the same mark
+   the nav uses, at the size a row this tall wants. It sits on the first line of
+   the name rather than on the row's centre, so it stays put when the three
+   words under it wrap to two lines. */
+.track__chevron {
+  position: relative;
+  flex: none;
+  margin-top: clamp(var(--space-4), 1vw, var(--space-5));
+  width: 11px;
+  height: 11px;
+  transition: transform var(--dur-move) var(--ease-out-expo);
+}
+
+.track__chevron::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--sa-cyan);
+  border-bottom: 1.5px solid var(--sa-cyan);
+  transform: rotate(45deg);
+}
+
+.track[open] .track__chevron {
+  transform: rotate(180deg);
+}
+
+/* A row that has been asked to close but is still collapsing: `<sa-accordion>`
+   holds `open` until the travel is over, and the chevron must not wait with it. */
+.track[open][data-closing] .track__chevron {
+  transform: rotate(0deg);
+}
+
+/* The box whose height travels, and the one that carries the padding: two
+   elements, because they cannot be one. A padded box cannot be animated to
+   nothing — its own padding is the floor its height stops at, so the row
+   collapses to a band of empty white and then snaps the rest of the way. */
+.track__panel {
+  overflow: hidden;
+}
+
+.track__inner {
+  padding: 0 clamp(var(--space-7), 3vw, var(--space-12))
+    clamp(var(--space-10), 3.4vw, var(--space-12));
+}
+
+/* Wider than the site's own measure: this paragraph is alone on white inside a
+   panel the width of the page, and at 44ch it reads as a column that has lost
+   the three beside it. */
+.track__body {
+  max-width: 56ch;
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* The row's own height is animated by `<sa-accordion>`, not from here: Gecko
+   supports `::details-content` but not `interpolate-size`, so a `block-size: 0`
+   -> `auto` transition on the pseudo travels in Blink and snaps in Firefox. The
+   chevron is the half of it CSS can still own on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .track__chevron {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Closing call to action — the form itself stays on the homepage
+ * ------------------------------------------------------------------ */
+
+/* No padding under the button: `.site-footer` already carries a full
+   `--section-rhythm` of margin, and the two together left a dead half-screen. */
+.page-cta {
+  display: grid;
+  gap: var(--space-6);
+  justify-items: start;
+}
+
+.page-cta__body {
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — the team page
+ *
+ * The two founders are the hero: the headline and its lead sit at the top, the
+ * pair fills the rest of the opening screen. The portrait is the one photograph
+ * in the system, so it is framed like every other surface — a hairline, the
+ * card radius, no ring, no shadow — and graded cool and slightly flat so it
+ * sits next to the navy field instead of shouting over it. Hover returns it to
+ * full colour, which is the only reward the design allows itself here.
+ * ------------------------------------------------------------------ */
+
+/* The hero is its own grid: one column holding the head and the pair, with the
+   remaining width left to the petal. The orbits and the field are out of flow,
+   so they do not become grid items. */
+.hero--team {
+  display: grid;
+  grid-template-columns: minmax(0, 60%);
+  gap: var(--space-10);
+  padding: var(--space-14) var(--gutter-page) 0;
+}
+
+/* Pulled further right than the other heroes: it shares the hero with the pair
+   rather than standing in for them. The bottom offset is negative on purpose —
+   the petal runs out past the hero's own edge so its lower lobe straddles the
+   line the second portrait ends on and the tail carries on below it, which is
+   what keeps the shape from reading as cut off at the pair's feet.
+   The ceiling on that overhang is the contact section's top padding: the
+   section has no background of its own, so anything deeper than one
+   `--section-rhythm` would put navy behind the form's first row of fields. */
+.hero--team .hero__field--right {
+  inset: 0.8% 0 -10% 62%;
+}
+
+.team-hero__head {
+  position: relative;
+}
+
+.hero--team h1 {
+  /* `.hero h1` leaves room for the claim that follows it on the other heroes.
+     Here the pair follows, and the section's own gap is that spacing. */
+  margin-bottom: 0;
+  max-width: 15ch;
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--track-display);
+}
+
+.founders {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-7) clamp(24px, 2.8vw, 44px);
+}
+
+.founders__label {
+  grid-column: 1 / -1;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* The card is the portrait. Everything about the person is laid over its foot
+   on a scrim of the brand's own navy, so the photograph reads as one more
+   window onto the dark field rather than as a picture with a caption.
+   The frame is not sized by a ratio, though. It was, at 2:3, and on a wide
+   viewport that is still what it comes to — but the copy laid over the foot is
+   a fixed block of prose that does not shrink with the column, so a card sized
+   by the ratio alone loses the same amount of photograph every time the column
+   narrows, and by the tablet widths there is no photograph left to see. So the
+   card is built the other way up: a band that is the portrait's own, plus
+   whatever the copy needs under it. The band is a share of the width, so it is
+   the ratio that gives way on a narrow column and never the face. */
+.person {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-dark);
+}
+
+/* 2:1.14 is the band that puts a full-width card back at the 2:3 the portraits
+   were cropped to. */
+.person::before {
+  content: "";
+  flex: none;
+  aspect-ratio: 2 / 1.14;
+}
+
+/* Out of flow, so the frame's height is the spacer and the copy: the portrait
+   fills whatever that comes to. */
+.person__picture {
+  position: absolute;
+  inset: 0;
+}
+
+.person__image {
+  transition: filter var(--dur-move) var(--ease-out-expo);
+  width: 100%;
+  height: 100%;
+  filter: saturate(0.72) contrast(1.04);
+  object-fit: cover;
+}
+
+.person:hover .person__image {
+  filter: none;
+}
+
+/* The gradient runs well past the text so the copy never sits on its own edge;
+   the top half of the frame stays the photograph. */
+.person__overlay {
+  position: relative;
+  padding: var(--space-14) var(--space-8) var(--space-8);
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--sa-field) 97%, transparent) 0%,
+    color-mix(in oklch, var(--sa-field) 90%, transparent) 44%,
+    transparent 100%
+  );
+  color: var(--text-on-dark);
+}
+
+.person__name {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--track-h3);
+}
+
+/* The one brand mark besides the logo and the nav chevron. It closes the card
+   under the expertise line, and is a square target rather than a text link,
+   so it carries its own hairline. */
+.person__link {
+  transition: var(--transition-tint);
+  display: grid;
+  width: 36px;
+  height: 36px;
+  margin-top: var(--space-6);
+  place-items: center;
+  /* `--border-on-dark` is a line for flat navy; over a photograph it vanishes,
+     so both hairlines in the overlay are white at low alpha instead. */
+  border: 1px solid color-mix(in oklch, var(--sa-white) 26%, transparent);
+  border-radius: var(--radius-button);
+  color: var(--text-on-dark);
+}
+
+.person__link:hover {
+  border-color: var(--sa-cyan-bright);
+  background: color-mix(in oklch, var(--sa-cyan-bright) 15%, transparent);
+  color: var(--sa-cyan-bright);
+}
+
+.person__body {
+  color: var(--text-on-dark-faint);
+  font-size: var(--text-ui-sm);
+  line-height: var(--leading-body-tight);
+}
+
+.person__tags {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid color-mix(in oklch, var(--sa-white) 20%, transparent);
+  color: var(--text-on-dark-muted);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+/* Between the magnet breakpoint and the point where the hero stacks the petal
+   pulls back into its corner, and the pair takes the width it leaves. It takes
+   more of it than the flank the petal used to keep: two portraits split what is
+   left, so every point the shape gives up here is worth twice as much to them,
+   and below this line the pair is what the page is about. */
+@media (max-width: 1080px) {
+  .hero--team {
+    grid-template-columns: minmax(0, 78%);
+  }
+
+  .hero--team .hero__field--right {
+    inset: 2% 0 -10% 80%;
+  }
+
+  /* The deep top padding keeps the copy off the gradient's own edge. On a
+     column this narrow that edge is closer anyway, and the step it costs is
+     worth more to the portrait than to the scrim. */
+  .person__overlay {
+    padding-top: var(--space-12);
+  }
+}
+
+/* The tablet. The pair needs the whole page, so the hero splits horizontally
+   instead of the other way up: the headline keeps a column and the petal is
+   hung off the right edge beside it, exactly as on every other hero at this
+   width, with the two faces on the full width underneath. What used to be here
+   was a flat band between the headline and the faces, and it was the thing the
+   homepage hero already refuses at this width: a stripe the width of the page
+   under a block of copy reads as a misprint, and stretched across a tablet the
+   band's own slope flattened out into a diagonal rule. */
+@media (min-width: 621px) and (max-width: 940px) {
+  .hero--team {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+    gap: var(--space-12) var(--space-9);
+    padding-top: var(--space-12);
+  }
+
+  /* The slot is placed, never auto-flowed: the field comes first in the markup
+     (it is out of flow everywhere else), so left to itself it would take the
+     headline's cell. */
+  .hero--team .team-hero__head {
+    display: grid;
+    grid-area: 1 / 1;
+    /* The petal is the tall thing in the row, so the headline reads on its
+       centre line rather than hanging at the top of an empty column. */
+    align-content: center;
+  }
+
+  /* In flow for the first time: the row it sits in is the shape's own height,
+     which is what keeps the headline's column from having to invent one. The
+     proportion is the petal's, not the column's — sized by aspect-ratio — and
+     the negative margin puts the shape's welded edge back on the page edge,
+     past the gutter the grid item stops at. */
+  .hero--team .hero__field--right {
+    position: relative;
+    grid-area: 1 / 2;
+    inset: auto;
+    aspect-ratio: 0.78;
+    margin-right: calc(-1 * var(--gutter-page));
+  }
+
+  /* The pair takes the width the split above it does not need. On a tablet
+     held upright that is room for both faces beside each other; one column
+     under the other would leave a third of the page empty down the right. */
+  .hero--team .founders {
+    grid-area: 2 / 1 / auto / -1;
+    gap: var(--space-12) var(--space-8);
+  }
+
+  .hero--team h1 {
+    max-width: none;
+  }
+}
+
+/* One column at last. A portrait is a frame with a paragraph laid over its
+   foot, and split two ways this is the width where the paragraph stops fitting
+   the frame; the cap is what keeps the single card from becoming a poster. */
+@media (max-width: 700px) {
+  .hero--team .founders {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .person {
+    max-width: 420px;
+  }
+}
+
+/* The phone takes the base hero's treatment as written (critical.css): the
+   petal reduced to the sliver that fits across the top-right, welded to the
+   top and the right, with the copy running under it. This hero only has to
+   hand it back the geometry the desk's rules took away, and to give it a
+   shallower box — one headline here, where the other heroes carry a wordmark,
+   a claim and two buttons. */
+@media (max-width: 620px) {
+  .hero--team {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-11);
+    padding-top: var(--space-11);
+  }
+
+  .hero--team .hero__field--right {
+    inset: 0 0 auto 0;
+    height: 340px;
+  }
+
+  /* Above the shape's own layer: the sliver's box runs on past the last of it
+     that is painted. The minimum is what the shape leaves — the swoop's tail
+     comes down the right edge to 58% of the box, and the pair starts under
+     it, so the hairline that opens the list never crosses navy. */
+  .hero--team .team-hero__head {
+    z-index: 2;
+    display: grid;
+    align-content: center;
+    min-height: 150px;
+  }
+
+  /* The swoop leaves the top edge two thirds across and runs out to the right
+     from there, so the headline keeps the column left of where it starts. */
+  .hero--team h1 {
+    max-width: 74%;
+  }
+
+  .hero--team .founders {
+    z-index: 2;
+    gap: var(--space-12) var(--space-8);
+  }
+}
+
+/* The grade is a decoration, not information: on a coarse pointer there is no
+   hover to undo it, so the portrait is simply itself. */
+@media (hover: none) {
+  .person__image {
+    filter: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — an insight
+ *
+ * The one page on the site that is read rather than scanned, and the only place
+ * copy runs long enough to need a heading level, a quote and a list inside a
+ * body. Everything else about it is the site's: the detail pages' hero with the
+ * petal on the right flank, the picture in the frame the homepage thumbnails
+ * use, the contact section at the foot.
+ * ------------------------------------------------------------------ */
+
+/* There is no hero on these pages, so the headline opens the article column
+   itself. An article headline is a sentence, not the brand's display voice, so
+   it is set one step down: at the display size two of the four run to three
+   lines, and the measure it would need is wider than the body it introduces. */
+.article__head {
+  padding-bottom: var(--space-13);
+}
+
+.article__head h1 {
+  margin-bottom: var(--space-8);
+  max-width: 26ch;
+  font-size: var(--text-h1-sub);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+}
+
+/* The excerpt the homepage row prints, printed again under the headline: a
+   reader who followed the row wants to see they landed on what they clicked. */
+/* Narrower than the body it introduces, which is what makes it read as a
+   standfirst rather than as the first paragraph — but not the 44ch every other
+   block on the site uses: beside a column this wide that reads as a stub. */
+.article-lede {
+  max-width: 62ch;
+  color: var(--text-muted);
+  font-size: var(--text-lead);
+}
+
+/* Where the other detail pages put their buttons. An article's next action is
+   to read it, so there is nothing to press — the date and the categories take
+   the row instead, in the styling the homepage row gives them. */
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  align-items: center;
+  margin-top: var(--space-9);
+}
+
+.article-meta__date {
+  color: var(--text-faint);
+  font-size: var(--text-meta-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.article-meta__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Two columns: the article takes the page, the rail takes a fixed 260px of it.
+   The proportions are the page's own — the hero splits 52/48 and every other
+   block on the site is a share of the width — so the article column is what is
+   left rather than a measure with dead space after it. Ranged left, never
+   centred: the copy's left edge is the page's on every page here. */
+.article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: var(--gap-column);
+  align-items: start;
+}
+
+.article__main {
+  min-width: 0;
+  max-width: var(--measure-prose);
+}
+
+/* A rail, not a second column: 260px on the right page gutter, so its right edge
+   is the nav's and the footer's. It sticks, and it clears the sticky header. */
+.article__rail {
+  position: sticky;
+  top: var(--space-16);
+}
+
+.article__rail-title {
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border-hairline);
+  color: var(--text-faint);
+  font-size: var(--text-meta-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
+.article__rail-list {
+  list-style: none;
+}
+
+/* The homepage's row idiom narrowed to a rail: a hairline under each, no card,
+   no thumbnail, and the same wash and 3px shift on hover. */
+.rail-row {
+  transition: var(--transition-move), var(--transition-tint);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--border-hairline);
+  color: inherit;
+}
+
+.rail-row:hover {
+  background: var(--surface-hover);
+  color: inherit;
+  transform: translateX(3px);
+}
+
+.rail-row__title {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-ui);
+  line-height: var(--leading-snug);
+}
+
+.rail-row__date {
+  color: var(--text-faint);
+  font-size: var(--text-meta-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.article__rail-foot {
+  padding-top: var(--space-6);
+}
+
+.article__rail-link {
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* The frame is the homepage thumbnail's: hairline, panel radius, paper under
+   the picture while it loads, and the same cool grade, because it is the same
+   picture. It is not full-bleed and not wider than the type. */
+.article__figure {
+  overflow: hidden;
+  margin-bottom: var(--space-13);
+  /* The widest derivation there is. The column is wider than this on a desk, so
+     the figure is inset rather than upscaled: 760px of pixels stretched across
+     980 is the one soft picture the design system refuses. */
+  max-width: 760px;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-input);
+}
+
+/* See FIGURE_CAP in src/pages/insights/insights.mjs: the launch photograph's
+   original is 542px across, so it is shown at the width it has rather than
+   upscaled to fill the column. */
+.article__figure--short-source {
+  max-width: 480px;
+}
+
+/* The image carries the ratio itself rather than filling the figure with a
+   percentage height: `height: 100%` inside a box whose height comes from
+   `aspect-ratio` is resolved by Chromium and not by every engine, and one that
+   resolves it against `auto` collapses the picture to nothing. This needs no
+   percentage height at all. */
+.article__figure-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  filter: saturate(0.72) contrast(1.04);
+  object-fit: cover;
+}
+
+/* The body. Ink on paper at the body size, and one rhythm between blocks that
+   the headings and the quote open up on their own. */
+.prose {
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+}
+
+.prose > * + * {
+  margin-top: var(--space-8);
+}
+
+.prose__heading {
+  margin-top: var(--space-14);
+  font-size: var(--text-h3);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h3);
+}
+
+/* The one place the article raises its voice: the 2px cyan rule a section
+   heading sits under, stood on its side. No quotation marks and no italic —
+   the rule and the size are the whole signal. */
+.prose__quote {
+  margin-top: var(--space-13);
+  margin-bottom: var(--space-13);
+  padding-left: var(--space-9);
+  border-left: 2px solid var(--sa-cyan);
+}
+
+.prose__quote-text {
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--track-h3);
+}
+
+/* The site is icon-poor and its lists are hairline rows or cyan two-digit
+   indexes, neither of which works inside a paragraph's rhythm. A disc does,
+   and it is cyan for the same reason the indexes are. */
+.prose__list {
+  display: grid;
+  gap: var(--space-5);
+  padding-left: var(--space-7);
+  list-style: disc;
+}
+
+.prose__list li::marker {
+  color: var(--sa-cyan);
+}
+
+.prose strong {
+  font-weight: var(--weight-semibold);
+}
+
+/* Cyan is the accent colour of every link on the site, but inside a paragraph
+   colour alone is not a reliable cue, so a prose link is the one underlined
+   thing on the site. */
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Below the width where every other two-abreast list on the site collapses,
+   the rail drops under the article — which is where a "read next" block belongs
+   anyway, so it stops being sticky and stops being an aside beside anything. */
+@media (max-width: 1000px) {
+  .article {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  .article__rail {
+    position: static;
+    max-width: 520px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 404
+ * ------------------------------------------------------------------ */
+
+.error-page {
+  display: grid;
+  align-content: center;
+  min-height: 52svh;
+  padding: var(--section-rhythm) var(--gutter-page);
+}
+
+.error-page h1 {
+  margin-bottom: var(--space-6);
+  padding-top: var(--space-7);
+  border-top: 2px solid var(--sa-cyan);
+  font-size: var(--text-h2);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--track-h2);
+  justify-self: start;
+}
+
+.error-page p {
+  margin-bottom: var(--space-9);
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+}
+
+.error-page .btn {
+  justify-self: start;
+}
