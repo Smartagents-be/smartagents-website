@@ -315,7 +315,7 @@
   "page.training.detail.developers.description": "Praktijktraining van 1 dag voor ervaren developers: van vibe coding naar agentic engineering, in een echte Java-codebase met je eigen agent. Lesmateriaal, oefeningen, workshops en begeleiding.",
   "services.training.detail.developers.kicker": "PRAKTIJKTRAINING · KATA",
   "services.training.detail.developers.title": "AI voor developers",
-  "services.training.detail.developers.subtitle": "Van vibe coding naar agentic engineering. Voor ervaren developers, zonder voorkennis van AI. Eén dag in échte code, en volgende week werk je met een ingerichte repo, een gekozen workflow en poorten die de kwaliteit bewaken.",
+  "services.training.detail.developers.subtitle": "Agentic Java Engineering. Van losse prompts naar robuuste AI-architectuur in één dag. Stap af van het klassieke 'vibe coden' en ontdek de principes van agentic engineering. In deze intensieve, eendaagse hands-on training bouw je als ervaren Java-developer stap voor stap een volwaardige AI-agent op in een echte codebase.",
   "services.training.detail.developers.meta.duration": "1 dag",
   "services.training.detail.developers.meta.participants": "5 tot 15 FTE",
   "services.training.detail.developers.meta.location": "Bij u op kantoor",
