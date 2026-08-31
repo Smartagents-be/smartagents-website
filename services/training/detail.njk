@@ -56,7 +56,24 @@
             <h2 class="section-title">{{ (k ~ ".overview.title") | t(locale) }}</h2>
             <div class="page-vision-text">
                 <p>{{ (k ~ ".overview.text") | t(locale) }}</p>
+                {% set overviewText2Key = k ~ ".overview.text2" %}
+                {% set overviewText2 = overviewText2Key | t(locale) %}
+                {% if overviewText2 != overviewText2Key %}
+                <p>{{ overviewText2 }}</p>
+                {% endif %}
             </div>
+            {% set point1LabelKey = k ~ ".overview.point1.label" %}
+            {% set point1Label = point1LabelKey | t(locale) %}
+            {% if point1Label != point1LabelKey %}
+            <div class="training-overview-points">
+                {% for n in [1, 2, 3] %}
+                <div class="training-overview-point">
+                    <span class="training-overview-point-label">{{ (k ~ ".overview.point" ~ n ~ ".label") | t(locale) }}</span>
+                    <p>{{ (k ~ ".overview.point" ~ n ~ ".desc") | t(locale) }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
     </section>
 
