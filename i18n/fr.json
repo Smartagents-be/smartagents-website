@@ -317,7 +317,7 @@
   "services.training.detail.developers.meta.location": "Dans vos bureaux",
   "services.training.detail.developers.meta.language": "NL / EN",
   "services.training.detail.developers.video.title": "Une visite guidée du kata",
-  "services.training.detail.developers.video.subtitle": "Quatre-vingts secondes à travers les supports de cours : les pages, les figures, les exercices, le dépôt Java et le build qui tranche.",
+  "services.training.detail.developers.video.subtitle": "La formation en quatre-vingts secondes. Un aperçu ultra-rapide de ce qui vous attend : des pages de cours claires et des schémas éclairants aux exercices approfondis. Vous plongez directement dans un vrai dépôt Java, où des builds automatisés déterminent sans concession si votre agent répond aux exigences de qualité. Pas de théorie aride, juste du feedback direct sur du code qui fonctionne.",
   "services.training.detail.developers.video.src": "/assets/kata-agentic-engineering.mp4",
   "services.training.detail.developers.video.poster": "/assets/kata-agentic-engineering-poster.jpg",
   "services.training.detail.developers.video.aria": "Visite guidée du kata d'agentic engineering de SmartAgents",
