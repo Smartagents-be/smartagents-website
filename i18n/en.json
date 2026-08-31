@@ -371,7 +371,7 @@
   "services.training.detail.developers.format4.desc": "A Spring Boot project per step for your agent to work in. You set it up, you steer it, and you read what comes back.",
   "services.training.detail.developers.format5.kicker": "WORKSHOPS",
   "services.training.detail.developers.format5.title": "The build decides, not the agent",
-  "services.training.detail.developers.format5.desc": "Two workshops with graded Maven profiles. Tests, coverage, complexity, and mutation testing only go green once the work is genuinely sound.",
+  "services.training.detail.developers.format5.desc": "Two in-depth workshops with automated, graded Maven profiles. Unit tests, code coverage, complexity, and mutation testing objectively determine whether your code holds up: only once everything checks out does the build turn green.",
   "services.training.detail.developers.format6.kicker": "GUIDANCE",
   "services.training.detail.developers.format6.title": "Guidance from experienced professionals",
   "services.training.detail.developers.format6.desc": "Our trainers do this in practice every day. They don't just stand in front of the group, they also sit right next to you at your screen, ready to look at your specific code and questions.",

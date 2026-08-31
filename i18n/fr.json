@@ -366,7 +366,7 @@
   "services.training.detail.developers.format4.desc": "Un projet Spring Boot par étape dans lequel votre agent travaille. Vous le configurez, vous le pilotez, et vous relisez ce qui revient.",
   "services.training.detail.developers.format5.kicker": "WORKSHOPS",
   "services.training.detail.developers.format5.title": "C'est le build qui tranche, pas l'agent",
-  "services.training.detail.developers.format5.desc": "Deux workshops avec des profils Maven notés. Tests, couverture, complexité et tests de mutation ne passent au vert que lorsque le travail tient vraiment.",
+  "services.training.detail.developers.format5.desc": "Deux workshops approfondis avec des profils Maven automatisés et notés. Les tests unitaires, la couverture de code, la complexité et les tests de mutation déterminent objectivement si votre code tient la route : le build ne passe au vert que lorsque tout est en ordre.",
   "services.training.detail.developers.format6.kicker": "ACCOMPAGNEMENT",
   "services.training.detail.developers.format6.title": "Un accompagnement par des professionnels expérimentés",
   "services.training.detail.developers.format6.desc": "Nos formateurs font cela au quotidien sur le terrain. Ils ne se contentent pas d'animer le groupe : ils s'installent aussi juste à côté de vous, devant votre écran, prêts à se pencher sur votre code et vos questions spécifiques.",
