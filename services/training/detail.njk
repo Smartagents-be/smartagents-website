@@ -149,6 +149,11 @@
                     <div class="training-day-content">
                         <span class="page-role-item-kicker">{{ (k ~ ".day" ~ n ~ ".label") | t(locale) }}</span>
                         <h3>{{ (k ~ ".day" ~ n ~ ".title") | t(locale) }}</h3>
+                        {% set dayDescKey = k ~ ".day" ~ n ~ ".desc" %}
+                        {% set dayDesc = dayDescKey | t(locale) %}
+                        {% if dayDesc != dayDescKey %}
+                        <p>{{ dayDesc }}</p>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}

@@ -472,6 +472,13 @@
     line-height: 1.4;
 }
 
+.training-day-content p {
+    margin: 6px 0 0;
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+
 /* ── Training mobile path chooser (mobile-only) ── */
 .tmc {
     display: none;
