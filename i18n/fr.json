@@ -363,7 +363,7 @@
   "services.training.detail.developers.format3.desc": "Vos connaissances sont testées directement dans le navigateur, avec un retour immédiat. Pas de simples questions à choix multiples ni de réponses évidentes : vous ne trouvez les réponses qu'en exécutant et en analysant réellement le code sur votre propre machine.",
   "services.training.detail.developers.format4.kicker": "TRAVAIL SUR PROJET",
   "services.training.detail.developers.format4.title": "Un vrai dépôt Java",
-  "services.training.detail.developers.format4.desc": "Un projet Spring Boot par étape dans lequel votre agent travaille. Vous le configurez, vous le pilotez, et vous relisez ce qui revient.",
+  "services.training.detail.developers.format4.desc": "Vous travaillez dans un environnement Spring Boot à part entière, avec un projet distinct prêt pour vous à chaque étape. C'est ici que vous connectez votre agent à du vrai code : vous configurez l'environnement, orientez la logique et voyez directement, dans la pratique, comment l'agent réagit.",
   "services.training.detail.developers.format5.kicker": "WORKSHOPS",
   "services.training.detail.developers.format5.title": "C'est le build qui tranche, pas l'agent",
   "services.training.detail.developers.format5.desc": "Deux workshops approfondis avec des profils Maven automatisés et notés. Les tests unitaires, la couverture de code, la complexité et les tests de mutation déterminent objectivement si votre code tient la route : le build ne passe au vert que lorsque tout est en ordre.",
