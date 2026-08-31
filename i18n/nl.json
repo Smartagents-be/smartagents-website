@@ -370,7 +370,7 @@
   "services.training.detail.developers.format4.desc": "Per stap een eigen Spring Boot-project waarin je agent werkt. Je richt het in, je stuurt bij, en je ziet wat er terugkomt.",
   "services.training.detail.developers.format5.kicker": "WORKSHOPS",
   "services.training.detail.developers.format5.title": "De build beslist, niet de agent",
-  "services.training.detail.developers.format5.desc": "Twee workshops met graded Maven-profielen. Tests, coverage, complexiteit en mutatietesten geven pas groen als het werk echt in orde is.",
+  "services.training.detail.developers.format5.desc": "Twee verdiepende workshops met geautomatiseerde, graded Maven-profielen. Unit tests, code coverage, complexiteit en mutatietesten bepalen objectief of je code voldoet: pas als alles klopt, springt de build op groen.",
   "services.training.detail.developers.format6.kicker": "BEGELEIDING",
   "services.training.detail.developers.format6.title": "Begeleiding door ervaren professionals",
   "services.training.detail.developers.format6.desc": "Onze trainers werken hier dagelijks mee in de praktijk. Ze staan niet alleen voor de groep, maar zitten ook direct naast je achter het scherm, klaar om mee te kijken met jouw specifieke code en vragen.",
