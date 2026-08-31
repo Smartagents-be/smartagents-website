@@ -118,6 +118,23 @@ body[data-training-detail="m365-copilot"] {
     text-align: left;
 }
 
+.training-recommendation-title {
+    margin: 0 0 16px;
+    color: var(--fg);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.training-recommendation-points.training-overview-points {
+    margin: 0;
+    max-width: none;
+    text-align: left;
+}
+
+.training-recommendation-points .training-overview-point {
+    text-align: left;
+}
+
 .training-next-step-card {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

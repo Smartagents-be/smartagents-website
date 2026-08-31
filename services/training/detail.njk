@@ -160,7 +160,25 @@
         <div class="container">
             <div class="training-followup-stack">
                 <div class="training-recommendation-note">
+                    {% set recTitleKey = k ~ ".recommendation.title" %}
+                    {% set recTitle = recTitleKey | t(locale) %}
+                    {% if recTitle != recTitleKey %}
+                    <h3 class="training-recommendation-title">{{ recTitle }}</h3>
+                    {% endif %}
+                    {% set recPoint1LabelKey = k ~ ".recommendation.point1.label" %}
+                    {% set recPoint1Label = recPoint1LabelKey | t(locale) %}
+                    {% if recPoint1Label != recPoint1LabelKey %}
+                    <div class="training-overview-points training-recommendation-points">
+                        {% for n in [1, 2, 3] %}
+                        <div class="training-overview-point">
+                            <span class="training-overview-point-label">{{ (k ~ ".recommendation.point" ~ n ~ ".label") | t(locale) }}</span>
+                            <p>{{ (k ~ ".recommendation.point" ~ n ~ ".desc") | t(locale) }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
                     <p class="training-followup-copy"><strong>{{ (k ~ ".recommendation") | t(locale) }}</strong></p>
+                    {% endif %}
                 </div>
                 {% set nextHref = (k ~ ".next.href") | t(locale) %}
                 {% set hasNextHref = nextHref and nextHref != (k ~ ".next.href") %}
