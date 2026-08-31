@@ -316,7 +316,7 @@
   "page.training.detail.developers.description": "1-day hands-on training for experienced developers: from vibe coding to agentic engineering, in a real Java codebase with your own agent. Course material, exercises, workshops, and guidance.",
   "services.training.detail.developers.kicker": "HANDS-ON TRAINING · KATA",
   "services.training.detail.developers.title": "AI for developers",
-  "services.training.detail.developers.subtitle": "From vibe coding to agentic engineering. For experienced developers, no prior AI knowledge needed. One day in real code, and next week you work with a repo that is set up, a workflow you chose, and gates that guard quality.",
+  "services.training.detail.developers.subtitle": "Agentic Java Engineering. From loose prompts to robust AI architecture in one day. Step away from classic 'vibe coding' and discover the principles of agentic engineering. In this intensive, one-day hands-on training you build a fully-fledged AI agent step by step as an experienced Java developer, in a real codebase.",
   "services.training.detail.developers.meta.duration": "1 day",
   "services.training.detail.developers.meta.participants": "5 to 15 FTE",
   "services.training.detail.developers.meta.location": "At your office",
