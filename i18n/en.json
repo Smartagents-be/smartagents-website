@@ -388,7 +388,7 @@
   "services.training.detail.developers.takeaway5.desc": "The complete kata and the repo stay available to you, so you can keep building on your own and easily bring colleagues along in the new way of working.",
   "services.training.detail.developers.day.title": "What does your day look like?",
   "services.training.detail.developers.day1.label": "MORNING 1",
-  "services.training.detail.developers.day1.title": "Context, tokens, and tools: where the answer comes from",
+  "services.training.detail.developers.day1.title": "The Basics of AI: context, tokens, and tools: discover how an agent arrives at its answer.",
   "services.training.detail.developers.day2.label": "MORNING 2",
   "services.training.detail.developers.day2.title": "Workshop: Extracting code from a live service",
   "services.training.detail.developers.day2.desc": "Analyze a running application and surface the underlying logic straight away.",
