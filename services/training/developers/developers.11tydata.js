@@ -5,5 +5,5 @@ module.exports = buildTrainingDetailPageData({
   pageKey: 'training-developers',
   serviceNameKey: 'services.training.detail.developers.title',
   courseKey: 'developers',
-  pdfHref: '/assets/SmartAgents_AI_Developers_Onepager.pdf'
+  pdfHref: '/assets/training_agentic_dev.pdf'
 });
