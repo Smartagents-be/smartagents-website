@@ -216,8 +216,15 @@ export function clipDefs() {
       'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
     dnaFieldMask:
       'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
+    // The small companion. Its left flank is one long curve between two short
+    // ones, and the four handles around it are set by curvature rather than by
+    // eye: the anchors and every tangent are the drawn ones, but the handle
+    // lengths are picked so the radius of curvature runs on across each join
+    // instead of stepping. Drawn by eye the flank stepped from 66px to 84px at
+    // its foot, which the eye reads as a flat spot on the lower left even
+    // though the tangents match. Move an anchor and the lengths want refitting.
     dnaBlob:
-      'M0.330,0.045 C0.560,-0.030 0.800,0.115 0.910,0.345 C1.020,0.580 0.980,0.845 0.790,0.955 C0.600,1.060 0.330,0.980 0.180,0.775 C0.035,0.575 0.010,0.325 0.140,0.170 C0.195,0.105 0.260,0.068 0.330,0.045 Z',
+      'M0.330,0.045 C0.560,-0.030 0.800,0.115 0.910,0.345 C1.020,0.580 0.980,0.845 0.790,0.955 C0.600,1.060 0.3360,0.9882 0.180,0.775 C0.0466,0.5910 0.0048,0.3312 0.140,0.170 C0.1884,0.1128 0.260,0.068 0.330,0.045 Z',
     // Hoe een cursus verloopt: a stone standing on the hairline the tour hangs
     // from. A taut edge runs from the high shoulder down to the blunt nose, the
     // back is round, and the foot is the only flat: it stands on a fifth of its
