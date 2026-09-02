@@ -11,7 +11,8 @@ const DECK_NAMES = {
   'ai-ready-organization': 'AI-ready organisatie',
   'ontbijtsessie': 'Ontbijtsessie',
   'kbc-staffing-pitch': 'KBC · AI Staffing',
-  'advocatuur-pitch': 'Advocatuur · Procesoptimalisatie & AI'
+  'advocatuur-pitch': 'Advocatuur · Procesoptimalisatie & AI',
+  'isabel-sdlc': 'Isabel · AI-native SDLC'
 };
 
 function prettify(slug) {

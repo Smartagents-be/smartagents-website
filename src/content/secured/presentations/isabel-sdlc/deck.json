@@ -1,0 +1,25 @@
+{
+  "title": "SmartAgents \u2014 Isabel \u00b7 AI-native SDLC",
+  "description": "How Isabel moves from a traditional SDLC to an AI-native one: where the bottleneck goes, and what has to be in place before it does.",
+  "lang": "en",
+  "width": "1920",
+  "height": "1080",
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
+  "slides": [
+    "00-cover",
+    "01-constraints",
+    "02-culture",
+    "03-bottleneck",
+    "04-middle-stage",
+    "05-proposal",
+    "06-platform",
+    "07-training",
+    "08-timeline",
+    "09-close"
+  ]
+}

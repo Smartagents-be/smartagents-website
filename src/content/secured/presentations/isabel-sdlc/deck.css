@@ -1,0 +1,270 @@
+/* isabel-sdlc — rules that belong to this deck alone.
+
+   One figure: the three-stage pipeline on slide 02. It is not one of the seven
+   archetypes because nothing else in the deck is a diagram, and a diagram used
+   once belongs to the deck that uses it.
+
+   The figure is a channel, not a table. Each stage draws the same five-step
+   lifecycle as one navy ribbon whose height is throughput, so a step that
+   everything queues behind is drawn as the thing it is: a narrowing. Read the
+   three ribbons top to bottom and the pinch moves, which is the entire claim of
+   the slide and needs no legend to land.
+
+   An earlier version was a grid of cells with a coloured rule over each. It was
+   accurate and it read as a spreadsheet: the eye had to be told which cell was
+   the bottleneck instead of seeing it. */
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Label on the left, the lifecycle on the right. The label column is fixed so
+   the five steps start on the same x in all three rows: the eye compares down
+   the columns, and a ragged left edge would break that. */
+.flow__stage {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  column-gap: 56px;
+  align-items: start;
+}
+
+.flow__label {
+  grid-row: 1 / span 2;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.flow__name {
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+/* Five steps, centred over the five zones of the ribbon below. */
+.flow__steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.flow__step {
+  font-size: 25px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-medium);
+  color: var(--sa-grey-6);
+  text-align: center;
+}
+
+/* The step the ribbon narrows at. Ink, because it is not a colour choice:
+   everything upstream of it is waiting. */
+.flow__step--block {
+  color: var(--sa-ink);
+  font-weight: var(--fw-semibold);
+}
+
+/* A step a person still owns. Ink too, because in the third row it is the same
+   pause seen differently: waiting on judgement rather than on capacity. */
+.flow__step--human {
+  color: var(--sa-ink);
+}
+
+/* The ribbon. `height: auto` against a fixed viewBox keeps the curves from
+   shearing: a non-uniform scale would flatten the pinch, which is the one
+   thing on the slide that has to survive being projected. */
+.flow__pipe {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+  fill: var(--sa-field);
+}
+
+/* The two places a person still decides. Drawn inside the ribbon so they read
+   as gates in an open channel rather than as a break in it: a gap would say
+   "blocked", which is the opposite of what the third row claims. */
+.flow__gate {
+  fill: var(--sa-cyan-bright);
+}
+
+.flow__note {
+  margin: 0;
+  font-size: 25px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* "AI-native" is the deck's own word and it must never break across its
+   hyphen: at 104px on the cover the browser will happily leave "AI-" hanging
+   at the end of a line. */
+.nobreak {
+  white-space: nowrap;
+}
+
+/* The asterisk on the third stage. Muted, so it reads as a footnote mark and
+   not as part of the name. */
+.flow__mark {
+  color: var(--sa-grey-6);
+}
+
+/* Two footnotes, the caveat then the takeaway. They have to share one slot:
+   as siblings of `.slide__inner` they would be pushed 56px apart by its own
+   gap and read as two unrelated blocks of mono. */
+.slide-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slide-notes .slide__note {
+  margin-top: 0;
+}
+
+/* ══ Slide 05: where the way of working lands ═══════════════════════════════
+   A fork with a dead end and a loop. The same knowledge leaves the same place
+   twice: once into a page that is read once and goes stale, once into files
+   that are delivered through MCP and a Claude Code plugin and come back round
+   to be updated. The loop is the whole argument, so it is the only cyan on the
+   slide.
+
+   The lines are one SVG on a 1696x360 grid; the labels are ordinary elements
+   positioned on the same grid, so type comes from the tokens rather than from
+   SVG text metrics. Both are absolute against `.map`, which is exactly that
+   size: the stage is fixed at 1920x1080, so a pixel here is a pixel there. */
+
+.map {
+  position: relative;
+  width: 100%;
+  height: 340px;
+}
+
+.map__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.map__dead path,
+.map__live path,
+.map__loop-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The branch that stops. Dashed and pale: it is a path, but nothing travels
+   back along it. */
+.map__dead path {
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+  stroke-dasharray: 5 9;
+}
+
+.map__stop path {
+  fill: none;
+  stroke: var(--sa-grey-6);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.map__live path {
+  stroke: var(--sa-ink);
+  stroke-width: 2.5;
+}
+
+.map__loop-path {
+  stroke: var(--sa-cyan);
+  stroke-width: 2.5;
+}
+
+#isabel-sdlc-slide-06-map-arrow-path {
+  fill: var(--sa-cyan);
+}
+
+/* Labels. Each is placed by its own rule below; `--t` is the centre line it
+   sits on, so a label and the path it belongs to share one number. */
+.map__node,
+.map__chip,
+.map__caption,
+.map__loop {
+  position: absolute;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.map__node {
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+  color: var(--sa-ink);
+}
+
+.map__node--dead {
+  color: var(--sa-grey-6);
+}
+
+.map__chip {
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: var(--fw-medium);
+  color: var(--sa-ink);
+}
+
+.map__caption {
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-6);
+}
+
+.map__loop {
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  color: var(--sa-cyan);
+}
+
+/* Positions on the 1696x340 grid. A label is centred on its path by half its
+   own line box: 28px at 1.2 is 34 tall, so top = centre - 17. */
+#isabel-sdlc-slide-06-source      { left: 0;      top: 163px; }
+#isabel-sdlc-slide-06-grave       { left: 706px;  top: 43px; }
+#isabel-sdlc-slide-06-grave-note  { left: 900px;  top: 47px; }
+#isabel-sdlc-slide-06-codified    { left: 370px;  top: 163px; }
+#isabel-sdlc-slide-06-mcp         { left: 870px;  top: 114px; }
+#isabel-sdlc-slide-06-plugin      { left: 870px;  top: 214px; }
+#isabel-sdlc-slide-06-agents      { left: 1290px; top: 163px; }
+#isabel-sdlc-slide-06-loop        { left: 716px;  top: 300px; }
+
+/* ══ Slide 08: the four weeks inside the first milestone ════════════════════
+   The three columns are the deck's `.steps`, with the mono slot carrying a date
+   instead of a number. Only the first column breaks down into weeks, so the
+   list below is the one thing this slide adds. */
+
+.weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.week {
+  display: flex;
+  gap: 14px;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-3);
+}
+
+.week__num {
+  flex: none;
+  font-family: var(--font-mono);
+  color: var(--sa-grey-6);
+}

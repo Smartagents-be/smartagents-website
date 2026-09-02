@@ -1,0 +1,849 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   SmartAgents — the slide vocabulary of the redesigned brand.
+
+   One stylesheet, shared by every deck built from the `new-presentation`
+   skill. It is the "Slide Template" design canvas turned into classes: the
+   canvas has to inline every declaration, a deck does not, and a deck that
+   inlines them drifts from the next one within two slides.
+
+   Read alongside:
+     ../../tokens.css   the palette and the type scale, loaded first
+     ./brand.css        the wordmark
+     ./deck-stage.js    navigation, thumbnails, speaker notes
+
+   The stage is a fixed 1920x1080 canvas that `<deck-stage>` scales with a
+   transform, so every length here is an absolute pixel measured against that
+   canvas. Do not reach for rem, vw or clamp: they would be measured against
+   the browser window, not the slide.
+
+   Paper is the ground. `.field` (from tokens.css) is the only dark, and on a
+   slide it is a clipped shape, never the whole surface. One shape per slide.
+   ────────────────────────────────────────────────────────────────────────── */
+
+deck-stage:not(:defined) {
+  visibility: hidden;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--sa-desk);
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--fg);
+}
+
+/* ══ The slide ══════════════════════════════════════════════════════════════
+   `.slide` is the section; `.slide__inner` is the padded content column.
+   The two are separate because a shape, the orbit rings and the footer all
+   sit outside the padding and must not be pushed around by it. */
+
+.slide {
+  --pad-x: 112px;
+  --pad-t: 96px;
+  --pad-b: 80px;
+
+  position: relative;
+  overflow: hidden;
+  background: var(--sa-paper);
+  color: var(--sa-ink);
+  font-family: var(--font-sans);
+}
+
+/* A slide that carries the chrome marker reserves the band the footer sits in,
+   with enough paper above it that a `.slide__note` resting on the content's
+   bottom edge is not read as a second line of the footer. Never take this off
+   to fit more content in: content that needs the last 100px of the slide is
+   content that needs a second slide. */
+.slide--footed {
+  --pad-b: 184px;
+}
+
+.slide__inner {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  padding: var(--pad-t) var(--pad-x) var(--pad-b);
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Everything authored sits above the shape and the rings. */
+.slide__inner > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* The head stays pinned at the top of the slide; everything below it goes in
+   here and centres in the space that is left. A three-row list then floats in
+   the middle of the paper instead of clinging to the heading with 200px of
+   nothing under it, and a full slide is unaffected.
+
+   This is the one deliberate departure from the Slide Template canvas, which
+   has no footer to clear and was drawn with the content hard against the head.
+   Never centre `.slide__inner` itself: that drops the heading to the middle
+   too. A `.slide__note` stays outside this wrapper, so it keeps landing on the
+   foot of the slide. */
+.slide__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 48px;
+}
+
+/* ══ Head ══════════════════════════════════════════════════════════════════
+   The cyan rule, then the heading, then at most one lede. The rule is 88x3
+   and is the one mark that says which brand this is; it opens every slide
+   except the image slide's narrow column, which opens with it too. */
+
+.slide__head {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.rule {
+  width: 88px;
+  height: 3px;
+  flex: none;
+  background: var(--sa-cyan);
+}
+
+.slide__eyebrow {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium-plus);
+  color: var(--sa-cyan);
+}
+
+.slide__title {
+  margin: 0;
+  font-size: 72px;
+  line-height: 1.1;
+  letter-spacing: var(--ls-h2);
+  font-weight: var(--fw-display);
+  text-wrap: pretty;
+}
+
+/* The image slide gives a third of its width to the words, so the same
+   heading is set one step down rather than wrapped four times. */
+.slide__title--sm {
+  font-size: 60px;
+}
+
+.slide__lede {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 32px;
+  line-height: 1.5;
+  font-weight: var(--fw-book);
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+.slide__lede--sm {
+  font-size: 28px;
+  line-height: 1.55;
+}
+
+/* A source, a caveat, a duration. Mono, faint, and pushed to the foot of the
+   content column so it lands on the same line whatever sits above it. */
+.slide__note {
+  margin: 0;
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--sa-grey-6);
+}
+
+/* ══ Rows ══════════════════════════════════════════════════════════════════
+   The system's default list, and the one decision that carries most of the
+   look: hairline-separated rows, never a grid of cards. Term on the left at
+   40% of the measure, detail on the right. Three rows is comfortable, four
+   is the maximum; a fifth is a second slide. */
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  gap: 64px;
+  align-items: baseline;
+  padding: 36px 0;
+  border-top: 1px solid var(--sa-line);
+}
+
+.row:last-child {
+  border-bottom: 1px solid var(--sa-line);
+}
+
+/* Four rows whose details each run to two lines do not fit a slide at the
+   padding above: they land within a few pixels of the footer band and read as
+   crowded. This trades the air between rows for the fourth row. Reach for it
+   only when the copy genuinely needs four rows and will not shorten; three
+   rows at the normal padding is the better slide. */
+.rows--tight .row {
+  padding: 26px 0;
+}
+
+.row__term {
+  flex: 0 0 40%;
+  font-size: 38px;
+  line-height: 1.25;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.row__detail {
+  flex: 1;
+  font-size: 28px;
+  line-height: 1.55;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* ══ Statement ═════════════════════════════════════════════════════════════
+   One thought, set large enough to stand alone. Use it to slow a deck down;
+   two in a row and neither lands. */
+
+.statement {
+  margin: 0;
+  max-width: 26ch;
+  font-size: 76px;
+  line-height: 1.12;
+  letter-spacing: var(--ls-display);
+  font-weight: var(--fw-display);
+  text-wrap: pretty;
+}
+
+.statement__support {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 30px;
+  line-height: 1.6;
+  font-weight: var(--fw-book);
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* ══ Compare ═══════════════════════════════════════════════════════════════
+   Two columns split by a hairline: what is true today on the left, what is
+   proposed on the right. The right column is the one that carries cyan and
+   the darker, heavier text, so the eye is told which side is the answer
+   before a word is read. Keep the two lists the same length. */
+
+.compare {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+
+.compare__col {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.compare__col--then {
+  padding-left: 56px;
+  border-left: 1px solid var(--sa-line);
+}
+
+.compare__head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compare__title {
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.compare__col--then .compare__title {
+  color: var(--sa-cyan);
+}
+
+.compare__sub {
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-5);
+}
+
+.compare__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.compare__item {
+  padding: 28px 0;
+  border-top: 1px solid var(--sa-line);
+  font-size: 28px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+}
+
+.compare__item:last-child {
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.compare__col--then .compare__item {
+  color: var(--sa-grey-1);
+  font-weight: var(--fw-medium);
+}
+
+/* ══ Steps ═════════════════════════════════════════════════════════════════
+   A progression, left to right, four columns at most. The rule over each
+   step is the progress bar: cyan for a step that is done or included, the
+   pale line for one still ahead. Nothing else changes between the two, so
+   the row reads as one thing with a position in it. */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 32px;
+  border-top: 2px solid var(--sa-cyan);
+}
+
+.step--ahead {
+  border-top-color: var(--sa-line-4);
+}
+
+.step__num {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  line-height: 1;
+  color: var(--sa-cyan);
+}
+
+.step--ahead .step__num {
+  color: var(--sa-grey-6);
+}
+
+.step__title {
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.step--ahead .step__title {
+  color: var(--sa-grey-2);
+}
+
+.step__body {
+  font-size: 26px;
+  line-height: 1.55;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* A three-step or five-step progression is the same row with a different
+   count; say so on the container rather than restyling the step. */
+.steps--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.steps--5 {
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+}
+
+/* ══ Media ═════════════════════════════════════════════════════════════════
+   A screenshot or a photograph, with the words in a third of the width
+   beside it. The frame is `--sa-wash` so an image that does not fill it
+   reads as a held space rather than as a hole. */
+
+/* `min-height: 0` is load-bearing: without it the grid row sizes to the
+   image's intrinsic height, the flex item refuses to shrink below it, and a
+   tall screenshot runs off the foot of the slide and over the footer. */
+.media {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 34% 1fr;
+  gap: 72px;
+  align-items: stretch;
+}
+
+.media__words {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.media__frame {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--r-shell);
+  background: var(--sa-wash);
+}
+
+.media__frame img,
+.media__frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The words on the right instead, for a slide that follows one with the
+   words on the left. Alternate rather than repeat. */
+.media--flip {
+  grid-template-columns: 1fr 34%;
+}
+
+.media--flip .media__words {
+  order: 2;
+}
+
+/* ══ Cover and close ═══════════════════════════════════════════════════════
+   Neither takes the chrome footer: the cover carries the mark at the top and
+   nothing at the foot, and the closing slide ends on a contact line that is
+   its own footer. Numbering starts on the first content slide. */
+
+/* The wordmark at slide scale. The canvas sets the 48x48 mark alone at 40px,
+   which on a 1920px stage reads as a stray dot: the lockup is what the site
+   and the slide footer both use, so the cover uses it too. `align-self` is
+   there because a flex item stretches otherwise. */
+.slide__brand {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 14px;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-ui);
+  color: var(--sa-ink);
+  white-space: nowrap;
+}
+
+.slide__brand img {
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+
+.slide__brand .accent {
+  color: var(--sa-cyan);
+}
+
+/* The cover's own column: pinned to the foot of the slide, 52% of the width,
+   the paper above it left as the counterweight to the shape on the right.
+   That asymmetry is the hero of the public site, and it is the same one. */
+.cover {
+  margin-top: auto;
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.cover__title {
+  margin: 0;
+  font-size: 104px;
+  line-height: 1.02;
+  letter-spacing: var(--ls-display);
+  font-weight: var(--fw-display);
+  color: var(--sa-ink);
+  text-wrap: pretty;
+}
+
+.cover__sub {
+  margin: 0;
+  max-width: 22ch;
+  font-size: 40px;
+  line-height: 1.45;
+  font-weight: var(--fw-book);
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+.cover__meta {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-5);
+}
+
+/* The closing slide mirrors the cover: the shape moves to the left, so the
+   words move to the right and are set ragged-left against it. */
+.close {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 32px;
+  text-align: right;
+}
+
+.close__title {
+  margin: 0;
+  max-width: 24ch;
+  font-size: 80px;
+  line-height: 1.08;
+  letter-spacing: var(--ls-display);
+  font-weight: var(--fw-display);
+  text-wrap: pretty;
+}
+
+.close__sub {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 30px;
+  line-height: 1.55;
+  font-weight: var(--fw-book);
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* `align-self` rather than a full-width row: the rule then ends where the
+   words do. Run it the width of the slide and it crosses the lobe, where a
+   paper hairline over navy reads as a scratch rather than as a rule. */
+.contact {
+  display: flex;
+  align-self: flex-end;
+  gap: 64px;
+  align-items: baseline;
+  padding-top: 36px;
+  border-top: 1px solid var(--sa-line);
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+}
+
+.contact__end {
+  font-family: var(--font-mono);
+  color: var(--sa-grey-6);
+}
+
+/* ══ The dark shape ════════════════════════════════════════════════════════
+   `.field` comes from tokens.css and flips the semantic roles to their
+   on-navy values; everything below is the geometry.
+
+   A shape is positioned in stage pixels and clipped with `clip-path: path()`,
+   whose coordinates are the element's own border box. The two shapes here are
+   the ones drawn on the canvas: the cover's petal, hung off the right edge,
+   and the closing slide's lobe, rising out of the bottom-left corner. Both
+   run off the edge they are hung from. A shape that floats free of every edge
+   reads as a hole, not as a field.
+
+   The public site's magnetic pull and its live node network do not travel:
+   `src/motion.js` binds to document coordinates and the stage has none. The
+   nodes below are placed by hand instead, which is why they are the one thing
+   on a slide still positioned inline. */
+
+.slide__shape {
+  position: absolute;
+  z-index: 0;
+}
+
+/* The live field fills the shape it is inside. The shape is clipped, so nodes
+   that drift outside the silhouette are simply not painted and nothing has to
+   know the outline. `../shared/node-field.js` upgrades the element; with the
+   script absent the shape is still a correct navy silhouette, just a still one. */
+sa-node-field {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.slide__shape--petal {
+  top: 0;
+  left: 1075px;
+  width: 845px;
+  height: 1080px;
+  clip-path: path('M190,0 C380,18 450,140 480,300 C505,432 570,522 640,592 C722,672 800,742 845,806 L845,0 Z');
+}
+
+.slide__shape--lobe {
+  bottom: 0;
+  left: 0;
+  width: 640px;
+  height: 820px;
+  clip-path: path('M0,52 C58,238 168,382 318,472 C432,540 520,590 566,664 C606,728 622,780 628,820 L0,820 Z');
+}
+
+/* A node and the hairline that leaves it. Position both inline in stage
+   pixels; `--d`, `--w` and `--a` carry the size and the angle so the look
+   stays here. Five nodes on a shape is plenty. */
+.node {
+  position: absolute;
+  width: var(--d, 6px);
+  height: var(--d, 6px);
+  border-radius: var(--r-pill);
+  background: var(--sa-cyan-bright);
+  opacity: var(--o, 1);
+}
+
+.node--lit {
+  box-shadow: 0 0 22px 3px var(--sa-cyan-soft);
+}
+
+.node--dim {
+  background: var(--sa-on-field-muted);
+}
+
+.link {
+  position: absolute;
+  width: var(--w, 150px);
+  height: 1px;
+  background: var(--sa-field-line);
+  transform: rotate(var(--a, 45deg));
+  transform-origin: left center;
+}
+
+/* ══ Orbits ════════════════════════════════════════════════════════════════
+   Ported from src/styles/critical.css, where they are the ground the public
+   homepage's hero and its Inzichten list stand on. Rings struck from one
+   origin off the edge of the slide, with three of them carrying a node that
+   travels and fades over a turn. It is the deck's only motion.
+
+   Use it on the cover and on the closing slide only. On a content slide the
+   arcs cut through the reading measure and the rows stop being hairlines. */
+
+.orbits {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.orbits__origin {
+  position: absolute;
+  top: 90px;
+  left: 12%;
+  width: 0;
+  height: 0;
+}
+
+.orbits__ring {
+  position: absolute;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.orbits__ring--01 {
+  inset: -260px auto auto -260px;
+  width: 520px;
+  height: 520px;
+  border-color: color-mix(in oklch, var(--sa-ink) 10%, transparent);
+}
+
+.orbits__ring--02 {
+  inset: -390px auto auto -390px;
+  width: 780px;
+  height: 780px;
+  border-color: color-mix(in oklch, var(--sa-cyan) 20%, transparent);
+}
+
+.orbits__ring--03 {
+  inset: -530px auto auto -530px;
+  width: 1060px;
+  height: 1060px;
+  border-style: dashed;
+  border-color: color-mix(in oklch, var(--sa-ink) 11%, transparent);
+}
+
+.orbits__ring--04 {
+  inset: -680px auto auto -680px;
+  width: 1360px;
+  height: 1360px;
+  border-color: color-mix(in oklch, var(--sa-ink) 7%, transparent);
+}
+
+.orbits__ring--05 {
+  inset: -845px auto auto -845px;
+  width: 1690px;
+  height: 1690px;
+  border-color: color-mix(in oklch, var(--sa-ink) 5%, transparent);
+}
+
+.orbits__path {
+  position: absolute;
+  animation: sa-orbit linear infinite;
+}
+
+/* The site lights a node for about two fifths of its turn, which works on a
+   page you scroll past: you catch one somewhere on its arc. A slide is looked
+   at, and a node that is dark for most of a cycle reads as nothing moving at
+   all. So the deck uses the long fade, lit for roughly four fifths, and runs
+   every ring at about half the site's period. The cycle still ends dark, so
+   the jump back to the top of the ring is never seen. */
+.orbits__node {
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  animation: sa-orbit-fade-long ease-in-out infinite;
+}
+
+.orbits__path--01 {
+  inset: -390px auto auto -390px;
+  width: 780px;
+  height: 780px;
+  animation-duration: 20s;
+}
+
+.orbits__path--01 .orbits__node {
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  background: var(--sa-cyan);
+  box-shadow: 0 0 14px 2px color-mix(in oklch, var(--sa-cyan) 50%, transparent);
+  animation-duration: 20s;
+}
+
+.orbits__path--02 {
+  inset: -530px auto auto -530px;
+  width: 1060px;
+  height: 1060px;
+  animation-duration: 30s;
+  animation-direction: reverse;
+}
+
+.orbits__path--02 .orbits__node {
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background: var(--sa-grey-1);
+  animation-duration: 30s;
+  animation-delay: -7s;
+}
+
+.orbits__path--03 {
+  inset: -680px auto auto -680px;
+  width: 1360px;
+  height: 1360px;
+  animation-duration: 42s;
+}
+
+.orbits__path--03 .orbits__node {
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  background: color-mix(in oklch, var(--sa-cyan) 75%, transparent);
+  animation-duration: 42s;
+}
+
+/* The closing slide's shape sits bottom-left, so the rings are struck from
+   off the right edge and bow in over the words instead of colliding with it.
+   Dimmed, because this ground carries reading text. */
+.orbits--close {
+  opacity: 0.8;
+}
+
+.orbits--close .orbits__origin {
+  top: 58%;
+  left: 104%;
+}
+
+@keyframes sa-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sa-orbit-fade-long {
+  0%,
+  3% {
+    opacity: 0;
+  }
+
+  9%,
+  76% {
+    opacity: 1;
+  }
+
+  86%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbits__path,
+  .orbits__node {
+    animation: none;
+  }
+
+  .orbits__node {
+    opacity: 1;
+  }
+}
+
+/* ══ Footer ════════════════════════════════════════════════════════════════
+   The chrome marker in a slide fragment expands to this at build time
+   (build/lib/decks.mjs). The markup is fixed; only the look is ours.
+
+   check-dist.mjs fails on an unexpanded marker anywhere in dist/, comments
+   included, so the literal is not spelled out here. See the skill. */
+
+.chrome {
+  position: absolute;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  bottom: 80px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chrome .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-ui);
+  color: var(--sa-grey-3);
+}
+
+.chrome .brand img {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+.chrome .brand .accent {
+  color: var(--sa-cyan);
+}
+
+.chrome .pageno {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-6);
+}

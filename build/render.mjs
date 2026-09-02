@@ -249,6 +249,14 @@ function renderSitemap(entries) {
  * add a line here. Pages Functions never reach this table, so /api/ and
  * /secured/ are handled before it applies.
  *
+ * A splat rule does not cover the bare directory it stands for: `/secured/*`
+ * matches `/secured/anything` but not `/secured`, so without a rule of its own
+ * that URL falls through to the catch-all and is sent to `/nl/secured`, which
+ * is nothing. Every top-level directory therefore also gets the trailing-slash
+ * redirect a static host would have issued itself. `/secured` matters most —
+ * it is the entry point people type, and it has to reach the Pages Function
+ * that guards `/secured/*` rather than the Dutch tree.
+ *
  * Cloudflare wants every static rule above the first rule with a splat, hence
  * the two generated blocks around the authored one.
  */
@@ -263,6 +271,10 @@ function renderRedirects() {
     .filter((entry) => entry.isFile())
     .map((entry) => `/${entry.name} /${entry.name} 200`)
     .sort();
+  const directoryRoots = entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => `/${entry.name} /${entry.name}/ 301`)
+    .sort();
   const directories = entries
     .filter((entry) => entry.isDirectory())
     .map((entry) => `/${entry.name}/* /${entry.name}/:splat 200`)
@@ -274,6 +286,10 @@ function renderRedirects() {
     '# Each rule below serves its own path and ends the lookup there, so the',
     '# catch-all on the last line cannot swallow a URL that already resolves.',
     ...files,
+    '',
+    '# Generated: a bare directory name is not matched by its own splat rule, so',
+    '# it takes the trailing-slash redirect a static host would have issued.',
+    ...directoryRoots,
     '',
     authored,
     '',

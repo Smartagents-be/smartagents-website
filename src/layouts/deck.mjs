@@ -20,7 +20,7 @@ export function deckPage(deck) {
   );
 
   return html`<!doctype html>
-<html lang="nl">
+<html lang="${config.lang || 'nl'}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

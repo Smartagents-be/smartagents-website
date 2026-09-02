@@ -37,16 +37,19 @@
     --sa-grey-2: oklch(0.34 0.01 247.84);
     --sa-grey-3: oklch(0.42 0.014 247.84);
     --sa-grey-4: oklch(0.45 0.014 247.84);
+    --sa-grey-5: oklch(0.46 0.014 247.84);
     --sa-grey-6: oklch(0.56 0.018 247.84);
     --sa-line: oklch(0.925 0.005 247.84);
     --sa-line-2: oklch(0.9 0.006 247.84);
     --sa-line-3: oklch(0.885 0.006 247.84);
+    --sa-line-4: oklch(0.74 0.012 247.84);
 
     /* ---------- Palette: one accent, two values ----------
        The dark value is for paper, the bright one for the navy field. */
     --sa-cyan: oklch(0.53 0.112 214);
     --sa-cyan-hover: oklch(0.6 0.118 210);
     --sa-cyan-bright: #00d8ff;
+    --sa-cyan-soft: oklch(0.53 0.112 214 / 0.2);
     --sa-cyan-ink: oklch(0.16 0.02 220);
 
     /* ---------- Palette: text on the field ---------- */
@@ -215,6 +218,14 @@
     --ls-h3: -0.014em;
     --ls-ui: -0.005em;
     --ls-caps: 0.02em;
+
+    /* The public site names the same four values `--track-*`. A slide
+       authored against the design canvas carries those names verbatim, so
+       both spellings resolve here rather than the markup being rewritten. */
+    --track-display: var(--ls-display);
+    --track-h2: var(--ls-h2);
+    --track-h3: var(--ls-h3);
+    --track-ui: var(--ls-ui);
 
     --lh-display: 1.03;
     --lh-tight: 1.12;

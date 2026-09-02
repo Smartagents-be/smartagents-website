@@ -1,0 +1,17 @@
+{
+  "projectId": "51c2fbf6-0201-40f4-adfe-9f6a60ea8ad6",
+  "projectName": "SmartAgents Website",
+  "shape": "styles-only",
+  "note": "Not a converter shape. This repo has no component library; see NOTES.md.",
+  "readmeHeader": ".design-sync/conventions.md",
+  "outDir": "./ds-bundle",
+  "sources": {
+    "tokens": "src/styles/tokens.css",
+    "classLayer": [
+      "src/styles/critical.css",
+      "src/styles/main.css"
+    ],
+    "clipDefs": "src/layouts/base.mjs#clipDefs",
+    "assets": ".claude/skills/smartagents-design/assets"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "title": "SmartAgents — <deck title>",
+  "description": "One sentence describing the deck. It is the meta description; nothing else reads it.",
+  "width": "1920",
+  "height": "1080",
+  "styles": ["../shared/slide.css"],
+  "scripts": [],
+  "slides": [
+    "00-cover",
+    "01-rows",
+    "02-statement",
+    "03-compare",
+    "04-steps",
+    "05-media",
+    "06-close"
+  ]
+}

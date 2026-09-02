@@ -11,3 +11,6 @@ docs/superpowers/
 n8n/
 .playwright-mcp/
 shots/
+
+# design-sync output (rebuilt by the sync; never hand-edited)
+ds-bundle/

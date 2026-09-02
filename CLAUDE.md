@@ -8,7 +8,7 @@ pitch decks) is live.
 
 ## Skills — read these first
 
-Five of the skills in `.claude/skills/` define the architecture, the look and the
+Six of the skills in `.claude/skills/` define the architecture, the look and the
 markup conventions. They are the source of truth; this file only records how
 they are applied here.
 
@@ -22,6 +22,9 @@ they are applied here.
 - **`element-ids`** — every element rendered inside `<body>` carries a unique,
   language-independent `id` so any part of a page can be named exactly. Read it
   before writing or editing markup.
+- **`new-presentation`** — the decks under `/secured/presentations/`: the seven
+  slide archetypes, the shared slide vocabulary, and the copy rules. Read it
+  before adding a deck or a slide.
 
 ## Quick Commands
 
@@ -84,8 +87,14 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   unprefixed URL to the default language: `/training/` lands on `/nl/training/`.
   A redirect is followed whether or not an asset matches it, so anything without
   a rule above the catch-all stops being reachable; `check-dist.mjs` fails the
-  build when that happens. `scripts/start-local.mjs` reads `dist/_redirects` too,
-  so dev routes like production. Nothing negotiates on `Accept-Language`.
+  build when that happens. A directory needs two rules, not one: `/secured/*`
+  does not match `/secured`, so every top-level directory also gets the
+  trailing-slash redirect (`/secured /secured/ 301`) a static host would have
+  issued itself. Without it the bare name reached the catch-all and `/secured`
+  — the URL people actually type, and the one that has to arrive at the Pages
+  Function guarding `/secured/*` — was sent to `/nl/secured`, which is nothing.
+  `scripts/start-local.mjs` reads `dist/_redirects` too, so dev routes like
+  production. Nothing negotiates on `Accept-Language`.
 - **Pages are functions.** A page module exports `{ id, slugs, meta(t), render(ctx) }`
   and returns markup from the `html` tag. Never hard-code visible text: use `t()`.
 - **An insight is a page generated from a list.** `src/pages/insights/insights.mjs`
@@ -109,7 +118,15 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   "Deviations from the design doc", item 7, in the `smartagents-design` README.
 - **Decks are data.** Each deck is `deck.json` plus `slides/*.html` fragments.
   The `<!--chrome 05/10-->` marker expands to the slide footer at render time.
-  Adding a deck means adding a folder; discovery is automatic.
+  Adding a deck means adding a folder; discovery is automatic. The look lives in
+  `presentations/shared/slide.css`, one stylesheet for every deck, listed in a
+  deck's `deck.json` under `styles`. It is the `Slide Template` design canvas
+  turned into classes, and it is what makes a new deck's own `deck.css` empty:
+  the nine decks that predate it each carry a thousand-plus lines copied from
+  the deck before, which is the drift it exists to end. The seven archetypes,
+  the ready markup for each and the rules that keep them on brand are in the
+  `new-presentation` skill. Note that `check-dist.mjs` fails on an unexpanded
+  chrome marker anywhere in `dist/`, comments in a stylesheet included.
 - **Colocation**: keep CSS/JS/assets in the component or page folder. A component
   that also owns markup keeps both halves there under one name:
   `components/contact-form/contact-form.mjs` renders the section at build time,
@@ -303,10 +320,18 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   accent. The decks were drawn against Inter and the documents against DM Serif
   Display, so a few headings set a little differently now. Supplying the Geist
   and Instrument Serif binaries closes both that gap and the public site's.
-- The deck covers are flat navy. On the public site a `.field` carries a live
-  cyan node network, but `<sa-node-field>` paints from document coordinates and
-  a deck is a fixed 1920×1080 stage, so it was not ported. A stage-local variant
-  would put the brand's one moving element back on the covers.
+- One of the brand's two moving parts is ported to a deck.
+  `presentations/shared/node-field.js` is `<sa-node-field>` with the sharing
+  taken out: the site keeps one field in document coordinates and treats every
+  dark shape as a window onto it, which a fixed, transform-scaled stage has
+  nothing to anchor to, so each element seeds and drifts its own network in its
+  own box and the host's `clip-path` does the rest. It is denser and brighter
+  than the site's, because a silhouette covers about a quarter of the box it is
+  drawn in. The magnetic pull in `src/motion.js` is not ported and will not be:
+  it has no meaning without a cursor on the shape. The orbit rings are ported
+  too, at about half the site's period and with the long fade, because a slide
+  is looked at rather than scrolled past. The nine decks that predate the
+  redesign have a flat navy cover and none of this.
 - No build-step image pipeline. Both picture sets under `public/media/` were
   derived by hand with `sips`. The recipe, and the two traps that cost the most
   time (`--cropOffset` is in points; an odd-dimension AVIF renders as its alt

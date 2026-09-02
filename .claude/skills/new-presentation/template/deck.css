@@ -1,0 +1,10 @@
+/* <deck slug> — rules that belong to this deck alone.
+
+   Usually empty. The whole visual system is ../shared/slide.css, listed in
+   deck.json; this file is for the one figure a single deck needs and no other
+   deck will. Write it with tokens (--sa-grey-3, --sa-line, --ls-h3,
+   --fw-semibold), never literal values, and in absolute pixels against the
+   1920x1080 stage.
+
+   If you write the same rule here twice across two decks, it belongs in
+   ../shared/slide.css instead. */

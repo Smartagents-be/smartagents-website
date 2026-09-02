@@ -287,9 +287,15 @@ if (redirectRules.at(-1) !== '/*') {
 const covered = new Set(redirectRules.slice(0, -1));
 for (const entry of readdirSync(distDir, { withFileTypes: true })) {
   if (entry.name.startsWith('.') || entry.name === '_redirects' || entry.name === '_headers') continue;
-  const rule = entry.isDirectory() ? `/${entry.name}/*` : `/${entry.name}`;
-  if (!covered.has(rule)) {
-    fail('_redirects', 'unreachable behind the catch-all', rule);
+  // A directory needs two rules: the splat for everything inside it, and the
+  // bare name, which the splat does not match and the catch-all would take.
+  const rules = entry.isDirectory()
+    ? [`/${entry.name}/*`, `/${entry.name}`]
+    : [`/${entry.name}`];
+  for (const rule of rules) {
+    if (!covered.has(rule)) {
+      fail('_redirects', 'unreachable behind the catch-all', rule);
+    }
   }
 }
 
