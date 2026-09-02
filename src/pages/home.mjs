@@ -63,7 +63,7 @@ ${contact(t)}
  * Each carries its own magnet tuning. `data-magnet-pin` welds the shape to the
  * page edge it hangs from, which is why both can opt out of the nav guard with
  * `data-magnet-free`; the denser sampling is what keeps these curves smooth
- * under a pull.
+ * under a pull, and true in the field a join is traced from.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
@@ -149,8 +149,15 @@ function dna(t) {
     <h2 class="section-heading">${t('section.dna')}</h2>
   </div>
   <div class="dna">
+    <!-- The disc's outline runs along the top and the right of its own box, and
+         a guarded shape is refused a pull from an edge that does — the guard is
+         there to stop a hero shape swelling up under the nav bar. This one is a
+         figure in the middle of a section with clear paper above it, so it opts
+         out, and states the amplitude a guarded shape would have had by
+         default: without that it drops to the free default of 34, which on a
+         shape this size is barely a pull at all. -->
     <div class="dna__figure" aria-hidden="true">
-      <div class="field dna__disc" data-magnet data-clip="dnaField"></div>
+      <div class="field dna__disc" data-magnet data-magnet-free data-magnet-amp="92" data-clip="dnaField"></div>
       <div class="dna__helix"><sa-node-field variant="helix"></sa-node-field></div>
       <div class="field dna__blob" data-magnet data-magnet-free data-clip="dnaBlob"><sa-node-field></sa-node-field></div>
     </div>

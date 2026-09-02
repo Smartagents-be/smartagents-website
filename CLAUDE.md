@@ -8,7 +8,7 @@ pitch decks) is live.
 
 ## Skills — read these first
 
-Five skills in `.claude/skills/` define the architecture, the look and the
+Five of the skills in `.claude/skills/` define the architecture, the look and the
 markup conventions. They are the source of truth; this file only records how
 they are applied here.
 
@@ -71,11 +71,6 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 - **Templating**: `build/lib/html.mjs` — a tagged template literal that escapes
   interpolations. No template engine, no client-side templating runtime.
   (Eleventy and Nunjucks were removed; there is no `.njk` left in the repo.)
-- **Server logic**: Cloudflare Pages Functions in `functions/`
-  - `functions/secured/` — password gate for `/secured/*`
-  - `functions/api/contact.js` — contact endpoint. The contact form posts to it
-    through `<sa-contact-form>`, but only once `TURNSTILE_SITE_KEY` is set at
-    build time; without a key the form keeps its `mailto:` fallback.
 
 ## Key Patterns
 
@@ -134,10 +129,58 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 - **Tokens live once.** `src/styles/tokens.css` is the only place custom
   properties are defined; `build/render.mjs` prepends it to `critical.css` and
   inlines the pair in every `<head>`. Never redefine a token in `main.css`.
-- **The dark field is one field.** Every navy shape is a `.field` carrying
-  `data-magnet` and `data-clip`, with a `<sa-node-field>` inside. The clip path
-  must sit on the same element as `data-magnet`: `src/motion.js` grows that
-  element's box and remaps the outline into it.
+- **The dark field is one field, and where two shapes meet under the cursor it
+  is one fluid.** Every navy shape is a `.field` carrying `data-magnet` and
+  `data-clip`, with a `<sa-node-field>` inside. The clip path must sit on the
+  same element as `data-magnet`: `src/motion.js` grows that element's box and
+  remaps the outline into it. A shape's own silhouette is the outline itself,
+  moved: every sample slides toward the cursor by a Gaussian in *arc length*
+  along the perimeter, so the swell is a bell with the drawn curvature intact
+  and a stretch of edge far along the outline cannot follow the cursor, however
+  close it happens to lie in the plane. One silhouette, never a seam — the clip
+  path is rewritten, so the swell carries the node field with it.
+- **A join is the only place a field is used, and it is local.** Where two
+  displaced outlines come within reach of each other, they are read as
+  `exp(-distance/k)` and summed over a window covering where the two can reach
+  each other — the overlap of their boxes, opened out by how far one still lifts
+  the other's contour, *not* a box around the narrowest point, because once two
+  shapes are close enough to run together their outlines cross well away from
+  it. The contour where that sum is 1 is the metaball union, which lies outside
+  every outline and necks between two of them with a concave fillet at each
+  body. It is traced by marching squares on a 4px grid, resampled at even arc
+  length, and written out as Bézier curves — a chord anywhere on a join is a
+  corner waiting to be seen, and a spline through unevenly spaced points
+  scallops, so both halves of that matter. The trace is not the silhouette: it
+  is drawn half a pixel inside the union, so wherever the join has lifted the
+  contour by less than that the authored outline is what shows — which keeps
+  every apex exactly as drawn and buries the corner where the two hand over.
+  Outside the window there is no field at all.
+- **What holds a join together is `k`, and `k` is the cursor's.** It scales on
+  how near the cursor is to the *further* of the two shapes, so a join needs the
+  cursor to be near both and at rest there is none. It is keyed on the distance
+  to each outline and never on the point that realises it: distance to a closed
+  curve moves as smoothly as the cursor does, while the nearest point jumps
+  across a shape the moment two approaches tie — and a join keyed on that jumps
+  with it, which is seen as the whole thing flickering as the pointer travels.
+  Two outlines facing each other across `g` can only close it when `g` is under
+  `2k·ln2`, which is the early-out the pass leans on: most frames strike no
+  window at all. A join has to arrive a little inside that limit, where its
+  waist is already tens of pixels wide, and is then held to the limit itself
+  once open — a 4px grid cannot draw a waist thinner than a cell, and without
+  the hysteresis the merge stutters on sub-pixel cursor travel. What the
+  neighbours add to the sum has the value it would have at the window's rim
+  taken off it, smoothly, so the lift is gone by the rim and the window's own
+  shape can never show.
+- **The union covers the bodies it was struck from, so the lowest of them paints
+  it** and the others draw their bodies over the top: that is what keeps the DNA
+  disc's helix from being painted out by the blob reaching it. It also makes
+  winding load-bearing. A join appended to a body under one fill and the default
+  `clip-rule: nonzero` reads a loop wound against that body as a hole punched
+  through it, and the silhouettes in `clipDefs()` are not all wound the same way
+  — the staffing arch and the tracks wedge run one way, the DNA shapes the
+  other. `src/motion.js` measures each path's winding at setup and turns the
+  join to match. A new silhouette may be drawn either way round; a silhouette
+  with two subpaths of its own has to wind them consistently.
 - **A page's height is not a constant, and `<sa-node-field>` is anchored to the
   document.** The shared field re-measures on every tick, and it used to re-seed
   whenever the document grew or shrank by more than 2px — which is fine for a
@@ -149,27 +192,48 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   every window re-measures its slice because the shapes below a block that just
   grew have all shifted. Anything else that animates a block's height inherits
   this for free; anything that re-seeds will look the same way again.
-- **A magnet's box is frozen in pixels the moment it is set up**, and the
-  outline is sampled against the size it had then. So a shape may not be struck
-  between two edges that can move apart afterwards — it does not merely shift,
-  it stretches, and the silhouette stops fitting what it was sampled against.
-  Only a window resize rebuilds it. The AI staffing page has one of each: the
-  track panel's leaf is anchored to the panel's top and sized from the gutter,
-  so it is still while rows open; the wedge under the panel's foot is anchored
-  with `bottom` plus a height, so it travels with the foot at a constant size.
-  Sizing the `.field` itself is still insets-only — an explicit width or height
-  over-constrains the box and moves it instead of growing it — but the
-  `.field-slot` around it is ordinary CSS and is where a stable box belongs.
-- **A magnet resamples the clip path into one closed polyline**, so a silhouette
-  is always a single subpath: two lobes written as `M…Z M…Z` collapse into one
-  the moment the cursor comes near. `data-magnet-free` opts a shape out of the
-  guard that refuses a pull whose nearest point sits under the nav or past the
-  right page edge — take it only for a shape that is nowhere near either, or for
-  one that pins the edge it would have been guarded on. `data-magnet-pin` takes
-  a comma-separated list, so the AI staffing hero's arch, which runs the width
-  of its flank directly under the header, is free of the guard and welded along
-  `top,right,bottom` instead: a cursor up under the bar gets a swell that fades
-  to nothing before it can peel the shape off it.
+- **A magnet's box is frozen in pixels the moment it is set up, and so is
+  everything struck from it.** The outline is sampled, the grown box is
+  measured, the outline is remapped into it, and the arc-length table the
+  falloff runs on is built — once. The committed build before this one
+  re-measured the box every frame and so tracked a runtime size change; this one
+  does not, which is the trade for not rebuilding an arc-length table sixty
+  times a second. So a shape may not be struck between two edges that can move
+  apart afterwards: it would not merely shift, it would stretch, and the
+  silhouette would stop fitting what it was sampled against. Only a window
+  resize rebuilds it. Nothing is precomputed against a *neighbour's* position,
+  though — a join is struck from where both outlines stand this frame, so shapes
+  that move relative to each other at runtime are fine. The AI staffing page has
+  one of each: the track panel's leaf is anchored to the panel's top and sized
+  from the gutter, so it is still while rows open; the wedge under the panel's
+  foot is anchored with `bottom` plus a height, so it travels with the foot at a
+  constant size. Sizing the `.field` itself is still insets-only — an explicit
+  width or height over-constrains the box and moves it instead of growing it —
+  but the `.field-slot` around it is ordinary CSS and is where a stable box
+  belongs.
+- **The magnet attributes tune the swell, and the swell is what decides a
+  join.** `data-magnet-amp` is how far the outline travels at the deepest point
+  of the pull, and `data-magnet-sigma` is how wide a stretch of the perimeter
+  travels with it — a big shape swells over a wider stretch of its edge than a
+  small one, or the pull reads as a spike rather than a turn. Both feed the join
+  only through the gap they leave: two shapes run together when what is left
+  between them is under `2k·ln2`. `data-magnet-free` opts a shape out of the
+  guard that refuses a pull from an edge tucked under the nav or past the page
+  edge. Take it only for a shape that is nowhere near either, or for one that
+  pins the edge it would have been guarded on. It also changes the default
+  amplitude — 34 guarded-out against 92 guarded — so removing it from a small
+  shape does not merely lift a guard, it triples the pull and translates the
+  whole silhouette; the DNA blob is 100px across and needs the 34, and the disc
+  beside it, which opts out because its own outline runs along the top of its
+  box, has to say `data-magnet-amp="92"` to keep the pull it had.
+  `data-magnet-pin` (a comma-separated list) welds the shape to each page edge
+  it hangs from: the pull fades to nothing over the last 30px before each, so
+  no swell can peel it off the edge it is drawn from. A silhouette may be
+  several subpaths when a join is drawn, and a join between three shapes can
+  leave a paper island: the trace keeps marching squares' own relative winding
+  and the set is turned as a whole by the sign of its total area, so the island
+  stays wound against the loop around it and the nonzero fill rule paints it as
+  the paper it is.
 - **The AI staffing page's hero is an arch and two pebbles.** `heroArch` is hung
   off the right edge and `heroPebbleA`/`heroPebbleB` are positioned inside the
   arch's own box, so the three move as one and the page overrides only that box.
@@ -243,48 +307,10 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   cyan node network, but `<sa-node-field>` paints from document coordinates and
   a deck is a fixed 1920×1080 stage, so it was not ported. A stage-local variant
   would put the brand's one moving element back on the covers.
-- No build-step image pipeline. Two blocks carry pictures and both sets were
-  derived once, by hand, with `sips` — AVIF plus a JPEG fallback, wired up with
-  `<picture>` and `srcset`:
-  - `public/media/team/` — the founder portraits, a 2:3 crop at 320w, 440w and
-    880w (`src/pages/team.mjs`). They open the team page, so the first one is
-    also declared as `meta().preloadImage`.
-  - `public/media/insights/` — the homepage article thumbnails, a 16:9 crop at
-    320w, 480w and 760w, all lazy (`src/pages/home.mjs`). The sources are the
-    four blog post banners on `main`, under `assets/blog/`; `launch` stops at
-    480w because its original is only 542px wide. The article page reuses the
-    same set as its opening figure, eagerly and at the reading measure rather than
-    full-bleed: 760w is the widest there is and the smallest original is 542px
-    across, so a figure running the width of the page would be the one visibly
-    soft picture on the site. Nothing in that markup is named "banner": an ad
-    blocker's generic lists key on the word in an id or a class, and the figure
-    rendered as its alt text until it was renamed. Deriving wider crops is only possible for two of
-    the four — aviso is 1600px across and smartspace 3710px, what-works is 996px
-    and launch 542px.
-
-  `sips --cropOffset` is the top-left of the crop window in *points*, so set the
-  source to 72dpi first or the offset lands at half the distance, and never pass
-  `0 0` — it reads as "unset" and centres the crop. Turn the derivation into a
-  build step when a third block needs it; note that `sips`, the only image tool
-  on a stock Mac, cannot write WebP, which is why the fallback is JPEG.
-
-  **Give every AVIF even pixel dimensions.** `sips` pads an odd dimension to the
-  next even one and writes a `clap` (clean aperture) box to crop it back.
-  Chromium and WebKit honour that box; Gecko decodes the image to 0×0, and
-  because a `<picture>` only falls back on an unsupported `type` and never on a
-  failed decode, the `<img>` renders its alt text instead of the JPEG that sits
-  right there in its `srcset`. It cost a long hunt: the file was valid AV1 Main
-  8-bit 4:2:0, served 200 `image/avif` byte-identical from both the dev server
-  and Cloudflare, and rendered in every engine but the one the reviewer used.
-  The 16:9 crops at 320w and 480w are 180 and 270 tall and were always fine; only
-  the 760w ones were 427 tall, so only they broke, and only where a layout picked
-  them — which is why the homepage thumbnails looked healthy the whole time. They
-  are now 760×428, re-encoded from their own JPEG so the crop could not shift
-  (`sips -z 428 760 <stem>-760.jpg`, then `sips -s format avif -s formatOptions
-  60`, which lands within a kilobyte of the originals). To check a file:
-  `xxd` it and look for `clap`, or scan the tree the way that hunt ended up
-  doing. A 1px height difference from the JPEG is invisible because the figure
-  crops to 16:9 with `object-fit: cover` anyway.
+- No build-step image pipeline. Both picture sets under `public/media/` were
+  derived by hand with `sips`. The recipe, and the two traps that cost the most
+  time (`--cropOffset` is in points; an odd-dimension AVIF renders as its alt
+  text in Gecko), are in the `image-pipeline` skill.
 - Geist is named first in `--font-sans` but no binaries were supplied, so the
   platform face is what renders. Ask the client for the WOFF2 files.
 - Two of the three service rows link out — training and AI staffing — through

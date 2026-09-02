@@ -182,6 +182,14 @@ const CHEVRON = raw(
  * `objectBoundingBox` units, so the silhouettes scale with their element and
  * the shapes stay correct at every viewport width.
  */
+/* Every silhouette on the site, as a path in the unit square of the box that
+ * carries it. Winding is not free: a magnet may append the contour of a join to
+ * one of these as an extra subpath under one fill, and the default
+ * `clip-rule: nonzero` reads a loop wound against the body it overlaps as a
+ * hole punched through it. `src/motion.js` measures each path's winding at
+ * setup and turns the join to match, so a path may be drawn either way round —
+ * but if a shape ever grows a second subpath of its own, the two have to agree
+ * with each other. */
 export function clipDefs() {
   const paths = {
     // hero: a petal hung off the right edge. It leaves that edge at the top,
