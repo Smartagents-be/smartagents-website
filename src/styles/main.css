@@ -101,6 +101,22 @@
   color: var(--text-strong);
 }
 
+/* The page you are on, in the disclosure. The bar marks it with ink and weight
+   (critical.css), which says nothing here: every item in the panel is already
+   strong ink, and on a phone every item is already semibold. So the marker is a
+   dot in the accent rather than a change of type — it is not text, so it cannot
+   be mistaken for the link colour, and nothing in the row has to move. */
+.nav-toggle__panel a.nav-sheet__item.is-current::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: var(--space-4);
+  border-radius: 50%;
+  background: var(--sa-cyan);
+  vertical-align: middle;
+}
+
 /* The word and its chevron. They used to be the summary's own two children;
    they are wrapped now so the phone can hide the pair and leave the icon, so
    the row they sat in has to be rebuilt one level down. */
@@ -855,13 +871,6 @@ a.row:hover .row__cue {
   white-space: nowrap;
 }
 
-.stack__label b {
-  color: oklch(0.6 0.03 245);
-  font-family: var(--font-mono);
-  font-size: var(--text-nano);
-  font-weight: var(--weight-medium);
-}
-
 .stack__label--active::before {
   background: oklch(0.55 0.075 218);
 }
@@ -1392,10 +1401,63 @@ a.article-row:hover .article-row__image {
   gap: 6px;
 }
 
-.field-label > span {
+/* Named rather than `.field-label > span`, because the label now has three
+   children of that kind: the caption, the required marker inside it, and the
+   error slot under the control. */
+.field-label__text {
   color: var(--text-faint);
   font-size: var(--text-micro);
   font-weight: var(--weight-medium-plus);
+}
+
+/* The `*` that says a field has to be filled in. Cyan, because it is the one
+   mark on the form the eye has to find before it starts typing, and it is a
+   glyph rather than a word, so it cannot be read as a link. */
+.field-label__required {
+  margin-left: 3px;
+  color: var(--text-accent);
+}
+
+/* Ships empty and `hidden`; `contact-form.js` fills it and unhides it. It sits
+   inside the label's own grid, so an error pushes the next field down by
+   exactly its own height and nothing else moves. */
+.field-error {
+  color: var(--text-error);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+/* The field that failed. The border is what carries it — the message under the
+   control says what is wrong, and a red ring on top of a red line is one signal
+   drawn twice. */
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"] {
+  border-color: var(--text-error);
+}
+
+/* What the `*` means. One line at the head of the form, because a marker with
+   no key is a glyph the reader has to guess at. */
+.contact-form__legend {
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  line-height: var(--leading-body-tight);
+}
+
+/* JS off. The `mailto:` submit below is best-effort — a mail client honours
+   `subject` and `body` in a `mailto:` query and ignores everything else, so the
+   composed message can arrive empty — and a visitor who gets nothing back from
+   a button has no way of knowing that. So the address is on the page, as text,
+   whenever the component has not upgraded. */
+.contact-form__fallback {
+  margin-top: var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-meta);
+  line-height: var(--leading-body-tight);
+}
+
+.contact-form__fallback a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .contact-form input,
@@ -1456,7 +1518,7 @@ a.article-row:hover .article-row__image {
 }
 
 .form-status[data-state="error"] {
-  color: oklch(0.52 0.16 25);
+  color: var(--text-error);
 }
 
 /* On a tablet the two halves stay side by side, but they stop being halves.
@@ -1764,11 +1826,23 @@ sa-node-field {
   max-width: 17ch;
 }
 
+/* The label over a page's headline — "Inzichten", "Training", "AI staffing en
+   coaching". It used to be cyan, which on this site is the colour of a link and
+   of nothing else: "Ontdek \2192", "Alle artikelen \2192", the phone number, the
+   e-mail address. A cyan line directly above an h1, reading as the name of the
+   section the page belongs to, is the shape of a breadcrumb, and this one is a
+   `<p>` with `cursor: auto` — it looks like the way back and is not.
+
+   So it reads as a label instead: muted, a step smaller than the body, and left
+   in sentence case, because the design system rules out all-caps everywhere
+   (design README, "Type", sentence case) and caps is the other way a label
+   usually says it is not a link. */
 .page-eyebrow {
   margin-bottom: var(--space-6);
-  color: var(--text-accent);
-  font-size: var(--text-meta);
+  color: var(--text-muted);
+  font-size: var(--text-meta-sm);
   font-weight: var(--weight-medium-plus);
+  letter-spacing: var(--track-ui);
 }
 
 /* Below the point where the hero stops splitting, the copy is the whole width:
@@ -1872,11 +1946,38 @@ sa-node-field {
 
 /* The platforms the course is taught on. No rule of its own: the list above
    already closes on one. */
-.offer-course__tools {
-  margin-top: var(--space-6);
-  color: var(--text-faint);
-  font-size: var(--text-micro);
+/* The facts strip: five rows of label and value under every course.
+   A `<dl>`, because that is what it is, laid out as a two-column grid so the
+   labels line up down the left and the values wrap in a column of their own.
+   Hairlines between rows, like every other list on the site; nothing boxed. */
+.offer-course__facts {
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.offer-course__fact {
+  display: grid;
+  grid-template-columns: minmax(0, 8em) minmax(0, 1fr);
+  gap: var(--space-6);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: var(--text-meta);
   line-height: var(--leading-body-tight);
+}
+
+.offer-course__fact dt {
+  color: var(--text-faint);
+}
+
+.offer-course__fact dd {
+  color: var(--text-body);
+}
+
+@media (max-width: 620px) {
+  .offer-course__fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
 }
 
 .offer-course__fiche {
@@ -1889,6 +1990,15 @@ sa-node-field {
 
 .offer-course__fiche:hover {
   transform: translateX(3px);
+}
+
+/* The format and the weight, beside the label rather than in it: a 400 KB
+   download on a phone connection is worth knowing about before the tap, and
+   the number is read off the file at build time (training.mjs). Muted, so the
+   link still reads as one word. */
+.offer-course__fiche-size {
+  color: var(--text-faint);
+  font-weight: var(--weight-book);
 }
 
 @media (max-width: 940px) {
@@ -2462,6 +2572,34 @@ sa-node-field {
   line-height: var(--leading-body);
 }
 
+.track__body + .track__body {
+  margin-top: var(--space-6);
+}
+
+/* "Past wanneer": the one line that lets a reader rule a track out. It is the
+   last thing in an open row and it is set apart from the two paragraphs above
+   it, because it answers a different question than they do. */
+.track__fit {
+  display: grid;
+  gap: 2px;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+  max-width: 56ch;
+}
+
+.track__fit-label {
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+.track__fit-body {
+  color: var(--text-body);
+  font-size: var(--text-meta);
+  line-height: var(--leading-body-tight);
+}
+
 /* The row's own height is animated by `<sa-accordion>`, not from here: Gecko
    supports `::details-content` but not `interpolate-size`, so a `block-size: 0`
    -> `auto` transition on the pseudo travels in Blink and snaps in Firefox. The
@@ -2470,6 +2608,19 @@ sa-node-field {
   .track__chevron {
     transition: none;
   }
+}
+
+/* Prose in a section: the team page's own story, and the one block on the site
+   that is neither a row list nor an article. It runs at 62ch rather than the
+   44ch `--measure` a lede takes, because a lede is one sentence held short on
+   purpose and this is three paragraphs to be read. */
+.story {
+  display: grid;
+  gap: var(--space-8);
+  max-width: 62ch;
+  color: var(--text-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
 }
 
 /* ------------------------------------------------------------------ *

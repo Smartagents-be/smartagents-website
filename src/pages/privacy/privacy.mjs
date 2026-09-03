@@ -16,6 +16,7 @@
 // `.article--single` collapses the two-column grid to one — see main.css.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html } from '../../../build/lib/html.mjs';
+import { breadcrumbNode, homeStep } from '../../layouts/schema.mjs';
 import { prose } from '../prose.mjs';
 import { body } from './body.mjs';
 
@@ -37,6 +38,14 @@ export const page = {
     title: t('privacy.title'),
     description: t('privacy.description')
   }),
+
+  /* A breadcrumb and nothing else. There is no schema.org type for "the legal
+     notice about this site" that says more than the page's own title does, and
+     a `WebPage` node restating the `<title>` and the description already in the
+     head is noise in the graph rather than a statement in it. */
+  schema: ({ t, lang, url }) => [
+    breadcrumbNode([homeStep(t, lang), { name: t('privacy.heading'), url }])
+  ],
 
   render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 

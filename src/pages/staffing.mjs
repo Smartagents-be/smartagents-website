@@ -7,6 +7,7 @@
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
+import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /**
@@ -28,6 +29,15 @@ export const page = {
     title: t('staffing.title'),
     description: t('staffing.description')
   }),
+
+  /* What this page is, for a machine: one `Service` provided by the company
+     node every page carries, and the trail back to the language root. Both are
+     read off the same keys the page prints, so the graph cannot describe an
+     offer the page no longer makes. */
+  schema: ({ t, lang, url }) => [
+    serviceNode({ t, lang, url, key: 'staffing' }),
+    breadcrumbNode([homeStep(t, lang), { name: t('service.staffing.title'), url }])
+  ],
 
   render: ({ t, lang }) => {
     return html`<main id="main" tabindex="-1">
@@ -76,6 +86,7 @@ ${orbitRings('staffing-hero')}
     <div id="staffing-hero-text" class="hero__text">
       <p id="staffing-hero-eyebrow" class="page-eyebrow">${t('staffing.hero.eyebrow')}</p>
       <h1 id="staffing-hero-title">${t('staffing.hero.title')}</h1>
+      <p id="staffing-hero-lede" class="hero__lede">${t('staffing.hero.lede')}</p>
       <div id="staffing-hero-actions" class="hero__actions">
         <a id="staffing-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="staffing-hero-cta-tracks" class="btn btn--ghost" href="#tracks">${t('staffing.cta.tracks')} <span id="staffing-hero-cta-tracks-arrow" aria-hidden="true">&rarr;</span></a>
@@ -112,6 +123,11 @@ ${orbitRings('staffing-hero')}
 /**
  * One track: a summary that is a name and three words, and a body it opens on.
  *
+ * The name is an `<h3>`, not a `<span>`. `<summary>` takes phrasing content
+ * "optionally intermixed with heading content", so a heading is allowed there,
+ * and without one the three offers this page exists to sell were the only named
+ * blocks on the site missing from the heading outline.
+ *
  * @param {object} options
  * @param {Function} options.t
  * @param {string} options.key    track key, also the id suffix
@@ -126,17 +142,22 @@ function track({ t, key, open }) {
 
   return html`      <details id="${id}" class="track" name="staffing-track"${open ? ' open' : ''}>
         <summary id="${id}-summary" class="track__summary">
-          <span id="${id}-head" class="track__head">
-            <span id="${id}-title" class="track__title">${t(`staffing.track.${key}.title`)}</span>
+          <div id="${id}-head" class="track__head">
+            <h3 id="${id}-title" class="track__title">${t(`staffing.track.${key}.title`)}</h3>
             <ul id="${id}-tags" class="track__tags">
 ${join(tags)}
             </ul>
-          </span>
+          </div>
           <span id="${id}-chevron" class="track__chevron" aria-hidden="true"></span>
         </summary>
         <div id="${id}-panel" class="track__panel">
           <div id="${id}-panel-inner" class="track__inner">
             <p id="${id}-body" class="track__body">${t(`staffing.track.${key}.body`)}</p>
+            <p id="${id}-how" class="track__body">${t(`staffing.track.${key}.how`)}</p>
+            <div id="${id}-fit" class="track__fit">
+              <p id="${id}-fit-label" class="track__fit-label">${t('staffing.track.fitLabel')}</p>
+              <p id="${id}-fit-body" class="track__fit-body">${t(`staffing.track.${key}.fit`)}</p>
+            </div>
           </div>
         </div>
       </details>`;
@@ -149,6 +170,12 @@ function tracks(t) {
   <div id="staffing-tracks-head" class="section__head">
     <h2 id="staffing-tracks-title" class="section-heading">${t('staffing.tracks.title')}</h2>
   </div>
+  <!-- Outside the accordion on purpose. Two of the three rows are closed on
+       arrival, so with the whole offer inside the disclosure the page said
+       about forty words above the fold on the site's most commercially loaded
+       service name. This paragraph is what a reader gets before they open
+       anything. -->
+  <p id="staffing-tracks-lede" class="section-lede">${t('staffing.tracks.lede')}</p>
   <div id="staffing-tracks-ground" class="tracks">
     <div id="staffing-tracks-leaf-slot" class="field-slot tracks__leaf" aria-hidden="true">
       <div id="staffing-tracks-leaf" class="field" data-magnet data-magnet-free data-magnet-pin="left" data-magnet-points="260" data-magnet-amp="34" data-clip="tracksLeaf"><sa-node-field id="staffing-tracks-leaf-nodes"></sa-node-field></div>

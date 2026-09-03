@@ -4,8 +4,9 @@
 // see .claude/skills/smartagents-design/README.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
 import { index, logoMark, orbitRings, servicePath } from '../layouts/base.mjs';
+import { absolute } from '../../build/lib/i18n.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
-import { INSIGHTS, insightPath, thumbSrcset } from './insights/insights.mjs';
+import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 
 // The four services, in the order they are offered. Training and AI staffing
 // lead because they are the two a reader arrives already looking for; the two
@@ -21,18 +22,32 @@ const TRANSFORMATION = ['1', '2', '3', '4'];
 const STEPS = ['1', '2', '3', '4', '5'];
 
 /**
- * A thumbnail is 208px in the listing and 156px in the narrow band just under
- * it. On a tablet the article stacks two abreast, so the picture is about half
- * the content width; on a phone it takes the whole column, which is the
- * viewport less the two gutters. The gutter itself is fluid, and `sizes` is
- * resolved before any layout exists, so this names the widest each can be
- * rather than the exact.
+ * The questions we are asked before a first call, in the order they come up.
+ *
+ * They are here rather than in a disclosure on purpose: every answer is on the
+ * page, open, at all times. A reader skims them, and an answer engine quotes
+ * them — which is the point, because this block is also the site's `FAQPage`
+ * (see `page.schema` below) and a question whose answer is behind a click is a
+ * question the page has not answered.
+ *
+ * Nothing here is new: every answer is something the site already says on one
+ * of its pages, collected where the question is actually asked.
  */
-const THUMB_SIZES =
-  '(max-width: 620px) calc(100vw - 40px), (max-width: 1000px) 44vw, (max-width: 1080px) 156px, 208px';
+export const FAQ = ['price', 'speed', 'honest', 'who', 'where', 'data'];
 
-/** Repeat a bare element n times — the isometric planes are pure texture. */
-const cells = (n) => raw('<i></i>'.repeat(n));
+/**
+ * The cells inside one isometric plane. Pure texture and inside an `aria-hidden`
+ * figure, but named all the same: element-ids §1 covers decorative and repeated
+ * `<i>` cells too, and "the third cell of the fourth plane" is a thing a person
+ * looking at the page can want to point at.
+ */
+const cells = (plane, n) =>
+  raw(
+    Array.from(
+      { length: n },
+      (unused, i) => `<i id="home-transformation-plane-${plane}-cell-${String(i + 1).padStart(2, '0')}"></i>`
+    ).join('')
+  );
 
 export const page = {
   id: 'home',
@@ -44,6 +59,23 @@ export const page = {
     description: t('home.description')
   }),
 
+  /* The `FAQPage` is the block further down this file, question for question:
+     the rule is that structured data may not say anything the page does not,
+     and here it says exactly what the page says because both read the same
+     keys. It is the format answer engines quote most, which is why the block
+     exists at all. */
+  schema: ({ t, url }) => [
+    {
+      '@type': 'FAQPage',
+      '@id': `${absolute(url)}#faq`,
+      mainEntity: FAQ.map((key) => ({
+        '@type': 'Question',
+        name: t(`faq.${key}.q`),
+        acceptedAnswer: { '@type': 'Answer', text: t(`faq.${key}.a`) }
+      }))
+    }
+  ],
+
   render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
 ${hero(t)}
@@ -51,6 +83,7 @@ ${services(t, lang)}
 ${dna(t)}
 ${transformation(t)}
 ${approach(t)}
+${faq(t)}
 ${insights(t, lang)}
 ${contact(t, lang)}
 
@@ -79,10 +112,14 @@ ${orbitRings('home-hero')}
   </div>
   <div id="home-hero-inner" class="hero__inner">
     <div id="home-hero-text" class="hero__text">
-      <h1 id="home-hero-title">
-        <span id="home-hero-wordmark" class="hero__wordmark">${logoMark('ink', 'home-hero-logo')}<span id="home-hero-wordmark-text">Smart<span id="home-hero-wordmark-accent" class="brand-accent">Agents</span></span></span>
-        <span id="home-hero-claim" class="hero__claim">${t('hero.claim')}</span>
-      </h1>
+      <!-- The wordmark is the drawn hero lockup and it is beside the heading,
+           not inside it: as part of the h1 it made the page's one heading read
+           "SmartAgents Digitale collega's die nooit slapen", which repeats the
+           wordmark 60px above it in the header and says nothing about what is
+           sold. It is the same lockup on screen; only the outline changed. -->
+      <p id="home-hero-wordmark" class="hero__wordmark">${logoMark('ink', 'home-hero-logo')}<span id="home-hero-wordmark-text">Smart<span id="home-hero-wordmark-accent" class="brand-accent">Agents</span></span></p>
+      <h1 id="home-hero-title" class="hero__claim">${t('hero.claim')}</h1>
+      <p id="home-hero-lede" class="hero__lede">${t('hero.lede')}</p>
       <div id="home-hero-actions" class="hero__actions">
         <a id="home-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="home-hero-cta-work" class="btn btn--ghost" href="#services">${t('cta.seeWork')} <span id="home-hero-cta-work-arrow" aria-hidden="true">&rarr;</span></a>
@@ -138,19 +175,19 @@ ${join(rows)}
 
 function dna(t) {
   const items = DNA.map(
-    (n) => html`<div class="numbered numbered--plain">
-      <div>
-        <div class="numbered__title">${t(`dna.${n}.title`)}</div>
-        <p>${t(`dna.${n}.body`)}</p>
+    (n) => html`<div id="home-dna-item-${n}" class="numbered numbered--plain">
+      <div id="home-dna-item-${n}-inner">
+        <h3 id="home-dna-item-${n}-title" class="numbered__title">${t(`dna.${n}.title`)}</h3>
+        <p id="home-dna-item-${n}-body">${t(`dna.${n}.body`)}</p>
       </div>
     </div>`
   );
 
-  return html`<section class="section" id="dna">
-  <div class="section__head section__head--wide">
-    <h2 class="section-heading">${t('section.dna')}</h2>
+  return html`<section class="section" id="dna" aria-labelledby="home-dna-title">
+  <div id="home-dna-head" class="section__head section__head--wide">
+    <h2 id="home-dna-title" class="section-heading">${t('section.dna')}</h2>
   </div>
-  <div class="dna">
+  <div id="home-dna-inner" class="dna">
     <!-- The disc's outline runs along the top and the right of its own box, and
          a guarded shape is refused a pull from an edge that does — the guard is
          there to stop a hero shape swelling up under the nav bar. This one is a
@@ -158,12 +195,12 @@ function dna(t) {
          out, and states the amplitude a guarded shape would have had by
          default: without that it drops to the free default of 34, which on a
          shape this size is barely a pull at all. -->
-    <div class="dna__figure" aria-hidden="true">
-      <div class="field dna__disc" data-magnet data-magnet-free data-magnet-amp="92" data-clip="dnaField"></div>
-      <div class="dna__helix"><sa-node-field variant="helix"></sa-node-field></div>
-      <div class="field dna__blob" data-magnet data-magnet-free data-clip="dnaBlob"><sa-node-field></sa-node-field></div>
+    <div id="home-dna-figure" class="dna__figure" aria-hidden="true">
+      <div id="home-dna-disc" class="field dna__disc" data-magnet data-magnet-free data-magnet-amp="92" data-clip="dnaField"></div>
+      <div id="home-dna-helix" class="dna__helix"><sa-node-field id="home-dna-helix-nodes" variant="helix"></sa-node-field></div>
+      <div id="home-dna-blob" class="field dna__blob" data-magnet data-magnet-free data-clip="dnaBlob"><sa-node-field id="home-dna-blob-nodes"></sa-node-field></div>
     </div>
-    <div class="dna__list">
+    <div id="home-dna-list" class="dna__list">
 ${join(items)}
     </div>
   </div>
@@ -171,43 +208,52 @@ ${join(items)}
 }
 
 /* ------------------------------------------------------------------ *
- * Digitale transformatie — four layers, drawn as an isometric stack
+ * Digitale transformatie — four capability areas, drawn as an isometric stack
+ *
+ * Not numbered, and that is the point. This block and "Van vraag tot werkende
+ * oplossing" two sections down both used to run 01, 02, 03, 04 — one of four
+ * steps and one of five, describing overlapping things, back to back on the
+ * same page. A reader could not tell which of the two was the engagement. The
+ * steps are the engagement; these are the areas the work touches, and an area
+ * has no number because there is no order to be in.
  * ------------------------------------------------------------------ */
 
 function transformation(t) {
   const items = TRANSFORMATION.map(
-    (n) => html`<div class="numbered">
-      <span class="numbered__index" aria-hidden="true">${index(n)}</span>
-      <div>
-        <div class="numbered__title">${t(`transformation.${n}.title`)}</div>
-        <p>${t(`transformation.${n}.body`)}</p>
+    (n) => html`<div id="home-transformation-item-${n}" class="numbered numbered--plain">
+      <div id="home-transformation-item-${n}-inner">
+        <h3 id="home-transformation-item-${n}-title" class="numbered__title">${t(`transformation.${n}.title`)}</h3>
+        <p id="home-transformation-item-${n}-body">${t(`transformation.${n}.body`)}</p>
       </div>
     </div>`
   );
 
   // The stack repeats the same four layers as the list beside it, so it is
-  // decorative: the accessible copy is the list.
+  // decorative: the accessible copy is the list. That is also why these labels
+  // stay `<div>` where the list beside them took `<h3>` — the whole figure is
+  // `aria-hidden`, so promoting them would add nothing to the outline and would
+  // put four headings in the document that no reader can reach.
   const labels = TRANSFORMATION.map(
-    (n) => html`<div class="stack__label stack__label--${n}${n === '1' ? ' stack__label--active' : ''}">
-        <span><b>${index(n)}</b>${t(`transformation.${n}.label`)}</span>
+    (n) => html`<div id="home-transformation-stack-label-${n}" class="stack__label stack__label--${n}${n === '1' ? ' stack__label--active' : ''}">
+        <span id="home-transformation-stack-label-${n}-text">${t(`transformation.${n}.label`)}</span>
       </div>`
   );
 
-  return html`<section class="section" id="transformation">
-  <div class="section__head section__head--wide">
-    <h2 class="section-heading">${t('section.transformation')}</h2>
+  return html`<section class="section" id="transformation" aria-labelledby="home-transformation-title">
+  <div id="home-transformation-head" class="section__head section__head--wide">
+    <h2 id="home-transformation-title" class="section-heading">${t('section.transformation')}</h2>
   </div>
-  <div class="transformation">
-    <div class="transformation__list">
+  <div id="home-transformation-inner" class="transformation">
+    <div id="home-transformation-list" class="transformation__list">
 ${join(items)}
     </div>
-    <div class="stack" aria-hidden="true">
-      <div class="field stack__field" data-magnet data-clip="stackField"><sa-node-field></sa-node-field></div>
-      <div class="stack__planes">
-        <div class="plane plane--1"><div class="plane__quadrants">${cells(4)}</div></div>
-        <div class="plane plane--2"><div class="plane__rows">${cells(3)}</div></div>
-        <div class="plane plane--3"><div class="plane__grid">${cells(9)}</div></div>
-        <div class="plane plane--4"><div class="plane__cells">${cells(16)}</div></div>
+    <div id="home-transformation-stack" class="stack" aria-hidden="true">
+      <div id="home-transformation-stack-field" class="field stack__field" data-magnet data-clip="stackField"><sa-node-field id="home-transformation-stack-nodes"></sa-node-field></div>
+      <div id="home-transformation-planes" class="stack__planes">
+        <div id="home-transformation-plane-1" class="plane plane--1"><div id="home-transformation-plane-1-cells" class="plane__quadrants">${cells('1', 4)}</div></div>
+        <div id="home-transformation-plane-2" class="plane plane--2"><div id="home-transformation-plane-2-cells" class="plane__rows">${cells('2', 3)}</div></div>
+        <div id="home-transformation-plane-3" class="plane plane--3"><div id="home-transformation-plane-3-cells" class="plane__grid">${cells('3', 9)}</div></div>
+        <div id="home-transformation-plane-4" class="plane plane--4"><div id="home-transformation-plane-4-cells" class="plane__cells">${cells('4', 16)}</div></div>
 ${join(labels)}
       </div>
     </div>
@@ -221,19 +267,42 @@ ${join(labels)}
 
 function approach(t) {
   const steps = STEPS.map(
-    (n) => html`<div class="step${n === '1' ? ' step--first' : ''}">
-      <span class="step__index" aria-hidden="true">${index(n)}</span>
-      <h3>${t(`step.${n}.title`)}</h3>
-      <p>${t(`step.${n}.body`)}</p>
+    (n) => html`<div id="home-approach-step-${n}" class="step${n === '1' ? ' step--first' : ''}">
+      <span id="home-approach-step-${n}-index" class="step__index" aria-hidden="true">${index(n)}</span>
+      <h3 id="home-approach-step-${n}-title">${t(`step.${n}.title`)}</h3>
+      <p id="home-approach-step-${n}-body">${t(`step.${n}.body`)}</p>
     </div>`
   );
 
-  return html`<section class="section" id="approach">
-  <div class="section__head section__head--wide">
-    <h2 class="section-heading">${t('section.approach')}</h2>
+  return html`<section class="section" id="approach" aria-labelledby="home-approach-title">
+  <div id="home-approach-head" class="section__head section__head--wide">
+    <h2 id="home-approach-title" class="section-heading">${t('section.approach')}</h2>
   </div>
-  <div class="steps">
+  <div id="home-approach-steps" class="steps">
 ${join(steps)}
+  </div>
+</section>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Veelgestelde vragen — the same hairline rows every other list uses, with the
+ * question in the title column and the answer in the body one.
+ * ------------------------------------------------------------------ */
+
+function faq(t) {
+  const rows = FAQ.map(
+    (key) => html`    <div id="home-faq-${key}" class="row">
+      <h3 id="home-faq-${key}-question" class="row__title">${t(`faq.${key}.q`)}</h3>
+      <p id="home-faq-${key}-answer" class="row__body">${t(`faq.${key}.a`)}</p>
+    </div>`
+  );
+
+  return html`<section class="section" id="faq" aria-labelledby="home-faq-title">
+  <div id="home-faq-head" class="section__head">
+    <h2 id="home-faq-title" class="section-heading">${t('section.faq')}</h2>
+  </div>
+  <div id="home-faq-rows" class="rows">
+${join(rows)}
   </div>
 </section>`;
 }
@@ -256,48 +325,18 @@ ${join(steps)}
  * ------------------------------------------------------------------ */
 
 function insights(t, lang) {
-  const rows = INSIGHTS.map(({ key, thumb, widths, tags }) => {
-    const href = insightPath(key, lang);
-    const chips = tags.map(
-      (tag) => html`<li id="home-insights-tag-${key}-${tag}" class="badge">${t(`article.tag.${tag}`)}</li>`
-    );
-
-    const content = html`    <figure id="home-insights-figure-${key}" class="article-row__figure">
-      <picture id="home-insights-picture-${key}">
-        <source id="home-insights-source-${key}" type="image/avif" srcset="${thumbSrcset(thumb, widths, 'avif')}" sizes="${THUMB_SIZES}">
-        <img id="home-insights-image-${key}" class="article-row__image" src="/media/insights/${thumb}-480.jpg" srcset="${thumbSrcset(thumb, widths, 'jpg')}" sizes="${THUMB_SIZES}" width="480" height="270" alt="${t(`article.${key}.alt`)}" loading="lazy" decoding="async">
-      </picture>
-    </figure>
-    <div id="home-insights-text-${key}" class="article-row__text">
-      <h3 id="home-insights-title-${key}" class="article-row__title">${t(`article.${key}.title`)}</h3>
-      <p id="home-insights-body-${key}" class="article-row__body">${t(`article.${key}.body`)}</p>${href
-        ? html`
-      <span id="home-insights-cue-${key}" class="article-row__cue">${t('cta.moreInfo')} <span id="home-insights-cue-arrow-${key}" aria-hidden="true">&rarr;</span></span>`
-        : ''}
-    </div>
-    <div id="home-insights-meta-${key}" class="article-row__meta">
-      <span id="home-insights-date-${key}" class="article-row__date">${t(`article.${key}.date`)}</span>
-      <ul id="home-insights-tags-${key}" class="article-row__tags">
-${join(chips)}
-      </ul>
-    </div>`;
-
-    return href
-      ? html`<a id="home-insights-item-${key}" class="article-row" href="${href}">
-${content}
-  </a>`
-      : html`<article id="home-insights-item-${key}" class="article-row">
-${content}
-  </article>`;
-  });
+  const archive = insightsIndexPath(lang);
 
   return html`<section class="section section--orbits" id="insights" aria-labelledby="home-insights-heading">
 ${orbitRings('home-insights', 'orbits--insights', ['01', '02', '03', '04'])}
   <div id="home-insights-head" class="section__head">
-    <h2 id="home-insights-heading" class="section-heading">${t('section.insights')}</h2>
+    <h2 id="home-insights-heading" class="section-heading">${t('section.insights')}</h2>${archive
+      ? html`
+    <a id="home-insights-all" class="section-link" href="${archive}">${t('cta.allArticles')} <span id="home-insights-all-arrow" aria-hidden="true">&rarr;</span></a>`
+      : ''}
   </div>
   <div id="home-insights-list" class="rows rows--cards">
-${join(rows)}
+${join(articleRows({ t, lang, prefix: 'home-insights' }))}
   </div>
 </section>`;
 }

@@ -6,8 +6,11 @@ Cloudflare Pages Function that proxies contact form submissions to n8n.
 
 1. **Origin check** — allows `smartagents.be` and `www.smartagents.be` only → 403
 2. **Turnstile verify** — validates `cf-turnstile-response` via Cloudflare siteverify → 403
-3. **Rate limiting** — KV namespace `CONTACT_RATE`; max 5/hour per IP, 100/hour global → 429
-4. **Payload validation** — required: `name`, `email`, `message`; length limits enforced → 400
+3. **Payload validation** — required: `name`, `email`, `message`; length limits enforced → 400
+4. **Rate limiting** — KV namespace `CONTACT_RATE`; max 5/hour per IP, 100/hour global → 429.
+   After validation, not before: a submission that 400s must not burn one of the caller's five
+   attempts an hour, or a visitor who mistypes an e-mail address five times is locked out of the
+   site's only conversion path for the rest of the hour.
 5. **Forward to n8n** — clean payload with `X-SmartAgents-Secret` header, awaited → 502 on failure
 
 ## Expected request body (JSON)

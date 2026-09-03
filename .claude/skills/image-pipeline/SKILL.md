@@ -50,5 +50,12 @@ are now 760×428, re-encoded from their own JPEG so the crop could not shift
 (`sips -z 428 760 <stem>-760.jpg`, then `sips -s format avif -s formatOptions
 60`, which lands within a kilobyte of the originals). To check a file:
 `xxd` it and look for `clap`, or scan the tree the way that hunt ended up
-doing. A 1px height difference from the JPEG is invisible because the figure
-crops to 16:9 with `object-fit: cover` anyway.
+doing.
+
+The JPEGs beside them are 760x428 too. They were 427 — the true 16:9 height for
+760 is 427.5 and the AVIF had to round up to stay even — and a 1px difference is
+invisible on screen, because the figure crops to 16:9 with `object-fit: cover`
+anyway. It is not invisible in the markup: the `<img>` declares one aspect ratio
+and the two sources disagree with each other about it, which means AVIF and JPEG
+were not the same crop. `sips -z 428 760 <stem>-760.jpg` over the file itself
+settles it; the AVIF was made from that same JPEG, so the crop cannot shift.

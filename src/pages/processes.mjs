@@ -14,6 +14,7 @@
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
 import { index, orbitRings } from '../layouts/base.mjs';
+import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /**
@@ -40,6 +41,15 @@ export const page = {
     title: t('processes.title'),
     description: t('processes.description')
   }),
+
+  /* What this page is, for a machine: one `Service` provided by the company
+     node every page carries, and the trail back to the language root. Both are
+     read off the same keys the page prints, so the graph cannot describe an
+     offer the page no longer makes. */
+  schema: ({ t, lang, url }) => [
+    serviceNode({ t, lang, url, key: 'processes' }),
+    breadcrumbNode([homeStep(t, lang), { name: t('service.processes.title'), url }])
+  ],
 
   render: ({ t, lang }) => {
     return html`<main id="main" tabindex="-1">
@@ -90,6 +100,7 @@ ${orbitRings('processes-hero')}
     <div id="processes-hero-text" class="hero__text">
       <p id="processes-hero-eyebrow" class="page-eyebrow">${t('processes.hero.eyebrow')}</p>
       <h1 id="processes-hero-title">${t('processes.hero.title')}</h1>
+      <p id="processes-hero-lede" class="hero__lede">${t('processes.hero.lede')}</p>
       <div id="processes-hero-actions" class="hero__actions">
         <a id="processes-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="processes-hero-cta-phases" class="btn btn--ghost" href="#phases">${t('processes.cta.phases')} <span id="processes-hero-cta-phases-arrow" aria-hidden="true">&rarr;</span></a>

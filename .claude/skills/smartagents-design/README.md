@@ -141,7 +141,7 @@ The production implementation of all of this lives in `src/`; see `SKILL.md` for
 
 ## Deviations from the design doc
 
-The doc is a fixed 1180px canvas rendered in a preview host. Seven things had to be decided
+The doc is a fixed 1180px canvas rendered in a preview host. Ten things had to be decided
 outside it, and are decided the same way everywhere in `src/`:
 
 1. **Responsive behaviour.** The three page measures (`--gutter-page`, `--gap-column`,
@@ -334,3 +334,46 @@ outside it, and are decided the same way everywhere in `src/`:
    links are the one underlined thing on the site: cyan is the accent colour of every link here, and
    inside a paragraph colour alone is not a reliable cue. Nothing else — no drop cap, no aside, no
    figure inside the body.
+
+8. **Every hero carries a lede, and the homepage's wordmark is not its heading.** The doc draws a
+   hero as an eyebrow, a headline and two buttons, and on a desk that leaves about 550px of bare
+   paper under the buttons: a first-time visitor scrolls a full screen before learning what is
+   sold. One or two sentences go between the headline and the actions, at the reading measure, in
+   `--text-lead` on `--text-body` — `.hero__lede`, and `<page>.hero.lede` in `src/i18n`. The
+   headline is the claim; the lede is the offer, and it is where the service words live.
+
+   On the homepage the wordmark lockup stays exactly as drawn but is a `<p>` beside the heading
+   rather than the first line inside it. As part of the `h1` the page's one heading read
+   "SmartAgents Digitale collega's die nooit slapen", which repeats the wordmark 60px above it in
+   the header and names no service. Nothing moved on screen; `.hero h1, .hero__wordmark` carry the
+   display size between them, and every `.hero__claim` rule has to name the element as well or
+   `.hero h1` outranks it.
+
+9. **`.page-eyebrow` is a label, not a link.** It is the section a detail page belongs to, printed
+   over the headline. Drawn in the accent it was the shape of a breadcrumb in the colour of every
+   real link on the site — "Ontdek →", "Alle artikelen →", the phone number, the e-mail address —
+   on a `<p>` with `cursor: auto`. It is `--text-muted` at `--text-meta-sm` now. It stays in
+   sentence case: caps is the other way a label says it is not a link, and this system has no
+   all-caps anywhere.
+
+10. **Three blocks the doc never drew, all in idioms it did.** Each is the hairline row list or the
+    `<dl>` the rest of the site already uses; none of them is a new component.
+
+    **The FAQ** (`#faq`, homepage, between the approach and the insights) is six questions in the
+    plain `.rows` list, question in the title column and answer in the body one. Every answer is
+    open, always: this block is also the site's `FAQPage` structured data, and an answer engine
+    cannot quote what is behind a click. Nothing in it is new copy in the sense of a new claim —
+    every answer is something one of the pages already says, collected where the question is asked.
+
+    **The course facts strip** (`.offer-course__facts`) is a `<dl>` under each course on the
+    training page: who it is for, the format, the group size, what to bring, the price. Two-column
+    grid, hairline between rows, labels in `--text-faint`. Neither course stated any of it, so the
+    only next step from that page was the form and every enquiry started from zero. Duration and
+    open dates are the two facts nothing on the site knows and they are deliberately absent rather
+    than guessed at.
+
+    **The insights index** (`/nl/inzichten/`, `/en/insights/`, `/fr/analyses/`) is the archive the
+    article rail's "Alle artikelen →" always claimed to point at, and it prints the homepage's own
+    article rows from the same function (`articleRows()` in `src/pages/insights/insights.mjs`), so
+    the two lists cannot drift. It opens the way an article does: no hero, no dark shape, the
+    orbit rings the homepage section carries and nothing else.

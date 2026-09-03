@@ -6,8 +6,11 @@
   "a11y.mainNav": "Main navigation",
   "a11y.footerNav": "Footer navigation",
   "a11y.language": "Language",
+  "a11y.menuNav": "Menu navigation",
+  "a11y.languageMenu": "Language, in the menu",
 
   "nav.menu": "Menu",
+  "nav.home": "Home",
   "nav.insights": "Insights",
 
   "cta.talk": "Book a call",
@@ -17,12 +20,14 @@
   "cta.moreInfo": "Discover",
   "cta.send": "Send",
 
+  "hero.lede": "We train your teams in AI, put AI-native engineers into your projects and build the workflows and agents that take the work over. For Belgian organisations that want to know what AI actually returns today, and where it adds nothing.",
   "hero.claim": "Digital colleagues that never sleep",
 
   "section.services": "What we do",
   "section.dna": "Our DNA",
   "section.transformation": "Digital transformation",
   "section.approach": "From question to working solution",
+  "section.faq": "Frequently asked questions",
   "section.insights": "Insights",
 
   "service.training.title": "Training",
@@ -67,6 +72,18 @@
   "step.5.title": "Optimisation",
   "step.5.body": "We keep measuring and adjusting. Whatever goes unused, we take back out.",
 
+  "faq.price.q": "What does an engagement cost?",
+  "faq.price.a": "It depends on what is needed, and we only know that after the SmartScan. In it we map your processes and bottlenecks and propose a programme built for them. You get a price for the work that is actually in it, not for a package. A training course is quoted the same way, after a short intake.",
+  "faq.speed.q": "How long before we see something working?",
+  "faq.speed.a": "We build in short rounds and you test along on real files while it takes shape. The first working workflow therefore comes out of the engagement itself, not out of a final delivery. With a training course it is the next day: the exercises are about the work your people have on the table that week.",
+  "faq.honest.q": "And if AI returns nothing for us?",
+  "faq.honest.a": "Then we say so. In the SmartScan we say honestly where AI adds nothing, and that is almost always part of the answer. What we build and nobody uses, we take back out. A workflow nobody runs only costs you maintenance.",
+  "faq.who.q": "Who are your training courses for?",
+  "faq.who.a": "Two groups. AI for business teams is for people who work with AI and need no prior knowledge. Agentic engineering is for developers who build with it every day. Both run in groups of 5 to 20, in-house or remote.",
+  "faq.where.q": "Do you work at our office or remotely?",
+  "faq.where.a": "Both, and you choose. We are based in Beringen and work for Belgian organisations, from SME to enterprise. Training, coaching and staffing all run in Dutch, English and French.",
+  "faq.data.q": "What happens to our data?",
+  "faq.data.a": "This site sets no cookies, runs no analytics and does no tracking; not a single third-party request leaves the page until you use the contact form. What happens to your message then, who sees it and how long we keep it is in our privacy notice. Inside a project we work in your own environment and on your own systems.",
   "article.tag.news": "News",
   "article.tag.ai": "AI",
   "article.tag.tips": "Tips",
@@ -90,6 +107,9 @@
 
 
   "insight.more": "More insights",
+  "insights.index.title": "Insights · SmartAgents",
+  "insights.index.description": "What we see working for Belgian teams putting AI to work, and what does not. Field notes, analysis and news from SmartAgents.",
+  "insights.index.lede": "What we see working for teams putting AI to work, and what does not. No predictions, just what we ran into ourselves this month.",
   "contact.title": "Shall we talk",
   "contact.lede": "Tell us briefly what could run better. We answer ourselves, usually within a working day, and we also say when you do not need us.",
   "contact.callLabel": "Rather call?",
@@ -100,6 +120,11 @@
   "form.company": "Company",
   "form.email": "Email",
   "form.message": "What is difficult today?",
+  "form.required": "required",
+  "form.requiredLegend": "Fields marked with * are required.",
+  "form.error.required": "Please fill in this field.",
+  "form.error.email": "Please enter a valid email address.",
+  "form.noScript": "Form not working? Mail us directly at",
   "form.subject": "New message via smartagents.be",
   "form.privacyNote": "By sending this you agree to our [privacy notice].",
   "form.sending": "Sending…",
@@ -112,6 +137,7 @@
   "training.hero.eyebrow": "Training",
   "training.hero.title": "Learn to use AI like a professional",
 
+  "training.hero.lede": "Two courses: AI for business teams, and agentic engineering for developers. At your office or remote, in groups of 5 to 20, with exercises on the work your people have on the table this week.",
   "training.cta.offer": "See our courses",
 
   "training.why.title": "Why invest in AI training?",
@@ -119,9 +145,18 @@
   "training.offer.title": "Our courses",
   "training.offer.learn": "What you learn",
 
-  "training.download": "Download the one-pager (PDF)",
+  "training.download": "Download the one-pager",
 
+  "training.facts.format.label": "Format",
+  "training.facts.format.value": "In-house or remote",
+  "training.facts.group.label": "Group",
+  "training.facts.group.value": "5 to 20 participants",
+  "training.facts.audience.label": "Who for",
+  "training.facts.tools.label": "Bring",
+  "training.facts.price.label": "Price",
+  "training.facts.price.value": "Quoted after a short intake",
   "training.course.business.title": "AI for business teams",
+  "training.course.business.audience": "Teams working with AI, no prior knowledge needed",
   "training.course.business.tools": "An AI subscription, your own laptop",
   "training.course.business.body": "You learn to put AI on the work that comes back every week: not one clever prompt, but a way of working you repeat and hand on.",
   "training.course.business.learn.1": "Asking questions that return the same result every time",
@@ -129,6 +164,7 @@
   "training.course.business.learn.3": "Building simple assistants, without a line of code",
   "training.course.business.learn.4": "Handling company data and sensitive work safely",
   "training.course.agentic.title": "Agentic engineering",
+  "training.course.agentic.audience": "Developers building with AI",
   "training.course.agentic.tools": "An AI subscription, an IDE, your own laptop",
   "training.course.agentic.body": "Teach AI engineers to use AI cost-consciously and efficiently, to generate code and optimise processes.",
   "training.course.agentic.learn.1": "Putting agents on a ticket, a bug, a refactor",
@@ -170,28 +206,37 @@
   "staffing.hero.eyebrow": "AI staffing and coaching",
   "staffing.hero.title": "An AI-native engineer in your team",
 
+  "staffing.hero.lede": "An engineer who uses AI every day, working in your sprints, your repository and your review. Or coaching for your own developers and business teams, on the work that is in front of them today.",
   "staffing.cta.tracks": "See what we do",
 
   "staffing.tracks.title": "What we do",
 
+  "staffing.tracks.lede": "Three tracks, and which one it is depends on what is stuck today. Stuck on capacity, and we put an engineer in. Stuck on capability, and we coach your own people. Most engagements start with the first and end with the second: we work alongside your team until it runs without us.",
+  "staffing.track.fitLabel": "Right when",
   "staffing.track.engineer.title": "AI engineer staffing",
   "staffing.track.engineer.tag.1": "Immediate impact on your project",
   "staffing.track.engineer.tag.2": "Agents on your codebase",
   "staffing.track.engineer.tag.3": "Expert AI use",
   "staffing.track.engineer.body": "We put an AI-native engineer in your project. They work inside your sprints, your repository and your review, and build up the automation around the code with you, handing over to your own engineers from day one.",
 
+  "staffing.track.engineer.how": "In practice: in the daily stand-up, tickets from the same backlog, pull requests your own reviewers approve. We set the agents up on your codebase, write the conventions into the repository and build the gates into your CI/CD, so that what we leave behind keeps working without us. You decide on every commit; we are not a black box throwing code over the wall.",
+  "staffing.track.engineer.fit": "Your project is running, there is work enough, and nobody on the team gets AI further than the search bar.",
   "staffing.track.developers.title": "Coaching for developers",
   "staffing.track.developers.tag.1": "One-to-one coaching",
   "staffing.track.developers.tag.2": "Pair programming",
   "staffing.track.developers.tag.3": "Setting up async workflows",
   "staffing.track.developers.body": "We bring AI-native patterns to your own engineers: explaining, demonstrating and working at the same screen on the work that is on the table today, until it sticks.",
 
+  "staffing.track.developers.how": "In practice: half a day a week beside your developers, on their own tickets. We work at the same screen, show what an agent can and cannot carry, and set up together the async workflows that keep work moving outside office hours. What we set up is yours and lives in your repository, not in our notes.",
+  "staffing.track.developers.fit": "Your developers have access to AI, use it as a smarter autocomplete, and you still see no difference in lead time.",
   "staffing.track.business.title": "Coaching for business teams",
   "staffing.track.business.tag.1": "AI techniques",
   "staffing.track.business.tag.2": "Mapping workflows",
   "staffing.track.business.tag.3": "Repeatable patterns",
   "staffing.track.business.body": "We train your employees ourselves: what AI can and cannot do, and how to put it on their own case files. Coaching alongside the work already on their desk, with repeatable patterns instead of one-off prompts.",
 
+  "staffing.track.business.how": "In practice: sessions with the people who do the work, on their own files. We map out together which step AI takes over and which it does not, write that down as a workflow your team runs again, and stay until it runs without us. Not a prompt library, a way of working.",
+  "staffing.track.business.fit": "Your teams already use AI, each on their own, and nobody can say what is actually being gained.",
   "staffing.cta.title": "Looking for someone who already does this?",
   "staffing.cta.body": "Tell us briefly where your team is stuck and what the project looks like today. We propose the track that fits, and we also say when you do not need us.",
 
@@ -201,6 +246,7 @@
   "processes.hero.eyebrow": "AI-native business processes",
   "processes.hero.title": "From your tasks to reusable workflows",
 
+  "processes.hero.lede": "We take one process that comes back every week from end to end, and leave behind workflows, skills and agents your own team runs. We also say where AI adds nothing.",
   "processes.cta.phases": "See the approach",
 
   "processes.phases.title": "How an engagement runs",
@@ -234,6 +280,7 @@
   "sdlc.hero.eyebrow": "AI-native SDLC",
   "sdlc.hero.title": "From traditional SDLC to AI-native",
 
+  "sdlc.hero.lede": "We take software teams from traditional to agentic to AI-native: the processes, the gates in your CI/CD, and above all the people who work inside them every day.",
   "sdlc.cta.journey": "See the way there",
 
   "sdlc.issues.title": "What we see today",
@@ -307,6 +354,10 @@
   "team.person.tom.tags": "Agentic AI · Enterprise architecture · Automation · Technical design",
   "team.person.tom.portrait": "Tom Haeldermans, founder of SmartAgents",
 
+  "team.story.title": "Why we started",
+  "team.story.1": "Most of the companies we spoke to had the same problem, and it was not that they had heard too little about AI. It was that nobody could say where to begin. There had been a pilot, or a tool somebody switched on, and then it stopped. We started SmartAgents to fill that gap: not with a presentation about what is possible, but with work that is running the week after.",
+  "team.story.2": "We use the tooling we recommend every day, on our own projects. That is not a slogan, it is the reason we dare say when something does not work. What we recommend to you runs at our place first. And what goes unused we take back out, even when we built it ourselves.",
+  "team.story.3": "We are based in Beringen and work for Belgian organisations, from SME to enterprise, in Dutch, English and French. You will usually meet one of the two of us at the table, and the same person works on the project.",
   "team.cta.title": "Shall we get to know each other?",
   "team.cta.body": "Tell us briefly what could run better. You get one of the two of us at the table, and we will also say when you do not need us.",
 

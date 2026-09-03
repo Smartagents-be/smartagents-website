@@ -84,11 +84,7 @@ if (navToggle) {
  * Page motion — spotlight, magnets. Decorative, so it waits.
  * ------------------------------------------------------------------ */
 
-if (document.querySelector('[data-magnet], [data-spotlight]')) {
-  import('./motion.js').catch(() => {
-    /* Motion is decoration: a failed load must leave the page fully readable. */
-  });
-}
+import './motion.js';
 
 /* ------------------------------------------------------------------ *
  * Hover prefetch — fallback for browsers without Speculation Rules

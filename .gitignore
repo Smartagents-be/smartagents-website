@@ -12,5 +12,13 @@ n8n/
 .playwright-mcp/
 shots/
 
+# Screenshots. Playwright MCP and every ad-hoc capture write to the working
+# directory by default, and twenty of them were committed to the repo root
+# before this line existed. Only the root is ignored: a picture that belongs to
+# a deck or to /media/ lives in its own folder and is still tracked there.
+/*.png
+/*.jpg
+/*.jpeg
+
 # design-sync output (rebuilt by the sync; never hand-edited)
 ds-bundle/

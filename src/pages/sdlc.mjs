@@ -11,6 +11,7 @@
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
 import { index, orbitRings } from '../layouts/base.mjs';
+import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /** What we find when we walk in, in the order it is met. */
@@ -78,6 +79,15 @@ export const page = {
     description: t('sdlc.description')
   }),
 
+  /* What this page is, for a machine: one `Service` provided by the company
+     node every page carries, and the trail back to the language root. Both are
+     read off the same keys the page prints, so the graph cannot describe an
+     offer the page no longer makes. */
+  schema: ({ t, lang, url }) => [
+    serviceNode({ t, lang, url, key: 'sdlc' }),
+    breadcrumbNode([homeStep(t, lang), { name: t('service.sdlc.title'), url }])
+  ],
+
   render: ({ t, lang }) => {
     return html`<main id="main" tabindex="-1">
 
@@ -122,6 +132,7 @@ ${orbitRings('sdlc-hero')}
     <div id="sdlc-hero-text" class="hero__text">
       <p id="sdlc-hero-eyebrow" class="page-eyebrow">${t('sdlc.hero.eyebrow')}</p>
       <h1 id="sdlc-hero-title">${t('sdlc.hero.title')}</h1>
+      <p id="sdlc-hero-lede" class="hero__lede">${t('sdlc.hero.lede')}</p>
       <div id="sdlc-hero-actions" class="hero__actions">
         <a id="sdlc-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="sdlc-hero-cta-journey" class="btn btn--ghost" href="#journey">${t('sdlc.cta.journey')} <span id="sdlc-hero-cta-journey-arrow" aria-hidden="true">&rarr;</span></a>

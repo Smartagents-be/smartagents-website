@@ -15,7 +15,16 @@
 //
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../../build/lib/html.mjs';
-import { pagePath } from '../../../build/lib/i18n.mjs';
+import { absolute, pagePath } from '../../../build/lib/i18n.mjs';
+import { orbitRings } from '../../layouts/base.mjs';
+import {
+  ORGANISATION_ID,
+  WEBSITE_ID,
+  articleNode,
+  breadcrumbNode,
+  homeStep,
+  imageNode
+} from '../../layouts/schema.mjs';
 import { contactSection } from '../../components/contact-form/contact-form.mjs';
 import { prose } from '../prose.mjs';
 import { body as aviso } from './aviso.mjs';
@@ -105,6 +114,139 @@ export function insightPath(key, lang) {
 export const thumbSrcset = (stem, widths, extension) =>
   widths.map((width) => `/media/insights/${stem}-${width}.${extension} ${width}w`).join(', ');
 
+
+/* ------------------------------------------------------------------ *
+ * The listing — one row per article, and the only markup on the site that two
+ * pages render from the same function.
+ *
+ * The homepage's "Inzichten" section and the index page under /inzichten/ print
+ * exactly this list. It used to live in home.mjs and the index did not exist,
+ * which is what made "Alle artikelen →" in an article's rail point back at a
+ * homepage anchor listing the same four items: the label promised an archive
+ * and there was nowhere for it to go. There is now, and both surfaces build
+ * from the one function, so they cannot drift.
+ *
+ * `prefix` is the calling page's id stem, so the two copies keep their ids
+ * apart (element-ids §4).
+ * ------------------------------------------------------------------ */
+
+/**
+ * A thumbnail is 208px in the listing and 156px in the narrow band just under
+ * it. On a tablet the article stacks two abreast, so the picture is about half
+ * the content width; on a phone it takes the whole column, which is the
+ * viewport less the two gutters. The gutter itself is fluid, and `sizes` is
+ * resolved before any layout exists, so this names the widest each can be
+ * rather than the exact.
+ */
+const THUMB_SIZES =
+  '(max-width: 620px) calc(100vw - 40px), (max-width: 1000px) 44vw, (max-width: 1080px) 156px, 208px';
+
+export function articleRows({ t, lang, prefix }) {
+  return INSIGHTS.map(({ key, thumb, widths, tags }) => {
+    const href = insightPath(key, lang);
+    const id = `${prefix}-${key}`;
+    const chips = tags.map(
+      (tag) => html`<li id="${id}-tag-${tag}" class="badge">${t(`article.tag.${tag}`)}</li>`
+    );
+
+    const content = html`    <figure id="${id}-figure" class="article-row__figure">
+      <picture id="${id}-picture">
+        <source id="${id}-source" type="image/avif" srcset="${thumbSrcset(thumb, widths, 'avif')}" sizes="${THUMB_SIZES}">
+        <img id="${id}-image" class="article-row__image" src="/media/insights/${thumb}-480.jpg" srcset="${thumbSrcset(thumb, widths, 'jpg')}" sizes="${THUMB_SIZES}" width="480" height="270" alt="${t(`article.${key}.alt`)}" loading="lazy" decoding="async">
+      </picture>
+    </figure>
+    <div id="${id}-text" class="article-row__text">
+      <h3 id="${id}-title" class="article-row__title">${t(`article.${key}.title`)}</h3>
+      <p id="${id}-body" class="article-row__body">${t(`article.${key}.body`)}</p>${href
+        ? html`
+      <span id="${id}-cue" class="article-row__cue">${t('cta.moreInfo')} <span id="${id}-cue-arrow" aria-hidden="true">&rarr;</span></span>`
+        : ''}
+    </div>
+    <div id="${id}-meta" class="article-row__meta">
+      <time id="${id}-date" class="article-row__date" datetime="${byKey.get(key).published}">${t(`article.${key}.date`)}</time>
+      <ul id="${id}-tags" class="article-row__tags">
+${join(chips)}
+      </ul>
+    </div>`;
+
+    // The link wraps the whole row, so without a name of its own its accessible
+    // name is everything inside it — title, excerpt, cue, date and both badges,
+    // 160 to 200 characters. `aria-labelledby` points it at the title alone, so
+    // a list of links reads as a list of articles.
+    return href
+      ? html`<a id="${id}-item" class="article-row" href="${href}" aria-labelledby="${id}-title">
+${content}
+  </a>`
+      : html`<article id="${id}-item" class="article-row">
+${content}
+  </article>`;
+  });
+}
+
+/* ------------------------------------------------------------------ *
+ * The index: /nl/inzichten/, /en/insights/, /fr/analyses/
+ *
+ * The archive the rail's "Alle artikelen →" always claimed to point at. It is
+ * the parent directory of every article slug, so the URL a reader guesses from
+ * an article's own address is the one that answers, and it is a real page for a
+ * crawler to enumerate rather than a fragment of the homepage.
+ *
+ * It opens the way an article does — no hero, no dark shape — because it is the
+ * front of the same family. The orbit rings behind it are the homepage
+ * section's own, which is what says this is that list on a page of its own.
+ * ------------------------------------------------------------------ */
+
+export const indexPage = {
+  id: 'insights',
+  slugs: { nl: 'inzichten', en: 'insights', fr: 'analyses' },
+
+  meta: (t) => ({
+    title: t('insights.index.title'),
+    description: t('insights.index.description')
+  }),
+
+  /* The archive, as a `Blog` whose `blogPost` list is the four articles by
+     `@id`. Each of those ids is declared in full on the article's own page, so
+     this node names them without restating them — which is the whole point of
+     `@id` and the reason the index can stay this short. */
+  schema: ({ t, lang, url }) => [
+    {
+      '@type': 'Blog',
+      '@id': `${absolute(url)}#blog`,
+      name: t('section.insights'),
+      description: t('insights.index.description'),
+      url: absolute(url),
+      inLanguage: lang,
+      publisher: { '@id': ORGANISATION_ID },
+      isPartOf: { '@id': WEBSITE_ID },
+      blogPost: INSIGHTS.map((insight) => ({
+        '@id': `${absolute(insightPath(insight.key, lang))}#article`
+      }))
+    },
+    breadcrumbNode([homeStep(t, lang), { name: t('section.insights'), url }])
+  ],
+
+  render: ({ t, lang }) => html`<main id="main" tabindex="-1">
+
+${indexSection(t, lang)}
+${contactSection({ t, lang, prefix: 'insights', title: t('contact.title'), lede: t('contact.lede') })}
+
+</main>`
+};
+
+function indexSection(t, lang) {
+  return html`<section id="insights-index" class="section section--orbits" aria-labelledby="insights-index-title">
+${orbitRings('insights-index', 'orbits--insights', ['01', '02', '03', '04'])}
+  <div id="insights-index-head" class="section__head">
+    <h1 id="insights-index-title" class="section-heading">${t('section.insights')}</h1>
+  </div>
+  <p id="insights-index-lede" class="section-lede">${t('insights.index.lede')}</p>
+  <div id="insights-index-list" class="rows rows--cards">
+${join(articleRows({ t, lang, prefix: 'insights-index' }))}
+  </div>
+</section>`;
+}
+
 /**
  * The opening figure is the article's own thumbnail. The article column is wider
  * than any derivation on a desk, so it is capped at 760px — the widest there is
@@ -145,8 +287,46 @@ function insightPage(insight) {
       // The list and the page print the same title; the brand is appended the
       // way every other page appends it.
       title: `${t(`article.${key}.title`)} · SmartAgents`,
-      description: t(`article.${key}.body`)
+      description: t(`article.${key}.body`),
+
+      /* The article's own thumbnail is its share card. It is 760×428 rather
+         than the 1200×630 the brand card is, which every platform crops to fit
+         — and it is the picture the reader sees again at the top of the page
+         they land on, which a generic brand card is not. */
+      ogImage: {
+        href: `/media/insights/${thumb}-${widths.at(-1)}.jpg`,
+        width: widths.at(-1),
+        height: Math.round((widths.at(-1) * 9) / 16),
+        alt: t(`article.${key}.alt`)
+      },
+
+      /* What the head says about an article beyond a title: `og:type=article`
+         instead of `website`, and the date, which existed only as a
+         `<time datetime>` in the body and reached nothing a crawler reads. */
+      article: {
+        published,
+        section: t('section.insights'),
+        tags: tags.map((tag) => t(`article.tag.${tag}`))
+      }
     }),
+
+    /* The piece itself as a `BlogPosting`, and the trail through the index that
+       now exists to carry it. */
+    schema: ({ t, lang, url }) => [
+      articleNode({
+        t,
+        lang,
+        url,
+        key,
+        published,
+        image: imageNode(`/media/insights/${thumb}-${widths.at(-1)}.jpg`, widths.at(-1), Math.round((widths.at(-1) * 9) / 16))
+      }),
+      breadcrumbNode([
+        homeStep(t, lang),
+        { name: t('section.insights'), url: insightsIndexPath(lang) || pagePath(lang) },
+        { name: t(`article.${key}.title`), url }
+      ])
+    ],
 
     render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
@@ -219,6 +399,12 @@ ${rail({ t, lang, scope, key, home })}
 </section>`;
 }
 
+/** URL of the insights index in this language, or null where it is not published. */
+export function insightsIndexPath(lang) {
+  const slug = indexPage.slugs[lang];
+  return slug === undefined ? null : pagePath(lang, slug);
+}
+
 /** The other articles, newest first, in the order the homepage lists them. */
 function rail({ t, lang, scope, key, home }) {
   const others = INSIGHTS.filter((insight) => insight.key !== key).map((insight) => {
@@ -238,6 +424,6 @@ function rail({ t, lang, scope, key, home }) {
       <ul id="${scope}-rail-list" class="article__rail-list">
 ${join(others)}
       </ul>
-      <p id="${scope}-rail-foot" class="article__rail-foot"><a id="${scope}-rail-foot-link" class="article__rail-link" href="${home}#insights">${t('cta.allArticles')} <span id="${scope}-rail-foot-arrow" aria-hidden="true">&rarr;</span></a></p>
+      <p id="${scope}-rail-foot" class="article__rail-foot"><a id="${scope}-rail-foot-link" class="article__rail-link" href="${insightsIndexPath(lang) || `${home}#insights`}">${t('cta.allArticles')} <span id="${scope}-rail-foot-arrow" aria-hidden="true">&rarr;</span></a></p>
     </aside>`;
 }

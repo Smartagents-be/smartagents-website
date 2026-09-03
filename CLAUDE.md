@@ -3,9 +3,8 @@
 Pre-rendered static site, no backend, no framework. The public site is the
 redesigned homepage, five detail pages — training, AI staffing and coaching,
 the AI-native SDLC, AI-native businessprocessen, and team — the privacy notice,
-and the four "Inzichten" articles behind the homepage's article rows
-(NL / EN / FR); the password-gated `/secured/` area (internal documents and
-pitch decks) is live.
+the "Inzichten" index and the four articles under it (NL / EN / FR); the
+password-gated `/secured/` area (internal documents and pitch decks) is live.
 
 ## Skills — read these first
 
@@ -115,7 +114,13 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   language's own word for the section (`inzichten/` · `insights/` · `analyses/`)
   — and turns each entry into a page module, so `build/render.mjs` spreads
   `insightPages` into `PAGES` and the homepage builds its rows from the same
-  list. Adding an article means adding an entry there plus a body module beside
+  list. That word for the section is also a page of its own: `indexPage` in the
+  same file is the archive at `/nl/inzichten/`, the parent directory of every
+  article slug, and the homepage section and the index print the same rows from
+  the same `articleRows()` so the two can never disagree. It is what the rail's
+  "Alle artikelen →" points at and what `navHref('insights')` resolves to; both
+  used to point at the homepage's `#insights` anchor because there was nowhere
+  else to go. Adding an article means adding an entry there plus a body module beside
   it; nothing else has to be told. Title, excerpt, date, alt text and tag labels
   come from the shared `article.*` keys the homepage row already prints, so the
   list and the page it opens can never disagree. Only the long-form body lives
@@ -129,6 +134,35 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   pages with no hero and no dark shape: they open on the headline at the reading
   measure, with the other three articles in a rail beside the body. See
   "Deviations from the design doc", item 7, in the `smartagents-design` README.
+- **Every page states itself twice: once for a reader and once for a machine.**
+  `src/layouts/base.mjs` emits one `<script type="application/ld+json">` per
+  page, and `src/layouts/schema.mjs` is where the nodes are built. Two of them
+  are on every page — the `Organization` and the `WebSite`, both with a stable
+  `@id` on the origin so everything else refers to them rather than restating
+  them — and a page module adds its own by exporting `schema({ t, lang, url })`:
+  a `Service` on each of the four service pages, a `BlogPosting` on each
+  article, two `Person` nodes on the team page, a `Blog` on the insights index,
+  an `FAQPage` on the homepage, and a `BreadcrumbList` on everything below the
+  homepage. The one rule is that nothing in the graph may say something the page
+  does not; every node is read off the same `t()` keys the visible page is, so a
+  claim cannot outlive the sentence it was made from. `meta()` carries the other
+  half of the head: `ogImage` overrides the brand share card (an article uses
+  its own thumbnail) and `article` turns `og:type` into `article` and prints the
+  published date the body only had as a `<time datetime>`.
+- **The two raster brand images are generated, not exported.**
+  `public/media/og-default.png` (1200x630, the default share card) and
+  `public/media/smartagents-mark.png` (512x512, what `Organization.logo` points
+  at) are drawn by `node scripts/make-social-images.mjs` from the same tokens
+  and the same logo mark the site uses, in headless Chrome. It is not part of
+  `npm run build`, for the reason `check:slides` is not: it needs a browser and
+  the Pages build image has none. Both files are committed. Run it again when
+  the wordmark, the claim or the dark field change.
+- **`robots.txt` and `llms.txt` are generated too.** `renderSitemap()` writes a
+  robots file that names every major AI crawler explicitly rather than leaving
+  them to the wildcard — the wire result is the same, but for a company selling
+  AI expertise "nobody decided" is not a policy — and `renderLlmsTxt()` writes
+  the site in one page, in the default language, from the same page modules and
+  string files the site is built from.
 - **Decks are data.** Each deck is `deck.json` plus `slides/*.html` fragments.
   The `<!--chrome 05/10-->` marker expands to the slide footer at render time.
   Adding a deck means adding a folder; discovery is automatic. The look lives in
@@ -171,11 +205,19 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   both call `contactSection()`, passing an id prefix and the two lines each page
   phrases for itself; everything else comes from the shared `contact.*` and
   `form.*` keys, so the two forms can never drift apart.
-- **`/media/` is the un-hashed public file namespace**: the training one-pagers
-  live in `public/media/`, the founder portraits in `public/media/team/` and the
-  "Inzichten" thumbnails in `public/media/insights/`, and all three ship as-is.
-  Only the two one-pagers of the courses in "Ons aanbod" are linked; the awareness and management fiches are left over from the
-  learning path that section replaced. A file authored inside a deck and shown
+- **`/media/` is the un-hashed public file namespace**: the two course
+  one-pagers live in `public/media/` beside the two generated brand images, the
+  founder portraits in `public/media/team/` and the "Inzichten" thumbnails in
+  `public/media/insights/`, and all of them ship as-is. A fiche is named after
+  the course it belongs to (`SmartAgents_AI_Business_Teams_Onepager.pdf`,
+  `SmartAgents_Agentic_Engineering_Onepager.pdf`): the browser prints the file
+  name in the download bar, and the two were named after the products the
+  courses were once built around, so a reader clicked one course and was handed
+  something that looked like another. The link prints the format and the size,
+  read off the file at build time in `training.mjs`. The awareness and
+  management fiches that were left over from the learning path "Ons aanbod"
+  replaced are deleted: nothing linked them and Google would have indexed them
+  as orphan PDFs competing with `/training/`. A file authored inside a deck and shown
   on a public page too (today: the kata tour video) is never duplicated: it stays
   in the deck folder and `PROMO_MEDIA` in `build/render.mjs` copies it into the
   same `/media/`. `/secured/` is gated, so a public page can never link into it.
@@ -254,6 +296,21 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   pull does nothing — which is right, because there is no cursor on a phone,
   but it is right by accident. A silhouette that is swapped at some width for a
   reason other than the phone would need the magnet told about it.
+- **Setting up a magnet is two steps, and only the first one runs before the
+  page is painted.** `collectMagnets()` grows the box and writes the resting
+  silhouette; `arm()` samples the outline and builds the arc-length table, on
+  the first idle callback or on the first pointer move, whichever comes first.
+  The split is what put CLS at 0. Growing five boxes by 140px a tenth of a
+  second after the page arrived scored 0.07 of layout shift, and the growth
+  could not simply be moved before the paint because sampling those five
+  outlines costs 111ms on a cold engine (`getPointAtLength` is ~85µs a call
+  until it warms up, then ~20µs). It does not have to be: growing the box is an
+  affine map in unit space, an affine map of a Bézier is the same map applied to
+  its control points, so `remapPathData()` moves the *authored* curve into the
+  grown box exactly, in ten segments rather than four hundred and eighty, with
+  no sampling at all. The dense outline is only what the pull runs on, and
+  nothing needs it until a cursor arrives. `collectMagnets()` also reads every
+  layout value before it writes any of them, for the ordinary reason.
 - **A magnet's box is frozen in pixels the moment it is set up, and so is
   everything struck from it.** The outline is sampled, the grown box is
   measured, the outline is remapped into it, and the arc-length table the
@@ -361,6 +418,18 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   public site never does. Each has an on-paper value and an on-navy step under
   `.field`. Reach for `--accent` first; these are for when a thing is genuinely
   one of several.
+- **The form reports its own failures, and only counts a submission it could
+  forward.** Three of the four fields are required and nothing said so: the
+  visitor found out on submit, one field at a time, from a bubble that vanished.
+  The marker is a `*` with the word behind it for a screen reader and a legend
+  at the head of the form; `contact-form.js` takes `novalidate` once it has
+  upgraded, names every failing field at once in a slot `aria-describedby`
+  already points at, and clears each one on `input`. The e-mail pattern is the
+  one `validatePayload` applies, deliberately — a form that accepts what the
+  endpoint rejects sends the visitor a round trip to be told what the page knew.
+  On the endpoint, `checkAndIncrementRateLimit` now runs *after*
+  `validatePayload`: the other way round a malformed submission burned one of
+  the caller's five attempts an hour.
 - **The contact path is checked end to end, because it broke in the gap between
   its two halves.** The form posts what its inputs are named; `/api/contact`
   validates its own list; nothing compared them, so a required `subject` no
@@ -426,12 +495,11 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   list.
 - The live site also has a Jobs page. It has not been redesigned yet, and
   nothing links to it.
-- A URL that matches no page is a soft 404: Cloudflare has no `404.html` at the
-  root of `dist/`, so it falls back to serving `index.html` with a 200. The
-  per-language 404s exist but only answer at `/{lang}/404/`. Writing the default
-  language's 404 to `dist/404.html` would give the real status code. Until it
-  does, note what that 200 means for anything cache-first: a missing image or
-  script comes back as HTML that `response.ok` calls fine, so `src/sw.js` checks
-  the `Content-Type` before it stores anything (`isCacheable`). Without that a
-  single soft 404 pins HTML under an asset's URL for the life of the cache, and
+- A URL that matches no page gets a real 404 now: `render.mjs` writes the
+  default language's not-found body to `dist/404.html` as well as to
+  `/nl/404/`, and Cloudflare serves that with the status code. It used to fall
+  back to `index.html` with a 200, and `src/sw.js` still checks the
+  `Content-Type` before it caches anything (`isCacheable`) — a cache-first
+  worker that stores a 200 stores the homepage under a missing asset's URL, and
   the asset then fails on every later visit with no way to reload out of it.
+  Keep that check whatever the host does.

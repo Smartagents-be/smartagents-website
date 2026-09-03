@@ -68,10 +68,14 @@ const htmlFiles = distFiles.filter((file) => file.relativePath.endsWith('.html')
 
 /** Public pages live under /{lang}/; everything else is the gated area or a fallback. */
 const isSecured = (file) => file.startsWith('secured/');
-const isRootFallback = (file) => file === 'index.html';
+// Two files at the root of dist/ are not pages: `index.html` is the
+// no-redirect fallback, and `404.html` is the body Cloudflare serves with a
+// real 404 status for a URL that matches nothing. Neither is crawled, neither
+// carries hreflang, and both are noindex.
+const isRootFallback = (file) => file === 'index.html' || file === '404.html';
 const isPublicPage = (file) =>
   file.endsWith('.html') && !isSecured(file) && !isRootFallback(file);
-const isNotFound = (file) => /(?:^|\/)404\/index\.html$/.test(file);
+const isNotFound = (file) => /(?:^|\/)404\/index\.html$/.test(file) || file === '404.html';
 
 /* ------------------------------------------------------------------ *
  * 1. Nothing unresolved leaked into the output
@@ -283,7 +287,17 @@ for (const file of entryJs) {
  * 5. Required output files
  * ------------------------------------------------------------------ */
 
-const required = ['index.html', 'sitemap.xml', 'robots.txt', 'sw.js', '_headers', '_redirects', 'favicon.svg'];
+const required = [
+  'index.html',
+  '404.html',
+  'sitemap.xml',
+  'robots.txt',
+  'llms.txt',
+  'sw.js',
+  '_headers',
+  '_redirects',
+  'favicon.svg'
+];
 for (const file of required) {
   if (!allDistPaths.has(file)) fail(file, 'required output file missing', file);
 }

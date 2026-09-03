@@ -64,6 +64,35 @@ export const PHONE_HREF = 'tel:+3211111020';
 export const EMAIL = 'info@smartagents.be';
 
 /**
+ * One labelled control, its required marker and the slot its error message
+ * lands in.
+ *
+ * Three of the four fields are required and nothing said so: the visitor found
+ * out on submit, from the browser's own bubble, one field at a time. The marker
+ * is a `*` with the word behind it for a screen reader, and `form.requiredLegend`
+ * at the head of the form is what makes the `*` mean something rather than
+ * being a glyph the reader has to guess at.
+ *
+ * The error slot ships empty and hidden. `aria-describedby` points at it from
+ * the moment the page loads — a hidden element contributes nothing to the
+ * description, so an untouched field is described by nothing and a failing one
+ * is described by its message, without the attribute ever being rewritten.
+ * `contact-form.js` fills and unhides it; with JS off the browser's own
+ * validation is what reports, which is the same thing it did before.
+ */
+function field({ t, id, key, label, required, control }) {
+  const mark = required
+    ? html`<span id="${id}-field-${key}-required" class="field-label__required"><span id="${id}-field-${key}-required-mark" aria-hidden="true">*</span><span id="${id}-field-${key}-required-word" class="visually-hidden">${t('form.required')}</span></span>`
+    : '';
+
+  return html`          <label id="${id}-field-${key}" class="field-label">
+            <span id="${id}-field-${key}-label" class="field-label__text">${label}${mark}</span>
+            ${control}
+            <span id="${id}-error-${key}" class="field-error" hidden></span>
+          </label>`;
+}
+
+/**
  * The contact section: the facts on the left, the form on the right.
  *
  * @param {object} options
@@ -87,14 +116,15 @@ export function contactSection({ t, lang, prefix, title, lede }) {
         <span id="${id}-fact-location">${t('contact.location')}</span>
       </div>
     </div>
-    <sa-contact-form id="${id}-widget"${TURNSTILE_SITE_KEY ? raw(` data-sitekey="${escapeHtml(TURNSTILE_SITE_KEY)}"`) : ''} data-sending="${t('form.sending')}" data-sent="${t('form.sent')}" data-failed="${t('form.failed')}">
-      <form id="${id}-form" class="contact-form" method="post" action="mailto:${EMAIL}" enctype="text/plain">
+    <sa-contact-form id="${id}-widget"${TURNSTILE_SITE_KEY ? raw(` data-sitekey="${escapeHtml(TURNSTILE_SITE_KEY)}"`) : ''} data-sending="${t('form.sending')}" data-sent="${t('form.sent')}" data-failed="${t('form.failed')}" data-error-required="${t('form.error.required')}" data-error-email="${t('form.error.email')}">
+      <form id="${id}-form" class="contact-form" method="get" action="mailto:${EMAIL}">
+        <p id="${id}-legend" class="contact-form__legend">${t('form.requiredLegend')}</p>
         <div id="${id}-form-pair" class="contact-form__pair">
-          <label id="${id}-field-name" class="field-label"><span id="${id}-field-name-label">${t('form.name')}</span><input id="${id}-input-name" type="text" name="name" autocomplete="name" required></label>
-          <label id="${id}-field-company" class="field-label"><span id="${id}-field-company-label">${t('form.company')}</span><input id="${id}-input-company" type="text" name="company" autocomplete="organization"></label>
+${field({ t, id, key: 'name', label: t('form.name'), required: true, control: html`<input id="${id}-input-name" type="text" name="name" autocomplete="name" required aria-required="true" aria-describedby="${id}-error-name">` })}
+${field({ t, id, key: 'company', label: t('form.company'), required: false, control: html`<input id="${id}-input-company" type="text" name="company" autocomplete="organization">` })}
         </div>
-        <label id="${id}-field-email" class="field-label"><span id="${id}-field-email-label">${t('form.email')}</span><input id="${id}-input-email" type="email" name="email" autocomplete="email" required></label>
-        <label id="${id}-field-message" class="field-label"><span id="${id}-field-message-label">${t('form.message')}</span><textarea id="${id}-input-message" name="message" rows="5" required></textarea></label>
+${field({ t, id, key: 'email', label: t('form.email'), required: true, control: html`<input id="${id}-input-email" type="email" name="email" autocomplete="email" required aria-required="true" aria-describedby="${id}-error-email">` })}
+${field({ t, id, key: 'message', label: t('form.message'), required: true, control: html`<textarea id="${id}-input-message" name="message" rows="5" required aria-required="true" aria-describedby="${id}-error-message"></textarea>` })}
         <input id="${id}-input-subject" type="hidden" name="subject" value="${t('form.subject')}">
         <input id="${id}-input-page" type="hidden" name="page_context" value="${prefix}">
         <div id="${id}-form-foot" class="contact-form__foot">
@@ -102,6 +132,7 @@ export function contactSection({ t, lang, prefix, title, lede }) {
           <p id="${id}-status" class="form-status js-only" role="status" aria-live="polite"></p>
         </div>
 ${privacyNote(t, lang, id)}
+        <noscript id="${id}-noscript"><p id="${id}-noscript-line" class="contact-form__fallback">${t('form.noScript')} <a id="${id}-noscript-mail" href="mailto:${EMAIL}">${EMAIL}</a></p></noscript>
       </form>
     </sa-contact-form>
   </div>

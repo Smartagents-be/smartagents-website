@@ -3,20 +3,64 @@
 // today, each an editorial block rather than a card, in the redesign's own
 // language (hairlines, no numbering).
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
+import { statSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
+import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
-/** The courses we run today, in the order they are offered. */
+/**
+ * The courses we run today, in the order they are offered.
+ *
+ * A fiche is named after the course it belongs to. It used to be named after
+ * the product the course was once built around — `M365_Copilot` under "AI voor
+ * business teams", `AI_Developers` under "Agentic engineering" — and a browser
+ * puts the file name in the download bar, so the reader clicked one course and
+ * was handed something that looked like another.
+ */
 const COURSES = [
-  { key: 'business', fiche: 'SmartAgents_M365_Copilot_Onepager.pdf' },
-  { key: 'agentic', fiche: 'SmartAgents_AI_Developers_Onepager.pdf' }
+  { key: 'business', fiche: 'SmartAgents_AI_Business_Teams_Onepager.pdf' },
+  { key: 'agentic', fiche: 'SmartAgents_Agentic_Engineering_Onepager.pdf' }
 ];
+
+/**
+ * How big the download is, in kilobytes, read off the file itself at build
+ * time. These are 400 KB documents on a link that says only "Download de
+ * fiche", which on a phone connection is worth knowing before the tap — and
+ * read rather than written down, so it cannot go stale when a fiche is
+ * replaced.
+ */
+const MEDIA_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../public/media');
+const ficheKilobytes = (file) => Math.round(statSync(path.join(MEDIA_DIR, file)).size / 1024);
 
 /** The `learn.n` lines every live course carries. */
 const LEARN = ['1', '2', '3', '4'];
 
 const BENEFITS = ['adoption', 'productivity', 'risk', 'return', 'autonomy'];
+
+/**
+ * The facts strip under every course: what a prospect has to know before they
+ * can decide whether this is for them.
+ *
+ * Neither course stated a format, a group size, an audience or a price, so the
+ * only next step from this page was the contact form and every enquiry started
+ * from zero. Everything here is something the site already said somewhere else
+ * — the format in the closing paragraph, the group size in "Hoe een cursus
+ * verloopt", the audience in the homepage's own service row, the tools in the
+ * line this replaced — collected where the decision is made. Duration and open
+ * dates are the two facts nothing on the site knows; they are deliberately not
+ * guessed at here.
+ */
+const FACTS = [
+  { name: 'audience', value: (key) => `training.course.${key}.audience` },
+  { name: 'format', value: () => 'training.facts.format.value' },
+  { name: 'group', value: () => 'training.facts.group.value' },
+  { name: 'tools', value: (key) => `training.course.${key}.tools` },
+  { name: 'price', value: () => 'training.facts.price.value' }
+];
 
 /** What a participant walks away with, listed under `training.format.tags.title`. */
 const INCLUDED = ['material', 'exercises', 'labs', 'qa', 'slides', 'guidance'];
@@ -33,6 +77,15 @@ export const page = {
     title: t('training.title'),
     description: t('training.description')
   }),
+
+  /* What this page is, for a machine: one `Service` provided by the company
+     node every page carries, and the trail back to the language root. Both are
+     read off the same keys the page prints, so the graph cannot describe an
+     offer the page no longer makes. */
+  schema: ({ t, lang, url }) => [
+    serviceNode({ t, lang, url, key: 'training' }),
+    breadcrumbNode([homeStep(t, lang), { name: t('service.training.title'), url }])
+  ],
 
   render: ({ t, lang }) => {
     return html`<main id="main" tabindex="-1">
@@ -62,6 +115,7 @@ ${orbitRings('training-hero')}
     <div id="training-hero-text" class="hero__text">
       <p id="training-hero-eyebrow" class="page-eyebrow">${t('training.hero.eyebrow')}</p>
       <h1 id="training-hero-title">${t('training.hero.title')}</h1>
+      <p id="training-hero-lede" class="hero__lede">${t('training.hero.lede')}</p>
       <div id="training-hero-actions" class="hero__actions">
         <a id="training-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="training-hero-cta-offer" class="btn btn--ghost" href="#offer">${t('training.cta.offer')} <span id="training-hero-cta-offer-arrow" aria-hidden="true">&rarr;</span></a>
@@ -124,8 +178,18 @@ function courseColumn({ t, key, fiche }) {
       <ul id="${id}-learn-list" class="offer-course__list">
 ${join(items)}
       </ul>
-      <p id="${id}-tools" class="offer-course__tools">${t(`training.course.${key}.tools`)}</p>
-      <a id="${id}-fiche" class="offer-course__fiche" href="/media/${fiche}">${t('training.download')} <span id="${id}-fiche-arrow" aria-hidden="true">&rarr;</span></a>
+      <dl id="${id}-facts" class="offer-course__facts">
+${join(
+        FACTS.map(
+          ({ name, value }) => html`        <div id="${id}-fact-${name}" class="offer-course__fact">
+          <dt id="${id}-fact-${name}-label">${t(`training.facts.${name}.label`)}</dt>
+          <dd id="${id}-fact-${name}-value">${t(value(key))}</dd>
+        </div>`
+        ),
+        '\n'
+      )}
+      </dl>
+      <a id="${id}-fiche" class="offer-course__fiche" href="/media/${fiche}" type="application/pdf">${t('training.download')} <span id="${id}-fiche-size" class="offer-course__fiche-size">(PDF, ${ficheKilobytes(fiche)} kB)</span> <span id="${id}-fiche-arrow" aria-hidden="true">&rarr;</span></a>
     </article>`;
 }
 

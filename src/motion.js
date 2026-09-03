@@ -104,85 +104,128 @@ function scratch(slot, size, Kind) {
   return made;
 }
 
+
+/**
+ * The authored outline moved into the grown box: every coordinate pair mapped
+ * by `x -> (x·w + BLEED) / (w + 2·BLEED)` and the same in y, which is what
+ * growing the element's box by BLEED on all four sides does to unit space.
+ *
+ * The silhouettes in `clipDefs()` are absolute `M`, `L`, `C` and `Z` and
+ * nothing else, so the parse is a scan for numbers between commands. A command
+ * this does not know how to move is a silhouette that would land somewhere
+ * wrong, so it says so and the caller falls back to the sampled spline.
+ */
+const SIMPLE_PATH = /^[MLCZ\s,\d.eE+-]+$/;
+
+function remapPathData(d, w, h) {
+  if (!SIMPLE_PATH.test(d)) return null;
+
+  const sx = w / (w + 2 * BLEED);
+  const tx = BLEED / (w + 2 * BLEED);
+  const sy = h / (h + 2 * BLEED);
+  const ty = BLEED / (h + 2 * BLEED);
+
+  let axis = 0;
+  return d.replace(/-?\d*\.?\d+(?:[eE][+-]?\d+)?/g, (number) => {
+    const value = parseFloat(number);
+    const mapped = axis === 0 ? value * sx + tx : value * sy + ty;
+    axis ^= 1;
+    return mapped.toFixed(4);
+  });
+}
+
+/**
+ * Every magnet on the page, measured and grown.
+ *
+ * Two passes, and the split is not tidiness: pass one only reads the layout and
+ * pass two only writes to it. Interleaved — measure a shape, grow it, measure
+ * the next — each measurement after the first has to flush the style and layout
+ * the previous write invalidated, on a document five thousand pixels tall with
+ * five live clip paths in it. That was 117ms of forced synchronous layout for
+ * five shapes, and it is what made this too expensive to run before the first
+ * paint, which in turn is why the grown boxes arrived a tenth of a second after
+ * the page did and scored 0.07 of layout shift. Read everything, then write
+ * everything, and it is one layout.
+ */
 function collectMagnets() {
   const items = [];
 
+  /* Pass one: reads only. Nothing in this loop may touch a style, an attribute
+     or the DOM — the moment it does, every `getBoundingClientRect` after it
+     pays for a fresh layout. */
+  const measured = [];
   for (const element of document.querySelectorAll('[data-magnet]')) {
     const clip = document.getElementById(element.dataset.clip);
     const path = clip && clip.querySelector('path');
     if (!path) continue;
 
-    // Intricate curves need denser sampling or a pull reads as a fold.
-    const count = parseInt(element.dataset.magnetPoints, 10) || POINTS;
-    const total = path.getTotalLength();
-    const sampled = [];
-    for (let i = 0; i < count; i++) {
-      const point = path.getPointAtLength((total * i) / count);
-      sampled.push([point.x, point.y]);
-    }
-
-    // Grow the element's box so a bulge has somewhere to render, then remap the
-    // outline into the bigger box: the resting shape is pixel-identical.
     const rect = element.getBoundingClientRect();
     if (!rect.width || !rect.height) continue;
     const scale = (element.offsetWidth ? rect.width / element.offsetWidth : 1) || 1;
-    const w = rect.width / scale;
-    const h = rect.height / scale;
     const computed = getComputedStyle(element);
+
+    measured.push({
+      element,
+      path,
+      // Intricate curves need denser sampling or a pull reads as a fold. Only
+      // the number is read here; the sampling itself is `arm()`'s.
+      count: parseInt(element.dataset.magnetPoints, 10) || POINTS,
+      w: rect.width / scale,
+      h: rect.height / scale,
+      scale,
+      // Resolved here rather than in pass two: reading a computed inset after
+      // the previous shape has been grown is exactly the flush this avoids.
+      insets: SIDES.map((side) => parseFloat(computed[side]) || 0),
+      // Read before the remap overwrites it: teardown puts the box back to its
+      // authored insets, so the path has to go back to the authored outline too.
+      original: path.getAttribute('d')
+    });
+  }
+
+  /* Pass two: writes only. */
+  for (const { element, path, count, w, h, scale, insets, original } of measured) {
+    // Grow the element's box so a bulge has somewhere to render, then remap the
+    // outline into the bigger box: the resting shape is pixel-identical.
     const restore = {};
-    for (const side of SIDES) {
+    SIDES.forEach((side, i) => {
       restore[side] = element.style[side];
-      element.style[side] = `${(parseFloat(computed[side]) || 0) - BLEED}px`;
-    }
+      element.style[side] = `${insets[i] - BLEED}px`;
+    });
 
     const guarded = !element.hasAttribute('data-magnet-free');
-    const points = sampled.map(([x, y]) => [
-      (x * w + BLEED) / (w + 2 * BLEED),
-      (y * h + BLEED) / (h + 2 * BLEED)
-    ]);
-    // Read before the remap overwrites it: teardown puts the box back to its
-    // authored insets, so the path has to go back to the authored outline too.
-    const original = path.getAttribute('d');
-    const resting = toPathData(points);
-    path.setAttribute('d', resting);
 
-    // The grown box, in the element's own pixels, and the outline within it.
-    // Both are struck once: only a rebuild re-measures them.
-    const bw = w + 2 * BLEED;
-    const bh = h + 2 * BLEED;
-    const outline = points.map(([x, y]) => [x * bw, y * bh]);
-    // Which way the sampled outline is wound. Nothing about a lone shape cares,
-    // but a join is handed to one of these as an extra subpath under one fill,
-    // and the default `clip-rule: nonzero` turns a loop wound against the body
-    // it overlaps into a hole punched through it. The arch on the AI staffing
-    // page is wound the other way from every other silhouette on the site, so
-    // this cannot be assumed — it is measured.
-    const turn = shoelace(outline) < 0 ? -1 : 1;
-
-    // Arc length along the outline, so a bulge falls off along the edge rather
-    // than through the shape. Static in the grown box, so it is struck here.
-    let perimeter = 0;
-    const arc = [0];
-    for (let i = 1; i <= outline.length; i++) {
-      const a = outline[i - 1];
-      const b = outline[i % outline.length];
-      perimeter += Math.hypot(b[0] - a[0], b[1] - a[1]);
-      arc.push(perimeter);
-    }
+    // The resting silhouette is the *authored* curve moved into the bigger box,
+    // not a spline redrawn through samples of it. Growing the box is an affine
+    // map in unit space, and an affine map of a Bézier is the same map applied
+    // to its control points, so this is exact where a spline through 480
+    // samples is only very close — and it is ten segments where that is four
+    // hundred and eighty.
+    //
+    // It is also what lets the box be grown without sampling anything. Sampling
+    // is 111ms on a cold engine for the five shapes on the homepage, almost all
+    // of it `getPointAtLength` warming up, and it is only needed for the pull.
+    // So the growth happens here, before the first paint, and the sampling
+    // waits for `arm()`.
+    const resting = remapPathData(original, w, h);
+    if (resting) path.setAttribute('d', resting);
 
     items.push({
       element,
       path,
+      // Filled by `arm()`, except where `remapPathData` could not move the
+      // authored path and the sampled outline is the only resting shape there
+      // is — then it is armed on the spot, below.
       resting,
+      count,
       original,
       restore,
-      w: bw,
-      h: bh,
+      w: w + 2 * BLEED,
+      h: h + 2 * BLEED,
       scale,
-      outline,
-      arc,
-      perimeter,
-      turn,
+      outline: null,
+      arc: null,
+      perimeter: 0,
+      turn: 1,
       // A shape whose top or right edge is tucked under the nav or a card must
       // not bulge there; `data-magnet-free` opts out of that guard.
       guarded,
@@ -203,9 +246,73 @@ function collectMagnets() {
       reach: Infinity, // px from the cursor to this outline, either side of it
       bridge: '' // extra subpaths this shape shares with a neighbour
     });
+
+    // A silhouette this cannot move as a curve has to be moved as points, and
+    // then there is no resting path until it is sampled. Nothing on the site is
+    // in that position today; the branch is what makes adding an arc, a
+    // quadratic or a relative command a slower shape rather than a broken one.
+    if (!resting) arm(items[items.length - 1]);
   }
 
   return items;
+}
+
+/**
+ * The half of a magnet the pull needs: the outline as points, its arc length
+ * and its winding.
+ *
+ * Split from the growth above because it is the expensive half and the growth
+ * is the urgent one. `getPointAtLength` costs about 85µs a call on a cold
+ * engine and about 20µs once it is warm, so the five shapes on the homepage
+ * are 111ms the first time and 8ms every time after — and the shapes cannot be
+ * grown after the first paint without moving five boxes on a page the visitor
+ * is already looking at, which is 0.07 of layout shift. So the box grows before
+ * the paint and this runs after it, or on the first pointer move, whichever
+ * comes first. Neither costs the visitor anything: there is no pull to draw
+ * until the cursor arrives.
+ */
+function arm(item) {
+  if (item.outline) return;
+
+  const { path, count, original, w, h } = item;
+  path.setAttribute('d', original);
+  const total = path.getTotalLength();
+  const sampled = [];
+  for (let i = 0; i < count; i++) {
+    const point = path.getPointAtLength((total * i) / count);
+    sampled.push([point.x, point.y]);
+  }
+
+  // Back into the grown box, in unit space and then in the element's own pixels.
+  const points = sampled.map(([x, y]) => [
+    (x * (w - 2 * BLEED) + BLEED) / w,
+    (y * (h - 2 * BLEED) + BLEED) / h
+  ]);
+  item.resting = item.resting || toPathData(points);
+  path.setAttribute('d', item.resting);
+
+  item.outline = points.map(([x, y]) => [x * w, y * h]);
+
+  // Which way the sampled outline is wound. Nothing about a lone shape cares,
+  // but a join is handed to one of these as an extra subpath under one fill,
+  // and the default `clip-rule: nonzero` turns a loop wound against the body it
+  // overlaps into a hole punched through it. The arch on the AI staffing page is
+  // wound the other way from every other silhouette on the site, so this cannot
+  // be assumed — it is measured.
+  item.turn = shoelace(item.outline) < 0 ? -1 : 1;
+
+  // Arc length along the outline, so a bulge falls off along the edge rather
+  // than through the shape. Static in the grown box, so it is struck once.
+  let perimeter = 0;
+  const arc = [0];
+  for (let i = 1; i <= item.outline.length; i++) {
+    const a = item.outline[i - 1];
+    const b = item.outline[i % item.outline.length];
+    perimeter += Math.hypot(b[0] - a[0], b[1] - a[1]);
+    arc.push(perimeter);
+  }
+  item.arc = arc;
+  item.perimeter = perimeter;
 }
 
 /* A closed loop as cubic curves rather than chords: a Catmull-Rom spline
@@ -933,6 +1040,19 @@ function magnets() {
   let items = collectMagnets();
   if (!items.length) return;
 
+  /* The sampling half, run once, whenever it is first needed. Idle time is the
+     usual answer; the first pointer move is the deadline, because that is the
+     first frame that has a pull to draw. */
+  let armed = false;
+  const armAll = () => {
+    if (armed) return;
+    armed = true;
+    for (const item of items) arm(item);
+  };
+  const idle = window.requestIdleCallback
+    ? requestIdleCallback(armAll, { timeout: 1200 })
+    : setTimeout(armAll, 200);
+
   // Which pairs are currently run together, so a join arrives at one gap and
   // lets go at a slightly wider one instead of flickering at a single width.
   const linked = new Set();
@@ -1037,6 +1157,7 @@ function magnets() {
   };
 
   const update = (cursorX, cursorY) => {
+    armAll();
     let pulled = false;
     for (const item of items) {
       displace(item, cursorX, cursorY);
@@ -1088,6 +1209,8 @@ function magnets() {
 
   return () => {
     if (frame) cancelAnimationFrame(frame);
+    if (window.requestIdleCallback) cancelIdleCallback(idle);
+    else clearTimeout(idle);
     document.removeEventListener('pointermove', onMove);
     document.removeEventListener('pointerleave', onLeave);
     for (const item of items) {

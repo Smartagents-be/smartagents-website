@@ -18,6 +18,7 @@ import {
   absolute
 } from './lib/i18n.mjs';
 import { loadManifest } from './lib/assets.mjs';
+import { PHONE, EMAIL } from '../src/components/contact-form/contact-form.mjs';
 import { loadDecks, loadSecuredDocuments } from './lib/decks.mjs';
 import { basePage } from '../src/layouts/base.mjs';
 import { deckPage, securedIndexPage } from '../src/layouts/deck.mjs';
@@ -30,7 +31,15 @@ import { page as processesPage } from '../src/pages/processes.mjs';
 import { page as teamPage } from '../src/pages/team.mjs';
 import { page as privacyPage } from '../src/pages/privacy/privacy.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
-import { insightPages } from '../src/pages/insights/insights.mjs';
+import { INSIGHTS, indexPage as insightsIndexPage, insightPages } from '../src/pages/insights/insights.mjs';
+
+/** The four services `llms.txt` lists, keyed the way the nav and the rows key them. */
+const SERVICE_PAGES = {
+  training: trainingPage,
+  staffing: staffingPage,
+  sdlc: sdlcPage,
+  processes: processesPage
+};
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(rootDir, 'dist');
@@ -45,6 +54,7 @@ const PAGES = [
   sdlcPage,
   processesPage,
   teamPage,
+  insightsIndexPage,
   ...insightPages,
   privacyPage,
   notFoundPage
@@ -96,6 +106,7 @@ async function renderPublicPages({ strings, criticalCss, assets }) {
           lang: language.code,
           dir: language.dir,
           url,
+          pageId: page.id,
           title: meta.title,
           description: meta.description,
           noindex: page.noindex === true,
@@ -103,9 +114,39 @@ async function renderPublicPages({ strings, criticalCss, assets }) {
           criticalCss,
           assets,
           preloadImage: meta.preloadImage,
+          ogImage: meta.ogImage,
+          article: meta.article,
+          schema: page.schema?.({ t, lang: language.code, url }),
           body
         })
       );
+
+      // A second copy of the default language's 404, at the root of dist/.
+      // Cloudflare serves `404.html` with a real 404 status for a URL that
+      // matches nothing; without it the host fell back to `index.html` with a
+      // 200, so every missing page was a soft 404. That matters beyond SEO:
+      // a cache-first service worker that stores a 200 stores the homepage
+      // under the missing asset's URL, which is why `src/sw.js` has to check
+      // the Content-Type before it writes (`isCacheable`).
+      if (page === notFoundPage && language.code === defaultLanguage.code) {
+        await writeHtml(
+          '404.html',
+          basePage({
+            t,
+            lang: language.code,
+            dir: language.dir,
+            url,
+            pageId: page.id,
+            title: meta.title,
+            description: meta.description,
+            noindex: true,
+            alternates,
+            criticalCss,
+            assets,
+            body
+          })
+        );
+      }
 
       if (!page.excludeFromSitemap) {
         sitemapEntries.push({ url, alternates });
@@ -242,10 +283,118 @@ function renderSitemap(entries) {
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`
   );
 
-  writeFileSync(
-    path.join(distDir, 'robots.txt'),
-    `User-agent: *\nAllow: /\nDisallow: /secured/\n\nSitemap: ${absolute('/sitemap.xml')}\n`
-  );
+  writeFileSync(path.join(distDir, 'robots.txt'), robotsTxt());
+}
+
+/**
+ * The AI crawlers, named rather than left to the wildcard.
+ *
+ * `User-agent: *` already allows them, so on the wire this file says nothing
+ * new. It is here because silence is not a policy: a crawler operator, a
+ * customer and a court all read an unnamed agent as "nobody decided", and this
+ * is a company that sells AI expertise. Being findable by the engines it sells
+ * expertise in is the point, so every one of them is allowed explicitly, and
+ * the one rule that matters — `/secured/` is off limits — is repeated for each
+ * so it cannot be missed by an agent that stops reading at its own block.
+ *
+ * Google-Extended is not a crawler: it is the switch that says whether content
+ * Googlebot already fetched may train Gemini and ground its answers. Allowing
+ * it is the same decision as the rest.
+ */
+const AI_CRAWLERS = [
+  'GPTBot',
+  'OAI-SearchBot',
+  'ChatGPT-User',
+  'ClaudeBot',
+  'Claude-User',
+  'Claude-SearchBot',
+  'PerplexityBot',
+  'Perplexity-User',
+  'Google-Extended',
+  'Applebot-Extended',
+  'CCBot',
+  'Bytespider',
+  'meta-externalagent',
+  'Amazonbot',
+  'cohere-ai'
+];
+
+function robotsTxt() {
+  const blocks = ['User-agent: *', 'Allow: /', 'Disallow: /secured/', ''];
+
+  for (const agent of AI_CRAWLERS) {
+    blocks.push(`User-agent: ${agent}`, 'Allow: /', 'Disallow: /secured/', '');
+  }
+
+  blocks.push(`Sitemap: ${absolute('/sitemap.xml')}`);
+  return `${blocks.join('\n')}\n`;
+}
+
+/**
+ * `/llms.txt` — the site, in one page, for a model that has to answer a question
+ * about it without crawling six pages first.
+ *
+ * It is generated from the same page modules and the same string files the site
+ * is, in the default language, so it cannot describe an offer the site no longer
+ * has. Every URL in it is the canonical one; the other two languages are named
+ * once at the foot rather than tripling the file.
+ */
+function renderLlmsTxt({ strings }) {
+  const t = createTranslator(strings, defaultLanguage.code);
+  const lang = defaultLanguage.code;
+  const line = (label, url, body) => `- [${label}](${absolute(url)}): ${body}`;
+
+  const services = ['training', 'staffing', 'sdlc', 'processes']
+    .map((key) => {
+      const slug = SERVICE_PAGES[key].slugs[lang];
+      return line(t(`service.${key}.title`), pagePath(lang, slug), t(`service.${key}.body`));
+    })
+    .join('\n');
+
+  const articles = [
+    line(t('section.insights'), pagePath(lang, insightsIndexPage.slugs[lang]), t('insights.index.description')),
+    ...INSIGHTS.map((insight) =>
+      line(t(`article.${insight.key}.title`), pagePath(lang, insight.slugs[lang]), t(`article.${insight.key}.body`))
+    )
+  ].join('\n');
+
+  const alternates = languages
+    .filter((language) => language.code !== lang)
+    .map((language) => `${language.name}: ${absolute(pagePath(language.code))}`)
+    .join(' · ');
+
+  const body = `# SmartAgents
+
+> ${t('home.description')}
+
+SmartAgents BV is een Belgisch bedrijf, gevestigd in ${t('footer.city')} —
+${t('footer.vat')}. Vier diensten, hieronder met hun canonieke URL. De huisregel
+is dat AI alleen wordt aangeraden waar het echt iets oplevert; elke dienstpagina
+zegt ook waar dat niet zo is.
+
+## Diensten
+
+${services}
+
+## Inzichten
+
+${articles}
+
+## Over
+
+${line(t('team.hero.title'), pagePath(lang, teamPage.slugs[lang]), t('team.description'))}
+${line(t('privacy.heading'), pagePath(lang, privacyPage.slugs[lang]), t('privacy.description'))}
+
+## Contact
+
+E-mail: ${EMAIL} · Telefoon: ${PHONE} · ${t('contact.location')}
+
+## Talen
+
+Elke pagina bestaat in drie talen. ${alternates}
+`;
+
+  writeFileSync(path.join(distDir, 'llms.txt'), body);
 }
 
 /**
@@ -350,6 +499,7 @@ copyPromoMedia();
 cpSync(path.join(rootDir, 'public'), distDir, { recursive: true });
 
 renderSitemap(sitemapEntries);
+renderLlmsTxt({ strings });
 renderServiceWorker(assets.precache);
 // Last: the pass-through list mirrors the finished dist/ tree.
 renderRedirects();

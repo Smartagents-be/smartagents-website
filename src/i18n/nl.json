@@ -6,8 +6,11 @@
   "a11y.mainNav": "Hoofdnavigatie",
   "a11y.footerNav": "Footernavigatie",
   "a11y.language": "Taal",
+  "a11y.menuNav": "Navigatie in het menu",
+  "a11y.languageMenu": "Taal in het menu",
 
   "nav.menu": "Menu",
+  "nav.home": "Home",
   "nav.insights": "Inzichten",
 
   "cta.talk": "Plan een gesprek",
@@ -17,12 +20,14 @@
   "cta.moreInfo": "Ontdek",
   "cta.send": "Verstuur",
 
+  "hero.lede": "Wij trainen uw teams in AI, zetten AI-native engineers in uw projecten en bouwen de workflows en agents die het werk overnemen. Voor Belgische organisaties die willen weten wat AI vandaag echt oplevert, en waar het niets toevoegt.",
   "hero.claim": "Digitale collega's die nooit slapen",
 
   "section.services": "Wat we doen",
   "section.dna": "Ons DNA",
   "section.transformation": "Digitale transformatie",
   "section.approach": "Van vraag tot werkende oplossing",
+  "section.faq": "Veelgestelde vragen",
   "section.insights": "Inzichten",
 
   "service.training.title": "Training",
@@ -67,6 +72,18 @@
   "step.5.title": "Optimalisatie",
   "step.5.body": "We blijven meten en bijsturen. Wat niet gebruikt wordt, halen we er weer uit.",
 
+  "faq.price.q": "Wat kost een traject?",
+  "faq.price.a": "Dat hangt af van wat er nodig is, en dat weten we pas na de SmartScan. Daarin brengen we uw processen en knelpunten in kaart en stellen we een programma op maat voor. U krijgt een prijs voor het werk dat er echt in zit, niet voor een pakket. Een training wordt op dezelfde manier begroot, na een korte intake.",
+  "faq.speed.q": "Hoe lang duurt het voor we iets zien werken?",
+  "faq.speed.a": "We bouwen in korte rondes en u test mee op echte dossiers terwijl het ontstaat. De eerste werkende workflow komt dus uit het traject zelf en niet uit een eindoplevering. Bij een training is het de dag erna: de oefeningen gaan over het werk dat uw mensen die week op tafel hebben.",
+  "faq.honest.q": "En als AI voor ons niets oplevert?",
+  "faq.honest.a": "Dan zeggen we dat. In de SmartScan zeggen we eerlijk waar AI niets toevoegt, en dat is bijna altijd een deel van het antwoord. Wat we bouwen en niet gebruikt wordt, halen we er ook weer uit. Een workflow die niemand draait, kost u alleen maar onderhoud.",
+  "faq.who.q": "Voor wie zijn jullie trainingen bedoeld?",
+  "faq.who.a": "Voor twee groepen. AI voor business teams is voor mensen die met AI werken en geen voorkennis nodig hebben. Agentic engineering is voor developers die er dagelijks mee bouwen. Beide draaien in groepen van 5 tot 20, in-house of remote.",
+  "faq.where.q": "Werken jullie bij ons op kantoor of remote?",
+  "faq.where.a": "Allebei, en dat kiest u. We zitten in Beringen en werken voor Belgische organisaties, van KMO tot enterprise. Trainingen, coaching en staffing lopen in het Nederlands, het Engels en het Frans.",
+  "faq.data.q": "Wat gebeurt er met onze gegevens?",
+  "faq.data.a": "Op deze site staan geen cookies, geen analytics en geen tracking; er vertrekt geen enkel verzoek naar een derde partij tot u het contactformulier gebruikt. Wat er dan met uw bericht gebeurt, wie het te zien krijgt en hoe lang we het bijhouden, staat in ons privacybeleid. In een project werken we in uw eigen omgeving en op uw eigen systemen.",
   "article.tag.news": "Nieuws",
   "article.tag.ai": "AI",
   "article.tag.tips": "Tips",
@@ -90,6 +107,9 @@
 
 
   "insight.more": "Meer inzichten",
+  "insights.index.title": "Inzichten · SmartAgents",
+  "insights.index.description": "Wat we zien werken bij Belgische teams die met AI aan de slag gaan, en wat niet. Verslagen, analyses en het nieuws van SmartAgents.",
+  "insights.index.lede": "Wat we zien werken bij teams die met AI aan de slag gaan, en wat niet. Geen voorspellingen, wel wat we deze maand zelf zijn tegengekomen.",
   "contact.title": "Zullen we eens praten",
   "contact.lede": "Vertel kort wat er beter kan lopen. We antwoorden zelf, meestal binnen een werkdag, en zeggen ook wanneer u ons niet nodig hebt.",
   "contact.callLabel": "Liever bellen?",
@@ -100,6 +120,11 @@
   "form.company": "Bedrijf",
   "form.email": "E-mail",
   "form.message": "Wat loopt er vandaag moeilijk?",
+  "form.required": "verplicht",
+  "form.requiredLegend": "Velden met * zijn verplicht.",
+  "form.error.required": "Vul dit veld in.",
+  "form.error.email": "Vul een geldig e-mailadres in.",
+  "form.noScript": "Werkt het formulier niet? Mail ons rechtstreeks op",
   "form.subject": "Nieuw bericht via smartagents.be",
   "form.privacyNote": "Door te versturen gaat u akkoord met ons [privacybeleid].",
   "form.sending": "Versturen…",
@@ -112,6 +137,7 @@
   "training.hero.eyebrow": "Training",
   "training.hero.title": "Leer AI gebruiken als een professional",
 
+  "training.hero.lede": "Twee cursussen: AI voor business teams en agentic engineering voor developers. Bij u op kantoor of remote, in groepen van 5 tot 20, met oefeningen op het werk dat uw mensen deze week op tafel hebben.",
   "training.cta.offer": "Bekijk het aanbod",
 
   "training.why.title": "Waarom investeren in AI-training?",
@@ -119,9 +145,18 @@
   "training.offer.title": "Ons aanbod",
   "training.offer.learn": "Wat u leert",
 
-  "training.download": "Download de fiche (PDF)",
+  "training.download": "Download de fiche",
 
+  "training.facts.format.label": "Vorm",
+  "training.facts.format.value": "In-house of remote",
+  "training.facts.group.label": "Groep",
+  "training.facts.group.value": "5 tot 20 deelnemers",
+  "training.facts.audience.label": "Voor wie",
+  "training.facts.tools.label": "Nodig",
+  "training.facts.price.label": "Prijs",
+  "training.facts.price.value": "Op maat, na een korte intake",
   "training.course.business.title": "AI voor business teams",
+  "training.course.business.audience": "Teams die met AI werken, geen voorkennis nodig",
   "training.course.business.tools": "Een AI-subscriptie, eigen laptop",
   "training.course.business.body": "U leert AI inzetten voor het werk dat elke week terugkomt: niet één slimme prompt, maar een werkwijze die u herhaalt en doorgeeft.",
   "training.course.business.learn.1": "Vragen stellen die telkens hetzelfde resultaat geven",
@@ -129,6 +164,7 @@
   "training.course.business.learn.3": "Eenvoudige assistenten bouwen, zonder een regel code",
   "training.course.business.learn.4": "Veilig omgaan met bedrijfsdata en gevoelig werk",
   "training.course.agentic.title": "Agentic engineering",
+  "training.course.agentic.audience": "Developers die met AI bouwen",
   "training.course.agentic.tools": "Een AI-subscriptie, een IDE, eigen laptop",
   "training.course.agentic.body": "Leer AI engineers aan om AI kost-bewust en efficiënt te gebruiken om code te genereren en processen te optimaliseren.",
   "training.course.agentic.learn.1": "Agents inzetten op een ticket, een bug, een refactor",
@@ -170,28 +206,37 @@
   "staffing.hero.eyebrow": "AI staffing en coaching",
   "staffing.hero.title": "Een AI-native engineer in uw team",
 
+  "staffing.hero.lede": "Een engineer die AI elke dag gebruikt, draait mee in uw sprints, uw repository en uw review. Of coaching voor uw eigen developers en business teams, op het werk dat er vandaag ligt.",
   "staffing.cta.tracks": "Bekijk het aanbod",
 
   "staffing.tracks.title": "Wat we doen",
 
+  "staffing.tracks.lede": "Drie sporen, en welk spoor het wordt hangt af van wat er vandaag vastloopt. Loopt het project vast op capaciteit, dan zetten we er een engineer bij. Loopt het vast op vaardigheid, dan coachen we uw eigen mensen. Meestal begint een traject met het eerste en eindigt het met het tweede: wij draaien mee tot uw team het zonder ons draait.",
+  "staffing.track.fitLabel": "Past wanneer",
   "staffing.track.engineer.title": "AI engineer staffing",
   "staffing.track.engineer.tag.1": "Direct impact op uw project",
   "staffing.track.engineer.tag.2": "Agents op uw codebase",
   "staffing.track.engineer.tag.3": "Expert AI-gebruik",
   "staffing.track.engineer.body": "Wij zetten een AI-native engineer in uw project. Die draait mee in uw sprints, uw repository en uw review, en bouwt de automatisatie rond de code mee op, met overdracht aan uw eigen engineers vanaf dag één.",
 
+  "staffing.track.engineer.how": "In de praktijk: dagelijkse stand-up mee, tickets uit dezelfde backlog, pull requests die uw eigen reviewers nakijken. We zetten de agents op uw codebase op, leggen de afspraken vast in de repository en bouwen de gates in uw CI/CD, zodat wat wij achterlaten ook zonder ons blijft werken. U beslist over elke commit; wij zijn geen zwarte doos die code over de muur gooit.",
+  "staffing.track.engineer.fit": "Uw project loopt, er is werk genoeg, en er is niemand in het team die AI verder krijgt dan de zoekbalk.",
   "staffing.track.developers.title": "Coaching voor developers",
   "staffing.track.developers.tag.1": "Eén-op-één coaching",
   "staffing.track.developers.tag.2": "Pair programming",
   "staffing.track.developers.tag.3": "Async workflows opstellen",
   "staffing.track.developers.body": "Wij brengen AI-native patronen binnen bij uw eigen engineers: uitleggen, voordoen en samen aan hetzelfde scherm werken op het werk dat er vandaag ligt, tot het blijft hangen.",
 
+  "staffing.track.developers.how": "In de praktijk: een halve dag per week naast uw developers, op hun eigen tickets. We werken aan hetzelfde scherm, tonen wat een agent wel en niet aankan, en zetten samen de async workflows op die het werk buiten kantooruren laten doorlopen. Wat we opzetten blijft van u en staat in uw repository, niet in onze notities.",
+  "staffing.track.developers.fit": "Uw developers hebben toegang tot AI, gebruiken het als een slimmere autocomplete, en u ziet er nog geen verschil van in de doorlooptijd.",
   "staffing.track.business.title": "Coaching voor business teams",
   "staffing.track.business.tag.1": "AI technieken",
   "staffing.track.business.tag.2": "Workflows uittekenen",
   "staffing.track.business.tag.3": "Herbruikbare patronen",
   "staffing.track.business.body": "Wij leiden uw medewerkers zelf op: wat AI wel en niet kan, en hoe ze het inzetten op hun eigen dossiers. Coaching naast het werk dat er ligt, met herbruikbare patronen in plaats van losse prompts.",
 
+  "staffing.track.business.how": "In de praktijk: sessies met de mensen die het werk doen, op hun eigen dossiers. We tekenen samen uit welke stap AI overneemt en welke niet, leggen dat vast als een workflow die uw team opnieuw draait, en blijven erbij tot het zonder ons gaat. Geen promptbibliotheek, maar een manier van werken.",
+  "staffing.track.business.fit": "Uw teams gebruiken AI al, ieder op eigen houtje, en niemand kan zeggen wat er precies mee gewonnen wordt.",
   "staffing.cta.title": "Zoekt u iemand die dit al doet?",
   "staffing.cta.body": "Vertel kort waar uw team op vastloopt en hoe het project er vandaag uitziet. We stellen het spoor voor dat past, en zeggen ook wanneer u ons niet nodig hebt.",
 
@@ -201,6 +246,7 @@
   "processes.hero.eyebrow": "AI-native businessprocessen",
   "processes.hero.title": "Van uw taken naar herbruikbare workflows",
 
+  "processes.hero.lede": "We nemen één proces dat elke week terugkomt van begin tot eind door, en laten workflows, skills en agents achter die uw eigen team draait. We zeggen ook waar AI er niets aan toevoegt.",
   "processes.cta.phases": "Bekijk de aanpak",
 
   "processes.phases.title": "Hoe een traject verloopt",
@@ -234,6 +280,7 @@
   "sdlc.hero.eyebrow": "AI-native SDLC",
   "sdlc.hero.title": "Van traditionele SDLC naar AI-native",
 
+  "sdlc.hero.lede": "Wij begeleiden softwareteams van traditioneel naar agentic naar AI-native: de processen, de gates in uw CI/CD, en vooral de mensen die er elke dag in werken.",
   "sdlc.cta.journey": "Bekijk de weg ernaartoe",
 
   "sdlc.issues.title": "Wat we vandaag zien",
@@ -307,6 +354,10 @@
   "team.person.tom.tags": "Agentic AI · Enterprise architectuur · Automatisatie · Technisch ontwerp",
   "team.person.tom.portrait": "Tom Haeldermans, oprichter van SmartAgents",
 
+  "team.story.title": "Waarom we begonnen zijn",
+  "team.story.1": "De meeste bedrijven die we spraken hadden hetzelfde probleem, en het was niet dat ze te weinig over AI gehoord hadden. Het was dat niemand kon zeggen waar te beginnen. Er was een pilot geweest, of een tool die iemand had aangezet, en daarna hield het op. Wij zijn SmartAgents begonnen om dat gat te vullen: niet met een presentatie over wat mogelijk is, maar met werk dat de week erna al draait.",
+  "team.story.2": "We gebruiken de tooling die we aanraden elke dag zelf, op onze eigen projecten. Dat is geen slogan, het is de reden dat we durven zeggen wanneer iets niet werkt. Wat we u aanraden, draait eerst bij ons. En wat niet gebruikt wordt, halen we er weer uit, ook als we het zelf gebouwd hebben.",
+  "team.story.3": "We zitten in Beringen en werken voor Belgische organisaties, van KMO tot enterprise, in het Nederlands, het Engels en het Frans. Meestal komt u een van ons twee tegen aan tafel, en dezelfde persoon werkt mee in het project.",
   "team.cta.title": "Zullen we kennismaken?",
   "team.cta.body": "Vertel kort wat er beter kan lopen. U krijgt een van ons twee aan tafel, en we zeggen ook wanneer u ons niet nodig hebt.",
 

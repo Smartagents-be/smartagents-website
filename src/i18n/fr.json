@@ -6,8 +6,11 @@
   "a11y.mainNav": "Navigation principale",
   "a11y.footerNav": "Navigation du pied de page",
   "a11y.language": "Langue",
+  "a11y.menuNav": "Navigation du menu",
+  "a11y.languageMenu": "Langue, dans le menu",
 
   "nav.menu": "Menu",
+  "nav.home": "Accueil",
   "nav.insights": "Analyses",
 
   "cta.talk": "Planifier un entretien",
@@ -17,12 +20,14 @@
   "cta.moreInfo": "Découvrir",
   "cta.send": "Envoyer",
 
+  "hero.lede": "Nous formons vos équipes à l'IA, plaçons des ingénieurs AI-native dans vos projets et construisons les workflows et les agents qui reprennent le travail. Pour les organisations belges qui veulent savoir ce que l'IA rapporte vraiment aujourd'hui, et où elle n'apporte rien.",
   "hero.claim": "Des collègues numériques qui ne dorment jamais",
 
   "section.services": "Ce que nous faisons",
   "section.dna": "Notre ADN",
   "section.transformation": "Transformation numérique",
   "section.approach": "De la question à la solution qui tourne",
+  "section.faq": "Questions fréquentes",
   "section.insights": "Analyses",
 
   "service.training.title": "Formation",
@@ -67,6 +72,18 @@
   "step.5.title": "Optimisation",
   "step.5.body": "Nous continuons à mesurer et à ajuster. Ce qui n'est pas utilisé, nous le retirons.",
 
+  "faq.price.q": "Combien coûte une mission ?",
+  "faq.price.a": "Cela dépend de ce qui est nécessaire, et nous ne le savons qu'après le SmartScan. Nous y cartographions vos processus et vos points de blocage, puis nous proposons un programme taillé pour eux. Vous obtenez un prix pour le travail réellement engagé, pas pour un forfait. Une formation est chiffrée de la même façon, après un court entretien.",
+  "faq.speed.q": "Combien de temps avant de voir quelque chose fonctionner ?",
+  "faq.speed.a": "Nous construisons par cycles courts et vous testez avec nous sur de vrais dossiers pendant que cela se construit. Le premier workflow qui tourne sort donc de la mission elle-même, pas d'une livraison finale. Pour une formation, c'est dès le lendemain : les exercices portent sur le travail que vos équipes ont sur la table cette semaine.",
+  "faq.honest.q": "Et si l'IA ne nous apporte rien ?",
+  "faq.honest.a": "Alors nous le disons. Dans le SmartScan, nous disons honnêtement où l'IA n'apporte rien, et c'est presque toujours une partie de la réponse. Ce que nous construisons et que personne n'utilise, nous le retirons. Un workflow que personne ne fait tourner ne vous coûte que de la maintenance.",
+  "faq.who.q": "À qui s'adressent vos formations ?",
+  "faq.who.a": "À deux publics. L'IA pour les équipes business s'adresse aux personnes qui travaillent avec l'IA et n'ont besoin d'aucun prérequis. L'agentic engineering s'adresse aux développeurs qui construisent avec elle tous les jours. Les deux se donnent en groupes de 5 à 20, chez vous ou à distance.",
+  "faq.where.q": "Travaillez-vous chez nous ou à distance ?",
+  "faq.where.a": "Les deux, et c'est vous qui choisissez. Nous sommes établis à Beringen et travaillons pour des organisations belges, de la PME au grand groupe. Formation, coaching et staffing se donnent en néerlandais, en anglais et en français.",
+  "faq.data.q": "Qu'advient-il de nos données ?",
+  "faq.data.a": "Ce site ne pose aucun cookie, n'utilise aucun outil de mesure d'audience et ne fait aucun suivi ; aucune requête vers un tiers ne quitte la page tant que vous n'utilisez pas le formulaire de contact. Ce qu'il advient alors de votre message, qui le voit et combien de temps nous le conservons figure dans notre politique de confidentialité. Dans un projet, nous travaillons dans votre propre environnement et sur vos propres systèmes.",
   "article.tag.news": "Actualités",
   "article.tag.ai": "IA",
   "article.tag.tips": "Conseils",
@@ -90,6 +107,9 @@
 
 
   "insight.more": "Plus d'analyses",
+  "insights.index.title": "Analyses · SmartAgents",
+  "insights.index.description": "Ce que nous voyons fonctionner dans les équipes belges qui se mettent à l'IA, et ce qui ne fonctionne pas. Comptes rendus, analyses et actualités de SmartAgents.",
+  "insights.index.lede": "Ce que nous voyons fonctionner dans les équipes qui se mettent à l'IA, et ce qui ne fonctionne pas. Pas de prédictions, seulement ce que nous avons rencontré nous-mêmes ce mois-ci.",
   "contact.title": "On en parle",
   "contact.lede": "Dites-nous brièvement ce qui pourrait mieux tourner. Nous répondons nous-mêmes, en général dans la journée ouvrable, et nous disons aussi quand vous n'avez pas besoin de nous.",
   "contact.callLabel": "Vous préférez appeler ?",
@@ -100,6 +120,11 @@
   "form.company": "Entreprise",
   "form.email": "E-mail",
   "form.message": "Qu'est-ce qui est difficile aujourd'hui ?",
+  "form.required": "obligatoire",
+  "form.requiredLegend": "Les champs marqués d'un * sont obligatoires.",
+  "form.error.required": "Veuillez remplir ce champ.",
+  "form.error.email": "Veuillez saisir une adresse e-mail valide.",
+  "form.noScript": "Le formulaire ne fonctionne pas ? Écrivez-nous directement à",
   "form.subject": "Nouveau message via smartagents.be",
   "form.privacyNote": "En envoyant ce message, vous acceptez notre [politique de confidentialité].",
   "form.sending": "Envoi…",
@@ -112,6 +137,7 @@
   "training.hero.eyebrow": "Formation",
   "training.hero.title": "Apprenez à utiliser l'IA comme un professionnel",
 
+  "training.hero.lede": "Deux formations : l'IA pour les équipes business, et l'agentic engineering pour les développeurs. Chez vous ou à distance, en groupes de 5 à 20, avec des exercices sur le travail que vos équipes ont sur la table cette semaine.",
   "training.cta.offer": "Voir notre offre",
 
   "training.why.title": "Pourquoi investir dans la formation à l'IA ?",
@@ -119,9 +145,18 @@
   "training.offer.title": "Notre offre",
   "training.offer.learn": "Ce que vous apprenez",
 
-  "training.download": "Télécharger la fiche (PDF)",
+  "training.download": "Télécharger la fiche",
 
+  "training.facts.format.label": "Format",
+  "training.facts.format.value": "Chez vous ou à distance",
+  "training.facts.group.label": "Groupe",
+  "training.facts.group.value": "5 à 20 participants",
+  "training.facts.audience.label": "Pour qui",
+  "training.facts.tools.label": "À prévoir",
+  "training.facts.price.label": "Prix",
+  "training.facts.price.value": "Sur mesure, après un court entretien",
   "training.course.business.title": "L'IA pour les équipes business",
+  "training.course.business.audience": "Les équipes qui travaillent avec l'IA, sans prérequis",
   "training.course.business.tools": "Un abonnement IA, votre propre portable",
   "training.course.business.body": "Vous apprenez à mettre l'IA sur le travail qui revient chaque semaine : pas un prompt malin, mais une façon de travailler qui se répète et se transmet.",
   "training.course.business.learn.1": "Poser des questions qui donnent chaque fois le même résultat",
@@ -129,6 +164,7 @@
   "training.course.business.learn.3": "Construire des assistants simples, sans une ligne de code",
   "training.course.business.learn.4": "Traiter les données d'entreprise en toute sécurité",
   "training.course.agentic.title": "Agentic engineering",
+  "training.course.agentic.audience": "Les développeurs qui construisent avec l'IA",
   "training.course.agentic.tools": "Un abonnement IA, un IDE, votre propre portable",
   "training.course.agentic.body": "Apprenez à vos AI engineers à utiliser l'IA de manière économe et efficace, pour générer du code et optimiser les processus.",
   "training.course.agentic.learn.1": "Mettre des agents sur un ticket, un bug, un refactor",
@@ -170,28 +206,37 @@
   "staffing.hero.eyebrow": "AI staffing et coaching",
   "staffing.hero.title": "Un ingénieur AI-native dans votre équipe",
 
+  "staffing.hero.lede": "Un ingénieur qui utilise l'IA tous les jours, dans vos sprints, votre dépôt et vos revues. Ou du coaching pour vos propres développeurs et équipes business, sur le travail qui est devant eux aujourd'hui.",
   "staffing.cta.tracks": "Voir ce que nous faisons",
 
   "staffing.tracks.title": "Ce que nous faisons",
 
+  "staffing.tracks.lede": "Trois pistes, et laquelle dépend de ce qui bloque aujourd'hui. Si c'est la capacité, nous ajoutons un ingénieur. Si c'est la compétence, nous coachons vos propres équipes. La plupart des missions commencent par la première et se terminent par la seconde : nous travaillons avec votre équipe jusqu'à ce qu'elle tourne sans nous.",
+  "staffing.track.fitLabel": "Le bon choix si",
   "staffing.track.engineer.title": "AI engineer staffing",
   "staffing.track.engineer.tag.1": "Un impact direct sur votre projet",
   "staffing.track.engineer.tag.2": "Des agents sur votre code",
   "staffing.track.engineer.tag.3": "Un usage expert de l'IA",
   "staffing.track.engineer.body": "Nous plaçons un ingénieur AI-native dans votre projet. Il travaille dans vos sprints, votre dépôt et vos revues, et construit avec vous l'automatisation autour du code, avec transmission à vos propres ingénieurs dès le premier jour.",
 
+  "staffing.track.engineer.how": "Concrètement : présence au stand-up quotidien, des tickets issus du même backlog, des pull requests validées par vos propres relecteurs. Nous installons les agents sur votre code, inscrivons les conventions dans le dépôt et construisons les gates dans votre CI/CD, pour que ce que nous laissons continue de fonctionner sans nous. Vous décidez de chaque commit ; nous ne sommes pas une boîte noire qui jette du code par-dessus le mur.",
+  "staffing.track.engineer.fit": "Votre projet avance, le travail ne manque pas, et personne dans l'équipe ne va plus loin avec l'IA que la barre de recherche.",
   "staffing.track.developers.title": "Coaching pour développeurs",
   "staffing.track.developers.tag.1": "Coaching en tête-à-tête",
   "staffing.track.developers.tag.2": "Pair programming",
   "staffing.track.developers.tag.3": "Mise en place de workflows async",
   "staffing.track.developers.body": "Nous introduisons des patterns AI-native chez vos propres ingénieurs : expliquer, montrer et travailler au même écran sur le travail du moment, jusqu'à ce que cela reste.",
 
+  "staffing.track.developers.how": "Concrètement : une demi-journée par semaine aux côtés de vos développeurs, sur leurs propres tickets. Nous travaillons sur le même écran, montrons ce qu'un agent peut porter et ce qu'il ne peut pas, et mettons en place ensemble les workflows asynchrones qui font avancer le travail en dehors des heures de bureau. Ce que nous installons vous appartient et vit dans votre dépôt, pas dans nos notes.",
+  "staffing.track.developers.fit": "Vos développeurs ont accès à l'IA, s'en servent comme d'une autocomplétion plus maligne, et vous ne voyez toujours pas de différence sur les délais.",
   "staffing.track.business.title": "Coaching pour les équipes métier",
   "staffing.track.business.tag.1": "Techniques d'IA",
   "staffing.track.business.tag.2": "Dessiner les workflows",
   "staffing.track.business.tag.3": "Patterns réutilisables",
   "staffing.track.business.body": "Nous formons vos collaborateurs nous-mêmes : ce que l'IA peut faire et ce qu'elle ne peut pas, et comment l'utiliser sur leurs propres dossiers. Du coaching à côté du travail en cours, avec des patterns réutilisables plutôt que des prompts isolés.",
 
+  "staffing.track.business.how": "Concrètement : des sessions avec les personnes qui font le travail, sur leurs propres dossiers. Nous dessinons ensemble quelle étape l'IA reprend et laquelle non, nous l'inscrivons comme un workflow que votre équipe relance, et nous restons jusqu'à ce que cela tourne sans nous. Pas une bibliothèque de prompts, une manière de travailler.",
+  "staffing.track.business.fit": "Vos équipes utilisent déjà l'IA, chacune dans son coin, et personne ne peut dire ce qui est réellement gagné.",
   "staffing.cta.title": "Vous cherchez quelqu'un qui le fait déjà ?",
   "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous proposons la piste qui convient, et nous disons aussi quand vous n'avez pas besoin de nous.",
 
@@ -201,6 +246,7 @@
   "processes.hero.eyebrow": "Processus métier AI-native",
   "processes.hero.title": "De vos tâches à des workflows réutilisables",
 
+  "processes.hero.lede": "Nous reprenons de bout en bout un processus qui revient chaque semaine, et laissons derrière nous des workflows, des skills et des agents que votre équipe fait tourner elle-même. Nous disons aussi où l'IA n'apporte rien.",
   "processes.cta.phases": "Voir la démarche",
 
   "processes.phases.title": "Comment se déroule un projet",
@@ -234,6 +280,7 @@
   "sdlc.hero.eyebrow": "SDLC AI-native",
   "sdlc.hero.title": "Du SDLC traditionnel à l'AI-native",
 
+  "sdlc.hero.lede": "Nous accompagnons les équipes logicielles du traditionnel à l'agentic puis à l'AI-native : les processus, les gates dans votre CI/CD, et surtout les personnes qui y travaillent chaque jour.",
   "sdlc.cta.journey": "Voir le chemin à parcourir",
 
   "sdlc.issues.title": "Ce que nous voyons aujourd'hui",
@@ -307,6 +354,10 @@
   "team.person.tom.tags": "IA agentique · Architecture d'entreprise · Automatisation · Conception technique",
   "team.person.tom.portrait": "Tom Haeldermans, fondateur de SmartAgents",
 
+  "team.story.title": "Pourquoi nous avons commencé",
+  "team.story.1": "La plupart des entreprises que nous avons rencontrées avaient le même problème, et ce n'était pas d'avoir trop peu entendu parler de l'IA. C'était que personne ne savait par où commencer. Il y avait eu un pilote, ou un outil que quelqu'un avait activé, et puis plus rien. Nous avons lancé SmartAgents pour combler ce vide : pas avec une présentation sur ce qui est possible, mais avec un travail qui tourne dès la semaine suivante.",
+  "team.story.2": "Nous utilisons chaque jour les outils que nous recommandons, sur nos propres projets. Ce n'est pas un slogan, c'est ce qui nous permet de dire quand quelque chose ne fonctionne pas. Ce que nous vous conseillons tourne d'abord chez nous. Et ce qui n'est pas utilisé, nous le retirons, même si nous l'avons construit nous-mêmes.",
+  "team.story.3": "Nous sommes établis à Beringen et travaillons pour des organisations belges, de la PME au grand groupe, en néerlandais, en anglais et en français. Vous rencontrerez le plus souvent l'un de nous deux autour de la table, et c'est la même personne qui travaille sur le projet.",
   "team.cta.title": "On fait connaissance ?",
   "team.cta.body": "Dites-nous brièvement ce qui pourrait mieux tourner. Vous aurez l'un de nous deux à table, et nous vous dirons aussi quand vous n'avez pas besoin de nous.",
 

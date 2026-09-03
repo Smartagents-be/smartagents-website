@@ -49,6 +49,13 @@
      two words on one line, never a border. */
   --sa-line-4: oklch(0.74 0.012 247.84);
 
+  /* The one colour on the site that is neither ink, paper nor cyan: what a
+     field that failed validation is drawn in, and what the contact form's
+     status line has always used for its error state. Measured, like the faint
+     grey above it: 5.72:1 on --sa-paper, 5.95:1 on the input's own ground and
+     5.98:1 on white, so it clears AA everywhere the form is printed. */
+  --sa-red: oklch(0.52 0.16 25);
+
   /* one accent, two values: paper and field */
   --sa-cyan: oklch(0.53 0.112 214);
   --sa-cyan-hover: oklch(0.6 0.118 210);
@@ -82,6 +89,7 @@
   --text-nav: var(--sa-grey-2);
   --text-lead: var(--sa-grey-1);
   --text-accent: var(--sa-cyan);
+  --text-error: var(--sa-red);
   --text-on-dark: var(--sa-on-field);
   --text-on-dark-muted: var(--sa-on-field-muted);
   --text-on-dark-faint: var(--sa-on-field-faint);

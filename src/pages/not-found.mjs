@@ -15,10 +15,10 @@ export const page = {
   }),
 
   render: ({ t, lang }) => html`<main id="main" tabindex="-1">
-  <div class="error-page">
-    <h1>${t('notfound.title')}</h1>
-    <p>${t('notfound.tagline')}</p>
-    <a class="btn btn--primary" href="${pagePath(lang)}">${t('notfound.home')}</a>
+  <div id="not-found-block" class="error-page">
+    <h1 id="not-found-title">${t('notfound.title')}</h1>
+    <p id="not-found-tagline">${t('notfound.tagline')}</p>
+    <a id="not-found-home" class="btn btn--primary" href="${pagePath(lang)}">${t('notfound.home')}</a>
   </div>
 </main>`
 };

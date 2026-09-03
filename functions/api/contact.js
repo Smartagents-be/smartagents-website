@@ -47,14 +47,20 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: 'Captcha verification failed' }, 403);
   }
 
-  const rateLimitError = await checkAndIncrementRateLimit(env.CONTACT_RATE, ip);
-  if (rateLimitError) {
-    return jsonResponse({ error: rateLimitError }, 429);
-  }
-
   const validationError = validatePayload(body);
   if (validationError) {
     return jsonResponse({ error: validationError }, 400);
+  }
+
+  // Validation first, then the counter. The other way round a malformed
+  // submission burned one of the caller's five attempts an hour, so a visitor
+  // who mistyped an e-mail address five times was locked out of the site's only
+  // conversion path for the rest of the hour — and while the endpoint rejected
+  // every submission the form made, five page loads locked out everyone. The
+  // counter now only ever counts a submission that was worth forwarding.
+  const rateLimitError = await checkAndIncrementRateLimit(env.CONTACT_RATE, ip);
+  if (rateLimitError) {
+    return jsonResponse({ error: rateLimitError }, 429);
   }
 
   // Awaited, not `waitUntil`. Handed to `waitUntil` this call outlived the

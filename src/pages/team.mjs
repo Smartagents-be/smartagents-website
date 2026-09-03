@@ -9,6 +9,7 @@
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
+import { breadcrumbNode, founderNodes, homeStep } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /**
@@ -36,9 +37,10 @@ const FOUNDERS = [
  * like the SmartAgents logo, not the first member of an icon set: the design
  * system's ban on an icon library still stands (design README, "Iconography").
  */
-const LINKEDIN_MARK = raw(
-  '<svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.2 9h3.56v12H3.2V9Zm6.04 0h3.41v1.64h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.36 4.3 5.44V21h-3.56v-5.32c0-1.27-.02-2.9-1.79-2.9-1.79 0-2.06 1.38-2.06 2.81V21H9.24V9Z"/></svg>'
-);
+const linkedinMark = (id) =>
+  raw(
+    `<svg id="${id}-mark" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true" focusable="false"><path id="${id}-mark-path" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.2 9h3.56v12H3.2V9Zm6.04 0h3.41v1.64h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.36 4.3 5.44V21h-3.56v-5.32c0-1.27-.02-2.9-1.79-2.9-1.79 0-2.06 1.38-2.06 2.81V21H9.24V9Z"/></svg>`
+  );
 
 /** Widths shipped for every portrait, smallest first. */
 const PORTRAIT_WIDTHS = [320, 440, 880];
@@ -72,9 +74,18 @@ export const page = {
     }
   }),
 
+  /* The two founders as `Person` nodes, each `worksFor` the company node every
+     page carries and `sameAs` their own LinkedIn profile. This is the only page
+     that names a person, so it is the only one that declares one. */
+  schema: ({ t, lang, url }) => [
+    ...founderNodes(t),
+    breadcrumbNode([homeStep(t, lang), { name: t('nav.team'), url }])
+  ],
+
   render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
 ${hero(t)}
+${story(t)}
 ${contact(t, lang)}
 
 </main>`
@@ -121,15 +132,43 @@ function person({ t, key, name, portrait, linkedin, eager }) {
   return html`    <article id="${id}" class="person">
       <picture id="${id}-picture" class="person__picture">
         <source id="${id}-source-avif" type="image/avif" srcset="${srcset(portrait, 'avif')}" sizes="${PORTRAIT_SIZES}">
-        <img id="${id}-image" class="person__image" src="${portrait}-440.jpg" srcset="${srcset(portrait, 'jpg')}" sizes="${PORTRAIT_SIZES}" width="440" height="660" alt="${t(`team.person.${key}.portrait`)}" decoding="async"${eager ? '' : ' loading="lazy"'}>
+        <img id="${id}-image" class="person__image" src="${portrait}-440.jpg" srcset="${srcset(portrait, 'jpg')}" sizes="${PORTRAIT_SIZES}" width="440" height="660" alt="${t(`team.person.${key}.portrait`)}" decoding="async"${eager ? '' : raw(' loading="lazy"')}>
       </picture>
       <div id="${id}-overlay" class="person__overlay">
         <h2 id="${id}-name" class="person__name">${name}</h2>
         <p id="${id}-body" class="person__body">${t(`team.person.${key}.body`)}</p>
         <p id="${id}-tags" class="person__tags">${t(`team.person.${key}.tags`)}</p>
-        <a id="${id}-linkedin" class="person__link" href="${linkedin}" rel="noopener" aria-label="${name} ${t('team.linkedinLabel')}">${LINKEDIN_MARK}</a>
+        <a id="${id}-linkedin" class="person__link" href="${linkedin}" target="_blank" rel="noopener noreferrer" aria-label="${name} ${t('team.linkedinLabel')}">${linkedinMark(`${id}-linkedin`)}</a>
       </div>
     </article>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Waarom we begonnen zijn — the page's own prose
+ *
+ * The page used to be a headline and two thirty-word bios, and nothing else:
+ * about 180 words including the nav, the footer and the form. That is thin for
+ * the page a prospect opens to decide whether to trust two people they have
+ * never met, and it is the only page on the site where the company can say why
+ * it exists without it reading as a sales line.
+ *
+ * Three paragraphs, at the reading measure, in the article's own idiom rather
+ * than in a row list: this is writing, not an offer.
+ * ------------------------------------------------------------------ */
+
+function story(t) {
+  const paragraphs = ['1', '2', '3'].map(
+    (n) => html`      <p id="team-story-body-${n}">${t(`team.story.${n}`)}</p>`
+  );
+
+  return html`<section id="team-story" class="section" aria-labelledby="team-story-title">
+  <div id="team-story-head" class="section__head">
+    <h2 id="team-story-title" class="section-heading">${t('team.story.title')}</h2>
+  </div>
+  <div id="team-story-body" class="story">
+${join(paragraphs)}
+  </div>
+</section>`;
 }
 
 /* ------------------------------------------------------------------ *

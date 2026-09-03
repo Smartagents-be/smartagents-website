@@ -157,6 +157,30 @@ select {
   clip-path: polygon(0 0, 87% 0, 71.2% 100%, 0 100%);
 }
 
+/* The field inside the wedge stops before the wordmark.
+   It ran the whole wedge, and the wedge is drawn to hold the wordmark, so its
+   nodes and its connectors travelled through the letterforms — on the one
+   element on the site that has to stay crisp at every width, that reads as
+   rendering noise rather than as texture. What is left live is the wedge's
+   tail: the band past the brand where the diagonal cut is, which is the part
+   of the shape that is most itself.
+   The stops are shares of the wedge rather than pixels, because the two move
+   together: measured, the brand box ends at 62% of the wedge at 1100px and at
+   65% at 1440px, so 68% clears it with room and the field is fully back by 82%.
+   Below the desk it is dropped rather than masked — the wedge narrows to about
+   170px there and the brand ends at 88% of it, so there is no tail left to put
+   a field in, and a flat navy plate is what the shape is down there. */
+.header-wedge sa-node-field {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0 68%, #000 82%);
+  mask-image: linear-gradient(90deg, transparent 0 68%, #000 82%);
+}
+
+@media (max-width: 1180px) {
+  .header-wedge sa-node-field {
+    display: none;
+  }
+}
+
 .brand-link {
   position: relative;
   display: flex;
@@ -233,6 +257,17 @@ select {
 .nav-link:focus-visible {
   background: var(--surface-nav-hover);
   color: var(--text-strong);
+}
+
+/* The page you are on. The bar said nothing about it before: on /nl/training/
+   the "Training" item looked and read exactly like the other four. It is not
+   the hover wash — an item that is already the hover state has nothing left to
+   do on hover — but the ink and the weight, which is the same difference the
+   rest of the site uses between a label and the thing it names. */
+.nav-link.is-current,
+.nav-sheet__item.is-current {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
 }
 
 /* The one chevron left in the header, on the menu trigger under 768px. It sits
@@ -642,13 +677,21 @@ select {
   align-self: start;
 }
 
+
 /* The wordmark sets its own width; only the claim is held to a measure, so the
-   two never fight over the same line length. */
-.hero h1 {
-  margin-bottom: var(--space-10);
+   two never fight over the same line length.
+
+   `.hero__wordmark` is a `<p>` on the homepage and the heading is the claim
+   beside it, so this has to name both rather than only `h1` — and every
+   `.hero__claim` rule has to name the element as well, or `.hero h1` outranks
+   it and the claim is set at the wordmark's size. */
+.hero h1,
+.hero__wordmark {
   font-size: var(--text-display);
   line-height: var(--leading-display);
   letter-spacing: var(--track-display);
+  font-weight: var(--weight-display);
+  text-wrap: pretty;
 }
 
 .hero__wordmark {
@@ -667,7 +710,7 @@ select {
   color: var(--sa-cyan);
 }
 
-.hero__claim {
+.hero h1.hero__claim {
   display: block;
   margin-top: var(--space-4);
   max-width: var(--measure-display);
@@ -675,7 +718,22 @@ select {
   font-size: var(--text-h1-sub);
 }
 
+/* The sentence that says what is sold.
+   Every hero on the site was an eyebrow, a headline and two buttons, and on a
+   desk that left about 550px of bare paper under the buttons and a first-time
+   visitor a full screen to scroll before learning what the company does. One
+   or two lines, at the reading measure, between the headline and the actions:
+   the headline is the claim, this is the offer. */
+.hero__lede {
+  margin-top: var(--space-8);
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+}
+
 .hero__actions {
+  margin-top: var(--space-10);
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-5);
@@ -739,7 +797,7 @@ select {
     height: 1.05em;
   }
 
-  .hero__claim {
+  .hero h1.hero__claim {
     /* The claim is the largest thing here, so it sets its own line and needs
        the air the wordmark used to give it from above. */
     margin-top: var(--space-6);
@@ -988,7 +1046,7 @@ select {
     max-width: 80%;
   }
 
-  .hero__claim {
+  .hero h1.hero__claim {
     font-size: var(--text-display);
   }
 
