@@ -1,23 +1,19 @@
-<!-- ════════════════ 09 · LAB 0 · BASELINE RESULT ════════════════ -->
-  <section data-label="Lab 0: baseline result" class="slide light cat-themed" style="--c: var(--green);">
-    <div class="frame">
-      <p class="eyebrow"><span class="num">09</span>Lab 0 result</p>
-      <h2 class="h2">The baseline, <span class="accent">in one number</span>.</h2>
+<!-- ════════════════ 09 · LAB 0 · RESULT ════════════════ -->
+<section id="token-efficient-ai-development-slide-09" data-label="Lab 0 result" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-09-inner" class="slide__inner">
 
-      <div class="frame-body">
-        <div style="text-align: center;">
-          <div style="font-size: 200px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--c);">466k</div>
-          <p style="font-size: 30px; color: var(--fg-muted); margin: 18px 0 0;">tokens to change <strong>one line</strong>. Like any real codebase, many modules here touch sessions, cookies, and timeouts, so unscoped the agent reads through them to find the one that matters</p>
-          <div style="display: flex; justify-content: center; gap: 40px; margin: 28px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
-            <span style="font-size: 22px; color: var(--fg);"><strong>443k</strong> <span style="color: var(--fg-subtle);">cache read</span></span>
-            <span style="font-size: 22px; color: var(--fg);"><strong>21k</strong> <span style="color: var(--fg-subtle);">cache write</span></span>
-            <span style="font-size: 22px; color: var(--fg);"><strong>2.2k</strong> <span style="color: var(--fg-subtle);">output</span></span>
-            <span style="font-size: 22px; color: var(--fg);"><strong>$0.29</strong> <span style="color: var(--fg-subtle);">cost</span></span>
-          </div>
-          <p style="font-size: 24px; color: var(--fg); margin: 26px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">cache read &asymp; context size &times; turns</p>
-          <p style="font-size: 20px; color: var(--fg-subtle); margin: 12px auto 0; max-width: 1180px; line-height: 1.5;">Sonnet 4.6, medium effort. Every agent turn re-sends the whole context, the system prompt, tools, files, and conversation, so the bill is that context multiplied by the number of turns. A fresh session does not help: the cache just refills and is re-read on every step. Fewer turns and a smaller context is what beats this number.</p>
-        </div>
-      </div>
+    <div id="token-efficient-ai-development-slide-09-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-09-rule" class="rule" aria-hidden="true"></div>
+      <p id="token-efficient-ai-development-slide-09-eyebrow" class="slide__eyebrow">Lab 0 result</p>
     </div>
-    <!--chrome 09/57-->
-  </section>
+
+    <div id="token-efficient-ai-development-slide-09-body" class="slide__body">
+      <p id="token-efficient-ai-development-slide-09-statement" class="statement">466k tokens to change one line.</p>
+      <p id="token-efficient-ai-development-slide-09-support" class="statement__support">Like any real codebase, many modules here touch sessions, cookies and timeouts, so unscoped the agent reads through them to find the one that matters. 443k cache read, 21k cache write, 2.2k output, $0.29.</p>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-09-note" class="slide__note">Sonnet 4.6, medium effort. Cache read is roughly context size times turns, and a fresh session does not help: the cache refills and is re-read on every step. Fewer turns and a smaller context is what beats this number.</p>
+
+  </div>
+  <!--chrome 09/56-->
+</section>

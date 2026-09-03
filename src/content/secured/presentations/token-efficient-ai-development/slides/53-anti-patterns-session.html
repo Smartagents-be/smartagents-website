@@ -1,50 +1,31 @@
 <!-- ════════════════ 53 · ANTI-PATTERNS · SESSION ════════════════ -->
-  <section data-label="Anti-patterns: session" class="slide light cat-themed" style="--c: var(--amber);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">53</span>Anti-patterns &middot; 1 of 2</p>
-          <h2 class="h2">Where the <span class="accent">session</span> leaks tokens.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-53" data-label="Session leaks" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-53-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="problist">
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </span>
-          <div class="prob-title">The infinite exploration</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>&ldquo;Investigate the codebase&rdquo; with no scope reads hundreds of files into the window. Scope it, or send a subagent that explores in its own context and reports back just the answer.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </span>
-          <div class="prob-title">The kitchen-sink session</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>One session drifting across unrelated tasks; every later message reprocesses the junk. One task per session, <code>/clear</code> when it changes.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-          </span>
-          <div class="prob-title">Filling up before compacting</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Quality drops as the window fills; waiting until it is nearly full bakes in the rot. <code>/compact</code> early, before the limit.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-          </span>
-          <div class="prob-title">Correcting over and over</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>After two failed fixes the thread is polluted with dead ends that distract the model. Reset with a sharper prompt; a fresh session beats more iteration.</div>
-        </div>
-      </div>
+    <div id="token-efficient-ai-development-slide-53-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-53-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-53-title" class="slide__title">Where the session leaks tokens.</h2>
+    </div>
 
-      <p style="font-size: 15px; line-height: 1.45; color: var(--fg-subtle); margin: 16px 4px 0;"><strong>Source:</strong> Anthropic, Claude Code best practices (code.claude.com/docs).</p>
+    <div id="token-efficient-ai-development-slide-53-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-53-rows" class="rows">
+        <div id="token-efficient-ai-development-slide-53-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-53-row-01-term" class="row__term">The infinite exploration</span>
+          <span id="token-efficient-ai-development-slide-53-row-01-detail" class="row__detail">A prompt like investigate the codebase, with no scope, reads hundreds of files into the window. Scope it, or send a subagent that reports back the answer.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-53-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-53-row-02-term" class="row__term">The kitchen-sink session</span>
+          <span id="token-efficient-ai-development-slide-53-row-02-detail" class="row__detail">One session drifting across unrelated tasks reprocesses the junk on every later message. One task per session, and compact early rather than when the window is nearly full.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-53-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-53-row-03-term" class="row__term">Correcting over and over</span>
+          <span id="token-efficient-ai-development-slide-53-row-03-detail" class="row__detail">After two failed fixes the thread is full of dead ends that distract the model. A fresh session beats more iteration.</span>
+        </div>
       </div>
     </div>
-    <!--chrome 53/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-53-note" class="slide__note">Anthropic, Claude Code best practices.</p>
+
+  </div>
+  <!--chrome 53/56-->
+</section>

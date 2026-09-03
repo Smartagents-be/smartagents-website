@@ -1,7 +1,7 @@
 // "Hello world, hello AI era" — 21 April 2026, the first post. Ported from the
 // Eleventy blog on `main` (blog/posts/2026-04-21-smartagents-lancering.md and
 // its en/ and fr/ translations), unchanged.
-import { p, quote, list } from './prose.mjs';
+import { p, quote, list } from '../prose.mjs';
 
 export const body = {
   nl: [

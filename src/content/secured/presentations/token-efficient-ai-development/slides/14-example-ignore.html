@@ -1,66 +1,44 @@
 <!-- ════════════════ 14 · EXAMPLE · IGNORE FILES ════════════════ -->
-  <section data-label="Example: ignore" class="slide light cat-themed" style="--c: var(--sky);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">14</span>Example</p>
-          <h2 class="h2">How each tool excludes <span class="accent">noise</span>.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-14" data-label="Excluding noise" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-14-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+    <div id="token-efficient-ai-development-slide-14-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-14-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-14-title" class="slide__title">How each tool excludes noise.</h2>
+    </div>
 
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
-          <div class="ide ide-copilot">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.gitignore</span>
-            </div>
-            <pre class="ide-body">node_modules/
+    <div id="token-efficient-ai-development-slide-14-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-14-snips" class="snips snips--3">
+        <div id="token-efficient-ai-development-slide-14-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-14-snip-01-label" class="snip__label">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-14-snip-01-file" class="snip__file">.gitignore</span>
+          <pre id="token-efficient-ai-development-slide-14-snip-01-code" class="snip__code">node_modules/
 dist/
 .env</pre>
-          </div>
-          <p class="ide-cap">Respects <code>.gitignore</code>, like the rest.</p>
+          <span id="token-efficient-ai-development-slide-14-snip-01-cap" class="snip__cap">Respects .gitignore, like the rest.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.claude/settings.json</span>
-            </div>
-            <pre class="ide-body">{
-  <span class="key">"permissions"</span>: {
-    <span class="key">"deny"</span>: [<span class="str">"Read(.env)"</span>]
+        <div id="token-efficient-ai-development-slide-14-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-14-snip-02-label" class="snip__label">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-14-snip-02-file" class="snip__file">.claude/settings.json</span>
+          <pre id="token-efficient-ai-development-slide-14-snip-02-code" class="snip__code">{
+  "permissions": {
+    "deny": ["Read(.env)"]
   }
 }</pre>
-          </div>
-          <p class="ide-cap">Blocks reads with deny rules.</p>
+          <span id="token-efficient-ai-development-slide-14-snip-02-cap" class="snip__cap">Blocks reads with deny rules.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <div class="ide ide-cursor">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.cursorignore</span>
-            </div>
-            <pre class="ide-body"><span class="cmt"># exclude noise</span>
+        <div id="token-efficient-ai-development-slide-14-snip-03" class="snip">
+          <span id="token-efficient-ai-development-slide-14-snip-03-label" class="snip__label">Cursor</span>
+          <span id="token-efficient-ai-development-slide-14-snip-03-file" class="snip__file">.cursorignore</span>
+          <pre id="token-efficient-ai-development-slide-14-snip-03-code" class="snip__code"># exclude noise
 node_modules/
 dist/
 .env</pre>
-          </div>
-          <p class="ide-cap">Its own ignore file, gitignore style.</p>
+          <span id="token-efficient-ai-development-slide-14-snip-03-cap" class="snip__cap">Its own ignore file, gitignore style.</span>
         </div>
-
-      </div>
       </div>
     </div>
-    <!--chrome 14/57-->
-  </section>
+
+  </div>
+  <!--chrome 14/56-->
+</section>

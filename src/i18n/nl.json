@@ -1,6 +1,6 @@
 {
   "home.title": "SmartAgents · Digitale collega's die nooit slapen",
-  "home.description": "SmartAgents bouwt digitale collega's voor Belgische organisaties: training, AI staffing en coaching, en procesoptimalisatie.",
+  "home.description": "SmartAgents bouwt digitale collega's voor Belgische organisaties: training, AI staffing en coaching, een AI-native SDLC en AI-native businessprocessen.",
 
   "a11y.skip": "Naar de inhoud",
   "a11y.mainNav": "Hoofdnavigatie",
@@ -9,7 +9,6 @@
 
   "nav.menu": "Menu",
   "nav.insights": "Inzichten",
-  "nav.contact": "Contact",
 
   "cta.talk": "Plan een gesprek",
   "cta.call": "Bel",
@@ -26,12 +25,14 @@
   "section.approach": "Van vraag tot werkende oplossing",
   "section.insights": "Inzichten",
 
-  "service.process.title": "Procesoptimalisatie",
-  "service.process.body": "AI opent nieuwe mogelijkheden in uw processen en maakt bestaande stappen beter. Wij helpen u die kansen te herkennen en ze ook echt te implementeren.",
   "service.training.title": "Training",
   "service.training.body": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Voor de teams die met AI werken en voor de developers die ermee bouwen.",
   "service.staffing.title": "AI staffing en coaching",
   "service.staffing.body": "Op papier is iedereen AI-expert. Wij screenen profielen zoals we zelf gescreend willen worden: op wat ze gebouwd hebben.",
+  "service.sdlc.title": "AI-native SDLC",
+  "service.sdlc.body": "Van traditioneel naar agentic naar AI-native. Wij begeleiden die omslag: de processen, de gates en vooral de mensen die er elke dag in werken.",
+  "service.processes.title": "AI-native businessprocessen",
+  "service.processes.body": "We vertrekken van het werk dat uw teams vandaag doen, zoeken waar AI echt iets oplevert, en laten herbruikbare workflows, skills en agents achter.",
 
   "dna.1.title": "Praktijkmensen",
   "dna.1.body": "We gebruiken AI-tooling elke dag zelf. Wat we u aanraden, draait eerst bij ons.",
@@ -45,8 +46,8 @@
   "transformation.1.title": "Strategie en visie op AI",
   "transformation.1.label": "Strategie en visie",
   "transformation.1.body": "Strategische AI-implementatie, organisatiebreed.",
-  "transformation.2.title": "Procesoptimalisatie",
-  "transformation.2.label": "Procesoptimalisatie",
+  "transformation.2.title": "Processen herdenken",
+  "transformation.2.label": "Processen herdenken",
   "transformation.2.body": "Processen herleiden tot wat waarde toevoegt.",
   "transformation.3.title": "Opleiding",
   "transformation.3.label": "Opleiding",
@@ -99,6 +100,8 @@
   "form.company": "Bedrijf",
   "form.email": "E-mail",
   "form.message": "Wat loopt er vandaag moeilijk?",
+  "form.subject": "Nieuw bericht via smartagents.be",
+  "form.privacyNote": "Door te versturen gaat u akkoord met ons [privacybeleid].",
   "form.sending": "Versturen…",
   "form.sent": "Bedankt. We nemen snel contact op.",
   "form.failed": "Versturen lukte niet. Mail ons gerust op info@smartagents.be.",
@@ -187,10 +190,104 @@
   "staffing.track.business.tag.1": "AI technieken",
   "staffing.track.business.tag.2": "Workflows uittekenen",
   "staffing.track.business.tag.3": "Herbruikbare patronen",
-  "staffing.track.business.body": "Wij leiden uw medewerkers zelf op: wat AI wel en niet kan, en hoe ze het inzetten op hun eigen dossiers. Herbruikbare patronen in plaats van losse prompts.",
+  "staffing.track.business.body": "Wij leiden uw medewerkers zelf op: wat AI wel en niet kan, en hoe ze het inzetten op hun eigen dossiers. Coaching naast het werk dat er ligt, met herbruikbare patronen in plaats van losse prompts.",
 
   "staffing.cta.title": "Zoekt u iemand die dit al doet?",
   "staffing.cta.body": "Vertel kort waar uw team op vastloopt en hoe het project er vandaag uitziet. We stellen het spoor voor dat past, en zeggen ook wanneer u ons niet nodig hebt.",
+
+  "processes.title": "AI-native businessprocessen · SmartAgents",
+  "processes.description": "We nemen het werk door dat uw teams vandaag doen, zeggen waar AI iets oplevert en waar niet, en laten herbruikbare workflows, skills en agents achter, met coaching tot uw mensen ze zelf draaien.",
+
+  "processes.hero.eyebrow": "AI-native businessprocessen",
+  "processes.hero.title": "Van uw taken naar herbruikbare workflows",
+
+  "processes.cta.phases": "Bekijk de aanpak",
+
+  "processes.phases.title": "Hoe een traject verloopt",
+  "processes.phases.lede": "We nemen één proces dat elke week terugkomt en volgen het van begin tot eind. Geen tekening op papier, maar het werk dat er deze week ligt, doorgenomen met uw eigen mensen. We zeggen ook waar AI er niets aan toevoegt.",
+
+  "processes.phase.01.title": "Het werk doornemen",
+  "processes.phase.01.body": "In de SmartScan gaan we met uw mensen door de taken die deze week op tafel liggen: mail, offertes, rapportering, dossiers. Niet wat het proces zou moeten zijn, wel wat er echt gebeurt.",
+  "processes.phase.02.title": "Waar AI iets oplevert",
+  "processes.phase.02.body": "Per taak zeggen we waar AI het werk overneemt, waar het alleen ondersteunt, en waar het niets toevoegt. Dat laatste is bijna altijd een deel van het antwoord.",
+  "processes.phase.03.title": "Herbruikbaar vastleggen",
+  "processes.phase.03.body": "We bouwen wat blijft terugkomen: een workflow die uw team opnieuw draait, een skill die uw manier van werken vastlegt, een agent die een stuk zelf afhandelt.",
+  "processes.phase.04.title": "Coachen tot het draait",
+  "processes.phase.04.body": "We werken mee op uw eigen dossiers, met de mensen die het werk elke dag doen, tot ze de nieuwe workflow zonder ons draaien.",
+
+  "processes.outcome.title": "Wat u overhoudt",
+  "processes.outcome.workflows.title": "Workflows",
+  "processes.outcome.workflows.body": "Het werk dat elke week terugkomt, vastgelegd in stappen die uw team volgende week opnieuw uitvoert, met dezelfde uitkomst.",
+  "processes.outcome.skills.title": "Skills",
+  "processes.outcome.skills.body": "Uw sjablonen, uw huisregels en uw manier van formuleren, vastgelegd zodat niemand ze bij elke vraag opnieuw moet uitleggen.",
+  "processes.outcome.agents.title": "Agents",
+  "processes.outcome.agents.body": "Voor het werk dat niemand meer met de hand hoeft te doen: een agent die de taak afhandelt en terugkoppelt wanneer er een beslissing valt.",
+  "processes.outcome.people.title": "Mensen die ermee werken",
+  "processes.outcome.people.body": "De collega's die het werk doen, draaien de nieuwe workflow zelf. Blijft er iets liggen, dan hoort het niet in het proces en gaat het eruit.",
+
+  "processes.cta.title": "Welk proces zullen we doornemen?",
+  "processes.cta.body": "Vertel kort welk werk elke week terugkomt en wie het vandaag doet. We stellen voor waar we zouden beginnen, en zeggen ook wanneer AI er niets aan toevoegt.",
+
+  "sdlc.title": "AI-native SDLC · SmartAgents",
+  "sdlc.description": "Van traditioneel naar agentic naar AI-native. Wij begeleiden softwareteams door die omslag: het knelpunt verschuift mee, en het meeste werk zit niet in de techniek maar in de mensen.",
+
+  "sdlc.hero.eyebrow": "AI-native SDLC",
+  "sdlc.hero.title": "Van traditionele SDLC naar AI-native",
+
+  "sdlc.cta.journey": "Bekijk de weg ernaartoe",
+
+  "sdlc.issues.title": "Wat we vandaag zien",
+
+  "sdlc.issue.belief.title": "Vertrouwen",
+  "sdlc.issue.belief.body": "Een deel van het team vertrouwt de output niet, en een ander deel verwacht wonderen. Dat is dezelfde fout in twee richtingen.",
+  "sdlc.issue.capability.title": "Vaardigheid",
+  "sdlc.issue.capability.body": "Geen opleiding, en processen die gebouwd zijn voor een wereld waarin code schrijven het dure deel was.",
+  "sdlc.issue.foundation.title": "Fundament",
+  "sdlc.issue.foundation.body": "Codekwaliteit is niet zichtbaar en wordt nergens afgedwongen. De meeste productkennis zit in de hoofden van een paar mensen.",
+  "sdlc.issue.tooling.title": "Tooling",
+  "sdlc.issue.tooling.body": "Elk team werkt anders, er is geen gedeelde manier van werken, en de gemiddelde developer krijgt te weinig toegang tot AI om er vlot mee te leren werken.",
+
+  "sdlc.journey.title": "De weg ernaartoe",
+  "sdlc.journey.lede": "We volgen het AI-native SDLC-playbook van Anthropic. Het knelpunt verdwijnt niet, het verschuift: elke stap heeft er een van zichzelf, en overslaan gaat niet. Maturiteit en vertrouwen zijn waar de rest op steunt.",
+  "sdlc.journey.note": "Dit is de ideale vorm. In de praktijk blijven er haperingen in de keten, en dat hoort erbij.",
+
+  "sdlc.stage.traditional.title": "Traditioneel",
+  "sdlc.stage.traditional.body": "Bouwen is het knelpunt. Alles ervoor en alles erna wacht op de mensen die de code schrijven.",
+  "sdlc.stage.agentic.title": "Agentic",
+  "sdlc.stage.agentic.body": "Agents nemen het bouwen over en het knelpunt verschuift naar de uiteinden: wat u precies vraagt, en wie het nakijkt. Dit is de stap waarin uw mensen anders gaan werken.",
+  "sdlc.stage.native.title": "AI-native",
+  "sdlc.stage.native.body": "Een mens staat aan de twee uiteinden: die bepaalt de intentie en aanvaardt het resultaat. Daartussen bewaken gates de kwaliteit, automatisch.",
+
+  "sdlc.phase.requirements": "Vereisten",
+  "sdlc.phase.design": "Ontwerp",
+  "sdlc.phase.build": "Bouw",
+  "sdlc.phase.test": "Test",
+  "sdlc.phase.release": "Uitrol",
+  "sdlc.phase.review": "Review",
+  "sdlc.phase.intent": "Intentie",
+  "sdlc.phase.spec": "Specificatie",
+  "sdlc.phase.gates": "Gates",
+  "sdlc.phase.accept": "Aanvaarding",
+
+  "sdlc.legend.block": "Waar het werk wacht",
+  "sdlc.legend.human": "Waar een mens beslist",
+
+  "sdlc.work.title": "Waar de inspanning zit",
+  "sdlc.work.lede": "Het meeste werk zit niet in de techniek. Het zit in mensen meekrijgen, en in een werkwijze die voortbouwt op de cultuur en de gewoontes die bij u al bestaan.",
+
+  "sdlc.work.people.title": "Mensen meekrijgen",
+  "sdlc.work.people.body": "“We hebben het altijd zo gedaan” weerlegt u niet met een nota. Wij zetten iemand in het team die de stap al gezet heeft, en tonen dat verschil in een echte repository, tegenover wat het team zelf had opgeleverd.",
+  "sdlc.work.culture.title": "Op uw eigen cultuur gebouwd",
+  "sdlc.work.culture.body": "Er bestaat geen standaardproces dat wij bij u komen installeren. We vertrekken van hoe uw teams vandaag werken en van wat er al goed zit, en bouwen daarop verder.",
+  "sdlc.work.training.title": "Opleiding",
+  "sdlc.work.training.body": "Mensen die AI elke dag gebruiken vragen ons nog altijd wat MCP is, zetten de agent in als zoekbalk en geven hem kleine klusjes in plaats van hele workflows. De wil is er wel, de kennis nog niet. Wij trainen uw engineers op agentic workflows, niet op losse prompts.",
+  "sdlc.work.gates.title": "Gates die kwaliteit afdwingen",
+  "sdlc.work.gates.body": "Wij bouwen de gates in uw CI/CD, zodat kwaliteit zichtbaar en automatisch wordt. Niemand kijkt met de hand na wat een agent aan volume produceert. Toegang zonder gates levert u meer code op, en minder vertrouwen erin.",
+  "sdlc.work.platform.title": "Eén manier van werken",
+  "sdlc.work.platform.body": "Wij leggen de afspraken vast in de repository en brengen ze bij elk team binnen via de tooling zelf, niet via een wikipagina die één keer geschreven wordt en nooit meer gelezen. We sturen ze bij op basis van feedback.",
+
+  "sdlc.cta.title": "Waar staat uw team vandaag?",
+  "sdlc.cta.body": "Vertel kort hoe uw teams vandaag werken en waar het schuurt. We zeggen welke stap eerst komt, en waarom die eerst komt.",
 
   "nav.team": "Team",
 
@@ -213,8 +310,20 @@
   "team.cta.title": "Zullen we kennismaken?",
   "team.cta.body": "Vertel kort wat er beter kan lopen. U krijgt een van ons twee aan tafel, en we zeggen ook wanneer u ons niet nodig hebt.",
 
-  "footer.legal": "© 2026 SmartAgents · BE 1037.114.694",
+  "footer.legal": "© 2026 SmartAgents",
+  "privacy.title": "Privacybeleid · SmartAgents",
+  "privacy.description": "Welke persoonsgegevens smartagents.be verwerkt, waarom, wie ze te zien krijgt en hoe lang we ze bijhouden. Geen analytics, geen tracking, geen cookies.",
+  "privacy.eyebrow": "Privacy",
+  "privacy.heading": "Privacybeleid",
+  "privacy.updated": "Laatst bijgewerkt op 3 september 2026",
+  "footer.privacy": "Privacybeleid",
   "footer.customerZone": "Klantenzone",
+  "footer.company": "SmartAgents BV",
+  "footer.legalForm": "Besloten vennootschap",
+  "footer.street": "Mijnschoolstraat 18",
+  "footer.city": "3580 Beringen, België",
+  "footer.vat": "Ondernemings- en btw-nummer BE 1037.114.694",
+  "footer.rpr": "RPR Ondernemingsrechtbank Antwerpen, afdeling Hasselt",
 
   "notfound.title": "Pagina niet gevonden",
   "notfound.description": "Deze pagina bestaat niet (of niet meer).",

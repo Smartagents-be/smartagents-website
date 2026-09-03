@@ -1,23 +1,40 @@
-<!-- ════════════════ 34 · LAB A2: EXTEND ════════════════ -->
-  <section data-label="Lab A2: extend" class="slide light cat-themed" style="--c: var(--green);">
-    <div class="frame">
-      <p class="eyebrow"><span class="num">34</span>Lab A2</p>
-      <h2 class="h2">Fix the bug and add rate-limiting with a <span class="accent">reusable setup</span>.</h2>
+<!-- ════════════════ 34 · LAB A2 · EXTEND ════════════════ -->
+<section id="token-efficient-ai-development-slide-34" data-label="Lab A2: extend" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-34-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="labcard" style="margin-top: 20px; --c: var(--green);">
-        <span class="lab-tag">Lab A2: extend the agent</span>
-        <h3>Add rate-limit middleware to token-efficient-workshop-node</h3>
-        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> fix the session-timeout bug and add rate-limit middleware using a reusable instruction file, skill, and hook.</p>
-        <ol>
-          <li>Add a <code>CLAUDE.md</code> (or equivalent instruction file) with the TypeScript conventions: named exports, async/await, tests with Vitest.</li>
-          <li>Create a skill or command for "add Express middleware": <code>.claude/skills/add-middleware/SKILL.md</code> with a description and steps.</li>
-          <li>Add a <code>PostToolUse</code> hook that runs <code>npx prettier --write .</code> to format after every edit, plus a hook that runs <code>npm test</code> to keep tests green.</li>
-          <li>Ask the agent to fix the session-timeout bug and add the rate-limit middleware. Let it use the skill and verify the hook fires.</li>
-        </ol>
-        <p class="lab-out"><strong>Expected result:</strong> a working <code>rateLimit.ts</code>, green tests, and a reusable config that any future session can pick up without re-explaining the conventions.</p>
-      </div>
+    <div id="token-efficient-ai-development-slide-34-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-34-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-34-title" class="slide__title">Fix the bug and add rate limiting with a reusable setup.</h2>
+      <p id="token-efficient-ai-development-slide-34-lede" class="slide__lede">Add rate-limit middleware to token-efficient-workshop-node, using an instruction file, a skill and a hook.</p>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-34-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-34-steps" class="steps">
+        <div id="token-efficient-ai-development-slide-34-step-01" class="step">
+          <span id="token-efficient-ai-development-slide-34-step-01-num" class="step__num">01</span>
+          <span id="token-efficient-ai-development-slide-34-step-01-title" class="step__title">Instructions</span>
+          <span id="token-efficient-ai-development-slide-34-step-01-body" class="step__body">Add a CLAUDE.md, or the equivalent instruction file, with the TypeScript conventions: named exports, async/await, tests with Vitest.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-34-step-02" class="step">
+          <span id="token-efficient-ai-development-slide-34-step-02-num" class="step__num">02</span>
+          <span id="token-efficient-ai-development-slide-34-step-02-title" class="step__title">A skill</span>
+          <span id="token-efficient-ai-development-slide-34-step-02-body" class="step__body">Create a skill or command for adding Express middleware: .claude/skills/add-middleware/SKILL.md, with a description and steps.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-34-step-03" class="step">
+          <span id="token-efficient-ai-development-slide-34-step-03-num" class="step__num">03</span>
+          <span id="token-efficient-ai-development-slide-34-step-03-title" class="step__title">Hooks</span>
+          <span id="token-efficient-ai-development-slide-34-step-03-body" class="step__body">Add a PostToolUse hook that runs npx prettier --write . after every edit, plus one that runs npm test to keep tests green.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-34-step-04" class="step">
+          <span id="token-efficient-ai-development-slide-34-step-04-num" class="step__num">04</span>
+          <span id="token-efficient-ai-development-slide-34-step-04-title" class="step__title">Then ask</span>
+          <span id="token-efficient-ai-development-slide-34-step-04-body" class="step__body">Ask the agent to fix the session-timeout bug and add the rate-limit middleware. Let it use the skill, and verify that the hook fires.</span>
+        </div>
       </div>
     </div>
-    <!--chrome 34/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-34-note" class="slide__note">Expected result: a working rateLimit.ts, green tests, and a reusable config that any future session picks up without re-explaining the conventions.</p>
+
+  </div>
+  <!--chrome 34/56-->
+</section>

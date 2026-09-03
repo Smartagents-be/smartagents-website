@@ -1,64 +1,46 @@
 <!-- ════════════════ 44 · EXAMPLE · SPEC ════════════════ -->
-  <section data-label="Example: spec" class="slide light cat-themed" style="--c: var(--purple);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">44</span>Example</p>
-          <h2 class="h2">A spec the agent builds <span class="accent">against</span>.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-44" data-label="A spec in the repo" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-44-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
+    <div id="token-efficient-ai-development-slide-44-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-44-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-44-title" class="slide__title">A spec the agent builds against.</h2>
+    </div>
 
-        <div class="ide-col">
-          <span class="lab">The spec, in the repo</span>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">spec.md</span>
-            </div>
-            <pre class="ide-body"><span class="key"># Rate limiting per IP</span>
-<span class="key">## Requirements</span>
+    <div id="token-efficient-ai-development-slide-44-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-44-snips" class="snips">
+        <div id="token-efficient-ai-development-slide-44-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-44-snip-01-label" class="snip__label">The spec, in the repo</span>
+          <span id="token-efficient-ai-development-slide-44-snip-01-file" class="snip__file">spec.md</span>
+          <pre id="token-efficient-ai-development-slide-44-snip-01-code" class="snip__code"># Rate limiting per IP
+## Requirements
 - Cap to N requests / minute per IP
-- Respond <span class="str">429</span> with <span class="str">Retry-After</span>
-<span class="key">## Design</span>
-- Middleware in <span class="str">src/middleware/</span>
-<span class="key">## Tasks</span>
+- Respond 429 with Retry-After
+## Design
+- Middleware in src/middleware/
+## Tasks
 - [ ] sliding-window store
 - [ ] wire the middleware
-- [ ] tests for 429 + reset</pre>
-          </div>
-          <p class="ide-cap">Reviewed and committed: the spec is the shared context.</p>
+- [ ] tests for 429 and reset</pre>
+          <span id="token-efficient-ai-development-slide-44-snip-01-cap" class="snip__cap">Reviewed and committed: the spec is the shared context.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab">Generate it, then build</span>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">agent</span>
-            </div>
-            <pre class="ide-body"><span class="pr">&gt;</span> /specify  rate limiting per IP
-<span class="ok">⏺</span> spec.md
-<span class="pr">&gt;</span> /plan
-<span class="ok">⏺</span> plan.md
-<span class="pr">&gt;</span> /tasks
-<span class="ok">⏺</span> tasks.md
-<span class="pr">&gt;</span> implement task 1</pre>
-          </div>
-          <p class="ide-cap">GitHub Spec Kit shown; or Amazon Kiro, or Claude Code plan mode (<code>Shift+Tab</code>).</p>
+        <div id="token-efficient-ai-development-slide-44-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-44-snip-02-label" class="snip__label">Generate it, then build</span>
+          <span id="token-efficient-ai-development-slide-44-snip-02-file" class="snip__file">agent</span>
+          <pre id="token-efficient-ai-development-slide-44-snip-02-code" class="snip__code">&gt; /specify  rate limiting per IP
+⏺ spec.md
+&gt; /plan
+⏺ plan.md
+&gt; /tasks
+⏺ tasks.md
+&gt; implement task 1</pre>
+          <span id="token-efficient-ai-development-slide-44-snip-02-cap" class="snip__cap">GitHub Spec Kit shown here, or Amazon Kiro, or Claude Code plan mode with shift and tab.</span>
         </div>
-
-      </div>
-
-      <div class="callout">
-        The agent builds <strong>task by task against a plan you already reviewed</strong>, instead of holding the whole feature in its head: less context, less drift.
-      </div>
       </div>
     </div>
-    <!--chrome 44/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-44-note" class="slide__note">The agent builds task by task against a plan you already reviewed, instead of holding the whole feature in its head: less context, less drift.</p>
+
+  </div>
+  <!--chrome 44/56-->
+</section>

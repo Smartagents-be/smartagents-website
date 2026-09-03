@@ -1,50 +1,40 @@
 <!-- ════════════════ 54 · ANTI-PATTERNS · PROMPT ════════════════ -->
-  <section data-label="Anti-patterns: prompt" class="slide light cat-themed" style="--c: var(--amber);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">54</span>Anti-patterns &middot; 2 of 2</p>
-          <h2 class="h2">Where the <span class="accent">prompt &amp; setup</span> leak tokens.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-54" data-label="Prompt leaks" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-54-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="problist">
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </span>
-          <div class="prob-title">Vague, assumption-laden prompts</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Asking as if the model shares your context forces rounds of clarification. Be specific; name the files and the goal.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-          </span>
-          <div class="prob-title">&ldquo;Just-in-case&rdquo; context and raw logs</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Pasting every rule, edge case and full log buries the signal. Send the high-signal minimum; let a hook extract just the failing lines.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          </span>
-          <div class="prob-title">Bloated tool / MCP sets</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Overlapping tools the agent can't choose between add decision friction and load their definitions every call. Enable only what the task needs.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </span>
-          <div class="prob-title">A bloated CLAUDE.md or AGENTS.md</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Too many rules drown the important ones and cost tokens every session. Keep it lean; move detail into skills or scoped rules that load only when needed.</div>
-        </div>
-      </div>
-
-      <p style="font-size: 15px; line-height: 1.45; color: var(--fg-subtle); margin: 16px 4px 0;"><strong>Source:</strong> Anthropic, Claude Code best practices (code.claude.com/docs).</p>
-      </div>
+    <div id="token-efficient-ai-development-slide-54-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-54-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-54-title" class="slide__title">Where the prompt and the setup leak tokens.</h2>
     </div>
-    <!--chrome 54/57-->
-  </section>
+
+    <div id="token-efficient-ai-development-slide-54-compare" class="compare">
+
+      <div id="token-efficient-ai-development-slide-54-col-01" class="compare__col">
+        <div id="token-efficient-ai-development-slide-54-col-01-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-54-col-01-title" class="compare__title">The habit</span>
+          <span id="token-efficient-ai-development-slide-54-col-01-sub" class="compare__sub">What it costs you</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-54-col-01-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-54-col-01-item-01" class="compare__item">Vague prompts that assume the model shares your context.</span>
+          <span id="token-efficient-ai-development-slide-54-col-01-item-02" class="compare__item">Just-in-case context: every rule, every edge case, the whole log.</span>
+          <span id="token-efficient-ai-development-slide-54-col-01-item-03" class="compare__item">Every MCP server enabled, and a CLAUDE.md or AGENTS.md so full that the rules drown each other.</span>
+        </div>
+      </div>
+
+      <div id="token-efficient-ai-development-slide-54-col-02" class="compare__col compare__col--then">
+        <div id="token-efficient-ai-development-slide-54-col-02-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-54-col-02-title" class="compare__title">The fix</span>
+          <span id="token-efficient-ai-development-slide-54-col-02-sub" class="compare__sub">What to do instead</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-54-col-02-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-54-col-02-item-01" class="compare__item">Be specific: name the files, and name the goal.</span>
+          <span id="token-efficient-ai-development-slide-54-col-02-item-02" class="compare__item">Send the high-signal minimum, and let a hook extract the failing lines.</span>
+          <span id="token-efficient-ai-development-slide-54-col-02-item-03" class="compare__item">Enable only what this task needs, and keep the instructions lean: detail belongs in skills.</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!--chrome 54/56-->
+</section>

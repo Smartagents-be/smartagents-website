@@ -100,12 +100,6 @@
   text-wrap: pretty;
 }
 
-/* "AI-native" is the deck's own word and it must never break across its
-   hyphen: at 104px on the cover the browser will happily leave "AI-" hanging
-   at the end of a line. */
-.nobreak {
-  white-space: nowrap;
-}
 
 /* The asterisk on the third stage. Muted, so it reads as a footnote mark and
    not as part of the name. */

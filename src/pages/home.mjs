@@ -3,14 +3,19 @@
 // Structure, spacing, colour and motion all come from the design system:
 // see .claude/skills/smartagents-design/README.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
-import { logoMark, orbitRings, servicePath } from '../layouts/base.mjs';
+import { index, logoMark, orbitRings, servicePath } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 import { INSIGHTS, insightPath, thumbSrcset } from './insights/insights.mjs';
 
-// The two services with a detail page lead; procesoptimalisatie closes the
-// list. Agentic automatisatie is gone: it is what the staffing track does
-// inside a project, not a fourth thing to pick from.
-const SERVICES = ['training', 'staffing', 'process'];
+// The four services, in the order they are offered. Training and AI staffing
+// lead because they are the two a reader arrives already looking for; the two
+// AI-native tracks follow, engineering first and business second, because the
+// SDLC page is the one that names the journey the business page is a part of.
+// Agentic automatisatie is gone: it is what the staffing track does inside a
+// project, not a fifth thing to pick from. Procesoptimalisatie is gone too —
+// it was one row standing for two different engagements, and it is now the
+// two rows it always was.
+const SERVICES = ['training', 'staffing', 'sdlc', 'processes'];
 const DNA = ['1', '2', '3', '4'];
 const TRANSFORMATION = ['1', '2', '3', '4'];
 const STEPS = ['1', '2', '3', '4', '5'];
@@ -25,9 +30,6 @@ const STEPS = ['1', '2', '3', '4', '5'];
  */
 const THUMB_SIZES =
   '(max-width: 620px) calc(100vw - 40px), (max-width: 1000px) 44vw, (max-width: 1080px) 156px, 208px';
-
-/** `01`-style monospace index; numbers act as the icons in this system. */
-const index = (n) => String(n).padStart(2, '0');
 
 /** Repeat a bare element n times — the isometric planes are pure texture. */
 const cells = (n) => raw('<i></i>'.repeat(n));
@@ -50,7 +52,7 @@ ${dna(t)}
 ${transformation(t)}
 ${approach(t)}
 ${insights(t, lang)}
-${contact(t)}
+${contact(t, lang)}
 
 </main>`
 };
@@ -94,10 +96,10 @@ ${orbitRings('home-hero')}
  * Wat we doen — hairline-separated rows, not cards
  *
  * A service with a detail page of its own is a link, and gets the "Ontdek →"
- * cue back along with the hover, the arrow and the translate. Training and AI
- * staffing have one and lead the list; procesoptimalisatie still lands the
- * reader here, so it stays a plain row (design README, "Deviations" from the
- * design doc, item 4).
+ * cue back along with the hover, the arrow and the translate. All four have one
+ * today, so every row is a link — but the plain-row branch stays: a service is
+ * only a link in a language its page is published in, and `servicePath()`
+ * returns null everywhere else (design README, "Deviations", item 4).
  * ------------------------------------------------------------------ */
 
 function services(t, lang) {
@@ -304,9 +306,10 @@ ${join(rows)}
  * Contact
  * ------------------------------------------------------------------ */
 
-function contact(t) {
+function contact(t, lang) {
   return contactSection({
     t,
+    lang,
     prefix: 'home',
     title: t('contact.title'),
     lede: t('contact.lede')

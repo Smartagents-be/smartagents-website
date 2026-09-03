@@ -13,6 +13,9 @@
     "build": "node scripts/build-site.mjs",
     "dev": "npm run build && node scripts/start-local.mjs --watch",
     "serve": "node scripts/start-local.mjs",
-    "export:pdfs": "node scripts/export-pitch-pdfs.mjs"
+    "ai": "npm run build && node scripts/start-local.mjs --port=8001 --reuse",
+    "check:contact": "node scripts/check-contact.mjs",
+    "export:pdfs": "node scripts/export-pitch-pdfs.mjs",
+    "check:slides": "node scripts/check-slides.mjs"
   }
 }

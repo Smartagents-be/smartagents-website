@@ -141,12 +141,20 @@ select {
 }
 
 /* The wedge behind the logo: the first window onto the dark field. */
+/* The cut is 3 points steeper than it was drawn. With four service names in the
+   row the nav starts further left than it ever did, and at 1181px the first
+   link's hover chip met the slope: the text cleared it by 8px but the chip's
+   rounded corner did not, so a light chip sat partly on navy. Three points is
+   about 10px of the wedge back, and the nav's own gap gives a little at the
+   same time (`.site-nav`, below), which together put ~8px between the chip and
+   the slope at the narrowest width the bar is printed at. The wordmark is 146px
+   wide and still sits well inside. */
 .header-wedge {
   position: absolute;
   inset: 0 auto 0 0;
   width: min(318px, 64%);
   background: var(--surface-dark);
-  clip-path: polygon(0 0, 90% 0, 74.2% 100%, 0 100%);
+  clip-path: polygon(0 0, 87% 0, 71.2% 100%, 0 100%);
 }
 
 .brand-link {
@@ -186,21 +194,37 @@ select {
   color: var(--sa-cyan-bright);
 }
 
+/* The bar exists from 1181px up and nowhere else (see the tablet header block
+   below). Five names in three languages is more than the desk's old slack
+   covers, so the row is fluid here too, and it is the slopes that do the work
+   rather than the floors: at 1181px, the narrowest width the bar is ever
+   printed at, the type is at 12.05px and the link padding at 7.3px, and both
+   open back out to the drawn values by the time there is room for them. The
+   floors are there to stop the row collapsing, not because anything reaches
+   them — nothing does above 645px. The gap in front of the nav gives at the
+   same time, because a desk that has run out of room has run out of it there
+   first.
+
+   Measured, not estimated: at 1181px the longest of the three languages leaves
+   the primary action 29px clear of the page edge, and the header's own
+   scrollWidth equals its clientWidth. That check matters because `.shell` is
+   `overflow: clip`, so a row that did overflow would be silently cut rather
+   than scrollable, and the document's own scrollWidth would never say so. */
 .site-nav {
   display: flex;
   gap: var(--space-1);
   align-items: center;
   margin-right: auto;
-  margin-left: clamp(20px, 5vw, 74px);
+  margin-left: clamp(16px, 3.9vw, 74px);
   color: var(--text-nav);
-  font-size: var(--text-ui-sm);
+  font-size: clamp(12px, 1.02vw, 14px);
   font-weight: var(--weight-medium);
   white-space: nowrap;
 }
 
 .nav-link {
   transition: var(--transition-tint);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2) clamp(4px, 0.62vw, 10px);
   border-radius: var(--radius-nav);
   color: inherit;
 }
@@ -387,6 +411,14 @@ select {
 
 [data-clip="tourDome"] {
   clip-path: url(#tourDome);
+}
+
+[data-clip="sdlcHeroRidge"] {
+  clip-path: url(#sdlcHeroRidge);
+}
+
+[data-clip="processHero"] {
+  clip-path: url(#processHero);
 }
 
 /* ------------------------------------------------------------------ *
@@ -728,19 +760,33 @@ select {
  * The tablet header
  *
  * The tablet artboard ("SmartAgents Homepage Tablet", 834x1112) keeps the
- * header a header: the sections, the language chips and the primary action
- * all stay on one row. A disclosure over a page this wide reads as a phone
- * control, and there is room for the row — but none of the desk's slack, so
- * everything in it gives a little at once: the gutter, the gaps, the nav
- * padding, the brand. The one thing that goes is the "Contact" link, because
- * the button beside it already goes there.
+ * header a header, and it was drawn against a bar of four items. The offer is
+ * six now — four services named in full, plus Team and the sections — and four
+ * of those names are two and three words long. Fitted into 834px they are
+ * 11px type in a row with no gaps, which is not the artboard's header either;
+ * so the row is a desk-only thing and the tablet takes the disclosure the
+ * phone already has, in its compact dropdown mode. Everything else the
+ * artboard prescribes for this width still stands: the taller row, the fluid
+ * brand, the narrowed wedge, the tightened gutter.
+ *
+ * If the offer ever shrinks back to two services, the row fits again and this
+ * band should get it back.
+ *
+ * The band itself stops at 1000px, not at the 1180px where the row folds. It
+ * carries the tablet's whole shell — a 72px row, a 22px gutter, a 212px wedge,
+ * a brand scaled down with them — and that shell has to range with the page it
+ * sits over. Run up to 1180px it did not: the header's gutter caps at 22px
+ * while `--gutter-page` under it is still 59px, so the brand sat 34px outboard
+ * of the first heading on the page and the primary action 37px outboard of the
+ * content edge. In a full-bleed layout the gutter is the composition, and a
+ * 1180px laptop read as mis-set. Above 1000px the desk shell carries the
+ * disclosure instead, which is the same row it always was minus the links.
  * ------------------------------------------------------------------ */
-@media (min-width: 768px) and (max-width: 1180px) {
+@media (min-width: 768px) and (max-width: 1000px) {
   /* Every measurement in this row is fluid between the tablet's two ends:
      at 834px, the artboard's own width, they land on the artboard's values,
      and they tighten from there so the row still holds at 768px — the
-     narrowest width a tablet is held upright at, and the narrowest the four
-     items left in the row fit in the longest of the three languages. */
+     narrowest width a tablet is held upright at. */
   /* The header is taller here than on the desk, so the offset an anchor is
      scrolled to has to grow with it. */
   html {
@@ -776,23 +822,6 @@ select {
     clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
   }
 
-  /* Ranged right against the actions instead of ranged left off the brand:
-     the row has no width to spend on the gap the desk puts there. */
-  .site-nav {
-    margin-right: 0;
-    margin-left: auto;
-    font-size: clamp(12.5px, 1.62vw, 14px);
-  }
-
-  .nav-link {
-    padding-inline: clamp(3px, 0.85vw, 10px);
-  }
-
-  /* The button two items along already goes here. */
-  .nav-link--contact {
-    display: none;
-  }
-
   .lang-switcher a {
     padding-inline: clamp(5px, 0.7vw, 7px);
   }
@@ -807,23 +836,26 @@ select {
   }
 }
 
-/* ------------------------------------------------------------------ *
- * Under the tablet: the row folds into the disclosure
- *
- * The links come off the row and go behind one trigger (`.nav-toggle`, in
- * main.css), so the header carries the brand, that trigger, the language chips
- * and the primary action. Four items where the desk had eight, but a third of
- * the width — and the wedge is what gives: at the desk's 318px the cut runs
- * past the trigger and "Menu" sits on navy, unreadable. It narrows to the
- * shape it takes on the phone, cut to the brand and nothing more, and the row
- * beside it tightens with it so the group clears the slope at 621px too, the
- * narrowest width that still has the actions in the row.
- * ------------------------------------------------------------------ */
-@media (max-width: 767px) {
+/* Under the desk the row folds into the disclosure (`.nav-toggle`, in
+   main.css), so the header carries the brand, that trigger, the language chips
+   and the primary action. */
+@media (max-width: 1180px) {
   .site-nav {
     display: none;
   }
+}
 
+/* ------------------------------------------------------------------ *
+ * Under the tablet: the header tightens around the disclosure
+ *
+ * Four items where the desk had six, but a third of the width — and the wedge
+ * is what gives: at the desk's 318px the cut runs past the trigger and "Menu"
+ * sits on navy, unreadable. It narrows to the shape it takes on the phone, cut
+ * to the brand and nothing more, and the row beside it tightens with it so the
+ * group clears the slope at 621px too, the narrowest width that still has the
+ * actions in the row.
+ * ------------------------------------------------------------------ */
+@media (max-width: 767px) {
   /* Steeper than the desk cut and welded to the top edge, so the wordmark sits
      inside the wedge at every width under the tablet. */
   .header-wedge {
@@ -917,7 +949,9 @@ select {
   /* Both hero shapes are a flank on every other viewport and neither has a
      flank left down here, so both become the same sliver across the top. */
   [data-clip="heroPetal"],
-  [data-clip="heroArch"] {
+  [data-clip="heroArch"],
+  [data-clip="sdlcHeroRidge"],
+  [data-clip="processHero"] {
     clip-path: url(#heroSwoop);
   }
 

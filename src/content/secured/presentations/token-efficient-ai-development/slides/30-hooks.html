@@ -1,52 +1,31 @@
-<!-- ════════════════ 30 · HOOKS & AUTOMATION ════════════════ -->
-  <section data-label="Hooks" class="slide light cat-themed" style="--c: var(--blue);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">30</span>Automation</p>
-          <h2 class="h2">Run scripts automatically on <span class="accent">events</span>.</h2>
+<!-- ════════════════ 30 · HOOKS AND AUTOMATION ════════════════ -->
+<section id="token-efficient-ai-development-slide-30" data-label="Hooks" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-30-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-30-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-30-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-30-title" class="slide__title">Run scripts automatically on events.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-30-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-30-rows" class="rows">
+        <div id="token-efficient-ai-development-slide-30-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-30-row-01-term" class="row__term">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-30-row-01-detail" class="row__detail">Agent hooks in .github/hooks/*.json, run locally, on the same events as the Claude format.</span>
         </div>
-      </div>
-
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 36px; align-content: start;">
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
-          <h3>Agent hooks</h3>
-          <ul>
-            <li><code>.github/hooks/*.json</code>, run locally.</li>
-            <li>Same events as the Claude format.</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-30-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-30-row-02-term" class="row__term">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-30-row-02-detail" class="row__detail">Hooks configured in settings.json. Auto-format after an edit, or block a command.</span>
         </div>
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <h3>Hooks</h3>
-          <ul>
-            <li>Configured in <code>settings.json</code>.</li>
-            <li>For example auto-format after an edit, or block a command.</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-30-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-30-row-03-term" class="row__term">Cursor</span>
+          <span id="token-efficient-ai-development-slide-30-row-03-detail" class="row__detail">Hooks in .cursor/hooks.json, per project or per user in ~/.cursor. Observe, block, or inject context.</span>
         </div>
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <h3>.cursor/hooks.json</h3>
-          <ul>
-            <li>Per project or user (<code>~/.cursor</code>).</li>
-            <li>Observe, block, or inject context.</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="callout">
-        Similar events, named differently per tool (PascalCase in Claude Code and Copilot, camelCase in Cursor). <strong>Automate guardrails</strong> instead of typing them every time.
-      </div>
       </div>
     </div>
-    <!--chrome 30/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-30-note" class="slide__note">Similar events, named differently per tool: PascalCase in Claude Code and Copilot, camelCase in Cursor. Automate guardrails instead of typing them every time.</p>
+
+  </div>
+  <!--chrome 30/56-->
+</section>

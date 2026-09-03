@@ -1,10 +1,15 @@
 {
   "title": "SmartAgents — Token-efficient AI development",
   "description": "SmartAgents course: using LLMs token-efficiently in software development. Fewer tokens, better output, lower costs.",
+  "lang": "en",
   "width": "1920",
   "height": "1080",
-  "styles": [],
-  "scripts": [],
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
   "slides": [
     "00-cover",
     "01-why",

@@ -3,7 +3,7 @@
 // translations). The closing link pointed at the launch post in the old /blog/
 // tree; it now uses `insight:launch`, which the renderer resolves to that
 // article's URL in whichever language the page is being built for.
-import { p, h2, quote, list } from './prose.mjs';
+import { p, h2, quote, list } from '../prose.mjs';
 
 export const body = {
   nl: [

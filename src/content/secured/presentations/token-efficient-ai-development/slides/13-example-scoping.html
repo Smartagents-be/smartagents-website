@@ -1,58 +1,40 @@
 <!-- ════════════════ 13 · EXAMPLE · SCOPING ════════════════ -->
-  <section data-label="Example: scoping" class="slide light cat-themed" style="--c: var(--sky);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">13</span>Example</p>
-          <h2 class="h2">Scope it yourself or let it <span class="accent">discover</span>?</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-13" data-label="Scope or discover" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-13-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
-
-        <div class="ide-col">
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
-            <span class="lab">Scope it yourself</span>
-            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: var(--c); padding: 3px 9px; border-radius: 999px;">Preferred</span>
-          </div>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">Agent · prompt</span>
-            </div>
-            <pre class="ide-body"><span class="key">@session.config.ts</span> <span class="key">@auth.middleware.ts</span>
-Fix the session timeout.</pre>
-          </div>
-          <p class="ide-cap">Default when you know where it lives: faster, more precise, fewer tokens.</p>
-        </div>
-
-        <div class="ide-col">
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
-            <span class="lab">Let it discover</span>
-            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-subtle); background: rgba(100,116,139,0.15); padding: 3px 9px; border-radius: 999px;">Fallback</span>
-          </div>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">claude - terminal</span>
-            </div>
-            <pre class="ide-body"><span class="pr">&gt;</span> Fix the session timeout.
-<span class="ok">⏺</span> grep <span class="str">"session"</span> src
-<span class="ok">⏺</span> read session.config.ts</pre>
-          </div>
-          <p class="ide-cap">Only when the codebase is unfamiliar or large: the agent greps to find it, at the cost of extra reads.</p>
-        </div>
-
-      </div>
-
-      <div class="callout">
-<strong>Define the context yourself by default.</strong> Let the agent discover only when you don't know where the code lives. Either way, aim for the smallest set with signal, not the most context.
-      </div>
-      </div>
+    <div id="token-efficient-ai-development-slide-13-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-13-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-13-title" class="slide__title">Scope it yourself, or let it discover?</h2>
     </div>
-    <!--chrome 13/57-->
-  </section>
+
+    <div id="token-efficient-ai-development-slide-13-compare" class="compare">
+
+      <div id="token-efficient-ai-development-slide-13-col-01" class="compare__col">
+        <div id="token-efficient-ai-development-slide-13-col-01-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-13-col-01-title" class="compare__title">Let it discover</span>
+          <span id="token-efficient-ai-development-slide-13-col-01-sub" class="compare__sub">Fallback, for an unfamiliar or large codebase</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-13-col-01-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-13-col-01-item-01" class="compare__item">You give the symptom: fix the session timeout.</span>
+          <span id="token-efficient-ai-development-slide-13-col-01-item-02" class="compare__item">The agent greps for session, reads session.config.ts, and works out where the code lives.</span>
+          <span id="token-efficient-ai-development-slide-13-col-01-item-03" class="compare__item">It gets there, at the cost of extra reads.</span>
+        </div>
+      </div>
+
+      <div id="token-efficient-ai-development-slide-13-col-02" class="compare__col compare__col--then">
+        <div id="token-efficient-ai-development-slide-13-col-02-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-13-col-02-title" class="compare__title">Scope it yourself</span>
+          <span id="token-efficient-ai-development-slide-13-col-02-sub" class="compare__sub">The default when you know where it lives</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-13-col-02-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-13-col-02-item-01" class="compare__item">You name the files: @session.config.ts, @auth.middleware.ts, fix the session timeout.</span>
+          <span id="token-efficient-ai-development-slide-13-col-02-item-02" class="compare__item">The agent opens exactly those two and starts.</span>
+          <span id="token-efficient-ai-development-slide-13-col-02-item-03" class="compare__item">Faster, more precise, fewer tokens.</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!--chrome 13/56-->
+</section>

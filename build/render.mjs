@@ -25,7 +25,10 @@ import { deckPage, securedIndexPage } from '../src/layouts/deck.mjs';
 import { page as homePage } from '../src/pages/home.mjs';
 import { page as trainingPage } from '../src/pages/training.mjs';
 import { page as staffingPage } from '../src/pages/staffing.mjs';
+import { page as sdlcPage } from '../src/pages/sdlc.mjs';
+import { page as processesPage } from '../src/pages/processes.mjs';
 import { page as teamPage } from '../src/pages/team.mjs';
+import { page as privacyPage } from '../src/pages/privacy/privacy.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
 import { insightPages } from '../src/pages/insights/insights.mjs';
 
@@ -35,7 +38,17 @@ const contentDir = path.join(rootDir, 'src/content');
 
 // The four insight pages are generated from one list; see
 // src/pages/insights/insights.mjs.
-const PAGES = [homePage, trainingPage, staffingPage, teamPage, ...insightPages, notFoundPage];
+const PAGES = [
+  homePage,
+  trainingPage,
+  staffingPage,
+  sdlcPage,
+  processesPage,
+  teamPage,
+  ...insightPages,
+  privacyPage,
+  notFoundPage
+];
 
 const MINIFY_OPTIONS = {
   collapseWhitespace: true,

@@ -1,52 +1,31 @@
-<!-- ════════════════ 26 · COMMANDS & SKILLS ════════════════ -->
-  <section data-label="Commands &amp; skills" class="slide light cat-themed" style="--c: var(--rose);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">26</span>Extend</p>
-          <h2 class="h2">Package recurring prompts as <span class="accent">commands or skills</span>.</h2>
+<!-- ════════════════ 26 · COMMANDS AND SKILLS ════════════════ -->
+<section id="token-efficient-ai-development-slide-26" data-label="Commands and skills" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-26-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-26-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-26-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-26-title" class="slide__title">Package recurring prompts as commands or skills.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-26-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-26-rows" class="rows rows--tight">
+        <div id="token-efficient-ai-development-slide-26-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-26-row-01-term" class="row__term">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-26-row-01-detail" class="row__detail">Prompt files in .github/prompts/*.prompt.md, invoked with /name. Skills in .github/skills, one folder per skill with a SKILL.md, invoked by description.</span>
         </div>
-      </div>
-
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 36px; align-content: start;">
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
-          <h3>Prompt files &amp; skills</h3>
-          <ul>
-            <li>Prompt files: <code>.github/prompts/*.prompt.md</code>, invoked with <code>/name</code>.</li>
-            <li>Skills: <code>.github/skills/&lt;name&gt;/SKILL.md</code>, invoked by description.</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-26-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-26-row-02-term" class="row__term">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-26-row-02-detail" class="row__detail">Custom commands have merged into skills, and .claude/commands still works. Commands in .claude/commands, skills in .claude/skills.</span>
         </div>
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <h3>Commands &amp; skills</h3>
-          <ul>
-            <li>Custom commands merged into Skills; <code>.claude/commands</code> still works.</li>
-            <li>Commands in <code>.claude/commands</code>, skills in <code>.claude/skills</code>.</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-26-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-26-row-03-term" class="row__term">Cursor</span>
+          <span id="token-efficient-ai-development-slide-26-row-03-detail" class="row__detail">Commands and skills both folded into skills in Cursor 2.4, January 2026, and /migrate-to-skills converts the old ones. Invoke with a slash, or let the agent pick by description.</span>
         </div>
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <h3>Skills <span style="font-size: 0.55em; opacity: 0.7;">(2.4+)</span></h3>
-          <ul>
-            <li>Commands and skills both folded into Skills in Cursor 2.4 (Jan 2026); <code>/migrate-to-skills</code> converts old ones.</li>
-            <li>Invoke with <code>/</code> or let the agent pick by description.</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="callout">
-        <strong>Command vs. skill:</strong> a command is something you invoke; a skill is something the agent invokes when the description matches the task.
-      </div>
       </div>
     </div>
-    <!--chrome 26/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-26-note" class="slide__note">A command is something you invoke. A skill is something the agent invokes when the description matches the task.</p>
+
+  </div>
+  <!--chrome 26/56-->
+</section>

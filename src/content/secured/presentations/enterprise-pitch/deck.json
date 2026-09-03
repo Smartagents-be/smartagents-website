@@ -3,19 +3,25 @@
   "description": "SmartAgents: training, projecten en staffing voor organisaties die zelf software bouwen.",
   "width": "1920",
   "height": "1080",
-  "styles": [],
-  "scripts": [],
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
   "slides": [
     "00-cover",
     "01-waarom-dit-gesprek",
     "02-wie-zijn-wij",
-    "03-drie-sporen",
-    "04-training",
-    "05-kata-in-beeld",
-    "06-training-uitrol",
-    "07-projecten",
-    "08-plan-van-aanpak",
-    "09-staffing",
-    "10-volgende-stap"
+    "03-over-smartagents",
+    "04-drie-sporen",
+    "05-training-dag",
+    "06-training-inhoud",
+    "07-kata-in-beeld",
+    "08-training-uitrol",
+    "09-projecten",
+    "10-plan-van-aanpak",
+    "11-staffing",
+    "12-volgende-stap"
   ]
 }

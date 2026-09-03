@@ -54,3 +54,10 @@ run(process.execPath, ['build/render.mjs']);
 rmSync(path.join(distDir, '.vite'), { recursive: true, force: true });
 // 4. check-dist.mjs is the gatekeeper for what ships.
 run(process.execPath, ['scripts/check-dist.mjs']);
+// 5. check-contact.mjs posts the rendered form's own payload through the real
+//    /api/contact handler. It is in the build rather than beside it because
+//    Cloudflare Pages runs `npm run build` and a green build is the only signal
+//    this project gets — and the one thing that must never ship broken again is
+//    the form, which shipped broken precisely because nothing compared the two
+//    halves of it. No network: Turnstile and the webhook are stubbed.
+run(process.execPath, ['scripts/check-contact.mjs']);

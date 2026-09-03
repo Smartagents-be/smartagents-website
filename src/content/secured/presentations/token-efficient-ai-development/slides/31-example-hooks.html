@@ -1,83 +1,59 @@
 <!-- ════════════════ 31 · EXAMPLE · HOOKS ════════════════ -->
-  <section data-label="Example: hooks" class="slide light cat-themed" style="--c: var(--blue);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">31</span>Example</p>
-          <h2 class="h2"><span class="accent">Auto-format and test</span> after every edit.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-31" data-label="Hooks in three tools" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-31-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+    <div id="token-efficient-ai-development-slide-31-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-31-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-31-title" class="slide__title">Auto-format and test after every edit.</h2>
+    </div>
 
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
-          <div class="ide ide-copilot">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.github/hooks/test.json</span>
-            </div>
-            <pre class="ide-body">{
-  <span class="key">"hooks"</span>: {
-    <span class="key">"PostToolUse"</span>: [
-      { <span class="key">"command"</span>:
-        <span class="str">"npm test"</span> }
+    <div id="token-efficient-ai-development-slide-31-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-31-snips" class="snips snips--3">
+        <div id="token-efficient-ai-development-slide-31-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-31-snip-01-label" class="snip__label">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-31-snip-01-file" class="snip__file">.github/hooks/test.json</span>
+          <pre id="token-efficient-ai-development-slide-31-snip-01-code" class="snip__code">{
+  "hooks": {
+    "PostToolUse": [
+      { "command":
+        "npm test" }
     ]
   }
 }</pre>
-          </div>
-          <p class="ide-cap">Runs the test suite after every change.</p>
+          <span id="token-efficient-ai-development-slide-31-snip-01-cap" class="snip__cap">Runs the test suite after every change.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.claude/settings.json</span>
-            </div>
-            <pre class="ide-body">{
-  <span class="key">"hooks"</span>: {
-    <span class="key">"PostToolUse"</span>: [
-      { <span class="key">"command"</span>:
-        <span class="str">"npx prettier --write ."</span> }
+        <div id="token-efficient-ai-development-slide-31-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-31-snip-02-label" class="snip__label">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-31-snip-02-file" class="snip__file">.claude/settings.json</span>
+          <pre id="token-efficient-ai-development-slide-31-snip-02-code" class="snip__code">{
+  "hooks": {
+    "PostToolUse": [
+      { "command":
+        "npx prettier --write ." }
     ]
   }
 }</pre>
-          </div>
-          <p class="ide-cap">Prettier formats after every tool action.</p>
+          <span id="token-efficient-ai-development-slide-31-snip-02-cap" class="snip__cap">Prettier formats after every tool action.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <div class="ide ide-cursor">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.cursor/hooks.json</span>
-            </div>
-            <pre class="ide-body">{
-  <span class="key">"version"</span>: 1,
-  <span class="key">"hooks"</span>: {
-    <span class="key">"afterFileEdit"</span>: [
-      { <span class="key">"command"</span>:
-        <span class="str">"npx prettier --write ."</span> }
+        <div id="token-efficient-ai-development-slide-31-snip-03" class="snip">
+          <span id="token-efficient-ai-development-slide-31-snip-03-label" class="snip__label">Cursor</span>
+          <span id="token-efficient-ai-development-slide-31-snip-03-file" class="snip__file">.cursor/hooks.json</span>
+          <pre id="token-efficient-ai-development-slide-31-snip-03-code" class="snip__code">{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      { "command":
+        "npx prettier --write ." }
     ]
   }
 }</pre>
-          </div>
-          <p class="ide-cap">Formats on every file edit (camelCase event name).</p>
+          <span id="token-efficient-ai-development-slide-31-snip-03-cap" class="snip__cap">Formats on every file edit, with a camelCase event name.</span>
         </div>
-
-      </div>
-
-      <div class="callout">
-        The guardrail runs by itself, <strong>no token or click needed</strong>.
-      </div>
       </div>
     </div>
-    <!--chrome 31/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-31-note" class="slide__note">The guardrail runs by itself, with no token and no click needed.</p>
+
+  </div>
+  <!--chrome 31/56-->
+</section>

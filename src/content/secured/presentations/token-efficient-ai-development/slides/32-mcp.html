@@ -1,54 +1,31 @@
 <!-- ════════════════ 32 · MCP ════════════════ -->
-  <section data-label="MCP" class="slide light cat-themed" style="--c: var(--violet);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">32</span>Extend</p>
-          <h2 class="h2">Connect the agent to <span class="accent">external tools and data</span>.</h2>
+<section id="token-efficient-ai-development-slide-32" data-label="MCP" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-32-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-32-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-32-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-32-title" class="slide__title">Connect the agent to external tools and data.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-32-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-32-rows" class="rows rows--tight">
+        <div id="token-efficient-ai-development-slide-32-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-32-row-01-term" class="row__term">Your database</span>
+          <span id="token-efficient-ai-development-slide-32-row-01-detail" class="row__detail">Ask what columns a table has, or run a read-only query, without pasting the schema into the prompt. Postgres or Neon MCP.</span>
         </div>
-      </div>
-
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 36px; align-content: start;">
-
-        <div class="card">
-          <span class="lab">Your database</span>
-          <h3>Schema &amp; queries</h3>
-          <ul>
-            <li>Ask what columns a table has, or run a read-only query, without pasting the schema into the prompt.</li>
-            <li style="color: var(--fg-subtle);">Postgres / Neon MCP</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-32-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-32-row-02-term" class="row__term">GitHub</span>
+          <span id="token-efficient-ai-development-slide-32-row-02-detail" class="row__detail">Read a PR or an issue, pull the failing CI log, and open a PR when you are done, all from the editor. GitHub MCP.</span>
         </div>
-
-        <div class="card">
-          <span class="lab">GitHub</span>
-          <h3>PRs, issues, CI</h3>
-          <ul>
-            <li>Read a PR or issue, pull the failing CI log, open a PR when done, all from the editor.</li>
-            <li style="color: var(--fg-subtle);">GitHub MCP</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-32-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-32-row-03-term" class="row__term">The running app</span>
+          <span id="token-efficient-ai-development-slide-32-row-03-detail" class="row__detail">Let the agent open the page, click through a flow and read the console error itself. Playwright or Chrome DevTools MCP.</span>
         </div>
-
-        <div class="card">
-          <span class="lab">The running app</span>
-          <h3>Drive the browser</h3>
-          <ul>
-            <li>Let the agent open the page, click through a flow and read the console error itself.</li>
-            <li style="color: var(--fg-subtle);">Playwright / Chrome DevTools MCP</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <p style="font-size: 17px; line-height: 1.45; color: var(--fg-subtle); margin: 16px 4px 0;">Also part of daily work: live library docs (Context7), production errors (Sentry), tickets (Linear, Jira), design specs (Figma). Config lives per tool in <code>.vscode/mcp.json</code>, <code>.mcp.json</code> or <code>.cursor/mcp.json</code>.</p>
-
-      <div class="callout">
-        One open standard gives every agent access to the same tools and data. Two cautions: <strong>every server costs context</strong> (see the context rot slide), and external data is untrusted input that can carry <strong>prompt injection</strong>.
-      </div>
       </div>
     </div>
-    <!--chrome 32/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-32-note" class="slide__note">Also part of daily work: live library docs with Context7, production errors with Sentry, tickets in Linear or Jira, design specs in Figma. Two cautions: every server costs context, and external data is untrusted input that can carry prompt injection.</p>
+
+  </div>
+  <!--chrome 32/56-->
+</section>

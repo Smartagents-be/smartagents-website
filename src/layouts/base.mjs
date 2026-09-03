@@ -8,7 +8,10 @@ import { html, raw, join, escapeHtml } from '../../build/lib/html.mjs';
 import { languages, defaultLanguage, absolute, pagePath } from '../../build/lib/i18n.mjs';
 import { page as trainingPage } from '../pages/training.mjs';
 import { page as staffingPage } from '../pages/staffing.mjs';
+import { page as sdlcPage } from '../pages/sdlc.mjs';
+import { page as processesPage } from '../pages/processes.mjs';
 import { page as teamPage } from '../pages/team.mjs';
+import { page as privacyPage } from '../pages/privacy/privacy.mjs';
 import { PHONE, PHONE_HREF, EMAIL } from '../components/contact-form/contact-form.mjs';
 
 const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
@@ -20,7 +23,12 @@ const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
  * nav, and its row renders plain, without the "Ontdek →" cue (design README,
  * "Deviations", item 4).
  */
-const SERVICE_PAGES = { training: trainingPage, staffing: staffingPage };
+const SERVICE_PAGES = {
+  training: trainingPage,
+  staffing: staffingPage,
+  sdlc: sdlcPage,
+  processes: processesPage
+};
 
 /**
  * URL of a service's detail page in this language, or null where there is none
@@ -35,6 +43,12 @@ export function servicePath(key, lang) {
 /** URL of the team page in this language, or null where it is not published. */
 export function teamPath(lang) {
   const slug = teamPage.slugs[lang];
+  return slug === undefined ? null : pagePath(lang, slug);
+}
+
+/** URL of the privacy notice in this language, or null where it is not published. */
+export function privacyPath(lang) {
+  const slug = privacyPage.slugs[lang];
   return slug === undefined ? null : pagePath(lang, slug);
 }
 
@@ -169,6 +183,12 @@ ${join(paths.map((key) => html`      <div id="${prefix}-orbit-${key}" class="orb
   </div>`;
 }
 
+/**
+ * `01`-style two-digit index. Numbers act as the icons in this system, so every
+ * numbered list on the site prints one, and they all print it the same way.
+ */
+export const index = (n) => String(n).padStart(2, '0');
+
 const CHEVRON = raw(
   '<span class="nav-chevron" aria-hidden="true"><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1.2 4.5 4.6 8 1.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
 );
@@ -283,6 +303,44 @@ export function clipDefs() {
     // between two shapes on a diagonal rather than on top of a decoration.
     tracksTail:
       'M0.010,0 C0.012,0.340 0.055,0.610 0.130,0.720 C0.205,0.825 0.310,0.872 0.450,0.878 L0.520,0.878 C0.640,0.878 0.655,0.640 0.745,0.420 C0.815,0.250 0.905,0.105 1,0.055 L1,0 Z',
+    // AI-native SDLC: the hero's shape on that page. A ridge on the flank the
+    // petal is a leaf on — a short shoulder high up, a neck pulled back almost
+    // to the page edge where the headline passes, and one long lobe below it
+    // that reaches half way across its box. Narrow once, open twice, which is
+    // the figure the page argues about a lifecycle drawn as the ground it
+    // argues it on.
+    //
+    // Two drafts before this one cusped at the neck and again at the lobe and
+    // read as a chevron: at a turn this tight the handles have to be longer
+    // than the segment looks like it wants, or the curvature steps and the eye
+    // reads the step as a corner. The shipped one lengthens them and pulls the
+    // lobe back off the far edge of the box.
+    sdlcHeroRidge:
+      'M1,0.000 C0.870,0.040 0.580,0.070 0.580,0.180 C0.580,0.290 0.720,0.320 0.720,0.430 C0.720,0.540 0.310,0.550 0.310,0.700 C0.310,0.850 0.845,0.965 1.000,1.000 Z',
+    // AI-native businessprocessen: the hero's shape on that page, and the one
+    // silhouette on the site with a straight line in it. A shoulder leaves the
+    // right edge and runs down-left, bending to vertical as it arrives; a wall
+    // holds that vertical for a fifth of the box's height; a step turns the
+    // wall through a quarter circle onto a level tread; and the tread runs out
+    // and falls away to the bottom corner. Shoulder, wall, step, sweep.
+    //
+    // It is a wall and a tread because this page is the one about a process
+    // taken apart and put back together, and because the page beside it in the
+    // nav already has the round one. The first draft was all round: a 440px
+    // dome over a shallow lower mass, 3% of its outline within 12° of vertical
+    // and a "wall" that was 0.075 of the height. Measured against the AI-native
+    // SDLC page's ridge it was the same shape — 40.7% of its box against 41.3%,
+    // deepest reach 0.295 against 0.310, every extremity round on both — and
+    // two adjacent services cannot open on the same silhouette. This one is
+    // 12% vertical and 13% level; the ridge is 5% and 0%.
+    //
+    // Every anchor is tangent-continuous to the last (measured: 0.00°) and
+    // every segment is monotone in y, so the outline cannot cross itself and
+    // has no corner in it except the two welded to the page edge. The pull is
+    // gentler than the petal's — a shape with knees folds where a leaf swells,
+    // and at the petal's amplitude this one squared off into a shelf.
+    processHero:
+      'M1,0.000 C0.700,0.045 0.300,0.200 0.300,0.290 C0.300,0.360 0.300,0.440 0.300,0.510 C0.300,0.560 0.470,0.630 0.610,0.630 C0.760,0.630 0.940,0.930 1,1.000 Z',
     // Digitale transformatie: a skewed slab behind the isometric stack
     stackField:
       'M0.060,0.100 L1,0.030 L1,0.860 L0.060,0.930 C0.024,0.933 0,0.905 0,0.870 L0,0.160 C0,0.125 0.024,0.097 0.060,0.100 Z'
@@ -300,16 +358,35 @@ export function clipDefs() {
  * ------------------------------------------------------------------ */
 
 /**
- * The nav in reading order. Every entry is a destination that exists: the two
- * services with a page behind them, the team page, and the two homepage
- * sections a reader arrives looking for. Nothing here is a menu — the mega
- * menu it replaced listed four services of which two had nowhere to go, and a
- * dropdown whose only real items are two links is a lid over two links.
+ * The nav in reading order: every service that has a page behind it, the team
+ * page, and the one homepage section a reader arrives looking for. Nothing here
+ * is a menu — the mega menu it replaced listed four services of which two had
+ * nowhere to go, and a dropdown whose only real items are two links is a lid
+ * over two links. All four services have a page now, so the bar is the offer.
+ *
+ * Contact is not in the list at all. It used to be, and it was already dropped
+ * from the bar at tablet width because the button two items along goes to the
+ * same anchor — which is just as true of the phone sheet, where the link and
+ * that same button end up adjacent. One argument, applied in both places.
  *
  * What came off the bar — Ons DNA, Aanpak, Digitale transformatie — is still
- * on the homepage in that order. Those are read on the way down, not aimed at.
+ * on the homepage in that order, read on the way down rather than aimed at.
  */
-const NAV_ITEMS = ['training', 'staffing', 'team', 'insights', 'contact'];
+const NAV_ITEMS = ['training', 'staffing', 'sdlc', 'processes', 'team', 'insights'];
+
+/**
+ * What the bar itself prints: the four services and the team page. Inzichten
+ * is in `NAV_ITEMS` for the phone sheet and not for the bar, because with four
+ * service names in the row there is no width left for a section that is read on
+ * the way down the homepage anyway.
+ *
+ * The difference is emitted rather than painted over. Hiding a nav link in CSS
+ * leaves it in every one of the site's HTML files at every width — never shown,
+ * and out of the accessibility tree too, so it buys nothing for anyone — and it
+ * puts what the bar contains in a stylesheet instead of here, where the next
+ * person editing this list will look.
+ */
+const BAR_ITEMS = new Set(['training', 'staffing', 'sdlc', 'processes', 'team']);
 
 /**
  * Where a nav key points from `lang`. A service and the team page resolve to a
@@ -344,11 +421,12 @@ export function siteHeader({ t, lang, alternates }) {
     label: navLabel(key, t)
   })).filter((item) => item.href !== null);
 
-  // The key rides along as a modifier class: the tablet header drops the one
-  // link that duplicates the button beside it, and it has to be nameable.
-  const navLinks = items.map(
-    ({ key, href, label }) => html`<a id="nav-link-${key}" class="nav-link nav-link--${key}" href="${href}">${label}</a>`
-  );
+  // The key rides along as a modifier class so a single link stays nameable.
+  const navLinks = items
+    .filter(({ key }) => BAR_ITEMS.has(key))
+    .map(
+      ({ key, href, label }) => html`<a id="nav-link-${key}" class="nav-link nav-link--${key}" href="${href}">${label}</a>`
+    );
 
   // The disclosure is two panels in one: a compact dropdown from the point the
   // nav bar folds (768px), and a full-height sheet on a phone. Both carry the
@@ -401,14 +479,60 @@ export function mobileActions({ t, lang }) {
 </div>`;
 }
 
-export function siteFooter({ t }) {
-  return html`<footer class="site-footer">
-  <sa-node-field></sa-node-field>
-  <span>${t('footer.legal')}</span>
-  <nav aria-label="${t('a11y.footerNav')}">
-    <a href="/secured/">${t('footer.customerZone')}</a>
-    <a href="${LINKEDIN_URL}" rel="noopener">LinkedIn</a>
-  </nav>
+/**
+ * The footer carries the company's identity because it has to. WER art. III.74
+ * — the Belgian transposition of the e-commerce disclosure duty — asks for the
+ * registered name and legal form, the geographic address of the seat, an
+ * e-mail address, a phone number, the enterprise/VAT number and the register
+ * court to be directly and permanently accessible. "Permanently" is what makes
+ * this the footer rather than the privacy notice: the footer is on every page.
+ *
+ * It is three short stacks rather than one run-on line, because a disclosure is
+ * looked up rather than read: who we are, how to reach us, where we are
+ * registered. The facts are the register's own, read off KBO/BCE for enterprise
+ * number 1037.114.694 (seat Mijnschoolstraat 18, 3580 Beringen; legal form
+ * besloten vennootschap) and the competent enterprise court from the FPS
+ * Justice territorial-competence lookup for Beringen (Ondernemingsrechtbank
+ * Antwerpen, afdeling Hasselt). Change one only against the register.
+ *
+ * The street and the company name are `t()` keys with the same value in all
+ * three languages, so nothing here is hard-coded text: only the city line, the
+ * legal form and the court name actually translate, and they must stay able to.
+ *
+ * The privacy notice leads the footer nav, ahead of the customer zone and
+ * LinkedIn. It is the one link in the footer a reader may be looking for
+ * because of something the site did to them rather than something they want
+ * from it, and a notice nobody can find is not a notice.
+ */
+export function siteFooter({ t, lang }) {
+  const privacy = privacyPath(lang);
+
+  return html`<footer id="site-footer" class="site-footer">
+  <sa-node-field id="site-footer-nodes"></sa-node-field>
+  <div id="site-footer-identity" class="site-footer__identity">
+    <address id="site-footer-seat" class="footer-block">
+      <span id="site-footer-seat-name" class="footer-block__lead">${t('footer.company')}</span>
+      <span id="site-footer-seat-form">${t('footer.legalForm')}</span>
+      <span id="site-footer-seat-street">${t('footer.street')}</span>
+      <span id="site-footer-seat-city">${t('footer.city')}</span>
+    </address>
+    <div id="site-footer-reach" class="footer-block">
+      <a id="site-footer-reach-mail" class="footer-block__lead" href="mailto:${EMAIL}">${EMAIL}</a>
+      <a id="site-footer-reach-call" href="${PHONE_HREF}">${PHONE}</a>
+    </div>
+    <div id="site-footer-register" class="footer-block">
+      <span id="site-footer-register-number">${t('footer.vat')}</span>
+      <span id="site-footer-register-court">${t('footer.rpr')}</span>
+    </div>
+  </div>
+  <div id="site-footer-bar" class="site-footer__bar">
+    <span id="site-footer-copyright">${t('footer.legal')}</span>
+    <nav id="site-footer-nav" aria-label="${t('a11y.footerNav')}">
+${privacy ? html`      <a id="site-footer-link-privacy" href="${privacy}">${t('footer.privacy')}</a>
+` : ''}      <a id="site-footer-link-secured" href="/secured/">${t('footer.customerZone')}</a>
+      <a id="site-footer-link-linkedin" href="${LINKEDIN_URL}" rel="noopener">LinkedIn</a>
+    </nav>
+  </div>
 </footer>`;
 }
 

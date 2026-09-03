@@ -12,7 +12,8 @@ const DECK_NAMES = {
   'ontbijtsessie': 'Ontbijtsessie',
   'kbc-staffing-pitch': 'KBC · AI Staffing',
   'advocatuur-pitch': 'Advocatuur · Procesoptimalisatie & AI',
-  'isabel-sdlc': 'Isabel · AI-native SDLC'
+  'isabel-sdlc': 'Isabel · AI-native SDLC',
+  'lease-lens-demo': 'LeaseLens demo'
 };
 
 function prettify(slug) {

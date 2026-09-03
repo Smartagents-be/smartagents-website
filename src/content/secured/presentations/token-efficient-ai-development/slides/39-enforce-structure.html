@@ -1,71 +1,47 @@
 <!-- ════════════════ 39 · ENFORCE STRUCTURE ════════════════ -->
-  <section data-label="Enforce structure" class="slide light cat-themed" style="--c: var(--blue);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">39</span>Structure</p>
-          <h2 class="h2">Let <span class="accent">the build</span> enforce the structure.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-39" data-label="Enforce structure" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-39-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+    <div id="token-efficient-ai-development-slide-39-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-39-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-39-title" class="slide__title">Let the build enforce the structure.</h2>
+    </div>
 
-        <div class="ide-col">
-          <span class="lab">Java</span>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">ArchitectureTest.java</span>
-            </div>
-            <pre class="ide-body">classes().that()
-  .resideInAPackage(<span class="str">"..domain.."</span>)
+    <div id="token-efficient-ai-development-slide-39-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-39-snips" class="snips snips--3">
+        <div id="token-efficient-ai-development-slide-39-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-39-snip-01-label" class="snip__label">Java</span>
+          <span id="token-efficient-ai-development-slide-39-snip-01-file" class="snip__file">ArchitectureTest.java</span>
+          <pre id="token-efficient-ai-development-slide-39-snip-01-code" class="snip__code">classes().that()
+  .resideInAPackage("..domain..")
   .should().onlyDependOnClassesThat()
-  .resideOutsideOfPackage(<span class="str">"..adapters.."</span>)</pre>
-          </div>
-          <p class="ide-cap"><code>ArchUnit</code>, the original.</p>
+  .resideOutsideOfPackage("..adapters..")</pre>
+          <span id="token-efficient-ai-development-slide-39-snip-01-cap" class="snip__cap">ArchUnit, the original.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab">JavaScript / TypeScript</span>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.dependency-cruiser.js</span>
-            </div>
-            <pre class="ide-body"><span class="key">forbidden</span>: [{
-  <span class="key">name</span>: <span class="str">"domain-pure"</span>,
-  <span class="key">from</span>: { path: <span class="str">"src/domain"</span> },
-  <span class="key">to</span>:   { path: <span class="str">"src/adapters"</span> }
+        <div id="token-efficient-ai-development-slide-39-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-39-snip-02-label" class="snip__label">JavaScript and TypeScript</span>
+          <span id="token-efficient-ai-development-slide-39-snip-02-file" class="snip__file">.dependency-cruiser.js</span>
+          <pre id="token-efficient-ai-development-slide-39-snip-02-code" class="snip__code">forbidden: [{
+  name: "domain-pure",
+  from: { path: "src/domain" },
+  to:   { path: "src/adapters" }
 }]</pre>
-          </div>
-          <p class="ide-cap"><code>dependency-cruiser</code>, or ESLint <code>boundaries</code>.</p>
+          <span id="token-efficient-ai-development-slide-39-snip-02-cap" class="snip__cap">dependency-cruiser, or the ESLint boundaries plugin.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab">.NET</span>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">ArchitectureTests.cs</span>
-            </div>
-            <pre class="ide-body">Types.InAssembly(asm)
-  .That().ResideInNamespace(<span class="str">"Domain"</span>)
+        <div id="token-efficient-ai-development-slide-39-snip-03" class="snip">
+          <span id="token-efficient-ai-development-slide-39-snip-03-label" class="snip__label">.NET</span>
+          <span id="token-efficient-ai-development-slide-39-snip-03-file" class="snip__file">ArchitectureTests.cs</span>
+          <pre id="token-efficient-ai-development-slide-39-snip-03-code" class="snip__code">Types.InAssembly(asm)
+  .That().ResideInNamespace("Domain")
   .ShouldNot()
-  .HaveDependencyOn(<span class="str">"Adapters"</span>)</pre>
-          </div>
-          <p class="ide-cap"><code>NetArchTest</code>, or Roslyn analyzers.</p>
+  .HaveDependencyOn("Adapters")</pre>
+          <span id="token-efficient-ai-development-slide-39-snip-03-cap" class="snip__cap">NetArchTest, or Roslyn analyzers.</span>
         </div>
-
-      </div>
-
-      <div class="callout">
-        Write the boundary as a rule once, and <strong>CI fails the moment code crosses it</strong>, with no reviewer needed to catch it. The agent reads the failing check and fixes itself, so the structure holds without you policing every diff.
-      </div>
       </div>
     </div>
-    <!--chrome 39/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-39-note" class="slide__note">Write the boundary as a rule once, and CI fails the moment code crosses it. The agent reads the failing check and fixes itself, so the structure holds without you policing every diff.</p>
+
+  </div>
+  <!--chrome 39/56-->
+</section>

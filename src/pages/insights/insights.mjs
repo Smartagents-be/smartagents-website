@@ -17,7 +17,7 @@
 import { html, join } from '../../../build/lib/html.mjs';
 import { pagePath } from '../../../build/lib/i18n.mjs';
 import { contactSection } from '../../components/contact-form/contact-form.mjs';
-import { prose } from './prose.mjs';
+import { prose } from '../prose.mjs';
 import { body as aviso } from './aviso.mjs';
 import { body as whatWorks } from './what-works.mjs';
 import { body as smartspace } from './smartspace.mjs';
@@ -151,7 +151,7 @@ function insightPage(insight) {
     render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
 ${article({ t, lang, scope, key, published, thumb, widths, tags, body })}
-${contactSection({ t, prefix: scope, title: t('contact.title'), lede: t('contact.lede') })}
+${contactSection({ t, lang, prefix: scope, title: t('contact.title'), lede: t('contact.lede') })}
 
 </main>`
   };

@@ -1,75 +1,53 @@
-<!-- ════════════════ 29 · EXAMPLE · AGENTS & MODES ════════════════ -->
-  <section data-label="Example: agents" class="slide light cat-themed" style="--c: var(--amber);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">29</span>Example</p>
-          <h2 class="h2">A reviewer with <span class="accent">its own tools</span>.</h2>
-        </div>
-      </div>
+<!-- ════════════════ 29 · EXAMPLE · AGENTS ════════════════ -->
+<section id="token-efficient-ai-development-slide-29" data-label="A reviewer agent" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-29-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+    <div id="token-efficient-ai-development-slide-29-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-29-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-29-title" class="slide__title">A reviewer with its own tools.</h2>
+    </div>
 
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
-          <div class="ide ide-copilot">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">reviewer.agent.md</span>
-            </div>
-            <pre class="ide-body"><span class="cmt">---</span>
-<span class="key">description</span>: Reviews PRs
-<span class="key">tools</span>: [read, search]
-<span class="cmt">---</span>
+    <div id="token-efficient-ai-development-slide-29-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-29-snips" class="snips snips--3">
+        <div id="token-efficient-ai-development-slide-29-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-29-snip-01-label" class="snip__label">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-29-snip-01-file" class="snip__file">reviewer.agent.md</span>
+          <pre id="token-efficient-ai-development-slide-29-snip-01-code" class="snip__code">---
+description: Reviews PRs
+tools: [read, search]
+---
 Review the changed files.
 Flag bugs, security risks,
 and missing tests. Cite
 file and line.</pre>
-          </div>
-          <p class="ide-cap">Custom agent, formerly "chat mode".</p>
+          <span id="token-efficient-ai-development-slide-29-snip-01-cap" class="snip__cap">A custom agent, formerly a chat mode.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.claude/agents/code-reviewer.md</span>
-            </div>
-            <pre class="ide-body"><span class="cmt">---</span>
-<span class="key">name</span>: code-reviewer
-<span class="key">tools</span>: Read, Grep
-<span class="cmt">---</span>
+        <div id="token-efficient-ai-development-slide-29-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-29-snip-02-label" class="snip__label">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-29-snip-02-file" class="snip__file">.claude/agents/code-reviewer.md</span>
+          <pre id="token-efficient-ai-development-slide-29-snip-02-code" class="snip__code">---
+name: code-reviewer
+tools: Read, Grep
+---
 Review the staged diff.
 List bugs, security risks,
 and missing tests. Skip
 style nits.</pre>
-          </div>
-          <p class="ide-cap">Subagent with its own prompt and tools.</p>
+          <span id="token-efficient-ai-development-slide-29-snip-02-cap" class="snip__cap">A subagent with its own prompt and tools.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <div class="ide ide-cursor">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">Custom Mode · Settings</span>
-            </div>
-            <pre class="ide-body"><span class="key">Model</span>:  Sonnet 4.6
-<span class="key">Tools</span>:  Search, Read
-<span class="key">Prompt</span>: Review the
+        <div id="token-efficient-ai-development-slide-29-snip-03" class="snip">
+          <span id="token-efficient-ai-development-slide-29-snip-03-label" class="snip__label">Cursor</span>
+          <span id="token-efficient-ai-development-slide-29-snip-03-file" class="snip__file">Custom mode · settings</span>
+          <pre id="token-efficient-ai-development-slide-29-snip-03-code" class="snip__code">Model:  Sonnet 4.6
+Tools:  Search, Read
+Prompt: Review the
         diff; flag bugs
         and missing tests</pre>
-          </div>
-          <p class="ide-cap">Mode with its own tool set (beta).</p>
+          <span id="token-efficient-ai-development-slide-29-snip-03-cap" class="snip__cap">A mode with its own tool set, in beta.</span>
         </div>
-
-      </div>
       </div>
     </div>
-    <!--chrome 29/57-->
-  </section>
+
+  </div>
+  <!--chrome 29/56-->
+</section>

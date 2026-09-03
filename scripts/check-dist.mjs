@@ -115,6 +115,39 @@ const cssTokenDefinitions = new Set(
   distFiles.flatMap((file) => [...file.content.matchAll(/--([\w-]+)\s*:/g)].map((m) => m[1]))
 );
 
+/**
+ * Resolve one `href` or `src` to the path it would have inside `dist/`, or
+ * `null` when it is not ours to check.
+ *
+ * Anything carrying a scheme belongs to somebody else — `https:`, `mailto:`,
+ * `tel:`, `data:`, `blob:`, `about:` and whatever comes next — so the test is
+ * for a scheme at all rather than a list of the ones seen so far. A
+ * protocol-relative `//host/path` is external too.
+ *
+ * `directoriesAreIndexes` is what separates a link from an asset: a page is
+ * addressed by its directory and served as the `index.html` inside it, while
+ * an asset is addressed by its own name and a missing extension means the file
+ * is missing, not that a directory was meant.
+ */
+function resolveLocal(from, value, { directoriesAreIndexes = false } = {}) {
+  if (/^[a-z][a-z0-9+.-]*:/i.test(value) || value.startsWith('//')) return null;
+
+  const withoutQuery = value.split(/[?#]/)[0];
+  if (!withoutQuery) return null;
+
+  let target = withoutQuery.startsWith('/')
+    ? withoutQuery.slice(1)
+    : path.normalize(path.join(path.dirname(from), withoutQuery));
+
+  if (directoriesAreIndexes) {
+    if (target === '.' || target === '') target = 'index.html';
+    else if (target.endsWith('/')) target += 'index.html';
+    else if (!path.extname(target)) target = path.join(target, 'index.html');
+  }
+
+  return target.replace(/\\/g, '/');
+}
+
 for (const file of distFiles) {
   const { relativePath, content } = file;
 
@@ -131,25 +164,23 @@ for (const file of distFiles) {
   if (!relativePath.endsWith('.html')) continue;
 
   for (const match of content.matchAll(/href="([^"#{][^"]*)"/g)) {
-    const href = match[1];
-    if (/^(?:https?:)?\/\//.test(href) || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('data:')) {
-      continue;
-    }
+    const target = resolveLocal(relativePath, match[1], { directoriesAreIndexes: true });
+    if (target && !allDistPaths.has(target)) fail(relativePath, 'broken internal link', match[1]);
+  }
 
-    const linkPath = href.split(/[?#]/)[0];
-    if (!linkPath) continue;
-
-    let target = linkPath.startsWith('/')
-      ? linkPath.slice(1)
-      : path.normalize(path.join(path.dirname(relativePath), linkPath));
-
-    if (target === '.' || target === '') target = 'index.html';
-    else if (target.endsWith('/')) target += 'index.html';
-    else if (!path.extname(target)) target = path.join(target, 'index.html');
-
-    if (!allDistPaths.has(target.replace(/\\/g, '/'))) {
-      fail(relativePath, 'broken internal link', href);
-    }
+  // The same walk over `src`. An `href` that goes nowhere is a click that does
+  // nothing; a `src` that goes nowhere is a hole in the page, and on a slide it
+  // is a hole in front of a room. A deck folder is copied through verbatim, so
+  // a portrait renamed in `assets/` and not in the slide used to ship silently
+  // and 404 in the meeting.
+  //
+  // `srcset` cannot match here (the pattern needs whitespace then `src=`), and
+  // it is left alone deliberately: it is a candidate list the browser is free
+  // to skip, and the `src` beside it is the one that must work. `<source src>`
+  // inside a `<video>` does match, and should.
+  for (const match of content.matchAll(/\ssrc="([^"#{][^"]*)"/g)) {
+    const target = resolveLocal(relativePath, match[1]);
+    if (target && !allDistPaths.has(target)) fail(relativePath, 'broken asset reference', match[1]);
   }
 
   for (const match of content.matchAll(/<img\s[^>]*>/g)) {

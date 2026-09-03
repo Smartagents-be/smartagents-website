@@ -1,8 +1,9 @@
 # CLAUDE.md - Agent Entry Point
 
 Pre-rendered static site, no backend, no framework. The public site is the
-redesigned homepage, three detail pages — training, AI staffing and coaching,
-and team — and the four "Inzichten" articles behind the homepage's article rows
+redesigned homepage, five detail pages — training, AI staffing and coaching,
+the AI-native SDLC, AI-native businessprocessen, and team — the privacy notice,
+and the four "Inzichten" articles behind the homepage's article rows
 (NL / EN / FR); the password-gated `/secured/` area (internal documents and
 pitch decks) is live.
 
@@ -35,6 +36,18 @@ they are applied here.
   error as a banner in the browser. `scripts/live-reload.mjs` injects that
   client into HTML responses only when the server runs with `--watch`, so
   `npm run serve` still serves `dist/` exactly as it deploys.
+- **Agents**: `npm run ai` — the entry point for an agent that needs the site
+  running (Playwright, a screenshot, a curl). It builds and serves `dist/` on
+  **:8001**, so it never fights the human's `npm run dev` on :8000, and it is
+  the only port an agent should start or assume. Start it in the background and
+  leave it up; a second call while it is already serving prints
+  `Already serving ... reusing it.` and exits 0, so it is safe to run at the top
+  of any session. There is no watcher on it, deliberately: an agent that edits a
+  file runs `npm run build` itself and knows the rebuild finished before it
+  looks, where a watcher would race the screenshot. Nothing is injected into the
+  HTML either, unlike `npm run dev`, so what the browser sees is what deploys.
+  `--port=` and `--reuse` on `scripts/start-local.mjs` are what make this one
+  script serve all three cases.
 - **Deck PDFs**: `npm run export:pdfs` (needs a current `dist/`)
 
 ## Deployment
@@ -121,12 +134,36 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   Adding a deck means adding a folder; discovery is automatic. The look lives in
   `presentations/shared/slide.css`, one stylesheet for every deck, listed in a
   deck's `deck.json` under `styles`. It is the `Slide Template` design canvas
-  turned into classes, and it is what makes a new deck's own `deck.css` empty:
-  the nine decks that predate it each carry a thousand-plus lines copied from
-  the deck before, which is the drift it exists to end. The seven archetypes,
+  turned into classes, and it is what makes a deck's own `deck.css` empty: the
+  ten decks that predate it each carried a thousand-plus lines copied from the
+  deck before, which is the drift it exists to end. Seven are empty now; the
+  other three keep one figure each, listed in the skill. The eight archetypes,
   the ready markup for each and the rules that keep them on brand are in the
   `new-presentation` skill. Note that `check-dist.mjs` fails on an unexpanded
   chrome marker anywhere in `dist/`, comments in a stylesheet included.
+  `npm run check:slides` is the other half: it opens every deck in headless
+  Chrome and measures each slide, because a slide with a line too many is
+  clipped by the stage's `overflow: hidden` and nothing static can see that.
+- **The privacy notice is the article layout without the article.** It is the
+  second page with no hero and no dark shape, for the reason the insights have
+  none: a 540px navy shape between the header and the first paragraph is a
+  screen to scroll past before reading. `.article--single` collapses the
+  article's two-column grid, because there is no "read next" from a legal
+  notice. It is also the only page with no contact section — a notice that
+  explains what happens to the data you hand over should not close by asking for
+  more of it, so the route for exercising a right is a `mailto:` in the body.
+  Everything it claims is read off the code: no cookies and no third-party
+  request on a public page, Turnstile loaded on first form interaction only, and
+  the rate-limit key on the caller's IP expiring after exactly 7200 seconds. The
+  24-month retention is the one number nothing enforces — it is a promise kept
+  by hand in Slack and the mailbox. `src/pages/privacy/body.mjs` records which
+  is which; keep it true if either half changes.
+- **`src/pages/prose.mjs` is the long-form vocabulary, and it is not the
+  insights'.** Two page families run long enough to need headings, quotes and
+  lists — the articles and the privacy notice — so it sits a level above both.
+  `p`, `h2` and `quote` interleave their interpolations; they used to drop them
+  silently, which is the wrong failure for a tag whose job is to carry a
+  sentence.
 - **Colocation**: keep CSS/JS/assets in the component or page folder. A component
   that also owns markup keeps both halves there under one name:
   `components/contact-form/contact-form.mjs` renders the section at build time,
@@ -209,6 +246,14 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   every window re-measures its slice because the shapes below a block that just
   grew have all shifted. Anything else that animates a block's height inherits
   this for free; anything that re-seeds will look the same way again.
+- **A magnet rewrites the path its `data-clip` names, not the one the element
+  is actually clipped by.** `collectMagnets()` in `src/motion.js` resolves the
+  outline with `getElementById(element.dataset.clip)` and never reads the
+  computed `clip-path`. Every hero silhouette is swapped to `#heroSwoop` under
+  621px, so down there the magnet is rewriting a path nothing is using and the
+  pull does nothing — which is right, because there is no cursor on a phone,
+  but it is right by accident. A silhouette that is swapped at some width for a
+  reason other than the phone would need the magnet told about it.
 - **A magnet's box is frozen in pixels the moment it is set up, and so is
   everything struck from it.** The outline is sampled, the grown box is
   measured, the outline is remapped into it, and the arc-length table the
@@ -277,14 +322,20 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `<details>`.
 - **The tablet is drawn, so it is not invented.** `SmartAgents Homepage Tablet`
   (834x1112) in the design project is the source for everything between the
-  desk and the phone, and three breakpoints carry it: 768px is where the header
-  stops being a nav bar (and the wedge narrows to the phone's, or the disclosure
-  under it sits on navy), 1000px is where every list that runs two abreast starts
-  doing so, and 620px is where the hero stops being split — the phone's own line,
-  because the column and the lobe are both shares of the width and hold to 621px.
-  See "Deviations from the design doc", item 1, in the `smartagents-design`
-  README for what each one changes; change a number there and in the CSS
-  together.
+  desk and the phone, and four breakpoints carry it now. 1180px is where the
+  header stops being a nav bar: the artboard drew that row against four items
+  and the offer is six, four of them service names two and three words long, so
+  the row is a desk-only thing and the tablet takes the disclosure the phone
+  already has, in its compact dropdown mode. 768px is what is left of the
+  artboard's own header — the taller row, the fluid brand, the wedge narrowed to
+  the phone's, the tightened gutter — and it no longer moves the nav. 1000px is
+  where every list that runs two abreast starts doing so, and 620px is where the
+  hero stops being split, the phone's own line, because the column and the lobe
+  are both shares of the width and hold to 621px. See "Deviations from the
+  design doc", item 1, in the `smartagents-design` README for what each one
+  changes; change a number there and in the CSS together. If the offer ever
+  shrinks back to two services the row fits at 768px again and that band should
+  get it back.
 - **No third-party requests.** No webfonts, no icon library, no analytics on the
   public pages. Turnstile is the one exception and loads only on interaction.
 - **`/secured/` is self-contained but not off-brand.** It serves its own
@@ -292,13 +343,16 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   build, yet `src/content/secured/tokens.css` carries the same values as
   `src/styles/tokens.css`: paper, ink, the navy field, one cyan. Every page
   behind the password reads it — the login gate, the overview, both Smart Scan
-  documents and all nine decks — so it is the one place a colour is defined
+  documents and all ten decks — so it is the one place a colour is defined
   there. Keep it in step with the public token file.
 - **The dark field is a class in `/secured/`.** `.field` on any element flips
   the semantic roles to their on-navy values, so a rule written once reads on
-  both grounds. A deck's cover carries it (`class="slide deeper field"`), and so
-  does any navy shape inside a paper slide: a chart card, a screenshot frame,
-  the closing contact strip. A slide without it is paper. The one thing that
+  both grounds. A slide is paper and never carries it; what carries it is the
+  navy shape clipped into the cover and the closing slide, and any navy element
+  inside a paper slide. The retired decks put it on the `<section>` and painted
+  a whole slide navy, which is the one thing the redesign does not do. The
+  branch in `chrome()` that swaps in `logo-dark.svg` for a `.field` section is
+  what is left of them. The one thing that
   breaks is painting `--sa-field` on an element and leaving the class off — the
   text inside then stays ink on navy.
 - **The decks are paper with categorical colour.** `--sky`, `--blue`,
@@ -307,6 +361,17 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   public site never does. Each has an on-paper value and an on-navy step under
   `.field`. Reach for `--accent` first; these are for when a thing is genuinely
   one of several.
+- **The contact path is checked end to end, because it broke in the gap between
+  its two halves.** The form posts what its inputs are named; `/api/contact`
+  validates its own list; nothing compared them, so a required `subject` no
+  input carried 400'd every submission the site ever made. `scripts/check-contact.mjs`
+  runs as the last build step: it parses the rendered form out of `dist/`, posts
+  those exact fields through the real `onRequestPost`, and fails the build if
+  they are rejected, if the message does not reach the webhook, or if a missing
+  or erroring webhook is answered with `{ ok: true }`. Turnstile and n8n are
+  stubbed at `globalThis.fetch`, so it needs no network and no secrets. Add a
+  field to the form or a rule to `validatePayload` and this is what tells you
+  the other half disagrees.
 - **Validation**: `scripts/check-dist.mjs` is the gatekeeper. It checks unresolved
   templates, broken internal links, missing alt text, undefined CSS custom
   properties, robots meta, the full hreflang contract, the routing table, and the
@@ -330,22 +395,35 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   drawn in. The magnetic pull in `src/motion.js` is not ported and will not be:
   it has no meaning without a cursor on the shape. The orbit rings are ported
   too, at about half the site's period and with the long fade, because a slide
-  is looked at rather than scrolled past. The nine decks that predate the
-  redesign have a flat navy cover and none of this.
+  is looked at rather than scrolled past. Every deck in the folder is on this
+  now; the flat navy covers went with the per-deck stylesheets.
 - No build-step image pipeline. Both picture sets under `public/media/` were
   derived by hand with `sips`. The recipe, and the two traps that cost the most
   time (`--cropOffset` is in points; an odd-dimension AVIF renders as its alt
   text in Gecko), are in the `image-pipeline` skill.
 - Geist is named first in `--font-sans` but no binaries were supplied, so the
   platform face is what renders. Ask the client for the WOFF2 files.
-- Two of the three service rows link out — training and AI staffing — through
-  `servicePath()` in `src/layouts/base.mjs`, which is the one place the homepage
-  rows and the nav bar both ask. They lead the list; Procesoptimalisatie still
-  has nowhere to go, so it closes the list as a plain row without a "Ontdek →"
-  cue and is not in the nav. Agentic automatisatie was dropped as a service of
-  its own — it is part of what the staffing track does inside a project. All
-  four article rows now link, through `insightPath()`. See "Deviations from the design doc" in the
-  `smartagents-design` README.
+- All four service rows link out, through `servicePath()` in
+  `src/layouts/base.mjs`, which is the one place the homepage rows and the nav
+  bar both ask. Procesoptimalisatie is gone: it was one row standing for two
+  different engagements, and it is now the two it always was — AI-native SDLC
+  for the engineering side and AI-native businessprocessen for the business
+  side. The plain-row branch in `services()` survives for the case it was
+  always really about: a language a page is not published in, where
+  `servicePath()` returns null. Agentic automatisatie was dropped as a service
+  of its own — it is part of what the staffing track does inside a project. All
+  four article rows link too, through `insightPath()`. See "Deviations from the
+  design doc" in the `smartagents-design` README.
+- **`NAV_ITEMS` is not what the bar prints.** `BAR_ITEMS` in
+  `src/layouts/base.mjs` is: the four services and the team page. Inzichten is
+  in `NAV_ITEMS` for the phone sheet alone, because with four service names in
+  the row there is no width left for a section that is read on the way down the
+  homepage anyway, and Contact is in neither — the button two items along goes
+  to the same anchor, in the bar and in the sheet. The difference is emitted
+  rather than hidden in CSS: a nav link that is `display: none` at every width
+  ships in every one of the site's HTML files, is out of the accessibility tree
+  too, and puts what the bar contains in a stylesheet instead of beside the
+  list.
 - The live site also has a Jobs page. It has not been redesigned yet, and
   nothing links to it.
 - A URL that matches no page is a soft 404: Cloudflare has no `404.html` at the

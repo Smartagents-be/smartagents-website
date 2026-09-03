@@ -32,7 +32,16 @@
   --sa-grey-3: oklch(0.42 0.014 247.84);
   --sa-grey-4: oklch(0.45 0.014 247.84);
   --sa-grey-5: oklch(0.46 0.014 247.84);
-  --sa-grey-6: oklch(0.56 0.018 247.84);
+  /* The faint step, and the only grey on this ramp that is measured rather
+     than picked: at 0.56 it read 4.43:1 on --sa-paper, under the 4.5:1 AA
+     floor, and it was the sole reason every page scored 96 on Lighthouse
+     accessibility against the 1.0 the budget asserts. 0.54 is the smallest
+     step that clears the floor on every paper-family surface it is printed
+     on: 4.82:1 on --sa-paper and --sa-paper-2, 4.65:1 on the --sa-wash a
+     row hover paints under it, 5.04:1 on white in the tablet nav panel.
+     --text-faint is its only consumer, so darkening the primitive costs
+     nothing elsewhere. Do not lighten it again. */
+  --sa-grey-6: oklch(0.54 0.018 247.84);
   --sa-line: oklch(0.925 0.005 247.84);
   --sa-line-2: oklch(0.9 0.006 247.84);
   --sa-line-3: oklch(0.885 0.006 247.84);

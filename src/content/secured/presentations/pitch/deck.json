@@ -1,19 +1,24 @@
 {
   "title": "SmartAgents — Intro",
-  "description": "SmartAgents: intelligente automatisatie voor je bedrijf.",
+  "description": "SmartAgents: intelligente automatisatie voor je bedrijf, van SmartScan tot meetbaar resultaat.",
   "width": "1920",
   "height": "1080",
-  "styles": [],
-  "scripts": [],
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
   "slides": [
-    "01-cover",
-    "02-wie-zijn-wij",
-    "03-kernservices",
-    "04-plan-van-aanpak",
-    "05-waarom-smartagents",
-    "06-sectoren",
-    "07-smartspace",
-    "08-meetbare-impact",
-    "09-over-smartagents"
+    "00-cover",
+    "01-visie",
+    "02-kernservices",
+    "03-aanpak",
+    "04-waarom",
+    "05-sectoren",
+    "06-smartspace",
+    "07-impact",
+    "08-over",
+    "09-close"
   ]
 }

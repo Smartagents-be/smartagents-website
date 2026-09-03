@@ -1,45 +1,31 @@
 <!-- ════════════════ 38 · BUILD FOR SMALL CONTEXT ════════════════ -->
-  <section data-label="Small context" class="slide light cat-themed" style="--c: var(--blue);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">38</span>Structure</p>
-          <h2 class="h2">Build for <span class="accent">small context</span>.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-38" data-label="Small context" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-38-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="problist">
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-          </span>
-          <div class="prob-title">Small, single-purpose files</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>A five-line change should touch one small file, not an 800-line module. The agent loads less to act, and hallucinates less.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/></svg>
-          </span>
-          <div class="prob-title">Clear boundaries (hexagonal)</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Split into <code>domain</code>, <code>usecases</code>, <code>ports</code> and <code>adapters</code>. Dependencies point inward, so the agent reasons about one layer at a time, not the whole graph.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-          </span>
-          <div class="prob-title">Vertical slices, not layers</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Group by capability, so everything one feature needs (<code>billing</code>, <code>auth</code>, <code>snippets</code>) lives in one folder. The agent opens that slice and ignores the rest of the repo.</div>
-        </div>
-      </div>
+    <div id="token-efficient-ai-development-slide-38-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-38-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-38-title" class="slide__title">Build for small context.</h2>
+    </div>
 
-      <div class="callout">
-        The cheapest token is the one you never send. <strong>Structure decides how much context a change needs</strong>, before you type a single prompt.
-      </div>
+    <div id="token-efficient-ai-development-slide-38-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-38-rows" class="rows">
+        <div id="token-efficient-ai-development-slide-38-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-38-row-01-term" class="row__term">Small, single-purpose files</span>
+          <span id="token-efficient-ai-development-slide-38-row-01-detail" class="row__detail">A five-line change should touch one small file, not an 800-line module. The agent loads less to act, and hallucinates less.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-38-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-38-row-02-term" class="row__term">Clear boundaries</span>
+          <span id="token-efficient-ai-development-slide-38-row-02-detail" class="row__detail">Split into domain, usecases, ports and adapters. Dependencies point inward, so the agent reasons about one layer at a time, not the whole graph.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-38-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-38-row-03-term" class="row__term">Vertical slices, not layers</span>
+          <span id="token-efficient-ai-development-slide-38-row-03-detail" class="row__detail">Group by capability, so everything one feature needs lives in one folder: billing, auth, snippets. The agent opens that slice and ignores the rest.</span>
+        </div>
       </div>
     </div>
-    <!--chrome 38/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-38-note" class="slide__note">The cheapest token is the one you never send. Structure decides how much context a change needs, before you type a single prompt.</p>
+
+  </div>
+  <!--chrome 38/56-->
+</section>

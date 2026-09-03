@@ -1,6 +1,6 @@
 {
   "home.title": "SmartAgents · Digital colleagues that never sleep",
-  "home.description": "SmartAgents builds digital colleagues for Belgian organisations: training, AI staffing and coaching, and process optimisation.",
+  "home.description": "SmartAgents builds digital colleagues for Belgian organisations: training, AI staffing and coaching, an AI-native SDLC and AI-native business processes.",
 
   "a11y.skip": "Skip to content",
   "a11y.mainNav": "Main navigation",
@@ -9,7 +9,6 @@
 
   "nav.menu": "Menu",
   "nav.insights": "Insights",
-  "nav.contact": "Contact",
 
   "cta.talk": "Book a call",
   "cta.call": "Call",
@@ -26,12 +25,14 @@
   "section.approach": "From question to working solution",
   "section.insights": "Insights",
 
-  "service.process.title": "Process optimisation",
-  "service.process.body": "AI opens up new possibilities inside your processes and improves the steps you already have. We help you spot those opportunities and actually implement them.",
   "service.training.title": "Training",
   "service.training.body": "Workshops built on projects, exercises and supporting slides. For the teams who work with AI and the developers who build with it.",
   "service.staffing.title": "AI staffing and coaching",
   "service.staffing.body": "On paper everyone is an AI expert. We screen profiles the way we would want to be screened ourselves: on what they have built.",
+  "service.sdlc.title": "AI-native SDLC",
+  "service.sdlc.body": "From traditional to agentic to AI-native. We guide that shift: the process, the guardrails, and above all the people who work inside it every day.",
+  "service.processes.title": "AI-native business processes",
+  "service.processes.body": "We start from the work your teams do today, find where AI genuinely pays off, and leave reusable workflows, skills and agents behind.",
 
   "dna.1.title": "Hands-on people",
   "dna.1.body": "We use AI tooling every day ourselves. What we recommend to you runs at our place first.",
@@ -45,8 +46,8 @@
   "transformation.1.title": "AI strategy and vision",
   "transformation.1.label": "Strategy and vision",
   "transformation.1.body": "Strategic AI adoption, across the organisation.",
-  "transformation.2.title": "Process optimisation",
-  "transformation.2.label": "Process optimisation",
+  "transformation.2.title": "Rethinking processes",
+  "transformation.2.label": "Rethinking processes",
   "transformation.2.body": "Reducing processes to what adds value.",
   "transformation.3.title": "Training",
   "transformation.3.label": "Training",
@@ -99,6 +100,8 @@
   "form.company": "Company",
   "form.email": "Email",
   "form.message": "What is difficult today?",
+  "form.subject": "New message via smartagents.be",
+  "form.privacyNote": "By sending this you agree to our [privacy notice].",
   "form.sending": "Sending…",
   "form.sent": "Thank you. We will be in touch shortly.",
   "form.failed": "Sending did not work. Feel free to mail us at info@smartagents.be.",
@@ -187,10 +190,104 @@
   "staffing.track.business.tag.1": "AI techniques",
   "staffing.track.business.tag.2": "Mapping workflows",
   "staffing.track.business.tag.3": "Repeatable patterns",
-  "staffing.track.business.body": "We train your employees ourselves: what AI can and cannot do, and how to put it on their own files. Repeatable patterns instead of one-off prompts.",
+  "staffing.track.business.body": "We train your employees ourselves: what AI can and cannot do, and how to put it on their own case files. Coaching alongside the work already on their desk, with repeatable patterns instead of one-off prompts.",
 
   "staffing.cta.title": "Looking for someone who already does this?",
   "staffing.cta.body": "Tell us briefly where your team is stuck and what the project looks like today. We propose the track that fits, and we also say when you do not need us.",
+
+  "processes.title": "AI-native business processes · SmartAgents",
+  "processes.description": "We go through the work your teams do today, say where AI pays off and where it does not, and leave reusable workflows, skills and agents behind. With coaching until your people run them.",
+
+  "processes.hero.eyebrow": "AI-native business processes",
+  "processes.hero.title": "From your tasks to reusable workflows",
+
+  "processes.cta.phases": "See the approach",
+
+  "processes.phases.title": "How an engagement runs",
+  "processes.phases.lede": "We take one process that comes back every week and follow it end to end. Not a drawing on paper, but the work that is on the table this week, gone through with your own people. We also say where AI adds nothing.",
+
+  "processes.phase.01.title": "Going through the work",
+  "processes.phase.01.body": "In the SmartScan we walk through the tasks on the table this week with your people: mail, quotes, reporting, case files. Not what the process is supposed to be, but what actually happens.",
+  "processes.phase.02.title": "Where AI pays off",
+  "processes.phase.02.body": "Task by task we say where AI takes the work over, where it only assists, and where it adds nothing. That last one is almost always part of the answer.",
+  "processes.phase.03.title": "Making it reusable",
+  "processes.phase.03.body": "We build what keeps coming back: a workflow your team runs again, a skill that captures your way of working, an agent that handles a piece on its own.",
+  "processes.phase.04.title": "Coaching until it runs",
+  "processes.phase.04.body": "We work on your own case files, alongside the people who do that work every day, until they run the new workflow without us.",
+
+  "processes.outcome.title": "What you keep",
+  "processes.outcome.workflows.title": "Workflows",
+  "processes.outcome.workflows.body": "The work that comes back every week, set down as steps your team runs again next week, with the same outcome.",
+  "processes.outcome.skills.title": "Skills",
+  "processes.outcome.skills.body": "Your templates, your house rules and the way you phrase things, captured so nobody has to explain them again at every request.",
+  "processes.outcome.agents.title": "Agents",
+  "processes.outcome.agents.body": "For the work nobody needs to do by hand any more: an agent that handles the task and reports back when there is a decision to make.",
+  "processes.outcome.people.title": "People who use them",
+  "processes.outcome.people.body": "The colleagues who do the work run the new workflow themselves. If something stays untouched, it does not belong in the process and it goes.",
+
+  "processes.cta.title": "Which process shall we go through?",
+  "processes.cta.body": "Tell us briefly what work comes back every week and who does it today. We propose where we would start, and we also say when AI adds nothing to it.",
+
+  "sdlc.title": "AI-native SDLC · SmartAgents",
+  "sdlc.description": "From traditional to agentic to AI-native. We guide software teams through that shift: the bottleneck travels with it, and most of the work is not technical but human.",
+
+  "sdlc.hero.eyebrow": "AI-native SDLC",
+  "sdlc.hero.title": "From traditional SDLC to AI-native",
+
+  "sdlc.cta.journey": "See the way there",
+
+  "sdlc.issues.title": "What we see today",
+
+  "sdlc.issue.belief.title": "Trust",
+  "sdlc.issue.belief.body": "Part of the team does not trust the output, and another part expects miracles. Those are the same mistake in opposite directions.",
+  "sdlc.issue.capability.title": "Capability",
+  "sdlc.issue.capability.body": "No training, and processes built for a world where writing code was the expensive part.",
+  "sdlc.issue.foundation.title": "Foundation",
+  "sdlc.issue.foundation.body": "Code quality is not visible and nothing enforces it. Most product knowledge lives in people's heads.",
+  "sdlc.issue.tooling.title": "Tooling",
+  "sdlc.issue.tooling.body": "Every team works its own way, there is no shared way of working, and the average developer has too little access to AI to get any good at it.",
+
+  "sdlc.journey.title": "The way there",
+  "sdlc.journey.lede": "We follow Anthropic’s AI-native SDLC playbook. The bottleneck does not disappear, it moves: every stage has one of its own, and you cannot skip ahead. Maturity and trust are what the rest is built on.",
+  "sdlc.journey.note": "This is the ideal shape. In practice there will still be hiccups in the chain, and that is part of it.",
+
+  "sdlc.stage.traditional.title": "Traditional",
+  "sdlc.stage.traditional.body": "Build is the bottleneck. Everything before it and everything after it waits on the people writing the code.",
+  "sdlc.stage.agentic.title": "Agentic",
+  "sdlc.stage.agentic.body": "Agents take over the build and the bottleneck moves to the two ends: what you asked for exactly, and who checks it. This is the stage where the way your people work changes.",
+  "sdlc.stage.native.title": "AI-native",
+  "sdlc.stage.native.body": "A person stands at both ends: they set the intent and they accept the result. In between, gates hold the quality line automatically.",
+
+  "sdlc.phase.requirements": "Requirements",
+  "sdlc.phase.design": "Design",
+  "sdlc.phase.build": "Build",
+  "sdlc.phase.test": "Test",
+  "sdlc.phase.release": "Release",
+  "sdlc.phase.review": "Review",
+  "sdlc.phase.intent": "Intent",
+  "sdlc.phase.spec": "Spec",
+  "sdlc.phase.gates": "Gates",
+  "sdlc.phase.accept": "Accept",
+
+  "sdlc.legend.block": "Where the work waits",
+  "sdlc.legend.human": "Where a person decides",
+
+  "sdlc.work.title": "Where the real work is",
+  "sdlc.work.lede": "Most of this is not technical. It is bringing people along, and building a way of working on the culture and the habits you already have.",
+
+  "sdlc.work.people.title": "Bringing people along",
+  "sdlc.work.people.body": "“We have always done it this way” is not answered by a memo. We put someone in the team who has already made the move, and show the difference in a real repository, against what the team would have shipped itself.",
+  "sdlc.work.culture.title": "Built on your own culture",
+  "sdlc.work.culture.body": "There is no standard process we come and install. We start from how your teams work today and from what already works well, and build on that.",
+  "sdlc.work.training.title": "Training",
+  "sdlc.work.training.body": "People who use AI every day still ask us what MCP is, use the agent as a search box, and point it at small chores instead of at whole workflows. The willingness is there, the knowledge is not yet. We train your engineers on agentic workflows, not on one-off prompts.",
+  "sdlc.work.gates.title": "Gates that enforce quality",
+  "sdlc.work.gates.body": "We build the gates into your CI/CD, so quality becomes visible and automatic. Nobody reviews by hand the volume an agent produces. Access without gates buys you more code and less confidence in it.",
+  "sdlc.work.platform.title": "One way of working",
+  "sdlc.work.platform.body": "We set the agreements down in the repository and carry them into every team through the tooling itself, not through a wiki page written once and never read again. We adjust them as feedback comes in.",
+
+  "sdlc.cta.title": "Where does your team stand today?",
+  "sdlc.cta.body": "Tell us briefly how your teams work today and where it is rubbing. We say which step comes first, and why it comes first.",
 
   "nav.team": "Team",
 
@@ -213,8 +310,20 @@
   "team.cta.title": "Shall we get to know each other?",
   "team.cta.body": "Tell us briefly what could run better. You get one of the two of us at the table, and we will also say when you do not need us.",
 
-  "footer.legal": "© 2026 SmartAgents · BE 1037.114.694",
+  "footer.legal": "© 2026 SmartAgents",
+  "privacy.title": "Privacy notice · SmartAgents",
+  "privacy.description": "What personal data smartagents.be processes, why, who sees it and how long we keep it. No analytics, no tracking, no cookies.",
+  "privacy.eyebrow": "Privacy",
+  "privacy.heading": "Privacy notice",
+  "privacy.updated": "Last updated 3 September 2026",
+  "footer.privacy": "Privacy notice",
   "footer.customerZone": "Client zone",
+  "footer.company": "SmartAgents BV",
+  "footer.legalForm": "Private limited company",
+  "footer.street": "Mijnschoolstraat 18",
+  "footer.city": "3580 Beringen, Belgium",
+  "footer.vat": "Company and VAT number BE 1037.114.694",
+  "footer.rpr": "RPR Enterprise Court of Antwerp, Hasselt division",
 
   "notfound.title": "Page not found",
   "notfound.description": "This page does not exist (any more).",

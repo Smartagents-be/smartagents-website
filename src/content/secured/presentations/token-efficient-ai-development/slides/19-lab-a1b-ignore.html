@@ -1,24 +1,35 @@
-<!-- ════════════════ 19 · LAB A1b: SCOPE BY EXCLUSION ════════════════ -->
-  <section data-label="Lab A1b: exclusion" class="slide light cat-themed" style="--c: var(--green);">
-    <div class="frame">
-      <p class="eyebrow"><span class="num">19</span>Lab A1b</p>
-      <h2 class="h2">Scope by <span class="accent">exclusion</span>.</h2>
+<!-- ════════════════ 19 · LAB A1b · EXCLUSION ════════════════ -->
+<section id="token-efficient-ai-development-slide-19" data-label="Lab A1b: exclusion" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-19-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="labcard" style="margin-top: 18px;">
-        <span class="lab-tag">Lab A1b: ignore the noise</span>
-        <h3>Let the agent explore, but fence off dead weight</h3>
-        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 12px;"><strong>Objective:</strong> the repo now carries a <code>src/legacy/</code> folder of plausible but irrelevant session and auth files. Unscoped, the agent reads them on false leads and the baseline climbs. Block that folder and run the same task.</p>
-        <ol>
-          <li>Add an ignore rule that fences off <code>src/legacy/</code>, then run the same symptom prompt with no file names.
-            <div class="prompt-block">Claude Code &middot; <code>.claude/settings.json</code><br>{ "permissions": { "deny": ["Read(./src/legacy/**)"] } }</div>
-          </li>
-          <li>Same idea in the other tools: <code>src/legacy/</code> in <code>.cursorignore</code> (Cursor), or a content-exclusion path (Copilot).</li>
-          <li>Record the tokens and compare against your noisy Lab 0 baseline.</li>
-        </ol>
-        <p class="lab-out"><strong>Expected result:</strong> close to the scoped Lab A1 number, with the same correct fix, because the agent never wanders into the decoys.</p>
-      </div>
+    <div id="token-efficient-ai-development-slide-19-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-19-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-19-title" class="slide__title">Scope by exclusion.</h2>
+      <p id="token-efficient-ai-development-slide-19-lede" class="slide__lede">The repo now carries a src/legacy/ folder of plausible but irrelevant session and auth files. Unscoped, the agent reads them on false leads.</p>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-19-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-19-steps" class="steps steps--3">
+        <div id="token-efficient-ai-development-slide-19-step-01" class="step">
+          <span id="token-efficient-ai-development-slide-19-step-01-num" class="step__num">01</span>
+          <span id="token-efficient-ai-development-slide-19-step-01-title" class="step__title">Fence off the folder</span>
+          <span id="token-efficient-ai-development-slide-19-step-01-body" class="step__body">Add an ignore rule for src/legacy/, then run the same symptom prompt with no file names. In Claude Code that is a deny rule in .claude/settings.json: Read(./src/legacy/**).</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-19-step-02" class="step">
+          <span id="token-efficient-ai-development-slide-19-step-02-num" class="step__num">02</span>
+          <span id="token-efficient-ai-development-slide-19-step-02-title" class="step__title">Same idea, other tools</span>
+          <span id="token-efficient-ai-development-slide-19-step-02-body" class="step__body">src/legacy/ in .cursorignore for Cursor, or a content-exclusion path for Copilot.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-19-step-03" class="step">
+          <span id="token-efficient-ai-development-slide-19-step-03-num" class="step__num">03</span>
+          <span id="token-efficient-ai-development-slide-19-step-03-title" class="step__title">Record and compare</span>
+          <span id="token-efficient-ai-development-slide-19-step-03-body" class="step__body">Compare the tokens against your noisy Lab 0 baseline.</span>
+        </div>
       </div>
     </div>
-    <!--chrome 19/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-19-note" class="slide__note">Expected result: close to the scoped Lab A1 number, with the same correct fix, because the agent never wanders into the decoys.</p>
+
+  </div>
+  <!--chrome 19/56-->
+</section>

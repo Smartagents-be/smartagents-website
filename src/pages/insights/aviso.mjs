@@ -2,7 +2,7 @@
 // `main` (blog/posts/2026-06-12-ontbijtsessie-aviso.md and its en/ and fr/
 // translations); the copy is the client's, unchanged apart from the two links,
 // which now point inside the redesign instead of at the old /blog/ tree.
-import { p, h2, quote } from './prose.mjs';
+import { p, h2, quote } from '../prose.mjs';
 
 export const body = {
   nl: [

@@ -1,22 +1,35 @@
-<!-- ════════════════ 17 · LAB A1: SCOPE ════════════════ -->
-  <section data-label="Lab A1: scope" class="slide light cat-themed" style="--c: var(--green);">
-    <div class="frame">
-      <p class="eyebrow"><span class="num">17</span>Lab A1</p>
-      <h2 class="h2">Scope the task to the <span class="accent">smallest high-signal set</span>.</h2>
+<!-- ════════════════ 17 · LAB A1 · SCOPE ════════════════ -->
+<section id="token-efficient-ai-development-slide-17" data-label="Lab A1: scope" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-17-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="labcard" style="margin-top: 20px;">
-        <span class="lab-tag">Lab A1: scope the session-timeout bug</span>
-        <h3>Point the agent only at the files that matter</h3>
-        <p style="font-size: 23px; color: var(--fg-muted); margin-bottom: 14px;"><strong>Objective:</strong> scope the session-timeout task to the smallest set of files with real signal.</p>
-        <ol>
-          <li>Identify the files in <code>token-efficient-workshop-node</code> that own session timeout (hint: <code>session.config.ts</code> and <code>auth.middleware.ts</code>, which share a small <code>time.ts</code> helper).</li>
-          <li>Open a fresh session and point the agent only at those files: <code>@session.config.ts</code> <code>@auth.middleware.ts</code> or equivalent, then ask it to fix the bug.</li>
-          <li>Record input tokens, output tokens, and total cost. Compare against your Lab 0 baseline.</li>
-        </ol>
-        <p class="lab-out"><strong>Expected result:</strong> fewer input tokens than the baseline, the correct fix applied, and a faster response. The agent reads less, hallucinates less.</p>
-      </div>
+    <div id="token-efficient-ai-development-slide-17-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-17-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-17-title" class="slide__title">Scope the task to the smallest high-signal set.</h2>
+      <p id="token-efficient-ai-development-slide-17-lede" class="slide__lede">Point the agent only at the files that matter.</p>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-17-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-17-steps" class="steps steps--3">
+        <div id="token-efficient-ai-development-slide-17-step-01" class="step">
+          <span id="token-efficient-ai-development-slide-17-step-01-num" class="step__num">01</span>
+          <span id="token-efficient-ai-development-slide-17-step-01-title" class="step__title">Find the owners</span>
+          <span id="token-efficient-ai-development-slide-17-step-01-body" class="step__body">Identify the files in token-efficient-workshop-node that own session timeout. Hint: session.config.ts and auth.middleware.ts, which share a small time.ts helper.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-17-step-02" class="step">
+          <span id="token-efficient-ai-development-slide-17-step-02-num" class="step__num">02</span>
+          <span id="token-efficient-ai-development-slide-17-step-02-title" class="step__title">Point and ask</span>
+          <span id="token-efficient-ai-development-slide-17-step-02-body" class="step__body">Open a fresh session, point the agent only at those files with @session.config.ts and @auth.middleware.ts or the equivalent, then ask it to fix the bug.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-17-step-03" class="step">
+          <span id="token-efficient-ai-development-slide-17-step-03-num" class="step__num">03</span>
+          <span id="token-efficient-ai-development-slide-17-step-03-title" class="step__title">Record and compare</span>
+          <span id="token-efficient-ai-development-slide-17-step-03-body" class="step__body">Input tokens, output tokens and total cost, against your Lab 0 baseline.</span>
+        </div>
       </div>
     </div>
-    <!--chrome 17/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-17-note" class="slide__note">Expected result: fewer input tokens than the baseline, the correct fix applied, and a faster response. The agent reads less and hallucinates less.</p>
+
+  </div>
+  <!--chrome 17/56-->
+</section>

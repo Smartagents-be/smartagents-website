@@ -1,72 +1,51 @@
-<!-- ════════════════ 27 · EXAMPLE · COMMANDS & SKILLS ════════════════ -->
-  <section data-label="Example: commands &amp; skills" class="slide light cat-themed" style="--c: var(--rose);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">27</span>Example</p>
-          <h2 class="h2">A <span class="accent">/review command</span> and a <span class="accent">release-notes skill</span>.</h2>
-        </div>
-      </div>
+<!-- ════════════════ 27 · EXAMPLE · COMMANDS AND SKILLS ════════════════ -->
+<section id="token-efficient-ai-development-slide-27" data-label="Command and skill" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-27-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 32px; align-content: start;">
+    <div id="token-efficient-ai-development-slide-27-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-27-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-27-title" class="slide__title">A review command and a release-notes skill.</h2>
+    </div>
 
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-claude"></i>Command (you invoke)</span>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.claude/commands/review.md</span>
-            </div>
-            <pre class="ide-body">Review the diff for bugs
+    <div id="token-efficient-ai-development-slide-27-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-27-snips" class="snips snips--3">
+        <div id="token-efficient-ai-development-slide-27-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-27-snip-01-label" class="snip__label">Command, you invoke</span>
+          <span id="token-efficient-ai-development-slide-27-snip-01-file" class="snip__file">.claude/commands/review.md</span>
+          <pre id="token-efficient-ai-development-slide-27-snip-01-code" class="snip__code">Review the diff for bugs
 and security issues.
 Give a short list.</pre>
-          </div>
-          <p class="ide-cap">Invoke with <code>/review</code>. Also works in Copilot and Cursor via <code>/review</code>.</p>
+          <span id="token-efficient-ai-development-slide-27-snip-01-cap" class="snip__cap">Invoke with /review. The same file works in Copilot and Cursor.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-claude"></i>Skill (agent invokes)</span>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.claude/skills/release-notes/SKILL.md</span>
-            </div>
-            <pre class="ide-body"><span class="cmt">---</span>
-<span class="key">name</span>: release-notes
-<span class="key">description</span>: <span class="str">Generate release notes</span>
-  <span class="str">from the git log since the tag.</span>
-<span class="cmt">---</span>
+        <div id="token-efficient-ai-development-slide-27-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-27-snip-02-label" class="snip__label">Skill, the agent invokes</span>
+          <span id="token-efficient-ai-development-slide-27-snip-02-file" class="snip__file">.claude/skills/release-notes/SKILL.md</span>
+          <pre id="token-efficient-ai-development-slide-27-snip-02-code" class="snip__code">---
+name: release-notes
+description: Generate release
+  notes from the git log
+  since the tag.
+---
 1. Read the git log
 2. Group by change type
 3. Write a changelog</pre>
-          </div>
-          <p class="ide-cap">The agent picks this skill when you ask for release notes.</p>
+          <span id="token-efficient-ai-development-slide-27-snip-02-cap" class="snip__cap">The agent picks this skill when you ask for release notes.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot note</span>
-          <div class="ide ide-copilot">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.github/prompts/review.prompt.md</span>
-            </div>
-            <pre class="ide-body"><span class="cmt">---</span>
-<span class="key">description</span>: <span class="str">"Review the diff"</span>
-<span class="key">agent</span>: <span class="str">"copilot-gpt-4.1"</span>
-<span class="cmt">---</span>
+        <div id="token-efficient-ai-development-slide-27-snip-03" class="snip">
+          <span id="token-efficient-ai-development-slide-27-snip-03-label" class="snip__label">GitHub Copilot note</span>
+          <span id="token-efficient-ai-development-slide-27-snip-03-file" class="snip__file">.github/prompts/review.prompt.md</span>
+          <pre id="token-efficient-ai-development-slide-27-snip-03-code" class="snip__code">---
+description: "Review the diff"
+agent: "copilot-gpt-4.1"
+---
 Review the diff for bugs
 and security issues.
 Give a short list.</pre>
-          </div>
-          <p class="ide-cap">Copilot prompt frontmatter uses <code>agent</code>, not <code>mode</code>.</p>
+          <span id="token-efficient-ai-development-slide-27-snip-03-cap" class="snip__cap">Copilot prompt frontmatter uses agent, not mode.</span>
         </div>
-
-      </div>
       </div>
     </div>
-    <!--chrome 27/57-->
-  </section>
+
+  </div>
+  <!--chrome 27/56-->
+</section>

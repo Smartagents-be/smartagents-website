@@ -34,14 +34,14 @@ export const page = {
     description: t('training.description')
   }),
 
-  render: ({ t }) => {
+  render: ({ t, lang }) => {
     return html`<main id="main" tabindex="-1">
 
 ${hero(t)}
 ${why(t)}
 ${offer(t)}
 ${format(t)}
-${contact(t)}
+${contact(t, lang)}
 
 </main>`;
   }
@@ -204,9 +204,10 @@ ${join(
  * Contact — the shared form, with the two lines this page phrases for itself.
  * ------------------------------------------------------------------ */
 
-function contact(t) {
+function contact(t, lang) {
   return contactSection({
     t,
+    lang,
     prefix: 'training',
     title: t('training.cta.title'),
     lede: t('training.cta.body')

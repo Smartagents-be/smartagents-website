@@ -3,7 +3,7 @@
 // en/ and fr/ translations), unchanged. SmartSpace has no page of its own on
 // the redesigned site, so this article is where the product is described (see
 // "Deviations from the design doc", item 6, in the design README).
-import { p, h2, quote } from './prose.mjs';
+import { p, h2, quote } from '../prose.mjs';
 
 export const body = {
   nl: [

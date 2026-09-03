@@ -1,52 +1,38 @@
 <!-- ════════════════ 02 · ANATOMY OF A BILL ════════════════ -->
-  <section data-label="Anatomy of a bill" class="slide light cat-themed" style="--c: var(--purple);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8H8"/><path d="M16 12H8"/><path d="M12 16H8"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">02</span>Token economics</p>
-          <h2 class="h2">The anatomy of an <span class="accent">LLM bill</span>.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-02" data-label="Anatomy of a bill" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-02-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="problist">
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </span>
-          <div class="prob-title">Input tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Everything you send: system prompt, context, history, files. The cheapest type, and the easiest to over-send.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </span>
-          <div class="prob-title">Output tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>Roughly 3 to 6x input</strong>, depending on the model. The expensive side of the bill.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-          </span>
-          <div class="prob-title">Cached input tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span><strong>About 0.1x input (90% off)</strong> when a stable prefix repeats. Identical system prompts and reused context qualify.</div>
-        </div>
-        <div class="prob-row">
-          <span class="prob-ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          </span>
-          <div class="prob-title">Reasoning tokens</div>
-          <div class="prob-conseq"><span class="arr">&rarr;</span>Hidden thinking steps, <strong>billed as output</strong>. A long chain on a short question can dwarf the visible answer.</div>
-        </div>
-      </div>
-
-      <div class="callout">
-        Every lever in this workshop moves one of these four numbers. Output and reasoning are where the money is.
-      </div>
-      </div>
+    <div id="token-efficient-ai-development-slide-02-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-02-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-02-title" class="slide__title">The anatomy of an LLM bill.</h2>
     </div>
-    <!--chrome 02/57-->
-  </section>
+
+    <div id="token-efficient-ai-development-slide-02-compare" class="compare">
+
+      <div id="token-efficient-ai-development-slide-02-col-01" class="compare__col">
+        <div id="token-efficient-ai-development-slide-02-col-01-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-02-col-01-title" class="compare__title">What you send</span>
+          <span id="token-efficient-ai-development-slide-02-col-01-sub" class="compare__sub">Cheap, and the easiest to over-send</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-02-col-01-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-02-col-01-item-01" class="compare__item">Input tokens: the system prompt, the context, the history, the files. The cheapest type.</span>
+          <span id="token-efficient-ai-development-slide-02-col-01-item-02" class="compare__item">Cached input tokens: about 0.1x input, 90% off, when a stable prefix repeats. Identical system prompts and reused context qualify.</span>
+        </div>
+      </div>
+
+      <div id="token-efficient-ai-development-slide-02-col-02" class="compare__col compare__col--then">
+        <div id="token-efficient-ai-development-slide-02-col-02-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-02-col-02-title" class="compare__title">What you pay for</span>
+          <span id="token-efficient-ai-development-slide-02-col-02-sub" class="compare__sub">Where the money is</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-02-col-02-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-02-col-02-item-01" class="compare__item">Output tokens: roughly 3 to 6x input, depending on the model. The expensive side of the bill.</span>
+          <span id="token-efficient-ai-development-slide-02-col-02-item-02" class="compare__item">Reasoning tokens: hidden thinking steps, billed as output. A long chain on a short question can dwarf the visible answer.</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!--chrome 02/56-->
+</section>

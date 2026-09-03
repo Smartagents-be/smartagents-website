@@ -152,17 +152,23 @@ outside it, and are decided the same way everywhere in `src/`:
    phone is where the invention still happens.
 
    **The tablet.** "SmartAgents Homepage Tablet" (834x1112) is drawn, and the site follows it.
-   Three thresholds carry it, and each says one thing:
+   Four thresholds carry it, and each says one thing:
 
-   - **768px — the header.** Above it the nav bar stays a bar: the sections, the language chips
-     and the primary action on one row, every measurement in it fluid so it lands on the
-     artboard's values at 834px and still holds at 768px in the longest of the three languages.
-     The one link that goes is "Contact", because the button beside it goes there. Under 768px
-     the row folds into the disclosure it has always folded into — and the wedge folds with it,
-     down to the shape it takes on the phone: at the desk's 318px the cut runs past the trigger
-     and "Menu" is set on navy. The chips, the gaps and the button's flanks tighten at the same
-     line, so the four items clear the slope at 621px, the last width that still has them in the
-     row.
+   - **1180px — the bar folds.** The artboard's header row was drawn against four items. The
+     offer is six now: four services named in full, two and three words each, plus the team page
+     and the sections. Fitted into 834px those are 11px type in a row with no gaps, which is not
+     the artboard's header either — so the row is a desk-only thing and the tablet takes the
+     disclosure the phone already has, in its compact dropdown mode. Above 1180px the row is
+     still fluid: at 1181px, the narrowest it is ever printed at, the type is at 12px and the
+     link padding at 7px, and the longest of the three languages leaves the primary action 29px
+     clear of the page edge. If the offer ever shrinks back to two services the row fits at
+     768px again and that band should get it back.
+   - **768px — the header's own proportions.** What is left of the artboard's header once the
+     nav has gone: the taller row, the fluid brand, the tightened gutter, and the wedge folded
+     down to the shape it takes on the phone, because at the desk's 318px the cut runs past the
+     trigger and "Menu" is set on navy. The chips, the gaps and the button's flanks tighten at
+     the same line, so the four items clear the slope at 621px, the last width that still has
+     them in the row.
    - **1000px — the columns.** Every list that is one column on a phone and three or five across
      a desk runs two abreast between these two numbers: the services, the five steps, the four
      articles. The steps and the DNA entries take the phone's vertical rule while they do, so a
@@ -182,22 +188,29 @@ outside it, and are decided the same way everywhere in `src/`:
      of copy read as a misprint, and the split it replaced still reads at 620px.
 2. **Fonts.** No webfont is loaded — see above.
 3. **The nav names destinations, not categories.** The doc draws a `Diensten` mega-menu over four
-   services; two of them have no page, and a dropdown whose real content is two links is a lid over
-   two links. The bar is the five things a reader can actually arrive at — the two services with a
-   page, the team page, and the Inzichten and Contact sections of the homepage — written out flat,
-   which is also what the disclosure under 768px and the phone sheet then carry, unchanged. Ons DNA,
-   Aanpak and Digitale transformatie came off the bar and stayed on the homepage: they are read on
-   the way down rather than aimed at. Put a section back in the nav only when it becomes a page.
-   `NAV_ITEMS` in `src/layouts/base.mjs` is the list, and a service is named there from
-   `service.<key>.title`, so its nav entry, its homepage row and its own hero can never drift.
+   services; two of them had no page, and a dropdown whose real content is two links is a lid over
+   two links. The bar is written out flat instead: the four services and the team page, every one
+   of them a page a reader can arrive at. Ons DNA, Aanpak and Digitale transformatie came off the
+   bar and stayed on the homepage, and Inzichten joined them there once the four service names
+   took the row's width — they are read on the way down rather than aimed at. Contact is in
+   neither the bar nor the sheet, because the button two items along goes to the same anchor.
+   Put a section back in the nav only when it becomes a page.
+
+   `NAV_ITEMS` in `src/layouts/base.mjs` is the list the phone sheet prints and `BAR_ITEMS`
+   beside it is the subset the bar prints; the difference is emitted rather than hidden in CSS,
+   so what the bar contains is readable next to the list rather than in a stylesheet. A service
+   is named there from `service.<key>.title`, so its nav entry, its homepage row and its own hero
+   can never drift.
 4. **Rows are only links when there is somewhere to go.** The doc's service and article rows link
-   to detail pages that mostly do not exist, so a row with no destination renders plain and drops
-   the "Ontdek →" cue. Two services now have a page — training and AI staffing and coaching — and
-   both rows link; the lookup is `servicePath(key, lang)` in `src/layouts/base.mjs`, and adding a
-   page to `SERVICE_PAGES` there brings the hover, the arrow and the translate back on the homepage
-   row and puts the service in the nav at the same time. All four article rows link too, through
-   `insightPath(key, lang)` in `src/pages/insights/insights.mjs`; only Procesoptimalisatie, which
-   closes the list, is still plain.
+   to detail pages that mostly did not exist, so a row with no destination renders plain and drops
+   the "Ontdek →" cue. All four services have a page now — training, AI staffing and coaching, the
+   AI-native SDLC and AI-native businessprocessen — so every row links; the lookup is
+   `servicePath(key, lang)` in `src/layouts/base.mjs`, and adding a page to `SERVICE_PAGES` there
+   brings the hover, the arrow and the translate back on the homepage row and puts the service in
+   the nav at the same time. All four article rows link too, through `insightPath(key, lang)` in
+   `src/pages/insights/insights.mjs`. The plain branch is still reached, and now only for the case
+   it was always really about: a language a page is not published in, where `servicePath()`
+   returns null.
 5. **Two surfaces carry pictures**, which the doc rules out everywhere else.
 
    **The team page** puts photography in its hero: under the headline, the two founders fill the

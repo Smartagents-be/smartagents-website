@@ -1,52 +1,31 @@
 <!-- ════════════════ 24 · INSTRUCTIONS ════════════════ -->
-  <section data-label="Instructions" class="slide light cat-themed" style="--c: var(--violet);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">24</span>Memory &amp; rules</p>
-          <h2 class="h2">Capture conventions once as <span class="accent">persistent instructions</span>.</h2>
+<section id="token-efficient-ai-development-slide-24" data-label="Instructions" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-24-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-24-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-24-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-24-title" class="slide__title">Capture conventions once, as persistent instructions.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-24-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-24-rows" class="rows rows--tight">
+        <div id="token-efficient-ai-development-slide-24-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-24-row-01-term" class="row__term">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-24-row-01-detail" class="row__detail">.github/copilot-instructions.md applies repo-wide. Path-specific rules live in *.instructions.md with applyTo globs.</span>
         </div>
-      </div>
-
-      <div class="frame-body">
-      <div class="grid-3" style="margin-top: 36px; align-content: start;">
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-copilot"></i>GitHub Copilot</span>
-          <h3>copilot-instructions</h3>
-          <ul>
-            <li><code>.github/copilot-instructions.md</code> applies repo-wide.</li>
-            <li>Path-specific with <code>*.instructions.md</code> and <code>applyTo</code> globs.</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-24-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-24-row-02-term" class="row__term">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-24-row-02-detail" class="row__detail">CLAUDE.md carries project context, style and commands, loaded automatically every session. Per project, or globally in ~/.claude.</span>
         </div>
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-claude"></i>Claude Code</span>
-          <h3>CLAUDE.md</h3>
-          <ul>
-            <li>Project context, style and commands, loaded automatically every session.</li>
-            <li>Per project or globally in <code>~/.claude</code>.</li>
-          </ul>
+        <div id="token-efficient-ai-development-slide-24-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-24-row-03-term" class="row__term">Cursor</span>
+          <span id="token-efficient-ai-development-slide-24-row-03-detail" class="row__detail">.cursor/rules holds modular .mdc rules with four triggers: always apply, apply intelligently, apply to specific files, apply manually. Split one bloated file into targeted rules.</span>
         </div>
-
-        <div class="card">
-          <span class="lab"><i class="bi bi-cursor"></i>Cursor</span>
-          <h3>.cursor/rules</h3>
-          <ul>
-            <li>Modular <code>.mdc</code> rules with four triggers: Always Apply, Apply Intelligently, Apply to Specific Files, Apply Manually.</li>
-            <li>Split one bloated file into targeted rules.</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="callout">
-        <strong>AGENTS.md</strong> is the neutral standard that both Copilot and Cursor read. Good instructions save tokens: you don't re-explain conventions every prompt.
-      </div>
       </div>
     </div>
-    <!--chrome 24/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-24-note" class="slide__note">AGENTS.md is the neutral standard that both Copilot and Cursor read. Good instructions save tokens: you do not re-explain conventions every prompt.</p>
+
+  </div>
+  <!--chrome 24/56-->
+</section>

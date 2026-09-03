@@ -1,62 +1,40 @@
 <!-- ════════════════ 40 · EXAMPLE · SMALL CONTEXT ════════════════ -->
-  <section data-label="Example: small context" class="slide light cat-themed" style="--c: var(--blue);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">40</span>Example</p>
-          <h2 class="h2">Same change, a <span class="accent">fraction</span> of the context.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-40" data-label="One module or slices" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-40-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
-
-        <div class="ide-col">
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
-            <span class="lab">One big module</span>
-            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-subtle); background: rgba(100,116,139,0.15); padding: 3px 9px; border-radius: 999px;">Costly</span>
-          </div>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">src/</span>
-            </div>
-            <pre class="ide-body">src/
-  <span class="key">userService.ts</span>  <span class="cmt"># 820 lines</span>
-    auth · billing · email ·
-    validation · db · mailer …</pre>
-          </div>
-          <p class="ide-cap">Edit the plan-upgrade rule &rarr; the agent loads all 820 lines (auth, email, db included) just to find the few that matter.</p>
-        </div>
-
-        <div class="ide-col">
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
-            <span class="lab">Hexagonal slices</span>
-            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: var(--c); padding: 3px 9px; border-radius: 999px;">Cheap</span>
-          </div>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">src/billing/</span>
-            </div>
-            <pre class="ide-body">src/billing/
-  domain/<span class="key">plan.ts</span>
-  usecases/<span class="key">upgradePlan.ts</span>
-  ports/<span class="key">billingRepo.ts</span>
-  adapters/<span class="key">stripeRepo.ts</span></pre>
-          </div>
-          <p class="ide-cap">Same edit &rarr; the agent opens <code>usecases/upgradePlan.ts</code> and the <code>ports/billingRepo</code> interface. Domain, adapters and other features never load.</p>
-        </div>
-
-      </div>
-
-      <div class="callout">
-        Small modules with clear seams keep <strong>every prompt cheap and the output accurate</strong>.
-      </div>
-      </div>
+    <div id="token-efficient-ai-development-slide-40-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-40-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-40-title" class="slide__title">Same change, a fraction of the context.</h2>
     </div>
-    <!--chrome 40/57-->
-  </section>
+
+    <div id="token-efficient-ai-development-slide-40-compare" class="compare">
+
+      <div id="token-efficient-ai-development-slide-40-col-01" class="compare__col">
+        <div id="token-efficient-ai-development-slide-40-col-01-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-40-col-01-title" class="compare__title">One big module</span>
+          <span id="token-efficient-ai-development-slide-40-col-01-sub" class="compare__sub">Costly</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-40-col-01-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-40-col-01-item-01" class="compare__item">src/userService.ts, 820 lines: auth, billing, email, validation, db, mailer.</span>
+          <span id="token-efficient-ai-development-slide-40-col-01-item-02" class="compare__item">Edit the plan-upgrade rule and the agent loads all 820 lines to find the few that matter.</span>
+          <span id="token-efficient-ai-development-slide-40-col-01-item-03" class="compare__item">Auth, email and db come along for the ride.</span>
+        </div>
+      </div>
+
+      <div id="token-efficient-ai-development-slide-40-col-02" class="compare__col compare__col--then">
+        <div id="token-efficient-ai-development-slide-40-col-02-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-40-col-02-title" class="compare__title">Hexagonal slices</span>
+          <span id="token-efficient-ai-development-slide-40-col-02-sub" class="compare__sub">Cheap</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-40-col-02-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-40-col-02-item-01" class="compare__item">src/billing/ with domain/plan.ts, usecases/upgradePlan.ts, ports/billingRepo.ts, adapters/stripeRepo.ts.</span>
+          <span id="token-efficient-ai-development-slide-40-col-02-item-02" class="compare__item">The same edit opens usecases/upgradePlan.ts and the ports/billingRepo interface.</span>
+          <span id="token-efficient-ai-development-slide-40-col-02-item-03" class="compare__item">Domain, adapters and the other features never load.</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!--chrome 40/56-->
+</section>

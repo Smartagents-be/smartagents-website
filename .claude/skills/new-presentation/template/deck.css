@@ -1,10 +1,17 @@
 /* <deck slug> — rules that belong to this deck alone.
 
-   Usually empty. The whole visual system is ../shared/slide.css, listed in
-   deck.json; this file is for the one figure a single deck needs and no other
-   deck will. Write it with tokens (--sa-grey-3, --sa-line, --ls-h3,
+   Usually empty, and empty is the target: seven of the ten decks in the folder
+   have nothing in this file. The whole visual system is ../shared/slide.css,
+   listed in deck.json; this file is for the one figure a single deck needs and
+   no other deck will. Write it with tokens (--sa-grey-3, --sa-line, --ls-h3,
    --fw-semibold), never literal values, and in absolute pixels against the
    1920x1080 stage.
 
-   If you write the same rule here twice across two decks, it belongs in
-   ../shared/slide.css instead. */
+   Two rules about what does not belong here:
+
+   - A rule a second deck could want belongs in ../shared/slide.css. `.people`
+     exists because five decks put the same two founders on a slide and wrote
+     the classes for it three separate times.
+   - A shared class that needs to behave differently gets a modifier in
+     ../shared/slide.css, not a redefinition here. Redefining one is how a deck
+     starts looking unlike the deck before it. */

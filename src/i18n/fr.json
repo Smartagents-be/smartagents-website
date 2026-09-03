@@ -1,6 +1,6 @@
 {
   "home.title": "SmartAgents · Des collègues numériques qui ne dorment jamais",
-  "home.description": "SmartAgents construit des collègues numériques pour les organisations belges : formation, AI staffing et coaching, et optimisation des processus.",
+  "home.description": "SmartAgents construit des collègues numériques pour les organisations belges : formation, AI staffing et coaching, un SDLC AI-native et des processus métier AI-native.",
 
   "a11y.skip": "Aller au contenu",
   "a11y.mainNav": "Navigation principale",
@@ -9,7 +9,6 @@
 
   "nav.menu": "Menu",
   "nav.insights": "Analyses",
-  "nav.contact": "Contact",
 
   "cta.talk": "Planifier un entretien",
   "cta.call": "Appeler",
@@ -26,12 +25,14 @@
   "section.approach": "De la question à la solution qui tourne",
   "section.insights": "Analyses",
 
-  "service.process.title": "Optimisation des processus",
-  "service.process.body": "L'IA ouvre de nouvelles possibilités dans vos processus et améliore les étapes existantes. Nous vous aidons à repérer ces occasions et à les mettre en œuvre.",
   "service.training.title": "Formation",
   "service.training.body": "Des ateliers bâtis sur des projets, des exercices et des slides d'accompagnement. Pour les équipes qui travaillent avec l'IA et les développeurs qui construisent avec elle.",
   "service.staffing.title": "AI staffing et coaching",
   "service.staffing.body": "Sur papier, tout le monde est expert en IA. Nous évaluons les profils comme nous voudrions l'être nous-mêmes : sur ce qu'ils ont construit.",
+  "service.sdlc.title": "SDLC AI-native",
+  "service.sdlc.body": "Du traditionnel à l'agentique, puis à l'AI-native. Nous accompagnons ce basculement : les processus, les gates et surtout les personnes qui y travaillent chaque jour.",
+  "service.processes.title": "Processus métier AI-native",
+  "service.processes.body": "Nous partons du travail que vos équipes font aujourd'hui, cherchons où l'IA fait vraiment gagner du temps, et laissons derrière nous des workflows, des skills et des agents réutilisables.",
 
   "dna.1.title": "Gens de terrain",
   "dna.1.body": "Nous utilisons nous-mêmes des outils d'IA chaque jour. Ce que nous vous recommandons tourne d'abord chez nous.",
@@ -45,8 +46,8 @@
   "transformation.1.title": "Stratégie et vision IA",
   "transformation.1.label": "Stratégie et vision",
   "transformation.1.body": "Une adoption stratégique de l'IA, à l'échelle de l'organisation.",
-  "transformation.2.title": "Optimisation des processus",
-  "transformation.2.label": "Optimisation",
+  "transformation.2.title": "Repenser les processus",
+  "transformation.2.label": "Repenser les processus",
   "transformation.2.body": "Ramener les processus à ce qui crée de la valeur.",
   "transformation.3.title": "Formation",
   "transformation.3.label": "Formation",
@@ -99,6 +100,8 @@
   "form.company": "Entreprise",
   "form.email": "E-mail",
   "form.message": "Qu'est-ce qui est difficile aujourd'hui ?",
+  "form.subject": "Nouveau message via smartagents.be",
+  "form.privacyNote": "En envoyant ce message, vous acceptez notre [politique de confidentialité].",
   "form.sending": "Envoi…",
   "form.sent": "Merci. Nous vous recontactons rapidement.",
   "form.failed": "L'envoi n'a pas fonctionné. Écrivez-nous à info@smartagents.be.",
@@ -187,10 +190,104 @@
   "staffing.track.business.tag.1": "Techniques d'IA",
   "staffing.track.business.tag.2": "Dessiner les workflows",
   "staffing.track.business.tag.3": "Patterns réutilisables",
-  "staffing.track.business.body": "Nous formons vos collaborateurs nous-mêmes : ce que l'IA peut faire et ce qu'elle ne peut pas, et comment l'utiliser sur leurs propres dossiers. Des patterns réutilisables plutôt que des prompts isolés.",
+  "staffing.track.business.body": "Nous formons vos collaborateurs nous-mêmes : ce que l'IA peut faire et ce qu'elle ne peut pas, et comment l'utiliser sur leurs propres dossiers. Du coaching à côté du travail en cours, avec des patterns réutilisables plutôt que des prompts isolés.",
 
   "staffing.cta.title": "Vous cherchez quelqu'un qui le fait déjà ?",
   "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous proposons la piste qui convient, et nous disons aussi quand vous n'avez pas besoin de nous.",
+
+  "processes.title": "Processus métier AI-native · SmartAgents",
+  "processes.description": "Nous passons en revue le travail que vos équipes font aujourd'hui, disons où l'IA fait gagner du temps et où elle n'apporte rien, et laissons des workflows, des skills et des agents réutilisables.",
+
+  "processes.hero.eyebrow": "Processus métier AI-native",
+  "processes.hero.title": "De vos tâches à des workflows réutilisables",
+
+  "processes.cta.phases": "Voir la démarche",
+
+  "processes.phases.title": "Comment se déroule un projet",
+  "processes.phases.lede": "Nous prenons un processus qui revient chaque semaine et le suivons de bout en bout. Pas un schéma sur papier, mais le travail qui est sur la table cette semaine, passé en revue avec vos propres collaborateurs. Nous disons aussi où l'IA n'apporte rien.",
+
+  "processes.phase.01.title": "Passer le travail en revue",
+  "processes.phase.01.body": "Lors du SmartScan, nous parcourons avec vos collaborateurs les tâches de la semaine : les mails, les offres, le reporting, les dossiers. Non pas ce que le processus devrait être, mais ce qui se passe vraiment.",
+  "processes.phase.02.title": "Là où l'IA fait gagner du temps",
+  "processes.phase.02.body": "Tâche par tâche, nous disons où l'IA reprend le travail, où elle ne fait qu'assister, et où elle n'apporte rien. Ce dernier cas fait presque toujours partie de la réponse.",
+  "processes.phase.03.title": "Rendre le tout réutilisable",
+  "processes.phase.03.body": "Nous construisons ce qui revient sans cesse : un workflow que votre équipe relance, une skill qui fixe votre façon de travailler, un agent qui traite une partie tout seul.",
+  "processes.phase.04.title": "Coacher jusqu'à ce que ça tourne",
+  "processes.phase.04.body": "Nous travaillons sur vos propres dossiers, avec les personnes qui font ce travail chaque jour, jusqu'à ce qu'elles s'en sortent sans nous.",
+
+  "processes.outcome.title": "Ce que vous gardez",
+  "processes.outcome.workflows.title": "Workflows",
+  "processes.outcome.workflows.body": "Le travail qui revient chaque semaine, fixé en étapes que votre équipe relance la semaine suivante, avec le même résultat.",
+  "processes.outcome.skills.title": "Skills",
+  "processes.outcome.skills.body": "Vos modèles, vos règles maison et votre façon de formuler, fixés pour que personne ne doive les réexpliquer à chaque demande.",
+  "processes.outcome.agents.title": "Agents",
+  "processes.outcome.agents.body": "Pour le travail que plus personne ne doit faire à la main : un agent qui traite la tâche et revient vers vous quand une décision s'impose.",
+  "processes.outcome.people.title": "Les gens qui s'en servent",
+  "processes.outcome.people.body": "Les collègues qui font le travail font tourner le nouveau workflow eux-mêmes. Si quelque chose reste inutilisé, cela n'a pas sa place dans le processus et nous le retirons.",
+
+  "processes.cta.title": "Quel processus allons-nous passer en revue ?",
+  "processes.cta.body": "Dites-nous brièvement quel travail revient chaque semaine et qui le fait aujourd'hui. Nous proposons par où nous commencerions, et nous disons aussi quand l'IA n'y apporte rien.",
+
+  "sdlc.title": "SDLC AI-native · SmartAgents",
+  "sdlc.description": "Du traditionnel à l'agentique, puis à l'AI-native. Nous accompagnons vos équipes de développement : le goulot d'étranglement se déplace, et l'essentiel du travail n'est pas technique mais humain.",
+
+  "sdlc.hero.eyebrow": "SDLC AI-native",
+  "sdlc.hero.title": "Du SDLC traditionnel à l'AI-native",
+
+  "sdlc.cta.journey": "Voir le chemin à parcourir",
+
+  "sdlc.issues.title": "Ce que nous voyons aujourd'hui",
+
+  "sdlc.issue.belief.title": "Confiance",
+  "sdlc.issue.belief.body": "Personne ne fait confiance au résultat, et en même temps tout le monde attend des miracles. C'est la même erreur dans les deux sens.",
+  "sdlc.issue.capability.title": "Compétences",
+  "sdlc.issue.capability.body": "Pas de formation, et des processus conçus pour un monde où écrire du code était la partie coûteuse.",
+  "sdlc.issue.foundation.title": "Fondations",
+  "sdlc.issue.foundation.body": "La qualité du code n'est pas visible et rien ne l'impose. L'essentiel de la connaissance du produit reste dans la tête de quelques personnes.",
+  "sdlc.issue.tooling.title": "Outillage",
+  "sdlc.issue.tooling.body": "Chaque équipe travaille à sa façon, il n'y a pas de manière de travailler commune, et le développeur moyen a trop peu accès à l'IA pour apprendre à s'en servir correctement.",
+
+  "sdlc.journey.title": "Le chemin vers l'AI-native",
+  "sdlc.journey.lede": "Nous suivons le playbook AI-native SDLC d'Anthropic. Le goulot d'étranglement ne disparaît pas, il se déplace : chaque étape a le sien, et vous ne pouvez pas sauter d'étape. La maturité et la confiance sont ce sur quoi le reste repose.",
+  "sdlc.journey.note": "C'est la forme idéale. Dans la pratique, il reste des accrocs dans la chaîne, et cela en fait partie.",
+
+  "sdlc.stage.traditional.title": "Traditionnel",
+  "sdlc.stage.traditional.body": "La construction est le goulot d'étranglement. Tout ce qui précède et tout ce qui suit attend les personnes qui écrivent le code.",
+  "sdlc.stage.agentic.title": "Agentic",
+  "sdlc.stage.agentic.body": "Les agents reprennent la construction et le goulot d'étranglement se déplace vers les deux extrémités : ce que vous demandez exactement, et qui le relit. C'est l'étape où la façon de travailler de vos équipes change.",
+  "sdlc.stage.native.title": "AI-native",
+  "sdlc.stage.native.body": "Une personne se tient aux deux extrémités : elle fixe l'intention et accepte le résultat. Entre les deux, des gates veillent automatiquement à la qualité.",
+
+  "sdlc.phase.requirements": "Exigences",
+  "sdlc.phase.design": "Conception",
+  "sdlc.phase.build": "Réalisation",
+  "sdlc.phase.test": "Tests",
+  "sdlc.phase.release": "Livraison",
+  "sdlc.phase.review": "Revue",
+  "sdlc.phase.intent": "Intention",
+  "sdlc.phase.spec": "Cadrage",
+  "sdlc.phase.gates": "Gates",
+  "sdlc.phase.accept": "Recette",
+
+  "sdlc.legend.block": "Là où le travail attend",
+  "sdlc.legend.human": "Là où un humain décide",
+
+  "sdlc.work.title": "Où se situe le vrai travail",
+  "sdlc.work.lede": "L'essentiel du travail n'est pas technique. Il s'agit d'embarquer les personnes et de construire une manière de travailler à partir de la culture et des habitudes qui existent déjà chez vous.",
+
+  "sdlc.work.people.title": "Embarquer les personnes",
+  "sdlc.work.people.body": "« On a toujours fait comme ça » ne se réfute pas par une note de service. Nous plaçons dans l'équipe quelqu'un qui a déjà fait le pas, et nous montrons la différence dans un vrai dépôt, face à ce que l'équipe aurait livré elle-même.",
+  "sdlc.work.culture.title": "Construit sur votre propre culture",
+  "sdlc.work.culture.body": "Il n'existe pas de processus standard que nous viendrions installer chez vous. Nous partons de la façon dont vos équipes travaillent aujourd'hui et de ce qui fonctionne déjà, et nous construisons dessus.",
+  "sdlc.work.training.title": "Formation",
+  "sdlc.work.training.body": "Des personnes qui utilisent l'IA tous les jours nous demandent encore ce qu'est MCP, s'en servent comme d'un moteur de recherche et la mettent sur de petites tâches plutôt que sur des workflows entiers. La volonté est là, le savoir-faire pas encore. Nous formons vos ingénieurs aux workflows agentiques, pas aux prompts isolés.",
+  "sdlc.work.gates.title": "Des gates qui imposent la qualité",
+  "sdlc.work.gates.body": "Nous construisons les gates dans votre CI/CD, pour que la qualité devienne visible et automatique. Personne ne relit à la main le volume que produit un agent. L'accès sans gates vous donne plus de code et moins de confiance dans ce code.",
+  "sdlc.work.platform.title": "Une seule manière de travailler",
+  "sdlc.work.platform.body": "Nous inscrivons les règles dans le dépôt et les faisons arriver dans chaque équipe par l'outillage lui-même, pas par une page de wiki écrite une fois et jamais relue. Nous les ajustons à partir des retours.",
+
+  "sdlc.cta.title": "Où en est votre équipe aujourd'hui ?",
+  "sdlc.cta.body": "Dites-nous brièvement comment vos équipes travaillent aujourd'hui et où cela coince. Nous disons quelle étape vient en premier, et pourquoi celle-là d'abord.",
 
   "nav.team": "Équipe",
 
@@ -213,8 +310,20 @@
   "team.cta.title": "On fait connaissance ?",
   "team.cta.body": "Dites-nous brièvement ce qui pourrait mieux tourner. Vous aurez l'un de nous deux à table, et nous vous dirons aussi quand vous n'avez pas besoin de nous.",
 
-  "footer.legal": "© 2026 SmartAgents · BE 1037.114.694",
+  "footer.legal": "© 2026 SmartAgents",
+  "privacy.title": "Politique de confidentialité · SmartAgents",
+  "privacy.description": "Quelles données à caractère personnel smartagents.be traite, pourquoi, qui les voit et combien de temps nous les gardons. Pas d'analytique, pas de traçage, pas de cookies.",
+  "privacy.eyebrow": "Confidentialité",
+  "privacy.heading": "Politique de confidentialité",
+  "privacy.updated": "Dernière mise à jour le 3 septembre 2026",
+  "footer.privacy": "Confidentialité",
   "footer.customerZone": "Espace client",
+  "footer.company": "SmartAgents BV",
+  "footer.legalForm": "Société à responsabilité limitée",
+  "footer.street": "Mijnschoolstraat 18",
+  "footer.city": "3580 Beringen, Belgique",
+  "footer.vat": "Numéro d'entreprise et de TVA BE 1037.114.694",
+  "footer.rpr": "RPM Tribunal de l'entreprise d'Anvers, division Hasselt",
 
   "notfound.title": "Page introuvable",
   "notfound.description": "Cette page n'existe pas (ou plus).",

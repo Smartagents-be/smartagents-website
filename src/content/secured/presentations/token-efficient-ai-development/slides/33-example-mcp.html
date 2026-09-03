@@ -1,60 +1,42 @@
 <!-- ════════════════ 33 · EXAMPLE · MCP ════════════════ -->
-  <section data-label="Example: mcp" class="slide light cat-themed" style="--c: var(--violet);">
-    <div class="frame">
-      <div class="cat-head">
-        <span class="cat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <div class="cat-text">
-          <p class="eyebrow"><span class="num">33</span>Example</p>
-          <h2 class="h2">Configure once, then just <span class="accent">ask</span>.</h2>
-        </div>
-      </div>
+<section id="token-efficient-ai-development-slide-33" data-label="Configure, then ask" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-33-inner" class="slide__inner">
 
-      <div class="frame-body">
-      <div class="grid-2" style="margin-top: 28px; gap: 40px; align-content: start;">
+    <div id="token-efficient-ai-development-slide-33-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-33-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-33-title" class="slide__title">Configure once, then just ask.</h2>
+    </div>
 
-        <div class="ide-col">
-          <span class="lab">1 &middot; Configure once</span>
-          <div class="ide">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">.mcp.json</span>
-            </div>
-            <pre class="ide-body">{
-  <span class="key">"mcpServers"</span>: {
-    <span class="key">"postgres"</span>: {
-      <span class="key">"command"</span>: <span class="str">"npx"</span>,
-      <span class="key">"args"</span>: [<span class="str">"mcp-postgres"</span>]
+    <div id="token-efficient-ai-development-slide-33-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-33-snips" class="snips">
+        <div id="token-efficient-ai-development-slide-33-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-33-snip-01-label" class="snip__label">1 · Configure once</span>
+          <span id="token-efficient-ai-development-slide-33-snip-01-file" class="snip__file">.mcp.json</span>
+          <pre id="token-efficient-ai-development-slide-33-snip-01-code" class="snip__code">{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": ["mcp-postgres"]
     }
   }
 }</pre>
-          </div>
-          <p class="ide-cap">Same JSON everywhere; Copilot uses <code>servers</code> and the path differs per tool (<code>.vscode/</code>, <code>.mcp.json</code>, <code>.cursor/</code>).</p>
+          <span id="token-efficient-ai-development-slide-33-snip-01-cap" class="snip__cap">Same JSON everywhere. Copilot uses servers, and the path differs per tool: .vscode/, .mcp.json, .cursor/.</span>
         </div>
-
-        <div class="ide-col">
-          <span class="lab">2 &middot; Then just ask</span>
-          <div class="ide ide-claude">
-            <div class="ide-bar">
-              <span class="ide-dots"><span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span></span>
-              <span class="ide-file">agent</span>
-            </div>
-            <pre class="ide-body"><span class="pr">&gt;</span> Which columns are on the
-  <span class="str">sessions</span> table? Write a query
+        <div id="token-efficient-ai-development-slide-33-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-33-snip-02-label" class="snip__label">2 · Then just ask</span>
+          <span id="token-efficient-ai-development-slide-33-snip-02-file" class="snip__file">agent</span>
+          <pre id="token-efficient-ai-development-slide-33-snip-02-code" class="snip__code">&gt; Which columns are on the
+  sessions table? Write a query
   for the ones active in the last hour.
-<span class="ok">⏺</span> postgres &middot; describe <span class="str">"sessions"</span>
-<span class="ok">⏺</span> postgres &middot; query (read-only)</pre>
-          </div>
-          <p class="ide-cap">The agent reads the schema itself. You never pasted it.</p>
+⏺ postgres · describe "sessions"
+⏺ postgres · query (read-only)</pre>
+          <span id="token-efficient-ai-development-slide-33-snip-02-cap" class="snip__cap">The agent reads the schema itself. You never pasted it.</span>
         </div>
-
-      </div>
-
-      <div class="callout">
-        MCP turns &ldquo;paste the schema, the log, the docs&rdquo; into <strong>&ldquo;the agent fetches exactly what it needs&rdquo;</strong>: less context, and always current.
-      </div>
       </div>
     </div>
-    <!--chrome 33/57-->
-  </section>
+
+    <p id="token-efficient-ai-development-slide-33-note" class="slide__note">Instead of pasting the schema, the log or the docs, the agent fetches exactly what it needs: less context, and always current.</p>
+
+  </div>
+  <!--chrome 33/56-->
+</section>

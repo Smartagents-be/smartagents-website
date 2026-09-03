@@ -122,15 +122,31 @@
   display: none;
 }
 
-/* A tablet held upright still has room for the nav bar itself (see the tablet
-   header block in critical.css), so the disclosure only takes over under it. */
-@media (max-width: 767px) {
+/* The bar is a desk-only thing now that the offer is four services named in
+   full (see the tablet header block in critical.css), so the disclosure takes
+   over from 1180px down. Between there and the phone it is the compact
+   dropdown; under 621px it becomes the full-height sheet. */
+@media (max-width: 1180px) {
   .nav-toggle {
     display: block;
   }
 
   .header-actions {
     margin-left: 0;
+  }
+}
+
+/* The panel hangs off the trigger, and `100%` is the trigger's own height, not
+   the header's. That was the same thing while the disclosure only ever appeared
+   under 768px, where the header hugs its contents. The tablet band sets a 72px
+   row, and the summary centred in it ends about 19px short of the header's
+   bottom edge — so the drawn 14px of air put the panel's rounded top corners
+   inside the header, over its own hairline. The offset is that shortfall plus
+   the 14px, so the panel clears the row it drops from. Only in that band: above
+   1000px the disclosure hangs off the desk header, which hugs it again. */
+@media (min-width: 768px) and (max-width: 1000px) {
+  .nav-toggle__panel {
+    top: calc(100% + 33px);
   }
 }
 
@@ -1412,6 +1428,28 @@ a.article-row:hover .article-row__image {
   justify-content: space-between;
 }
 
+/* The article 13 notice at the point of collection. It sits under the button
+   rather than beside it, because it is the last thing read before the click and
+   not a label on it. Muted and small: it is a disclosure, not a sales line, and
+   the link inside it is the only cyan on the form. */
+.contact-form__privacy {
+  margin-top: var(--space-2);
+  color: var(--text-faint);
+  font-size: var(--text-meta);
+  line-height: var(--leading-body-tight);
+}
+
+/* The one link on the site that sits inside a run of body text, so it is the
+   one place colour alone cannot carry it (WCAG 1.4.1): cyan against the faint
+   grey around it measures 1.02:1, where a link distinguished by colour needs
+   3:1 from its surrounding text. Everywhere else a link is its own line or its
+   own row and the rule does not apply, which is why this is the only
+   underline in the stylesheet. */
+.contact-form__privacy a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .form-status {
   color: var(--text-muted);
   font-size: var(--text-ui-sm);
@@ -1517,11 +1555,8 @@ a.article-row:hover .article-row__image {
 
 .site-footer {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-5);
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  gap: var(--space-8);
   margin-top: var(--section-rhythm);
   padding: var(--space-8) var(--gutter-page);
   background: var(--surface-dark);
@@ -1530,15 +1565,72 @@ a.article-row:hover .article-row__image {
 }
 
 /* The footer is another window onto the dark field, so the text sits above it. */
-.site-footer > span,
-.site-footer > nav {
+.site-footer > div {
   position: relative;
+}
+
+/* The legal disclosure (WER art. III.74) is three short stacks, not a
+   paragraph: a reader who comes here is looking one fact up, and a run-on line
+   of grey micro type is the one thing that would make that harder. They wrap
+   into a column on a phone at the same gap the rest of the site stacks at. */
+.site-footer__identity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6) var(--gap-column);
+}
+
+.footer-block {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+  /* `<address>` is italic by default and this one is a postal address, not an
+     aside. */
+  font-style: normal;
+  line-height: var(--leading-snug);
+}
+
+/* Every line in a stack is a 24px row, the two that are links included. WCAG
+   2.2 SC 2.5.8 puts a 24x24 floor under a standalone target, and a footer link
+   is one — the inline-text exception covers a link inside a sentence, which
+   these are not. Taking the height on the row rather than on the two links
+   that strictly need it keeps the three stacks on a single rhythm instead of
+   leaving the one you can click looser than the two beside it. */
+.footer-block > * {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+/* One line per stack in the field's full-strength ink, so three columns of
+   micro type keep a shape to scan by instead of reading as an even grey. */
+.site-footer .footer-block__lead {
+  color: var(--text-on-dark);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* Copyright and the three links, under a hairline: the same separation the
+   rest of the site does its dividing with, in the on-navy step. */
+.site-footer__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5) var(--space-7);
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-on-dark);
 }
 
 .site-footer nav {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-7);
+}
+
+/* Same 24px floor as the stacks above, for the same reason. */
+.site-footer nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
 }
 
 .site-footer a {
@@ -1548,6 +1640,16 @@ a.article-row:hover .article-row__image {
 
 .site-footer a:hover {
   color: var(--sa-cyan-bright);
+}
+
+/* The phone's own line, the one the hero splits on. Three stacks across 350px
+   land two-and-one, which reads as a ragged half-grid rather than as three
+   groups, so below it they are one column. */
+@media (max-width: 620px) {
+  .site-footer__identity {
+    display: grid;
+    gap: var(--space-6);
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -2138,6 +2240,14 @@ sa-node-field {
    of movement instead of empty paper, and the panel gets an edge to sit
    against. Welded to the page edge, free of everything else.
 
+   It works here and it does not work beside a plain list, which is worth
+   knowing before the next page reaches for it. The panel is opaque and clips
+   this shape, so the leaf's own right contour is never shown: the panel edge
+   is its counter-edge, and all the leaf has to draw is the gutter side. The
+   same shape beside a hairline list has to carry both contours in 78px of
+   width, and cannot — it was tried on the AI-native businessprocessen page and
+   read as a smear.
+
    Its box is its own, and that is the whole point of it. Struck between the
    panel's top and its foot, the leaf was a share of a box that changes height
    every time a row opens — and worse than moving, it stretched: `src/motion.js`
@@ -2156,6 +2266,7 @@ sa-node-field {
   width: calc(var(--gutter-page) + 16px);
   aspect-ratio: 1 / 7;
 }
+
 
 /* The counterweight, hung under the far corner of the same panel: it drops from
    34px above the panel's foot so it reads as coming out from under it, and runs
@@ -2761,6 +2872,13 @@ sa-node-field {
   max-width: var(--measure-prose);
 }
 
+/* The privacy notice takes the article's column and not its rail: there is no
+   "read next" from a legal notice, and a 260px column of paper beside one reads
+   as a rail that failed to render. */
+.article--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* A rail, not a second column: 260px on the right page gutter, so its right edge
    is the nav's and the footer's. It sticks, and it clears the sticky header. */
 .article__rail {
@@ -2928,6 +3046,288 @@ sa-node-field {
   .article__rail {
     position: static;
     max-width: 520px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — AI-native SDLC
+ *
+ * The page takes the shared hero box unchanged and adds no dark shape of its
+ * own below it. The one figure on the page is drawn in hairlines and two marks,
+ * and a navy shape in the same band would compete with the marks that carry it.
+ *
+ * Everything else on the page is the shared vocabulary: `.rows` for the
+ * diagnosis, `.numbered` inside a `.rows` container for the work, the shared
+ * form. What follows is the figure and the ground under it.
+ * ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ *
+ * De weg ernaartoe — the three stages
+ *
+ * Each stage is a label beside one continuous hairline with the five phases of
+ * that stage set along it, and a mark sitting on the rule at the phase that
+ * decides the stage: ink where the work waits, cyan where a person decides.
+ * Read the three rules top to bottom and the mark travels outward and changes
+ * colour, which is the claim the block makes.
+ *
+ * The rule belongs to the row, not to the cells. The deck this page is drawn
+ * from tried a rule over every phase first and it read as a spreadsheet — the
+ * eye had to be told which cell was the bottleneck instead of seeing it. One
+ * line with a heavy dot on it is a line with a dot on it, and three of them are
+ * a movement.
+ * ------------------------------------------------------------------ */
+
+.journey {
+  display: grid;
+  gap: var(--space-12);
+}
+
+/* Centred, not `start`. Ranged from the top the hairline lands level with the
+   11px index and the stage name — the largest type in the label column — sits
+   53px below its own rule with nothing across the gap on its line, and each
+   flow column carries 40px of content over 145px of blank paper. Centred, the
+   rule crosses the label rather than heading it, and the void closes. */
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--gap-column);
+  align-items: center;
+}
+
+.stage__index {
+  color: var(--text-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+}
+
+.stage__name {
+  margin-top: var(--space-4);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-h3);
+}
+
+.stage__body {
+  margin-top: var(--space-4);
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+/* One rule for the five phases, and the phases are only words on it. The dots
+   straddle it the way the approach steps' dots straddle theirs. */
+.stage__flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-5);
+  border-top: 1px solid var(--sa-line-2);
+  list-style: none;
+}
+
+.phase {
+  position: relative;
+  padding-top: var(--space-6);
+  color: var(--text-faint);
+  font-size: var(--text-ui-sm);
+  line-height: var(--leading-snug);
+}
+
+/* Ink, not a colour: a phase everything upstream of it is waiting behind is
+   not one of several categories, it is the thing that is wrong with the row.
+   A phase a person still owns is ink too, because in the third row it is the
+   same pause seen differently — waiting on judgement rather than on capacity.
+   What separates the two is the mark, not the type: a phase set in a second
+   weight as well as a second colour would read as two unrelated figures.
+
+   The mark's colour is a variable on the phase rather than a rule on its
+   pseudo-element, because the same dot is drawn a second time in the legend and
+   the two have to agree. `--mark` is the only thing either of them carries. */
+.phase--block,
+.legend__mark--block {
+  --mark: var(--sa-ink);
+}
+
+.phase--human,
+.legend__mark--human {
+  --mark: var(--sa-cyan);
+}
+
+.phase--block {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
+}
+
+.phase--human {
+  color: var(--text-strong);
+}
+
+/* The one dot, in both the places it is drawn. It is deliberately not
+   `.step::before` reused: that dot is a fixed grey sitting on a rule the step
+   owns, and it moves three times between here and a phone. This one takes its
+   colour from the phase and sits on a rule the row owns. Two dots that look
+   alike and are told apart by different things. */
+.phase--block::before,
+.phase--human::before,
+.legend__mark {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--mark);
+}
+
+.phase--block::before,
+.phase--human::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+}
+
+/* The legend is copy, not decoration: without it the two marks are two colours.
+   It carries the same dots at the same size, so the reader matches them by
+   shape rather than by being told which is which. The phases name their mark in
+   text as well (`.visually-hidden` in sdlc.mjs), so nothing here is the only
+   carrier. */
+.journey__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6) var(--space-11);
+  list-style: none;
+}
+
+/* The legend and the note belong under the marks, not under the label column.
+   Ranged left off the page they sat 545px from the dots they key and read as a
+   fourth paragraph of the last stage; in the flow column they are directly
+   under the thing they explain. Same grid as a stage, with the label cell left
+   empty, so they line up with the rules above them to the pixel. */
+.journey__foot {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--gap-column);
+  margin-top: var(--space-10);
+}
+
+.journey__foot > * {
+  grid-column: 2;
+}
+
+.legend {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+  color: var(--text-muted);
+  font-size: var(--text-meta);
+}
+
+.legend__mark {
+  flex: none;
+}
+
+/* Where the figure comes from. A footnote, so it is the smallest type in the
+   section and sits under the legend rather than beside it. */
+.journey__note {
+  margin-top: var(--space-5);
+  color: var(--text-faint);
+  font-size: var(--text-meta);
+  line-height: var(--leading-body-tight);
+}
+
+/* The label beside the lifecycle is the tablet's first casualty: at this width
+   a five-phase rule in 60% of the page sets "Specificatie" over three lines.
+   The label goes over the top and the rule takes the whole column, which is
+   also the line every other two-column block on the site stacks on. */
+@media (max-width: 1000px) {
+  /* More air between the stages, not less: with the label over the rule rather
+     than beside it, the gap between two stages is the only thing left saying
+     where one ends. */
+  .journey {
+    gap: var(--space-14);
+  }
+
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .journey__foot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .journey__foot > * {
+    grid-column: 1;
+  }
+
+  .stage__body {
+    max-width: none;
+  }
+}
+
+/* On a phone five words across the page is five stacks of two letters. The rule
+   stands up and runs down the left of the phases with the marks sitting on it,
+   which is what the five approach steps already do at this width: a sequence
+   read down wants a spine. The movement the figure is about survives as the
+   mark changing place in the list rather than as it travelling right. */
+@media (max-width: 620px) {
+  .stage__flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-left: var(--space-8);
+    border-top: none;
+    border-left: 1px solid var(--sa-line-2);
+  }
+
+  .phase {
+    padding-block: var(--space-3);
+  }
+
+  .phase--block::before,
+  .phase--human::before {
+    top: calc(var(--space-3) + 5px);
+    left: calc(-1 * var(--space-8) - 4px);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — AI-native businessprocessen
+ *
+ * The page is the shared page hero plus two blocks and the form, and almost
+ * all of it is vocabulary that already exists: `.steps` for the engagement,
+ * `.rows` for what it leaves behind, `.section-lede` for the sentence between
+ * the heading and the sequence. Two things are new, and both are small.
+ *
+ * The hero shape takes `.hero__field--right` unchanged — the box the petal
+ * would have taken — because the composition is one shape and paper. There is
+ * no tail running into the section below and no free-floating companion, so
+ * there is nothing here for a page-specific hero box to buy (design README:
+ * "A new silhouette takes the box a shared one would have taken, until the
+ * composition needs its own").
+ * ------------------------------------------------------------------ */
+
+/* The lede that opens this block runs to the reading measure, like every other
+   `.section-lede` on the site — and on the SDLC page that is right, because the
+   figure under it has a label column exactly that wide and the lede lands on
+   it. Here the figure under it is four steps spanning the whole page, so a
+   464px line leaves 830px of paper at the point the section opens. Held to the
+   first two of the four columns, the lede has something to range against.
+
+   `.section-lede` itself is not widened: a paragraph of argument stops at the
+   measure, and the measure is the point of it. */
+@media (min-width: 1001px) {
+  #processes-phases-lede {
+    max-width: calc(50% - var(--gap-column) / 2);
+  }
+}
+
+/* Four steps in a five-column grid leave a column of paper at the end of the
+   row, and a sequence that stops three quarters of the way across reads as a
+   step that failed to render. Held to a min-width query rather than written
+   beside `.steps`, so it cannot outrank the tablet rule that puts every step
+   grid two abreast at 1000px however this block is ordered in the file. */
+@media (min-width: 1001px) {
+  .steps--four {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

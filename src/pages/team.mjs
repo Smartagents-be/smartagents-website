@@ -72,10 +72,10 @@ export const page = {
     }
   }),
 
-  render: ({ t }) => html`<main id="main" tabindex="-1">
+  render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
 ${hero(t)}
-${contact(t)}
+${contact(t, lang)}
 
 </main>`
 };
@@ -137,9 +137,10 @@ function person({ t, key, name, portrait, linkedin, eager }) {
  * this page phrases for itself.
  * ------------------------------------------------------------------ */
 
-function contact(t) {
+function contact(t, lang) {
   return contactSection({
     t,
+    lang,
     prefix: 'team',
     title: t('team.cta.title'),
     lede: t('team.cta.body')

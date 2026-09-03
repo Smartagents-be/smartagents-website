@@ -1,7 +1,7 @@
 # Slide reference
 
-The seven archetypes are one file each in `../template/slides/`. Copy them; this file covers
-what is not visible in the copy — how to vary an archetype, and how the dark shape is built.
+The eight archetypes are one file each in `../template/slides/`. Copy them; this file covers
+what is not visible in the copy: how to vary an archetype, and how the dark shape is built.
 
 ## Varying an archetype
 
@@ -14,6 +14,12 @@ it; two lines of framing above three rows leaves the rows crowded against the fo
 slide. Use `.slide__note` for the source. Never two statement slides in a row: the second one
 reads as a repeat of the first, whatever it says.
 
+The eyebrow is also what turns a statement into a **section divider**. A deck long enough to
+have parts opens each one on a statement with the part's name in the eyebrow, no
+`.slide__title`, and the support line saying what is in the part. It is a full slide of
+almost nothing, which is the point: it is the pause. Three decks use it and there is no
+separate archetype for it, so do not write one.
+
 **Compare.** The right column is the answer, and the styling says so before a word is read.
 So put the proposal on the right, always, even when the chronology runs the other way. The
 two lists must be the same length; an uneven pair reads as an argument that ran out.
@@ -25,9 +31,45 @@ information in its rules; if every step is reached, the slide is a rows list.
 
 **Media.** `.media--flip` puts the words on the right. Alternate when a deck has two media
 slides near each other. The frame is `--sa-wash`, so an image that does not fill it reads as a
-held space; give the image `object-fit: cover` (it already has it) and crop rather than letterbox.
-Every image takes a real `alt` — `check-dist.mjs` fails the build without one, and a deck is
-read by a screen reader in the room as often as any page.
+held space; the image gets `object-fit: cover` already and crops rather than letterboxes.
+Every image takes a real `alt`: `check-dist.mjs` fails the build without one, and a deck is
+read by a screen reader in the room as often as any page. So does a `src` that points at a
+file the deck folder does not contain.
+
+Cropping is right for a photograph and wrong for anything whose own edges are the content.
+`.media__frame--fit` contains the asset instead and drops the wash: reach for it for a UI
+screenshot (`cover` takes the app rail off one side), a screen recording, or a portrait video
+(`cover` takes the top of the head off a 9:16 clip). All three of those shipped cropped
+before the modifier existed.
+
+`.media__frame--audio` is for sound with no picture. An `<audio>` element is one control bar
+tall and has no intrinsic width, so without it the player pins itself to the top-left corner
+of a 900px panel; the modifier centres it and holds the frame to a band. **It is a stopgap.**
+What sits in that band is the browser's own control bar, which is off-brand and looks
+different in every engine, and a deck is presented from whatever browser is on the laptop in
+the room. One deck has sound. When a second one does, build a player out of the slide
+vocabulary and replace this.
+
+`.portraits` splits one frame down a hairline into two crops, for the slide that is about the
+company and uses the two faces as its image. When the names and the roles are the point, that
+is the People archetype, not this.
+
+**People.** Two people, side by side, each bracketed by the same hairlines a `.row` is
+bracketed by. Each takes a role, a name and one line; the optional `.person__meta` carries an
+address or a handle in mono under it. Give the slide a lede when the people need framing, and
+none when the heading already does it.
+
+The photograph does the work here and the stylesheet cannot save a bad one. `.person__photo`
+is a 180x270 box and the files in `assets/` are cut to that same 2:3, so nothing is cropped
+at render and the framing is a decision you make in the file. **Cut them head-and-shoulders.**
+The full-length company portraits are the wrong source: at this size a person standing in a
+room is a room, and the face is twenty pixels of it. The three decks that carry a `.people`
+slide use `axel-portrait.jpg` and `tom-portrait.jpg`, cut from `public/media/team/*-880.jpg`
+with `sips` per the `image-pipeline` skill; copy those rather than re-deriving them.
+
+Three abreast has no modifier and should not get one until a deck needs it: past two the
+portrait shrinks faster than the name and the line beside it, and the slide turns into a rows
+list with photographs in it.
 
 **Cover and close.** They are a pair: the petal hangs off the right on the cover, the lobe
 rises out of the bottom-left on the close, and the words sit opposite the shape in both. Do

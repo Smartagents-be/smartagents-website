@@ -5,12 +5,20 @@ import { createLiveReload } from './live-reload.mjs';
 
 const rootDir = resolve(process.cwd(), "dist");
 const host = "127.0.0.1";
-const port = Number(process.env.PORT || 8000);
+
+// --port wins over PORT so `npm run ai` can pin 8001 without an env prefix that
+// only works on a POSIX shell.
+const portFlag = process.argv.find((arg) => arg.startsWith("--port="));
+const port = Number(portFlag ? portFlag.slice("--port=".length) : process.env.PORT || 8000);
 
 // `npm run dev` passes --watch: rebuild on save and reload the open page.
 // `npm run serve` serves dist exactly as it will be deployed.
 const watching = process.argv.includes("--watch");
 const liveReload = watching ? createLiveReload({ repoRoot: process.cwd() }) : null;
+
+// `npm run ai` passes --reuse: a server left running on the port by an earlier
+// agent session is the wanted outcome, not a crash.
+const reusing = process.argv.includes("--reuse");
 
 // dist/_redirects is Cloudflare's routing table, and the language fallback lives
 // in it: an unprefixed URL resolves to the default language. Without this,
@@ -147,6 +155,16 @@ const server = createServer((req, res) => {
         res.end("Internal server error");
     });
     fileStream.pipe(res);
+});
+
+server.on("error", (err) => {
+    if (err.code === "EADDRINUSE" && reusing) {
+        console.log(`Already serving at http://${host}:${port} - reusing it.`);
+        process.exit(0);
+    }
+
+    console.error(err.message);
+    process.exit(1);
 });
 
 server.listen(port, host, () => {

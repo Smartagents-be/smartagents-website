@@ -87,13 +87,22 @@ body {
    has no footer to clear and was drawn with the content hard against the head.
    Never centre `.slide__inner` itself: that drops the heading to the middle
    too. A `.slide__note` stays outside this wrapper, so it keeps landing on the
-   foot of the slide. */
+   foot of the slide.
+
+   `safe center` rather than `center`: a block taller than the space left over
+   is pushed past both ends by plain centring, and the slide has
+   `overflow: hidden`, so the first row's hairline is cut off the top where
+   nobody thinks to look for it. `safe` falls back to packing at the start, so
+   an overrun spills one way only, downward, into the padding the footer
+   reserves. It buys about 90px of silent headroom and hides nothing that was
+   not already going to be tight; `npm run check:slides` is what tells you a
+   slide is using it. */
 .slide__body {
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: safe center;
   gap: 48px;
 }
 
@@ -162,6 +171,12 @@ body {
   font-size: 24px;
   line-height: 1.5;
   color: var(--sa-grey-6);
+}
+
+/* A term that must not break across its own hyphen: a product name, `AI-ready`
+   at 104px on a cover. Wrap the word, not the line around it. */
+.nobreak {
+  white-space: nowrap;
 }
 
 /* ══ Rows ══════════════════════════════════════════════════════════════════
@@ -370,6 +385,99 @@ body {
   gap: 40px;
 }
 
+/* ══ People ════════════════════════════════════════════════════════════════
+   Who is in the room, or who signed the deck. Three decks carry one, and
+   before it was written down each of the three had solved it its own way: a
+   `.founders` grid in two of them, a portrait wedged into a `.row__term` in
+   the third.
+
+   It is the `.rows` grammar turned on its side. A row is bracketed by
+   hairlines with equal air inside them; so is a person. What changes is the
+   axis: rows stack and share their rules, people stand side by side and each
+   carries its own pair. Nothing is filled, bordered on four sides, or raised,
+   because that would be a card and this system has no cards.
+
+   The classes are scoped under `.people` on purpose. `.person`, `.person__name`
+   and `.person__body` also exist in `src/styles/main.css`, where they are a
+   different object entirely: a photo card with the name over a gradient, which
+   is right on a page you scroll and furniture on a slide. The two stylesheets
+   are never loaded together today; the descendant selector is what keeps that
+   an accident rather than a requirement. */
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 72px;
+}
+
+.people .person {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  padding: 36px 0;
+  border-top: 1px solid var(--sa-line);
+  border-bottom: 1px solid var(--sa-line);
+}
+
+/* 2:3, which is the ratio the portraits in `assets/` are cut to, so nothing is
+   cropped at all and the framing is decided in the file rather than here. Cut
+   them head-and-shoulders: at this size a full-length photograph is a person
+   standing in a room, and the face is twenty pixels of it. `--sa-wash` behind
+   it means a file that fails to load reads as a held space, the same way
+   `.media__frame` does. */
+.people .person__photo {
+  flex: none;
+  width: 180px;
+  height: 270px;
+  border-radius: var(--r-shell);
+  object-fit: cover;
+  background: var(--sa-wash);
+}
+
+.people .person__text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Mono, like `.step__num` and `.slide__note`: on a slide mono is the voice of
+   a label rather than of a sentence, so the role does not compete with the
+   name it sits over. */
+.people .person__role {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--sa-grey-6);
+}
+
+.people .person__name {
+  font-size: 38px;
+  line-height: 1.25;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+/* One line, at the size of a `.row__detail`. Two people at two lines each is
+   the ceiling; more than that and the portraits stop being the slide. */
+.people .person__body {
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* An address, a handle. Mono and faint, so a column of them reads as contact
+   details and not as more sentences. `anywhere` because a long URL has no
+   space to break at and would push its column past the grid track. */
+.people .person__meta {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--sa-grey-6);
+  overflow-wrap: anywhere;
+}
+
 /* ══ Media ═════════════════════════════════════════════════════════════════
    A screenshot or a photograph, with the words in a third of the width
    beside it. The frame is `--sa-wash` so an image that does not fill it
@@ -417,6 +525,88 @@ body {
 
 .media--flip .media__words {
   order: 2;
+}
+
+/* An asset whose own edges are the content: a UI screenshot, a screen
+   recording, a portrait video. `cover` fills the frame by throwing away
+   whatever does not fit, which is right for a photograph and wrong here: the
+   third it crops off a screenshot is the app's own chrome, and off a 9:16
+   recording it is the top of someone's head. Contain the asset instead, and
+   drop the wash while doing it: the wash is there to say "an image belongs
+   here" when the image does not reach the frame's edges, and an asset that is
+   deliberately letterboxed would wear it as two grey bands. This frame is a
+   bound, not a panel.
+
+   The asset is sized by its own ratio inside that bound rather than filled to
+   it and contained, which for a still image is the same picture and for a
+   `<video controls>` is not: the control bar is drawn at the foot of the
+   element, so an element that fills the frame hangs its controls a hundred
+   pixels below the letterboxed picture with paper in between.
+
+   The hairline moves onto the asset with it. Dropping the wash and leaving
+   nothing behind is fine for a photograph and wrong for a screenshot of a
+   white interface, which then has no edge at all and floats loose on paper.
+   A rule around the picture is the same answer every list on the slide gives:
+   an edge is a hairline, not a panel. */
+.media__frame--fit {
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  background: none;
+}
+
+.media__frame--fit img,
+.media__frame--fit video {
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--r-shell);
+  object-fit: contain;
+}
+
+/* Not on a video: a `<video>` paints its own black letterbox inside the box, so
+   a rule on it outlines the player rather than the picture, and the player
+   already has an edge. */
+.media__frame--fit img {
+  border: 1px solid var(--sa-line);
+}
+
+/* Sound with no picture. An `<audio>` element has an intrinsic height of one
+   control bar and no intrinsic width, so left to the rules above it pins
+   itself to the top-left corner of a 900px-tall panel and the slide reads as
+   a mistake. Centre it, and hold the frame to the height of a band rather
+   than letting it take the whole row.
+
+   This is a stopgap and the skill says so. What sits in the band is the
+   browser's own control bar, which is off-brand and looks different in every
+   engine, and a deck is presented from whatever browser is at hand. Replacing
+   it means building a player out of the slide vocabulary; until a second deck
+   needs sound, the band is enough. */
+.media__frame--audio {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  padding: 72px;
+}
+
+.media__frame--audio audio {
+  width: 100%;
+  max-width: 620px;
+}
+
+/* Two faces in one frame, split down a hairline. For the slide that is about
+   the company rather than about the people: the pair is the image, and the
+   words beside it carry the argument. When the names and roles are the point,
+   the slide is `.people`, not this. The shared `.media__frame img` rule crops
+   each half exactly as it crops a single image. */
+.portraits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1px;
+  height: 100%;
+  background: var(--sa-line);
 }
 
 /* ══ Cover and close ═══════════════════════════════════════════════════════
@@ -470,6 +660,15 @@ body {
   font-weight: var(--fw-display);
   color: var(--sa-ink);
   text-wrap: pretty;
+}
+
+/* A cover whose first word is a long compound: "Plaatsbeschrijvingen" is
+   twenty characters and at 104px it is wider than the 52% column and cannot
+   wrap, so it runs out under the petal. One step down rather than a deck
+   overriding `.cover__title` in its own stylesheet, which is the drift this
+   file exists to end. */
+.cover__title--sm {
+  font-size: 88px;
 }
 
 .cover__sub {
