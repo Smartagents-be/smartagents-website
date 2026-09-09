@@ -97,7 +97,52 @@ ${contact(t, lang)}
 
 /* ------------------------------------------------------------------ *
  * Hero — the homepage hero minus the wordmark: the same orbit rings, one petal
- * hung off the right edge, the copy in its own column on the left.
+ * hung off the right edge, the copy in its own column on the left, and a bead
+ * of the same field standing in the paper above the petal's shoulder.
+ *
+ * The bead is the second free-floating shape on the site and it is drawn with
+ * the first: `heroPebbleA` is the larger of the two the AI staffing page's arch
+ * has shed, reused rather than redrawn, because what it says here is the same
+ * sentence — the field has come away in a piece — and a second pebble drawn to
+ * within a few points of that one would be drift, not a new shape. So that
+ * silhouette is now shared by two pages: change it for one composition and the
+ * other moves with it. It hangs inside the petal's own box, the way the
+ * pebbles hang inside the arch's, so the two travel together.
+ *
+ * What buys a shape hanging from nothing is stated in the design README, and
+ * it is stated for the arch: a ground welded along three sides is what makes a
+ * piece read as shed from it. The petal is welded on the right edge alone, so
+ * this page takes the licence on a narrower argument — the bead stands over
+ * the flank at 41 to 61px and the cursor runs the two together — and the
+ * README carries that argument now, in "Deviations from the design doc". Read
+ * it before drawing a third one.
+ *
+ * The gap is 50px at 1440, 41 at 1081 and 61 at 2560, against the 60px a join
+ * closes at (`2·MERGE·ln2·ONSET` in src/motion.js) — measured on the
+ * *displaced* outlines, so at the widest end it is the swell of both edges
+ * toward the cursor that closes it and not the resting distance. At rest the
+ * two are plainly separate shapes. That is the whole reason the bead is here,
+ * so it is dropped wherever a join cannot happen: not only under 1081px but on
+ * a coarse pointer and under `prefers-reduced-motion`, which is the query in
+ * `.hero__bead` in main.css read off the gates in `src/motion.js`.
+ *
+ * The three magnet numbers are struck for this shape and not copied. `sigma`
+ * is 60, which is 14% of the bead's 420px perimeter against the pebble's 16%
+ * and the petal's 6%: at the default 96 a quarter of the outline moved at once
+ * and the whole bead slid toward the cursor instead of swelling, which is the
+ * "a big shape swells over a wider stretch of its edge than a small one" rule
+ * in CLAUDE.md read the other way round. `points` is 140, a sample every 3.0px
+ * of perimeter — finer than the petal's 3.3 and inside the join's 4px grid.
+ * And `data-magnet-free` is taken 26px under the nav, which is the one place
+ * CLAUDE.md says to think twice. The lift is not what makes it safe: measured,
+ * a cursor in the nav row raises the bead's crown 24 to 30px and it does cross
+ * the bar. The bar is what makes it safe — the header is `--surface-page` at
+ * `z-index: 60` and paints over whatever arrives under it, which is what every
+ * hero field on the site already leans on. The petal beside this bead rests
+ * 4px under the header and lifts 30 to 52px into it. What the crossing costs is
+ * the crown flattening along the hairline while the cursor is up there, and if
+ * that is ever worth fixing it is worth fixing for `.hero__field--right`
+ * site-wide, not for the bead alone.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
@@ -105,6 +150,9 @@ function hero(t) {
 ${orbitRings('training-hero')}
   <div id="training-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
     <div id="training-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="training-hero-nodes-right"></sa-node-field></div>
+    <div id="training-hero-field-slot-bead" class="field-slot hero__bead">
+      <div id="training-hero-field-bead" class="field" data-magnet data-magnet-free data-magnet-points="140" data-magnet-amp="30" data-magnet-sigma="60" data-clip="heroPebbleA"><sa-node-field id="training-hero-nodes-bead"></sa-node-field></div>
+    </div>
   </div>
   <div id="training-hero-inner" class="hero__inner">
     <div id="training-hero-text" class="hero__text">

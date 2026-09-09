@@ -1396,6 +1396,14 @@ a.article-row:hover .article-row__image {
   margin-bottom: var(--space-6);
 }
 
+/* The homepage opens its contact section on the heading alone: the section
+   above it is the whole argument and a second sentence here restated it. The
+   air over the facts was the lede's bottom margin, so with no lede the heading
+   carries it — otherwise the three facts land 18px under the heading. */
+.contact__intro--nolede .section-heading {
+  margin-bottom: var(--space-11);
+}
+
 .contact__lede {
   margin-bottom: var(--space-11);
   max-width: var(--measure);
@@ -2124,6 +2132,85 @@ sa-node-field {
 
 .hero--page h1 {
   max-width: 17ch;
+}
+
+/* The bead above the petal's shoulder, on the training page alone. It hangs
+   inside the petal's own box rather than against the hero, the way the staffing
+   pebbles hang inside the arch's, so the two travel together — but only in
+   position. The size is keyed to the viewport and to nothing else, so a page
+   that ever overrides `.hero__field--right` the way the staffing page does
+   moves the bead without resizing it, and the gap below moves with it. Measure
+   the gap again if that day comes.
+
+   It is a slot with a stable box and not a set of insets on the field itself,
+   which is the one place it parts company with those pebbles. A hero is 540px
+   tall at every desk width and as wide as the window, so a box struck as a
+   share of it in both axes keeps its height and stretches without limit: the
+   pebbles run from 1.20 to 2.15 in aspect between 1440 and 2560 — and by 2560
+   they have closed on the arch and on each other altogether, which is the same
+   fault a step further on. On a flank that reads as the composition scaling; on
+   a bead it reads as a pill. Held here, the drift is 1.30 to 1.45 and it is a
+   bead at every width. The floor on the width is what holds the narrow end:
+   `10.4vw` alone put it at 124px against a 118px height below 1192px, and
+   `heroPebbleA` in a square box is a disc — the bullet the silhouette's own
+   comment in `src/layouts/base.mjs` says it was drawn off-round to avoid. The
+   slot is ordinary CSS; what may never take a width or a height is the `.field`
+   inside it, because src/motion.js grows a magnet's box by subtracting from all
+   four offsets and an explicit size would move the box instead of growing it.
+
+   The numbers are struck off the petal's upper flank rather than off the box.
+   The bead's underside stands 41px from the drawn edge below it at 1081, 50 at
+   1440 and 61 at 2560. A join closes at `2·MERGE·ln2·ONSET` — 60px on the
+   *displaced* outlines (src/motion.js), so at the widest end the resting gap is
+   past it and it is the swell of the two edges toward the cursor that closes
+   it. The band the bead stands in is 185px deep at 1081 and 205 at 2560: 26px
+   of paper under the header, the 118px box, then the gap. That is what fixes
+   the height. Move it up and it hangs off the bar; move it down and the two
+   read as one shape at rest, with nothing left to close. Re-measure the band
+   whenever the width floor moves: the gap is struck at the bead's underside,
+   which travels sideways with the width, and a wider bead meets a higher part
+   of the flank — 154px took the 1081 gap from 47 to 41 and the band with it.
+
+   At rest it holds a node or two and a link or two, and now and then nothing at
+   all. `heroPebbleA` fills 75% of its box (shoelace over the rendered path), so
+   the silhouette is 13.7k px² below 1481px and 15.3k above, against one node
+   per 8700px² of document (`NODE_AREA` in
+   `src/components/node-field/node-field.js`) seeded at random: the mean is 1.6
+   nodes, a blank draw is an ordinary outcome — one load in seven, sampled
+   inside the clip over thirty loads — and about a third of loads read as empty
+   on screen, which is the rate a visitor experiences: a single faint link
+   crossing the shape with no node on it. The drift is far too slow to change
+   either inside a visit. Staffing pebble A is 26.8k px², nearly twice this, and
+   does carry a weave; this is nearer the plate the footer's wedge is called.
+   Bought rather than solved: the weave arrives at about twice this area — a box
+   near 190px square — and the band under the header is 185px deep, so it does
+   not fit. Under the cursor the join hands it the petal's own network, so it is
+   the resting state alone. */
+.hero__bead {
+  top: 4.05%;
+  left: 10.09%;
+  width: clamp(154px, 10.4vw, 172px);
+  height: 118px;
+}
+
+/* The bead exists for the join, so it is printed only where a join can happen,
+   and the query is the negative of the one `src/motion.js` arms the magnets on:
+   `(min-width: 1081px) and (hover: hover) and (pointer: fine)`, inside a
+   `prefers-reduced-motion` guard. Width alone left it on a 1366px tablet and on
+   every reduced-motion desk, which is exactly the dark spot on the paper this
+   is here to prevent — a free-floating shape with nothing to have come away
+   from. The one case CSS cannot reach is JS that never runs; the petal carries
+   the hero alone in all the others, as it did before.
+
+   The width is `1080.98px` and not the 1080 the rest of the site pairs with a
+   1081 minimum. A viewport is fractional under browser zoom, and at 1080.5 the
+   usual pair matches neither query: everywhere else that crack costs a layout
+   seam nobody sees, and here it prints a dark spot with the magnets off, which
+   is the one state this rule exists to prevent. */
+@media (max-width: 1080.98px), (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .hero__bead {
+    display: none;
+  }
 }
 
 /* The label over a page's headline — "Inzichten", "Training", "AI staffing en

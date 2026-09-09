@@ -73,7 +73,9 @@ the tablet down, where the pebbles are dropped and the shared box carries the ar
 site hangs from a page edge or from a rule. The two pebbles hang from nothing, and they read
 because the arch beside them is welded top, right and bottom: the pair says the ground has shed
 pieces, which needs a ground to have shed them from. Two of them, one heavy and one light, both
-drawn off-round — a circle beside a hand-drawn arch reads as a bullet, not as a shape.
+drawn off-round — a circle beside a hand-drawn arch reads as a bullet, not as a shape. A third one
+now stands on the training hero beside a flank welded on one edge, which is a narrower licence and
+is argued as such in "Deviations", item 13.
 
 **A shape must read as drawn, and it must not be the ground.** Two ways to lose that, both of them
 failed drafts of this one arch. Struck corner to corner with five points of bow across a 690px box,
@@ -141,7 +143,7 @@ The production implementation of all of this lives in `src/`; see `SKILL.md` for
 
 ## Deviations from the design doc
 
-The doc is a fixed 1180px canvas rendered in a preview host. Eleven things had to be decided
+The doc is a fixed 1180px canvas rendered in a preview host. Thirteen things had to be decided
 outside it, and are decided the same way everywhere in `src/`:
 
 1. **Responsive behaviour.** The three page measures (`--gutter-page`, `--gap-column`,
@@ -557,3 +559,69 @@ outside it, and are decided the same way everywhere in `src/`:
     nowhere else, and a reader arriving from a search — the page is in the sitemap and in
     `llms.txt` — had no route back up to the offer but the nav bar. The closing block carries both,
     the way an insight carries "Alle artikelen →".
+
+13. **The training hero carries a bead above the petal, and what buys it is the join rather than a
+    weld.** The rule two sections up is that a free-floating shape is what an arch welded along
+    three sides buys: the pebbles read because the arch is a ground that has visibly shed them. The
+    petal is welded on the right page edge alone and both its apexes float, so the training page
+    takes that licence on a different argument, and the argument is worth writing down because the
+    next page will want one too.
+
+    **It is bought by proximity and by the join, not by the weld.** The bead stands 41px off the
+    petal's drawn flank at 1081, 50 at 1440 and 61 at 2560, directly over the shoulder rather than
+    out in the open paper — near enough that the two are read as one field at rest, and near enough
+    that a cursor brought into the gap runs them together into a single fluid with a concave fillet
+    at each body. That is the whole of it: **a shape hanging from nothing needs a ground within
+    reach of it, and a flank the reader can see it came off is a ground.** A bead struck in the
+    middle of the light half, where the pebbles sit on the staffing page, would need the weld.
+
+    **What it costs is a state where the argument does not hold.** The magnets run on
+    `(min-width: 1081px) and (hover: hover) and (pointer: fine)` inside a `prefers-reduced-motion`
+    guard, so the media query on `.hero__bead` is the negative of exactly that — a coarse pointer
+    and a reduced-motion desk drop the bead as surely as a narrow window does. The one state CSS
+    cannot reach is JS that never runs, where it is a dark spot on the paper. Every other dark shape
+    on the site reads at rest and this one reads at rest *less well*, which is the price of the
+    narrower licence and the reason a third free-floating shape should be argued again from scratch.
+
+    **The silhouette is reused and the reuse is now a constraint.** It is `heroPebbleA`, the larger
+    of the staffing pebbles, redrawn for nothing: a second bead within a few points of that one
+    would be drift. So that path is shared by two compositions — edit it for one and check the
+    other — and the "drawn off-round" note on it is load-bearing on both. Under 1192px the bead's
+    box would be 124px wide against a 118px height and the pebble in a square box is a disc, so the
+    width carries a floor; the aspect runs 1.30 to 1.45 across the desk band instead of 1.05 to 1.46.
+
+    **The box is on the slot, not on the field**, and that is the general lesson. A hero is 540px
+    tall at every desk width and as wide as the window, so a box struck as a share of it in both
+    axes holds its height and stretches without limit: the staffing pebbles run from 1.20 to 2.15 in
+    aspect between 1440 and 2560, and by 2560 they are touching the arch and each other — a
+    composition that only holds at the width it was drawn at. A `.field-slot` takes ordinary CSS and
+    is where a stable box belongs; the `.field` inside it stays insets-only, because `src/motion.js`
+    grows a magnet's box by subtracting from all four offsets.
+
+    **At rest it is a plate rather than a window, and that is bought rather than solved.**
+    `heroPebbleA` fills 75% of its box (shoelace over the rendered path), so the silhouette is
+    13.7k px² below 1481px and 15.3k above, against one node per 8700px² of document seeded at
+    random: the mean is 1.6 nodes, a blank draw is an ordinary outcome — one load in seven, sampled
+    inside the clip over thirty loads — and about a third of loads read as empty on screen, which is
+    the rate a visitor actually experiences: one faint link crossing the shape with no node on it.
+    The drift is far too slow to change either inside a visit. **The two numbers worth carrying
+    forward are 13.7k and 26.8k**: this bead, which is a plate, and staffing pebble A, which at
+    nearly twice the area does carry a weave. The line between them is not measured, so read them as
+    the anchors they are — a silhouette near 14k is a plate, one near 27k is a window, and the box
+    that reaches the second is about 190px square. The band under the header is 185px deep, so the
+    choice here was the plate or no bead; under the cursor the join hands it the petal's own network
+    and the plate stops being one. The footer's wedge is the far end of the same fact and carries no
+    field at all.
+
+    **What it looks like joined is the state it exists for, and it is the one thing here that is a
+    judgement rather than a measurement.** The union is a swell rising off the flank — at the widest
+    end, where the resting gap is largest and the neck therefore tightest, it can also be read as a
+    head on a shoulder, and a reader who has filed it that way will not unfile it. It was left as
+    drawn: the reading is transient, cursor-driven and width-dependent, where the "reads as a black
+    triangle" test the arch failed was a resting silhouette on every screen. If it ever has to
+    change there are two cheap levers, and both move every number above. **Slide it right**
+    (`left: 10.09%` toward 16%) so the union rises off a steeper stretch of the flank instead of
+    sitting on a horizontal one; it spends gap, which is already tightest at 1081. Or **flatten it**
+    (`height: 118px` toward 96, aspect 1.6–1.8) so the knob becomes a crest, which is what
+    `clipDefs()` means by the larger pebble carrying the flatter side; it spends area, which is
+    already short of the weave. There is no lever that spends neither.

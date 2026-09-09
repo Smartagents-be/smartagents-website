@@ -329,11 +329,17 @@ export function clipDefs() {
     heroArch:
       'M0.300,0 C0.520,0.070 0.610,0.180 0.600,0.320 C0.592,0.440 0.660,0.520 0.760,0.590 C0.860,0.660 0.900,0.730 0.890,0.830 C0.884,0.910 0.930,0.970 1,1 L1,0 Z',
     // The two pebbles that fall away from the arch into the light half of the
-    // hero. Neither is welded to anything: they are the only free-floating dark
-    // shapes on the site, which is what makes the arch read as a shape that has
-    // shed pieces rather than as a wall. Both are drawn off-round — a circle
-    // beside a hand-drawn arch reads as a bullet — and the larger one carries
-    // the flatter side, so the pair has a heavy and a light.
+    // hero. Neither is welded to anything, which is what makes the arch read as
+    // a shape that has shed pieces rather than as a wall. Both are drawn
+    // off-round — a circle beside a hand-drawn arch reads as a bullet — and the
+    // larger one carries the flatter side, so the pair has a heavy and a light.
+    //
+    // `heroPebbleA` is no longer the staffing page's alone: the training hero
+    // stands one above the petal's shoulder, close enough for the cursor to run
+    // the two together (`.hero__bead` in main.css). Redraw it for one
+    // composition and the other moves with it — and the off-round is
+    // load-bearing there too, which is why that bead's box carries a floor on
+    // its width.
     heroPebbleA:
       'M0.020,0.470 C0.035,0.225 0.190,0.055 0.430,0.022 C0.665,-0.010 0.945,0.135 0.982,0.398 C1.018,0.640 0.900,0.878 0.655,0.972 C0.430,1.058 0.115,0.905 0.045,0.690 C0.028,0.635 0.012,0.560 0.020,0.470 Z',
     heroPebbleB:

@@ -666,13 +666,40 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   arch's own box, so the three move as one and the page overrides only that box.
   The box hangs 14% past the hero's foot: the arch's tail runs on into the
   section below and passes behind the track panel there, which is the whole
-  reason that panel is opaque. The pebbles are the only free-floating dark
-  shapes on the site and they are dropped from the tablet down, where the shared
-  `.hero__field--right` carries the arch alone and the phone turns it into the
-  same sliver the petal becomes. The arch went through two drafts that both
-  failed the same way: a diagonal struck corner to corner with a shallow bow
-  read as a black triangle, and the cove that replaced it filled the whole
-  corner and needed a second silhouette in the opposite one to balance it.
+  reason that panel is opaque. The pebbles hang from nothing and they are
+  dropped from the tablet down, where the shared `.hero__field--right` carries
+  the arch alone and the phone turns it into the same sliver the petal becomes.
+  The arch went through two drafts that both failed the same way: a diagonal
+  struck corner to corner with a shallow bow read as a black triangle, and the
+  cove that replaced it filled the whole corner and needed a second silhouette
+  in the opposite one to balance it.
+- **The training hero carries a bead of the same field above the petal, and it
+  is there for the join.** `.hero__bead` in `main.css` is a slot inside
+  `.hero__field--right` holding one more `.field` on `heroPebbleA` — the
+  staffing page's larger pebble, now a shared silhouette rather than that
+  page's own. It stands 41px off the petal's drawn flank at 1081, 50 at 1440
+  and 61 at 2560, against the 60px a join closes at (`2·MERGE·ln2·ONSET` in
+  `src/motion.js`, measured on the *displaced* outlines), so a cursor brought
+  into the gap runs the two together into one fluid and at rest they are two
+  shapes. Three things are load-bearing. The box is on the **slot** and not on
+  the field, with a floor under its width: a box struck as a share of a hero
+  that is 540px tall at every desk width and as wide as the window keeps its
+  height and stretches without limit — the pebbles run 1.20 to 2.15 in aspect
+  between 1440 and 2560 and by 2560 they have closed on the arch and on each
+  other — and a bead is a pill at one end of that and a disc at the other, which
+  is the bullet `clipDefs()` says the silhouette was drawn off-round to avoid.
+  The band it stands in is 185px deep at 1081 and that is what fixes its height:
+  26px of paper under the header, the 118px box, then the gap — re-measured
+  whenever the width floor moves, because a wider bead meets a higher part of
+  the flank. And it is **printed only where
+  a join can happen** — the media query is the negative of the gates
+  `src/motion.js` arms the magnets on, so a coarse pointer and
+  `prefers-reduced-motion` drop it as well as a narrow window. What CSS cannot
+  reach is JS that never runs, which is the one state where it is a dark spot on
+  the paper with nothing to have come away from. That trade, and the licence for
+  a free-floating shape beside a flank welded on one edge rather than three, are
+  argued in "Deviations from the design doc", item 13, in the
+  `smartagents-design` README.
 - **A disclosure is a `<details>`, and an accordion is three of them sharing a
   `name`.** The AI staffing page's track panel is the only figure on the site
   that opens and closes. The markup is what works with JS off — the rows open,

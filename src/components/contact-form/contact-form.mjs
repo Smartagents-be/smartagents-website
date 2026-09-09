@@ -100,16 +100,17 @@ function field({ t, id, key, label, required, control }) {
  * @param {string} options.lang      language code, for the privacy notice's URL
  * @param {string} options.prefix    id prefix for this page (element-ids §4)
  * @param {string} options.title     the heading, phrased by the calling page
- * @param {string} options.lede      the paragraph under it, likewise
+ * @param {string} [options.lede]    the paragraph under it, likewise; omit
+ *                                  it and the section opens on the heading
  */
 export function contactSection({ t, lang, prefix, title, lede }) {
   const id = `${prefix}-contact`;
 
   return html`<section class="section" id="contact" aria-labelledby="${id}-title">
   <div id="${id}" class="contact">
-    <div id="${id}-intro" class="contact__intro">
-      <h2 id="${id}-title" class="section-heading">${title}</h2>
-      <p id="${id}-lede" class="contact__lede">${lede}</p>
+    <div id="${id}-intro" class="contact__intro${lede ? '' : ' contact__intro--nolede'}">
+      <h2 id="${id}-title" class="section-heading">${title}</h2>${lede ? html`
+      <p id="${id}-lede" class="contact__lede">${lede}</p>` : ''}
       <div id="${id}-facts" class="contact__facts">
         <span id="${id}-fact-call">${t('contact.callLabel')} <a id="${id}-fact-call-link" href="${PHONE_HREF}">${PHONE}</a></span>
         <span id="${id}-fact-mail">${t('contact.mailLabel')} <a id="${id}-fact-mail-link" href="mailto:${EMAIL}">${EMAIL}</a></span>

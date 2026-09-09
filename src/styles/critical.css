@@ -597,7 +597,8 @@ select {
 
 /* The AI staffing page's own hero shape: an arch on the flank the petal is a
    leaf on, and the two pebbles that have come away from it into the light half
-   of the hero. */
+   of the hero. `heroPebbleA` is shared: the training hero uses it for the bead
+   standing above its petal. */
 [data-clip="heroArch"] {
   clip-path: url(#heroArch);
 }

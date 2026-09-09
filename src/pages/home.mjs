@@ -268,7 +268,6 @@ function contact(t, lang) {
     t,
     lang,
     prefix: 'home',
-    title: t('contact.title'),
-    lede: t('contact.lede')
+    title: t('contact.title')
   });
 }
