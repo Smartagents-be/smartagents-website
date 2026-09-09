@@ -158,7 +158,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 
 | Deck | Classes | Why it is not shared |
 |---|---|---|
-| `isabel-sdlc` | `.flow`, `.map`, `.weeks`, `.slide-notes` | Two diagrams, each drawn for one argument |
+| `isabel-sdlc` | `.flow`, `.env`, `.map`, `.slide-notes` | Three diagrams, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
 

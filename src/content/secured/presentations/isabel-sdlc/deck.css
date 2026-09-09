@@ -1,10 +1,13 @@
 /* isabel-sdlc — rules that belong to this deck alone.
 
-   One figure: the three-stage pipeline on slide 02. It is not one of the seven
-   archetypes because nothing else in the deck is a diagram, and a diagram used
-   once belongs to the deck that uses it.
+   Three figures, none of them one of the eight archetypes: a diagram drawn for
+   one argument belongs to the deck that makes the argument. Each answers a
+   different question, which is why none of them shares a class with the
+   others: slide 03 asks where the queue is, slide 06 asks where the agent
+   works, slide 07 asks where the way of working lands.
 
-   The figure is a channel, not a table. Each stage draws the same five-step
+   The first: the three-stage pipeline on slide 03. It is a channel, not a
+   table. Each stage draws the same five-step
    lifecycle as one navy ribbon whose height is throughput, so a step that
    everything queues behind is drawn as the thing it is: a narrowing. Read the
    three ribbons top to bottom and the pinch moves, which is the entire claim of
@@ -120,7 +123,7 @@
   margin-top: 0;
 }
 
-/* ══ Slide 05: where the way of working lands ═══════════════════════════════
+/* ══ Slide 06: where the way of working lands ═══════════════════════════════
    A fork with a dead end and a loop. The same knowledge leaves the same place
    twice: once into a page that is read once and goes stale, once into files
    that are delivered through MCP and a Claude Code plugin and come back round
@@ -237,28 +240,229 @@
 #isabel-sdlc-slide-06-agents      { left: 1290px; top: 163px; }
 #isabel-sdlc-slide-06-loop        { left: 716px;  top: 300px; }
 
-/* ══ Slide 08: the four weeks inside the first milestone ════════════════════
-   The three columns are the deck's `.steps`, with the mono slot carrying a date
-   instead of a number. Only the first column breaks down into weeks, so the
-   list below is the one thing this slide adds. */
+/* ══ Slide 07: the environment the loop runs in ═════════════════════════════
+   An enclosure with a cycle inside it and one way out. The argument is
+   containment, not sequence: everything the agent can settle by running
+   something settles inside the box, and a person meets the result once
+   instead of meeting every attempt.
 
-.weeks {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 4px;
+   So the box is the figure and the arrow leaving it is the payoff. The four
+   steps are hairline rows, the system's own list form; what makes them a
+   cycle rather than a checklist is the cyan bracket in the gutter, which
+   carries the last row back to the first. That is the only accent on the
+   slide, for the same reason slide 07 spends its only cyan on the loop.
+
+   The four rows are four words each and carry no gloss. Two drafts did carry
+   one, first describing what the agent does at each stage and then naming the
+   condition that has to hold at it, and both made the box the whole slide: a
+   block of small type inside a border, with the arrow leaving it reduced to
+   punctuation. Said aloud the glosses were the speaker's anyway. What is left
+   is a box the room can read in a second and a long arrow out of it, which is
+   the comparison the slide exists to make. The step numbers went with them,
+   for a smaller reason: the bracket already says this is a cycle.
+
+   An earlier draft of this slide drew four gates on a channel. It was a
+   picture of a pipeline, which the deck already has on slide 03, and it put
+   the agent nowhere: a change flowed through checks with no account of who
+   ran them or what happened on a failure. The box is the missing half.
+
+   The enclosure is a hairline and never a fill. A navy panel this size is a
+   slide painted navy, which rule 1 refuses, and the legend interrupting the
+   top border is what names it without spending a row on a heading. */
+
+/* The box is wider than its four words need, and the width is set by the
+   label on the bottom border rather than by the rows: that string is 490px in
+   the platform face and the box gives it 725, so it clears by 63px, about 13%.
+   Measured at 620 it cleared by 23px, which is inside the margin a different
+   sans can eat, and there is no wrap to catch it: a one-line label on a
+   border either fits or hangs past the corner. No Geist binary is shipped, so
+   re-measure this whenever the face arrives or the label is re-worded. */
+.env {
+  display: grid;
+  grid-template-columns: 660px 1fr 420px;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
 }
 
-.week {
-  display: flex;
-  gap: 14px;
+/* The box governs the figure's height and the two rows split it, so each path
+   sits on the centre line of the block it points at without a single authored
+   y coordinate. That is the whole reason this is a grid and not the absolute
+   placement `.map` uses on slide 07: the box grows with its rows. */
+.env__box {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+/* 6px, not a card radius: at this size anything rounder reads as a panel,
+   and the thing being drawn is a boundary. */
+.env__box {
+  position: relative;
+  box-sizing: border-box;
+  padding: 44px 48px;
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+}
+
+/* Two labels sit on the border rather than inside the box: the top one names
+   it, the bottom one says where it exists. Paper behind each breaks the
+   hairline for it, which is what makes them read as belonging to the boundary
+   instead of floating near it, and neither costs the box any height. Read in
+   order they are one sentence about one box, which is the point: the thing in
+   the pipeline and the thing on the laptop are not two environments. */
+.env__legend,
+.env__where {
+  position: absolute;
+  left: 40px;
+  margin: 0;
+  padding: 0 14px;
+  background: var(--sa-paper);
   font-size: 22px;
-  line-height: 1.4;
+  line-height: 1.2;
+}
+
+.env__legend {
+  top: -13px;
+  font-weight: var(--fw-medium);
+  color: var(--sa-cyan);
+}
+
+/* Grey, not cyan. The accent belongs to the loop, and this is a fact about
+   the box rather than its name. */
+.env__where {
+  bottom: -13px;
   color: var(--sa-grey-3);
 }
 
-.week__num {
-  flex: none;
-  font-family: var(--font-mono);
-  color: var(--sa-grey-6);
+/* The gutter carries the return, so it is a column of the step grid rather
+   than something laid over it. */
+.env__steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: 88px 1fr;
+}
+
+.env__list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Rules between the rows only. The box's own border is the outer bound, and
+   a hairline directly under it would read as a double rule. */
+.env__step + .env__step {
+  border-top: 1px solid var(--sa-line);
+}
+
+.env__step {
+  padding: 28px 0;
+}
+
+.env__term {
+  font-size: 38px;
+  line-height: 1.25;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+/* The bracket that makes the four rows a cycle. Stretched over the whole
+   column and inset by half a row at each end, so it meets the first and last
+   rows on their centre lines whatever the copy does to the rows' height.
+   The head is a border triangle rather than an SVG marker: the whole shape is
+   three borders already, and a second drawing system for the tip of it is a
+   file nobody wants to keep in step. */
+.env__loop {
+  position: relative;
+  grid-column: 1;
+  justify-self: start;
+  width: 68px;
+  margin: 52px 0;
+  border: 2.5px solid var(--sa-cyan);
+  border-right: none;
+  border-radius: 22px 0 0 22px;
+}
+
+.env__loop::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--sa-cyan);
+}
+
+/* Two things cross the boundary and they are drawn differently, because the
+   difference is the point. The question goes out and an answer comes back, so
+   it is a pair of lines in cyan: cyan marks a loop on this slide, and this is
+   the second one. The merge request only leaves, so it is one line in ink.
+   Read the right-hand edge and the rule is legible without a legend: what is
+   cyan comes back, what is ink does not.
+
+   The pair sits above the exit because that is the order in time. A question
+   is asked mid-flight, while the loop is still turning; the merge request is
+   what the loop finally produces. */
+.env__ask-path {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  margin: 0 52px;
+}
+
+.env__ask-out,
+.env__ask-back {
+  position: relative;
+  height: 2.5px;
+  background: var(--sa-cyan);
+}
+
+.env__ask-out::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--sa-cyan);
+}
+
+.env__ask-back::after {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 12px solid var(--sa-cyan);
+}
+
+.env__out {
+  position: relative;
+  height: 2.5px;
+  margin: 0 52px;
+  background: var(--sa-ink);
+}
+
+.env__out::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--sa-ink);
+}
+
+.env__after-title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.env__after-body {
+  margin: 10px 0 0;
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
 }
