@@ -408,6 +408,25 @@
   "team.cta.title": "Zullen we kennismaken?",
   "team.cta.body": "Vertel kort wat er beter kan lopen. U krijgt een van ons twee aan tafel, en we zeggen ook wanneer u ons niet nodig hebt.",
 
+  "nav.jobs": "Jobs",
+  "jobs.title": "Jobs · SmartAgents",
+  "jobs.description": "We bouwen agents die bij Belgische bedrijven echt werk overnemen. Bekijk de openstaande vacatures, of stuur je profiel door. Freelance profielen zijn ook welkom.",
+  "jobs.hero.title": "Sluit je aan bij ons team",
+  "jobs.cta.vacancies": "Bekijk de vacatures",
+
+  "jobs.vacancies.title": "Openstaande vacatures",
+  "jobs.vacancies.empty": "Er staat op dit moment niets open. Stuur gerust toch je profiel door, dan nemen we contact op zodra er iets vrijkomt.",
+  "jobs.cta.apply": "Solliciteer",
+
+  "jobs.why.title": "Werken bij SmartAgents",
+  "jobs.why.work.title": "Wat je bouwt",
+  "jobs.why.work.body": "AI-agents en de agentic engineering eromheen, in productie bij Belgische bedrijven. En even vaak coaching, trainingen en het contact met de klant zelf. Wat niet gebruikt wordt, halen we er weer uit.",
+  "jobs.why.team.title": "Met wie je werkt",
+  "jobs.why.team.body": "Een klein, gedreven team dat aan hetzelfde soort oplossingen werkt. Je zit dicht bij iedereen die eraan bouwt.",
+  "jobs.why.learn.title": "Wat je leert",
+  "jobs.why.learn.body": "Het vakgebied verschuift elke maand. Je werkt met wat er vandaag is, op echte dossiers, en dat is waar je het snelst bijleert.",
+
+
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Privacybeleid · SmartAgents",
   "privacy.description": "Welke persoonsgegevens smartagents.be verwerkt, waarom, wie ze te zien krijgt en hoe lang we ze bijhouden. Geen analytics, geen tracking en geen eigen cookies op de publieke pagina's.",

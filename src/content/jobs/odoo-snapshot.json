@@ -1,0 +1,45 @@
+{
+  "source": "api",
+  "fetchedAt": "2026-09-11T11:11:56.901Z",
+  "jobs": {
+    "nl": [
+      {
+        "slug": "agentic-ai-engineer-1",
+        "title": "Agentic AI engineer",
+        "points": [
+          "Je bouwt oplossingen die echte bedrijfsprocessen verbeteren, van copilots en workflow-automatisatie tot multi-agent systemen.",
+          "Je vertaald technische mogelijkheden naar schaalbare toepassingen die passen binnen echte operationele workflows.",
+          "Je werkt met LLM's, tool-use, RAG en integraties met bestaande systemen om oplossingen bruikbaar te maken in de praktijk.",
+          "Je werkt in korte iteraties, neem ownership en zie snel het effect van wat je bouwt."
+        ],
+        "location": "Beringen, Belgium"
+      }
+    ],
+    "en": [
+      {
+        "slug": "agentic-ai-engineer-1",
+        "title": "Agentic AI engineer",
+        "points": [
+          "Je bouwt oplossingen die echte bedrijfsprocessen verbeteren, van copilots en workflow-automatisatie tot multi-agent systemen.",
+          "Je vertaald technische mogelijkheden naar schaalbare toepassingen die passen binnen echte operationele workflows.",
+          "Je werkt met LLM's, tool-use, RAG en integraties met bestaande systemen om oplossingen bruikbaar te maken in de praktijk.",
+          "Je werkt in korte iteraties, neem ownership en zie snel het effect van wat je bouwt."
+        ],
+        "location": "Beringen, Belgium"
+      }
+    ],
+    "fr": [
+      {
+        "slug": "agentic-ai-engineer-1",
+        "title": "Agentic AI engineer",
+        "points": [
+          "Je bouwt oplossingen die echte bedrijfsprocessen verbeteren, van copilots en workflow-automatisatie tot multi-agent systemen.",
+          "Je vertaald technische mogelijkheden naar schaalbare toepassingen die passen binnen echte operationele workflows.",
+          "Je werkt met LLM's, tool-use, RAG en integraties met bestaande systemen om oplossingen bruikbaar te maken in de praktijk.",
+          "Je werkt in korte iteraties, neem ownership en zie snel het effect van wat je bouwt."
+        ],
+        "location": "Beringen, Belgium"
+      }
+    ]
+  }
+}

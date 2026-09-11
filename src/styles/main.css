@@ -4565,6 +4565,223 @@ html:not([data-clause-spy]) .prose__heading:target,
   }
 }
 
+/* The vacancies, and the three rules the Odoo integration needs. Everything
+   else in that block is the AI staffing page's `.track` vocabulary unchanged.
+
+   The points are a real list, because that is what Odoo's job descriptions are
+   — four lines a candidate scans, not a paragraph they read. The marker is the
+   accent, the way `.prose__list`'s is; what is not borrowed from `.prose` is
+   the measure, because this list sits alone on white inside a panel the width
+   of the page and `.track__body` already answers that question at 56ch. */
+.track__points {
+  display: grid;
+  gap: var(--space-5);
+  padding-left: var(--space-7);
+  max-width: 56ch;
+  color: var(--text-body);
+  font-size: var(--text-lede);
+  line-height: var(--leading-body);
+  list-style: disc;
+}
+
+.track__points li::marker {
+  color: var(--sa-cyan);
+}
+
+/* The action inside an open row. It is the one place on the public site where
+   a primary button sits inside a figure rather than in a hero or a form, and it
+   earns it: this is the only control on the page that does the thing the page
+   is for. */
+.track__actions {
+  margin-top: var(--space-10);
+}
+
+/* Nothing published. The section keeps its heading and its rule — a block that
+   vanishes leaves the hero's own "Bekijk de vacatures" pointing at an anchor
+   that is not on the page — and prints one sentence at the reading measure. */
+.jobs-empty {
+  max-width: 56ch;
+  color: var(--text-body);
+  font-size: var(--text-lede);
+  line-height: var(--leading-body);
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — jobs
+ *
+ * The page is the shared page hero plus two blocks, and everything below the
+ * hero is vocabulary that already exists: the AI staffing page's
+ * `<sa-accordion>` panel for the vacancies, `.rows` under it. The hero is the
+ * one thing this page does not share.
+ *
+ * **The shape is welded to nothing.** Five heroes hang a dark shape off the
+ * right flank and by the sixth that flank is a template rather than a
+ * composition — so this one was hung off the header's hairline instead, for
+ * four drafts, and every draft read as a form growing out of the navigation:
+ * a panel, then the caret of a panel, then a stem. The argument for not being
+ * a sixth flank shape was always right; the conclusion was wrong. It floats now,
+ * with paper on all four sides, which the site already does at small scale in
+ * `heroPebbleA` and `heroPebbleB` beside the staffing arch. How it is drawn —
+ * and why being free is what let it close into a whole metaball union instead
+ * of half of one — is in `clipDefs()`.
+ *
+ * Four numbers place it, and the order they are decided in matters, because a
+ * floating shape is bounded by a band where a welded one is bounded by an edge.
+ *
+ * **`top` is 48px**, measured from the hero's own top edge, which is the
+ * header's underside. That gap is the whole difference between this and the
+ * drafts before it: it is what says the shape is not part of the bar. It is a
+ * constant rather than a share, because it is answering the header's hairline
+ * and that is in pixels at every width.
+ *
+ * **The height is capped at 538px**, and the cap is not decorative. Welded to
+ * the top edge a shape could run past the hero's foot and the eye read it as
+ * continuing; floating, it has to *sit inside* a band, and the band's floor is
+ * not the hero's foot (invisible — `.hero` and the section under it paint the
+ * same `--surface-section`) but the section rule below, about 105px past it.
+ * Measured: the shape's foot clears that rule by 83px at 1440 and by 58 from
+ * 1513px up, where the cap has bitten. Uncapped and derived from the width, a
+ * 1920 window put it 27px *past* the rule, on top of the vacancies block — a
+ * mistake only a floating shape can make, which is why the cap arrived with the
+ * detachment and not before it.
+ *
+ * **The width follows the height at 1.04**, which is the traced loop's own
+ * aspect, so the box never stretches the drawing. It used to be the other way
+ * round — width from the page, drop from the width — and that was right while
+ * the shape was welded and only the flank constrained it.
+ *
+ * **The right edge is `--gutter-page` itself**, so the lower lobe's tangent
+ * lands on the page's content edge: the vertical every section hairline ends
+ * on, that the vacancies accordion directly below this hero ends on, and that
+ * the footer row ends on. Three drafts got this wrong three ways and all three
+ * were one mistake. 2% of the page put the ink 12px off the window edge at 621,
+ * which is a shape that missed rather than a shape that cleared. 7% put it 27px
+ * *inside* the content edge at 1440 and 44 at 1920 — near the strongest vertical
+ * on the page without meeting it. And a clearance expressed as a multiple of the
+ * gutter can only ever land beside the gutter, because the gutter measured from
+ * the page edge *is* that vertical. Either weld to the line or clear it by a
+ * column; this welds, and the shape still keeps 64px of paper outside it at
+ * 1440 — exactly what the copy keeps on the left. The alignment only holds
+ * because the path is fitted to its box after tracing; see `clipDefs()`.
+ *
+ * The box goes on the **slot**, never on the `.field` inside it. `src/motion.js`
+ * grows a magnet's box by subtracting from all four offsets, so an explicit
+ * width or height on the field would move the box instead of growing it; the
+ * slot is ordinary CSS and is where a stable box belongs, the same division the
+ * training hero's bead makes.
+ * ------------------------------------------------------------------ */
+
+/* One rule from the tablet up, where there were three bands of independent
+   shares. All three were fighting the same thing: **the hero is 540px tall at
+   621px wide and at 2560**, and the flank is not, so a box struck as
+   `inset: 0 r% b% l%` grows in one axis only — the drawn proportion ran 0.66 at
+   700px, 1.09 at 1440 and 1.94 at 2560, which turns the lower lobe from an
+   upright egg into a lozenge and takes the neck with it.
+
+   Now one number is struck from the page and everything else follows it.
+   `min(35.6vw, 538px)` is the height; `min(37vw, 560px)` is the width, which is
+   the same number times the traced aspect, so the two cap together at 1513px and
+   the drawing is never stretched. Below about 731px the flank is narrow enough
+   that the true proportion leaves a 221px shape in a 540px band, so a 260px
+   floor buys the drop back at an aspect of 0.88 at 621 — the one place the
+   proportion is given up, and it is given up to 0.88 rather than to the 0.66
+   the old insets reached.
+
+   `left` is `auto`: left, right and width together over-constrain the box and it
+   is `right` that gets dropped, which is the one inset doing compositional work.
+   Struck this way the gap to the copy falls out of the arithmetic rather than
+   being set — 44px at 621, 59 at 834, 185 at 1440 — and it is the headline's
+   longest line that it is measured from.
+
+   `vw` and not `%` throughout, because the width and the drop have to stay in a
+   fixed ratio and a percentage resolves against the hero's box while a viewport
+   unit does not; with a scrollbar present the two disagree by about 1%, which is
+   a proportion drifting for a reason nobody could find in the file. */
+@media (min-width: 621px) {
+  .hero--jobs .hero__field--right {
+    top: 48px;
+    right: var(--gutter-page);
+    bottom: auto;
+    left: auto;
+    width: min(37vw, 560px);
+    height: min(max(35.6vw, 260px), 538px);
+  }
+}
+
+/* The two drifting shapes, in the pockets the main silhouette's diagonal leaves:
+   one off its upper lobe's outer flank, one under it in the lower left. Both are
+   positioned inside the main shape's own slot, so all three scale and move as
+   one composition and the box above is the only thing tuned per width.
+
+   The gaps are what they are for. Measured on the resting outlines, the upper
+   one stands 57px off the main shape at 1081, 65 at 1440 and 68 from 1513 up;
+   the lower one 37, 49 and 51. A join closes at 60px (`2·MERGE·ln2·ONSET` in
+   `src/motion.js`) on the *displaced* outlines, so at rest a reader sees three
+   separate shapes and a cursor brought into a gap swells both edges until they
+   run together into one fluid with a concave fillet at each body. That is the
+   brand's one moving part, and until this page had a second shape it had nothing
+   on it to do. The upper gap is deliberately over the resting limit — it is the
+   swell that closes it, which is the same thing the training bead's 61px does at
+   2560.
+
+   **The upper one may not sit in the mouth of the main shape's own notch**, and
+   that is the one trap here. Drawn first at `left: 46%` it sat right in the
+   opening between the two lobes, so the bridge formed *across* that opening and
+   sealed the notch into an enclosed lens of paper — and the traced union
+   stair-stepped visibly down the neck where it did, because marching squares was
+   carrying a stretch of contour the authored outline should have kept. Moved out
+   to 49%, the bridge lands on the upper lobe's outer flank instead, the notch
+   stays open to the right, and the merged silhouette is as smooth as the
+   training hero's. Paper islands are legal here — `src/motion.js` winds them so
+   the nonzero rule paints them as paper — but one that appears because a shape
+   was parked in a concavity is an accident, not a drawing.
+
+   Sizes are shares of the slot rather than pixels, so the gaps hold their
+   proportion: 139x113 and 112x92 at 1440, 104x85 and 84x69 at 1081. A heavy and
+   a light, which is the pair `clipDefs()` drew the two pebbles as.
+
+   They are near the training bead's 172x118 and not smaller, and that floor is
+   the node field's. The shared network is seeded per *document* area, so a shape
+   only carries a legible piece of it above about 190px square — the argument
+   `.hero__bead` above already makes, and the one CLAUDE.md makes for leaving the
+   footer's wedge fieldless. At 107x87 the first draft of these two was a flat
+   navy plate rather than a window onto anything. At this size each holds a node
+   or two at rest, and under the cursor the join hands them the main shape's own
+   weave, which is the state they are really drawn for. */
+.hero__drift--a {
+  top: 0;
+  left: 49%;
+  width: 26%;
+  height: 22%;
+}
+
+.hero__drift--b {
+  top: 63%;
+  left: 1%;
+  width: 21%;
+  height: 18%;
+}
+
+/* Printed only where a join can happen, and the query is the negative of the one
+   `src/motion.js` arms the magnets on: `(min-width: 1081px) and (hover: hover)
+   and (pointer: fine)`, inside a `prefers-reduced-motion` guard. Width alone
+   would leave them on a 1366px tablet and on every reduced-motion desk, which is
+   the dark spot on the paper this exists to prevent — a free shape with nothing
+   to have come away from and nothing it can reach. The same argument and the
+   same `1080.98px`, for the same reason, as `.hero__bead` above: a viewport is
+   fractional under browser zoom, and at 1080.5 the usual 1080/1081 pair matches
+   neither query. */
+@media (max-width: 1080.98px), (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .hero__drift {
+    display: none;
+  }
+}
+
+/* Below 621px the shared rule takes the box back and `[data-clip]` swaps the
+   pendant for the phone's sliver, the way it does for every other hero shape
+   (`critical.css`). A pendant needs a flank of paper beside it to hang in, and
+   a phone has no flank. */
+
 /* ------------------------------------------------------------------ *
  * Print
  *

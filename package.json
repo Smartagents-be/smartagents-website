@@ -10,12 +10,13 @@
     "vite": "^7.3.6"
   },
   "scripts": {
-    "build": "node scripts/build-site.mjs",
-    "dev": "npm run build && node scripts/start-local.mjs --watch",
+    "build": "node --env-file-if-exists=.env scripts/build-site.mjs",
+    "dev": "ODOO_OFFLINE=1 npm run build && node scripts/start-local.mjs --watch",
     "serve": "node scripts/start-local.mjs",
     "ai": "npm run build && node scripts/start-local.mjs --port=8001 --reuse",
     "check:contact": "node scripts/check-contact.mjs",
     "export:pdfs": "node scripts/export-pitch-pdfs.mjs",
-    "check:slides": "node scripts/check-slides.mjs"
+    "check:slides": "node scripts/check-slides.mjs",
+    "sync:jobs": "node --env-file-if-exists=.env scripts/sync-jobs.mjs"
   }
 }

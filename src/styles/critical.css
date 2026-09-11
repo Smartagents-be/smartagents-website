@@ -224,7 +224,7 @@ select {
 }
 
 /* The bar exists from 1181px up and nowhere else (see the tablet header block
-   below). Six names in three languages is more than the desk's old slack
+   below). Seven names in three languages is more than the desk's old slack
    covers, so the row is fluid here too, and it is the slopes that do the work
    rather than the floors: at 1181px, the narrowest width the bar is ever
    printed at, the type is at 12.05px and the link padding at 7.3px, and both
@@ -234,12 +234,27 @@ select {
    same time, because a desk that has run out of room has run out of it there
    first.
 
-   Measured, not estimated: at 1181px the header's own scrollWidth equals its
-   clientWidth in all three languages, and the primary action ends 74px from the
-   window edge against a 59px gutter — 15px of true slack, in French, which is
-   the longest of the three. That check matters because `.shell` is
-   `overflow: clip`, so a row that did overflow would be silently cut rather
-   than scrollable, and the document's own scrollWidth would never say so.
+   Measured, not estimated, and the row is seven names now — Jobs joined it and
+   the measurement moved with it. At 1181px the primary action ends 74px from
+   the window edge against a 59px gutter in Dutch and English: 15px of true
+   slack, unchanged, because those two rows had free space between the nav and
+   the language chips for the seventh name to take. French had 42px of that free
+   space and Jobs costs 62, so it ends 28px from the edge instead of 74 — the
+   button has taken 31px of the gutter rather than standing on it. Nothing is
+   clipped, nothing overlaps, and the document does not scroll; the action is
+   simply not on the page gutter the rest of the page is ranged against, and
+   only in French. It clears again from about 1240px up (13px short at 1220,
+   14px of slack at 1280) so the band is about sixty pixels wide.
+
+   That band is bought deliberately: the alternative was to keep the jobs page
+   out of the bar, and a page nothing links to is a page nobody reaches. If it
+   ever has to be paid back, the lever is the bar's own fold — printing the row
+   from 1240px instead of 1180px — and not the gaps here, which are already at
+   the floors this block describes.
+
+   The overflow check matters because `.shell` is `overflow: clip`, so a row
+   that did overflow would be silently cut rather than scrollable, and the
+   document's own scrollWidth would never say so.
 
    It is worth knowing that this was measured and found broken. The comment
    above used to claim 29px of clearance at 1181px, and by the time the offer
@@ -251,7 +266,9 @@ select {
    became 502px — which is also what made room for Home. Re-measure this row
    whenever a name in it changes, and whenever the face does: 15px is about
    1.5% of the nav's own width, and the Geist binaries the site asks for and
-   does not ship set wider than the platform face it is measured in. */
+   does not ship set wider than the platform face it is measured in. In French
+   there is no slack left to give at all, so a wider face widens the band the
+   action stands inside the gutter in rather than clipping anything. */
 .site-nav {
   display: flex;
   gap: var(--space-1);
@@ -609,6 +626,12 @@ select {
 
 [data-clip="heroPebbleB"] {
   clip-path: url(#heroPebbleB);
+}
+
+/* The jobs page's pendant: the one shape on the site hung from the top edge
+   instead of standing on a flank. See `clipDefs()` in src/layouts/base.mjs. */
+[data-clip="jobsJoin"] {
+  clip-path: url(#jobsJoin);
 }
 
 /* The pair that flanks the track panel on the same page: a leaf standing in the
@@ -1207,7 +1230,8 @@ select {
   [data-clip="heroPetal"],
   [data-clip="heroArch"],
   [data-clip="sdlcHeroRidge"],
-  [data-clip="processHero"] {
+  [data-clip="processHero"],
+  [data-clip="jobsJoin"] {
     clip-path: url(#heroSwoop);
   }
 

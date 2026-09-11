@@ -30,6 +30,8 @@ import { page as staffingPage } from '../src/pages/staffing.mjs';
 import { page as sdlcPage } from '../src/pages/sdlc.mjs';
 import { page as processesPage } from '../src/pages/processes.mjs';
 import { page as teamPage } from '../src/pages/team.mjs';
+import { page as jobsPage } from '../src/pages/jobs.mjs';
+import { readVacancies } from './lib/odoo-jobs.mjs';
 import { page as privacyPage } from '../src/pages/privacy/privacy.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
 import { INSIGHTS, indexPage as insightsIndexPage, insightPages } from '../src/pages/insights/insights.mjs';
@@ -56,6 +58,7 @@ const PAGES = [
   sdlcPage,
   processesPage,
   teamPage,
+  jobsPage,
   insightsIndexPage,
   ...insightPages,
   privacyPage,
@@ -85,7 +88,7 @@ async function writeHtml(relativePath, markup) {
  * Public, language-prefixed pages
  * ------------------------------------------------------------------ */
 
-async function renderPublicPages({ strings, criticalCss, assets }) {
+async function renderPublicPages({ strings, criticalCss, assets, vacancies }) {
   const sitemapEntries = [];
 
   for (const page of PAGES) {
@@ -99,7 +102,17 @@ async function renderPublicPages({ strings, criticalCss, assets }) {
       const meta = page.meta(t);
       const url = pagePath(language.code, slug);
 
-      const body = page.render({ t, lang: language.code, dir: language.dir, alternates, url });
+      const body = page.render({
+        t,
+        lang: language.code,
+        dir: language.dir,
+        alternates,
+        url,
+        // Odoo's open vacancies, already in this language. Every page is handed
+        // them and only the jobs page reads them, the same way every page is
+        // handed `alternates` and only the head uses it.
+        vacancies: vacancies.byLang[language.code] || []
+      });
 
       await writeHtml(
         path.join(url.slice(1), 'index.html'),
@@ -391,6 +404,7 @@ ${articles}
 ## Over
 
 ${line(t('team.hero.title'), pagePath(lang, teamPage.slugs[lang]), t('team.description'))}
+${line(t('nav.jobs'), pagePath(lang, jobsPage.slugs[lang]), t('jobs.description'))}
 ${line(t('privacy.heading'), pagePath(lang, privacyPage.slugs[lang]), t('privacy.description'))}
 
 ## Contact
@@ -498,7 +512,17 @@ const criticalCss = ['src/styles/tokens.css', 'src/styles/critical.css']
   .join('\n');
 const assets = loadManifest(distDir);
 
-const sitemapEntries = await renderPublicPages({ strings, criticalCss, assets });
+/* Odoo Recruitment owns the vacancy list, and the build reads it. It never
+   throws: a source that fails falls through to the next one and finally to the
+   committed snapshot, because a third party being down or restyled must not
+   turn into a red build on main. What it does do is say which source answered,
+   so a deploy log shows a silent fallback instead of hiding it. */
+const vacancies = await readVacancies({ rootDir, live: process.env.ODOO_OFFLINE !== '1' });
+const vacancyCounts = languages.map((language) => `${language.code} ${(vacancies.byLang[language.code] || []).length}`).join(' · ');
+console.log(`Vacancies from Odoo (${vacancies.source}): ${vacancyCounts}`);
+if (vacancies.warning) console.warn(`  ! ${vacancies.warning}`);
+
+const sitemapEntries = await renderPublicPages({ strings, criticalCss, assets, vacancies });
 await renderRootFallback();
 const { decks, documents } = await renderSecured();
 copyPromoMedia();

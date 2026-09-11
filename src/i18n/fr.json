@@ -408,6 +408,25 @@
   "team.cta.title": "On fait connaissance ?",
   "team.cta.body": "Dites-nous brièvement ce qui pourrait mieux tourner. Vous aurez l'un de nous deux à table, et nous vous dirons aussi quand vous n'avez pas besoin de nous.",
 
+  "nav.jobs": "Emplois",
+  "jobs.title": "Emplois · SmartAgents",
+  "jobs.description": "Nous construisons des agents qui prennent en charge du vrai travail dans les entreprises belges. Consultez les postes ouverts, ou envoyez-nous votre profil. Les profils indépendants sont les bienvenus.",
+  "jobs.hero.title": "Rejoignez notre équipe",
+  "jobs.cta.vacancies": "Voir les postes",
+
+  "jobs.vacancies.title": "Postes ouverts",
+  "jobs.vacancies.empty": "Rien n'est ouvert pour le moment. Envoyez-nous votre profil malgré tout et nous vous contacterons dès qu'un poste se libère.",
+  "jobs.cta.apply": "Postuler",
+
+  "jobs.why.title": "Travailler chez SmartAgents",
+  "jobs.why.work.title": "Ce que vous construisez",
+  "jobs.why.work.body": "Des agents IA et l'agentic engineering autour d'eux, en production chez des entreprises belges. Tout aussi souvent du coaching, des formations et la relation avec le client. Ce qui ne sert à personne, nous le retirons.",
+  "jobs.why.team.title": "Avec qui vous travaillez",
+  "jobs.why.team.body": "Une petite équipe motivée qui travaille sur le même type de solutions. Vous êtes proche de tous ceux qui les construisent.",
+  "jobs.why.learn.title": "Ce que vous apprenez",
+  "jobs.why.learn.body": "Le domaine bouge chaque mois. Vous travaillez avec ce qui existe aujourd'hui, sur de vrais dossiers, et c'est là qu'on apprend le plus vite.",
+
+
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Politique de confidentialité · SmartAgents",
   "privacy.description": "Quelles données à caractère personnel smartagents.be traite, pourquoi, qui les voit et combien de temps nous les gardons. Pas d'analytique, pas de traçage et aucun cookie de notre fait sur les pages publiques.",

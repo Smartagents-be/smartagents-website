@@ -12,6 +12,7 @@ import { page as staffingPage } from '../pages/staffing.mjs';
 import { page as sdlcPage } from '../pages/sdlc.mjs';
 import { page as processesPage } from '../pages/processes.mjs';
 import { page as teamPage } from '../pages/team.mjs';
+import { page as jobsPage } from '../pages/jobs.mjs';
 import { page as privacyPage } from '../pages/privacy/privacy.mjs';
 import { insightsIndexPath } from '../pages/insights/insights.mjs';
 import { PHONE, PHONE_HREF, EMAIL } from '../components/contact-form/contact-form.mjs';
@@ -45,6 +46,12 @@ export function servicePath(key, lang) {
 /** URL of the team page in this language, or null where it is not published. */
 export function teamPath(lang) {
   const slug = teamPage.slugs[lang];
+  return slug === undefined ? null : pagePath(lang, slug);
+}
+
+/** URL of the jobs page in this language, or null where it is not published. */
+export function jobsPath(lang) {
+  const slug = jobsPage.slugs[lang];
   return slug === undefined ? null : pagePath(lang, slug);
 }
 
@@ -394,6 +401,74 @@ export function clipDefs() {
     // and at the petal's amplitude this one squared off into a shelf.
     processHero:
       'M1,0.000 C0.700,0.045 0.300,0.200 0.300,0.290 C0.300,0.360 0.300,0.440 0.300,0.510 C0.300,0.560 0.470,0.630 0.610,0.630 C0.760,0.630 0.940,0.930 1,1.000 Z',
+    // Jobs: the only silhouette on the public site welded to nothing at all.
+    // Every other one is a leaf, an arch, a ridge or a terrace hung off a page
+    // edge and read as ground. This one floats in the hero's right flank with
+    // paper all the way round it, which is the one thing the brand's shapes are
+    // otherwise never allowed to do — and the licence is that the site already
+    // has free shapes in `heroPebbleA` and `heroPebbleB`, which "hang from
+    // nothing" beside the staffing arch. This is that, at hero scale.
+    //
+    // It got here by elimination. It was welded to the header's hairline for
+    // four drafts, on the argument that five heroes hang a shape off the right
+    // flank and a sixth would be a template rather than a composition. The
+    // argument was right and the execution never was: a wide flat weld with a
+    // hard corner at each end, hung in the middle of the bar under the nav, is
+    // an open mega-menu panel; narrow it and the flanks splay downward into the
+    // caret of one; centre the lobe on the line instead so the outline leaves it
+    // vertically and the drawing is finally sound, but the thing is still a
+    // shape growing out of the navigation. Detached, none of that exists, and
+    // the shape is free to close.
+    //
+    // **Closing it is the point.** Welded, the outline ran from one corner of
+    // the top edge to the other and the top edge closed it — so the silhouette
+    // had two corners in it and the union's own contour was cut in half. Free,
+    // the trace is the whole loop: two lobes running together, the small one
+    // upper-left and the large one lower-right, with a concave fillet on both
+    // sides of the neck and not one corner anywhere. That is the metaball union
+    // `src/motion.js` draws when the cursor brings two dark shapes together,
+    // standing still — the page about joining opens on a join, and now it opens
+    // on the whole of one.
+    //
+    // The lobes are (0.28, 0.26) r 0.16 x 0.184 and (0.72, 0.68) r 0.32 x 0.256
+    // turned -25°, traced at the 1 contour, resampled at even arc length into
+    // sixteen anchors and written out as a periodic chain. Four numbers carry it.
+    //
+    // **Solidity 0.82** — the outline's area over its convex hull's — is the
+    // test this shape is held to, and it is the one that catches the failure
+    // every earlier draft shared. A blob with no waist measures 1.00. A row-by-
+    // row width scan cannot catch it here because the waist is *diagonal*: scan
+    // horizontally and you never cross it at its narrowest. One of the welded
+    // drafts measured convex on its whole right flank at every viewport width,
+    // which is a light bulb on the one page that is meant to be a join.
+    //
+    // **The neck is 0.174 of the box** at 0.32 along the axis between the lobe
+    // centres. Thinner reads better standing still and folds under the cursor;
+    // see the amplitude note in `src/pages/jobs.mjs`.
+    //
+    // **The belly is an ellipse turned -25°.** Axis-aligned it fits a circle to
+    // within about a pixel over three hundred scan rows, and a true disc at 70%
+    // of the ink is the bullet `clipDefs()` already refuses in a 90px pebble.
+    //
+    // **The offset is diagonal.** Two lobes stacked square over one another are
+    // a vase at every pinch from 0.18 to 0.30; a four-beat profile drawn by hand
+    // through thirteen anchors is a chess pawn. Both were drawn. What they have
+    // in common is symmetry about a vertical axis, and that is the rule they
+    // were hiding: a shape reads as furniture the moment its two flanks answer
+    // each other.
+    //
+    // The path is fitted to its box after tracing. A cubic runs outside its own
+    // anchors, and an earlier draft's control points reached x 1.029 — the ink
+    // sat 6px past the box that positioned it, so every inset in the CSS was
+    // measuring a shape that is not the one on screen. `fitDrawn` maps the
+    // sampled curve's bounding box onto the unit square, which is exact in one
+    // pass because an affine map of a Bézier is the same map on its control
+    // points. Control points outside [0,1] are expected and fine; it is the
+    // curve that fills the box. That is what lets `right: var(--gutter-page)`
+    // put the ink *on* the page's content edge rather than a few pixels inside
+    // it, and it is why the box's aspect is 1.04 — the traced loop's own.
+    jobsJoin:
+      'M0.001,0.201 C-0.004,0.265 0.025,0.354 0.069,0.400 C0.111,0.446 0.216,0.436 0.258,0.476 C0.295,0.512 0.294,0.572 0.304,0.629 C0.317,0.694 0.298,0.782 0.327,0.842 C0.356,0.900 0.422,0.956 0.482,0.980 C0.541,1.005 0.623,1.004 0.688,0.991 C0.753,0.977 0.824,0.941 0.873,0.896 C0.925,0.850 0.975,0.784 0.991,0.719 C1.007,0.655 1.002,0.565 0.971,0.508 C0.941,0.453 0.869,0.405 0.807,0.382 C0.746,0.361 0.668,0.369 0.601,0.376 C0.532,0.382 0.432,0.452 0.398,0.425 C0.362,0.398 0.407,0.283 0.390,0.217 C0.373,0.151 0.344,0.063 0.295,0.029 C0.247,-0.004 0.147,-0.011 0.100,0.018 C0.049,0.047 0.005,0.137 0.001,0.201 Z',
     // Digitale transformatie: a skewed slab behind the isometric stack
     stackField:
       'M0.060,0.100 L1,0.030 L1,0.860 L0.060,0.930 C0.024,0.933 0,0.905 0,0.870 L0,0.160 C0,0.125 0.024,0.097 0.060,0.100 Z'
@@ -425,19 +500,35 @@ export function clipDefs() {
  * What came off the bar — Ons DNA, Aanpak, Digitale transformatie — is still
  * on the homepage in that order, read on the way down rather than aimed at.
  *
+ * Jobs is last, and unlike Inzichten it is in the bar as well. Last rather than
+ * beside the team page, which is where it belongs by subject, because a reader
+ * who came to apply will find it wherever it is and a reader who did not should
+ * meet the four services first. What it costs the row is measured in
+ * `.site-nav` in `critical.css`.
+ *
  * Home is first and it is not redundant with the brand link beside it. The
  * wordmark is the way home to anyone who has learnt that a wordmark is; it is
  * not labelled, it is not in the nav landmark, and it does not take the
  * `aria-current` the other items take, so on a detail page there was nothing in
  * the nav that named the page a reader is most likely to want next.
  */
-const NAV_ITEMS = ['home', 'training', 'staffing', 'sdlc', 'processes', 'team', 'insights'];
+const NAV_ITEMS = ['home', 'training', 'staffing', 'sdlc', 'processes', 'team', 'insights', 'jobs'];
 
 /**
- * What the bar itself prints: home, the four services and the team page.
+ * What the bar itself prints: home, the four services, the team page and jobs.
  * Inzichten is in `NAV_ITEMS` for the phone sheet and not for the bar, because
  * with four service names in the row there is no width left for a section that
  * is read on the way down the homepage anyway.
+ *
+ * Jobs is in both, and it is the one item in the row that was added knowing it
+ * does not quite fit. Dutch and English had the free space for it; French did
+ * not, and between 1181px and about 1240px the primary action there now stands
+ * 31px inside the page gutter rather than on it. Nothing is clipped and nothing
+ * overlaps — the arithmetic, the band and the lever if it ever has to be paid
+ * back are in `.site-nav` in `critical.css`. It is bought because the
+ * alternative was the footer and the phone sheet alone, and on a desk that is
+ * one link at the bottom of the page for the one page a candidate arrives
+ * looking for.
  *
  * The difference is emitted rather than painted over. Hiding a nav link in CSS
  * leaves it in every one of the site's HTML files at every width — never shown,
@@ -445,7 +536,7 @@ const NAV_ITEMS = ['home', 'training', 'staffing', 'sdlc', 'processes', 'team', 
  * puts what the bar contains in a stylesheet instead of here, where the next
  * person editing this list will look.
  */
-const BAR_ITEMS = new Set(['home', 'training', 'staffing', 'sdlc', 'processes', 'team']);
+const BAR_ITEMS = new Set(['home', 'training', 'staffing', 'sdlc', 'processes', 'team', 'jobs']);
 
 /**
  * Where a nav key points from `lang`. A service, the team page and the insights
@@ -460,6 +551,7 @@ const BAR_ITEMS = new Set(['home', 'training', 'staffing', 'sdlc', 'processes', 
 function navHref(key, lang, home) {
   if (key === 'home') return home;
   if (key === 'team') return teamPath(lang);
+  if (key === 'jobs') return jobsPath(lang);
   if (key === 'insights') return insightsIndexPath(lang);
   if (SERVICE_PAGES[key]) return servicePath(key, lang);
   return `${home}#${key}`;
@@ -621,6 +713,14 @@ export function mobileActions({ t, lang }) {
  * A section with no route into it from five of the site's pages is a section
  * nobody reaches.
  *
+ * Jobs is beside it and stays even though the bar carries it too. The bar
+ * carries it from 1181px up and the phone sheet below that, so this is not the
+ * only route in the way Inzichten's is — but the foot of the page is where a
+ * reader who has read to the end of a service page looks for it, and it is one
+ * line rather than one line lower with the privacy notice because a link
+ * somebody is meant to look for goes in the row of destinations, not in the
+ * legal line.
+ *
  * The customer zone is not linked from here, or from anywhere public. It is a
  * password gate: the people who use it are given the URL, and a link to it in
  * the footer of every page advertises a locked door to everyone else.
@@ -653,6 +753,7 @@ export function mobileActions({ t, lang }) {
 export function siteFooter({ t, lang, pageId }) {
   const privacy = privacyPath(lang);
   const insights = insightsIndexPath(lang);
+  const jobs = jobsPath(lang);
 
   // Both of these can be the page you are standing on, and on both of those
   // pages this is the only link to it in the chrome: the header bar drops
@@ -666,6 +767,7 @@ export function siteFooter({ t, lang, pageId }) {
   // `aria-current="page"` means this page; on an article it told a screen
   // reader that a link navigating away was the page it was already on.
   const onInsights = raw(pageId === 'insights' ? ' aria-current="page"' : '');
+  const onJobs = raw(pageId === 'jobs' ? ' aria-current="page"' : '');
   const onPrivacy = raw(pageId === 'privacy' ? ' aria-current="page"' : '');
 
   // The disclosure at its legal minimum: who, where, under which number, before
@@ -721,6 +823,7 @@ export function siteFooter({ t, lang, pageId }) {
     </address>
     <nav id="site-footer-nav" class="footer-nav" aria-label="${t('a11y.footerNav')}">
 ${insights ? html`      <a id="site-footer-link-insights" href="${insights}"${onInsights}>${t('nav.insights')}</a>
+` : ''}${jobs ? html`      <a id="site-footer-link-jobs" href="${jobs}"${onJobs}>${t('nav.jobs')}</a>
 ` : ''}      <a id="site-footer-link-linkedin" href="${LINKEDIN_URL}" target="_blank" rel="noopener noreferrer">LinkedIn<span id="site-footer-link-linkedin-hint" class="visually-hidden"> (${t('a11y.newTab')})</span></a>
     </nav>
   </div>

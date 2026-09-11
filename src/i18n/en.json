@@ -408,6 +408,25 @@
   "team.cta.title": "Shall we get to know each other?",
   "team.cta.body": "Tell us briefly what could run better. You get one of the two of us at the table, and we will also say when you do not need us.",
 
+  "nav.jobs": "Jobs",
+  "jobs.title": "Jobs · SmartAgents",
+  "jobs.description": "We build agents that take over real work at Belgian companies. See the open vacancies, or send us your profile. Freelance profiles are welcome too.",
+  "jobs.hero.title": "Join our team",
+  "jobs.cta.vacancies": "See the vacancies",
+
+  "jobs.vacancies.title": "Open vacancies",
+  "jobs.vacancies.empty": "Nothing is open at the moment. Send us your profile anyway and we will get in touch as soon as something comes up.",
+  "jobs.cta.apply": "Apply",
+
+  "jobs.why.title": "Working at SmartAgents",
+  "jobs.why.work.title": "What you build",
+  "jobs.why.work.body": "AI agents and the agentic engineering around them, running in production at Belgian companies. Just as often coaching, training and the client relationship itself. What nobody uses, we take back out.",
+  "jobs.why.team.title": "Who you work with",
+  "jobs.why.team.body": "A small, driven team working on the same kind of solution. You sit close to everyone building it.",
+  "jobs.why.learn.title": "What you learn",
+  "jobs.why.learn.body": "The field moves every month. You work with what exists today, on real client work, and that is where you pick it up fastest.",
+
+
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Privacy notice · SmartAgents",
   "privacy.description": "What personal data smartagents.be processes, why, who sees it and how long we keep it. No analytics, no tracking and no cookies of our own on the public pages.",

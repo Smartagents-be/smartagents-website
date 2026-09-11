@@ -469,6 +469,38 @@ for (const file of sourceFiles) {
 }
 
 /* ------------------------------------------------------------------ *
+ * 7. No build secret is in the output
+ *
+ * The build reads Odoo Recruitment with an API key (`build/lib/odoo-jobs.mjs`)
+ * and the whole safety argument for doing that at build time rather than in the
+ * browser is that the key stays on the build machine: what ships is the job
+ * text. This is that argument enforced instead of asserted — if the value of
+ * any of these ever turns up in a file that deploys, the build stops.
+ *
+ * Every file in `dist/` is checked, not only HTML: a secret interpolated into a
+ * script chunk, a JSON file or a sitemap is exactly as published as one in a
+ * paragraph. Short values are skipped, because a two-character "key" would
+ * match everywhere and fail every build for no reason — and a key that short is
+ * a misconfiguration to fix in Odoo, not something to smuggle past a checker.
+ * The failure prints the variable's name and never its value.
+ * ------------------------------------------------------------------ */
+
+/* Only values that are secret. `ODOO_LOGIN` is deliberately not here: it is a
+   username, and it is very likely to be an address the footer prints on every
+   page of the site — scanning for it would fail the production build on a
+   perfect match that is not a leak at all. */
+const SECRET_ENV = ['ODOO_API_KEY', 'N8N_SHARED_SECRET', 'EXPORT_PASSWORD', 'EXPORT_SESSION_SECRET'];
+
+for (const name of SECRET_ENV) {
+  const value = process.env[name];
+  if (!value || value.length < 8) continue;
+  for (const file of distFiles) {
+    if (!file.content.includes(value)) continue;
+    fail(file.relativePath, 'a build secret was written into the output', `$${name}`);
+  }
+}
+
+/* ------------------------------------------------------------------ *
  * Report
  * ------------------------------------------------------------------ */
 
