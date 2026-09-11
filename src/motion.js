@@ -948,15 +948,36 @@ function joins(items, cursorX, cursorY, linked) {
       // cuts inside a body; where two of them are within reach of each other
       // the sum lifts the contour off both and it necks between them with a
       // fillet at each. Nothing is stitched, so there is no seam — and with the
-      // floor taken off what the others add, the lift is gone by the rim and
-      // the contour there is the outline itself.
+      // floor taken off what the others add and the remainder faded out over the
+      // margin, the lift is gone by the rim and the contour there is the outline
+      // itself, whatever else happens to be standing nearby.
+      // How far into the window the lift may reach full strength. The `floor`
+      // below cancels what the *others* add only if every one of them is at
+      // least `spread` away — that is the assumption it is built on. A third
+      // shape standing nearer than that still lifts the contour at the rim,
+      // where the pass clamps the field to `-band` and marching squares closes
+      // the loop along a straight line: a ledge across the far side of whichever
+      // shape the rim crossed. It is the artifact this pass exists to avoid,
+      // arriving from the one direction the floor cannot see.
+      //
+      // So the lift is faded to nothing at the rim by construction instead of by
+      // assumption. Over the outer half of the margin, which leaves it at full
+      // strength across the middle of the window — the gap, both facing edges
+      // and the waist the join is actually made of — and takes it smoothly to
+      // zero by the edge, where `sum` is `top` alone and the contour is the
+      // nearest outline itself. The rim then has nothing left to cut.
+      const fade = spread * 0.5;
       const values = scratch(VALUES, nodes, Float32Array);
       let any = false;
       let sealed = true;
       for (let j = 0; j < rows; j++) {
         const rim = j === 0 || j === rows - 1;
+        const edgeJ = Math.min(j, rows - 1 - j) * CELL;
         for (let i = 0; i < cols; i++) {
           const n = j * cols + i;
+          const edge = Math.min(edgeJ, Math.min(i, cols - 1 - i) * CELL);
+          const tp = edge >= fade ? 1 : edge / fade;
+          const taper = tp * tp * (3 - 2 * tp);
           let top = 0;
           let extra = 0;
           for (let f = 0; f < fields.length; f++) {
@@ -975,7 +996,8 @@ function joins(items, cursorX, cursorY, linked) {
           // Below twice the floor the term eases into zero with a matching
           // slope instead, so the join leaves the outline tangentially.
           const over = extra - floor;
-          const sum = top + (over > floor ? over : extra > 0 ? (extra * extra) / (4 * floor) : 0);
+          const lift = over > floor ? over : extra > 0 ? (extra * extra) / (4 * floor) : 0;
+          const sum = top + lift * taper;
           // Traced a hair inside the union rather than on it. Where the join
           // has lifted the contour by less than that, the loop runs inside the
           // body and the outline the body draws is the silhouette, so the two

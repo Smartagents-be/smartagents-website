@@ -80,6 +80,16 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   is already on `main`, so it lives in Odoo and in the password manager, not in
   this repo. Nothing breaks without it; the list simply updates on the next
   ordinary push.
+  It is wired up now, and it took three pieces rather than one. The hook is
+  named **`odoo-hr-job`** on `main`. `base_automation` ("Automation Rules") had
+  to be **installed** in the database first — it is not on by default on Odoo
+  Online, and its absence is why this sat as a written plan for a while. And a
+  trigger cannot cover deletion and saving at once, so there are **two** rules
+  on `hr.job`, `Deploy website on vacancy change` (On create and edit) and
+  `Deploy website on vacancy deletion` (On deletion), each holding one
+  `Send Webhook Notification` action. Neither carries a trigger-field filter:
+  any write to a vacancy redeploys, which is right when the page prints the
+  title, the description and the location as well as the published flag.
 - **`ODOO_LOGIN` and `ODOO_API_KEY` are optional build variables**, and they are
   an upgrade rather than a requirement — see the "Odoo owns the vacancy list"
   entry under Key Patterns for what the build does with and without them. The
@@ -473,31 +483,32 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
     fetch from the page: in the browser the same key would need a Function in
     front of it to stay hidden, and the vacancies would leave the pre-rendered
     HTML that every crawler reads.
-- **The AI-native businessprocessen hero is four separate blobs, and nothing is
-  fused.** They run on a descending line, growing left to right and ending in one
-  big enough to be what the other three are heading toward. It replaced
-  `processHero`, a shoulder-wall-step-sweep terrace hung off the right page edge,
-  and the argument is the page's own headline rather than the drawing: "Van uw
-  taken naar herbruikbare workflows" is separate pieces becoming one thing.
-  `processLobe` in `clipDefs()` is the big one and it is **first in the DOM**,
-  because it has to host the one join that happens; its box is drawn around the
-  *whole composition* with the blob authored into one corner of it, which is the
-  only silhouette on the site that does not fill its own box.
-  **Only the last gap is a join.** The bead nearest the big blob stands 36 to
-  58px off it, inside the 60px a join closes at; the other two stand 77 to 125px
-  apart, past the limit at every width, so no join is ever attempted between them
-  — they swell toward the cursor and never run together. That is a limit of the
-  engine, not a preference: see the join-box bullet above. Narrowing those two
-  gaps to even the spacing brings the slice back.
+- **The AI-native businessprocessen hero is four separate orbs, and the
+  cursor runs them together.** They sit on a descending line, growing left to
+  right, each within reach of the next; bring the pointer into either gap and the
+  two either side of it merge into one fluid. It replaced `processHero`, a
+  shoulder-wall-step-sweep terrace hung off the right page edge, and the argument
+  is the page's own headline rather than the drawing: "Van uw taken naar
+  herbruikbare workflows" is separate pieces becoming one thing.
+  **All three share one box** — the whole composition — with each drawing
+  authored into a corner of it, so every blob can host a join (see the join-box
+  bullet above). Nothing is positioned in CSS: moving a blob means remapping its
+  path into a different sub-rectangle.
+  **Four orbs, and every adjacent pair merges.** Getting there took the rim fade
+  in `src/motion.js` (see the join bullet above), not a rearrangement: before it,
+  a third orb standing inside a merging pair's window margin pushed their union
+  out to the rim and it came back as a ledge, so this hero could only hold three
+  orbs with one merging pair and a 150px cordon around it. With the fade the
+  cordon is gone and the spacing is a composition again.
   It must not be the same picture as the jobs hero, because the two sit next to
   each other in the nav — that is the rule that made `processHero` carry a
   straight line in the first place, since the round draft it replaced measured as
   the same shape as the AI-native SDLC ridge. The distinction is carried
   differently now: `jobsJoin` is one drawn silhouette with satellites in its
-  pockets, and this is four shapes and no silhouette at all.
+  pockets, and this is three shapes and no silhouette at all.
   Unlike the jobs satellites these are **not** gated on the join being available.
   A satellite exists *for* the join and is a dark spot on the paper without one;
-  four shapes in a line are the composition either way, so they stay on a coarse
+  three shapes in a line are the composition either way, so they stay on a coarse
   pointer and under `prefers-reduced-motion`, and only the phone drops them.
 
 - **The jobs page is the one page written to a candidate, and that is the only
@@ -853,15 +864,30 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   to reveal, so the union is cut off along the box's edge and what renders is a
   shape with a straight chord sliced out of it. It looks like a join artefact and
   it is not: it is the element's own paint box showing.
-  Three consequences for any composition of free shapes. **A join needs one big
-  box.** The union has to reach the far side of the partner, so it needs `gap +
-  partner width + swell` to stay under 140 — and two beads 100px across with a
-  50px gap are already over it. Two small shapes therefore cannot join each
-  other at all, however they are placed: the AI-native businessprocessen hero was
-  drawn three ways before this was understood and every one sliced somewhere. So
-  a free shape joins the *big* one or it is spaced past the join threshold on
-  purpose; the jobs hero's pair stand 266 to 379px apart and never reach each
-  other, and that page's two joins are both against the main silhouette.
+  Three consequences for any composition of free shapes. **Give every shape a box
+  big enough to host.** The fix is not to move the shapes: it is to draw the box
+  around the whole composition and author the silhouette into a corner of it, so
+  whichever shape the pass picks can hold what it draws. That is what the three
+  blobs of the AI-native businessprocessen hero do — one box, three paths, no
+  positioning in CSS at all — and it is what let them join each other after three
+  drafts that could not. **The lift has to fade to nothing at the window's rim, and it is
+  now made to.** A join is traced in a window struck around the pair plus about
+  150px of margin (`SPREAD * k`), and the pass cancels what every *other* shape
+  adds by subtracting a constant `floor` — which only holds if all of them are at
+  least `spread` away. A third shape standing nearer than that was still lifting
+  the contour at the rim, where the field is clamped to `-band` and marching
+  squares closes the loop along a straight line: a ledge across the far side of
+  whichever shape the rim crossed. Measured on the AI-native businessprocessen
+  hero before the fix: 47px of ledge with the third orb 40px away, 17px at 100px,
+  3px at 194px — and worse as the viewport narrowed, because the margin is in
+  screen pixels while a composition is in `vw`. `src/motion.js` now fades the
+  lift out over the outer half of the margin, so it is full strength across the
+  middle of the window — the gap, both facing edges and the waist the join is
+  made of — and zero by the rim, where `sum` is the nearest shape's term alone
+  and the contour is its own outline. The rim has nothing left to cut, and a
+  chain of shapes can merge along its whole length. **A shape still has to be
+  bigger than `MERGE`** (46px): one only a little larger leaves no room for a
+  union to be traced around it and comes out with a spike.
   **Two magnets on one page may not share a `data-clip`.** `src/motion.js`
   resolves the outline with `getElementById` and rewrites that single path in
   place, so the second remap wins and the first shape is left drawn into the

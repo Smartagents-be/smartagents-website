@@ -4460,28 +4460,32 @@ html:not([data-clause-spy]) .prose__heading:target,
 /* ------------------------------------------------------------------ *
  * Detail pages — AI-native businessprocessen
  *
- * The hero is four separate blobs on a descending line, growing left to right,
- * none of them fused. What it replaced was a terrace hung off the right page
- * edge, filling the top-right corner with a heavy slab.
+ * The hero is three separate blobs on a descending line, growing left to right,
+ * and the cursor runs any two of them together. What it replaced was a terrace
+ * hung off the right page edge, filling the top-right corner with a heavy slab.
  *
- * **The box belongs to the composition, not to the blob that carries it.** It
- * spans all four, and `processLobe` — the largest, at the bottom right — is
- * authored into one corner of it, leaving the rest of its own box empty. That is
- * not a drawing decision: `src/motion.js` writes each traced join into the first
- * shape in DOM order whose box reaches the join's window, everything outside
- * that shape's grown box is cut off, and this shape is first. Drawn tight around
- * the blob its box would not reach the window it has to host, and what rendered
- * there was a bead with a straight vertical chord sliced out of it.
+ * **All three share one box — this one — and each is authored into a corner of
+ * it** (`clipDefs()`). `src/motion.js` paints a traced join into one shape's box
+ * and cuts whatever falls outside it, so a box drawn tight around a blob cannot
+ * hold a union that reaches its neighbour; what renders is a blob with a
+ * straight chord sliced out of it. Give every blob the whole rectangle and
+ * whichever the pass picks as host can hold what it draws. So there is nothing
+ * to position here beyond the box itself: moving a blob means remapping its path
+ * into a different sub-rectangle, not editing a percentage.
  *
- * **Only the last gap is a join, and the spacing says so.** A union between two
- * *small* shapes has no box wide enough to be painted into — it needs `gap +
- * partner width + swell` under `BLEED`'s 140px, and two beads 100px across with
- * a 50px gap are already over. So the bead nearest the big blob stands 36 to
- * 58px off it, inside the 60px a join closes at, and the other two stand 77 to
- * 125px apart, which is past the limit at every width from 1081 to 2560. Nothing
- * is ever attempted between them, so nothing can render wrong; they still swell
- * toward the cursor, they simply never run together. Narrowing those two gaps to
- * "look better spaced" reintroduces the slice — the numbers are the drawing.
+ * **Four orbs, and every adjacent pair merges.** That took a fix to the join
+ * pass itself, not a rearrangement: `src/motion.js` cancelled a third shape's
+ * lift at the window rim by subtracting a constant, which only holds if every
+ * other shape is at least `spread` away, and any nearer one was still lifting
+ * the contour where the rim then clamped it into a ledge. The lift now fades to
+ * nothing at the rim by construction. Before that fix this hero could hold three
+ * orbs with one merging pair and a 150px cordon round it; it can hold four in a
+ * line now, and the spacing is a composition rather than a workaround.
+ *
+ * **A blob still has to be bigger than the join's own blend length.** `MERGE` is
+ * 46px, and a blob only a little larger has no room for a union to be traced
+ * around it. The smallest here is 64px at the design size — 41 at 1081, which is
+ * where it is smallest and where the join it makes is correspondingly slight.
  *
  * `right` is `--gutter-page`, so the largest blob's tangent lands on the page's
  * content edge — the vertical every section hairline and the phases block below
@@ -4490,12 +4494,12 @@ html:not([data-clause-spy]) .prose__heading:target,
  * constant with the arithmetic hidden, and what the number answers is the
  * header's hairline, which is in pixels.
  *
- * The width is capped at 700px and the height follows it at the line's own
- * 1.879 — `21.29vw` is `40vw / 1.879` — so the spacing holds its proportion at
- * every width and no gap drifts across the join threshold in either direction.
- * 40vw and not more: at 1081 the copy runs to within 35px of the box already.
- * Below 621px the first blob becomes the shared sliver and the other three go —
- * there is no flank left down there to put a line of shapes in.
+ * The width is capped at 662px and the height follows it at the line's own
+ * 1.661, so the gaps hold their proportion and neither drifts across the join
+ * threshold: measured, 30 to 48px at every width from 1081 to 2560, against the
+ * 60px a join closes at. 39vw and not more — at 1280 the copy already runs to
+ * within 58px of the box. Below 621px the first blob becomes the shared sliver
+ * and the other two go: there is no flank left down there for a line of shapes.
  * ------------------------------------------------------------------ */
 
 @media (min-width: 621px) {
@@ -4504,44 +4508,15 @@ html:not([data-clause-spy]) .prose__heading:target,
     right: var(--gutter-page);
     bottom: auto;
     left: auto;
-    width: min(40vw, 700px);
-    height: min(21.29vw, 373px);
+    width: min(39vw, 650px);
+    height: min(22.44vw, 374px);
   }
 }
 
-/* The three beads, placed on the same line and sized as shares of the box, so
-   the whole constellation scales as one. Each names its own `data-clip`: two
-   magnets on a page may not share one, because `src/motion.js` resolves the
-   outline by id and rewrites that single path in place, so the second remap wins
-   and the first shape is left drawn into the wrong box. That one showed up as
-   gaps that would not come out even, however the boxes were moved.
-
-   Widths are a share of the box's width and heights of its height, and the box
-   is 1.879:1, so a blob that has to stay round needs the two percentages to
-   differ by that factor — 8.9% by 16.72% is round, 8.9% by 8.9% is a sliver.
-
-   These are not gated on the join being available, unlike the jobs hero's two
-   satellites: a satellite exists *for* the join and is a dark spot without one,
-   where four shapes in a line are the composition either way. */
-.hero--processes .hero__drift--a {
-  top: 0;
-  left: 0;
-  width: 8.9%;
-  height: 16.72%;
-}
-
-.hero--processes .hero__drift--b {
-  top: 17.86%;
-  left: 24.24%;
-  width: 11.13%;
-  height: 20.9%;
-}
-
-.hero--processes .hero__drift--c {
-  top: 36.94%;
-  left: 50.51%;
-  width: 13.99%;
-  height: 26.28%;
+/* The two smaller orbs take the same box, so the three scale and move as one
+   composition and only the rule above is ever tuned. */
+.hero--processes .hero__drift {
+  inset: 0;
 }
 
 /* The phone is the only place they go. `.hero__drift` carries no hiding rule of

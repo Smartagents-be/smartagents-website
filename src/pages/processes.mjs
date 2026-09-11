@@ -64,73 +64,84 @@ ${contact(t, lang)}
 };
 
 /* ------------------------------------------------------------------ *
- * Hero — four blobs in a line, and nothing fused.
+ * Hero — three blobs in a line, and the cursor runs them together.
  *
  * The page's headline is "Van uw taken naar herbruikbare workflows" — separate
- * pieces becoming one thing — so the hero is separate pieces: four shapes on a
- * descending line, growing left to right, ending in one big enough to be what
- * the other three are heading toward. It replaced a terrace hung off the right
- * page edge, which said nothing and filled the corner with a slab.
+ * pieces becoming one thing — so the hero is separate pieces, and the becoming
+ * is the reader's to do: three shapes on a descending line, growing left to
+ * right, each within reach of the next. Bring the pointer into either gap and
+ * the two either side of it run into one fluid with a concave fillet at each
+ * body; take it away and they are three shapes again. It replaced a terrace
+ * hung off the right page edge, which said nothing and filled the corner with a
+ * slab.
  *
- * **The last pair joins under the cursor and the others do not, and that is a
- * limit of the engine rather than a choice.** `src/motion.js` traces a join and
- * writes it into the first shape in DOM order whose box reaches the join's
- * window; anything past that shape's grown box — its own box plus `BLEED`,
- * 140px — is cut off, because there is nothing painted out there for the clip to
- * reveal. Between two *small* shapes there is no box wide enough: the union has
- * to reach the far side of the partner, so it needs `gap + partner width +
- * swell` to stay under 140, and two beads 100px across with a 50px gap are
- * already over it. What renders is a bead with a straight vertical chord sliced
- * out of it. This was drawn three ways before the constraint was understood —
- * five beads, then four evenly spaced, then four with even gaps — and every one
- * of them sliced somewhere.
+ * Two things about it are not free, and both were learned the hard way.
  *
- * So the bead nearest the big blob sits 36 to 58px off it, inside the 60px a
- * join closes at, and joins cleanly because the *big* shape hosts it. The other
- * two stand 77 to 125px apart, which is past the limit at every width, so no
- * join is ever attempted between them and there is nothing to render wrong.
- * They still answer the cursor — each swells toward it — they simply never run
- * together. That is the honest version of "may or may not interact".
+ * **Every blob carries the same box — the whole composition — with its drawing
+ * authored into a corner of it** (see `clipDefs()`). `src/motion.js` paints a
+ * traced join into one shape's box and cuts whatever falls outside, so a box
+ * drawn tight around a blob cannot hold a union that reaches its neighbour, and
+ * what renders is a blob with a straight chord sliced out of it. Give every one
+ * of them the whole rectangle and whichever the pass picks as host can hold what
+ * it draws. There is nothing to position in CSS as a result: the slots are one
+ * rule, and where each blob sits is in its path.
  *
- * `processLobe` is **first** in the DOM for the same reason: it has to be the
- * host of the one join that happens, and its box is drawn around the whole
- * composition with the blob authored into one corner of it (see `clipDefs()`).
+ * **Every adjacent pair merges, and that took a fix to the join pass rather
+ * than a rearrangement.** A join is traced in a window struck around the two
+ * shapes plus about 150px of margin — `SPREAD * k` — and anything else inside
+ * that margin lifts their contour too. `src/motion.js` used to cancel that lift
+ * at the rim by subtracting a constant, which only holds if every other shape is
+ * at least `spread` away; a nearer one was still lifting the contour where the
+ * rim clamps the field, and marching squares closed the loop along a straight
+ * line — a ledge across the far side of whichever orb the rim crossed. Measured
+ * here before the fix: 47px with a third orb 40px away, 17px at 100, 3px at 194.
+ * The lift is now faded to nothing over the outer half of the margin, so the rim
+ * has nothing left to cut and a chain can merge along its whole length.
+ *
+ * What is left is the ordinary constraint: an orb has to be bigger than the
+ * join's own blend length. `MERGE` is 46px, and one only a little larger has no
+ * room for a union to be traced around it — drafts at 52 and 60px came out with
+ * spikes. The smallest here is 64px at the design size, which is 41 at 1081,
+ * where it is smallest and the join it makes is correspondingly slight.
+ *
+ * `processLobe` is **first** in the DOM so it hosts, and the middle blob second:
+ * the pass takes the first shape in DOM order that reaches a window, and both of
+ * these reach both gaps.
  *
  * Nothing here is gated on the join being available, and that is the difference
  * between these and the jobs hero's two satellites. A satellite exists *for* the
  * join and is a dark spot on the paper without one, so it is dropped wherever a
- * join cannot happen. These four are the composition: four shapes in a line read
- * as a constellation whether or not anything can merge them, so they stay on a
- * coarse pointer and under `prefers-reduced-motion`, and only the phone drops
- * them — down there the first shape becomes the shared sliver and there is no
- * flank left to put the other three in.
+ * join cannot happen. These three are the composition: three shapes in a line
+ * read as a constellation whether or not anything can merge them, so they stay
+ * on a coarse pointer and under `prefers-reduced-motion`, and only the phone
+ * drops them — down there the first becomes the shared sliver and there is no
+ * flank left to put the others in.
  *
- * Each bead names its own `data-clip`. Two magnets on one page may not share
+ * Each blob names its own `data-clip`. Two magnets on one page may not share
  * one: `src/motion.js` resolves the outline by id and rewrites that single path
  * in place, so the second remap wins and the first shape is left drawn into the
- * wrong box. It cost an afternoon of uneven gaps that no amount of moving the
- * boxes would fix.
+ * wrong box. It shows up as spacing that will not come out even however the
+ * boxes are moved.
  *
  * The magnet numbers are struck per blob from its own perimeter — sigma about
  * 14% of each outline's length, `points` a sample every 3px — which is the "a
  * big shape swells over a wider stretch of its edge than a small one" rule in
- * CLAUDE.md. Copying one set across four would slide the small ones bodily
- * toward the cursor instead of swelling them.
+ * CLAUDE.md.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
   return html`<section id="processes-hero" class="hero hero--page hero--processes">
 ${orbitRings('processes-hero')}
   <div id="processes-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    <div id="processes-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-points="170" data-magnet-amp="32" data-magnet-sigma="72" data-clip="processLobe"><sa-node-field id="processes-hero-nodes-right"></sa-node-field></div>
-    <div id="processes-hero-field-slot-drift-a" class="field-slot hero__drift hero__drift--a">
-      <div id="processes-hero-field-drift-a" class="field" data-magnet data-magnet-free data-magnet-points="83" data-magnet-amp="20" data-magnet-sigma="35" data-clip="processBeadA"><sa-node-field id="processes-hero-nodes-drift-a"></sa-node-field></div>
-    </div>
+    <div id="processes-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-points="230" data-magnet-amp="28" data-magnet-sigma="97" data-clip="processLobe"><sa-node-field id="processes-hero-nodes-right"></sa-node-field></div>
     <div id="processes-hero-field-slot-drift-b" class="field-slot hero__drift hero__drift--b">
-      <div id="processes-hero-field-drift-b" class="field" data-magnet data-magnet-free data-magnet-points="107" data-magnet-amp="24" data-magnet-sigma="45" data-clip="processBeadB"><sa-node-field id="processes-hero-nodes-drift-b"></sa-node-field></div>
+      <div id="processes-hero-field-drift-b" class="field" data-magnet data-magnet-free data-magnet-points="157" data-magnet-amp="22" data-magnet-sigma="66" data-clip="processBeadB"><sa-node-field id="processes-hero-nodes-drift-b"></sa-node-field></div>
     </div>
     <div id="processes-hero-field-slot-drift-c" class="field-slot hero__drift hero__drift--c">
-      <div id="processes-hero-field-drift-c" class="field" data-magnet data-magnet-free data-magnet-points="135" data-magnet-amp="28" data-magnet-sigma="57" data-clip="processBeadC"><sa-node-field id="processes-hero-nodes-drift-c"></sa-node-field></div>
+      <div id="processes-hero-field-drift-c" class="field" data-magnet data-magnet-free data-magnet-points="58" data-magnet-amp="14" data-magnet-sigma="24" data-clip="processBeadC"><sa-node-field id="processes-hero-nodes-drift-c"></sa-node-field></div>
+    </div>
+    <div id="processes-hero-field-slot-drift-a" class="field-slot hero__drift hero__drift--a">
+      <div id="processes-hero-field-drift-a" class="field" data-magnet data-magnet-free data-magnet-points="136" data-magnet-amp="20" data-magnet-sigma="57" data-clip="processBeadA"><sa-node-field id="processes-hero-nodes-drift-a"></sa-node-field></div>
     </div>
   </div>
   <div id="processes-hero-inner" class="hero__inner">

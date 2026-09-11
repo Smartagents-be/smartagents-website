@@ -660,12 +660,12 @@ select {
   clip-path: url(#processBeadA);
 }
 
-[data-clip="processBeadB"] {
-  clip-path: url(#processBeadB);
-}
-
 [data-clip="processBeadC"] {
   clip-path: url(#processBeadC);
+}
+
+[data-clip="processBeadB"] {
+  clip-path: url(#processBeadB);
 }
 
 [data-clip="processLobe"] {

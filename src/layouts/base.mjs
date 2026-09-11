@@ -363,14 +363,24 @@ export function clipDefs() {
     // its width.
     heroPebbleA: PEBBLE_A,
     heroPebbleB: PEBBLE_B,
-    // The three beads of the AI-native businessprocessen line, in its own order.
-    // Three ids because three magnets on one page may not share a clip; two
+    // The two smaller blobs of the AI-native businessprocessen line. Separate ids
+    // because two magnets on one page may not share a clip; two
     // drawings because there are only two pebbles and a third drawn to within a
     // few points of them would be drift. They alternate so no two neighbours in
     // the line are the same outline.
-    processBeadA: PEBBLE_B,
-    processBeadB: PEBBLE_A,
-    processBeadC: PEBBLE_B,
+    // Each is one of the two pebbles mapped into its own place in the shared
+    // composition box — the same trick `processLobe` uses, and for the same
+    // reason: `src/motion.js` paints a traced join into one shape's box, and a
+    // box drawn tight around a small blob cannot hold a union that reaches its
+    // neighbour. Every blob on this page therefore carries the *whole* box and
+    // is authored into a corner of it, so whichever one the pass picks as host
+    // can hold whatever it draws.
+    processBeadA:
+      'M0.002,0.150 C0.006,0.066 0.042,0.010 0.094,0.007 C0.144,0.003 0.197,0.063 0.199,0.150 C0.201,0.236 0.166,0.334 0.112,0.344 C0.064,0.353 0.012,0.296 0.004,0.216 C0.002,0.195 0.001,0.172 0.002,0.150 Z',
+    processBeadC:
+      'M0.520,0.503 C0.522,0.461 0.540,0.434 0.565,0.432 C0.590,0.431 0.616,0.460 0.617,0.503 C0.617,0.545 0.600,0.593 0.574,0.598 C0.550,0.603 0.525,0.574 0.521,0.535 C0.520,0.525 0.519,0.514 0.520,0.503 Z',
+    processBeadB:
+      'M0.245,0.348 C0.248,0.249 0.284,0.181 0.339,0.168 C0.394,0.155 0.458,0.213 0.467,0.319 C0.475,0.416 0.448,0.511 0.391,0.549 C0.339,0.584 0.267,0.522 0.250,0.436 C0.246,0.414 0.243,0.384 0.245,0.348 Z',
     // "Wat we doen": a leaf standing in the left page gutter beside the track
     // panel. Welded to the left page edge and free of everything else, it runs
     // the height of the panel and pinches twice on the way down, so the gutter
@@ -422,13 +432,13 @@ export function clipDefs() {
     // box with 140px of `BLEED` to spare, and every join renders whole.
     //
     // The cost is that this path is the one on the site that cannot be read as a
-    // silhouette on its own: `0.698 -> 1.0` in x and `0.433 -> 1.0` in y are
+    // silhouette on its own: `0.666 -> 1.0` in x and `0.406 -> 1.0` in y are
     // where the blob is, not what it is. It is `heroPebbleA` mapped into that
     // rectangle, so the drawing is still the shared one the staffing arch sheds
     // and the training hero stands a bead of — redraw that and this moves with
     // it. Move the composition and this has to be remapped, in the same pass.
     processLobe:
-      'M0.704,0.699 C0.709,0.560 0.755,0.464 0.828,0.445 C0.899,0.427 0.983,0.509 0.995,0.658 C1.005,0.796 0.970,0.931 0.896,0.984 C0.828,1.033 0.733,0.946 0.712,0.824 C0.706,0.793 0.702,0.750 0.704,0.699 Z',
+      'M0.668,0.688 C0.673,0.544 0.726,0.444 0.807,0.424 C0.887,0.406 0.981,0.491 0.994,0.646 C1.006,0.788 0.966,0.928 0.883,0.984 C0.807,1.034 0.700,0.944 0.677,0.818 C0.671,0.785 0.666,0.741 0.668,0.688 Z',
     // Jobs: the only silhouette on the public site welded to nothing at all.
     // Every other one is a leaf, an arch, a ridge or a terrace hung off a page
     // edge and read as ground. This one floats in the hero's right flank with
