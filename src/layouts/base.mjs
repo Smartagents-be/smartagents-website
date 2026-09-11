@@ -405,8 +405,34 @@ export function clipDefs() {
     // than the segment looks like it wants, or the curvature steps and the eye
     // reads the step as a corner. The shipped one lengthens them and pulls the
     // lobe back off the far edge of the box.
+    // The ridge occupies the right 0.786 of its box and the left quarter is
+    // empty, which is where the two orbs beside it live (`sdlcOrbNear` and
+    // `sdlcOrbFar`). The box was widened leftward to make room for them and the
+    // ridge remapped into what is left, so it draws exactly the pixels it drew
+    // before — see "Detail pages — AI-native SDLC" in main.css for the three
+    // band insets that hold that true at every width. A shape only ever paints
+    // its own box, so an orb outside the ridge's box would not be painted at
+    // all; sharing one box is also what lets any of the three host a join, which
+    // is the rule the AI-native businessprocessen hero is built on.
     sdlcHeroRidge:
-      'M1,0.000 C0.870,0.040 0.580,0.070 0.580,0.180 C0.580,0.290 0.720,0.320 0.720,0.430 C0.720,0.540 0.310,0.550 0.310,0.700 C0.310,0.850 0.845,0.965 1.000,1.000 Z',
+      'M1.000,0.000 C0.898,0.040 0.670,0.070 0.670,0.180 C0.670,0.290 0.780,0.320 0.780,0.430 C0.780,0.540 0.458,0.550 0.458,0.700 C0.458,0.850 0.878,0.965 1.000,1.000 Z',
+    // The two orbs in the bay the ridge's neck opens: the near one off the lower
+    // lobe's outer flank, the far one below and left of it.
+    //
+    // Each sits in the middle 0.588 of its own **square** slot, and the square is
+    // the point. The ridge's box is a share of the page width against a hero
+    // that is 540px tall at every width, so its aspect runs from 1.2 at 1081 to
+    // 2.9 at 2560 — the ridge has always stretched with it and reads as drawn
+    // either way, but an orb that stretches is a flat disc: at 2560 these came
+    // out half again as wide as they were tall. `aspect-ratio: 1` on the slot
+    // keeps them round at every width, and the slot is 1.7 times the orb across
+    // so that its grown box still contains the join window between the two of
+    // them — a shape paints only its own box, and a union traced outside it is
+    // cut off along its edge.
+    sdlcOrbNear:
+      'M0.218,0.482 C0.227,0.338 0.318,0.238 0.459,0.219 C0.597,0.200 0.762,0.285 0.783,0.440 C0.805,0.582 0.735,0.722 0.591,0.778 C0.459,0.828 0.274,0.738 0.232,0.612 C0.222,0.579 0.213,0.535 0.218,0.482 Z',
+    sdlcOrbFar:
+      'M0.212,0.459 C0.224,0.318 0.329,0.224 0.482,0.218 C0.629,0.212 0.785,0.312 0.791,0.459 C0.797,0.606 0.694,0.770 0.535,0.788 C0.394,0.803 0.241,0.706 0.218,0.571 C0.213,0.535 0.209,0.497 0.212,0.459 Z',
     // AI-native businessprocessen: the end of a chain, and the only silhouette
     // on the site that does not fill its own box.
     //

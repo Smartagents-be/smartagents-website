@@ -103,31 +103,46 @@ ${contact(t, lang)}
 };
 
 /* ------------------------------------------------------------------ *
- * Hero — the page hero the training page opens on, carrying this page's own
- * shape instead of the petal.
+ * Hero — the ridge, and two orbs in the bay it opens.
  *
- * One silhouette, hung off the right edge in the box the petal would have
- * taken: a new shape here is a variation on the composition, not a second one,
- * and nothing about this page needs the box moved the way the staffing arch
- * needed it. What is its own is the flank — a short shoulder high up, a neck
- * pulled back almost to the edge where the headline passes, then one long lobe
- * reaching further left below it. Narrow once, open twice: the same figure the
- * page argues about a lifecycle, drawn as the ground it argues it on.
+ * The ridge is what it was: a short shoulder high up, a neck pulled back almost
+ * to the page edge where the headline passes, then one long lobe reaching
+ * further left below it. Narrow once, open twice — the figure the page argues
+ * about a lifecycle, drawn as the ground it argues it on.
  *
- * `data-magnet-free` because the shape's own outline runs along the top edge at
- * the corner it is welded to, and the nav guard would refuse it a pull there;
- * `data-magnet-pin="right"` is what keeps the swell from peeling it off the
- * page edge it hangs from. Amplitude and sigma are the petal's: same box, same
- * size, so the pull should read the same. Sampled at 440 points, because a
- * flank with three turns in it folds rather than swells if the sampling cannot
- * follow the curve.
+ * What is new is that the page has something to do. It was the one detail page
+ * whose hero carried a single shape and no companion, so the brand's one moving
+ * part — two dark shapes running together under the cursor — never fired here at
+ * all, and the lower-left of the flank was a third of a screen of empty paper.
+ * Two orbs stand in it now, in the bay the neck opens: the near one off the
+ * lobe's outer flank at 45px, the far one below and left of it at 43px, against
+ * the 60px a join closes at. Bring the pointer between any two and they run
+ * together; at rest they are three shapes.
+ *
+ * They sit against *convex* stretches of the lobe rather than in the mouth of
+ * the neck's concavity. A shape parked in a concavity is bridged across rather
+ * than into, which seals the bay behind it into an enclosed lens of paper — the
+ * trap the jobs hero records.
+ *
+ * All three share one box, and the box was widened leftward to hold them. A
+ * shape paints only its own box, so an orb outside the ridge's would not be
+ * painted at all, and sharing one is what lets any of the three host a join.
+ * The ridge is remapped into the right 0.786 of the wider box so it draws the
+ * same pixels it drew before; the three band insets that keep that true are in
+ * main.css.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
-  return html`<section id="sdlc-hero" class="hero hero--page">
+  return html`<section id="sdlc-hero" class="hero hero--page hero--sdlc">
 ${orbitRings('sdlc-hero')}
   <div id="sdlc-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
     <div id="sdlc-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="440" data-magnet-amp="86" data-magnet-sigma="118" data-clip="sdlcHeroRidge"><sa-node-field id="sdlc-hero-nodes-right"></sa-node-field></div>
+    <div id="sdlc-hero-field-slot-orb-near" class="field-slot hero__drift hero__drift--a">
+      <div id="sdlc-hero-field-orb-near" class="field" data-magnet data-magnet-free data-magnet-points="109" data-magnet-amp="24" data-magnet-sigma="46" data-clip="sdlcOrbNear"><sa-node-field id="sdlc-hero-nodes-orb-near"></sa-node-field></div>
+    </div>
+    <div id="sdlc-hero-field-slot-orb-far" class="field-slot hero__drift hero__drift--b">
+      <div id="sdlc-hero-field-orb-far" class="field" data-magnet data-magnet-free data-magnet-points="80" data-magnet-amp="20" data-magnet-sigma="33" data-clip="sdlcOrbFar"><sa-node-field id="sdlc-hero-nodes-orb-far"></sa-node-field></div>
+    </div>
   </div>
   <div id="sdlc-hero-inner" class="hero__inner">
     <div id="sdlc-hero-text" class="hero__text">

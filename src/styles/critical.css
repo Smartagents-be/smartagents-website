@@ -652,6 +652,14 @@ select {
   clip-path: url(#tourDome);
 }
 
+[data-clip="sdlcOrbNear"] {
+  clip-path: url(#sdlcOrbNear);
+}
+
+[data-clip="sdlcOrbFar"] {
+  clip-path: url(#sdlcOrbFar);
+}
+
 [data-clip="sdlcHeroRidge"] {
   clip-path: url(#sdlcHeroRidge);
 }

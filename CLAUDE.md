@@ -483,6 +483,32 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
     fetch from the page: in the browser the same key would need a Function in
     front of it to stay hidden, and the vacancies would leave the pre-rendered
     HTML that every crawler reads.
+- **The AI-native SDLC hero is the ridge plus two orbs in the bay its neck
+  opens.** The ridge is unchanged — a short shoulder high up, a neck pulled back
+  almost to the page edge where the headline passes, one long lobe below it,
+  narrow once and open twice. What changed is that the page has something to do:
+  it was the one detail page whose hero carried a single shape and no companion,
+  so the brand's one moving part never fired on it, and the lower-left of the
+  flank was a third of a screen of empty paper. The orbs rest 44 to 88px off the
+  lobe's outer flank and 38 to 51px off each other, so the cursor runs any two
+  together. They stand against **convex** stretches, never in the mouth of the
+  neck's concavity, which is bridged across rather than into and seals the bay
+  into an island.
+  **The box was widened leftward to hold them and the ridge remapped into the
+  right 0.786 of it**, so it draws exactly the pixels it drew before — verified
+  to 1px. Holding that true takes one inset per band, because the shared
+  `.hero__field--right` moves three times: the new left inset is
+  `(L_old - 0.2143) / 0.7857`, so 56% becomes 44%, 62% 51.64%, 53% 40.18%. Change
+  the shared rule and these have to be recomputed or the ridge stretches.
+  **The orbs do not share that box, and this is the one hero where they cannot.**
+  It is a share of the page width against a hero that is 540px tall at every
+  width, so its aspect runs 1.2 at 1081 to 2.9 at 2560; the ridge stretches with
+  it and reads as drawn either way, but an orb that stretches is a flat disc —
+  at 2560 they came out half again as wide as tall. Each takes a square slot of
+  its own, 1.7 times the orb across so its grown box still contains the join
+  window between the two of them. At 1.0 it fell 10px short and the union was
+  cut.
+
 - **The AI-native businessprocessen hero is four separate orbs, and the
   cursor runs them together.** They sit on a descending line, growing left to
   right, each within reach of the next; bring the pointer into either gap and the

@@ -4458,6 +4458,84 @@ html:not([data-clause-spy]) .prose__heading:target,
 }
 
 /* ------------------------------------------------------------------ *
+ * Detail pages — AI-native SDLC
+ *
+ * The hero is the ridge plus two orbs in the bay its neck opens, and the only
+ * thing this block does is make room for them. A shape paints nothing outside
+ * its own box, so an orb placed beside the ridge has to live *in* the ridge's
+ * box — and sharing one box is also what lets any of the three host a traced
+ * join, which is the rule the AI-native businessprocessen hero is built on.
+ *
+ * So the box is widened leftward and the ridge is remapped into the right 0.786
+ * of it (`clipDefs()`), which means it draws exactly the pixels it drew before.
+ * Holding that true takes one inset per band, because the shared
+ * `.hero__field--right` moves three times and the ridge has to stay put through
+ * all of them: a box starting at `L` leaves the ridge at `0.2143 + 0.7857x`, so
+ * the new left inset is `(L_old - 0.2143) / 0.7857`. 56% becomes 44%, 62%
+ * becomes 51.64%, 53% becomes 40.18%. The vertical insets are untouched, so
+ * nothing moves in y.
+ *
+ * Change the shared rule's left inset and these three have to be recomputed with
+ * it, or the ridge stretches. That is the cost of the wider box and it is the
+ * only one; everything else about the ridge is where it was.
+ * ------------------------------------------------------------------ */
+
+.hero--sdlc .hero__field--right {
+  left: 44%;
+}
+
+@media (max-width: 1080px) {
+  .hero--sdlc .hero__field--right {
+    left: 51.64%;
+  }
+}
+
+@media (min-width: 621px) and (max-width: 940px) {
+  .hero--sdlc .hero__field--right {
+    left: 40.18%;
+  }
+}
+
+/* The orbs do *not* take the whole box, and this is the one hero where they
+   cannot. The ridge's box is a share of the page width against a hero that is
+   540px tall at every width, so its aspect runs from 1.2 at 1081 to 2.9 at 2560
+   — the ridge stretches with it and reads as drawn either way, but an orb that
+   stretches is a flat disc, and at 2560 these came out half again as wide as
+   tall. So each takes a square slot of its own (`aspect-ratio: 1`) and stays
+   round at every width.
+
+   The slot is 1.7 times the orb across, with the drawing authored into the
+   middle of it (`clipDefs()`). That margin is not padding: a shape paints only
+   its own box and a union traced outside it is cut off along the edge, so the
+   near orb's grown box has to contain the join window between the two orbs —
+   which reaches about 150px past each of them. At 1.0 it fell 10px short.
+
+   Position is a share of the parent, so the pair holds its place against the
+   ridge as the flank widens; size is a share of the parent's *width*, so they
+   grow with the composition rather than with the hero's fixed height. The orbs'
+   centres drift about 10px lower between 1440 and 2560 as a result, which is the
+   price of staying round and is invisible beside a ridge that is stretching. */
+.hero--sdlc .hero__drift--a {
+  top: 47.29%;
+  left: 22.69%;
+  width: 21.92%;
+  aspect-ratio: 1;
+}
+
+.hero--sdlc .hero__drift--b {
+  top: 68.7%;
+  left: 12.62%;
+  width: 16.02%;
+  aspect-ratio: 1;
+}
+
+@media (max-width: 620px) {
+  .hero--sdlc .hero__drift {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
  * Detail pages — AI-native businessprocessen
  *
  * The hero is three separate blobs on a descending line, growing left to right,
