@@ -15,7 +15,6 @@
   "nav.insights": "Insights",
 
   "cta.talk": "Book a call",
-  "cta.call": "Call",
   "cta.mail": "Email us",
   "cta.seeWork": "See what we do",
   "cta.allArticles": "All articles",
@@ -110,14 +109,12 @@
 
   "training.download": "Download the one-pager",
 
-  "training.facts.format.label": "Format",
   "training.facts.group.label": "Group",
   "training.facts.audience.label": "Who for",
   "training.facts.tools.label": "Bring",
   "training.course.business.title": "AI for business teams",
   "training.course.business.audience": "Teams working with AI, no prior knowledge needed",
   "training.course.business.tools": "An AI subscription, your own laptop",
-  "training.course.business.format": "In-house or remote",
   "training.course.business.group": "5 to 20 participants",
   "training.course.business.body": "You learn to put AI on the work that comes back every week: not one clever prompt, but a way of working you repeat and hand on.",
   "training.course.business.learn.1": "Asking questions that return the same result every time",
@@ -137,7 +134,6 @@
 
   "training.format.title": "How a course runs",
   "training.format.body": "Not a presentation you sit through. Explanation, exercises and labs alternate, with room for your own questions and a trainer looking over your shoulder.",
-  "training.format.group": "Groups of 5 to 20 participants, depending on the course.",
   "training.format.accents": "The emphasis is on what you use the day after: smarter use of AI, a clear view of what every question costs, and workflows that fit the way your team already works. The slides and the course material stay yours afterwards.",
   "training.format.videoLabel": "Tour of the SmartAgents developer course",
   "training.format.fallback": "Watch the tour (MP4)",

@@ -15,7 +15,6 @@
   "nav.insights": "Analyses",
 
   "cta.talk": "Planifier un entretien",
-  "cta.call": "Appeler",
   "cta.mail": "Écrivez-nous",
   "cta.seeWork": "Voir ce que nous faisons",
   "cta.allArticles": "Tous les articles",
@@ -110,14 +109,12 @@
 
   "training.download": "Télécharger la fiche",
 
-  "training.facts.format.label": "Format",
   "training.facts.group.label": "Groupe",
   "training.facts.audience.label": "Pour qui",
   "training.facts.tools.label": "À prévoir",
   "training.course.business.title": "L'IA pour les équipes business",
   "training.course.business.audience": "Les équipes qui travaillent avec l'IA, sans prérequis",
   "training.course.business.tools": "Un abonnement IA, votre propre portable",
-  "training.course.business.format": "Chez vous ou à distance",
   "training.course.business.group": "5 à 20 participants",
   "training.course.business.body": "Vous apprenez à mettre l'IA sur le travail qui revient chaque semaine : pas un prompt malin, mais une façon de travailler qui se répète et se transmet.",
   "training.course.business.learn.1": "Poser des questions qui donnent chaque fois le même résultat",
@@ -137,7 +134,6 @@
 
   "training.format.title": "Comment se déroule une formation",
   "training.format.body": "Pas une présentation que l'on subit. Explications, exercices et labs alternent, avec du temps pour vos propres questions et un formateur qui regarde par-dessus votre épaule.",
-  "training.format.group": "Des groupes de 5 à 20 participants, selon la formation.",
   "training.format.accents": "L'accent est mis sur ce que vous utilisez dès le lendemain : un usage plus malin de l'IA, une vue claire sur ce que coûte chaque requête, et des workflows qui s'intègrent à la façon dont votre équipe travaille déjà. Les slides et le support de cours restent à vous ensuite.",
   "training.format.videoLabel": "Visite guidée de la formation développeurs de SmartAgents",
   "training.format.fallback": "Voir la visite guidée (MP4)",

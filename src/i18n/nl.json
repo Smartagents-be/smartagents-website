@@ -15,7 +15,6 @@
   "nav.insights": "Inzichten",
 
   "cta.talk": "Plan een gesprek",
-  "cta.call": "Bel",
   "cta.mail": "Mail ons",
   "cta.seeWork": "Bekijk wat we doen",
   "cta.allArticles": "Alle artikelen",
@@ -110,14 +109,12 @@
 
   "training.download": "Download de fiche",
 
-  "training.facts.format.label": "Vorm",
   "training.facts.group.label": "Groep",
   "training.facts.audience.label": "Voor wie",
   "training.facts.tools.label": "Nodig",
   "training.course.business.title": "AI voor business teams",
   "training.course.business.audience": "Teams die met AI werken, geen voorkennis nodig",
   "training.course.business.tools": "Een AI-subscriptie, eigen laptop",
-  "training.course.business.format": "In-house of remote",
   "training.course.business.group": "5 tot 20 deelnemers",
   "training.course.business.body": "U leert AI inzetten voor het werk dat elke week terugkomt: niet één slimme prompt, maar een werkwijze die u herhaalt en doorgeeft.",
   "training.course.business.learn.1": "Vragen stellen die telkens hetzelfde resultaat geven",
@@ -137,7 +134,6 @@
 
   "training.format.title": "Hoe een cursus verloopt",
   "training.format.body": "Geen presentatie waar u naar zit te kijken. Uitleg, oefeningen en labs wisselen elkaar af, met tijd voor uw eigen vragen en een trainer die over uw schouder meekijkt.",
-  "training.format.group": "Groepen van 5 tot 20 deelnemers, afhankelijk van de cursus.",
   "training.format.accents": "De klemtoon ligt op wat u de dag erna gebruikt: slimmer omgaan met AI, zicht op wat elke vraag kost, en workflows die passen bij hoe uw team al werkt. De slides en het lesmateriaal blijven achteraf van u.",
   "training.format.videoLabel": "Rondleiding door de developercursus van SmartAgents",
   "training.format.fallback": "Bekijk de rondleiding (MP4)",

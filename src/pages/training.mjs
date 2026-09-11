@@ -21,7 +21,7 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
  */
 const COURSES = [
   { key: 'business', fiche: 'SmartAgents_AI_Business_Teams_Onepager.pdf' },
-  { key: 'agentic', fiche: AGENTIC_FICHE, detail: kataPath, omitFacts: ['format'] }
+  { key: 'agentic', fiche: AGENTIC_FICHE, detail: kataPath }
 ];
 
 /** The `learn.n` lines every live course carries. */
@@ -39,16 +39,15 @@ const LEARN = ['1', '2', '3', '4'];
  * printing and nothing here knows one. Put the row back the day there is a
  * figure behind it.
  *
- * The format and the group size are per-course, because the kata page states
- * the developer course's own numbers and a shared value put the two strips one
- * click apart in contradiction. That course omits the format row altogether
- * (`omitFacts`), its value being a sentence the kata spec strip already states —
- * a fact printed twice is the contradiction these keys exist to prevent. The
- * business course keeps its row, having no page of its own to state it on.
+ * The group size is per-course: the kata page states the developer course's own
+ * numbers, and a shared value put the two strips one click apart in plain
+ * contradiction. Format is not a row at all — "in-house of remote" and "bij u op
+ * kantoor" are the same fact the kata spec strip and the closing block already
+ * state, and a fact printed twice is the contradiction these keys exist to
+ * prevent.
  */
 const FACTS = [
   { name: 'audience', value: (key) => `training.course.${key}.audience` },
-  { name: 'format', value: (key) => `training.course.${key}.format` },
   { name: 'group', value: (key) => `training.course.${key}.group` },
   { name: 'tools', value: (key) => `training.course.${key}.tools` }
 ];
@@ -159,10 +158,8 @@ ${orbitRings('training-hero')}
  * @param {Function} [options.detail] resolves this course's own page in `lang`,
  *   where it has one. Only the developer course does today; the business course
  *   is the offer's whole statement of itself and has nowhere to go.
- * @param {string[]} [options.omitFacts] facts this course does not print here,
- *   because its own page states them. See the note on `FACTS`.
  */
-function courseColumn({ t, lang, key, fiche, detail, omitFacts = [] }) {
+function courseColumn({ t, lang, key, fiche, detail }) {
   const id = `training-offer-course-${key}`;
 
   const items = LEARN.map(
@@ -178,7 +175,7 @@ ${join(items)}
       </ul>
       <dl id="${id}-facts" class="offer-course__facts">
 ${join(
-        FACTS.filter(({ name }) => !omitFacts.includes(name)).map(
+        FACTS.map(
           ({ name, value }) => html`        <div id="${id}-fact-${name}" class="offer-course__fact">
           <dt id="${id}-fact-${name}-label">${t(`training.facts.${name}.label`)}</dt>
           <dd id="${id}-fact-${name}-value">${t(value(key))}</dd>
@@ -240,8 +237,7 @@ function format(t) {
   <div id="training-format-inner" class="tour">
     <div id="training-format-copy" class="tour__copy">
       <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
-      <p id="training-format-group" class="tour__meta">${t('training.format.group')}</p>
-      <p id="training-format-accents" class="tour__body">${t('training.format.accents')}</p>
+      <p id="training-format-accents" class="tour__body tour__body--follow">${t('training.format.accents')}</p>
     </div>
     <div id="training-format-media" class="video-block">
       <sa-lazy-video id="training-format-video" class="video-frame">

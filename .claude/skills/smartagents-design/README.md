@@ -551,9 +551,9 @@ outside it, and are decided the same way everywhere in `src/`:
     participant opens `step0` on the day.
 
     The rest is idioms that already existed — the page hero, the tour block, `.rows--pair`,
-    `.numbered`, `.tour__tags` used outside `.tour`, `.offer-course__links` and
-    `.offer-course__fiche` used outside `.offer-course`, the shared form. New CSS on the site is
-    `.spec`, `.practice`, `.numbered__units` and the two-link wrapper.
+    `.numbered`, `.offer-course__links` and `.offer-course__fiche` used outside `.offer-course`,
+    the shared form. New CSS on the site is `.spec`, `.practice`, `.numbered__units` and the
+    two-link wrapper.
 
     **A nested page needs its own way out.** The one-pager was reachable from the parent and from
     nowhere else, and a reader arriving from a search — the page is in the sitemap and in

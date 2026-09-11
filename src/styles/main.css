@@ -353,11 +353,17 @@
   min-height: 32px;
 }
 
-/* One paragraph of argument between a section heading and the block under it.
-   It starts on the heading's left edge and stops at the reading measure. */
+/* One paragraph of argument between a section heading and the block under it,
+   starting on the heading's own left edge.
+
+   80ch, where a lede held short beside something takes 44. It is long by the
+   usual measure — about a hundred characters — and it is the measure this site
+   gives prose that stands alone across the full width of a block, the same
+   number the track panel's copy takes. Below it the line reads as a stub
+   against the block it introduces, with two thirds of the band left bare. */
 .section-lede {
   margin-bottom: var(--space-12);
-  max-width: var(--measure);
+  max-width: 80ch;
   color: var(--text-body);
   font-size: var(--text-lede);
   line-height: var(--leading-body);
@@ -900,14 +906,20 @@ a.article-row:hover .article-row__cue {
   line-height: var(--leading-body-tight);
 }
 
-/* The linked-row cue, inside the text column rather than in a reserved third
-   one: here that column is the date and the badges, ranged right. */
+/* The linked-row cue, on its own line under the badges: `width: 100%` is what
+   breaks the meta's wrap, and the alignment follows the column it stands in.
+   It stops 10px short of the content edge the badges end on, because the row
+   travels 3px on hover and the arrow another 5 — flush, the one thing on the
+   page that moves would be the one thing that overhangs the vertical every
+   other block ends on. */
 .article-row__cue {
   transition: transform var(--dur-move) var(--ease-out-expo);
-  margin-top: var(--space-2);
+  width: 100%;
+  padding-right: var(--space-4);
   color: var(--text-accent);
   font-size: var(--text-ui-sm);
   font-weight: var(--weight-medium-plus);
+  text-align: right;
 }
 
 /* The grade only lifts where there is a link to reward the hover. */
@@ -915,7 +927,9 @@ a.article-row:hover .article-row__image {
   filter: none;
 }
 
-/* No room to the right for the meta: it moves up beside the title. */
+/* No room to the right for the meta, so it drops under the text — where the
+   stacked layout below already puts it, and where the cue at the foot of it is
+   still the end of the row rather than an arrow above the title. */
 @media (1001px <= width < 1081px) {
   .article-row {
     grid-template-columns: 156px minmax(0, 1fr);
@@ -923,8 +937,8 @@ a.article-row:hover .article-row__image {
        and the text share that height and the title drifts off the frame. */
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
-      "figure meta"
       "figure text"
+      "figure meta"
       "figure .";
     gap: var(--space-5) var(--space-8);
   }
@@ -932,6 +946,10 @@ a.article-row:hover .article-row__image {
   .article-row__meta {
     justify-content: flex-start;
     padding-top: 0;
+  }
+
+  .article-row__cue {
+    text-align: left;
   }
 }
 
@@ -953,6 +971,10 @@ a.article-row:hover .article-row__image {
   .article-row__meta {
     justify-content: flex-start;
     padding-top: 0;
+  }
+
+  .article-row__cue {
+    text-align: left;
   }
 }
 
@@ -1490,75 +1512,6 @@ a.article-row:hover .article-row__image {
   }
 }
 
-/* ------------------------------------------------------------------ *
- * The phone's action bar
- *
- * The header drops its primary action at this width. Sticky, not fixed: it
- * rides the bottom edge and then settles under the footer.
- * ------------------------------------------------------------------ */
-
-.mobile-actions {
-  display: none;
-}
-
-@media (width < 621px) {
-  /* Held back while the hero's own primary button is on screen: at 390x844 both
-     were on the first screen, the same words 490px apart. `src/app.js` puts the
-     class on and off; the bar ships without it, so with JS off a reader gets the
-     duplicate rather than nothing. Faded rather than `display: none` so the bar
-     does not jump the document's height, and `visibility` so it leaves the tab
-     order with it. */
-  .mobile-actions.is-deferred {
-    /* The delay is on the hiding direction only. On the base rule it applies
-       both ways and holds the bar invisible a third of a second too long. */
-    transition: opacity var(--dur-move) var(--ease-out-expo), visibility 0s linear var(--dur-move);
-    visibility: hidden;
-    opacity: 0;
-  }
-
-  .mobile-actions {
-    transition: opacity var(--dur-move) var(--ease-out-expo), visibility 0s;
-    position: sticky;
-    /* Under the header, which is what the open sheet stacks inside: the sheet
-       must cover this bar, not the other way round. */
-    z-index: 50;
-    bottom: 0;
-    display: flex;
-    flex: none;
-    gap: var(--space-4);
-    align-items: center;
-    padding: var(--space-4) var(--gutter-page) calc(var(--space-4) + env(safe-area-inset-bottom));
-    border-top: 1px solid var(--border-hairline);
-    background: color-mix(in oklch, var(--surface-page) 92%, transparent);
-    backdrop-filter: blur(10px);
-  }
-
-  /* Sized by its word, not by a square: "Bel" is three letters and "Appeler"
-     seven, and the action beside it keeps the rest of the row. */
-  .mobile-actions__call {
-    display: flex;
-    flex: none;
-    align-items: center;
-    justify-content: center;
-    min-width: 48px;
-    height: 48px;
-    padding-inline: var(--space-5);
-    border: 1px solid var(--border-input);
-    border-radius: var(--radius-button);
-    background: var(--surface-raised);
-    color: var(--text-lead);
-    font-size: var(--text-ui-sm);
-    font-weight: var(--weight-semibold);
-  }
-
-  .mobile-actions__talk {
-    flex: 1;
-    justify-content: center;
-    min-height: 48px;
-    padding-block: 0;
-  }
-}
-
 /* Pure-JS controls stay hidden until their component upgrades, so nothing
    shifts on hydration (webcomponent-mpa-spa §4). */
 sa-lazy-video:not(:defined) .js-only,
@@ -1875,36 +1828,17 @@ sa-node-field {
    the reading measure and so is the band, so stacked they leave the rest of the
    page bare. Two equal tracks — a wider one buys nothing the cap does not take
    back. */
+/* One paragraph under a rule that spans the page. It was two columns, the copy
+   beside a band of six one-word deliverables; the band went, so the column and
+   the inset that held the copy off the rule's left end went with it, and the
+   paragraph takes the measure a section lede takes. */
 .practice {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--gap-column);
-  align-items: start;
-  padding: var(--space-9) var(--space-9) 0;
+  padding-top: var(--space-9);
   border-top: 1px solid var(--border-hairline);
 }
 
-/* First in its column, so it starts on the paragraph's first line, and its
-   measure cap goes because the grid column is already the cap. */
-.practice .tour__tags {
-  margin-top: 0;
-  max-width: none;
-}
-
-/* Three columns rather than the band's own two: the list is tuned for the
-   tour's narrow copy column and set six short words in two near-empty ones. */
-@media (width >= 941px) {
-  .practice .tour__tags-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, auto);
-  }
-}
-
-@media (width < 941px) {
-  .practice {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-9);
-  }
+.practice .tour__body {
+  max-width: 80ch;
 }
 
 @media (width < 621px) {
@@ -2123,49 +2057,6 @@ sa-node-field {
 /* A second paragraph at the lede size, where the copy column carries two. */
 .tour__body--follow {
   margin-top: var(--space-7);
-}
-
-/* The one hard fact about a session, in the micro size so it reads as a
-   specification rather than another sentence. */
-.tour__meta {
-  margin-top: var(--space-5);
-  max-width: var(--measure);
-  color: var(--text-muted);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-medium-plus);
-  line-height: var(--leading-body-tight);
-}
-
-/* What a session is made of: a hairline-ruled band holding the parts as a list
-   rather than one run-on line. */
-.tour__tags {
-  margin-block: var(--space-7);
-  padding-block: var(--space-5);
-  border-top: 1px solid var(--border-hairline);
-  border-bottom: 1px solid var(--border-hairline);
-  max-width: var(--measure);
-  color: var(--text-muted);
-  font-size: var(--text-micro);
-  line-height: var(--leading-body-tight);
-}
-
-.tour__tags-title {
-  margin-bottom: var(--space-4);
-  color: var(--text-body);
-  font-weight: var(--weight-medium-plus);
-}
-
-/* Three rows, two columns: six short items read as one block instead of six
-   near-empty lines. Column flow, so the first column fills top to bottom. */
-.tour__tags-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(3, auto);
-  grid-auto-flow: column;
-  gap: var(--space-3) var(--space-7);
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 .tour__copy .btn {
@@ -2458,23 +2349,20 @@ sa-node-field {
   overflow: hidden;
 }
 
-/* Two columns from the point the panel is wider than one measure: the two
-   paragraphs on the left, "Past wanneer" on the right. In one column an open row
-   was 590px of copy with 456px of paper beside it. `58%` rather than a `ch`
-   measure — the left column caps itself at 56ch (`.track__body`). */
+/* One column: the copy, then the line that lets a reader rule the track out.
+   Side by side the two read as a column of prose with a sidebar beside it, and
+   "Past wanneer" is the end of the answer rather than a note on it. */
 .track__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 58%) minmax(0, 1fr);
-  gap: clamp(var(--space-8), 3.4vw, var(--space-13));
-  align-items: start;
   padding: 0 clamp(var(--space-7), 3vw, var(--space-12))
     clamp(var(--space-10), 3.4vw, var(--space-12));
 }
 
-/* Wider than the site's own measure: this paragraph is alone on white inside a
-   panel the width of the page, and at 44ch it reads as a lost column. */
+/* Wider than anything else on the site, because the panel is: the copy is alone
+   on white across the whole width of the page, and at the 44ch a lede takes it
+   was a third of the block with two thirds of it paper. 80ch is about a hundred
+   characters — long, and still short of the 100ch the privacy notice runs at. */
 .track__body {
-  max-width: 56ch;
+  max-width: 80ch;
   color: var(--text-body);
   font-size: var(--text-lede);
   line-height: var(--leading-body);
@@ -2484,14 +2372,16 @@ sa-node-field {
   margin-top: var(--space-6);
 }
 
-/* "Past wanneer": the line that lets a reader rule a track out, so it is set
-   apart — a rule down its left flank, and across its top when it folds under. */
+/* "Past wanneer": the line that lets a reader rule a track out, set apart from
+   the paragraphs above it by a rule across its top, because it answers a
+   different question than they do. */
 .track__fit {
   display: grid;
   gap: 2px;
-  padding-left: clamp(var(--space-7), 2vw, var(--space-9));
-  border-left: 1px solid var(--border-hairline);
-  max-width: 56ch;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+  max-width: 80ch;
 }
 
 .track__fit-label {
@@ -2504,22 +2394,6 @@ sa-node-field {
   color: var(--text-body);
   font-size: var(--text-meta);
   line-height: var(--leading-body-tight);
-}
-
-/* One column again, and the rule turns with it. Two columns of prose inside a
-   panel inside a page gutter run out of width before the site's own 1000px. */
-@media (width < 1001px) {
-  .track__inner {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .track__fit {
-    margin-top: var(--space-8);
-    padding-top: var(--space-6);
-    padding-left: 0;
-    border-top: 1px solid var(--border-hairline);
-    border-left: none;
-  }
 }
 
 /* The height is animated by `<sa-accordion>`, not from here: Gecko supports
@@ -3802,9 +3676,9 @@ html:not([data-clause-spy]) .prose__heading:target,
  * ------------------------------------------------------------------ */
 
 .track__points {
-  /* The same 56ch the track's body takes, and for the same reason: alone on
+  /* The same 80ch the track's body takes, and for the same reason: alone on
      white inside a panel the width of the page, 44ch reads as a lost column. */
-  max-width: 56ch;
+  max-width: 80ch;
   display: grid;
   gap: var(--space-3);
   padding-left: var(--space-7);
@@ -3901,7 +3775,6 @@ html:not([data-clause-spy]) .prose__heading:target,
      slot. `visibility` rather than `display` for the shapes, because the team
      page's petal is in normal flow below 940px. */
   .site-header,
-  .mobile-actions,
   .skip-link,
   .orbits,
   .footer-mark,

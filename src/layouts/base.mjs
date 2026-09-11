@@ -174,7 +174,6 @@ ${siteHeader(ctx)}
 ${ctx.body}
 ${siteFooter(ctx)}
 </div>
-${mobileActions(ctx)}
 </body>
 </html>
 `;
@@ -550,8 +549,7 @@ function navCurrentValue(key, pageId) {
  * the vacancies one screen down, and the privacy notice to a person by mail,
  * which is the channel the notice itself names for a data request.
  *
- * The sticky bar and the menu sheet read this too, so the action is the same at
- * every width.
+ * The menu sheet reads this too, so the action is the same at every width.
  */
 function headerAction(t, lang, pageId) {
   const home = pagePath(lang);
@@ -619,21 +617,6 @@ ${languageSwitcher(lang, alternates, t, 'header', t('a11y.language'))}
     <a id="site-header-cta" class="btn btn--primary btn--sm" href="${action.href}">${action.label}</a>
   </div>
 </header>`;
-}
-
-/**
- * The phone's action bar: a call button and the primary action. The header's own
- * CTA is dropped on a phone, so without this there is no action on screen until
- * the contact section scrolls into view. Sticky, not fixed, so it ends up under
- * the footer rather than covering it.
- */
-export function mobileActions({ t, lang, pageId }) {
-  const action = headerAction(t, lang, pageId);
-
-  return html`<div id="mobile-actions" class="mobile-actions" data-hide-until="#main .hero .btn, #main .error-page .btn">
-  <a id="mobile-actions-call" class="mobile-actions__call" href="${PHONE_HREF}">${t('cta.call')}</a>
-  <a id="mobile-actions-talk" class="btn btn--primary mobile-actions__talk" href="${action.href}">${action.label}</a>
-</div>`;
 }
 
 /**

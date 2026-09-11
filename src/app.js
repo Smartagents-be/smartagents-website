@@ -80,7 +80,7 @@ if (navToggle) {
 
   /* The skip link is in here because it points into `#main`, and a link to
      inert content is a tab stop that goes nowhere. */
-  const behindSheet = ['site-skip-link', 'main', 'site-footer', 'mobile-actions']
+  const behindSheet = ['site-skip-link', 'main', 'site-footer']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 
@@ -141,30 +141,6 @@ document.addEventListener('click', (event) => {
      focusing a moment before the browser takes it away again. */
   if (field) requestAnimationFrame(() => field.focus({ preventScroll: true }));
 });
-
-/* ------------------------------------------------------------------ *
- * The phone's action bar, held back while the hero's own action is on screen
- *
- * At 390x844 the hero's primary button and the sticky bar's copy of it are both
- * on the first screen: the same words 490px apart, one covering the bottom of
- * the page to say what the other already says.
- *
- * The bar ships visible and this hides it, never the other way round: with JS
- * off the reader gets a duplicated action rather than none. `data-hide-until`
- * names the element the bar defers to, so the markup says what it waits for.
- * ------------------------------------------------------------------ */
-
-const actionBar = document.getElementById('mobile-actions');
-const deferTo = actionBar?.dataset.hideUntil
-  ? document.querySelector(actionBar.dataset.hideUntil)
-  : null;
-
-if (actionBar && deferTo && 'IntersectionObserver' in window) {
-  new IntersectionObserver(
-    ([entry]) => actionBar.classList.toggle('is-deferred', entry.isIntersecting),
-    { threshold: 0 }
-  ).observe(deferTo);
-}
 
 /* ------------------------------------------------------------------ *
  * Page motion — spotlight, magnets. Decorative, so it waits.

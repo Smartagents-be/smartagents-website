@@ -231,8 +231,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   middle one links, so an arrow is a difference a reader has to notice before
   they can read it and `jobs.why.team.link` says where it goes instead.
 - **The header's action is the page's, not the site's.** `headerAction()` in
-  `src/layouts/base.mjs` is read by the bar, the phone sheet and the sticky
-  bar, so the action is the same at every width. On the ten pages with a contact
+  `src/layouts/base.mjs` is read by the header row and by the phone sheet, so
+  the action is the same at every width. On the ten pages with a contact
   section it is `cta.talk` at `#contact`; on the two without it, that anchor
   resolved to `/nl/#contact` and threw the reader onto another page with no
   warning. Jobs sends them to the vacancies one screen down, in the page's own
@@ -383,30 +383,33 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `training.course.agentic.learn.3` teaches) and the independence it buys. The
   test they pass and the other three fail is whether a competitor's page could
   print the same line.
-- **The staffing track panel opens into two columns, and the section is named
-  for its own page.** An open row was 590px of copy with 456px of paper beside
-  it and "Past wanneer" — the line a reader opens the row to find — 260px below
-  the fold of the block; side by side the row is 111px shorter and the two sit
-  where the eye reads them together. Below 1000px it folds back to one column
-  and the rule turns from the left flank to the top. The heading was "Wat we
-  doen", which is the homepage's own section heading; it is "Hoe we meewerken"
-  now, and the hero's second button names the same thing.
-- **The training facts strip is per course, and the developer course prints one
-  row fewer.** `FACTS` in `src/pages/training.mjs` is the default list; a
-  `COURSES` entry may name the facts it omits through `omitFacts`. The developer
-  course omits `format`. Its value was "Bij u op kantoor" and the kata page's own
-  spec strip states that same sentence one click away under "Locatie", so the
-  row was the fact printed twice on one path — which is the contradiction the
-  per-course values exist to prevent. The business course keeps its row, because
-  it has no page of its own to state it on. The cost is that the two strips
-  differ by one row; the subgrid absorbs that inside the facts row, so the links
-  below still sit on one line.
-- **The training facts strip states four facts, and price is not one of them.**
-  "Prijs — Op maat, na een korte intake" is a row that answers nothing: a reader
-  checking whether they can afford a day leaves knowing exactly what they knew
-  before it, at a fifth of the strip's height. A range would be worth printing
-  and nothing in this repo or on the site knows one, so the CTA under the strip
-  is what asks. Put the row back the day there is a figure behind it.
+- **An open staffing track is one column, and "Past wanneer" ends it.** The row
+  was two columns for a while, the copy beside the fit line; side by side they
+  read as a column of prose with a sidebar against it, where that line is the
+  end of the answer rather than a note on it. It sits under the paragraphs now,
+  set apart by a rule across its top. The heading was "Wat we doen", which is
+  the homepage's own section heading; it is "Hoe we meewerken" now, and the
+  hero's second button names the same thing.
+- **Prose that stands alone across a full-width block runs to 80ch, where a
+  lede held short beside something takes 44.** That is the section lede on five
+  pages, the kata page's practice paragraph, the track panel's copy and the
+  jobs panel's. It is long by the usual measure — about a hundred characters,
+  short of the 100ch the privacy notice runs at — and it is the answer to a
+  paragraph that reads as a stub with two thirds of its band left bare. The two
+  numbers `.story` and `.article-lede` take (62ch) are the article layout's,
+  where a rail takes the other half of the page.
+- **The training facts strip states three facts, and neither price nor format
+  is one of them.** Format was "In-house of remote" against the kata spec
+  strip's "Bij u op kantoor" one click away — the same fact in two wordings on
+  one path, which is the contradiction the per-course values exist to prevent —
+  so it is not a row on either course and `training.facts.format.label` is gone
+  with it. `FACTS` in `src/pages/training.mjs` is now the whole list for both
+  courses, and the two strips are the same height again.
+  Price is the same argument from the other side: "Op maat, na een korte
+  intake" is a row that answers nothing, at a fifth of the strip's height. A
+  range would be worth printing and nothing in this repo or on the site knows
+  one, so the CTA under the strip is what asks. Put the row back the day there
+  is a figure behind it.
 - **`src/pages/prose.mjs` is the long-form vocabulary, and it is not the
   insights'.** Two page families run long enough to need headings, quotes and
   lists — the articles and the privacy notice — so it sits a level above both.
@@ -531,8 +534,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   stops at. The same no-JS-first reasoning is why the mobile nav is a
   `<details>`.
   **What a `<details>` cannot be on its own is modal, and on a phone the nav
-  sheet is.** `src/app.js` puts `inert` on the skip link, `main`, the footer and
-  the sticky action bar while the sheet is open, stops the document scrolling
+  sheet is.** `src/app.js` puts `inert` on the skip link, `main` and the footer
+  while the sheet is open, stops the document scrolling
   through `.has-sheet`, and closes on Escape or a pointerdown outside — so the
   page behind the sheet is out of the tab order and off the accessibility tree
   instead of being a list of links nobody can see. `inert` is the whole of it;
@@ -675,21 +678,20 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 - **There is a print stylesheet, and it exists for one page.** A GDPR notice is
   the page most likely to be saved as a PDF — by a DPO, a procurement reviewer,
   a client's lawyer — and until the block at the foot of `main.css` existed that
-  print carried a solid navy shape, the orbit rings, the sticky header, the
-  phone's action bar and a rail beside a column. The rules are written for every
+  print carried a solid navy shape, the orbit rings, the sticky header and a
+  rail beside a column. The rules are written for every
   page rather than scoped to that one, because nothing in them is
   page-specific: hide what is chrome or texture, unstack what is a share of a
   viewport that no longer exists, and print the href after an off-page link.
-- **The phone's action bar waits for the hero's own action to leave.** At
-  390×844 the hero's primary button and the sticky bar's copy of it were both on
-  the first screen — the same words 490px apart, one of them covering the foot of
-  the page to say what the other already said. `data-hide-until` on
-  `#mobile-actions` names the element the bar defers to and `src/app.js` puts
-  `.is-deferred` on and off with one IntersectionObserver. The bar ships
-  *visible* and this hides it, so with JS off a reader gets the duplicate rather
-  than no action at all; the `visibility` delay is on the hiding direction only,
-  because on the base rule it holds the bar invisible for a third of a second
-  after it should have come back.
+- **There is no sticky action bar on a phone.** `#mobile-actions` was a call
+  button and the page's own action stuck to the bottom edge, and it covered the
+  foot of every phone screen for the life of the visit — including the hero,
+  where it printed the same words 490px under the button it was standing in for,
+  which is what the `data-hide-until` observer in `src/app.js` existed to work
+  around. What a phone has instead is what every other width has: the hero's own
+  two buttons, the action inside the menu sheet, and the contact section at the
+  foot. The observer, the `.is-deferred` fade, `mobileActions()` and `cta.call`
+  are gone with it.
 - **`src/motion.js` carries no spotlight any more, and it reacts to
   `prefers-reduced-motion` at runtime.** The spotlight hung a `pointermove`
   handler on every `[data-spotlight]` element, read that element's box and wrote

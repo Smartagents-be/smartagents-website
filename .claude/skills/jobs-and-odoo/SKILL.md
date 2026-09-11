@@ -130,7 +130,7 @@ happens.
     the panel's full 1150px — about 150 characters to the line — and the button
     sat flush against the last bullet, so the page's one conversion point read as
     part of the sentence above it. `.track__points` takes the track body's own
-    56ch and `.track__actions` puts the panel's rhythm before the button.
+    80ch and `.track__actions` puts the panel's rhythm before the button.
   - **The vacancies come from Odoo** (see the entry above); the page owns only
     the chrome around them and the empty state for when nothing is published.
     **There is no contact section**, which makes this and the privacy notice the
