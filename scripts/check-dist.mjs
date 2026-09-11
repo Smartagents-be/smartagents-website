@@ -344,10 +344,18 @@ for (const { relativePath, content } of htmlFiles) {
  * 4. Performance budgets (public pages only; /secured/ is internal)
  * ------------------------------------------------------------------ */
 
+/* Every public page's brotli size, measured once.
+   It was measured twice — once here against the budget and once at the foot of
+   the file to print the largest — and quality 11 over 60 pages is not a cheap
+   thing to do twice: 3.5 s of this script's 3.8 s runtime, on every build, for
+   a number that cannot have changed between the two calls. */
+const compressedBytes = new Map();
+
 for (const { relativePath, content, fullPath } of htmlFiles) {
   if (!isPublicPage(relativePath)) continue;
 
   const compressed = brotliCompressSync(readFileSync(fullPath)).length;
+  compressedBytes.set(relativePath, compressed);
   if (compressed > BUDGETS.htmlCompressedBytes) {
     fail(relativePath, `HTML over budget (${BUDGETS.htmlCompressedBytes} B brotli)`, `${compressed} B`);
   }
@@ -512,10 +520,7 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-const publicPages = htmlFiles.filter((file) => isPublicPage(file.relativePath));
-const largest = Math.max(
-  ...publicPages.map((file) => brotliCompressSync(readFileSync(file.fullPath)).length)
-);
+const largest = Math.max(...compressedBytes.values());
 console.log(
   `Build sanity check passed. ${htmlFiles.length} pages, ` +
     `largest public page ${largest} B brotli (budget ${BUDGETS.htmlCompressedBytes} B).`

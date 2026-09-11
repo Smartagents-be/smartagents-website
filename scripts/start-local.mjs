@@ -79,6 +79,32 @@ const contentTypes = {
     ".xml": "application/xml; charset=utf-8"
 };
 
+/**
+ * What a missing URL is answered with. Cloudflare serves `dist/404.html` with a
+ * 404 status, and this served the two words "Not found" as `text/plain` — so
+ * the one page nobody could preview locally was the one page whose whole purpose
+ * is to be seen when something has gone wrong. It is the rendered file now, with
+ * the same status code the host sends, and it falls back to plain text only if
+ * the build has not produced one.
+ */
+function notFound(res, rootDir, liveReload) {
+    const page = join(rootDir, "404.html");
+    if (!existsSync(page)) {
+        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+        res.end("Not found");
+        return;
+    }
+
+    const raw = readFileSync(page, "utf8");
+    const body = liveReload ? liveReload.inject(raw) : raw;
+    res.writeHead(404, {
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": Buffer.byteLength(body),
+        "Cache-Control": "no-store"
+    });
+    res.end(body);
+}
+
 const server = createServer((req, res) => {
     if (liveReload?.handle(req, res)) return;
 
@@ -116,8 +142,7 @@ const server = createServer((req, res) => {
     }
 
     if (!existsSync(filePath)) {
-        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-        res.end("Not found");
+        notFound(res, rootDir, liveReload);
         return;
     }
 
@@ -127,8 +152,7 @@ const server = createServer((req, res) => {
     }
 
     if (!existsSync(filePath)) {
-        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-        res.end("Not found");
+        notFound(res, rootDir, liveReload);
         return;
     }
 

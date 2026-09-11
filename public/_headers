@@ -1,9 +1,13 @@
 # Two asset classes, two policies (fast-static-site §6).
 # Later rules override earlier ones, so the generic rule goes first.
+#
+# There is no `Vary: Accept-Encoding` here any more. Cloudflare adds it to every
+# response it compresses, so the header was a line saying what the edge already
+# says — and a hand-written `Vary` on a rule this broad is the kind of thing that
+# quietly splits a cache key if it ever falls out of step with the edge's own.
 
 /*
   Cache-Control: public, max-age=0, must-revalidate
-  Vary: Accept-Encoding
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

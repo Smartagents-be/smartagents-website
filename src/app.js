@@ -82,6 +82,33 @@ if (navToggle) {
 }
 
 /* ------------------------------------------------------------------ *
+ * The phone's action bar, held back while the hero's own action is on screen
+ *
+ * At 390x844 the hero's primary button and the sticky bar's copy of it are both
+ * visible on the first screen: the same words twice, 490px apart, one of them
+ * covering the bottom of the page to say what the other already says. The bar
+ * exists for the rest of the document, so it waits for the rest of the document.
+ *
+ * The bar ships visible and this hides it, never the other way round: with JS
+ * off, or before this line runs, the reader gets a duplicated action rather than
+ * no action at all. `data-hide-until` names the element the bar defers to —
+ * the hero's first button, or the 404's — so the markup says what it waits for
+ * and this does not have to know the shape of any page.
+ * ------------------------------------------------------------------ */
+
+const actionBar = document.getElementById('mobile-actions');
+const deferTo = actionBar?.dataset.hideUntil
+  ? document.querySelector(actionBar.dataset.hideUntil)
+  : null;
+
+if (actionBar && deferTo && 'IntersectionObserver' in window) {
+  new IntersectionObserver(
+    ([entry]) => actionBar.classList.toggle('is-deferred', entry.isIntersecting),
+    { threshold: 0 }
+  ).observe(deferTo);
+}
+
+/* ------------------------------------------------------------------ *
  * Page motion — spotlight, magnets. Decorative, so it waits.
  * ------------------------------------------------------------------ */
 
@@ -101,9 +128,15 @@ if (!HTMLScriptElement.supports?.('speculationrules')) {
     const url = new URL(link.href, location.href);
     if (url.origin !== location.origin) return;
     if (url.pathname.startsWith('/secured/')) return;
+    /* `/media/` is files, not pages: the two course one-pagers are 200 KB each
+       and hovering the link on the training page fetched one. Speculation Rules
+       carry the same exclusion; this is the fallback path for engines without
+       them. */
+    if (url.pathname.startsWith('/media/')) return;
     if (link.hasAttribute('download') || link.target) return;
     if (url.pathname === location.pathname) return;
     if (prefetched.has(url.href)) return;
+    if (navigator.connection?.saveData) return;
 
     prefetched.add(url.href);
     const hint = document.createElement('link');

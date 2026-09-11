@@ -1,7 +1,7 @@
 // Renders every page template to a complete HTML file in dist/.
 // Runs after `vite build`, which produces the hashed assets and the manifest.
 // See .claude/skills/fast-static-site/SKILL.md §1.
-import { cpSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { minify } from 'html-minifier-terser';
@@ -143,28 +143,26 @@ async function renderPublicPages({ strings, criticalCss, assets, vacancies }) {
       // a cache-first service worker that stores a 200 stores the homepage
       // under the missing asset's URL, which is why `src/sw.js` has to check
       // the Content-Type before it writes (`isCacheable`).
+      //
+      // Copied, not rendered again. It was a second `basePage()` call with the
+      // same arguments, followed by a second minify of the same 13 KB — the one
+      // difference being a hard-coded `noindex: true` that `page.noindex` was
+      // already producing. Two renders of one document can only ever agree by
+      // accident; one render and a copy agree by construction.
       if (page === notFoundPage && language.code === defaultLanguage.code) {
-        await writeHtml(
-          '404.html',
-          basePage({
-            t,
-            lang: language.code,
-            dir: language.dir,
-            url,
-            pageId: page.id,
-            title: meta.title,
-            description: meta.description,
-            noindex: true,
-            alternates,
-            criticalCss,
-            assets,
-            body
-          })
-        );
+        cpSync(path.join(distDir, url.slice(1), 'index.html'), path.join(distDir, '404.html'));
+        written++;
       }
 
       if (!page.excludeFromSitemap) {
-        sitemapEntries.push({ url, alternates });
+        /* `lastmod` where the page knows one, and nowhere else. Four articles
+           and the privacy notice carry a date the page itself prints; the rest
+           of the site has no honest answer, and a `lastmod` invented from the
+           build clock tells a crawler every page changed on every deploy, which
+           is how a sitemap stops being read. `meta.lastmod` is the page's own
+           statement of it — the articles take it off the same value the
+           `<time datetime>` and `article:modified_time` are printed from. */
+        sitemapEntries.push({ url, alternates, lastmod: meta.lastmod });
       }
     }
   }
@@ -215,25 +213,25 @@ ${join(links)}
 
 const COPY_SKIP = new Set(['.html', '.json']);
 
+/**
+ * Everything under `src/content/secured/` that is not rendered: the decks'
+ * images and video, the stylesheets, the fonts. About 78 MB of it.
+ *
+ * One recursive copy with a filter, not a walk making its own `mkdirSync` and
+ * `cpSync` per file. The walk was several thousand syscall pairs on every build
+ * where `cpSync`'s own recursion does the same work in one call, and the filter
+ * is the only thing the walk was really for. A directory always passes the
+ * filter — returning false for one would prune the whole subtree — so the
+ * extension test is written against files alone.
+ */
 function copySecuredStatic() {
   const source = path.join(contentDir, 'secured');
 
-  const walk = (dir) => {
-    for (const entry of readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walk(full);
-        continue;
-      }
-      if (COPY_SKIP.has(path.extname(entry.name).toLowerCase())) continue;
-
-      const target = path.join(distDir, 'secured', path.relative(source, full));
-      mkdirSync(path.dirname(target), { recursive: true });
-      cpSync(full, target);
-    }
-  };
-
-  walk(source);
+  cpSync(source, path.join(distDir, 'secured'), {
+    recursive: true,
+    filter: (from) =>
+      statSync(from).isDirectory() || !COPY_SKIP.has(path.extname(from).toLowerCase())
+  });
 }
 
 /* ------------------------------------------------------------------ *
@@ -290,7 +288,8 @@ function renderSitemap(entries) {
     const alternates = entry.alternates
       .map((alt) => `    <xhtml:link rel="alternate" hreflang="${alt.code}" href="${alt.href}"/>`)
       .join('\n');
-    return `  <url>\n    <loc>${absolute(entry.url)}</loc>\n${alternates}\n  </url>`;
+    const lastmod = entry.lastmod ? `    <lastmod>${entry.lastmod}</lastmod>\n` : '';
+    return `  <url>\n    <loc>${absolute(entry.url)}</loc>\n${lastmod}${alternates}\n  </url>`;
   });
 
   writeFileSync(

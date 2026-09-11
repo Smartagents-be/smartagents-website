@@ -81,9 +81,15 @@ export const EMAIL = 'info@smartagents.be';
  * validation is what reports, which is the same thing it did before.
  */
 function field({ t, id, key, label, required, control }) {
+  /* Required is a `*` with the word behind it; optional says so in as many
+     words. Marking only one of the two leaves the other ambiguous — a reader
+     who has not read the legend cannot tell an unmarked field from one whose
+     marker they missed — and on a four-field form the optional label is one
+     word. It is not `visually-hidden`: "(optioneel)" is exactly the information
+     a sighted reader wants beside the label. */
   const mark = required
     ? html`<span id="${id}-field-${key}-required" class="field-label__required"><span id="${id}-field-${key}-required-mark" aria-hidden="true">*</span><span id="${id}-field-${key}-required-word" class="visually-hidden">${t('form.required')}</span></span>`
-    : '';
+    : html`<span id="${id}-field-${key}-optional" class="field-label__optional">${t('form.optional')}</span>`;
 
   return html`          <label id="${id}-field-${key}" class="field-label">
             <span id="${id}-field-${key}-label" class="field-label__text">${label}${mark}</span>
@@ -117,7 +123,7 @@ export function contactSection({ t, lang, prefix, title, lede }) {
         <span id="${id}-fact-location">${t('contact.location')}</span>
       </div>
     </div>
-    <sa-contact-form id="${id}-widget"${TURNSTILE_SITE_KEY ? raw(` data-sitekey="${escapeHtml(TURNSTILE_SITE_KEY)}"`) : ''} data-sending="${t('form.sending')}" data-sent="${t('form.sent')}" data-failed="${t('form.failed')}" data-error-required="${t('form.error.required')}" data-error-email="${t('form.error.email')}">
+    <sa-contact-form id="${id}-widget"${TURNSTILE_SITE_KEY ? raw(` data-sitekey="${escapeHtml(TURNSTILE_SITE_KEY)}"`) : ''} data-sending="${t('form.sending')}" data-sent="${t('form.sent')}" data-failed="${t('form.failed')}" data-rate-limited="${t('form.rateLimited')}" data-error-required="${t('form.error.required')}" data-error-email="${t('form.error.email')}">
       <form id="${id}-form" class="contact-form" method="get" action="mailto:${EMAIL}">
         <p id="${id}-legend" class="contact-form__legend">${t('form.requiredLegend')}</p>
         <div id="${id}-form-pair" class="contact-form__pair">

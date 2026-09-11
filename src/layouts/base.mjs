@@ -1,12 +1,19 @@
 // Shared shell for every public page.
 // The <head> order is prescribed by .claude/skills/fast-static-site/SKILL.md §2:
-// meta -> inline critical CSS -> preloads -> modulepreload -> stylesheet -> module script.
+// meta -> inline critical CSS -> preloads -> stylesheet -> module script.
+//
+// There is no `modulepreload` for the entry. The skill's order has one because
+// it assumes the module script is at the foot of the body; here it is in the
+// head, four lines below, so the preload scanner finds the same URL in the same
+// pass and the hint only ever asked for a byte-identical second discovery of a
+// file already being fetched. With `build.modulePreload: false` in
+// `vite.config.js` there are no dependency chunks for it to warm either.
 //
 // The visual frame (full-bleed page, header, footer) comes from the
 // design system: see .claude/skills/smartagents-design/README.md.
 import { html, raw, join, escapeHtml } from '../../build/lib/html.mjs';
 import { languages, defaultLanguage, absolute, pagePath } from '../../build/lib/i18n.mjs';
-import { OG_IMAGE, schemaGraph } from './schema.mjs';
+import { LINKEDIN_URL, OG_IMAGE, schemaGraph } from './schema.mjs';
 import { page as trainingPage } from '../pages/training.mjs';
 import { page as staffingPage } from '../pages/staffing.mjs';
 import { page as sdlcPage } from '../pages/sdlc.mjs';
@@ -17,13 +24,11 @@ import { page as privacyPage } from '../pages/privacy/privacy.mjs';
 import { insightsIndexPath } from '../pages/insights/insights.mjs';
 import { PHONE, PHONE_HREF, EMAIL } from '../components/contact-form/contact-form.mjs';
 
-const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
-
 /**
  * The services that have a detail page of their own, keyed by the string the
  * homepage rows, the nav bar and the phone sheet are all built from. A service
  * that is not in here is a homepage row and nothing more: it stays out of the
- * nav, and its row renders plain, without the "Ontdek →" cue (design README,
+ * nav, and its row renders plain, without the arrow cue (design README,
  * "Deviations", item 4).
  */
 const SERVICE_PAGES = {
@@ -125,12 +130,26 @@ export function basePage(ctx) {
   // and put the rest of the JSON in the document.
   const schema = JSON.stringify(schemaGraph({ t: ctx.t, extra: ctx.schema || [] })).replace(/</g, '\\u003c');
 
-  // Speculation Rules: prefetch broadly on hover/pointerdown (fast-static-site §7).
+  /* Speculation Rules: prefetch broadly on hover/pointerdown
+     (fast-static-site §7).
+
+     `/media/*` is excluded for the same reason `/secured/*` is, and it is not a
+     theoretical one: the two course one-pagers are about 200 KB each and the
+     training page links both, so a reader running an eye down the offer pulled
+     half a megabyte of PDF nobody asked for. A prefetch is for a page the reader
+     is about to navigate to; a file the browser hands to a download bar is not
+     that. The hover fallback in `src/app.js` carries the same exclusion. */
   const speculationRules = {
     prefetch: [
       {
         source: 'document',
-        where: { and: [{ href_matches: '/*' }, { not: { href_matches: '/secured/*' } }] },
+        where: {
+          and: [
+            { href_matches: '/*' },
+            { not: { href_matches: '/secured/*' } },
+            { not: { href_matches: '/media/*' } }
+          ]
+        },
         eagerness: 'moderate'
       }
     ]
@@ -147,7 +166,6 @@ export function basePage(ctx) {
 <meta name="theme-color" content="#f9fafb">
 <style>${raw(ctx.criticalCss)}</style>
 ${preloadImage}
-<link rel="modulepreload" href="${ctx.assets.js}">
 ${join(ctx.assets.css.map((href) => html`<link rel="stylesheet" href="${href}">`))}
 <link rel="canonical" href="${absolute(ctx.url)}">
 ${join(hreflang)}
@@ -164,9 +182,6 @@ ${join(ogAlternates)}
 <meta property="og:image:alt" content="${share.alt || ctx.title}">
 ${join(article)}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${ctx.title}">
-<meta name="twitter:description" content="${ctx.description}">
-<meta name="twitter:image" content="${absolute(share.href)}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">${raw(schema)}</script>
 <script type="speculationrules">${raw(JSON.stringify(speculationRules))}</script>
@@ -532,10 +547,7 @@ export function clipDefs() {
     // put the ink *on* the page's content edge rather than a few pixels inside
     // it, and it is why the box's aspect is 1.04 — the traced loop's own.
     jobsJoin:
-      'M0.001,0.201 C-0.004,0.265 0.025,0.354 0.069,0.400 C0.111,0.446 0.216,0.436 0.258,0.476 C0.295,0.512 0.294,0.572 0.304,0.629 C0.317,0.694 0.298,0.782 0.327,0.842 C0.356,0.900 0.422,0.956 0.482,0.980 C0.541,1.005 0.623,1.004 0.688,0.991 C0.753,0.977 0.824,0.941 0.873,0.896 C0.925,0.850 0.975,0.784 0.991,0.719 C1.007,0.655 1.002,0.565 0.971,0.508 C0.941,0.453 0.869,0.405 0.807,0.382 C0.746,0.361 0.668,0.369 0.601,0.376 C0.532,0.382 0.432,0.452 0.398,0.425 C0.362,0.398 0.407,0.283 0.390,0.217 C0.373,0.151 0.344,0.063 0.295,0.029 C0.247,-0.004 0.147,-0.011 0.100,0.018 C0.049,0.047 0.005,0.137 0.001,0.201 Z',
-    // Digitale transformatie: a skewed slab behind the isometric stack
-    stackField:
-      'M0.060,0.100 L1,0.030 L1,0.860 L0.060,0.930 C0.024,0.933 0,0.905 0,0.870 L0,0.160 C0,0.125 0.024,0.097 0.060,0.100 Z'
+      'M0.001,0.201 C-0.004,0.265 0.025,0.354 0.069,0.400 C0.111,0.446 0.216,0.436 0.258,0.476 C0.295,0.512 0.294,0.572 0.304,0.629 C0.317,0.694 0.298,0.782 0.327,0.842 C0.356,0.900 0.422,0.956 0.482,0.980 C0.541,1.005 0.623,1.004 0.688,0.991 C0.753,0.977 0.824,0.941 0.873,0.896 C0.925,0.850 0.975,0.784 0.991,0.719 C1.007,0.655 1.002,0.565 0.971,0.508 C0.941,0.453 0.869,0.405 0.807,0.382 C0.746,0.361 0.668,0.369 0.601,0.376 C0.532,0.382 0.432,0.452 0.398,0.425 C0.362,0.398 0.407,0.283 0.390,0.217 C0.373,0.151 0.344,0.063 0.295,0.029 C0.247,-0.004 0.147,-0.011 0.100,0.018 C0.049,0.047 0.005,0.137 0.001,0.201 Z'
   };
 
   const defs = Object.entries(paths).map(
@@ -678,11 +690,43 @@ function navCurrentValue(key, pageId) {
   return key === pageId ? 'page' : 'true';
 }
 
+/**
+ * What the header's one action is on this page, and where it goes.
+ *
+ * It was `cta.talk` pointing at `#contact` on every page of the site, which is
+ * right on the ten pages that carry a contact section and wrong on the two that
+ * do not: on `/jobs/` and on the privacy notice the same anchor resolved to
+ * `/nl/#contact`, so the primary action in the header threw the reader onto
+ * another page with no warning. On the jobs page it was also the wrong ask —
+ * applying happens on the vacancy, in Odoo, and this page's own argument is the
+ * list one screen down.
+ *
+ * So two pages name their own. Jobs sends the reader to the vacancies, in the
+ * page's own words, and the privacy notice sends them to a person: a legal page
+ * is read by someone who wants to ask something, and mail is the channel the
+ * notice itself names for a data request. Everywhere else this is unchanged.
+ *
+ * The phone's sticky bar and the menu sheet read the same function, so the
+ * action a reader sees is the same one at every width.
+ */
+function headerAction(t, lang, pageId) {
+  const home = pagePath(lang);
+
+  if (pageId === 'jobs') {
+    return { key: 'vacancies', href: '#vacancies', label: t('jobs.cta.vacancies') };
+  }
+  if (pageId === 'privacy') {
+    return { key: 'mail', href: `mailto:${EMAIL}`, label: t('cta.mail') };
+  }
+  return { key: 'talk', href: `${home}#contact`, label: t('cta.talk') };
+}
+
 export function siteHeader({ t, lang, alternates, pageId }) {
   // Every section anchor is written against the homepage, so the header works
   // the same from a detail page as it does from the homepage itself: on `/nl/`
   // the browser treats `/nl/#insights` as a plain in-page jump.
   const home = pagePath(lang);
+  const action = headerAction(t, lang, pageId);
 
   // A page that is not published in this language drops out of the nav rather
   // than pointing at an anchor no page carries.
@@ -720,7 +764,7 @@ ${join(navLinks)}
     <summary id="nav-toggle-summary"><span id="nav-toggle-label" class="nav-toggle__label">${t('nav.menu')}${CHEVRON}</span><span id="nav-toggle-burger" class="nav-toggle__burger" aria-hidden="true"><i id="nav-toggle-burger-bar-01"></i><i id="nav-toggle-burger-bar-02"></i></span></summary>
     <nav id="nav-sheet" class="nav-toggle__panel" aria-label="${t('a11y.menuNav')}">
 ${join(sheetLinks)}
-    <a id="nav-sheet-cta" class="btn btn--primary nav-sheet__cta" href="${home}#contact">${t('cta.talk')}</a>
+    <a id="nav-sheet-cta" class="btn btn--primary nav-sheet__cta nav-sheet__cta--${action.key}" href="${action.href}">${action.label}</a>
 ${languageSwitcher(lang, alternates, t, 'nav-sheet', t('a11y.languageMenu'))}
     <div id="nav-sheet-facts" class="nav-sheet__facts">
       <a id="nav-sheet-fact-call" href="${PHONE_HREF}">${PHONE}</a>
@@ -730,7 +774,7 @@ ${languageSwitcher(lang, alternates, t, 'nav-sheet', t('a11y.languageMenu'))}
   </details>
   <div id="site-header-actions" class="header-actions">
 ${languageSwitcher(lang, alternates, t, 'header', t('a11y.language'))}
-    <a id="site-header-cta" class="btn btn--primary btn--sm" href="${home}#contact">${t('cta.talk')}</a>
+    <a id="site-header-cta" class="btn btn--primary btn--sm" href="${action.href}">${action.label}</a>
   </div>
 </header>`;
 }
@@ -742,12 +786,12 @@ ${languageSwitcher(lang, alternates, t, 'header', t('a11y.language'))}
  * into view. `position: sticky`, not fixed, so it ends up under the footer at
  * the bottom of the page instead of covering it.
  */
-export function mobileActions({ t, lang }) {
-  const home = pagePath(lang);
+export function mobileActions({ t, lang, pageId }) {
+  const action = headerAction(t, lang, pageId);
 
-  return html`<div id="mobile-actions" class="mobile-actions">
+  return html`<div id="mobile-actions" class="mobile-actions" data-hide-until="#main .hero .btn, #main .error-page .btn">
   <a id="mobile-actions-call" class="mobile-actions__call" href="${PHONE_HREF}">${t('cta.call')}</a>
-  <a id="mobile-actions-talk" class="btn btn--primary mobile-actions__talk" href="${home}#contact">${t('cta.talk')}</a>
+  <a id="mobile-actions-talk" class="btn btn--primary mobile-actions__talk" href="${action.href}">${action.label}</a>
 </div>`;
 }
 

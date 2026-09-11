@@ -9,6 +9,12 @@ const PAGES = `pages-${VERSION}`;
 const ASSETS = `assets-${VERSION}`;
 const IMAGES = `images-${VERSION}`;
 const IMAGE_LIMIT = 200;
+/* The page cache was the one unbounded cache here. A visitor who reads every
+   page in three languages holds 60 documents, which is small — but nothing in
+   the handler said so, and the bound is what stops a crawler, a language switch
+   loop or a future sitemap from filling a phone's quota. 80 is well over the
+   site's own page count, so an ordinary visit never evicts anything. */
+const PAGE_LIMIT = 80;
 
 const CURRENT = new Set([PAGES, ASSETS, IMAGES]);
 
@@ -63,7 +69,15 @@ async function handlePage(event) {
   const network = (async () => {
     const preload = await event.preloadResponse;
     const response = preload || (await fetch(event.request));
-    if (response && response.ok) await cache.put(event.request, response.clone());
+    /* `response.ok` alone is not the test, and the reason is the same one
+       `isCacheable` was written for one level up: a navigation is any top-level
+       request the browser makes, including a click on one of the course PDFs in
+       `/media/`, so trusting `ok` put 200 KB of one-pager in the page cache
+       under its own URL. The type check is what keeps this cache documents. */
+    if (isCacheable(response, 'text/html')) {
+      await cache.put(event.request, response.clone());
+      await trim(PAGES, PAGE_LIMIT);
+    }
     return response;
   })();
 
@@ -98,7 +112,7 @@ async function handleImage(request) {
   const response = await fetch(request);
   if (isCacheable(response, 'image/')) {
     await cache.put(request, response.clone());
-    trim(IMAGES, IMAGE_LIMIT);
+    await trim(IMAGES, IMAGE_LIMIT);
   }
   return response;
 }

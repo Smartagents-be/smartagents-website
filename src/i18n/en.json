@@ -16,16 +16,15 @@
 
   "cta.talk": "Book a call",
   "cta.call": "Call",
+  "cta.mail": "Email us",
   "cta.seeWork": "See what we do",
   "cta.allArticles": "All articles",
-  "cta.moreInfo": "Discover",
-  "cta.send": "Send",
+  "cta.send": "Send message",
 
   "hero.claim": "Digital colleagues that never sleep",
 
   "section.services": "What we do",
   "section.dna": "Our DNA",
-  "section.transformation": "Digital transformation",
   "section.insights": "Insights",
 
   "service.training.title": "Training",
@@ -50,18 +49,6 @@
   "dna.4.title": "Partners",
   "dna.4.body": "We look for like-minded companies that want to grow, and we stay until that actually happens.",
 
-  "transformation.1.title": "AI strategy and vision",
-  "transformation.1.label": "Strategy and vision",
-  "transformation.1.body": "Strategic AI adoption, across the organisation.",
-  "transformation.2.title": "Rethinking processes",
-  "transformation.2.label": "Rethinking processes",
-  "transformation.2.body": "Reducing processes to what adds value.",
-  "transformation.3.title": "Training",
-  "transformation.3.label": "Training",
-  "transformation.3.body": "Teaching your people to work with the latest AI techniques.",
-  "transformation.4.title": "Rollout",
-  "transformation.4.label": "Rollout",
-  "transformation.4.body": "Rolling out in your own systems and adjusting as you go.",
 
   "article.tag.news": "News",
   "article.tag.ai": "AI",
@@ -99,6 +86,7 @@
   "form.email": "Email",
   "form.message": "What is difficult today?",
   "form.required": "required",
+  "form.optional": "(optional)",
   "form.requiredLegend": "Fields marked with * are required.",
   "form.error.required": "Please fill in this field.",
   "form.error.email": "Please enter a valid email address.",
@@ -108,11 +96,11 @@
   "form.sending": "Sending…",
   "form.sent": "Thank you. We will be in touch shortly.",
   "form.failed": "Sending did not work. Feel free to mail us at info@smartagents.be.",
+  "form.rateLimited": "You have sent too many messages just now. Try again in an hour, or give us a call.",
 
   "training.title": "Training · SmartAgents",
   "training.description": "Workshops built on projects, exercises and supporting slides. From a first introduction to AI to developers who build with it every day.",
 
-  "training.hero.eyebrow": "Training",
   "training.hero.title": "Learn to use AI like a professional",
 
   "training.cta.offer": "See our courses",
@@ -128,8 +116,6 @@
   "training.facts.group.label": "Group",
   "training.facts.audience.label": "Who for",
   "training.facts.tools.label": "Bring",
-  "training.facts.price.label": "Price",
-  "training.facts.price.value": "Quoted after a short intake",
   "training.course.business.title": "AI for business teams",
   "training.course.business.audience": "Teams working with AI, no prior knowledge needed",
   "training.course.business.tools": "An AI subscription, your own laptop",
@@ -143,7 +129,6 @@
   "training.course.agentic.title": "Agentic engineering",
   "training.course.agentic.audience": "Developers building with AI",
   "training.course.agentic.tools": "An AI subscription, an IDE, your own laptop",
-  "training.course.agentic.format": "At your office",
   "training.course.agentic.group": "5 to 15 participants",
   "training.course.agentic.body": "Teach AI engineers to use AI cost-consciously and efficiently, to generate code and optimise processes.",
   "training.course.agentic.learn.1": "Putting agents on a ticket, a bug, a refactor",
@@ -155,13 +140,6 @@
   "training.format.title": "How a course runs",
   "training.format.body": "Not a presentation you sit through. Explanation, exercises and labs alternate, with room for your own questions and a trainer looking over your shoulder.",
   "training.format.group": "Groups of 5 to 20 participants, depending on the course.",
-  "training.format.tags.title": "You get",
-  "training.format.tags.material": "Course material",
-  "training.format.tags.exercises": "Exercises",
-  "training.format.tags.labs": "Labs",
-  "training.format.tags.qa": "Q&A",
-  "training.format.tags.slides": "Slides",
-  "training.format.tags.guidance": "Mentoring",
   "training.format.accents": "The emphasis is on what you use the day after: smarter use of AI, a clear view of what every question costs, and workflows that fit the way your team already works. The slides and the course material stay yours afterwards.",
   "training.format.videoLabel": "Tour of the SmartAgents developer course",
   "training.format.fallback": "Watch the tour (MP4)",
@@ -217,13 +195,6 @@
   "kata.step.03.units": "Change management · Expectation management · Impostor syndrome",
   "kata.practice.title": "How you practise",
   "kata.practice.lede": "By doing. Most steps carry a flag board: short codes that only surface once you run, instrument or harden the code on your own machine. They are nowhere in the text and a search will not find them. The quizzes beside them run in the browser and keep working with the service down. In the afternoon workshop the build decides: coverage, complexity and mutation testing say whether your code is ready, not the agent's word for it.",
-  "kata.practice.tags.title": "The kata includes",
-  "kata.practice.tags.material": "Course material",
-  "kata.practice.tags.slides": "Slides",
-  "kata.practice.tags.quizzes": "Quizzes",
-  "kata.practice.tags.flags": "Flag boards",
-  "kata.practice.tags.project": "Project work",
-  "kata.practice.tags.workshops": "Workshops",
 
   "kata.themes.title": "What sticks",
   "kata.themes.lede": "Every theme has an exercise behind it where you do it yourself, and every one of them comes back in the work the day after.",
@@ -256,7 +227,6 @@
   "staffing.title": "AI staffing and coaching · SmartAgents",
   "staffing.description": "An AI-native engineer working inside your project, coaching for your developers and AI workflows for your business teams. One track per team, picked on what is stuck today.",
 
-  "staffing.hero.eyebrow": "AI staffing and coaching",
   "staffing.hero.title": "An AI-native engineer in your team",
 
   "staffing.cta.tracks": "See what we do",
@@ -265,25 +235,16 @@
 
   "staffing.track.fitLabel": "Right when",
   "staffing.track.engineer.title": "AI engineer staffing",
-  "staffing.track.engineer.tag.1": "Immediate impact on your project",
-  "staffing.track.engineer.tag.2": "Agents on your codebase",
-  "staffing.track.engineer.tag.3": "Expert AI use",
   "staffing.track.engineer.body": "We put an AI-native engineer in your project. They work inside your sprints, your repository and your review, and build up the automation around the code with you, handing over to your own engineers from day one.",
 
   "staffing.track.engineer.how": "In practice: in the daily stand-up, tickets from the same backlog, pull requests your own reviewers approve. We set the agents up on your codebase, write the conventions into the repository and build the gates into your CI/CD, so that what we leave behind keeps working without us. You decide on every commit; we are not a black box throwing code over the wall.",
   "staffing.track.engineer.fit": "Your project is running, there is work enough, and nobody on the team gets AI further than the search bar.",
   "staffing.track.developers.title": "Coaching for developers",
-  "staffing.track.developers.tag.1": "One-to-one coaching",
-  "staffing.track.developers.tag.2": "Pair programming",
-  "staffing.track.developers.tag.3": "Setting up async workflows",
   "staffing.track.developers.body": "We bring AI-native patterns to your own engineers: explaining, demonstrating and working at the same screen on the work that is on the table today, until it sticks.",
 
   "staffing.track.developers.how": "In practice: half a day a week beside your developers, on their own tickets. We work at the same screen, show what an agent can and cannot carry, and set up together the async workflows that keep work moving outside office hours. What we set up is yours and lives in your repository, not in our notes.",
   "staffing.track.developers.fit": "Your developers have access to AI, use it as a smarter autocomplete, and you still see no difference in lead time.",
   "staffing.track.business.title": "Coaching for business teams",
-  "staffing.track.business.tag.1": "AI techniques",
-  "staffing.track.business.tag.2": "Mapping workflows",
-  "staffing.track.business.tag.3": "Repeatable patterns",
   "staffing.track.business.body": "We train your employees ourselves: what AI can and cannot do, and how to put it on their own case files. Coaching alongside the work already on their desk, with repeatable patterns instead of one-off prompts.",
 
   "staffing.track.business.how": "In practice: sessions with the people who do the work, on their own files. We map out together which step AI takes over and which it does not, write that down as a workflow your team runs again, and stay until it runs without us. Not a prompt library, a way of working.",
@@ -294,7 +255,6 @@
   "processes.title": "AI-native business processes · SmartAgents",
   "processes.description": "We go through the work your teams do today, say where AI pays off and where it does not, and leave reusable workflows, skills and agents behind. With coaching until your people run them.",
 
-  "processes.hero.eyebrow": "AI-native business processes",
   "processes.hero.title": "From your tasks to reusable workflows",
 
   "processes.cta.phases": "See the approach",
@@ -327,7 +287,6 @@
   "sdlc.title": "AI-native SDLC · SmartAgents",
   "sdlc.description": "From traditional to agentic to AI-native. We guide software teams through that shift: the bottleneck travels with it, and most of the work is not technical but human.",
 
-  "sdlc.hero.eyebrow": "AI-native SDLC transformation",
   "sdlc.hero.title": "From traditional SDLC to AI-native",
 
   "sdlc.cta.journey": "See the way there",
@@ -344,7 +303,8 @@
   "sdlc.issue.tooling.body": "Every team works its own way, there is no shared way of working, and the average developer has too little access to AI to get any good at it.",
 
   "sdlc.journey.title": "The way there",
-  "sdlc.journey.lede": "We follow Anthropic’s AI-native SDLC playbook. The bottleneck does not disappear, it moves.",
+  "sdlc.journey.lede": "We build on what Anthropic publishes about AI-native engineering. The bottleneck does not disappear, it moves.",
+  "sdlc.journey.source": "Anthropic: The AI-native SDLC playbook",
 
   "sdlc.stage.traditional.title": "Traditional",
   "sdlc.stage.traditional.body": "Build is the bottleneck.",
@@ -391,15 +351,11 @@
 
   "team.hero.title": "Meet our team",
 
-  "team.founders.title": "The founders",
-
   "team.linkedinLabel": "on LinkedIn",
 
   "team.person.axel.body": "Entrepreneur with more than 25 years in digital transformation. Helps organisations find the intelligent automation that actually pays off.",
-  "team.person.axel.tags": "Digital transformation · Strategy · Entrepreneurship · AI adoption",
   "team.person.axel.portrait": "Axel Segers, founder of SmartAgents",
   "team.person.tom.body": "Technical architect specialised in agentic AI systems and automation at enterprise scale. Builds solutions that scale and keep working.",
-  "team.person.tom.tags": "Agentic AI · Enterprise architecture · Automation · Technical design",
   "team.person.tom.portrait": "Tom Haeldermans, founder of SmartAgents",
 
   "team.story.title": "Why we started",
@@ -423,14 +379,13 @@
   "jobs.why.work.body": "AI agents and the agentic engineering around them, running in production at Belgian companies. Just as often coaching, training and the client relationship itself. What nobody uses, we take back out.",
   "jobs.why.team.title": "Who you work with",
   "jobs.why.team.body": "A small, driven team working on the same kind of solution. You sit close to everyone building it.",
+  "jobs.why.team.link": "Meet the team",
   "jobs.why.learn.title": "What you learn",
   "jobs.why.learn.body": "The field moves every month. You work with what exists today, on real client work, and that is where you pick it up fastest.",
-
 
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Privacy notice · SmartAgents",
   "privacy.description": "What personal data smartagents.be processes, why, who sees it and how long we keep it. No analytics, no tracking and no cookies of our own on the public pages.",
-  "privacy.eyebrow": "Legal",
   "privacy.heading": "Privacy notice",
   "privacy.lede": "This page explains what personal data smartagents.be processes, why, and what you can do about it. It describes what the site actually does today, not what it could do.",
   "privacy.updated": "Last updated 3 September 2026",
@@ -446,5 +401,6 @@
   "notfound.title": "Page not found",
   "notfound.description": "This page does not exist (any more).",
   "notfound.tagline": "This page does not exist (any more).",
+  "notfound.lede": "The page may have moved, or the address is just slightly off. Below are the places most people are looking for.",
   "notfound.home": "Back to the homepage"
 }

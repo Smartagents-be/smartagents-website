@@ -50,7 +50,7 @@
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../../build/lib/html.mjs';
 import { absolute } from '../../../build/lib/i18n.mjs';
-import { orbitRings } from '../../layouts/base.mjs';
+import { index, orbitRings } from '../../layouts/base.mjs';
 import { breadcrumbNode, homeStep } from '../../layouts/schema.mjs';
 import { prose } from '../prose.mjs';
 import { body } from './body.mjs';
@@ -71,7 +71,10 @@ export const page = {
 
   meta: (t) => ({
     title: t('privacy.title'),
-    description: t('privacy.description')
+    description: t('privacy.description'),
+    // The date the notice itself prints, so the sitemap cannot claim a revision
+    // the document does not show.
+    lastmod: UPDATED
   }),
 
   /* A breadcrumb and nothing else. There is no schema.org type for "the legal
@@ -96,8 +99,11 @@ ${orbitRings(`${SCOPE}-notice`, 'orbits--notice', ['01', '02', '03', '04'])}
        notice names its author only in the footer's legal line and never names
        its source at all. The print stylesheet prints this attribute; nothing
        on screen reads it. -->
+  <!-- No eyebrow. It said "Juridisch" over a heading that says "Privacybeleid",
+       which is the word again in a coat. The eyebrow is kept on the two page
+       families where it adds a level and is a link up to it — the kata page and
+       the four articles — and nowhere else. -->
   <header id="${SCOPE}-head" class="article__head notice__head" data-print-url="${absolute(url)}">
-    <p id="${SCOPE}-eyebrow" class="page-eyebrow">${t('privacy.eyebrow')}</p>
     <h1 id="${SCOPE}-title">${t('privacy.heading')}</h1>
     <!-- The standfirst every other head on the site carries, and the sentence
          that says what this document is. It used to be the body's first
@@ -161,7 +167,7 @@ ${prose(body[lang], { scope: `${SCOPE}-body`, resolveHref: clauseHref(lang) })}
  */
 function clauses(lang) {
   return body[lang]
-    .map((block, i) => ({ block, id: `${SCOPE}-body-block-${String(i + 1).padStart(2, '0')}` }))
+    .map((block, i) => ({ block, id: `${SCOPE}-body-block-${index(i + 1)}` }))
     .filter(({ block }) => block.type === 'h2');
 }
 

@@ -176,6 +176,13 @@ ${orbitRings('jobs-hero')}
   <div id="jobs-hero-inner" class="hero__inner">
     <div id="jobs-hero-text" class="hero__text">
       <h1 id="jobs-hero-title">${t('jobs.hero.title')}</h1>
+      <!-- The standfirst, and it is the page's own description key rather than
+           a line of its own. Every hero on the site was eyebrow, headline, two
+           buttons and then 300px of paper: on a 1280x800 laptop the first
+           sentence saying who this is for arrived at y≈800, under the fold. The
+           sentence already existed — it is the page's own search snippet — so it
+           is printed from that key instead of written a second time, which is
+           also the only way the page and the snippet can never drift apart. -->
       <div id="jobs-hero-actions" class="hero__actions">
         <a id="jobs-hero-cta-vacancies" class="btn btn--primary" href="#vacancies">${t('jobs.cta.vacancies')} <span id="jobs-hero-cta-vacancies-arrow" aria-hidden="true">&rarr;</span></a>
       </div>
@@ -202,10 +209,18 @@ ${orbitRings('jobs-hero')}
 /**
  * One vacancy, as Odoo published it.
  *
- * Everything inside the row is Odoo's: the role, the place, and the lines of
- * the job description. Everything around it is this repo's — the heading, the
- * word for the place, the action's label — so the page reads as the site in
- * three languages while the vacancy itself is never written twice.
+ * Everything inside the row is Odoo's: the role and the lines of the job
+ * description. Everything around it is this repo's — the heading, the action's
+ * label — so the page reads as the site in three languages while the vacancy
+ * itself is never written twice.
+ *
+ * The row does not print the place. Odoo sends one and `build/lib/odoo-jobs.mjs`
+ * still normalises it, so it is a field away if it is ever wanted back, but
+ * every vacancy the client publishes carries the same address and a tag that
+ * reads the same on every row places nothing — it is a label the reader has to
+ * check against the others to learn that it never differs. The address is in
+ * the contact block at the foot of the page, once, where a reader who wants it
+ * goes looking.
  *
  * The action is the point of the whole integration. It goes to that job's own
  * application form on the recruitment site, so a candidate lands in Recruitment
@@ -235,10 +250,7 @@ function vacancy({ t, job, open }) {
   return html`      <details id="${id}" class="track" name="jobs-vacancy"${open ? raw(' open') : ''}>
         <summary id="${id}-summary" class="track__summary">
           <div id="${id}-head" class="track__head">
-            <h3 id="${id}-title" class="track__title">${job.title}</h3>${job.location ? html`
-            <ul id="${id}-tags" class="track__tags">
-              <li id="${id}-tag-location" class="track__tag">${job.location}</li>
-            </ul>` : ''}
+            <h3 id="${id}-title" class="track__title">${job.title}</h3>
           </div>
           <span id="${id}-chevron" class="track__chevron" aria-hidden="true"></span>
         </summary>
@@ -295,11 +307,16 @@ ${join(rows)}
 /* ------------------------------------------------------------------ *
  * Werken bij SmartAgents — the four things that are true around the work
  *
- * The hairline row list, unchanged: four things that are all true at the same
- * time, which is exactly what that idiom is for. One of them links — "met wie
- * je werkt" goes to the team page, through `teamPath()` the way every other row
- * on the site links out, and renders plain in a language the team page is not
- * published in.
+ * The hairline row list: three things that are all true at the same time, which
+ * is exactly what that idiom is for. One of them links — "met wie je werkt" goes
+ * to the team page, through `teamPath()` the way every other row on the site
+ * links out, and renders plain in a language the team page is not published in.
+ *
+ * That one row is the only place on the site where a cue carries a word. Every
+ * other row list is a list of links and the arrow alone is enough; here two of
+ * the three rows go nowhere, so an arrow on the third is a difference a reader
+ * has to notice before they can read it. "Ontmoet het team →" says where it
+ * goes, which is the thing the arrow could not.
  * ------------------------------------------------------------------ */
 
 function reasons(t, lang) {
@@ -311,7 +328,7 @@ function reasons(t, lang) {
 
     const inner = html`        <span id="${id}-title" class="row__title">${t(`jobs.why.${key}.title`)}</span>
         <span id="${id}-body" class="row__body">${t(`jobs.why.${key}.body`)}</span>${href ? html`
-        <span id="${id}-cue" class="row__cue" aria-hidden="true">${t('cta.moreInfo')} &rarr;</span>` : ''}`;
+        <span id="${id}-cue" class="row__cue row__cue--named" aria-hidden="true">${t(`jobs.why.${key}.link`)} &rarr;</span>` : ''}`;
 
     return href
       ? html`      <a id="${id}" class="row" href="${href}">

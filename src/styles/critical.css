@@ -48,8 +48,14 @@ a {
   text-decoration: none;
 }
 
+/* To `--sa-deep`, not to the lighter cyan step. WCAG 1.4.3 applies to every
+   state a link has, and `--sa-cyan-hover` (#038fab) measures 3.64:1 on paper
+   against the 4.5:1 the rest state clears at 4.72 — so the one state a reader
+   deliberately puts a link into was the one state that failed. Diepzee is the
+   colour the primary action is already made of, it is 12:1, and moving toward
+   the ink rather than away from it is what a hover on paper should do anyway. */
 a:hover {
-  color: var(--sa-cyan-hover);
+  color: var(--sa-deep);
 }
 
 h1,
@@ -413,7 +419,15 @@ select {
 
 .lang-switcher a {
   transition: var(--transition-tint);
-  display: block;
+  /* A flex box with a floor under it rather than a plain block: the chips were
+     46x37 in the phone sheet and 26x33 in the tablet header, and 26px wide is
+     under the 24px WCAG floor in one axis only because of the gap beside it.
+     The floor is on the box, so the type stays the size it is drawn at. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
   padding: 3px var(--space-3);
   border-radius: var(--radius-chip);
   color: var(--text-faint);
@@ -426,9 +440,20 @@ select {
   color: var(--text-strong);
 }
 
-.lang-switcher a[aria-current="true"] {
+/* The language you are reading. This said `[aria-current="true"]` and the
+   switcher has always emitted `aria-current="page"`, so the rule matched
+   nothing: all three chips computed to the same colour, the same weight and no
+   underline, and the only thing naming the current language was an attribute no
+   sighted reader can see. Matching on the attribute's presence is what fixes it
+   — and the mark is the nav's own, an underline, because colour alone is not a
+   distinction (WCAG 1.4.1) and the chip's wash is a 1.06:1 tint of the paper. */
+.lang-switcher a[aria-current] {
   background: var(--surface-chip);
   color: var(--text-strong);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--sa-cyan);
 }
 
 /* ------------------------------------------------------------------ *
@@ -526,33 +551,15 @@ select {
   color: var(--action-secondary-hover);
 }
 
-/* On the field the accent stays the action and the steps run the other way:
-   toward the light rather than away from it. */
-.btn--ondark {
-  background: var(--action-ondark-bg);
-  color: var(--action-ondark-fg);
-  font-size: var(--text-ui-sm);
-}
-
-.btn--ondark:hover {
-  background: var(--action-ondark-bg-hover);
-  color: var(--action-ondark-fg);
-}
-
-/* The one button that keeps the site's offset outline rather than the flush
-   ring, and the fill is why: a ring drawn against a fill has two edges to
-   clear 3:1 on, and #00d8ff is light enough that nothing clears both it and
-   the navy behind it. An outline stood off by 3px only has the navy to answer
-   to, and the bright accent answers it at 10.9:1. */
-.btn--ondark:focus-visible {
-  outline: 2px solid var(--action-ondark-bg);
-  outline-offset: 3px;
-  box-shadow: none;
-}
-
-.btn--ondark:active {
-  background: var(--action-ondark-bg-press);
-}
+/* There is no `.btn--ondark` here any more. It was four rules — a fill, a
+   hover, an offset focus outline and a press — for a button on the dark field,
+   and the dark field carries no buttons: nothing in the 60 rendered pages uses
+   the class, and nothing has since the navy bands the redesign replaced. It was
+   inlined into every `<head>` on the site to style an element no page emits. The
+   argument it carried is worth keeping if it ever comes back — a ring drawn
+   flush against #00d8ff has two edges to clear 3:1 on and nothing clears both
+   it and the navy behind it, so that button wants the site's offset outline
+   rather than the flush ring every other button swaps to. */
 
 .btn--sm {
   padding: var(--space-2) var(--space-6);
@@ -569,6 +576,33 @@ select {
   .btn:focus-visible {
     outline: 2px solid;
     outline-offset: 2px;
+  }
+
+  /* The orbit rings go, site-wide. They are five hairlines drawn at 5 to 11%
+     precisely so they sit under the type; a forced palette substitutes a system
+     colour for every border and drops the alpha with it, so ground designed to
+     be barely there came back as `CanvasText` at the layer's full opacity —
+     five full-strength circles through the reading column, the strongest lines
+     on the screen. A decoration has no weight it can be given in a palette it
+     does not choose, so it goes, the way `@media print` already drops it.
+     `.cycle__phase` on the AI-native SDLC page is the other half of the same
+     thought: that figure carries meaning, so it is given a border it can keep.
+
+     It is here rather than in main.css because `.orbits` is a critical rule: a
+     page whose rings arrived unhidden until the stylesheet landed would flash
+     them across the copy on every first paint. */
+  .orbits {
+    display: none;
+  }
+
+  /* The burger's two bars are painted backgrounds on a 1.5px box, and a forced
+     palette forces a background to the Canvas family — so the one control that
+     opens the navigation on a phone had no icon in it at all. Drawn as a border
+     it survives, which is the same reason `.nav-link.is-current::after` is a
+     border and not a painted bar. */
+  .nav-toggle__burger i {
+    height: 0;
+    border-top: 2px solid CanvasText;
   }
 }
 
@@ -606,10 +640,6 @@ select {
 
 [data-clip="dnaBlob"] {
   clip-path: url(#dnaBlob);
-}
-
-[data-clip="stackField"] {
-  clip-path: url(#stackField);
 }
 
 /* The AI staffing page's own hero shape: an arch on the flank the petal is a
@@ -707,10 +737,34 @@ select {
 /* The orbit diagram: five rings struck from one origin off the left edge. It is
    clipped to the hero by its own layer, never by `.hero` itself — the dark
    shapes deform outside their box and must not be cut off with it. */
+/* The layer is wider than the page's own box in every direction the rings need,
+   and `overflow: hidden` is what keeps that off the document. What it cannot do
+   is end an arc gracefully, and it was ending one thing badly: the travelling
+   node.
+
+   A node is a 4-5px dot on the ring's circumference, and on every layer whose
+   origin is struck near or past a page edge — the insights list's is at 104% —
+   it spends part of its turn outside the layer. Its opacity is keyed to the
+   rotation and nothing else, so it is lit for that stretch too, and a lit dot
+   crossing a hard clip is drawn as a sliver of itself: measured on the homepage,
+   `home-insights-orbit-02` stands 4px past the right edge with 1px of it
+   showing, a grey speck on the page gutter just above the "Inzichten" heading.
+   It reads as dirt on the screen, which is the one thing a texture must not do.
+
+   So the layer fades out over its last 44px on the left and right rather than
+   stopping. The node dissolves before the edge can cut it, and the arcs — which
+   ran off the page edge and stopped dead there — now leave the page instead of
+   being sliced by it, which is the same argument `.orbits--notice` makes at its
+   own foot. Horizontal only: no node on any layer on the site reaches the top or
+   the bottom edge lit, and a vertical fade would pull the rings off the hero's
+   own hairline, where an arc stopping under the header reads as an arc going
+   behind it. */
 .orbits {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 44px, #000 calc(100% - 44px), transparent);
   pointer-events: none;
 }
 
@@ -858,26 +912,11 @@ select {
   animation-duration: 88s;
 }
 
-/* The outermost ring. Only a ground that is taller than the hero gives it room
-   to read, so nothing calls for it above the fold; `orbitRings` leaves it out
-   unless a call site asks for it. Counter-travelling, like 02. */
-.orbits__path--04 {
-  inset: -845px auto auto -845px;
-  width: 1690px;
-  height: 1690px;
-  animation-duration: 118s;
-  animation-direction: reverse;
-}
-
-.orbits__path--04 .orbits__node {
-  top: -2.5px;
-  width: 5px;
-  height: 5px;
-  margin-left: -2.5px;
-  background: var(--sa-grey-1);
-  animation-duration: 118s;
-  animation-delay: -37s;
-}
+/* Ring 04's travelling node lives in main.css, not here. Only a ground taller
+   than a hero gives that ring room to read, so the three call sites that ask
+   for it are all below the fold — the offer, the insights list and the privacy
+   notice — and two rules for a thing no first paint can show were 380 bytes of
+   every `<head>` on the site. */
 
 @keyframes sa-orbit {
   from {
@@ -930,44 +969,21 @@ select {
 }
 
 
-/* The wordmark sets its own width; only the claim is held to a measure, so the
-   two never fight over the same line length.
-
-   `.hero__wordmark` is a `<p>` on the homepage and the heading is the claim
-   beside it, so this has to name both rather than only `h1` — and every
-   `.hero__claim` rule has to name the element as well, or `.hero h1` outranks
-   it and the claim is set at the wordmark's size. */
-.hero h1,
-.hero__wordmark {
+/* Every hero heading, at one size. The homepage used to print a wordmark at
+   this size with the claim under it a step smaller (`.hero h1.hero__claim`),
+   which is why this rule named two selectors and why the claim needed an
+   element-qualified override to beat `.hero h1`. The wordmark is gone — the
+   header carries the brand 120px above it — so the claim is simply the heading,
+   at the size the lockup had, and the whole `.hero__wordmark` block and the
+   override with it. */
+.hero h1 {
+  max-width: var(--measure-display);
+  color: var(--text-strong);
   font-size: var(--text-display);
   line-height: var(--leading-display);
   letter-spacing: var(--track-display);
   font-weight: var(--weight-display);
   text-wrap: pretty;
-}
-
-.hero__wordmark {
-  display: flex;
-  gap: var(--space-5);
-  align-items: center;
-}
-
-.hero__wordmark .logo {
-  flex: none;
-  width: 52px;
-  height: 52px;
-}
-
-.hero__wordmark .brand-accent {
-  color: var(--sa-cyan);
-}
-
-.hero h1.hero__claim {
-  display: block;
-  margin-top: var(--space-4);
-  max-width: var(--measure-display);
-  color: var(--text-strong);
-  font-size: var(--text-h1-sub);
 }
 
 .hero__actions {
@@ -1022,23 +1038,9 @@ select {
     align-self: center;
   }
 
-  /* The artboard turns the hero's hierarchy over: the wordmark steps back and
-     the sentence that carries the page becomes the largest thing on it, which
-     is what the phone already does. Both are held to the artboard's sizes at
-     its own width and scale from there. */
-  .hero__wordmark {
-    font-size: clamp(30px, 4.8vw, 40px);
-  }
-
-  .hero__wordmark .logo {
-    width: 1.05em;
-    height: 1.05em;
-  }
-
-  .hero h1.hero__claim {
-    /* The claim is the largest thing here, so it sets its own line and needs
-       the air the wordmark used to give it from above. */
-    margin-top: var(--space-6);
+  /* The artboard turns the hero's hierarchy over and the headline is the
+     largest thing on the page, which is what the phone already does. */
+  .hero h1 {
     max-width: none;
     font-size: clamp(38px, 6.4vw, 54px);
   }
@@ -1266,29 +1268,16 @@ select {
     padding: var(--space-11) var(--gutter-page) 0;
   }
 
-  /* The wordmark stops growing with the page and the claim takes over as the
-     largest thing on it: one line of brand, then the sentence that carries the
-     page. The measure is a share of the column, not a character count — what
-     it has to clear is the shape above it, which is a share too. */
-  .hero__wordmark {
-    font-size: 32px;
-  }
-
-  .hero__wordmark .logo {
-    width: 34px;
-    height: 34px;
-  }
-
-  /* The measure belongs to the whole block, not to the claim alone. The
+  /* The measure belongs to the whole block, not to the headline alone. The
      petal's tail comes down the right edge to 58% of the shape's height, well
      past the last line of type, so anything in the copy that runs the full
-     column ends on navy — which is what the buttons under the claim did. One
-     share holds them all off it. */
+     column ends on navy — which is what the buttons under it did. One share
+     holds them all off it. */
   .hero__text {
     max-width: 80%;
   }
 
-  .hero h1.hero__claim {
+  .hero h1 {
     font-size: var(--text-display);
   }
 

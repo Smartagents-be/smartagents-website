@@ -33,6 +33,15 @@ most valuable comes first.
 
 ## Low effort (copy, one rule, one attribute)
 
+> **Applied on 11 September 2026** on the `redesign` branch. Items 1–20 and
+> 22–25 are done, measured in the browser at 1280, 834 and 390px in all three
+> languages, with `npm run build` green (60 pages, contact path check passed) and
+> no console errors on any page. Item 21 and half of item 13 are not done, for
+> the reasons under each. `CLAUDE.md` was updated wherever a change contradicted
+> what it said. The item text below is left as it was written, as the record of
+> what was found; a **Done** line says what was actually changed where that
+> differs from the recommendation.
+
 ### 1. Every hero fails the five-second test: no sentence says what the page offers. [UX][Copy]
 Every detail page hero is eyebrow → headline → two buttons → 300px of paper
 (`training-hero`, `staffing-hero`, `sdlc-hero`, `processes-hero`, `kata-hero`,
@@ -42,6 +51,12 @@ first real sentence arrives at y≈800 on a 1280×800 laptop, below the fold.
 The sentence already exists: every page's `*.description` in `src/i18n` is a
 literal one-liner. Print it as a standfirst under the H1 (the kata page's facts
 strip is the model of what a hero can carry).
+
+**Done, and then reversed on the client's instruction.** `.hero__lede` printed
+each page's own `description` key under its H1 for a while. It is gone from all
+seven heroes now, along with both of its rules in `critical.css`, so a hero is
+a headline and its actions again and the `*.description` keys are metadata
+only. The finding stands as written; the answer to it is the client's call.
 
 ### 2. Homepage hero is a tagline under a second logo. [UX][Copy]
 `#home-hero` prints the wordmark 120px below the header's wordmark, then
@@ -75,6 +90,12 @@ only the arrow, or make the label descriptive per row ("Bekijk training",
 link (to the team page) and carries the cue, while all three look identical;
 either link none or say why that one goes somewhere.
 
+**Done, the first option, with one exception.** The cue is the arrow alone on the
+service rows and the article rows, and `cta.moreInfo` is deleted. The jobs page
+takes the second option instead: with two of its three rows going nowhere, an
+arrow is a difference a reader has to notice before they can read it, so that row
+says "Ontmoet het team →" (`jobs.why.team.link`).
+
 ### 6. Third-level pages have no way up. [UX][Nav]
 The kata page's eyebrow "Training" and the article eyebrow "Inzichten" are plain
 `<p class="page-eyebrow">` (`src/pages/kata.mjs:148`,
@@ -97,6 +118,11 @@ destinations (services, insights, contact) as well as home.
 **[Code]** `scripts/start-local.mjs:119,130` answer a missing URL with a
 plain-text "Not found" instead of serving `dist/404.html`, so nobody on
 `:8000`/`:8001` ever sees the real page. Serve the file with a 404 status.
+
+**Done.** It is a `.section` with the page frame, a standfirst (`notfound.lede`)
+and three destinations read off keys the chrome already prints — so it cannot
+name a section by a word no other page uses. `scripts/start-local.mjs` serves
+`dist/404.html` with a 404 status.
 
 ### 9. Link hover colour fails AA. [A11y]
 `critical.css:51-53` sets `a:hover` to `--sa-cyan-hover` (#038fab) = 3.64:1 on
@@ -131,6 +157,21 @@ floor only by their surrounding gap. Give inline action links the footer's
 call, not a failure — but 11.5px enterprise numbers and a 12px nav are the two
 to raise (12.5 / 14).
 
+**Not done, and measured rather than declined on taste.** Both raises regress a
+constraint that was measured before them.
+The nav's 12px floor only applies between 1181px (where the bar folds) and
+1276px; at 1280 the clamp already resolves to 13.06px. In that band the French
+row is 564px wide with the primary action standing 24px from the window edge
+inside a 59px gutter. At a 13px floor that row is 609px and the action is 21px
+*past* the window edge, and `.shell` is `overflow: clip`, so it would be cut
+rather than scrolled to. Paying it back means folding the bar at 1240px instead
+of 1180px, which takes the nav bar off every 1181–1240px tablet — a design
+decision, not a one-rule change.
+The footer microline at 12.5px is 836px of type in Dutch against a 799px track
+at 1280, so it wraps to two lines on the commonest laptop width; 12px is 809px
+and still wraps. It holds one line from about 1340px up at 12.5. Contrast is
+4.82:1 either way.
+
 ### 14. Two identical "Plan een gesprek" buttons on the phone's first screen. [Mobile][UX]
 At 390×844 the hero's primary button (bottom 283px) and the sticky bar's
 `#mobile-actions-talk` (top 775px) are both visible. Show the bar only once the
@@ -161,10 +202,23 @@ article → "Inzichten", both as links per item 6); drop the rest and the pill.
 Both course columns on `/training/`. Either give a range ("vanaf € …/dag") or
 drop the row and let the CTA ask.
 
+**Done, by dropping the row.** A range is the better answer and nothing in the
+repo or on the site knows one; a number is not ours to invent. The CTA under the
+strip is what asks now.
+
 ### 18. External claim without a link. [Copy]
 `sdlc.journey.lede`: "We volgen het AI-native SDLC-playbook van Anthropic."
 Link the source or name it more loosely; a named document that cannot be
 opened reads as a name-drop.
+
+**Done, by naming it more loosely, and then by linking it.** No public Anthropic
+document could be pointed at with confidence at the time, so the line stopped
+claiming a specific playbook: "We bouwen op wat Anthropic publiceert over
+AI-native engineering." The client has since supplied the document, so the lede
+keeps that wording and carries the source under it as a link —
+`sdlc.journey.source` on `PLAYBOOK_URL` in `sdlc.mjs`, which is
+claude.com/blog/the-ai-native-sdlc-playbook. It is the only external source the
+public site names.
 
 ### 19. Contact block is inconsistent across pages. [Consistency]
 The home and training contact sections have a title and no lede; the other
@@ -180,6 +234,12 @@ the homepage; pass the level in.
 Both `<video>` blocks (training format, kata tour) ship an MP4 with no
 `<track kind="captions">` and no transcript. The voice-over is the content.
 
+**Not done: it needs the content, not the code.** `<track kind="captions">` wants
+a WebVTT file per language, and nothing in this repo or in `../kata-agentic-java`
+has a transcript of the voice-over. Writing one from the audio is the work; the
+markup is ten minutes after that. Left for whoever can supply or approve the
+transcript.
+
 ### 22. Vacancy card spacing. [UX]
 `/jobs/`, open row: the `Solliciteer` button sits flush under the last bullet
 with no gap, and the description list runs the full 1150px width at 16px.
@@ -192,6 +252,14 @@ On the homepage at 1280 a 4px grey dot sits at the right edge just above the
 the top right. It is a travelling `.orbits__node` reaching the clipped edge of
 its layer, which extends past its section. Either clip the layer to the section
 or fade the node before the edge.
+
+**Verified, then fixed.** Confirmed by measurement, not by eye: on the homepage
+`home-insights-orbit-02` stands 4px past the layer's right edge at full opacity
+with 1px of a 5px dot showing, and the same node does it on `/inzichten/`. The
+layer is masked to nothing over its last 44px on each flank — horizontal only,
+because no node on the site reaches the top or bottom edge lit and a vertical
+fade would pull the rings off the header's hairline. `.orbits--notice` declares
+its own mask, so it restates this one intersected with it.
 
 ### 24. Dead and duplicated CSS shipped in every head. [Code]
 - `.btn--ondark` ×4 (`critical.css:531-555`): zero usages in 47 pages. Delete.
@@ -211,6 +279,11 @@ or fade the node before the edge.
 - `.step { border-top: 1px solid oklch(0.9 0.006 247.84) }` (`main.css:1097`)
   is `--sa-line-2` written out.
 - `.article-row__figure/__text/__meta` are each declared twice at top level.
+
+**Done, all of it, plus four tokens the first deletion orphaned.** Removing
+`.btn--ondark` left `--action-ondark-bg`, `-bg-hover`, `-bg-press` and `-fg` with
+no reader, so they went too — fourteen tokens in all, counting `--focus-ring`
+from item 10. The inline critical block is 17,197 B, down from 18,071.
 
 ### 25. Small JS and function fixes. [Code]
 - `src/sw.js:66` caches any OK navigation: a click on a one-pager PDF lands
@@ -248,6 +321,12 @@ or fade the node before the edge.
   falls back to `og:*`) and a `modulepreload` for the same URL as the module
   script two lines below.
 
+**Done, all bullets, plus one the scan did not name:** `spotlights()` in
+`src/motion.js` is deleted. It hung a `pointermove` handler on every
+`[data-spotlight]` element and wrote a gradient string per event, and no page on
+the site has carried the attribute since the dark cards it was drawn for became
+hairline rows — so it shipped in the entry chunk everywhere and ran nowhere. That
+also retires the first bullet of item 44.
 ---
 
 ## Medium effort (a component, a section, a decision)
@@ -271,6 +350,12 @@ energie" are the filler the brief asks to avoid. Recommendation: cut
 it to the team page, whose "Waarom we begonnen zijn" already says it better).
 Homepage becomes hero → services → insights → contact, and the fold moves up
 by ~1300px.
+
+**Done, the first half.** "Digitale transformatie" is gone: the section, the
+isometric stack beside it, the `stackField` clip path, the `.numbered--plain`
+modifier nothing else used and 384 lines of `main.css`. "Ons DNA" stays — that
+half is a copy decision, not a layout one, and it was not asked for. The
+homepage is hero → services → DNA → insights → contact.
 
 ### 28. "Waarom investeren in AI-training?" is a generated benefits list. [Slop]
 Five rows: Snellere adoptie, Hogere productiviteit, Minder risico, Kostenbewust,

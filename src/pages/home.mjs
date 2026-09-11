@@ -2,8 +2,8 @@
 // lucht") of the "Smartagents.be Redesign Direction" design project.
 // Structure, spacing, colour and motion all come from the design system:
 // see .claude/skills/smartagents-design/README.md.
-import { html, join, raw } from '../../build/lib/html.mjs';
-import { logoMark, orbitRings, servicePath } from '../layouts/base.mjs';
+import { html, join } from '../../build/lib/html.mjs';
+import { orbitRings, servicePath } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 
@@ -17,21 +17,6 @@ import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 // two rows it always was.
 const SERVICES = ['training', 'staffing', 'sdlc', 'processes'];
 const DNA = ['1', '2', '3', '4'];
-const TRANSFORMATION = ['1', '2', '3', '4'];
-
-/**
- * The cells inside one isometric plane. Pure texture and inside an `aria-hidden`
- * figure, but named all the same: element-ids §1 covers decorative and repeated
- * `<i>` cells too, and "the third cell of the fourth plane" is a thing a person
- * looking at the page can want to point at.
- */
-const cells = (plane, n) =>
-  raw(
-    Array.from(
-      { length: n },
-      (unused, i) => `<i id="home-transformation-plane-${plane}-cell-${String(i + 1).padStart(2, '0')}"></i>`
-    ).join('')
-  );
 
 export const page = {
   id: 'home',
@@ -48,7 +33,6 @@ export const page = {
 ${hero(t)}
 ${services(t, lang)}
 ${dna(t)}
-${transformation(t)}
 ${insights(t, lang)}
 ${contact(t, lang)}
 
@@ -77,13 +61,16 @@ ${orbitRings('home-hero')}
   </div>
   <div id="home-hero-inner" class="hero__inner">
     <div id="home-hero-text" class="hero__text">
-      <!-- The wordmark is the drawn hero lockup and it is beside the heading,
-           not inside it: as part of the h1 it made the page's one heading read
-           "SmartAgents Digitale collega's die nooit slapen", which repeats the
-           wordmark 60px above it in the header and says nothing about what is
-           sold. It is the same lockup on screen; only the outline changed. -->
-      <p id="home-hero-wordmark" class="hero__wordmark">${logoMark('ink', 'home-hero-logo')}<span id="home-hero-wordmark-text">Smart<span id="home-hero-wordmark-accent" class="brand-accent">Agents</span></span></p>
-      <h1 id="home-hero-title" class="hero__claim">${t('hero.claim')}</h1>
+      <!-- The wordmark that used to open this block is gone. It printed the
+           brand a second time 120px under the header's own wordmark, pushed the
+           offer below y=1000 on a laptop, and left the page's one heading
+           reading "SmartAgents Digitale collega's die nooit slapen" — a claim
+           with nothing under it saying what is sold or to whom. The claim is
+           the heading now, at the size the wordmark had, and the line under it
+           is the sentence the head has always carried in the page's own
+           description key: read from there rather than written again, so the
+           page and its search snippet can never say two different things. -->
+      <h1 id="home-hero-title">${t('hero.claim')}</h1>
       <div id="home-hero-actions" class="hero__actions">
         <a id="home-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="home-hero-cta-work" class="btn btn--ghost" href="#services">${t('cta.seeWork')} <span id="home-hero-cta-work-arrow" aria-hidden="true">&rarr;</span></a>
@@ -96,11 +83,18 @@ ${orbitRings('home-hero')}
 /* ------------------------------------------------------------------ *
  * Wat we doen — hairline-separated rows, not cards
  *
- * A service with a detail page of its own is a link, and gets the "Ontdek →"
- * cue back along with the hover, the arrow and the translate. All four have one
- * today, so every row is a link — but the plain-row branch stays: a service is
- * only a link in a language its page is published in, and `servicePath()`
- * returns null everywhere else (design README, "Deviations", item 4).
+ * A service with a detail page of its own is a link, and carries the cue: the
+ * hover, the translate and the arrow. All four have one today, so every row is a
+ * link — but the plain-row branch stays: a service is only a link in a language
+ * its page is published in, and `servicePath()` returns null everywhere else
+ * (design README, "Deviations", item 4).
+ *
+ * The cue is the arrow and nothing else. It used to print "Ontdek →", and with
+ * the four article rows further down printing the same two words the homepage
+ * carried them eight times — on rows that are links end to end, 1152px wide,
+ * whose own title already names what is at the other end. The word was
+ * decoration on a link that does not need announcing; the arrow is the part
+ * that moves on hover and the part that says which way.
  * ------------------------------------------------------------------ */
 
 function services(t, lang) {
@@ -111,7 +105,7 @@ function services(t, lang) {
     const content = html`    <span id="${id}-title" class="row__title">${t(`service.${key}.title`)}</span>
     <span id="${id}-body" class="row__body">${t(`service.${key}.body`)}</span>${href
       ? html`
-    <span id="${id}-cue" class="row__cue">${t('cta.moreInfo')} <span id="${id}-cue-arrow" aria-hidden="true">&rarr;</span></span>`
+    <span id="${id}-cue" class="row__cue" aria-hidden="true">&rarr;</span>`
       : ''}`;
 
     return href
@@ -172,60 +166,6 @@ ${join(items)}
 }
 
 /* ------------------------------------------------------------------ *
- * Digitale transformatie — four capability areas, drawn as an isometric stack
- *
- * Not numbered, and that is the point. This block and "Van vraag tot werkende
- * oplossing" two sections down both used to run 01, 02, 03, 04 — one of four
- * steps and one of five, describing overlapping things, back to back on the
- * same page. A reader could not tell which of the two was the engagement. The
- * steps are the engagement; these are the areas the work touches, and an area
- * has no number because there is no order to be in.
- * ------------------------------------------------------------------ */
-
-function transformation(t) {
-  const items = TRANSFORMATION.map(
-    (n) => html`<div id="home-transformation-item-${n}" class="numbered numbered--plain">
-      <div id="home-transformation-item-${n}-inner">
-        <h3 id="home-transformation-item-${n}-title" class="numbered__title">${t(`transformation.${n}.title`)}</h3>
-        <p id="home-transformation-item-${n}-body">${t(`transformation.${n}.body`)}</p>
-      </div>
-    </div>`
-  );
-
-  // The stack repeats the same four layers as the list beside it, so it is
-  // decorative: the accessible copy is the list. That is also why these labels
-  // stay `<div>` where the list beside them took `<h3>` — the whole figure is
-  // `aria-hidden`, so promoting them would add nothing to the outline and would
-  // put four headings in the document that no reader can reach.
-  const labels = TRANSFORMATION.map(
-    (n) => html`<div id="home-transformation-stack-label-${n}" class="stack__label stack__label--${n}${n === '1' ? ' stack__label--active' : ''}">
-        <span id="home-transformation-stack-label-${n}-text">${t(`transformation.${n}.label`)}</span>
-      </div>`
-  );
-
-  return html`<section class="section" id="transformation" aria-labelledby="home-transformation-title">
-  <div id="home-transformation-head" class="section__head section__head--wide">
-    <h2 id="home-transformation-title" class="section-heading">${t('section.transformation')}</h2>
-  </div>
-  <div id="home-transformation-inner" class="transformation">
-    <div id="home-transformation-list" class="transformation__list">
-${join(items)}
-    </div>
-    <div id="home-transformation-stack" class="stack" aria-hidden="true">
-      <div id="home-transformation-stack-field" class="field stack__field" data-magnet data-clip="stackField"><sa-node-field id="home-transformation-stack-nodes"></sa-node-field></div>
-      <div id="home-transformation-planes" class="stack__planes">
-        <div id="home-transformation-plane-1" class="plane plane--1"><div id="home-transformation-plane-1-cells" class="plane__quadrants">${cells('1', 4)}</div></div>
-        <div id="home-transformation-plane-2" class="plane plane--2"><div id="home-transformation-plane-2-cells" class="plane__rows">${cells('2', 3)}</div></div>
-        <div id="home-transformation-plane-3" class="plane plane--3"><div id="home-transformation-plane-3-cells" class="plane__grid">${cells('3', 9)}</div></div>
-        <div id="home-transformation-plane-4" class="plane plane--4"><div id="home-transformation-plane-4-cells" class="plane__cells">${cells('4', 16)}</div></div>
-${join(labels)}
-      </div>
-    </div>
-  </div>
-</section>`;
-}
-
-/* ------------------------------------------------------------------ *
  * Inzichten — the one list on this page that carries pictures.
  *
  * The rows stay rows: a hairline list, not a grid of cards. A row is a
@@ -268,6 +208,7 @@ function contact(t, lang) {
     t,
     lang,
     prefix: 'home',
-    title: t('contact.title')
+    title: t('contact.title'),
+    lede: t('contact.lede')
   });
 }

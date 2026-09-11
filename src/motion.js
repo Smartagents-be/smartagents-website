@@ -1,5 +1,7 @@
-// Page motion: the pointer spotlight and the magnetic dark shapes. Loaded
-// lazily from app.js, after paint, so none of it can delay LCP.
+// Page motion: the magnetic dark shapes. Imported by app.js, which is a
+// deferred module script, so none of it can delay LCP. It was described here as
+// lazily loaded and has not been since the magnets had to grow their boxes
+// before the first paint to keep CLS at zero.
 //
 // Two speeds only (design system, "Motion"): travel is 0.34s ease-out-expo,
 // colour is 0.22s ease. Nothing bounces, nothing scales, nothing spins.
@@ -8,30 +10,13 @@
 
 const still = matchMedia('(prefers-reduced-motion: reduce)');
 
-/* ------------------------------------------------------------------ *
- * Spotlight — the one place transparency and blur are allowed
- * ------------------------------------------------------------------ */
-
-function spotlights() {
-  for (const element of document.querySelectorAll('[data-spotlight]')) {
-    const base = getComputedStyle(element).backgroundImage;
-
-    element.addEventListener(
-      'pointermove',
-      (event) => {
-        const rect = element.getBoundingClientRect();
-        const x = (((event.clientX - rect.left) / rect.width) * 100).toFixed(1);
-        const y = (((event.clientY - rect.top) / rect.height) * 100).toFixed(1);
-        element.style.backgroundImage = `radial-gradient(340px circle at ${x}% ${y}%, rgba(0,216,255,0.13), transparent 70%), ${base}`;
-      },
-      { passive: true }
-    );
-
-    element.addEventListener('pointerleave', () => {
-      element.style.backgroundImage = base;
-    });
-  }
-}
+/* The spotlight is gone. It hung a `pointermove` handler on every
+   `[data-spotlight]` element, read that element's box and wrote a
+   `radial-gradient` string into its inline style on every event — and no page
+   on the site has carried the attribute since the dark cards it was drawn for
+   were replaced by hairline rows. It shipped in the entry chunk on every page
+   and ran on none of them. If a spotlight is ever wanted again, it wants the
+   rect cached at setup rather than read per event. */
 
 /* ------------------------------------------------------------------ *
  * Magnets — a dark shape deforms toward a nearby cursor, and two shapes
@@ -703,7 +688,6 @@ function smooth(loop) {
   const count = Math.max(6, Math.round(perimeter / SPACING));
   const stride = perimeter / count;
   const out = [];
-  let walked = 0;
   let at = 0;
   let carried = 0;
   for (let n = 0; n < count; n++) {
@@ -720,7 +704,6 @@ function smooth(loop) {
       carried += run;
       at++;
     }
-    walked = want;
   }
   return out.length >= 3 ? out : cur;
 }
@@ -801,8 +784,13 @@ function flatten(S) {
  *
  * Everything here works in viewport pixels — where `getBoundingClientRect` and
  * a pointer event agree — and each element remaps the result into its own box
- * when it writes its path. */
-function joins(items, cursorX, cursorY, linked) {
+ * when it writes its path.
+ *
+ * It takes no cursor. It used to be handed one and never read it: what the
+ * cursor decides is `k`, and `displace()` has already written that onto every
+ * item by the time this runs. Two parameters that looked like the thing the
+ * function keys on and were not. */
+function joins(items, linked) {
   // Every shape the page has, not only the pulled ones: a shape standing still
   // is still something a neighbour's swell can arrive at, and leaving it out of
   // the field would butt the neck against it instead of filleting into it.
@@ -1191,7 +1179,7 @@ function magnets() {
       return;
     }
 
-    joins(items, cursorX, cursorY, linked);
+    joins(items, linked);
 
     for (const item of items) {
       if (!item.shape && !item.bridge) {
@@ -1250,17 +1238,23 @@ function magnets() {
  * Wire-up
  * ------------------------------------------------------------------ */
 
-if (!still.matches) {
-  spotlights();
-
+/* `prefers-reduced-motion` was read once, here, at module evaluation, and the
+   whole block stood inside that one reading. A reader who turns the system
+   setting on mid-visit expects the page to go still, and everything else on the
+   site does react — `magnetic` below has always had its own listener, and the
+   CSS half is a media query, which is live by definition. Both queries feed one
+   `sync` now, so a magnet already running is torn down rather than left pulling
+   under a setting that has just forbidden it. */
+{
   // The magnets only make sense with a real pointer and a desktop layout; the
   // narrow layouts swap in different clip paths.
   const magnetic = matchMedia('(min-width: 1081px) and (hover: hover) and (pointer: fine)');
   let teardown = null;
 
   const sync = () => {
-    if (magnetic.matches && !teardown) teardown = magnets();
-    else if (!magnetic.matches && teardown) {
+    const wanted = !still.matches && magnetic.matches;
+    if (wanted && !teardown) teardown = magnets();
+    else if (!wanted && teardown) {
       teardown();
       teardown = null;
     }
@@ -1268,6 +1262,7 @@ if (!still.matches) {
 
   sync();
   magnetic.addEventListener('change', sync);
+  still.addEventListener('change', sync);
 
   // Setting up a magnet is a measurement: the box is grown by BLEED in pixels
   // and the authored outline is remapped into the bigger box using that box's

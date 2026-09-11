@@ -7,12 +7,26 @@
 :root {
   /* ---------------------------------------------------------------- *
    * Colour — two darks, one accent, a lot of paper
-   * ---------------------------------------------------------------- */
+   * ----------------------------------------------------------------
+ *
+ * Ten tokens came out of this file and none of them had a consumer on the
+ * public site: `--sa-field-2`, `--sa-grey-5`, `--surface-desk`,
+ * `--font-serif-accent`, `--track-caps`, `--space-15`, `--shell-width`,
+ * `--radius-shell`, `--shadow-shell` and `--focus-ring` — the last of them
+ * because the form's focus ring now points at `--focus-ring-action`, the value
+ * the buttons are measured at. This file is prepended to `critical.css` and
+ * inlined into all 60 `<head>`s, so an unused token is paid for on every page
+ * view of every page.
+ *
+ * Nine of the ten are still declared in `src/content/secured/tokens.css`, which
+ * is a separate file for a separate build and does use them. The two files are
+ * kept in step on the values they share; they have never had to hold the same
+ * set of names.
+ * ---------------------------------------------------------------- */
 
   /* ink and dark field */
   --sa-ink: oklch(0.148 0.005 247.84);
   --sa-field: oklch(0.183 0.022 252);
-  --sa-field-2: oklch(0.21 0.024 252);
   --sa-field-line: oklch(0.3 0.03 250);
 
   /* paper */
@@ -37,7 +51,6 @@
   --sa-grey-2: oklch(0.34 0.01 247.84);
   --sa-grey-3: oklch(0.42 0.014 247.84);
   --sa-grey-4: oklch(0.45 0.014 247.84);
-  --sa-grey-5: oklch(0.46 0.014 247.84);
   /* The faint step, and the only grey on this ramp that is measured rather
      than picked: at 0.56 it read 4.43:1 on --sa-paper, under the 4.5:1 AA
      floor, and it was the sole reason every page scored 96 on Lighthouse
@@ -141,7 +154,6 @@
   --sa-on-field-faint: oklch(0.84 0.012 240);
 
   /* semantic — surfaces */
-  --surface-desk: var(--sa-desk);
   --surface-page: var(--sa-paper);
   --surface-section: var(--sa-paper-2);
   --surface-raised: var(--sa-white);
@@ -182,11 +194,10 @@
   --action-primary-fg: var(--sa-white);
   --action-primary-fg-off: var(--sa-deep-muted);
   --action-secondary-hover: var(--sa-deep);
-  --action-ondark-bg: var(--sa-cyan-bright);
-  --action-ondark-bg-hover: var(--sa-cyan-bright-hover);
-  --action-ondark-bg-press: var(--sa-cyan-bright-press);
-  --action-ondark-fg: var(--sa-cyan-ink);
-  --focus-ring: color-mix(in oklch, var(--sa-cyan) 14%, transparent);
+  /* The four `--action-ondark-*` steps went with `.btn--ondark` in
+     `critical.css`: they were that class's four fills and had no other reader.
+     The ramp they were struck from — `--sa-cyan-bright` and its hover and press
+     steps — stays, because the portrait overlay on the team page uses it. */
   --focus-ring-action: var(--sa-cyan-ring);
 
   /* ---------------------------------------------------------------- *
@@ -198,7 +209,6 @@
      so the intended face is used wherever it is installed; everything else
      falls back to the platform UI face, which costs zero requests and zero CLS. */
   --font-sans: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif-accent: "Instrument Serif", Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* The page never uses a size that is not on this list. Every step fluids down
@@ -245,7 +255,6 @@
   --track-h3: -0.014em;
   --track-h5: -0.012em;
   --track-ui: -0.005em;
-  --track-caps: 0.02em;
 
   --leading-display: 1.03;
   --leading-h2: 1.12;
@@ -271,13 +280,11 @@
   --space-12: 46px;
   --space-13: 56px;
   --space-14: 64px;
-  --space-15: 72px;
   --space-16: 104px;
 
   --gutter-page: clamp(20px, 5vw, 64px);
   --gap-column: clamp(28px, 5vw, 72px);
   --section-rhythm: clamp(56px, 8vw, 104px);
-  --shell-width: 1180px;
   --measure: 44ch;
   --measure-display: 14ch;
   /* Long-form only, and an outer bound rather than the width: the article column
@@ -297,11 +304,8 @@
   --radius-menu-item: 11px;
   --radius-panel: 16px;
   --radius-card: 20px;
-  --radius-shell: 26px;
   --radius-pill: 999px;
 
-  --shadow-shell: 0 30px 70px -34px oklch(0.148 0.03 247.84 / 0.32),
-    0 1px 2px 0 oklch(0.148 0.02 247.84 / 0.06);
   --shadow-menu: 0 28px 60px -30px oklch(0.148 0.03 247.84 / 0.42),
     0 2px 6px -2px oklch(0.148 0.02 247.84 / 0.08);
   --shadow-lift-sm: 0 10px 24px -12px oklch(0.148 0.03 247.84 / 0.45);

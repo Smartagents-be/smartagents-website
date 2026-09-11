@@ -9,7 +9,7 @@ password-gated `/secured/` area (internal documents and pitch decks) is live.
 
 ## Skills — read these first
 
-Six of the skills in `.claude/skills/` define the architecture, the look and the
+Eight of the skills in `.claude/skills/` define the architecture, the look and the
 markup conventions. They are the source of truth; this file only records how
 they are applied here.
 
@@ -23,6 +23,11 @@ they are applied here.
 - **`element-ids`** — every element rendered inside `<body>` carries a unique,
   language-independent `id` so any part of a page can be named exactly. Read it
   before writing or editing markup.
+- **`motion-fields`** — the site's shapes: hero silhouettes, the magnetic
+  pull, the metaball joins, the orbit rings, the footer and the buttons. Read it
+  before drawing or moving anything on the dark field.
+- **`jobs-and-odoo`** — the jobs page and the Odoo vacancy integration behind
+  it. Read it before touching a vacancy, its source or its page.
 - **`new-presentation`** — the decks under `/secured/presentations/`: the seven
   slide archetypes, the shared slide vocabulary, and the copy rules. Read it
   before adding a deck or a slide.
@@ -70,29 +75,14 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `EXPORT_SESSION_SECRET`) stay dashboard-managed; a binding a Function needs at
   runtime belongs in the file. `functions/api/README.md` records one that is
   still missing.
-- **A deploy hook is what makes Odoo's vacancies arrive.** The jobs page is
-  rendered at build time, so a job published in Odoo reaches the site on the
-  next build and not before. The hook is a Cloudflare Pages URL (Settings →
-  Builds & deployments → Deploy hooks, on `main`) pasted into an Odoo automation
-  rule on `hr.job` that fires on create, write and unlink — publishing or
-  closing a vacancy then triggers a deploy within a minute or two. The URL is a
-  build trigger and nothing else: anyone holding it can start a deploy of what
-  is already on `main`, so it lives in Odoo and in the password manager, not in
-  this repo. Nothing breaks without it; the list simply updates on the next
-  ordinary push.
-  It is wired up now, and it took three pieces rather than one. The hook is
-  named **`odoo-hr-job`** on `main`. `base_automation` ("Automation Rules") had
-  to be **installed** in the database first — it is not on by default on Odoo
-  Online, and its absence is why this sat as a written plan for a while. And a
-  trigger cannot cover deletion and saving at once, so there are **two** rules
-  on `hr.job`, `Deploy website on vacancy change` (On create and edit) and
-  `Deploy website on vacancy deletion` (On deletion), each holding one
-  `Send Webhook Notification` action. Neither carries a trigger-field filter:
-  any write to a vacancy redeploys, which is right when the page prints the
-  title, the description and the location as well as the published flag.
+- **Odoo owns the vacancy list, and the jobs page prints it. Both are in the
+  `jobs-and-odoo` skill** (`.claude/skills/jobs-and-odoo/SKILL.md`): the
+  Cloudflare deploy hook and the two Odoo automation rules behind it, the three
+  sources the build reads and why it never fails on any of them, the language
+  fallbacks, what may not be rewritten from Odoo, and the page's own shape.
 - **`ODOO_LOGIN` and `ODOO_API_KEY` are optional build variables**, and they are
-  an upgrade rather than a requirement — see the "Odoo owns the vacancy list"
-  entry under Key Patterns for what the build does with and without them. The
+  an upgrade rather than a requirement — see the `jobs-and-odoo` skill for
+  what the build does with and without them. The
   key belongs to an Odoo user with read access to Recruitment and nothing more,
   because an Odoo API key carries the full rights of the user it was made for.
   It is a *build* variable marked as a secret, never a Function binding: it is
@@ -104,8 +94,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   touch them. Both have fallbacks, so a missing one changes the output instead of
   failing the build: no site key means the contact form keeps its `mailto:`
   fallback.
-- **Node is pinned in `.nvmrc` (22.14.0), mirrored by `engines` in
-  `package.json`.** Vite 7 needs `^20.19 || >=22.12` and the Pages build image
+- **Node is pinned in `.nvmrc` (22.14.0), with a floor of `>=22.12` in
+  `engines` in `package.json`.** Vite 7 needs `^20.19 || >=22.12` and the Pages build image
   defaults to a much older Node, so the pin is what keeps the build alive.
 - **The toolchain is a devDependency.** A build environment with
   `NODE_ENV=production` makes `npm ci` skip it; `scripts/build-site.mjs` checks
@@ -183,6 +173,45 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   only address we could name is the one place the course is not.
 - **Pages are functions.** A page module exports `{ id, slugs, meta(t), render(ctx) }`
   and returns markup from the `html` tag. Never hard-code visible text: use `t()`.
+- **A hero is a headline and its actions, and nothing between them.** For a
+  while every hero printed its page's own `description` key as a standfirst,
+  through `.hero__lede`: the heroes were eyebrow, headline, two buttons and then
+  300px of paper, and the sentence that says who the page is for already existed
+  as the page's search snippet, so it was read from there rather than written
+  again. It is gone from all seven heroes, along with both `.hero__lede` rules in
+  `critical.css`, and the `*.description` keys are metadata again — changing one
+  changes the search snippet and the head, not the visible page. What the
+  removal does not change is **the homepage's hero wordmark, which is gone**: it
+  printed the brand a second time 120px under the header's own, pushed the offer
+  below y=1000, and left the one heading on the page reading as a claim with
+  nothing under it. The claim is the heading now, at the size the lockup had, so
+  `.hero__wordmark` and the `.hero h1.hero__claim` override went with it and
+  `.hero h1` is one rule again.
+- **An eyebrow is either a link up or it is not printed.** `.page-eyebrow` is
+  the shape of a breadcrumb, and on five detail pages it was a `<p>` naming the
+  nav item the reader had just clicked. Those are gone, along with the team
+  page's "De oprichters" pill over two people who are visibly the founders. It
+  survives on the two page families that sit under something other than the
+  homepage — the kata page and the four articles — and on both it is
+  `.page-eyebrow__up`, an actual link to the parent, which is the whole
+  breadcrumb this site needs. It falls back to a plain label in a language the
+  parent is not published in, the rule `servicePath()` follows everywhere else.
+- **A row's cue is the arrow and nothing else.** Every row list on the site is a
+  list of whole-row links whose own title names the destination, and the cue used
+  to print "Ontdek →" — twice over on the homepage, across four service rows and
+  four article rows, so one word stood at the end of eight rows 1152px wide. The
+  word went and `cta.moreInfo` with it. One exception carries a label,
+  `.row__cue--named`: the jobs page's three "Werken bij" rows, where only the
+  middle one links, so an arrow is a difference a reader has to notice before
+  they can read it and `jobs.why.team.link` says where it goes instead.
+- **The header's action is the page's, not the site's.** `headerAction()` in
+  `src/layouts/base.mjs` is read by the bar, the phone sheet and the sticky
+  bar, so the action is the same at every width. On the ten pages with a contact
+  section it is `cta.talk` at `#contact`; on the two without it, that anchor
+  resolved to `/nl/#contact` and threw the reader onto another page with no
+  warning. Jobs sends them to the vacancies one screen down, in the page's own
+  words, and the privacy notice sends them to a person by mail, which is the
+  channel the notice itself names for a data request.
 - **An insight is a page generated from a list.** `src/pages/insights/insights.mjs`
   holds `INSIGHTS` — one entry per article, with its per-language slug under that
   language's own word for the section (`inzichten/` · `insights/` · `analyses/`)
@@ -194,7 +223,11 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   the same `articleRows()` so the two can never disagree. It is what the rail's
   "Alle artikelen →" points at and what `navHref('insights')` resolves to; both
   used to point at the homepage's `#insights` anchor because there was nowhere
-  else to go. Adding an article means adding an entry there plus a body module beside
+  else to go. **`articleRows()` takes the heading level from its caller**: the
+  same rows print under a section `<h2>` on the homepage and directly under the
+  page `<h1>` on the index, and a hard-coded `<h3>` made the index read h1, h3,
+  h3, h3, h3, h2 — a skipped level and then a jump back.
+  Adding an article means adding an entry there plus a body module beside
   it; nothing else has to be told. Title, excerpt, date, alt text and tag labels
   come from the shared `article.*` keys the homepage row already prints, so the
   list and the page it opens can never disagree. Only the long-form body lives
@@ -253,490 +286,66 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `npm run check:slides` is the other half: it opens every deck in headless
   Chrome and measures each slide, because a slide with a line too many is
   clipped by the stage's `overflow: hidden` and nothing static can see that.
-- **The privacy notice is the article layout, rail and all.** It has no hero,
-  for the reason the insights have none: a 540px navy shape between the header
-  and the first paragraph is a screen to scroll past before reading. What it
-  does have is the rail, and what is in the rail is not a "read next" — there is
-  no next from a legal notice — but the notice's own clauses. That is the one
-  piece of navigation a legal page needs (nobody reads a privacy statement end
-  to end; they arrive wanting one thing) and it is what answers the page's real
-  problem: without it the notice was a 1022px column of GDPR prose, 133
-  characters to the line and the longest measure on the site, with 354px of
-  empty paper beside it for four fifths of its height — the "single column with
-  the rest of the band empty" the design README refuses at page scale. The list
-  is generated from the same array `prose()` renders and derives its anchors the
-  same way, so a heading added to `body.mjs` appears in the index with no second
-  edit and the two can never name different ids. It is a `<nav>`, not the
-  article's `<aside>`: eight in-page links whose whole purpose is navigation do
-  not belong in a `complementary` landmark. It is also **first in the DOM** and
-  put back on the right by `order` on a desk — an index belongs before the thing
-  it indexes, and the other way round a phone's tab order ran through the whole
-  notice before reaching the index sitting under the headline. Seven things are
-  load-bearing, each with its rule in main.css under `.notice`:
-  - **There is no dark shape on this page**, and it is the only page on the
-    public site with a `.section--orbits` and no silhouette. Two were drawn and
-    both are gone — a crest in the air beside the head, through three drafts,
-    and a mirrored close standing on the footer's hairline. What the drafts
-    taught is kept in item 11 of the design README even though the shapes are
-    not, because every one of the three failures is a failure a new silhouette
-    can repeat. The rings are the whole of the brand here.
-  - **The rings stick.** `.orbits--notice` is the one orbit set on the site that
-    is not nailed to its section: the origin is `position: sticky` at `top: 50vh`
-    and the arcs hold the right flank the whole way down, because the outermost
-    ring is 845px in radius against a 2820px section and an origin nailed
-    anywhere in it leaves a third of the page with no ground under it. Its
-    `top` is **clamped** (`clamp(380px, 50vh, 520px)`) and that clamp is
-    load-bearing: plain `50vh` walks the origin down as the window grows taller
-    while the clause index stays pinned at 96px, so *which rings cross the index
-    is a function of viewport height* — at 900 tall it is rings 01 and 02, at
-    1100 ring 03 arrives, at 1600 ring 04 arrives too. Ring 03 is the heaviest
-    of the five and deliberately undimmed, so a taller window reintroduced the
-    artefact the dimming exists to remove, with a heavier arc. Held under the
-    height at which ring 03's window opens — struck off the rail's top-left
-    corner, lowest at **534px on a 1280px-wide page**, so 520 leaves 14px — the
-    crossing set is 01 and 02 at every height, which is what makes two dim rules
-    a complete answer instead of one that happens to hold at 900. Six review
-    passes measured this across widths, where the crossings move under 5px;
-    height was the axis that mattered. The cap's own cost is at the other end:
-    the field reaches viewport y 1365 and no further, so a window over ~1500px
-    tall has bare paper under the arcs. Raising it to get that back breaks the
-    crossing set and the ring weights with it. Three
-    details carry it. The layer takes `overflow: clip` and not `hidden` —
-    `hidden` makes it a scroll container and a sticky child would never move, the
-    same pair of declarations and the same reason as `.shell`. It is the
-    *origin* that sticks and not the layer, because a sticky box is in flow and
-    a sticky layer would add a screen of height to the section, where a 0x0
-    origin costs nothing and is still a containing block for the rings. And the
-    horizontal placement is `margin-left`, because on a sticky box `left` is an
-    inset for horizontal stickiness rather than a position. Two consequences are
-    paid for in the same rule. The layer is masked to nothing over its last
-    200px, because held against the viewport the rings are still at full radius
-    when the section's bottom edge arrives and four arcs stopping dead on one
-    horizontal line read as a seam. And **rings 01 and 02 are dimmed to 6% and
-    10%** from their drawn 10% and 20%: the rings and the clause index are now
-    both anchored to the viewport, so those two arcs stand across the same eight
-    labels for the whole section and never move relative to them, and an arc at
-    the weight of the rules it crosses, held still, is a stray column rule in a
-    table rather than ground. The offender is the cyan one, not the innermost —
-    sampled, it composites to rgb(209,228,235) against hairlines at
-    rgb(228,230,233) while ring 01 is a dead heat at rgb(231,232,233). Scoped to
-    two rings and not taken out of the layer's opacity, because rings 03, 04 and
-    05 have no crossing of the rail at any height inside the clamp or any width
-    from 1024 to 2560, and they are the only ground in the gap the wide-cap
-    decision leaves open — those are **widths**, and that decision is the
-    "measure is capped below 1000px" bullet further down: 190px at 1600 wide,
-    510 at 1920, 1150 at 2560. The `top` cap's own cost, two sentences up, is
-    quoted at *heights*. Same numerals, two axes; say which every time.
-    Under `prefers-reduced-motion` the origin stops being
-    sticky and falls back to the 34% it was struck at before it stuck: a layer
-    held against the viewport while the page moves past it is scroll-coupled
-    motion, and it is the only such motion on the site. The clause rail is
-    sticky too and is deliberately not treated that way — it is navigation a
-    reader is using, and a decoration is the half that can be given up.
-  - **There is no phone override on the rings**, and every other orbit set on
-    the site has one. The reasoning behind those — push the origin out so the
-    strong inner rings leave the reading measure — is half true and the
-    conclusion does not follow: moving the origin out also shortens the vertical
-    reach the outer rings need to arrive. Counted at 390px, rows of the measure
-    each ring crosses at 98% against 150%: ring 02 (cyan) 490 → 651, ring 03
-    (the darkest ink ring) 72 → 845. It is worse on every ring but the one it
-    was aimed at. `.orbits--insights` carries the same override and the same
-    reversal and is left alone — see the follow-ups.
-  - **The head sits outside the article grid.** It was put there for a
-    silhouette that had to weld to the page edge, and it is kept because the
-    head reads as the notice's own block — headline, standfirst and date across
-    the content width, the copy below in the article's column.
-  - **The measure is capped below 1000px and deliberately not above it.** Below
-    1000px the article grid collapses and the column takes the whole page: at
-    999px the notice ran 112 characters to the line against 74 one pixel
-    earlier, so the block is held to the desk's own 780px. Above ~1500px the
-    column is capped at the prose measure while the rail stays welded to the
-    right gutter, so the gap between them grows with the window — 510px at 1920
-    — and that is left alone. Capping the block closed the gap and opened a
-    worse one: the rail left the page gutter, which is the one thing
-    `.article__rail` promises, and this page alone stopped matching the four
-    insight pages on the same grid. If it is ever
-    worth solving it is worth solving for the article layout as a whole.
-  - **The standfirst is `privacy.lede` in `src/i18n`, not the body's first
-    paragraph.** It is the sentence that says what the document is; as the first
-    block of the body it read as one paragraph of twenty-one and, below 1000px,
-    arrived after the index of the thing it summarises.
-  - **Below 1000px the index goes above the notice** in two columns, and the
-    body ends on a "Terug naar de inhoud ↑" link: down there the index scrolls
-    away with the first clause a reader jumps to, and there is nothing else on
-    the site to get back to it with. On a desk the rail is sticky and the link
-    is hidden.
-  The copy carries one authored href that is not a URL: `clause:NN` is the NNth
-  clause of the notice, resolved in `privacy.mjs` from the same derivation the
-  index is built from, so a cross-reference ("zie hieronder", useless to a reader
-  who arrived at that clause from the index) is a link without a hand-kept
-  anchor. An ordinal with no clause behind it fails the build. Both ways to reach
-  a person in the body are links too, and the number is `white-space: nowrap`
-  (`.prose a[href^="tel:"]`) for the reason every fact in the footer's legal
-  microline is: four ordinary spaces make a phone number five words to a line
-  breaker, and it broke across two lines at an English tablet, a French phone and
-  a Dutch laptop. `PHONE_HREF` is repeated in `body.mjs` rather than imported
-  from `contact-form.mjs`, which imports the privacy page back and would close a
-  cycle.
-  Three things say where the reader is. `scroll-padding-top` went from the
-  header's own height and nothing more (2px of clearance at 1180px, 4 at the
-  tablet's 72px row) to 96px on the desk and 108 on the tablet, so a clause
-  lands with air under the bar. `.prose__heading:target` takes the pull quote's
-  cyan rule stood back up, which answers the click. And
-  `components/clause-index/clause-index.js` — `<sa-clause-index>`, wrapping the
-  list, lazily loaded like every other component — puts `aria-current="location"`
-  on the row whose clause the reader is in, which answers the scrolling that
-  follows. All three degrade to eight working links. The component's one real
-  trap is the foot of the document: the last clauses of a long notice never
-  cross the line, because the page runs out of scroll before they reach it, so
-  on a 1440x900 desk the index said "Cookies" to a reader looking straight at
-  "Uw rechten" — and said it to anyone who pressed those rows too, which is an
-  index lying about the row just pressed. At the floor the hash decides if there
-  is one *and its heading is still on screen*, and the last heading on screen
-  decides otherwise; a `hashchange` listener catches a press that moves no
-  pixels. The "still on screen" half is not belt and braces: a hash outlives the
-  press that set it, so honoured unconditionally the mark travelled backwards —
-  press clause five, read on to the end, and at the floor it jumped back to a
-  heading 376px above the top of the screen.
-  **The spy owns both marks, and paper owns neither.** `:target` and the row's
-  `aria-current` are the same 2px cyan rule with different lifetimes — one set
-  by the last hash, one tracking the scroll — so left alone they name different
-  clauses in the same viewport: click a row, scroll back 200px, and the rail
-  marks one clause while the copy marks another 300px away. The component stamps
-  `data-clause-spy` on the root and the stylesheet stands `:target` down under
-  it, which leaves `:target` as the no-JS half and as the only mark the four
-  insight pages have. Both are reset in `@media print`: they are screen state
-  that outlives the gesture that set it, so whichever was live when Print was
-  pressed came out on the PDF as a stray rule in the margin and a contents list
-  with seven grey rows and one black one — two people printing the same legal
-  notice getting two different documents.
-  The **Cookies clause** is the one place this page has been factually wrong:
-  two drafts said the site sets no cookies at all, and `functions/secured/login.js`
-  sets `export_session` for seven days on `/secured/`. The clause is scoped to
-  the public pages now and names that one — as is `privacy.description`, the
-  page's own search snippet, which is the last summary of the clause left
-  anywhere: the homepage FAQ said it a third time and went with the block. On a
-  page whose whole posture is that every claim is read off the code, an absolute
-  has to be checked against the
-  whole repo and not just `src/`. It is also the only page with no contact section — a notice that
-- **Odoo owns the vacancy list, and the build reads it.** `hr.job` on
-  `smartagents.odoo.com` is the source of truth for what is open;
-  `build/lib/odoo-jobs.mjs` reads every published job in all three languages
-  while the site renders, and `src/pages/jobs.mjs` prints whatever came back.
-  Nothing about a vacancy is authored in this repo — the chrome around the list
-  is (`jobs.vacancies.title`, `jobs.vacancies.empty`, `jobs.cta.apply`), the
-  vacancy is not. Each row's action goes to that job's own Odoo application
-  form, which is the point of the integration: an applicant lands in Recruitment
-  with a stage and a file rather than in the contact webhook.
-  - **Three sources, and the build never fails on any of them.** The external
-    API when `ODOO_LOGIN` and `ODOO_API_KEY` are set; the public `/jobs` page
-    when they are not; the committed snapshot in `src/content/jobs/` when
-    neither answers or when what answered does not look like a job list. Each
-    fallback is announced in the build log rather than taken silently. The rule
-    behind the order: a stale vacancy on the site is recoverable, and a red
-    build on `main` is the site not deploying at all.
-  - **The public-page reader knows when it has been broken.** Odoo prints its
-    own result count in the search bar, so "nothing is published" and "the theme
-    changed and every selector missed" — the same zero otherwise — are told
-    apart: a page that reports jobs and yields none throws, and the snapshot
-    takes over. That is the check that makes a credential-free read safe to
-    ship; without it a SaaS upgrade would empty the page quietly.
-  - **No HTML from Odoo is passed through.** The job description is authored in
-    a rich-text editor by someone who is not thinking about this site's markup,
-    so it is reduced to lines of text — `<br>`, `</p>` and `</li>` end a line,
-    everything else is stripped, entities are decoded once — and the `html` tag
-    escapes them on the way out.
-  - **The location is printed exactly as Odoo prints it**, city and country, and
-    both sources are made to produce the identical string — the public page
-    reads the two `PostalAddress` fields, the API reads `city` and `country_id`
-    off the partner and joins them the same way, so a vacancy cannot change its
-    location text because a build fell back from one source to the other. Odoo
-    returns the country in the recruitment site's own language rather than the
-    reader's, so the Dutch page says "Beringen, Belgium". That is Odoo's to fix
-    or to leave. **Nothing on this page rewrites Odoo's content** — not the
-    country, not the typo in the current job description. The one thing that is
-    changed is form, not substance: a description authored as dashed lines
-    becomes a real list, because the alternative is a dash inside a bullet.
-  - **English is the fallback language, and only *active* Odoo languages may be
-    asked for.** Each site language names the Odoo languages that would serve it
-    best first (`nl_BE` then `nl_NL`, `fr_BE` then `fr_FR`) and falls back to
-    `en_US` when Odoo has none of them. That is not a stylistic preference: an
-    inactive language code is an error from Odoo — `Invalid language code:
-    nl_BE`, which is exactly how this was found — and not a soft fallback, so
-    the API path reads `res.lang` first and only asks for codes the database
-    accepts. English is the right fallback because Odoo stores a translatable
-    field's source value under `en_US` and serves it for anything untranslated,
-    so naming it here matches what Odoo would do anyway instead of layering a
-    second, different answer on top.
-    Today `en_US` is the only active language on the recruitment site, so all
-    three site languages resolve to it, the list is fetched once rather than
-    three times, and the Dutch job text typed under an English UI is what all
-    three pages print. **Activating `nl_BE` and `fr_BE` in Odoo** (Settings →
-    Translations → Languages) is the whole of what it takes for translated
-    vacancies to appear here — no change to this repo.
-  - **The API key never reaches a browser, and that is enforced.** It is read
-    from the environment by the build, used for one call from the build
-    container, and what ships is the job text. `check-dist.mjs` §7 fails the
-    build if the value of `ODOO_API_KEY` — or of any other build secret — is
-    found in any file in `dist/`, and it prints the variable's name, never its
-    value. This is the reason the integration is a build-time read rather than a
-    fetch from the page: in the browser the same key would need a Function in
-    front of it to stay hidden, and the vacancies would leave the pre-rendered
-    HTML that every crawler reads.
-- **The AI-native SDLC hero is the ridge plus two orbs in the bay its neck
-  opens.** The ridge is unchanged — a short shoulder high up, a neck pulled back
-  almost to the page edge where the headline passes, one long lobe below it,
-  narrow once and open twice. What changed is that the page has something to do:
-  it was the one detail page whose hero carried a single shape and no companion,
-  so the brand's one moving part never fired on it, and the lower-left of the
-  flank was a third of a screen of empty paper. The orbs rest 44 to 88px off the
-  lobe's outer flank and 38 to 51px off each other, so the cursor runs any two
-  together. They stand against **convex** stretches, never in the mouth of the
-  neck's concavity, which is bridged across rather than into and seals the bay
-  into an island.
-  **The box was widened leftward to hold them and the ridge remapped into the
-  right 0.786 of it**, so it draws exactly the pixels it drew before — verified
-  to 1px. Holding that true takes one inset per band, because the shared
-  `.hero__field--right` moves three times: the new left inset is
-  `(L_old - 0.2143) / 0.7857`, so 56% becomes 44%, 62% 51.64%, 53% 40.18%. Change
-  the shared rule and these have to be recomputed or the ridge stretches.
-  **The orbs do not share that box, and this is the one hero where they cannot.**
-  It is a share of the page width against a hero that is 540px tall at every
-  width, so its aspect runs 1.2 at 1081 to 2.9 at 2560; the ridge stretches with
-  it and reads as drawn either way, but an orb that stretches is a flat disc —
-  at 2560 they came out half again as wide as tall. Each takes a square slot of
-  its own, 1.7 times the orb across so its grown box still contains the join
-  window between the two of them. At 1.0 it fell 10px short and the union was
-  cut.
-
-- **The AI-native businessprocessen hero is four separate orbs, and the
-  cursor runs them together.** They sit on a descending line, growing left to
-  right, each within reach of the next; bring the pointer into either gap and the
-  two either side of it merge into one fluid. It replaced `processHero`, a
-  shoulder-wall-step-sweep terrace hung off the right page edge, and the argument
-  is the page's own headline rather than the drawing: "Van uw taken naar
-  herbruikbare workflows" is separate pieces becoming one thing.
-  **All three share one box** — the whole composition — with each drawing
-  authored into a corner of it, so every blob can host a join (see the join-box
-  bullet above). Nothing is positioned in CSS: moving a blob means remapping its
-  path into a different sub-rectangle.
-  **Four orbs, and every adjacent pair merges.** Getting there took the rim fade
-  in `src/motion.js` (see the join bullet above), not a rearrangement: before it,
-  a third orb standing inside a merging pair's window margin pushed their union
-  out to the rim and it came back as a ledge, so this hero could only hold three
-  orbs with one merging pair and a 150px cordon around it. With the fade the
-  cordon is gone and the spacing is a composition again.
-  It must not be the same picture as the jobs hero, because the two sit next to
-  each other in the nav — that is the rule that made `processHero` carry a
-  straight line in the first place, since the round draft it replaced measured as
-  the same shape as the AI-native SDLC ridge. The distinction is carried
-  differently now: `jobsJoin` is one drawn silhouette with satellites in its
-  pockets, and this is three shapes and no silhouette at all.
-  Unlike the jobs satellites these are **not** gated on the join being available.
-  A satellite exists *for* the join and is a dark spot on the paper without one;
-  three shapes in a line are the composition either way, so they stay on a coarse
-  pointer and under `prefers-reduced-motion`, and only the phone drops them.
-
-- **The jobs page is the one page written to a candidate, and that is the only
-  thing new about it.** `src/pages/jobs.mjs` is four blocks — the hero, the open
-  vacancies, what the job is like around the work, the form — ported from the
-  client's live `/jobs/`. Everything it is made of already existed: the shared
-  AI staffing page's `<sa-accordion>` for the vacancies and the plain hairline
-  `.rows` list under it. The hero is the exception, and it is the only thing on
-  the page that is drawn rather than reused. Five things are worth knowing.
-  - **It is written in `je`, and it is the only page that is.** The design
-    README's content rule is formal `u`, never `je`, and that rule is about a
-    reader deciding whether to buy. This page is read by someone deciding
-    whether to apply, and the client's own jobs copy — which this page is ported
-    from — is `je` throughout. French stays `vous`: it has no register that
-    reads as friendly and professional at once in a job ad. A page addressed to
-    a customer that slips into `je` is still a bug.
-  - **The vacancies come from Odoo** (see the entry above); the page owns only
-    the chrome around them and the empty state for when nothing is published.
-    **There is no contact section**, which makes this and the privacy notice the
-    only public pages without one, and it is deliberate: applying happens on the
-    vacancy, in Odoo, where a candidate lands in Recruitment with a stage and a
-    file. A second form underneath posting to the sales webhook would be the
-    same person arriving in the wrong system by picking the wrong box. A
-    candidate who fits nothing currently open is answered the same way — by a
-    published `hr.job` for an open application, which arrives here as an
-    ordinary row with an ordinary apply form, so Odoo stays the only owner.
-    The hero therefore carries one action where every other page carries two:
-    the only place it can honestly send a reader is the list.
-    There is deliberately no `JobPosting` in the graph: Google's needs a
-    `datePosted` and a `validThrough`, the page prints neither, and `schema.mjs`
-    opens on the rule that nothing in the graph may say something the page does
-    not. Odoo already publishes each job at its own indexable URL, which is the
-    canonical place for that markup.
-  - **The hero's shape is welded to nothing, and it is the only one on the
-    public site that is.** `jobsJoin` floats in the right flank with paper on all
-    four sides: two lobes running together, the small one upper-left and the
-    large one lower-right, with a concave fillet either side of the neck.
-    It got there by elimination. Five heroes hang a shape off the right flank
-    and by the sixth that is a template rather than a composition, so this one
-    was hung off the header's hairline instead — for four drafts. Every one read
-    as a form growing out of the navigation rather than as a shape: a wide flat
-    weld with a hard corner at each end is an open mega-menu panel; narrow it and
-    the flanks splay downward into the caret of one; centre the lobe on the line
-    so the outline leaves it vertically and the drawing is finally sound, but it
-    is still a stem out of the bar. The argument for not being a sixth flank
-    shape was right; the conclusion was not. The licence for floating is that the
-    site already does it at small scale — `heroPebbleA` and `heroPebbleB` "hang
-    from nothing" beside the staffing arch — and this is that at hero scale.
-    **Being free is what let it close.** Welded, the outline ran corner to corner
-    along the top edge and that edge closed it, so the silhouette carried two
-    corners and half the union's contour was simply cut off. Free, the trace is
-    the whole loop with no corner anywhere in it — the metaball union
-    `src/motion.js` draws when the cursor runs two dark shapes together, standing
-    still. The page about joining opens on a join, and now on the whole of one.
-    **It is traced, not drawn.** The lobes are (0.28, 0.26) r 0.16 x 0.184 and
-    (0.72, 0.68) r 0.32 x 0.256 turned -25°, taken at the 1 contour and
-    resampled at even arc length into sixteen anchors. Redrawing it means moving
-    the lobes and tracing again, never editing an anchor. Four numbers hold it,
-    and each was measured off a render rather than chosen:
-    **solidity 0.82** (the outline's area over its convex hull's) is the test,
-    because it is the one thing that catches the failure every earlier draft
-    shared — a blob with no waist measures 1.00, and a row-by-row width scan
-    cannot catch it when the waist is *diagonal*; one welded draft measured
-    convex along its entire right flank at every viewport width, which is a light
-    bulb on the page that is meant to be a join. **The neck is 0.174 of the box**
-    at 0.32 along the axis between the lobe centres. **The lower lobe is an
-    ellipse turned -25°** — axis-aligned it fits a circle to within a pixel over
-    three hundred scan rows, and a true disc at 70% of the ink is the bullet
-    `clipDefs()` already refuses in a 90px pebble. And **the offset is
-    diagonal**: two lobes stacked square are a vase at every pinch from 0.18 to
-    0.30, and a hand-drawn four-beat profile is a chess pawn. Both were drawn.
-    What they share is symmetry about a vertical axis, and that is the rule they
-    were hiding — a shape reads as furniture the moment its two flanks answer
-    each other.
-    **There are three shapes, and the cursor decides how many.** Two smaller ones
-    drift in the pockets the diagonal leaves — `heroPebbleB` off the upper lobe's
-    outer flank, `heroPebbleA` under it in the lower left — resting 37 to 68px
-    off the main outline against the 60px a join closes at, so at rest a reader
-    sees three shapes and a cursor brought into a gap runs them together into one
-    fluid. It is the training hero's bead, twice: the same two silhouettes the
-    staffing arch has shed, reused rather than redrawn. `heroPebbleA` is now
-    shared by three compositions — change it for one and the other two move.
-    Both are printed only where a join can happen (`.hero__drift` in main.css
-    carries the negative of the gates `src/motion.js` arms the magnets on), and
-    their sigma is struck from their own perimeter, not copied off the main
-    shape's.
-    **A drifting shape may not be parked in the mouth of the main shape's own
-    concave notch.** Drawn first at `left: 46%` the upper one sat in the opening
-    between the two lobes, so the bridge formed across that opening, sealed the
-    notch into an enclosed lens of paper, and the traced union stair-stepped
-    visibly down the neck — marching squares carrying a stretch of contour the
-    authored outline should have kept. At 49% the bridge lands on the lobe's
-    outer flank, the notch stays open, and the merge is as smooth as the training
-    hero's. Paper islands are legal (`src/motion.js` winds them so the nonzero
-    rule paints them as paper); one that appears because a shape was parked in a
-    concavity is an accident.
-        The pull is well under the petal's (amplitude 52 against 86) with the sigma a
-    little over it (104 against 96), and the neck sets both: driving the pointer
-    into the lower lobe's flank, 78 filled the neck in and closed the silhouette
-    into one kidney. It is not a weaker pull than the site's — at a 16px cursor
-    offset this outline travels 23px against the training petal's 16. There is no
-    `data-magnet-pin` any more, because there is no edge to pin to.
-    **One rule carries the box** in `main.css` under "Detail pages — jobs", where
-    there were three bands of independent shares. All three were fighting the
-    same thing — **the hero is 540px tall at every width from 621px to 2560 and
-    the flank is not** — so a box struck as `inset` grows in one axis only: the
-    drawn proportion ran 0.66 at 700px and 1.94 at 2560. Now `top` is a flat 48px
-    of paper under the header, which is the whole difference between this and the
-    drafts before it; the height is `min(max(35.6vw, 260px), 538px)` and the
-    width is that times the traced loop's own 1.04 aspect, so the two cap
-    together at 1513px and the drawing is never stretched. **The height cap is
-    load-bearing and it arrived with the detachment**: welded, a shape could run
-    past the hero's foot and read as continuing, but a floating one has to sit
-    inside a band, and the band's floor is not the foot (invisible — `.hero` and
-    the section under it paint the same `--surface-section`) but the section rule
-    about 105px below it. Uncapped, a 1920 window put the shape 27px past that
-    rule and on top of the vacancies block. The right edge is `--gutter-page`
-    itself, so the lower lobe's tangent lands **on** the page's content edge —
-    the vertical the section hairlines, the accordion below and the footer row
-    all end on — rather than 27px inside it, which is near the strongest vertical
-    on the page without meeting it. That only works because the path is fitted to
-    its box after tracing: a cubic runs outside its own anchors, and an earlier
-    draft drew 6px past the box that placed it, so every inset was measuring a
-    shape that is not on screen. `vw` and not `%` throughout, because width and
-    drop have to stay in a fixed ratio and the two disagree by about 1% when a
-    scrollbar is present. Below 621px it joins the four other hero shapes in
-    becoming the phone's sliver: a free shape needs a flank of paper to float in
-    and a phone has none.
-  - **It is in the nav bar, and it is the one item there that does not quite
-    fit.** `jobs` is in `NAV_ITEMS` and in `BAR_ITEMS`, plus
-    `site-footer-link-jobs` in the footer's row of destinations. Dutch and
-    English had the free space for a seventh name; French did not, so between
-    1181px and about 1240px the primary action there stands 31px inside the page
-    gutter instead of on it. Nothing is clipped, nothing overlaps and the
-    document does not scroll — the measurement, the band and the one lever that
-    would pay it back (fold the bar at 1240px rather than 1180px) are in
-    `.site-nav` in `critical.css`. The footer row it joins is still one line and
-    the footer is still 111px at 1280 in all three languages.
-  - **"Werken bij SmartAgents" describes the work, never the terms.** Three
-    rows: what you build, who you build it with, what you learn. It briefly
-    carried four others — a flat structure, a share in the company, remote-first
-    and hours not counted — written from the old marketing page and confirmed by
-    nobody, and they came out. Every one of those is a promise to a candidate
-    about their own employment, which is the one kind of copy on this site that
-    may not be inferred: it is confirmed by the people who would have to honour
-    it, or it is not published. A row about the work itself does not need that
-    signature, which is why the three that remain are all of that kind.
-    `REASONS` in the page module is the list.
-- **The footer is paper, and about 110px of it.** It was a dark band carrying a
-  full `sa-node-field` and three stacked columns of micro type, which spent a
-  screen of navy under every page in the site on the one block nobody scrolls
-  down wanting. It is two rows on a hairline now, 111px from about 850px up: the two
-  ways to reach a person, Inzichten, Jobs and LinkedIn on the first, and on the second the WER/WVV disclosure as a single
-  11.5px microline with the privacy notice and the copyright opposite it. What
-  is left of the dark field is `.footer-mark`, a small wedge in the bottom-left
-  corner holding the logo — the header's wedge turned over, so the page opens
-  and closes on the same shape. It carries no node field: the header masks its
-  own into the 100px tail past the wordmark, and this wedge's tail is 46px on a
-  desk, which is a flat navy plate rather than a window onto anything. Its cut
-  follows the header's, which moves four times: the row grows at 1180px, which
-  shallows the slope the header draws without changing its cut; the cut itself
-  changes at 1000px and again at 767px; and the wedge's own height drops with
-  the stack at 800px, which shallows what the same run draws. There is a rule
-  for each, and the run is stated in pixels rather than as a share of the wedge,
-  because it is the header's run that has to be matched and the two boxes are
-  different widths. Measure both boxes before touching it: two drafts of this
-  got the premise wrong, one leaving a 180px band and one leaving the phone. Five things are
-  load-bearing.
-  - **The base row is a grid, and that is what keeps the wedge in the corner.**
-    Flex breaks a line on what its items *want* to be — their max-content size —
-    before it lets any of them shrink, so the link group pushed itself onto a
-    line of its own below the wedge and left the wedge floating in the middle of
-    the block. Three tracks (`auto minmax(0, 1fr) auto`) cannot wrap.
-  - **The row keeps no block padding**, so its bottom edge is the page's and the
-    wedge can reach it. What holds type off that edge is padding on the type.
-    The row above it does carry padding, because it wraps on a phone.
-  - **The microline's separator is the gap and never a character.** Each fact is
-    `white-space: nowrap`, so a break falls only between two facts. The `·` the
-    facts used to carry put the break opportunity behind the dot and stranded
-    one at the end of every wrapped line.
-  - **The disclosure is at its legal minimum, and that is what buys the single
-    line.** Art. 2:20 WVV asks for the name, the legal form, the precise seat,
-    the enterprise number and "RPR" followed by the *seat of the court*; art.
-    III.74 WER puts the enterprise number on every website of a registered
-    entity; art. XII.6 WER adds the VAT identification and an e-mail address.
-    Four facts carry all of it. "Besloten vennootschap" went because "BV" is
-    what it abbreviates and 2:20 takes the abbreviation, and the court's full
-    name went because the statute asks only for its seat. One label does double
-    duty: the enterprise number and the VAT number are the same identifier in
-    Belgium, so `footer.vat` answers III.74 and XII.6 in one string. 1131px of
-    type became 727, which is one line from 1261px up in Dutch, 1248 in French
-    and 1230 in English, instead of two everywhere below 1780. **The Dutch line
-    clears 1280 by 18px**, and it is measured in the platform face because no
-    Geist binary is shipped — supplying Geist, or adding a fact, or touching
-    this row's gaps, means measuring it again.
-  - **800px is where the base row changes shape**, and it is a height threshold
-    rather than a line-count one. Stacking does not buy a single line back —
-    the widest full-width row below 800 is 720px against 781 of type — it buys
-    a two-line block that is wide instead of one that is narrow, and it costs
-    about 40px of footer. Above the threshold the block beside the wedge is
-    shorter; below it the column would stop fitting two facts to a line and the
-    facts would land one per line, which is what the stack exists to prevent.
+- **The privacy notice has rules of its own, and they are in
+  `src/pages/privacy/CLAUDE.md`** — the article layout with no hero, the sticky
+  rings and their two dim rules, the clause index and its scroll spy, the
+  `clause:NN` href, and why the Cookies clause is scoped the way it is. That
+  file loads when you work under that directory.
+- **Every navy shape, the magnetic pull, the joins, the orbit rings, the footer
+  and the button states are in the `motion-fields` skill**
+  (`.claude/skills/motion-fields/SKILL.md`). It holds the hero silhouettes page
+  by page, how one field becomes one fluid under the cursor, how a magnet's box
+  is struck and frozen, where a free shape may and may not stand, the orbit
+  layer's fades and its `forced-colors` rule, the footer's grid and legal
+  microline, and the four button fills. Read it before drawing, moving or
+  retuning any shape.
+- **The site names one external source, and it names it as a link.**
+  `sdlc.journey.lede` says the journey is built on what Anthropic publishes
+  about AI-native engineering, and `sdlc.journey.source` under it links
+  `PLAYBOOK_URL` in `src/pages/sdlc.mjs` —
+  `claude.com/blog/the-ai-native-sdlc-playbook` — with the `target="_blank"`,
+  `rel="noopener noreferrer"` and visually-hidden `a11y.newTab` hint every other
+  link out of this site carries. The claim and the link are two elements rather
+  than one interpolated sentence: no i18n value on this site carries markup, and
+  a sentence split across three keys around an `<a>` is one three translators can
+  only get right by accident. `.section-lede--sourced` hands the lede's bottom
+  margin to the link so the pair reads as one block. A named document that
+  cannot be opened is a name-drop, which is what this line was for a while — see
+  item 18 in `improvements.md`.
+- **The homepage is hero, services, DNA, insights, contact.** "Digitale
+  transformatie" stood between the DNA and the insights: four capability areas
+  beside an isometric stack that repeated all four labels a second time. Two of
+  the four were two of the services under a different name, which left the page
+  carrying three overlapping taxonomies and no way for a reader to tell which
+  one was the offer. It is gone, and with it the stack, the `stackField` clip
+  path, the `.numbered--plain` modifier nothing else used, and 384 lines of
+  `main.css`. `.numbered` itself stays — the kata page's steps are built on it.
+- **A tag row is not a summary of the paragraph beside it.** Four blocks printed
+  one, and all four are gone: "U krijgt" on the training page (Lesmateriaal ·
+  Oefeningen · Labs · Q&A · Slides · Begeleiding), "De kata bevat" on the kata
+  page, the four words under each founder on the team page, and the three under
+  each track heading on the AI staffing page. Every one of them cut the copy
+  beside it into noun phrases and printed them above it, which is the "too many
+  subtexts" pattern, and on a closed accordion row it did so before the reader
+  had asked for any of it. "Past wanneer" stays on a staffing track: it is the
+  one sub-block that tells a reader something the body does not, which is
+  whether that track is theirs.
+- **The training facts strip is per course, and the developer course prints one
+  row fewer.** `FACTS` in `src/pages/training.mjs` is the default list; a
+  `COURSES` entry may name the facts it omits through `omitFacts`. The developer
+  course omits `format`. Its value was "Bij u op kantoor" and the kata page's own
+  spec strip states that same sentence one click away under "Locatie", so the
+  row was the fact printed twice on one path — which is the contradiction the
+  per-course values exist to prevent. The business course keeps its row, because
+  it has no page of its own to state it on. The cost is that the two strips
+  differ by one row; the subgrid absorbs that inside the facts row, so the links
+  below still sit on one line.
+- **The training facts strip states four facts, and price is not one of them.**
+  "Prijs — Op maat, na een korte intake" is a row that answers nothing: a reader
+  checking whether they can afford a day leaves knowing exactly what they knew
+  before it, at a fifth of the strip's height. A range would be worth printing
+  and nothing in this repo or on the site knows one, so the CTA under the strip
+  is what asks. Put the row back the day there is a figure behind it.
 - **`src/pages/prose.mjs` is the long-form vocabulary, and it is not the
   insights'.** Two page families run long enough to need headings, quotes and
   lists — the articles and the privacy notice — so it sits a level above both.
@@ -749,7 +358,11 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `contact-form.js` upgrades it in the browser. The homepage and the team page
   both call `contactSection()`, passing an id prefix and the two lines each page
   phrases for itself; everything else comes from the shared `contact.*` and
-  `form.*` keys, so the two forms can never drift apart.
+  `form.*` keys, so the two forms can never drift apart. **Every page that
+  carries the section carries the lede**, including the homepage and the
+  training page, which used to open on the heading alone: `contact.lede` is where
+  "We antwoorden zelf, meestal binnen een werkdag" lives, and the homepage is the
+  page where that reassurance matters most.
 - **`/media/` is the un-hashed public file namespace**: the two course
   one-pagers live in `public/media/` beside the two generated brand images, the
   founder portraits in `public/media/team/` and the "Inzichten" thumbnails in
@@ -766,10 +379,23 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   on a public page too (today: the kata tour video) is never duplicated: it stays
   in the deck folder and `PROMO_MEDIA` in `build/render.mjs` copies it into the
   same `/media/`. `/secured/` is gated, so a public page can never link into it.
-  `_headers` gives `/media/*` its own cache policy.
+  `_headers` gives `/media/*` its own cache policy. **Nothing prefetches it**:
+  the two course one-pagers are about 200 KB each and the training page links
+  both, so a reader running an eye down the offer used to pull half a megabyte of
+  PDF nobody asked for. The exclusion is in the speculation rules in `base.mjs`
+  and in the hover fallback in `src/app.js`, which also skips a metered
+  connection — a prefetch is for a page the reader is about to navigate to, and a
+  file the browser hands to a download bar is not that.
 - **Tokens live once.** `src/styles/tokens.css` is the only place custom
   properties are defined; `build/render.mjs` prepends it to `critical.css` and
   inlines the pair in every `<head>`. Never redefine a token in `main.css`.
+  **A token with no reader is paid for on every page view of every page**, so
+  fourteen came out: the nine the UI review named, `--focus-ring` (the form's
+  focus ring points at `--focus-ring-action` now, the value the buttons are
+  measured at) and the four `--action-ondark-*` steps that were `.btn--ondark`'s
+  fills. Nine of them are still declared in `src/content/secured/tokens.css`,
+  which is a separate file for a separate build and does use them: the two files
+  are kept in step on the values they share, never on the set of names.
 - **A colour token has to name the colour that renders, and `check-dist.mjs`
   fails the build if it does not.** Every `oklch()` in `dist/` is checked
   against the sRGB gamut for its own lightness and hue. This is not pedantry
@@ -796,251 +422,6 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   a value is to paint the candidate to a 1×1 canvas and read it back. And
   **lowering a lightness lowers the chroma with it**, because the gamut narrows
   as it darkens: `--sa-deep` at L 0.33 tops out at 0.066.
-- **An action changes colour and never moves.** The primary button is
-  "Diepzee", `--sa-deep` — the accent turned down until white type sits on it
-  — and its four states are four fills: rest, hover, pressed, withdrawn. It
-  used to be ink that rose 2px and threw a shadow on hover, which is a card
-  idiom borrowed by a button, and it left the one genuinely pressable control
-  on the page with nowhere to go when it was actually pressed. `--lift`,
-  `--shadow-lift` and `--shadow-lift-dark` went with it; only `/secured/`, which
-  keeps its own token file, still has them. The relief is `--shadow-action`, an
-  inset hairline along the top edge, reversed into `--shadow-action-press`.
-  Three things are load-bearing, all in the buttons block in `critical.css`.
-  - **The state order in the stylesheet is the cascade.** Five rules of equal
-    specificity — hover, focus, active, disabled — so which one wins is which
-    one is written last. Pressed beats the focus ring on purpose (while a key
-    is held, the press is what the reader is causing) and disabled beats
-    everything.
-  - **The focus ring is `--sa-cyan-ring` at 0.8, and both design canvases say
-    about a third.** A ring drawn flush against a fill has two edges and has to
-    clear 3:1 on both; at 0.32 it measures 1.56:1 against the paper, fainter
-    than the 2px outline it replaces. 0.8 is the band that clears both sides at
-    once — 3.37:1 outward, 3.42:1 against `--sa-deep` — so it is a ceiling as
-    well as a floor, with 0.75 (3.10 and 3.72) the floor. It is the only value
-    in the buttons taken off the canvas rather than from it.
-  - **The ring is a box-shadow, so a forced palette has none.** `.btn` gives up
-    the site's offset outline to draw it, and the `forced-colors` rule at the
-    foot of the block is what hands the outline back. It is in the critical
-    sheet, not in the forced-colours block at the foot of `main.css`: that block
-    is for decoration being dropped, and a focus ring arriving with `main.css`
-    arrives after the first Tab. `.btn--ondark` keeps the offset outline at all
-    times, because nothing clears 3:1 against both `#00d8ff` and the navy
-    behind it.
-  The withdrawn state is `aria-disabled`, not `disabled`: `contact-form.js`
-  marks the submit while a message is in flight and a disabled button would
-  drop the focus ring and stop being announced at the moment there is something
-  to announce. What refuses the second click is the `busy` guard at the top of
-  `submit()`, which was always the half doing the work.
-- **The dark field is one field, and where two shapes meet under the cursor it
-  is one fluid.** Every navy shape is a `.field` carrying `data-magnet` and
-  `data-clip`, with a `<sa-node-field>` inside. The clip path must sit on the
-  same element as `data-magnet`: `src/motion.js` grows that element's box and
-  remaps the outline into it. A shape's own silhouette is the outline itself,
-  moved: every sample slides toward the cursor by a Gaussian in *arc length*
-  along the perimeter, so the swell is a bell with the drawn curvature intact
-  and a stretch of edge far along the outline cannot follow the cursor, however
-  close it happens to lie in the plane. One silhouette, never a seam — the clip
-  path is rewritten, so the swell carries the node field with it.
-- **A join is the only place a field is used, and it is local.** Where two
-  displaced outlines come within reach of each other, they are read as
-  `exp(-distance/k)` and summed over a window covering where the two can reach
-  each other — the overlap of their boxes, opened out by how far one still lifts
-  the other's contour, *not* a box around the narrowest point, because once two
-  shapes are close enough to run together their outlines cross well away from
-  it. The contour where that sum is 1 is the metaball union, which lies outside
-  every outline and necks between two of them with a concave fillet at each
-  body. It is traced by marching squares on a 4px grid, resampled at even arc
-  length, and written out as Bézier curves — a chord anywhere on a join is a
-  corner waiting to be seen, and a spline through unevenly spaced points
-  scallops, so both halves of that matter. The trace is not the silhouette: it
-  is drawn half a pixel inside the union, so wherever the join has lifted the
-  contour by less than that the authored outline is what shows — which keeps
-  every apex exactly as drawn and buries the corner where the two hand over.
-  Outside the window there is no field at all.
-- **What holds a join together is `k`, and `k` is the cursor's.** It scales on
-  how near the cursor is to the *further* of the two shapes, so a join needs the
-  cursor to be near both and at rest there is none. It is keyed on the distance
-  to each outline and never on the point that realises it: distance to a closed
-  curve moves as smoothly as the cursor does, while the nearest point jumps
-  across a shape the moment two approaches tie — and a join keyed on that jumps
-  with it, which is seen as the whole thing flickering as the pointer travels.
-  Two outlines facing each other across `g` can only close it when `g` is under
-  `2k·ln2`, which is the early-out the pass leans on: most frames strike no
-  window at all. A join has to arrive a little inside that limit, where its
-  waist is already tens of pixels wide, and is then held to the limit itself
-  once open — a 4px grid cannot draw a waist thinner than a cell, and without
-  the hysteresis the merge stutters on sub-pixel cursor travel. What the
-  neighbours add to the sum has the value it would have at the window's rim
-  taken off it, smoothly, so the lift is gone by the rim and the window's own
-  shape can never show.
-- **The union covers the bodies it was struck from, so the lowest of them paints
-  it** and the others draw their bodies over the top: that is what keeps the DNA
-  disc's helix from being painted out by the blob reaching it. It also makes
-  winding load-bearing. A join appended to a body under one fill and the default
-  `clip-rule: nonzero` reads a loop wound against that body as a hole punched
-  through it, and the silhouettes in `clipDefs()` are not all wound the same way
-  — the staffing arch and the tracks wedge run one way, the DNA shapes the
-  other. `src/motion.js` measures each path's winding at setup and turns the
-  join to match. A new silhouette may be drawn either way round; a silhouette
-  with two subpaths of its own has to wind them consistently.
-- **A join is painted into a box, and that is what decides where a free shape
-  may stand.** `src/motion.js` grows every magnet's box by `BLEED` — 140px on
-  each side — and the traced union has to fit inside the grown box of whichever
-  shape carries it. Outside that box there is nothing painted for the clip path
-  to reveal, so the union is cut off along the box's edge and what renders is a
-  shape with a straight chord sliced out of it. It looks like a join artefact and
-  it is not: it is the element's own paint box showing.
-  Three consequences for any composition of free shapes. **Give every shape a box
-  big enough to host.** The fix is not to move the shapes: it is to draw the box
-  around the whole composition and author the silhouette into a corner of it, so
-  whichever shape the pass picks can hold what it draws. That is what the three
-  blobs of the AI-native businessprocessen hero do — one box, three paths, no
-  positioning in CSS at all — and it is what let them join each other after three
-  drafts that could not. **The lift has to fade to nothing at the window's rim, and it is
-  now made to.** A join is traced in a window struck around the pair plus about
-  150px of margin (`SPREAD * k`), and the pass cancels what every *other* shape
-  adds by subtracting a constant `floor` — which only holds if all of them are at
-  least `spread` away. A third shape standing nearer than that was still lifting
-  the contour at the rim, where the field is clamped to `-band` and marching
-  squares closes the loop along a straight line: a ledge across the far side of
-  whichever shape the rim crossed. Measured on the AI-native businessprocessen
-  hero before the fix: 47px of ledge with the third orb 40px away, 17px at 100px,
-  3px at 194px — and worse as the viewport narrowed, because the margin is in
-  screen pixels while a composition is in `vw`. `src/motion.js` now fades the
-  lift out over the outer half of the margin, so it is full strength across the
-  middle of the window — the gap, both facing edges and the waist the join is
-  made of — and zero by the rim, where `sum` is the nearest shape's term alone
-  and the contour is its own outline. The rim has nothing left to cut, and a
-  chain of shapes can merge along its whole length. **A shape still has to be
-  bigger than `MERGE`** (46px): one only a little larger leaves no room for a
-  union to be traced around it and comes out with a spike.
-  **Two magnets on one page may not share a `data-clip`.** `src/motion.js`
-  resolves the outline with `getElementById` and rewrites that single path in
-  place, so the second remap wins and the first shape is left drawn into the
-  wrong box. It shows up as spacing that will not come out even however the boxes
-  are moved. `PEBBLE_A` and `PEBBLE_B` in `base.mjs` are how several ids carry
-  two drawings without the path data being copied. **And a free shape may not be parked in the mouth of the
-  main outline's concave notch**: the bridge then forms across the opening rather
-  than against a flank, seals the notch into an enclosed lens of paper, and the
-  trace stair-steps where marching squares carries contour the authored outline
-  should have kept. Both heroes hit this, and both were fixed by moving the shape
-  onto a convex stretch.
-
-- **A page's height is not a constant, and `<sa-node-field>` is anchored to the
-  document.** The shared field re-measures on every tick, and it used to re-seed
-  whenever the document grew or shrank by more than 2px — which is fine for a
-  page that only reflows on resize and is the network flying apart thirty times
-  a second on one that does not. The AI staffing accordion was the first block
-  on the site to move the document height at runtime and it found this. A field
-  that has changed size is now topped up rather than re-seeded, with enough
-  hysteresis that an opening row does not change the population at all, and
-  every window re-measures its slice because the shapes below a block that just
-  grew have all shifted. Anything else that animates a block's height inherits
-  this for free; anything that re-seeds will look the same way again.
-- **A magnet rewrites the path its `data-clip` names, not the one the element
-  is actually clipped by.** `collectMagnets()` in `src/motion.js` resolves the
-  outline with `getElementById(element.dataset.clip)` and never reads the
-  computed `clip-path`. Every hero silhouette is swapped to `#heroSwoop` under
-  621px, so down there the magnet is rewriting a path nothing is using and the
-  pull does nothing — which is right, because there is no cursor on a phone,
-  but it is right by accident. A silhouette that is swapped at some width for a
-  reason other than the phone would need the magnet told about it.
-- **Setting up a magnet is two steps, and only the first one runs before the
-  page is painted.** `collectMagnets()` grows the box and writes the resting
-  silhouette; `arm()` samples the outline and builds the arc-length table, on
-  the first idle callback or on the first pointer move, whichever comes first.
-  The split is what put CLS at 0. Growing five boxes by 140px a tenth of a
-  second after the page arrived scored 0.07 of layout shift, and the growth
-  could not simply be moved before the paint because sampling those five
-  outlines costs 111ms on a cold engine (`getPointAtLength` is ~85µs a call
-  until it warms up, then ~20µs). It does not have to be: growing the box is an
-  affine map in unit space, an affine map of a Bézier is the same map applied to
-  its control points, so `remapPathData()` moves the *authored* curve into the
-  grown box exactly, in ten segments rather than four hundred and eighty, with
-  no sampling at all. The dense outline is only what the pull runs on, and
-  nothing needs it until a cursor arrives. `collectMagnets()` also reads every
-  layout value before it writes any of them, for the ordinary reason.
-- **A magnet's box is frozen in pixels the moment it is set up, and so is
-  everything struck from it.** The outline is sampled, the grown box is
-  measured, the outline is remapped into it, and the arc-length table the
-  falloff runs on is built — once. The committed build before this one
-  re-measured the box every frame and so tracked a runtime size change; this one
-  does not, which is the trade for not rebuilding an arc-length table sixty
-  times a second. So a shape may not be struck between two edges that can move
-  apart afterwards: it would not merely shift, it would stretch, and the
-  silhouette would stop fitting what it was sampled against. Only a window
-  resize rebuilds it. Nothing is precomputed against a *neighbour's* position,
-  though — a join is struck from where both outlines stand this frame, so shapes
-  that move relative to each other at runtime are fine. The AI staffing page has
-  one of each: the track panel's leaf is anchored to the panel's top and sized
-  from the gutter, so it is still while rows open; the wedge under the panel's
-  foot is anchored with `bottom` plus a height, so it travels with the foot at a
-  constant size. Sizing the `.field` itself is still insets-only — an explicit
-  width or height over-constrains the box and moves it instead of growing it —
-  but the `.field-slot` around it is ordinary CSS and is where a stable box
-  belongs.
-- **The magnet attributes tune the swell, and the swell is what decides a
-  join.** `data-magnet-amp` is how far the outline travels at the deepest point
-  of the pull, and `data-magnet-sigma` is how wide a stretch of the perimeter
-  travels with it — a big shape swells over a wider stretch of its edge than a
-  small one, or the pull reads as a spike rather than a turn. Both feed the join
-  only through the gap they leave: two shapes run together when what is left
-  between them is under `2k·ln2`. `data-magnet-free` opts a shape out of the
-  guard that refuses a pull from an edge tucked under the nav or past the page
-  edge. Take it only for a shape that is nowhere near either, or for one that
-  pins the edge it would have been guarded on. It also changes the default
-  amplitude — 34 guarded-out against 92 guarded — so removing it from a small
-  shape does not merely lift a guard, it triples the pull and translates the
-  whole silhouette; the DNA blob is 100px across and needs the 34, and the disc
-  beside it, which opts out because its own outline runs along the top of its
-  box, has to say `data-magnet-amp="92"` to keep the pull it had.
-  `data-magnet-pin` (a comma-separated list) welds the shape to each page edge
-  it hangs from: the pull fades to nothing over the last 30px before each, so
-  no swell can peel it off the edge it is drawn from. A silhouette may be
-  several subpaths when a join is drawn, and a join between three shapes can
-  leave a paper island: the trace keeps marching squares' own relative winding
-  and the set is turned as a whole by the sign of its total area, so the island
-  stays wound against the loop around it and the nonzero fill rule paints it as
-  the paper it is.
-- **The AI staffing page's hero is an arch and two pebbles.** `heroArch` is hung
-  off the right edge and `heroPebbleA`/`heroPebbleB` are positioned inside the
-  arch's own box, so the three move as one and the page overrides only that box.
-  The box hangs 14% past the hero's foot: the arch's tail runs on into the
-  section below and passes behind the track panel there, which is the whole
-  reason that panel is opaque. The pebbles hang from nothing and they are
-  dropped from the tablet down, where the shared `.hero__field--right` carries
-  the arch alone and the phone turns it into the same sliver the petal becomes.
-  The arch went through two drafts that both failed the same way: a diagonal
-  struck corner to corner with a shallow bow read as a black triangle, and the
-  cove that replaced it filled the whole corner and needed a second silhouette
-  in the opposite one to balance it.
-- **The training hero carries a bead of the same field above the petal, and it
-  is there for the join.** `.hero__bead` in `main.css` is a slot inside
-  `.hero__field--right` holding one more `.field` on `heroPebbleA` — the
-  staffing page's larger pebble, now a shared silhouette rather than that
-  page's own. It stands 41px off the petal's drawn flank at 1081, 50 at 1440
-  and 61 at 2560, against the 60px a join closes at (`2·MERGE·ln2·ONSET` in
-  `src/motion.js`, measured on the *displaced* outlines), so a cursor brought
-  into the gap runs the two together into one fluid and at rest they are two
-  shapes. Three things are load-bearing. The box is on the **slot** and not on
-  the field, with a floor under its width: a box struck as a share of a hero
-  that is 540px tall at every desk width and as wide as the window keeps its
-  height and stretches without limit — the pebbles run 1.20 to 2.15 in aspect
-  between 1440 and 2560 and by 2560 they have closed on the arch and on each
-  other — and a bead is a pill at one end of that and a disc at the other, which
-  is the bullet `clipDefs()` says the silhouette was drawn off-round to avoid.
-  The band it stands in is 185px deep at 1081 and that is what fixes its height:
-  26px of paper under the header, the 118px box, then the gap — re-measured
-  whenever the width floor moves, because a wider bead meets a higher part of
-  the flank. And it is **printed only where
-  a join can happen** — the media query is the negative of the gates
-  `src/motion.js` arms the magnets on, so a coarse pointer and
-  `prefers-reduced-motion` drop it as well as a narrow window. What CSS cannot
-  reach is JS that never runs, which is the one state where it is a dark spot on
-  the paper with nothing to have come away from. That trade, and the licence for
-  a free-floating shape beside a flank welded on one edge rather than three, are
-  argued in "Deviations from the design doc", item 13, in the
-  `smartagents-design` README.
 - **A disclosure is a `<details>`, and an accordion is three of them sharing a
   `name`.** The AI staffing page's track panel is the only figure on the site
   that opens and closes. The markup is what works with JS off — the rows open,
@@ -1106,6 +487,18 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   On the endpoint, `checkAndIncrementRateLimit` now runs *after*
   `validatePayload`: the other way round a malformed submission burned one of
   the caller's five attempts an hour.
+  Three more things the form says for itself. **Optional is marked as well as
+  required** — `form.optional` beside "Bedrijf", because marking only one of the
+  two leaves the other ambiguous to a reader who has not read the legend.
+  **The button names the result**, `cta.send` being "Verstuur bericht" rather
+  than "Verstuur". And **429 has its own sentence**: "Versturen lukte niet" in
+  front of a rate limit invites exactly the retry that caused it, so
+  `form.rateLimited` names the wait and the phone, and every other failure keeps
+  the one line it had.
+  **A missing `TURNSTILE_SECRET_KEY` is a 500, not a failed captcha.** Unbound,
+  the key was posted to Turnstile as the literal string "undefined", Turnstile
+  answered `invalid-input-secret`, and the visitor was told their captcha had
+  failed — a 403 blaming them for a binding nobody had set.
 - **The contact path is checked end to end, because it broke in the gap between
   its two halves.** The form posts what its inputs are named; `/api/contact`
   validates its own list; nothing compared them, so a required `subject` no
@@ -1137,19 +530,6 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   characters. It is left alone here because lowering it changes the four
   articles' measure at every desk width, which is a decision the client made,
   not one to take silently while fixing a legal page.
-- **The orbit rings are hidden under `forced-colors: active`, site-wide.** A
-  forced palette substitutes a system colour for every border and drops the
-  alpha with it, so five hairlines drawn at 5–11% precisely to sit under the
-  type came back as `CanvasText` at the layer's full 0.8 — ground designed to be
-  barely there rendering as the strongest line on the screen, through the
-  reading column. A decoration has no weight it can be given in a palette it
-  does not choose, so it goes, the way `@media print` already drops it.
-  `.cycle__phase` on the AI-native SDLC page is the other half of the same
-  thought: that figure carries meaning, so a forced palette gets a border it can
-  keep instead. The privacy notice is only where this landed hardest — a sticky
-  origin puts the same arcs on every screen of a 2820px document rather than
-  behind one hero — but the rule is not scoped to it, because no orbit set on
-  the site means anything.
 - **There is a print stylesheet, and it exists for one page.** A GDPR notice is
   the page most likely to be saved as a PDF — by a DPO, a procurement reviewer,
   a client's lawyer — and until the block at the foot of `main.css` existed that
@@ -1158,6 +538,31 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   page rather than scoped to that one, because nothing in them is
   page-specific: hide what is chrome or texture, unstack what is a share of a
   viewport that no longer exists, and print the href after an off-page link.
+- **The phone's action bar waits for the hero's own action to leave.** At
+  390×844 the hero's primary button and the sticky bar's copy of it were both on
+  the first screen — the same words 490px apart, one of them covering the foot of
+  the page to say what the other already said. `data-hide-until` on
+  `#mobile-actions` names the element the bar defers to and `src/app.js` puts
+  `.is-deferred` on and off with one IntersectionObserver. The bar ships
+  *visible* and this hides it, so with JS off a reader gets the duplicate rather
+  than no action at all; the `visibility` delay is on the hiding direction only,
+  because on the base rule it holds the bar invisible for a third of a second
+  after it should have come back.
+- **`src/motion.js` carries no spotlight any more, and it reacts to
+  `prefers-reduced-motion` at runtime.** The spotlight hung a `pointermove`
+  handler on every `[data-spotlight]` element, read that element's box and wrote
+  a `radial-gradient` string into its inline style on every event — and no page
+  has carried the attribute since the dark cards it was drawn for became hairline
+  rows, so it shipped in the entry chunk on every page and ran on none of them.
+  The reduced-motion query used to be read once at module evaluation with the
+  whole wire-up standing inside that reading; both queries feed one `sync()` now,
+  so a reader who turns the setting on mid-visit gets the magnets torn down
+  rather than left pulling.
+- **`sitemap.xml` prints `lastmod` only where a page knows one.** Four articles
+  and the privacy notice carry a date the page itself prints, and they hand it to
+  the sitemap as `meta.lastmod`; nothing else has an honest answer. A `lastmod`
+  invented from the build clock tells a crawler that every page changed on every
+  deploy, which is how a sitemap stops being read.
 - **Validation**: `scripts/check-dist.mjs` is the gatekeeper. It checks unresolved
   templates, broken internal links, missing alt text, undefined CSS custom
   properties, robots meta, the full hreflang contract, the routing table, and the
@@ -1252,11 +657,26 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   wordmark is unlabelled, is outside the nav landmark, and never takes the
   `aria-current` the other items take. The measurement lives in `.site-nav` in
   `critical.css`; re-measure it whenever a nav name changes.
-- A URL that matches no page gets a real 404 now: `render.mjs` writes the
-  default language's not-found body to `dist/404.html` as well as to
-  `/nl/404/`, and Cloudflare serves that with the status code. It used to fall
-  back to `index.html` with a 200, and `src/sw.js` still checks the
-  `Content-Type` before it caches anything (`isCacheable`) — a cache-first
-  worker that stores a 200 stores the homepage under a missing asset's URL, and
-  the asset then fails on every later visit with no way to reload out of it.
-  Keep that check whatever the host does.
+- A URL that matches no page gets a real 404 now: `render.mjs` copies the
+  default language's rendered `/nl/404/` to `dist/404.html`, and Cloudflare
+  serves that with the status code. It used to fall back to `index.html` with a
+  200, and `src/sw.js` still checks the `Content-Type` before it caches anything
+  (`isCacheable`) — a cache-first worker that stores a 200 stores the homepage
+  under a missing asset's URL, and the asset then fails on every later visit
+  with no way to reload out of it. Keep that check whatever the host does; the
+  page handler applies it too, because a navigation is any top-level request the
+  browser makes and a click on one of the course PDFs was landing 200 KB of
+  one-pager in the page cache.
+  Two things about the page itself. It is **copied rather than rendered twice**:
+  it used to be a second `basePage()` call with the same arguments and a second
+  minify of the same 13 KB, the one difference being a hard-coded `noindex: true`
+  the page module was already producing — two renders of one document can only
+  ever agree by accident. And **it is a `.section` with rules of its own**.
+  `.error-page` matched nothing in either stylesheet, so the one page a visitor
+  reaches only when something has gone wrong printed its heading flush against
+  the window's left edge at x=0: the only page on the site that looked broken, on
+  the occasion a reader is already least sure the site works. It carries the
+  page frame, a standfirst and three places to go, all read off keys the chrome
+  already prints. `scripts/start-local.mjs` serves it too — it used to answer a
+  missing URL with the two words "Not found" as `text/plain`, so nobody working
+  on the site ever saw the real page.

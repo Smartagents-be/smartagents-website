@@ -7,6 +7,9 @@ const ALLOWED_ORIGINS = ['https://smartagents.be', 'https://www.smartagents.be']
  */
 const DEFAULT_SUBJECT = 'Contact request via smartagents.be';
 
+/** Several times the largest submission the form can produce; see the guard. */
+const MAX_BODY_BYTES = 16 * 1024;
+
 function isAllowedOrigin(origin) {
   if (ALLOWED_ORIGINS.includes(origin)) return true;
   try {
@@ -25,6 +28,18 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: 'Forbidden' }, 403);
   }
 
+  /* The size guard runs before the parse, not after it. `validatePayload` caps
+     every field it knows about, but it only sees the object once the whole body
+     has been read and parsed — so a megabyte of JSON was fully decoded in the
+     isolate before anything looked at it. The largest honest submission is the
+     5000-character message plus four short fields; 16 KB is several times that
+     and a tenth of anything worth worrying about. A body with no
+     `Content-Length` is read anyway: the platform caps it long before this. */
+  const declaredLength = Number(request.headers.get('Content-Length') || 0);
+  if (declaredLength > MAX_BODY_BYTES) {
+    return jsonResponse({ error: 'Payload too large' }, 413);
+  }
+
   let body;
   try {
     body = await request.json();
@@ -40,6 +55,16 @@ export async function onRequestPost(context) {
   const ip = request.headers.get('CF-Connecting-IP');
   if (!ip) {
     return jsonResponse({ error: 'Unable to verify request origin' }, 403);
+  }
+
+  /* An unbound secret is this endpoint's fault and has to say so. Without this
+     the key's absence was posted to Turnstile as the literal string
+     "undefined", Turnstile answered `invalid-input-secret`, and the visitor was
+     told their captcha had failed — a 403 blaming them for a binding nobody had
+     set, on the site's only conversion path, with nothing in the log. */
+  if (!env.TURNSTILE_SECRET_KEY) {
+    console.error('contact: TURNSTILE_SECRET_KEY is not bound; see functions/api/README.md');
+    return jsonResponse({ error: 'Captcha verification unavailable' }, 500);
   }
 
   const verified = await verifyTurnstile(turnstileToken, ip, env.TURNSTILE_SECRET_KEY);
@@ -164,7 +189,7 @@ async function forwardToN8n(body, webhookUrl, sharedSecret) {
     return false;
   }
 
-  const { name, email, subject, message, company, intent, page_context } = body;
+  const { name, email, subject, message, company, page_context } = body;
 
   const payload = {
     name,
@@ -173,7 +198,11 @@ async function forwardToN8n(body, webhookUrl, sharedSecret) {
     message
   };
   if (company) payload.company = String(company).slice(0, 200);
-  if (intent) payload.intent = String(intent).slice(0, 100);
+  /* `intent` was forwarded here too and no form on the site has ever rendered a
+     field by that name, so the branch could only ever fire on a hand-made
+     request. A field the page cannot produce is a field nothing downstream can
+     rely on; it is gone rather than left as a hook for a form that may never be
+     built. */
   if (page_context) payload.page_context = String(page_context).slice(0, 200);
 
   try {
@@ -198,9 +227,16 @@ async function forwardToN8n(body, webhookUrl, sharedSecret) {
 }
 
 
+/* `no-store` on every answer. These are per-submission results — accepted,
+   rate-limited, captcha failed — and nothing between the visitor and this
+   function has any business holding one: a proxy that cached a 200 would tell
+   the next visitor their unsent message arrived. */
 function jsonResponse(data, status) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-store'
+    }
   });
 }

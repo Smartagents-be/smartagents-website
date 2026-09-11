@@ -107,7 +107,6 @@ ${orbitRings('team-hero')}
     <h1 id="team-hero-title">${t('team.hero.title')}</h1>
   </div>
   <div id="team-founders" class="founders">
-    <p id="team-founders-label" class="founders__label"><span id="team-founders-badge" class="badge">${t('team.founders.title')}</span></p>
 ${join(FOUNDERS.map((founder, i) => person({ t, eager: i === 0, ...founder })))}
   </div>
 </section>`;
@@ -137,7 +136,6 @@ function person({ t, key, name, portrait, linkedin, eager }) {
       <div id="${id}-overlay" class="person__overlay">
         <h2 id="${id}-name" class="person__name">${name}</h2>
         <p id="${id}-body" class="person__body">${t(`team.person.${key}.body`)}</p>
-        <p id="${id}-tags" class="person__tags">${t(`team.person.${key}.tags`)}</p>
         <a id="${id}-linkedin" class="person__link" href="${linkedin}" target="_blank" rel="noopener noreferrer" aria-label="${name} ${t('team.linkedinLabel')}">${linkedinMark(`${id}-linkedin`)}</a>
       </div>
     </article>`;

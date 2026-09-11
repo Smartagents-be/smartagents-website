@@ -14,7 +14,7 @@
 // the copy itself.
 //
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
-import { html, join } from '../../../build/lib/html.mjs';
+import { html, join, raw } from '../../../build/lib/html.mjs';
 import { absolute, pagePath } from '../../../build/lib/i18n.mjs';
 import { orbitRings } from '../../layouts/base.mjs';
 import {
@@ -141,7 +141,21 @@ export const thumbSrcset = (stem, widths, extension) =>
 const THUMB_SIZES =
   '(max-width: 620px) calc(100vw - 40px), (max-width: 1000px) 44vw, (max-width: 1080px) 156px, 208px';
 
-export function articleRows({ t, lang, prefix }) {
+/**
+ * The four articles as rows. The heading level is the caller's, because the same
+ * rows are printed under a section `<h2>` on the homepage and directly under the
+ * page `<h1>` on the index: hard-coded `<h3>` made the index read h1, h3, h3,
+ * h3, h3, h2, which is a skipped level and then a jump back.
+ *
+ * @param {object} options
+ * @param {Function} options.t
+ * @param {string} options.lang
+ * @param {string} options.prefix        id prefix for this list (element-ids §4)
+ * @param {number} [options.level]       heading level for a row's title
+ */
+export function articleRows({ t, lang, prefix, level = 3 }) {
+  const Title = `h${level}`;
+
   return INSIGHTS.map(({ key, thumb, widths, tags }) => {
     const href = insightPath(key, lang);
     const id = `${prefix}-${key}`;
@@ -156,10 +170,10 @@ export function articleRows({ t, lang, prefix }) {
       </picture>
     </figure>
     <div id="${id}-text" class="article-row__text">
-      <h3 id="${id}-title" class="article-row__title">${t(`article.${key}.title`)}</h3>
+      <${raw(Title)} id="${id}-title" class="article-row__title">${t(`article.${key}.title`)}</${raw(Title)}>
       <p id="${id}-body" class="article-row__body">${t(`article.${key}.body`)}</p>${href
         ? html`
-      <span id="${id}-cue" class="article-row__cue">${t('cta.moreInfo')} <span id="${id}-cue-arrow" aria-hidden="true">&rarr;</span></span>`
+      <span id="${id}-cue" class="article-row__cue" aria-hidden="true">&rarr;</span>`
         : ''}
     </div>
     <div id="${id}-meta" class="article-row__meta">
@@ -242,7 +256,7 @@ ${orbitRings('insights-index', 'orbits--insights', ['01', '02', '03', '04'])}
   </div>
   <p id="insights-index-lede" class="section-lede">${t('insights.index.lede')}</p>
   <div id="insights-index-list" class="rows rows--cards">
-${join(articleRows({ t, lang, prefix: 'insights-index' }))}
+${join(articleRows({ t, lang, prefix: 'insights-index', level: 2 }))}
   </div>
 </section>`;
 }
@@ -288,6 +302,11 @@ function insightPage(insight) {
       // way every other page appends it.
       title: `${t(`article.${key}.title`)} · SmartAgents`,
       description: t(`article.${key}.body`),
+
+      /* What the sitemap prints as `lastmod`. The same date the body prints in
+         its `<time datetime>` and the head prints as `article:published_time`,
+         so a crawler, a reader and the graph are told one date. */
+      lastmod: published,
 
       /* The article's own thumbnail is its share card. It is 760×428 rather
          than the 1200×630 the brand card is, which every platform crops to fit
@@ -374,7 +393,9 @@ function article({ t, lang, scope, key, published, thumb, widths, tags, body }) 
   <div id="${scope}-article-inner" class="article">
     <div id="${scope}-main" class="article__main">
       <header id="${scope}-head" class="article__head">
-        <p id="${scope}-eyebrow" class="page-eyebrow">${t('section.insights')}</p>
+${insightsIndexPath(lang)
+    ? html`        <p id="${scope}-eyebrow" class="page-eyebrow"><a id="${scope}-eyebrow-link" class="page-eyebrow__up" href="${insightsIndexPath(lang)}"><span id="${scope}-eyebrow-arrow" aria-hidden="true">&larr;</span> ${t('section.insights')}</a></p>`
+    : html`        <p id="${scope}-eyebrow" class="page-eyebrow">${t('section.insights')}</p>`}
         <h1 id="${scope}-title">${t(`article.${key}.title`)}</h1>
         <p id="${scope}-lede" class="article-lede">${t(`article.${key}.body`)}</p>
         <div id="${scope}-meta" class="article-meta">

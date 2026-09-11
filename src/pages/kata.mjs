@@ -27,11 +27,6 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
 /** The four hard facts, in the order a reader checks them. */
 const SPEC = ['duration', 'group', 'location', 'language'];
 
-/** What is in the box, printed in the practice block's hairline band. Six,
-    because `.tour__tags-list` is three rows of two — a seventh would open a
-    fourth row on the desk and leave the second column of it empty. */
-const CONTAINS = ['material', 'slides', 'quizzes', 'flags', 'project', 'workshops'];
-
 /**
  * The six themes of the day, in the order they are met.
  *
@@ -113,7 +108,7 @@ export const page = {
   render: ({ t, lang }) => {
     return html`<main id="main" tabindex="-1">
 
-${hero(t)}
+${hero(t, lang)}
 ${spec(t)}
 ${tour(t)}
 ${day(t)}
@@ -137,7 +132,9 @@ ${contact(t, lang)}
  * is trying to say "the same one, in detail".
  * ------------------------------------------------------------------ */
 
-function hero(t) {
+function hero(t, lang) {
+  const parent = servicePath('training', lang);
+
   return html`<section id="kata-hero" class="hero hero--page">
 ${orbitRings('kata-hero')}
   <div id="kata-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
@@ -145,8 +142,20 @@ ${orbitRings('kata-hero')}
   </div>
   <div id="kata-hero-inner" class="hero__inner">
     <div id="kata-hero-text" class="hero__text">
-      <p id="kata-hero-eyebrow" class="page-eyebrow">${t('kata.hero.eyebrow')}</p>
+      <!-- The eyebrow is the way up, and it is the whole breadcrumb this page
+           needs. It named the section this page sits in and did nothing with
+           it: a paragraph shaped exactly like a breadcrumb, on the one page of
+           the site that is two levels down, while the only trail back to the
+           training page lived in the JSON-LD where no reader can reach it. As a
+           link it costs nothing and answers the question the eyebrow was
+           already asking. It falls back to a plain label in a language the
+           training page is not published in, the same rule servicePath()
+           follows everywhere else. -->
+${parent
+    ? html`      <p id="kata-hero-eyebrow" class="page-eyebrow"><a id="kata-hero-eyebrow-link" class="page-eyebrow__up" href="${parent}"><span id="kata-hero-eyebrow-arrow" aria-hidden="true">&larr;</span> ${t('kata.hero.eyebrow')}</a></p>`
+    : html`      <p id="kata-hero-eyebrow" class="page-eyebrow">${t('kata.hero.eyebrow')}</p>`}
       <h1 id="kata-hero-title">${t('kata.hero.title')}</h1>
+      <!-- The standfirst; see the note in the training page's hero. -->
       <div id="kata-hero-actions" class="hero__actions">
         <a id="kata-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="kata-hero-cta-day" class="btn btn--ghost" href="#kata-day">${t('kata.cta.day')} <span id="kata-hero-cta-day-arrow" aria-hidden="true">&rarr;</span></a>
@@ -358,31 +367,22 @@ ${join(rows)}
  * the two-column tour and the numbered steps, and it is why the six-row themes
  * above it and the three-row requirements below it do not read as one list.
  *
- * The band is the tour's own `.tour__tags`, used outside `.tour`. Nothing in
- * that rule is a descendant selector, so it travels; it is a titled hairline
- * band holding short items in three rows of two, which is exactly what six
- * one-word deliverables want. Both halves are capped at the reading measure, so
- * stacked they leave most of the page bare — `.practice` is the two-column grid
- * that puts them beside each other instead.
+ * It used to be a paragraph beside a band: `.tour__tags` borrowed from the tour,
+ * holding six one-word deliverables — Lesmateriaal, Slides, Quizzen, Flagborden,
+ * Projectwerk, Workshops. The band is gone. Six nouns in a row are the "too many
+ * subtexts" pattern, and every one of them was already in the paragraph beside
+ * it, which says what a participant does with them rather than that they exist.
+ * `.practice` is still the two-column grid; with one child the paragraph takes
+ * the first column and the reading measure holds it.
  * ------------------------------------------------------------------ */
 
 function practice(t) {
-  const tags = CONTAINS.map(
-    (key) => html`      <li id="kata-practice-tag-${key}" class="tour__tags-item">${t(`kata.practice.tags.${key}`)}</li>`
-  );
-
   return html`<section id="kata-practice" class="section" aria-labelledby="kata-practice-title">
   <div id="kata-practice-head" class="section__head">
     <h2 id="kata-practice-title" class="section-heading">${t('kata.practice.title')}</h2>
   </div>
   <div id="kata-practice-inner" class="practice">
     <p id="kata-practice-lede" class="tour__body">${t('kata.practice.lede')}</p>
-    <div id="kata-practice-tags" class="tour__tags">
-      <p id="kata-practice-tags-title" class="tour__tags-title">${t('kata.practice.tags.title')}</p>
-      <ul id="kata-practice-tags-list" class="tour__tags-list">
-${join(tags)}
-      </ul>
-    </div>
   </div>
 </section>`;
 }

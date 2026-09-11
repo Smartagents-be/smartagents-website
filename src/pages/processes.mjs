@@ -146,8 +146,14 @@ ${orbitRings('processes-hero')}
   </div>
   <div id="processes-hero-inner" class="hero__inner">
     <div id="processes-hero-text" class="hero__text">
-      <p id="processes-hero-eyebrow" class="page-eyebrow">${t('processes.hero.eyebrow')}</p>
       <h1 id="processes-hero-title">${t('processes.hero.title')}</h1>
+      <!-- The standfirst, and it is the page's own description key rather than
+           a line of its own. Every hero on the site was eyebrow, headline, two
+           buttons and then 300px of paper: on a 1280x800 laptop the first
+           sentence saying who this is for arrived at y≈800, under the fold. The
+           sentence already existed — it is the page's own search snippet — so it
+           is printed from that key instead of written a second time, which is
+           also the only way the page and the snippet can never drift apart. -->
       <div id="processes-hero-actions" class="hero__actions">
         <a id="processes-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="processes-hero-cta-phases" class="btn btn--ghost" href="#phases">${t('processes.cta.phases')} <span id="processes-hero-cta-phases-arrow" aria-hidden="true">&rarr;</span></a>

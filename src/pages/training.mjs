@@ -25,7 +25,7 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
  */
 const COURSES = [
   { key: 'business', fiche: 'SmartAgents_AI_Business_Teams_Onepager.pdf' },
-  { key: 'agentic', fiche: AGENTIC_FICHE, detail: kataPath }
+  { key: 'agentic', fiche: AGENTIC_FICHE, detail: kataPath, omitFacts: ['format'] }
 ];
 
 /** The `learn.n` lines every live course carries. */
@@ -46,23 +46,37 @@ const BENEFITS = ['adoption', 'productivity', 'risk', 'return', 'autonomy'];
  * dates are the two facts nothing on the site knows; they are deliberately not
  * guessed at here.
  *
+ * Price is not here either, and it was. "Prijs — Op maat, na een korte intake"
+ * is a row of a facts strip that answers nothing: a reader checking whether they
+ * can afford a day leaves knowing exactly what they knew before it, and the row
+ * costs the strip a fifth of its height to say so. A range would be worth
+ * printing; nothing on the site or in the repo knows one, and a number is not
+ * ours to invent. So the strip states the four facts it has and the CTA under it
+ * is what asks. Put the row back the day there is a figure behind it.
+ *
  * The format and the group size are per-course and were not always. They were
  * one shared value each, written when the only page saying anything harder was
  * this one; the kata page now states the developer course's own numbers — one
  * day, five to fifteen, at the client's office — and a shared "in-house of
  * remote, 5 tot 20" put the two strips one click apart in plain contradiction.
  * A fact stated on two pages has to be read from one key.
+ *
+ * The developer course omits the format row altogether, through `omitFacts` on
+ * its `COURSES` entry, which is why this list is the default rather than the
+ * whole of it. Its value was "Bij u op kantoor" and the kata page's spec strip
+ * states that same sentence one click away under "Locatie" — the fact is not
+ * dropped, it is stated where the course states the rest of itself, and a fact
+ * printed twice is the contradiction the paragraph above is about. The business
+ * course keeps its row: it has no page of its own to state it on. The cost is
+ * that the two strips are a row different in height, which the subgrid absorbs
+ * in the facts row alone — the links below it stay on one line.
  */
 const FACTS = [
   { name: 'audience', value: (key) => `training.course.${key}.audience` },
   { name: 'format', value: (key) => `training.course.${key}.format` },
   { name: 'group', value: (key) => `training.course.${key}.group` },
-  { name: 'tools', value: (key) => `training.course.${key}.tools` },
-  { name: 'price', value: () => 'training.facts.price.value' }
+  { name: 'tools', value: (key) => `training.course.${key}.tools` }
 ];
-
-/** What a participant walks away with, listed under `training.format.tags.title`. */
-const INCLUDED = ['material', 'exercises', 'labs', 'qa', 'slides', 'guidance'];
 
 export const page = {
   id: 'training',
@@ -156,8 +170,14 @@ ${orbitRings('training-hero')}
   </div>
   <div id="training-hero-inner" class="hero__inner">
     <div id="training-hero-text" class="hero__text">
-      <p id="training-hero-eyebrow" class="page-eyebrow">${t('training.hero.eyebrow')}</p>
       <h1 id="training-hero-title">${t('training.hero.title')}</h1>
+      <!-- The standfirst, and it is the page's own description key rather than
+           a line of its own. Every hero on the site was eyebrow, headline, two
+           buttons and then 300px of paper: on a 1280x800 laptop the first
+           sentence saying who this is for arrived at y≈800, under the fold. The
+           sentence already existed — it is the page's own search snippet — so it
+           is printed from that key instead of written a second time, which is
+           also the only way the page and the snippet can never drift apart. -->
       <div id="training-hero-actions" class="hero__actions">
         <a id="training-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="training-hero-cta-offer" class="btn btn--ghost" href="#offer">${t('training.cta.offer')} <span id="training-hero-cta-offer-arrow" aria-hidden="true">&rarr;</span></a>
@@ -209,8 +229,10 @@ ${join(rows)}
  * @param {Function} [options.detail] resolves this course's own page in `lang`,
  *   where it has one. Only the developer course does today; the business course
  *   is the offer's whole statement of itself and has nowhere to go.
+ * @param {string[]} [options.omitFacts] facts this course does not print here,
+ *   because its own page states them. See the note on `FACTS`.
  */
-function courseColumn({ t, lang, key, fiche, detail }) {
+function courseColumn({ t, lang, key, fiche, detail, omitFacts = [] }) {
   const id = `training-offer-course-${key}`;
 
   const items = LEARN.map(
@@ -226,7 +248,7 @@ ${join(items)}
       </ul>
       <dl id="${id}-facts" class="offer-course__facts">
 ${join(
-        FACTS.map(
+        FACTS.filter(({ name }) => !omitFacts.includes(name)).map(
           ({ name, value }) => html`        <div id="${id}-fact-${name}" class="offer-course__fact">
           <dt id="${id}-fact-${name}-label">${t(`training.facts.${name}.label`)}</dt>
           <dd id="${id}-fact-${name}-value">${t(value(key))}</dd>
@@ -292,17 +314,6 @@ function format(t) {
     <div id="training-format-copy" class="tour__copy">
       <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
       <p id="training-format-group" class="tour__meta">${t('training.format.group')}</p>
-      <div id="training-format-tags" class="tour__tags">
-        <p id="training-format-tags-title" class="tour__tags-title">${t('training.format.tags.title')}</p>
-        <ul id="training-format-tags-list" class="tour__tags-list">
-${join(
-        INCLUDED.map(
-          (key) => html`          <li id="training-format-tag-${key}" class="tour__tags-item">${t(`training.format.tags.${key}`)}</li>`
-        ),
-        '\n'
-      )}
-        </ul>
-      </div>
       <p id="training-format-accents" class="tour__body">${t('training.format.accents')}</p>
     </div>
     <div id="training-format-media" class="video-block">
@@ -326,6 +337,7 @@ function contact(t, lang) {
     t,
     lang,
     prefix: 'training',
-    title: t('training.cta.title')
+    title: t('training.cta.title'),
+    lede: t('contact.lede')
   });
 }

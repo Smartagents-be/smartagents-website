@@ -15,6 +15,10 @@
 // a body therefore renumbers it, which is the one place this repo accepts that:
 // prose is read in order and nothing outside the article points into it.
 import { html, join, raw, escapeHtml } from '../../build/lib/html.mjs';
+// The site's `01`-style index, declared once. It was re-declared here, in
+// `home.mjs` and in `privacy.mjs`, which is four copies of one `padStart` and
+// four places for the site's id numbering to start disagreeing with itself.
+import { index } from '../layouts/base.mjs';
 
 /**
  * Source prose is wrapped for the 100-column rule; the reader gets one line.
@@ -32,9 +36,6 @@ const squeeze = (strings, values = []) =>
     .reduce((out, chunk, i) => out + chunk + (i < values.length ? values[i] : ''), '')
     .replace(/\s+/g, ' ')
     .trim();
-
-/** `01`-style index — the same two-digit key the rest of the site uses. */
-const index = (n) => String(n).padStart(2, '0');
 
 export const p = (strings, ...values) => ({ type: 'p', text: squeeze(strings, values) });
 export const h2 = (strings, ...values) => ({ type: 'h2', text: squeeze(strings, values) });

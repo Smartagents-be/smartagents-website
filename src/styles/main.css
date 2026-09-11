@@ -273,7 +273,12 @@
     margin-top: var(--space-7);
   }
 
+  /* 44px in the sheet, where the chip is reached by a thumb and the panel is
+     the whole screen. The 32px floor the switcher carries everywhere else is a
+     floor for a pointer; this is the one place it is a target. */
   .nav-toggle__panel .lang-switcher a {
+    min-width: 44px;
+    min-height: 44px;
     padding: var(--space-3) var(--space-5);
   }
 
@@ -337,18 +342,37 @@
   font-weight: var(--weight-medium-plus);
 }
 
-/* The cyan rule a section heading sits under, on its own. A section with no
-   heading still has to open the way every other one does — the rule is the
-   thing that says a new section has started — so it is cut to about the length
-   a heading's own rule runs to and carries the same air under it as a
-   `.section__head` does. Fluid, like the heading it stands in for: the rule
-   over a heading is that heading's width, and a fixed one would read as a
-   different length at every viewport beside the ones that are not. */
-.section-rule {
-  width: clamp(120px, 15vw, 216px);
-  height: 2px;
-  margin-bottom: var(--space-10);
-  background: var(--sa-cyan);
+/* `.section-rule` was here: the cyan rule a section heading sits under, drawn
+   on its own for a section with no heading. Every section on the site has a
+   heading, so nothing ever printed it. */
+
+/* The 32px floor, on the inline action links that are not inside a sentence.
+   WCAG 2.2 asks 24px of every target and exempts a link inside a block of text;
+   none of these is that — they are the one thing to press at the end of a block,
+   and measured on a 390px phone they were 17 to 22px tall and clearing the floor
+   only on the gap around them. 32 rather than the 24 that clears it exactly:
+   these sit on their own line and the room is there. The type is untouched; only
+   the box grows, around the baseline it already sat on.
+
+   The privacy link under the submit button is deliberately not in this list, and
+   it is the one link the measurement flagged that is genuinely inside a
+   sentence — "…verwerken we volgens ons privacybeleid." — which is the
+   exception 2.5.8 names. Given a 32px box it would open the line it sits in.
+
+   `.site-footer a` says the same thing for the footer and says it there, because
+   down there it applies to every link in the block rather than to a named few. */
+.section-link,
+.offer-course__fiche,
+.article__rail-link,
+.contact__facts a {
+  display: inline-flex;
+  /* The word and the arrow are two flex items now, and a flex container drops
+     the whitespace between its children — so the gap has to be declared or the
+     arrow sits against the last letter. `0.4em`, the same gap `.btn` uses
+     between a label and its arrow, so the two idioms match. */
+  gap: 0.4em;
+  align-items: center;
+  min-height: 32px;
 }
 
 /* One paragraph of argument between a section heading and the block under it,
@@ -361,6 +385,21 @@
   color: var(--text-body);
   font-size: var(--text-lede);
   line-height: var(--leading-body);
+}
+
+/* A lede that names a source hands its bottom margin to the link under it, so
+   the sentence and the thing it cites read as one block rather than as two.
+   The AI-native SDLC page's journey is the only place this happens today: it is
+   the one block on the public site built on somebody else's published work, and
+   the site's rule is that a claim like that is checkable. */
+.section-lede--sourced {
+  margin-bottom: var(--space-4);
+}
+
+.section-source {
+  margin-bottom: var(--space-12);
+  font-size: var(--text-meta);
+  line-height: var(--leading-body-tight);
 }
 
 /* The rule over a heading is a cut of that heading's own width on a desk,
@@ -425,6 +464,15 @@
   line-height: var(--leading-body);
 }
 
+/* The arrow at the end of a row that links, and it is the arrow alone. It used
+   to print "Ontdek →" and the homepage carried that twice over four service rows
+   and four article rows: eight repetitions of one word on rows that are links end
+   to end and whose own titles name the destination.
+
+   `.row__cue--named` is the exception, and there is one: the jobs page's three
+   "Werken bij" rows, where only the middle one goes anywhere. An arrow is a
+   difference a reader has to notice before they can read it; with two silent
+   rows beside it, that row says where it goes in words. */
 .row__cue {
   transition: transform var(--dur-move) var(--ease-out-expo);
   color: var(--text-accent);
@@ -433,13 +481,20 @@
   white-space: nowrap;
 }
 
-a.row:hover {
+/* One hover, three lists. A service row, an article row and a rail row all
+   answer a pointer the same way — a wash, the row's own ink kept, and 3px of
+   travel toward the reader — and each declared it for itself. The cue's extra
+   2px is what makes the arrow lead the row rather than ride it. */
+a.row:hover,
+a.article-row:hover,
+.rail-row:hover {
   background: var(--surface-hover);
   color: inherit;
   transform: translateX(3px);
 }
 
-a.row:hover .row__cue {
+a.row:hover .row__cue,
+a.article-row:hover .article-row__cue {
   transform: translateX(5px);
 }
 
@@ -460,14 +515,21 @@ a.row:hover .row__cue {
   }
 }
 
+/* Two abreast on a tablet, for both lists that do it: the homepage's service
+   rows (`--pair`) and its article rows (`--cards`). The two modifiers carried
+   byte-identical rules in two places 900 lines apart, which is one list quietly
+   changing shape the day somebody edits the other. They keep their two names —
+   the markup means different things by them — and share the one rule. */
 @media (min-width: 621px) and (max-width: 1000px) {
-  .rows--pair {
+  .rows--pair,
+  .rows--cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0 var(--gap-column);
   }
 
-  .rows--pair > :nth-last-child(-n + 2) {
+  .rows--pair > :nth-last-child(-n + 2),
+  .rows--cards > :nth-last-child(-n + 2) {
     border-bottom: 1px solid var(--border-hairline);
   }
 }
@@ -529,11 +591,6 @@ a.row:hover .row__cue {
 
 .numbered__unit {
   white-space: nowrap;
-}
-
-/* An entry without its index: one column, so the copy starts at the rule. */
-.numbered--plain {
-  grid-template-columns: 1fr;
 }
 
 @media (max-width: 620px) {
@@ -705,383 +762,6 @@ a.row:hover .row__cue {
 }
 
 /* ------------------------------------------------------------------ *
- * Digitale transformatie — an isometric stack over the dark field
- * ------------------------------------------------------------------ */
-
-.transformation {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: var(--space-14);
-  align-items: start;
-}
-
-.transformation__list {
-  display: grid;
-  gap: var(--space-1);
-}
-
-.transformation__list > :last-child {
-  border-bottom: 1px solid var(--border-hairline);
-}
-
-.stack {
-  position: relative;
-  height: 520px;
-}
-
-.stack__field {
-  inset: -40px -170px -40px -10px;
-}
-
-.stack__planes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.plane {
-  position: absolute;
-  left: 29%;
-  width: 166px;
-  height: 166px;
-  margin-left: -83px;
-  border: 1px solid oklch(0.72 0.02 240 / 0.26);
-  background: linear-gradient(oklch(0.97 0.006 240 / 0.035), oklch(0.97 0.006 240 / 0.035)),
-    var(--surface-dark);
-  transform: rotateX(58deg) rotateZ(45deg);
-}
-
-.plane--1 {
-  z-index: 4;
-  top: 101px;
-  border-color: oklch(0.6622 0.1151 211.3);
-  background: linear-gradient(var(--sa-cyan-soft), var(--sa-cyan-soft)), var(--surface-dark);
-}
-
-.plane--2 {
-  z-index: 3;
-  top: 181px;
-  border-color: oklch(0.72 0.02 240 / 0.38);
-  background: linear-gradient(oklch(0.97 0.006 240 / 0.05), oklch(0.97 0.006 240 / 0.05)),
-    var(--surface-dark);
-}
-
-.plane--3 {
-  z-index: 2;
-  top: 261px;
-}
-
-.plane--4 {
-  z-index: 1;
-  top: 341px;
-  border-color: oklch(0.72 0.02 240 / 0.18);
-  background: linear-gradient(oklch(0.97 0.006 240 / 0.025), oklch(0.97 0.006 240 / 0.025)),
-    var(--surface-dark);
-}
-
-.plane__quadrants {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid: 1fr 1fr / 1fr 1fr;
-}
-
-.plane__quadrants i:nth-child(1) {
-  border-right: 1px solid oklch(0.6622 0.1151 211.3 / 0.4);
-  border-bottom: 1px solid oklch(0.6622 0.1151 211.3 / 0.4);
-}
-
-.plane__quadrants i:nth-child(2) {
-  border-bottom: 1px solid oklch(0.6622 0.1151 211.3 / 0.4);
-}
-
-.plane__quadrants i:nth-child(3) {
-  border-right: 1px solid oklch(0.6622 0.1151 211.3 / 0.4);
-}
-
-.plane__rows {
-  position: absolute;
-  inset: 12px;
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  gap: var(--space-5);
-  padding: var(--space-5);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-}
-
-.plane__rows i {
-  display: flex;
-  gap: var(--space-3);
-  align-items: center;
-}
-
-.plane__rows i::before,
-.plane__rows i::after {
-  content: "";
-  background: oklch(0.72 0.02 240 / 0.24);
-}
-
-.plane__rows i::before {
-  width: 14px;
-  height: 14px;
-}
-
-.plane__rows i::after {
-  flex: 1;
-  height: 2px;
-}
-
-.plane__grid {
-  position: absolute;
-  inset: 12px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: var(--space-5);
-  padding: var(--space-5);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-}
-
-.plane__grid i {
-  border: 1px solid oklch(0.72 0.02 240 / 0.26);
-}
-
-.plane__grid i:nth-child(odd) {
-  background: oklch(0.72 0.02 240 / 0.12);
-}
-
-.plane__cells {
-  position: absolute;
-  inset: 10px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  padding: 12px;
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-}
-
-.plane__cells i {
-  border-right: 1px solid oklch(0.72 0.02 240 / 0.16);
-  border-bottom: 1px solid oklch(0.72 0.02 240 / 0.16);
-}
-
-/* The accent, mixed rather than restated. Both of these used to carry a
-   hand-copied `oklch(0.53 0.112 214 / …)`, which was the accent's old
-   out-of-gamut coordinates written out a third and fourth time — so correcting
-   the token would have left this figure on the value the token was corrected
-   away from. Mixing keeps them tied to whatever --sa-cyan is. */
-.plane__cells i:nth-child(6n + 1) {
-  background: color-mix(in oklch, var(--sa-cyan) 16%, transparent);
-}
-
-.plane__cells i:nth-child(5n + 3) {
-  background: color-mix(in oklch, var(--sa-cyan) 10%, transparent);
-}
-
-.stack__label {
-  position: absolute;
-  z-index: 6;
-  left: 52.5%;
-  display: flex;
-  gap: var(--space-4);
-  align-items: center;
-  transform: translateY(-50%);
-}
-
-.stack__label::before {
-  content: "";
-  width: 30px;
-  height: 1px;
-  background: oklch(0.36 0.025 250);
-}
-
-.stack__label span {
-  display: flex;
-  gap: var(--space-3);
-  align-items: center;
-  padding: var(--space-2) var(--space-4);
-  border: 1px solid oklch(0.32 0.03 250);
-  border-radius: var(--radius-chip);
-  color: var(--text-on-dark-faint);
-  font-size: var(--text-meta-sm);
-  font-weight: var(--weight-book);
-  white-space: nowrap;
-}
-
-.stack__label--active::before {
-  background: oklch(0.55 0.075 218);
-}
-
-.stack__label--active span {
-  border-color: var(--sa-cyan-edge);
-  background: var(--sa-cyan-soft);
-  color: oklch(0.97 0.006 240);
-  font-weight: var(--weight-semibold);
-}
-
-.stack__label--active b {
-  color: oklch(0.78 0.09 210);
-}
-
-.stack__label--1 {
-  top: 184px;
-}
-
-.stack__label--2 {
-  top: 264px;
-}
-
-.stack__label--3 {
-  top: 344px;
-}
-
-.stack__label--4 {
-  top: 424px;
-}
-
-@media (max-width: 1000px) {
-  .transformation {
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: var(--gap-column);
-  }
-
-  .stack__field {
-    inset: -40px -10px;
-  }
-}
-
-/* Too narrow for the callouts: the planes stay as the graphic, and the list
-   beside them already names all four layers. They centre on what is left of
-   the column and close up, which is the figure the tablet artboard draws. */
-@media (max-width: 1000px) {
-  .stack {
-    height: 322px;
-  }
-
-  .plane {
-    left: 50%;
-    width: 150px;
-    height: 150px;
-    margin-left: -75px;
-  }
-
-  .plane--1 {
-    top: 0;
-  }
-
-  .plane--2 {
-    top: 52px;
-  }
-
-  .plane--3 {
-    top: 104px;
-  }
-
-  .plane--4 {
-    top: 156px;
-  }
-
-  .stack__label {
-    display: none;
-  }
-}
-
-/* From the tablet down, the list and the stack no longer have a desk's worth
-   of light ground to sit on, and two grounds under one heading read as two
-   sections. So the pair becomes one dark block that runs to both page edges —
-   the four layers named on navy, the stack drawing them beside or beneath —
-   which is how the tablet artboard sets it. The shape the stack sat on is now
-   the same dark as the block behind it, so it stops being a shape and goes
-   back to being what it always was: the window the node network is seen
-   through. */
-@media (max-width: 1000px) {
-  .transformation {
-    position: relative;
-    overflow: hidden;
-    margin-inline: calc(-1 * var(--gutter-page));
-    padding: var(--space-11) var(--gutter-page) var(--space-12);
-    background: var(--surface-dark);
-  }
-
-  .transformation .numbered {
-    position: relative;
-    border-top-color: var(--border-on-dark);
-  }
-
-  .transformation .numbered:first-child {
-    border-top-color: var(--sa-cyan-edge);
-  }
-
-  .transformation__list > :last-child {
-    border-bottom-color: var(--border-on-dark);
-  }
-
-  .transformation .numbered__index {
-    color: oklch(0.6 0.03 245);
-  }
-
-  .transformation .numbered:first-child .numbered__index {
-    color: oklch(0.78 0.09 210);
-  }
-
-  .transformation .numbered__title {
-    color: var(--text-on-dark);
-  }
-
-  .transformation .numbered p {
-    color: var(--text-on-dark-muted);
-  }
-
-  /* Unclipped and faded in from the top: flat navy carries the copy and the
-     network gathers under the planes, which is the gradient the design draws
-     over this block. */
-  .stack__field {
-    clip-path: none;
-    mask-image: linear-gradient(to bottom, transparent, #000 34%);
-  }
-}
-
-/* On a phone the two halves can only sit one above the other, and the stack
-   runs to both page edges with the list above it. */
-@media (max-width: 620px) {
-  .transformation {
-    display: block;
-  }
-
-  .stack {
-    height: 250px;
-    margin-top: var(--space-8);
-  }
-
-  .stack__field {
-    inset: 0 calc(-1 * var(--gutter-page));
-  }
-
-  .plane {
-    left: 50%;
-    width: 118px;
-    height: 118px;
-    margin-left: -59px;
-  }
-
-  .plane--1 {
-    top: 12px;
-  }
-
-  .plane--2 {
-    top: 54px;
-  }
-
-  .plane--3 {
-    top: 96px;
-  }
-
-  .plane--4 {
-    top: 138px;
-  }
-}
-
-/* ------------------------------------------------------------------ *
  * Aanpak — five steps
  * ------------------------------------------------------------------ */
 
@@ -1094,7 +774,10 @@ a.row:hover .row__cue {
 .step {
   position: relative;
   padding-top: var(--space-6);
-  border-top: 1px solid oklch(0.9 0.006 247.84);
+  /* `--sa-line-2`, which is exactly this colour. It was written out, so a change
+     to the token would have left this one rule behind at the old value with
+     nothing to say so. */
+  border-top: 1px solid var(--sa-line-2);
 }
 
 .step::before {
@@ -1219,23 +902,17 @@ a.row:hover .row__cue {
   color: inherit;
 }
 
-.article-row__figure {
-  grid-area: figure;
-}
-
-.article-row__text {
-  grid-area: text;
-}
-
-.article-row__meta {
-  grid-area: meta;
-}
+/* The three cells' grid areas were declared here and every one of them again a
+   few rules down, where the cell's own look is written — three rules whose
+   whole content was one `grid-area`. Each cell names its area in its own rule
+   now, so a cell is described in one place. */
 
 /* Framed like the founder portraits on the team page: hairline, a radius, no
    ring and no shadow. The ground under a lazy thumbnail is paper, not the navy
    the portraits sit on: four navy blocks waiting for their image would put a
    dark mass in the one section that has none. */
 .article-row__figure {
+  grid-area: figure;
   overflow: hidden;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--border-hairline);
@@ -1254,6 +931,7 @@ a.row:hover .row__cue {
 }
 
 .article-row__text {
+  grid-area: text;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -1262,6 +940,7 @@ a.row:hover .row__cue {
 /* Ranged right, and pushed down by the difference between the badge's cap
    height and the title's, so the date sits on the title's baseline. */
 .article-row__meta {
+  grid-area: meta;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
@@ -1305,16 +984,6 @@ a.row:hover .row__cue {
   color: var(--text-accent);
   font-size: var(--text-ui-sm);
   font-weight: var(--weight-medium-plus);
-}
-
-a.article-row:hover {
-  background: var(--surface-hover);
-  color: inherit;
-  transform: translateX(3px);
-}
-
-a.article-row:hover .article-row__cue {
-  transform: translateX(5px);
 }
 
 /* The grade is a decoration, not information, so it only lifts where there is
@@ -1367,18 +1036,6 @@ a.article-row:hover .article-row__image {
   .article-row__meta {
     justify-content: flex-start;
     padding-top: 0;
-  }
-}
-
-@media (min-width: 621px) and (max-width: 1000px) {
-  .rows--cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 var(--gap-column);
-  }
-
-  .rows--cards > :nth-last-child(-n + 2) {
-    border-bottom: 1px solid var(--border-hairline);
   }
 }
 
@@ -1463,6 +1120,16 @@ a.article-row:hover .article-row__image {
   color: var(--text-accent);
 }
 
+/* The other half of the same sentence: the one field that is not required says
+   so in words. Muted and at the micro step, so the label still reads as one
+   thing and the `*` above stays the mark the eye finds. */
+.field-label__optional {
+  margin-left: 5px;
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-book);
+}
+
 /* Ships empty and `hidden`; `contact-form.js` fills it and unhides it. It sits
    inside the label's own grid, so an error pushes the next field down by
    exactly its own height and nothing else moves. */
@@ -1521,10 +1188,17 @@ a.article-row:hover .article-row__image {
   resize: vertical;
 }
 
+/* The ring is `--focus-ring-action`, the same 0.8 the buttons are measured at.
+   It was `--focus-ring`, cyan at 14% alpha — 1.21:1 against the paper, which is
+   not a ring, it is a tint — so the only thing saying which field had focus was
+   a 1px border changing colour. The value is a ceiling as much as a floor: a
+   band drawn flush against a fill has two edges to clear 3:1 on, and 0.8 is
+   where both are cleared at once. `--focus-ring` had no other consumer and is
+   gone from `tokens.css` with this. */
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: var(--sa-cyan);
-  box-shadow: 0 0 0 3px var(--focus-ring);
+  box-shadow: 0 0 0 3px var(--focus-ring-action);
 }
 
 .contact-form__foot {
@@ -1608,14 +1282,12 @@ a.article-row:hover .article-row__image {
   .contact-form textarea {
     font-size: 16px;
   }
-}
 
-/* Stacked, the facts land between the lede and the form and push the fields a
-   screen down. They belong after the form on a phone: three lines that say
-   "or reach us another way" only make sense once the other way is on screen.
-   `display: contents` on the intro lifts its three children into the same flex
-   line, so the order is a property and not a second copy of the markup. */
-@media (max-width: 620px) {
+  /* Stacked, the facts land between the lede and the form and push the fields a
+     screen down. They belong after the form on a phone: three lines that say
+     "or reach us another way" only make sense once the other way is on screen.
+     `display: contents` on the intro lifts its three children into the same flex
+     line, so the order is a property and not a second copy of the markup. */
   .contact {
     display: flex;
     flex-direction: column;
@@ -2036,7 +1708,25 @@ a.article-row:hover .article-row__image {
 }
 
 @media (max-width: 620px) {
+  /* Held back while the hero's own primary button is on screen. At 390x844 the
+     two were both visible on the first screen — the same words 490px apart, one
+     of them covering the foot of the page to say what the other already said.
+     `src/app.js` puts the class on and takes it off; the bar ships without it,
+     so with JS off a reader gets the duplicate rather than nothing. Faded rather
+     than `display: none`, so the bar does not jump the document's height as the
+     reader scrolls past the hero, and `visibility` so it is out of the tab order
+     and off the accessibility tree while it is not there. */
+  .mobile-actions.is-deferred {
+    /* The delay is on the hiding direction and only there. On the base rule it
+       applies both ways, which holds the bar invisible for a third of a second
+       after it should have come back. */
+    transition: opacity var(--dur-move) var(--ease-out-expo), visibility 0s linear var(--dur-move);
+    visibility: hidden;
+    opacity: 0;
+  }
+
   .mobile-actions {
+    transition: opacity var(--dur-move) var(--ease-out-expo), visibility 0s;
     position: sticky;
     /* Under the header, which is what the open menu sheet stacks inside: the
        sheet must cover this bar, not the other way round. */
@@ -2220,16 +1910,40 @@ sa-node-field {
    section the page belongs to, is the shape of a breadcrumb, and this one is a
    `<p>` with `cursor: auto` — it looks like the way back and is not.
 
-   So it reads as a label instead: muted, a step smaller than the body, and left
-   in sentence case, because the design system rules out all-caps everywhere
-   (design README, "Type", sentence case) and caps is the other way a label
-   usually says it is not a link. */
+   It reads as a label: muted, a step smaller than the body, and left in sentence
+   case, because the design system rules out all-caps everywhere (design README,
+   "Type", sentence case).
+
+   Two pages turn it into the link it was always shaped like, and only two: the
+   kata page and the four articles, which are the only pages on the site that sit
+   under something other than the homepage. Everywhere else the eyebrow named the
+   nav item the reader had just clicked, and those are gone. */
 .page-eyebrow {
   margin-bottom: var(--space-6);
   color: var(--text-muted);
   font-size: var(--text-meta-sm);
   font-weight: var(--weight-medium-plus);
   letter-spacing: var(--track-ui);
+}
+
+/* The way up, and the whole breadcrumb these two page families need. It keeps
+   the eyebrow's muted ink at rest rather than taking the site's cyan — a
+   breadcrumb is orientation, not an offer, and a cyan line over the headline
+   competes with the two buttons under it — and it takes the accent on hover, so
+   it answers a pointer the way every other link does. The box carries the
+   32px floor every inline action link on the site now has. */
+.page-eyebrow__up {
+  transition: var(--transition-move), var(--transition-tint);
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: 32px;
+  color: inherit;
+}
+
+.page-eyebrow__up:hover {
+  color: var(--text-accent);
+  transform: translateX(-3px);
 }
 
 /* Below the point where the hero stops splitting, the copy is the whole width:
@@ -2333,7 +2047,10 @@ sa-node-field {
 
 /* The platforms the course is taught on. No rule of its own: the list above
    already closes on one. */
-/* The facts strip: five rows of label and value under every course.
+/* The facts strip: rows of label and value under every course, four on one and
+   three on the other — the developer course's format is stated on its own page.
+   Under subgrid that difference is absorbed in this row, so the two columns'
+   links still sit on one line.
    A `<dl>`, because that is what it is, laid out as a two-column grid so the
    labels line up down the left and the values wrap in a column of their own.
    Hairlines between rows, like every other list on the site; nothing boxed. */
@@ -2383,7 +2100,8 @@ sa-node-field {
 
 .offer-course__fiche {
   transition: transform var(--dur-move) var(--ease-out-expo);
-  display: inline-block;
+  /* The `display` is set with the 32px target floor further up; this rule would
+     win on source order and put it back to `inline-block`. */
   margin-top: var(--space-8);
   font-size: var(--text-meta);
   font-weight: var(--weight-medium-plus);
@@ -2554,15 +2272,41 @@ sa-node-field {
   position: relative;
 }
 
-/* Struck from below the right column instead of the hero's top left, so the
-   arcs sweep up across the split rather than repeating the hero's geometry.
-   The origin sits close enough for the cyan ring to cross the section: hung
-   further out, only the two faintest rings would reach it. Dimmer than the
-   hero, because this is ground under a reading column, not the opening image. */
-.orbits--offer {
+/* The outermost ring, and the only one no hero asks for: it needs a ground
+   taller than a hero to read at all, so `orbitRings` leaves it out unless a
+   call site names it and all three that do are below the fold. Moved out of
+   critical.css for exactly that reason. Counter-travelling, like 02. */
+.orbits__path--04 {
+  inset: -845px auto auto -845px;
+  width: 1690px;
+  height: 1690px;
+  animation-duration: 118s;
+  animation-direction: reverse;
+}
+
+.orbits__path--04 .orbits__node {
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  background: var(--sa-grey-1);
+  animation-duration: 118s;
+  animation-delay: -37s;
+}
+
+/* Ground under a reading block is dimmer than the opening image, and it is the
+   same amount dimmer in all three places it is used — the offer, the insights
+   list and the privacy notice each declared `opacity: .8` for itself. One rule
+   on the thing they have in common: a set of rings inside a `.section--orbits`.
+   The hero's rings are not in one, so they keep their full weight. */
+.section--orbits .orbits {
   opacity: 0.8;
 }
 
+/* Struck from below the right column instead of the hero's top left, so the
+   arcs sweep up across the split rather than repeating the hero's geometry.
+   The origin sits close enough for the cyan ring to cross the section: hung
+   further out, only the two faintest rings would reach it. */
 .orbits--offer .orbits__origin {
   top: 104%;
   left: 74%;
@@ -2572,12 +2316,7 @@ sa-node-field {
    the list, so the arcs bow in across the meta column and rise over the rows
    rather than sweeping up from a corner. Hung at 104% for the same reason the
    offer's origin is: any further out and only the two faintest rings would
-   reach the section at all. Same dimming — this is ground under a reading
-   list. */
-.orbits--insights {
-  opacity: 0.8;
-}
-
+   reach the section at all. */
 .orbits--insights .orbits__origin {
   top: 58%;
   left: 104%;
@@ -3168,24 +2907,10 @@ sa-node-field {
   line-height: var(--leading-body);
 }
 
-/* ------------------------------------------------------------------ *
- * Closing call to action — the form itself stays on the homepage
- * ------------------------------------------------------------------ */
-
-/* No padding under the button: `.site-footer` already carries a full
-   `--section-rhythm` of margin, and the two together left a dead half-screen. */
-.page-cta {
-  display: grid;
-  gap: var(--space-6);
-  justify-items: start;
-}
-
-.page-cta__body {
-  max-width: var(--measure);
-  color: var(--text-body);
-  font-size: var(--text-lede);
-  line-height: var(--leading-body);
-}
+/* `.page-cta` and `.page-cta__body` were here: a closing heading, a paragraph
+   and a button, for detail pages that ended on a link to the homepage's form.
+   Every one of them carries the form itself now (`contactSection()`), so the
+   pair has had no markup behind it since. */
 
 /* ------------------------------------------------------------------ *
  * Detail pages — the team page
@@ -3320,11 +3045,15 @@ sa-node-field {
 /* The one brand mark besides the logo and the nav chevron. It closes the card
    under the expertise line, and is a square target rather than a text link,
    so it carries its own hairline. */
+/* 44px, not the 36 it was drawn at. It is the only control inside the portrait
+   overlay and it is reached by a thumb at every width — the WCAG 2.2 floor is
+   24px and the practical one is 44, and there is nothing beside it that the
+   extra 8px can crowd. The mark inside keeps its own size. */
 .person__link {
   transition: var(--transition-tint);
   display: grid;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   margin-top: var(--space-6);
   place-items: center;
   /* `--border-on-dark` is a line for flat navy; over a photograph it vanishes,
@@ -3921,7 +3650,6 @@ html:not([data-clause-spy]) .prose__heading:target,
 .orbits--notice {
   overflow: hidden;
   overflow: clip;
-  opacity: 0.8;
   /* The clip has to be softened at the foot, which is the one cost of making
      the origin stick. Nailed to the section the rings curved away to nothing
      before its bottom edge ever reached them; held against the viewport they
@@ -3929,8 +3657,16 @@ html:not([data-clause-spy]) .prose__heading:target,
      on one horizontal line read as a seam across the paper. The top edge needs
      nothing — it is the header's hairline, and an arc that stops there reads as
      an arc going behind the bar. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent);
+  /* Two masks, intersected: the base layer's horizontal fade (critical.css) is
+     replaced by whatever this rule declares, so it is restated here rather than
+     lost — this layer's origin sits at 98% and its nodes cross the right edge
+     like any other. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent),
+    linear-gradient(to right, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent),
+    linear-gradient(to right, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .orbits--notice .orbits__origin {
@@ -4098,12 +3834,6 @@ html:not([data-clause-spy]) .prose__heading:target,
   padding: var(--space-6) 0;
   border-bottom: 1px solid var(--border-hairline);
   color: inherit;
-}
-
-.rail-row:hover {
-  background: var(--surface-hover);
-  color: inherit;
-  transform: translateX(3px);
 }
 
 .rail-row__title {
@@ -4455,6 +4185,16 @@ html:not([data-clause-spy]) .prose__heading:target,
   .cycle__phase--human {
     border-width: 4px;
   }
+
+  /* The legend under the figure is the same case one step further on: its two
+     swatches are `background: var(--mark)` on an empty box, and a forced palette
+     forces a background to the Canvas family — so the key to the figure came out
+     as two invisible rectangles beside two labels. They take the border the
+     phases they stand for take, at the same weight, so the key and the figure
+     say the same thing in the same palette. */
+  .legend__mark {
+    border: 4px solid CanvasText;
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -4781,6 +4521,116 @@ html:not([data-clause-spy]) .prose__heading:target,
    pendant for the phone's sliver, the way it does for every other hero shape
    (`critical.css`). A pendant needs a flank of paper beside it to hang in, and
    a phone has no flank. */
+
+/* ------------------------------------------------------------------ *
+ * The open vacancy's panel
+ *
+ * The staffing page's track panel carries two paragraphs and a "Past wanneer"
+ * block, all of them capped at a measure, so its own rules were enough. A
+ * vacancy carries neither: it is Odoo's description as a list of lines, and
+ * then the one action. Both took the panel's full width — 1150px of 16px type
+ * is about 150 characters to the line — and the button sat flush against the
+ * last bullet with nothing between them, so the page's one conversion point
+ * read as part of the sentence above it.
+ * ------------------------------------------------------------------ */
+
+.track__points {
+  /* The same 56ch the track's own body takes, and for the same reason: alone on
+     white inside a panel the width of the page, the site's 44ch measure reads as
+     a column that has lost the three beside it. */
+  max-width: 56ch;
+  display: grid;
+  gap: var(--space-3);
+  padding-left: var(--space-7);
+  color: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+.track__point::marker {
+  color: var(--text-faint);
+}
+
+/* The panel's own vertical rhythm before the action, so the button is a block
+   of its own rather than the last line of the description. */
+.track__actions {
+  margin-top: var(--space-9);
+}
+
+/* Nothing published. It is one sentence where a list would be, so it takes the
+   reading measure rather than the page, and the lede size rather than the
+   body's: it is the section's whole content. */
+.jobs-empty {
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--text-lede);
+  line-height: var(--leading-body);
+}
+
+/* ------------------------------------------------------------------ *
+ * 404
+ *
+ * It had no rules at all. `.error-page` was a class nothing in either stylesheet
+ * matched, so the one page a visitor reaches only when something has gone wrong
+ * printed its heading flush against the left edge of the window at x=0, with no
+ * gutter, no rhythm and one button under it — the only page on the site that
+ * looked broken, on the occasion a reader is already least sure the site works.
+ *
+ * It is a `.section` now, so the frame, the gutter and the rhythm are the ones
+ * every other page uses, and this block is only what a section cannot say for
+ * itself: the measure, and the row of places to go.
+ * ------------------------------------------------------------------ */
+
+.error-page {
+  max-width: var(--measure-prose);
+}
+
+.error-page__lede {
+  margin-top: var(--space-6);
+  max-width: 54ch;
+  color: var(--text-lead);
+  font-size: var(--text-lede);
+  line-height: var(--leading-body-tight);
+}
+
+.error-page__body {
+  margin-top: var(--space-4);
+  max-width: 54ch;
+  color: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+.error-page__actions {
+  margin-top: var(--space-10);
+}
+
+/* The three places a reader who landed here probably wanted. A hairline row
+   above them separates the list from the action, the way a section head is
+   separated from its block, and each is a link on its own line at the 32px
+   floor. Not buttons: there is one action on this page and it is the one above
+   them. */
+.error-page__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-8);
+  margin-top: var(--space-11);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+  list-style: none;
+}
+
+.error-page__link {
+  transition: var(--transition-move), var(--transition-tint);
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: 32px;
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-medium-plus);
+}
+
+.error-page__link:hover {
+  transform: translateX(3px);
+}
 
 /* ------------------------------------------------------------------ *
  * Print

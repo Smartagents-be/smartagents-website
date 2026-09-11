@@ -21,6 +21,16 @@ export default defineConfig({
     },
     target: 'es2022',
     cssMinify: true,
-    reportCompressedSize: true
+    /* The entry is the only module the HTML names, and `base.mjs` names it with
+       a `<script type="module">` in the head. Vite's preload helper exists to
+       inject `<link rel="modulepreload">` for a dynamic import's dependencies
+       into HTML Vite itself emits — and it emits none here, because the HTML is
+       written by `build/render.mjs`. So the helper was about a kilobyte of the
+       entry chunk that nothing ever called. */
+    modulePreload: false,
+    /* Reported, never asserted. `check-dist.mjs` measures the real budget in
+       brotli against the rendered pages; this only gzips every chunk a second
+       time to print a column. */
+    reportCompressedSize: false
   }
 });

@@ -18,9 +18,6 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
  */
 const TRACKS = ['engineer', 'developers', 'business'];
 
-/** The three `staffing.track.<key>.tag.n` words each track is summarised by. */
-const TRACK_TAGS = ['1', '2', '3'];
-
 export const page = {
   id: 'staffing',
   slugs: { nl: 'ai-staffing', en: 'ai-staffing', fr: 'ai-staffing' },
@@ -84,8 +81,14 @@ ${orbitRings('staffing-hero')}
   </div>
   <div id="staffing-hero-inner" class="hero__inner">
     <div id="staffing-hero-text" class="hero__text">
-      <p id="staffing-hero-eyebrow" class="page-eyebrow">${t('staffing.hero.eyebrow')}</p>
       <h1 id="staffing-hero-title">${t('staffing.hero.title')}</h1>
+      <!-- The standfirst, and it is the page's own description key rather than
+           a line of its own. Every hero on the site was eyebrow, headline, two
+           buttons and then 300px of paper: on a 1280x800 laptop the first
+           sentence saying who this is for arrived at y≈800, under the fold. The
+           sentence already existed — it is the page's own search snippet — so it
+           is printed from that key instead of written a second time, which is
+           also the only way the page and the snippet can never drift apart. -->
       <div id="staffing-hero-actions" class="hero__actions">
         <a id="staffing-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="staffing-hero-cta-tracks" class="btn btn--ghost" href="#tracks">${t('staffing.cta.tracks')} <span id="staffing-hero-cta-tracks-arrow" aria-hidden="true">&rarr;</span></a>
@@ -122,6 +125,13 @@ ${orbitRings('staffing-hero')}
 /**
  * One track: a summary that is a name and three words, and a body it opens on.
  *
+ * The three words that used to sit under the name are gone. "Direct impact op
+ * uw project • Agents op uw codebase • Expert AI-gebruik" is the paragraph the
+ * row opens on, cut into three noun phrases and printed above it — the "too many
+ * subtexts" pattern, on a closed row where the reader has not yet asked for any
+ * of it. "Past wanneer" stays: it is the one sub-block here that tells a reader
+ * something the body does not, which is whether this track is theirs.
+ *
  * The name is an `<h3>`, not a `<span>`. `<summary>` takes phrasing content
  * "optionally intermixed with heading content", so a heading is allowed there,
  * and without one the three offers this page exists to sell were the only named
@@ -135,17 +145,10 @@ ${orbitRings('staffing-hero')}
 function track({ t, key, open }) {
   const id = `staffing-track-${key}`;
 
-  const tags = TRACK_TAGS.map(
-    (n) => html`            <li id="${id}-tag-${n}" class="track__tag">${t(`staffing.track.${key}.tag.${n}`)}</li>`
-  );
-
   return html`      <details id="${id}" class="track" name="staffing-track"${open ? ' open' : ''}>
         <summary id="${id}-summary" class="track__summary">
           <div id="${id}-head" class="track__head">
             <h3 id="${id}-title" class="track__title">${t(`staffing.track.${key}.title`)}</h3>
-            <ul id="${id}-tags" class="track__tags">
-${join(tags)}
-            </ul>
           </div>
           <span id="${id}-chevron" class="track__chevron" aria-hidden="true"></span>
         </summary>

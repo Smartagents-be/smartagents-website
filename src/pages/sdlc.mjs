@@ -14,6 +14,14 @@ import { index, orbitRings } from '../layouts/base.mjs';
 import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
+/**
+ * Anthropic's own write-up of the AI-native SDLC, which the journey's lede says
+ * this block is built on. It is the one external source the public site names,
+ * and it is named as a link rather than as a sentence: a claim about what
+ * somebody else published is checkable or it is marketing.
+ */
+const PLAYBOOK_URL = 'https://claude.com/blog/the-ai-native-sdlc-playbook';
+
 /** What we find when we walk in, in the order it is met. */
 const ISSUES = ['belief', 'capability', 'foundation', 'tooling'];
 
@@ -146,8 +154,14 @@ ${orbitRings('sdlc-hero')}
   </div>
   <div id="sdlc-hero-inner" class="hero__inner">
     <div id="sdlc-hero-text" class="hero__text">
-      <p id="sdlc-hero-eyebrow" class="page-eyebrow">${t('sdlc.hero.eyebrow')}</p>
       <h1 id="sdlc-hero-title">${t('sdlc.hero.title')}</h1>
+      <!-- The standfirst, and it is the page's own description key rather than
+           a line of its own. Every hero on the site was eyebrow, headline, two
+           buttons and then 300px of paper: on a 1280x800 laptop the first
+           sentence saying who this is for arrived at y≈800, under the fold. The
+           sentence already existed — it is the page's own search snippet — so it
+           is printed from that key instead of written a second time, which is
+           also the only way the page and the snippet can never drift apart. -->
       <div id="sdlc-hero-actions" class="hero__actions">
         <a id="sdlc-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="sdlc-hero-cta-journey" class="btn btn--ghost" href="#journey">${t('sdlc.cta.journey')} <span id="sdlc-hero-cta-journey-arrow" aria-hidden="true">&rarr;</span></a>
@@ -294,7 +308,8 @@ function journey(t) {
   <div id="sdlc-journey-head" class="section__head">
     <h2 id="sdlc-journey-title" class="section-heading">${t('sdlc.journey.title')}</h2>
   </div>
-  <p id="sdlc-journey-lede" class="section-lede">${t('sdlc.journey.lede')}</p>
+  <p id="sdlc-journey-lede" class="section-lede section-lede--sourced">${t('sdlc.journey.lede')}</p>
+  <p id="sdlc-journey-source" class="section-source"><a id="sdlc-journey-source-link" href="${PLAYBOOK_URL}" target="_blank" rel="noopener noreferrer">${t('sdlc.journey.source')}<span id="sdlc-journey-source-hint" class="visually-hidden"> (${t('a11y.newTab')})</span></a></p>
   <div id="sdlc-journey-figure" class="journey">
 ${join(stages)}
   </div>

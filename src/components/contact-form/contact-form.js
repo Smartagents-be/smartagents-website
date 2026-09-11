@@ -185,8 +185,15 @@ class ContactForm extends HTMLElement {
       this.form.reset();
       for (const { name } of RULES) this.mark(name, null);
       this.say(this.dataset.sent, 'ok');
-    } catch {
-      this.say(this.dataset.failed, 'error');
+    } catch (error) {
+      /* 429 gets its own sentence, because it is the one failure the visitor
+         can act on: "Versturen lukte niet" in front of a rate limit invites
+         exactly the retry that caused it, and the message that helps names the
+         wait and the phone. Everything else — 400, 502, a dead network — is the
+         same line it always was: nothing the visitor did, nothing they can fix
+         from here. */
+      const rateLimited = error?.message === '429';
+      this.say(rateLimited ? this.dataset.rateLimited : this.dataset.failed, 'error');
     } finally {
       this.setBusy(false);
     }
