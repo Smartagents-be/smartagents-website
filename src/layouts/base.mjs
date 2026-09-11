@@ -264,6 +264,20 @@ const CHEVRON = raw(
  * setup and turns the join to match, so a path may be drawn either way round —
  * but if a shape ever grows a second subpath of its own, the two have to agree
  * with each other. */
+/* The two pebbles, named once. `src/motion.js` resolves a magnet's outline with
+ * `getElementById(element.dataset.clip)` and rewrites that path's `d` in place,
+ * so two magnets on one page naming the same clip fight over a single element:
+ * the second remap wins and the first shape is left drawn into the wrong box.
+ * Every magnet on a page therefore needs its own id — and the AI-native
+ * businessprocessen hero has four pebbles in one line. These constants are how
+ * four ids carry two drawings without the paths being copied, which is the drift
+ * `clipDefs()` refuses when it says a second pebble drawn to within a few points
+ * of the first is not a new shape. */
+const PEBBLE_A =
+  'M0.020,0.470 C0.035,0.225 0.190,0.055 0.430,0.022 C0.665,-0.010 0.945,0.135 0.982,0.398 C1.018,0.640 0.900,0.878 0.655,0.972 C0.430,1.058 0.115,0.905 0.045,0.690 C0.028,0.635 0.012,0.560 0.020,0.470 Z';
+const PEBBLE_B =
+  'M0.010,0.430 C0.030,0.190 0.210,0.030 0.470,0.020 C0.720,0.010 0.985,0.180 0.995,0.430 C1.005,0.680 0.830,0.960 0.560,0.990 C0.320,1.015 0.060,0.850 0.020,0.620 C0.012,0.560 0.005,0.495 0.010,0.430 Z';
+
 export function clipDefs() {
   const paths = {
     // hero: a petal hung off the right edge. It leaves that edge at the top,
@@ -347,10 +361,16 @@ export function clipDefs() {
     // composition and the other moves with it — and the off-round is
     // load-bearing there too, which is why that bead's box carries a floor on
     // its width.
-    heroPebbleA:
-      'M0.020,0.470 C0.035,0.225 0.190,0.055 0.430,0.022 C0.665,-0.010 0.945,0.135 0.982,0.398 C1.018,0.640 0.900,0.878 0.655,0.972 C0.430,1.058 0.115,0.905 0.045,0.690 C0.028,0.635 0.012,0.560 0.020,0.470 Z',
-    heroPebbleB:
-      'M0.010,0.430 C0.030,0.190 0.210,0.030 0.470,0.020 C0.720,0.010 0.985,0.180 0.995,0.430 C1.005,0.680 0.830,0.960 0.560,0.990 C0.320,1.015 0.060,0.850 0.020,0.620 C0.012,0.560 0.005,0.495 0.010,0.430 Z',
+    heroPebbleA: PEBBLE_A,
+    heroPebbleB: PEBBLE_B,
+    // The three beads of the AI-native businessprocessen line, in its own order.
+    // Three ids because three magnets on one page may not share a clip; two
+    // drawings because there are only two pebbles and a third drawn to within a
+    // few points of them would be drift. They alternate so no two neighbours in
+    // the line are the same outline.
+    processBeadA: PEBBLE_B,
+    processBeadB: PEBBLE_A,
+    processBeadC: PEBBLE_B,
     // "Wat we doen": a leaf standing in the left page gutter beside the track
     // panel. Welded to the left page edge and free of everything else, it runs
     // the height of the panel and pinches twice on the way down, so the gutter
@@ -377,30 +397,38 @@ export function clipDefs() {
     // lobe back off the far edge of the box.
     sdlcHeroRidge:
       'M1,0.000 C0.870,0.040 0.580,0.070 0.580,0.180 C0.580,0.290 0.720,0.320 0.720,0.430 C0.720,0.540 0.310,0.550 0.310,0.700 C0.310,0.850 0.845,0.965 1.000,1.000 Z',
-    // AI-native businessprocessen: the hero's shape on that page, and the one
-    // silhouette on the site with a straight line in it. A shoulder leaves the
-    // right edge and runs down-left, bending to vertical as it arrives; a wall
-    // holds that vertical for a fifth of the box's height; a step turns the
-    // wall through a quarter circle onto a level tread; and the tread runs out
-    // and falls away to the bottom corner. Shoulder, wall, step, sweep.
+    // AI-native businessprocessen: the end of a chain, and the only silhouette
+    // on the site that does not fill its own box.
     //
-    // It is a wall and a tread because this page is the one about a process
-    // taken apart and put back together, and because the page beside it in the
-    // nav already has the round one. The first draft was all round: a 440px
-    // dome over a shallow lower mass, 3% of its outline within 12° of vertical
-    // and a "wall" that was 0.075 of the height. Measured against the AI-native
-    // SDLC page's ridge it was the same shape — 40.7% of its box against 41.3%,
-    // deepest reach 0.295 against 0.310, every extremity round on both — and
-    // two adjacent services cannot open on the same silhouette. This one is
-    // 12% vertical and 13% level; the ridge is 5% and 0%.
+    // The hero is five separate blobs in a line, small to large, and this is the
+    // largest — the one at the bottom right. The other four are pebbles placed
+    // beside it (`.hero--processes .hero__drift--*` in main.css). Nothing is
+    // fused: at rest a reader sees five shapes, and the cursor runs the ones it
+    // comes between into one fluid. The page's headline is "Van uw taken naar
+    // herbruikbare workflows" — separate pieces becoming one thing — so the
+    // figure is the sentence, and the fusing is the reader's to do.
     //
-    // Every anchor is tangent-continuous to the last (measured: 0.00°) and
-    // every segment is monotone in y, so the outline cannot cross itself and
-    // has no corner in it except the two welded to the page edge. The pull is
-    // gentler than the petal's — a shape with knees folds where a leaf swells,
-    // and at the petal's amplitude this one squared off into a shelf.
-    processHero:
-      'M1,0.000 C0.700,0.045 0.300,0.200 0.300,0.290 C0.300,0.360 0.300,0.440 0.300,0.510 C0.300,0.560 0.470,0.630 0.610,0.630 C0.760,0.630 0.940,0.930 1,1.000 Z',
+    // **It occupies the bottom-right quarter of its box and leaves the rest
+    // empty, and that is the whole trick.** A join is traced into a window and
+    // written into the *first shape in DOM order whose box reaches that window*
+    // — `group[0]` in `src/motion.js` — and anything outside that shape's grown
+    // box is cut off, because there is nothing painted out there for the clip to
+    // reveal. Two pebbles joining each other at the far end of the line would be
+    // hosted by this shape anyway, since it is first in the DOM, and a box drawn
+    // tight around the blob would not reach them: what rendered was a pebble
+    // with a straight vertical chord sliced out of it. So the box is drawn
+    // around the *whole composition* and the blob is authored into one corner of
+    // it. Every window between any two of the five then falls inside the host's
+    // box with 140px of `BLEED` to spare, and every join renders whole.
+    //
+    // The cost is that this path is the one on the site that cannot be read as a
+    // silhouette on its own: `0.698 -> 1.0` in x and `0.433 -> 1.0` in y are
+    // where the blob is, not what it is. It is `heroPebbleA` mapped into that
+    // rectangle, so the drawing is still the shared one the staffing arch sheds
+    // and the training hero stands a bead of — redraw that and this moves with
+    // it. Move the composition and this has to be remapped, in the same pass.
+    processLobe:
+      'M0.704,0.699 C0.709,0.560 0.755,0.464 0.828,0.445 C0.899,0.427 0.983,0.509 0.995,0.658 C1.005,0.796 0.970,0.931 0.896,0.984 C0.828,1.033 0.733,0.946 0.712,0.824 C0.706,0.793 0.702,0.750 0.704,0.699 Z',
     // Jobs: the only silhouette on the public site welded to nothing at all.
     // Every other one is a leaf, an arch, a ridge or a terrace hung off a page
     // edge and read as ground. This one floats in the hero's right flank with

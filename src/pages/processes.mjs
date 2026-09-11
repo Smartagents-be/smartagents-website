@@ -64,37 +64,74 @@ ${contact(t, lang)}
 };
 
 /* ------------------------------------------------------------------ *
- * Hero — the shared page hero, carrying this page's own silhouette
+ * Hero — four blobs in a line, and nothing fused.
  *
- * One shape and the paper beside it, which is the rule for every hero on the
- * site: the training page's petal, the staffing page's arch, this page's
- * terrace. It takes the box the petal would have taken (`.hero__field--right`)
- * and overrides nothing, because the composition does not need its own: there
- * is no tail running into the section below and no free-floating companion, so
- * the shared insets are the drawing.
+ * The page's headline is "Van uw taken naar herbruikbare workflows" — separate
+ * pieces becoming one thing — so the hero is separate pieces: four shapes on a
+ * descending line, growing left to right, ending in one big enough to be what
+ * the other three are heading toward. It replaced a terrace hung off the right
+ * page edge, which said nothing and filled the corner with a slab.
  *
- * The silhouette is `processHero`, and it is the one shape on the site with a
- * straight line in it: a shoulder off the right edge bending to vertical, a
- * wall holding that vertical for a fifth of the box, a quarter turn onto a
- * level tread, and the tread running out to the bottom corner. Shoulder, wall,
- * step, sweep. The reasoning for the wall and the tread, and the round draft
- * they replaced, are in `clipDefs()`.
+ * **The last pair joins under the cursor and the others do not, and that is a
+ * limit of the engine rather than a choice.** `src/motion.js` traces a join and
+ * writes it into the first shape in DOM order whose box reaches the join's
+ * window; anything past that shape's grown box — its own box plus `BLEED`,
+ * 140px — is cut off, because there is nothing painted out there for the clip to
+ * reveal. Between two *small* shapes there is no box wide enough: the union has
+ * to reach the far side of the partner, so it needs `gap + partner width +
+ * swell` to stay under 140, and two beads 100px across with a 50px gap are
+ * already over it. What renders is a bead with a straight vertical chord sliced
+ * out of it. This was drawn three ways before the constraint was understood —
+ * five beads, then four evenly spaced, then four with even gaps — and every one
+ * of them sliced somewhere.
  *
- * The pull is gentler than the petal's: amplitude 52 against 86. A leaf swells
- * under a big amplitude and a shape with knees folds — at the petal's numbers
- * this one squared off into a flat shelf under the cursor, which is the one
- * thing a drawn outline may not do.
+ * So the bead nearest the big blob sits 36 to 58px off it, inside the 60px a
+ * join closes at, and joins cleanly because the *big* shape hosts it. The other
+ * two stand 77 to 125px apart, which is past the limit at every width, so no
+ * join is ever attempted between them and there is nothing to render wrong.
+ * They still answer the cursor — each swells toward it — they simply never run
+ * together. That is the honest version of "may or may not interact".
  *
- * `data-magnet-pin="right"` welds it to the page edge it hangs from, which is
- * what lets it opt out of the nav guard: a cursor up under the header gets a
- * swell that fades to nothing before it can peel the shape off the edge.
+ * `processLobe` is **first** in the DOM for the same reason: it has to be the
+ * host of the one join that happens, and its box is drawn around the whole
+ * composition with the blob authored into one corner of it (see `clipDefs()`).
+ *
+ * Nothing here is gated on the join being available, and that is the difference
+ * between these and the jobs hero's two satellites. A satellite exists *for* the
+ * join and is a dark spot on the paper without one, so it is dropped wherever a
+ * join cannot happen. These four are the composition: four shapes in a line read
+ * as a constellation whether or not anything can merge them, so they stay on a
+ * coarse pointer and under `prefers-reduced-motion`, and only the phone drops
+ * them — down there the first shape becomes the shared sliver and there is no
+ * flank left to put the other three in.
+ *
+ * Each bead names its own `data-clip`. Two magnets on one page may not share
+ * one: `src/motion.js` resolves the outline by id and rewrites that single path
+ * in place, so the second remap wins and the first shape is left drawn into the
+ * wrong box. It cost an afternoon of uneven gaps that no amount of moving the
+ * boxes would fix.
+ *
+ * The magnet numbers are struck per blob from its own perimeter — sigma about
+ * 14% of each outline's length, `points` a sample every 3px — which is the "a
+ * big shape swells over a wider stretch of its edge than a small one" rule in
+ * CLAUDE.md. Copying one set across four would slide the small ones bodily
+ * toward the cursor instead of swelling them.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
-  return html`<section id="processes-hero" class="hero hero--page">
+  return html`<section id="processes-hero" class="hero hero--page hero--processes">
 ${orbitRings('processes-hero')}
   <div id="processes-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    <div id="processes-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="460" data-magnet-amp="52" data-magnet-sigma="104" data-clip="processHero"><sa-node-field id="processes-hero-nodes-right"></sa-node-field></div>
+    <div id="processes-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-points="170" data-magnet-amp="32" data-magnet-sigma="72" data-clip="processLobe"><sa-node-field id="processes-hero-nodes-right"></sa-node-field></div>
+    <div id="processes-hero-field-slot-drift-a" class="field-slot hero__drift hero__drift--a">
+      <div id="processes-hero-field-drift-a" class="field" data-magnet data-magnet-free data-magnet-points="83" data-magnet-amp="20" data-magnet-sigma="35" data-clip="processBeadA"><sa-node-field id="processes-hero-nodes-drift-a"></sa-node-field></div>
+    </div>
+    <div id="processes-hero-field-slot-drift-b" class="field-slot hero__drift hero__drift--b">
+      <div id="processes-hero-field-drift-b" class="field" data-magnet data-magnet-free data-magnet-points="107" data-magnet-amp="24" data-magnet-sigma="45" data-clip="processBeadB"><sa-node-field id="processes-hero-nodes-drift-b"></sa-node-field></div>
+    </div>
+    <div id="processes-hero-field-slot-drift-c" class="field-slot hero__drift hero__drift--c">
+      <div id="processes-hero-field-drift-c" class="field" data-magnet data-magnet-free data-magnet-points="135" data-magnet-amp="28" data-magnet-sigma="57" data-clip="processBeadC"><sa-node-field id="processes-hero-nodes-drift-c"></sa-node-field></div>
+    </div>
   </div>
   <div id="processes-hero-inner" class="hero__inner">
     <div id="processes-hero-text" class="hero__text">

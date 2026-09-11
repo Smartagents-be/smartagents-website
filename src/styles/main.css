@@ -4460,150 +4460,97 @@ html:not([data-clause-spy]) .prose__heading:target,
 /* ------------------------------------------------------------------ *
  * Detail pages — AI-native businessprocessen
  *
- * The page is the shared page hero plus two blocks and the form, and almost
- * all of it is vocabulary that already exists: `.steps` for the engagement,
- * `.rows` for what it leaves behind, `.section-lede` for the sentence between
- * the heading and the sequence. Two things are new, and both are small.
+ * The hero is four separate blobs on a descending line, growing left to right,
+ * none of them fused. What it replaced was a terrace hung off the right page
+ * edge, filling the top-right corner with a heavy slab.
  *
- * The hero shape takes `.hero__field--right` unchanged — the box the petal
- * would have taken — because the composition is one shape and paper. There is
- * no tail running into the section below and no free-floating companion, so
- * there is nothing here for a page-specific hero box to buy (design README:
- * "A new silhouette takes the box a shared one would have taken, until the
- * composition needs its own").
+ * **The box belongs to the composition, not to the blob that carries it.** It
+ * spans all four, and `processLobe` — the largest, at the bottom right — is
+ * authored into one corner of it, leaving the rest of its own box empty. That is
+ * not a drawing decision: `src/motion.js` writes each traced join into the first
+ * shape in DOM order whose box reaches the join's window, everything outside
+ * that shape's grown box is cut off, and this shape is first. Drawn tight around
+ * the blob its box would not reach the window it has to host, and what rendered
+ * there was a bead with a straight vertical chord sliced out of it.
+ *
+ * **Only the last gap is a join, and the spacing says so.** A union between two
+ * *small* shapes has no box wide enough to be painted into — it needs `gap +
+ * partner width + swell` under `BLEED`'s 140px, and two beads 100px across with
+ * a 50px gap are already over. So the bead nearest the big blob stands 36 to
+ * 58px off it, inside the 60px a join closes at, and the other two stand 77 to
+ * 125px apart, which is past the limit at every width from 1081 to 2560. Nothing
+ * is ever attempted between them, so nothing can render wrong; they still swell
+ * toward the cursor, they simply never run together. Narrowing those two gaps to
+ * "look better spaced" reintroduces the slice — the numbers are the drawing.
+ *
+ * `right` is `--gutter-page`, so the largest blob's tangent lands on the page's
+ * content edge — the vertical every section hairline and the phases block below
+ * end on. `top` is a flat 105px from the hero's own top edge: the hero is 540px
+ * tall at every width from 621 to 2560, so a percentage would be the same
+ * constant with the arithmetic hidden, and what the number answers is the
+ * header's hairline, which is in pixels.
+ *
+ * The width is capped at 700px and the height follows it at the line's own
+ * 1.879 — `21.29vw` is `40vw / 1.879` — so the spacing holds its proportion at
+ * every width and no gap drifts across the join threshold in either direction.
+ * 40vw and not more: at 1081 the copy runs to within 35px of the box already.
+ * Below 621px the first blob becomes the shared sliver and the other three go —
+ * there is no flank left down there to put a line of shapes in.
  * ------------------------------------------------------------------ */
 
-/* The lede that opens this block runs to the reading measure, like every other
-   `.section-lede` on the site — and on the SDLC page that is right, because the
-   figure under it has a label column exactly that wide and the lede lands on
-   it. Here the figure under it is four steps spanning the whole page, so a
-   464px line leaves 830px of paper at the point the section opens. Held to the
-   first two of the four columns, the lede has something to range against.
-
-   `.section-lede` itself is not widened: a paragraph of argument stops at the
-   measure, and the measure is the point of it. */
-@media (min-width: 1001px) {
-  #processes-phases-lede {
-    max-width: calc(50% - var(--gap-column) / 2);
+@media (min-width: 621px) {
+  .hero--processes .hero__field--right {
+    top: 105px;
+    right: var(--gutter-page);
+    bottom: auto;
+    left: auto;
+    width: min(40vw, 700px);
+    height: min(21.29vw, 373px);
   }
 }
 
-/* Four steps in a five-column grid leave a column of paper at the end of the
-   row, and a sequence that stops three quarters of the way across reads as a
-   step that failed to render. Held to a min-width query rather than written
-   beside `.steps`, so it cannot outrank the tablet rule that puts every step
-   grid two abreast at 1000px however this block is ordered in the file. */
-@media (min-width: 1001px) {
-  .steps--four {
-    grid-template-columns: repeat(4, 1fr);
-  }
+/* The three beads, placed on the same line and sized as shares of the box, so
+   the whole constellation scales as one. Each names its own `data-clip`: two
+   magnets on a page may not share one, because `src/motion.js` resolves the
+   outline by id and rewrites that single path in place, so the second remap wins
+   and the first shape is left drawn into the wrong box. That one showed up as
+   gaps that would not come out even, however the boxes were moved.
+
+   Widths are a share of the box's width and heights of its height, and the box
+   is 1.879:1, so a blob that has to stay round needs the two percentages to
+   differ by that factor — 8.9% by 16.72% is round, 8.9% by 8.9% is a sliver.
+
+   These are not gated on the join being available, unlike the jobs hero's two
+   satellites: a satellite exists *for* the join and is a dark spot without one,
+   where four shapes in a line are the composition either way. */
+.hero--processes .hero__drift--a {
+  top: 0;
+  left: 0;
+  width: 8.9%;
+  height: 16.72%;
 }
 
-/* ------------------------------------------------------------------ *
- * 404
- * ------------------------------------------------------------------ */
-
-.error-page {
-  display: grid;
-  align-content: center;
-  min-height: 52svh;
-  padding: var(--section-rhythm) var(--gutter-page);
+.hero--processes .hero__drift--b {
+  top: 17.86%;
+  left: 24.24%;
+  width: 11.13%;
+  height: 20.9%;
 }
 
-.error-page h1 {
-  margin-bottom: var(--space-6);
-  padding-top: var(--space-7);
-  border-top: 2px solid var(--sa-cyan);
-  font-size: var(--text-h2);
-  line-height: var(--leading-h2);
-  letter-spacing: var(--track-h2);
-  justify-self: start;
+.hero--processes .hero__drift--c {
+  top: 36.94%;
+  left: 50.51%;
+  width: 13.99%;
+  height: 26.28%;
 }
 
-.error-page p {
-  margin-bottom: var(--space-9);
-  max-width: var(--measure);
-  color: var(--text-body);
-  font-size: var(--text-lede);
-}
-
-.error-page .btn {
-  justify-self: start;
-}
-
-/* ------------------------------------------------------------------ *
- * Forced colours
- *
- * A forced palette substitutes a system colour for every border and background
- * and drops the alpha with them, so what survives is whatever the page said in
- * shape rather than in weight. That cuts two ways: a figure that carries meaning
- * is given a border it can keep, and a decoration that has no weight it can be
- * given in a palette it does not choose is dropped.
- *
- * Only the second lives here. The first is `.cycle__phase`, filed with the
- * figure it belongs to — so this file groups by media feature in one place and
- * colocates in the other, and neither is wrong so much as unstated. The rule of
- * thumb, if a third is ever added: a rule that changes how a component *reads*
- * goes with the component; a rule that removes something outright goes here,
- * beside the print block that does the same.
- * ------------------------------------------------------------------ */
-
-/* The five orbit rings are drawn at 5% to 11% precisely so they sit under the
-   type, and a forced palette hands all five back as `CanvasText` at the layer's
-   full 0.8 — ground designed to be barely there becoming the strongest line on
-   the screen, straight through the reading column. There is no weight to
-   re-colour them to: the palette is not ours to pick from. So they go, the way
-   `@media print` already drops them.
-
-   Site-wide and not scoped to the notice, because no orbit set on the site
-   means anything. The notice is only where it lands hardest: a sticky origin
-   puts the same arcs on every screen of a 2820px document rather than behind
-   one hero. */
-@media (forced-colors: active) {
-  .orbits {
+/* The phone is the only place they go. `.hero__drift` carries no hiding rule of
+   its own any more — the jobs hero's pair keeps the join-gated query below,
+   because those two really are there for the join. */
+@media (max-width: 620px) {
+  .hero--processes .hero__drift {
     display: none;
   }
-}
-
-/* The vacancies, and the three rules the Odoo integration needs. Everything
-   else in that block is the AI staffing page's `.track` vocabulary unchanged.
-
-   The points are a real list, because that is what Odoo's job descriptions are
-   — four lines a candidate scans, not a paragraph they read. The marker is the
-   accent, the way `.prose__list`'s is; what is not borrowed from `.prose` is
-   the measure, because this list sits alone on white inside a panel the width
-   of the page and `.track__body` already answers that question at 56ch. */
-.track__points {
-  display: grid;
-  gap: var(--space-5);
-  padding-left: var(--space-7);
-  max-width: 56ch;
-  color: var(--text-body);
-  font-size: var(--text-lede);
-  line-height: var(--leading-body);
-  list-style: disc;
-}
-
-.track__points li::marker {
-  color: var(--sa-cyan);
-}
-
-/* The action inside an open row. It is the one place on the public site where
-   a primary button sits inside a figure rather than in a hero or a form, and it
-   earns it: this is the only control on the page that does the thing the page
-   is for. */
-.track__actions {
-  margin-top: var(--space-10);
-}
-
-/* Nothing published. The section keeps its heading and its rule — a block that
-   vanishes leaves the hero's own "Bekijk de vacatures" pointing at an anchor
-   that is not on the page — and prints one sentence at the reading measure. */
-.jobs-empty {
-  max-width: 56ch;
-  color: var(--text-body);
-  font-size: var(--text-lede);
-  line-height: var(--leading-body);
 }
 
 /* ------------------------------------------------------------------ *
@@ -4748,14 +4695,14 @@ html:not([data-clause-spy]) .prose__heading:target,
    navy plate rather than a window onto anything. At this size each holds a node
    or two at rest, and under the cursor the join hands them the main shape's own
    weave, which is the state they are really drawn for. */
-.hero__drift--a {
+.hero--jobs .hero__drift--a {
   top: 0;
   left: 49%;
   width: 26%;
   height: 22%;
 }
 
-.hero__drift--b {
+.hero--jobs .hero__drift--b {
   top: 63%;
   left: 1%;
   width: 21%;
@@ -4772,7 +4719,7 @@ html:not([data-clause-spy]) .prose__heading:target,
    fractional under browser zoom, and at 1080.5 the usual 1080/1081 pair matches
    neither query. */
 @media (max-width: 1080.98px), (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
-  .hero__drift {
+  .hero--jobs .hero__drift {
     display: none;
   }
 }

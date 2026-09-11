@@ -473,6 +473,33 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
     fetch from the page: in the browser the same key would need a Function in
     front of it to stay hidden, and the vacancies would leave the pre-rendered
     HTML that every crawler reads.
+- **The AI-native businessprocessen hero is four separate blobs, and nothing is
+  fused.** They run on a descending line, growing left to right and ending in one
+  big enough to be what the other three are heading toward. It replaced
+  `processHero`, a shoulder-wall-step-sweep terrace hung off the right page edge,
+  and the argument is the page's own headline rather than the drawing: "Van uw
+  taken naar herbruikbare workflows" is separate pieces becoming one thing.
+  `processLobe` in `clipDefs()` is the big one and it is **first in the DOM**,
+  because it has to host the one join that happens; its box is drawn around the
+  *whole composition* with the blob authored into one corner of it, which is the
+  only silhouette on the site that does not fill its own box.
+  **Only the last gap is a join.** The bead nearest the big blob stands 36 to
+  58px off it, inside the 60px a join closes at; the other two stand 77 to 125px
+  apart, past the limit at every width, so no join is ever attempted between them
+  — they swell toward the cursor and never run together. That is a limit of the
+  engine, not a preference: see the join-box bullet above. Narrowing those two
+  gaps to even the spacing brings the slice back.
+  It must not be the same picture as the jobs hero, because the two sit next to
+  each other in the nav — that is the rule that made `processHero` carry a
+  straight line in the first place, since the round draft it replaced measured as
+  the same shape as the AI-native SDLC ridge. The distinction is carried
+  differently now: `jobsJoin` is one drawn silhouette with satellites in its
+  pockets, and this is four shapes and no silhouette at all.
+  Unlike the jobs satellites these are **not** gated on the join being available.
+  A satellite exists *for* the join and is a dark spot on the paper without one;
+  four shapes in a line are the composition either way, so they stay on a coarse
+  pointer and under `prefers-reduced-motion`, and only the phone drops them.
+
 - **The jobs page is the one page written to a candidate, and that is the only
   thing new about it.** `src/pages/jobs.mjs` is four blocks — the hero, the open
   vacancies, what the job is like around the work, the form — ported from the
@@ -819,6 +846,34 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   other. `src/motion.js` measures each path's winding at setup and turns the
   join to match. A new silhouette may be drawn either way round; a silhouette
   with two subpaths of its own has to wind them consistently.
+- **A join is painted into a box, and that is what decides where a free shape
+  may stand.** `src/motion.js` grows every magnet's box by `BLEED` — 140px on
+  each side — and the traced union has to fit inside the grown box of whichever
+  shape carries it. Outside that box there is nothing painted for the clip path
+  to reveal, so the union is cut off along the box's edge and what renders is a
+  shape with a straight chord sliced out of it. It looks like a join artefact and
+  it is not: it is the element's own paint box showing.
+  Three consequences for any composition of free shapes. **A join needs one big
+  box.** The union has to reach the far side of the partner, so it needs `gap +
+  partner width + swell` to stay under 140 — and two beads 100px across with a
+  50px gap are already over it. Two small shapes therefore cannot join each
+  other at all, however they are placed: the AI-native businessprocessen hero was
+  drawn three ways before this was understood and every one sliced somewhere. So
+  a free shape joins the *big* one or it is spaced past the join threshold on
+  purpose; the jobs hero's pair stand 266 to 379px apart and never reach each
+  other, and that page's two joins are both against the main silhouette.
+  **Two magnets on one page may not share a `data-clip`.** `src/motion.js`
+  resolves the outline with `getElementById` and rewrites that single path in
+  place, so the second remap wins and the first shape is left drawn into the
+  wrong box. It shows up as spacing that will not come out even however the boxes
+  are moved. `PEBBLE_A` and `PEBBLE_B` in `base.mjs` are how several ids carry
+  two drawings without the path data being copied. **And a free shape may not be parked in the mouth of the
+  main outline's concave notch**: the bridge then forms across the opening rather
+  than against a flank, seals the notch into an enclosed lens of paper, and the
+  trace stair-steps where marching squares carries contour the authored outline
+  should have kept. Both heroes hit this, and both were fixed by moving the shape
+  onto a convex stretch.
+
 - **A page's height is not a constant, and `<sa-node-field>` is anchored to the
   document.** The shared field re-measures on every tick, and it used to re-seed
   whenever the document grew or shrank by more than 2px — which is fine for a

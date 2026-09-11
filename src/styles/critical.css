@@ -656,8 +656,20 @@ select {
   clip-path: url(#sdlcHeroRidge);
 }
 
-[data-clip="processHero"] {
-  clip-path: url(#processHero);
+[data-clip="processBeadA"] {
+  clip-path: url(#processBeadA);
+}
+
+[data-clip="processBeadB"] {
+  clip-path: url(#processBeadB);
+}
+
+[data-clip="processBeadC"] {
+  clip-path: url(#processBeadC);
+}
+
+[data-clip="processLobe"] {
+  clip-path: url(#processLobe);
 }
 
 /* ------------------------------------------------------------------ *
@@ -1230,7 +1242,7 @@ select {
   [data-clip="heroPetal"],
   [data-clip="heroArch"],
   [data-clip="sdlcHeroRidge"],
-  [data-clip="processHero"],
+  [data-clip="processLobe"],
   [data-clip="jobsJoin"] {
     clip-path: url(#heroSwoop);
   }
