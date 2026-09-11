@@ -2,37 +2,25 @@
 // fit the stage.
 //
 // The stage is a fixed 1920x1080 box with `overflow: hidden`, so a slide with
-// too much copy on it does not warn, wrap or scroll: the surplus is simply not
-// painted. Nothing in `npm run build` can see this, because it is a layout
-// fact and the build never lays anything out. Until this script existed the
-// skill's advice was "open the deck and look at every slide", which across ten
-// decks is two hundred and some slides by hand, every time a line of copy
-// changes.
+// too much copy does not warn, wrap or scroll: the surplus is simply not
+// painted. Nothing in `npm run build` can see this, because it is a layout fact
+// and the build never lays anything out.
 //
 // So: serve `dist/`, open each deck in headless Chrome, and ask the page. The
-// deck renders every slide into the DOM at once (the rail needs them), so one
-// page load measures the whole deck.
+// deck renders every slide into the DOM at once, so one load measures a deck.
 //
 // Two numbers per slide:
-//   overflow  `.slide__body` content taller than the box it is centred in.
-//             `.slide__body` is `justify-content: safe center`, so an overrun
-//             spills downward into the padding the footer reserves rather than
-//             off both ends; up to about 90px is invisible, past that it runs
-//             into the chrome band.
+//   overflow  `.slide__body` content taller than the box it is centred in. It
+//             is `justify-content: safe center`, so an overrun spills downward
+//             into the footer's padding — up to about 90px is invisible.
 //   escape    any element whose painted box crosses the 1080px floor or the
-//             slide's left or right edge. This catches what the first number
-//             cannot: a `.slide__note` pushed off the foot, a media frame
-//             wider than its column, a heading that has run past the padding.
+//             slide's left or right edge: a note pushed off the foot, a media
+//             frame wider than its column, a heading past the padding.
 //
-// Usage:
-//   npm run build          # dist/ must be current
-//   npm run check:slides   # or: node scripts/check-slides.mjs <deck-slug>
-//
-// Override the browser with CHROME_BIN=/path/to/chrome.
-//
-// This is not part of `npm run build` on purpose: it needs a browser, and the
-// Cloudflare Pages build image has none. It is a thing you run before you show
-// a deck to anyone.
+// Usage: `npm run build` first, then `npm run check:slides` (or
+// `node scripts/check-slides.mjs <deck-slug>`). CHROME_BIN overrides the
+// browser. Not part of `npm run build` on purpose: it needs a browser, and the
+// Cloudflare Pages build image has none.
 
 import { createReadStream, existsSync, mkdtempSync, rmSync, statSync, readdirSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';

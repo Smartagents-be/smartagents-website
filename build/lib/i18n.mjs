@@ -81,3 +81,16 @@ export function pagePath(langCode, slug = '') {
   const trimmed = String(slug).replace(/^\/+|\/+$/g, '');
   return trimmed ? `/${langCode}/${trimmed}/` : `/${langCode}/`;
 }
+
+/**
+ * Where a thing with `slugs` lives in this language, or `null` where it is not
+ * published in it — a page module, or anything else carrying a `slugs` map,
+ * such as an article's entry in `INSIGHTS`. Callers turn the `null` into a row
+ * without a link, a nav item that is not printed, or a plain label; seven of
+ * them were each spelling out the test, and getting it wrong prints
+ * `/fr/undefined/`.
+ */
+export function pathOf(page, langCode) {
+  const slug = page?.slugs?.[langCode];
+  return slug === undefined ? null : pagePath(langCode, slug);
+}

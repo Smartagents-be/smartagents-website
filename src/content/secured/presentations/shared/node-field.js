@@ -1,18 +1,14 @@
 // <sa-node-field> — the live cyan node network, for a deck.
 //
-// The public site's component (src/components/node-field/node-field.js) keeps
-// ONE field in document coordinates and treats every dark shape as a window
-// onto it, so the network reads as continuous from the header wedge to the
-// footer. A deck has no document to anchor to: it is a fixed 1920x1080 stage
-// that <deck-stage> scales with a transform, and every navy shape is its own
-// island on its own slide. So this is the same weave with the sharing taken
-// out — each element seeds and drifts its own network inside its own box.
+// The public site's component keeps ONE field in document coordinates and treats
+// every dark shape as a window onto it. A deck has no document to anchor to: it
+// is a fixed stage that <deck-stage> scales with a transform, and every navy
+// shape is its own island on its own slide. So this is the same weave with the
+// sharing taken out.
 //
-// The host is clipped (`clip-path` on `.slide__shape`), so nodes that drift
-// outside the silhouette are simply not painted. Nothing has to know the shape.
-//
-// Colours, density and link radius are the site's, so a slide and a page put
-// the same field on the same navy.
+// The host is clipped, so nodes that drift outside the silhouette are simply not
+// painted and nothing has to know the shape. Colours, density and link radius
+// are the site's.
 
 const CYAN = '0,216,255';
 const FPS = 30;

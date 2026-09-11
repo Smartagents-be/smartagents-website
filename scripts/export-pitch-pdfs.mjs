@@ -1,16 +1,10 @@
 // Export each secured pitch deck to a shareable PDF.
 //
-// The decks use the <deck-stage> web component, which has a print mode
-// (@media print) that lays out one slide per page at the authored 1920x1080
-// size. We serve the built dist/ folder and let headless Chrome print each
-// deck to PDF, written next to the deck source as <slug>.pdf so the build
-// picks it up as a passthrough asset.
-//
-// Usage:
-//   npm run build            # dist/ must be current
-//   node scripts/export-pitch-pdfs.mjs
-//
-// Override the browser with CHROME_BIN=/path/to/chrome if needed.
+// <deck-stage> has a print mode that lays out one slide per page at the authored
+// 1920x1080 size, so this serves the built dist/ and lets headless Chrome print
+// each deck next to its source as <slug>.pdf, which the build picks up as a
+// passthrough asset. Run after `npm run build`; CHROME_BIN overrides the
+// browser.
 
 import { createReadStream, existsSync, statSync, readdirSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';

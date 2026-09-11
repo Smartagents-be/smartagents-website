@@ -171,8 +171,34 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   every field read off the `kata.spec.*` values the strip prints. There is no
   `location` in it, deliberately: the day is held at the client's office, so the
   only address we could name is the one place the course is not.
-- **Pages are functions.** A page module exports `{ id, slugs, meta(t), render(ctx) }`
-  and returns markup from the `html` tag. Never hard-code visible text: use `t()`.
+- **Pages are functions.** A page module exports `{ id, slugs, render(ctx) }` and
+  returns markup from the `html` tag. Never hard-code visible text: use `t()`.
+  **`meta(t)` is optional and usually absent**: `pageMeta()` in
+  `build/render.mjs` defaults the title and the description to `<id>.title` and
+  `<id>.description`, so the convention that a page's strings are keyed on its
+  own name is a rule rather than a habit and a missing key fails the build like
+  any other. A page keeps a `meta()` only for what it has to add — the team
+  page's `preloadImage`, the notice's `lastmod`, an article's computed title —
+  and anything it returns wins. A page whose strings are keyed on something
+  other than its id says so with `strings`: the kata page's id is
+  `training-kata` because the nav marks a service while the reader is under it,
+  and its copy is `kata.*`. The same defaulting is in `contactSection()`, which
+  reads `<prefix>.cta.title` and `<prefix>.cta.body` unless the page passes
+  something else — the homepage and the training page pass `contact.lede`,
+  because neither has a closing line of its own.
+- **A detail page's hero is 440px, and the number is the page's own rhythm.**
+  `--section-rhythm` of paper, the copy, and `--section-rhythm` again is 398px
+  at 1280 for a two-line headline and two buttons; 440 is that with 42px of
+  slack, and it is a floor rather than a height — the kata hero carries an
+  eyebrow too and stands at 458. It was 540, which put the foot of every detail
+  hero at y=594 on a 1280x800 laptop and the first section heading at 696, so
+  the whole first fold was a headline, two buttons and a navy shape. Every
+  silhouette struck as a share of the hero is drawn 19% shorter with it; the one
+  that is not a share — the jobs page's pendant, which is struck in `vw` against
+  a fixed band — has its four numbers scaled by the same 440/540 so it keeps its
+  aspect and its place. The training bead's gap to the petal was re-measured
+  after the change and is recorded in `main.css`, in the `motion-fields` skill
+  and in the design README. The homepage's own hero is untouched.
 - **A hero is a headline and its actions, and nothing between them.** For a
   while every hero printed its page's own `description` key as a standfirst,
   through `.hero__lede`: the heroes were eyebrow, headline, two buttons and then
@@ -299,6 +325,22 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   layer's fades and its `forced-colors` rule, the footer's grid and legal
   microline, and the four button fills. Read it before drawing, moving or
   retuning any shape.
+- **Nothing animates a box it does not paint, and nothing ticks with nothing on
+  screen.** Each orbit ring's travelling node used to be carried round by
+  rotating a box the size of its ring — up to 1690px square — which handed the
+  compositor four large layers per page for four dots: measured with CDP's
+  `LayerTree` on the training page, two 1360x1360 and two 1060x1060 layers, none
+  of which painted anything but a 5px dot. The thing that rotates is 0x0 now and
+  stands on the diagram's origin, with the node hung out at the ring's radius
+  plus half its own width; the cost is that the radius is written twice per ring
+  and a ring that moves has to move in both places. `<sa-node-field>` stops its
+  clock rather than skipping the work: in a hidden tab (`visibilitychange`, not
+  `document.hidden` read inside the timer), under `prefers-reduced-motion`, and
+  when no window is on screen. Be honest about the last one — the header's wedge
+  is a window and the header is sticky, so on every page of the public site
+  there is one on screen at all times. Measured, the whole field is about 28ms
+  of script in four idle seconds; the animation that was actually expensive here
+  was the rings.
 - **The site names one external source, and it names it as a link.**
   `sdlc.journey.lede` says the journey is built on what Anthropic publishes
   about AI-native engineering, and `sdlc.journey.source` under it links
@@ -330,6 +372,25 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   had asked for any of it. "Past wanneer" stays on a staffing track: it is the
   one sub-block that tells a reader something the body does not, which is
   whether that track is theirs.
+- **"Waarom investeren in AI-training?" is gone, and the two lines worth keeping
+  are the lede under "Ons aanbod".** It was five rows — Snellere adoptie, Hogere
+  productiviteit, Minder risico, Kostenbewust, Minder afhankelijk van externen —
+  between the hero and the offer, so a reader who had come to see the courses
+  read a page of reasons to want training first. Three of the five say what any
+  training company's benefits list says, in the shape a reader now recognises as
+  generated. The two that were ours are kept as one sentence: the token argument
+  (the lightest model that can do the job, which is also what
+  `training.course.agentic.learn.3` teaches) and the independence it buys. The
+  test they pass and the other three fail is whether a competitor's page could
+  print the same line.
+- **The staffing track panel opens into two columns, and the section is named
+  for its own page.** An open row was 590px of copy with 456px of paper beside
+  it and "Past wanneer" — the line a reader opens the row to find — 260px below
+  the fold of the block; side by side the row is 111px shorter and the two sit
+  where the eye reads them together. Below 1000px it folds back to one column
+  and the rule turns from the left flank to the top. The heading was "Wat we
+  doen", which is the homepage's own section heading; it is "Hoe we meewerken"
+  now, and the hero's second button names the same thing.
 - **The training facts strip is per course, and the developer course prints one
   row fewer.** `FACTS` in `src/pages/training.mjs` is the default list; a
   `COURSES` entry may name the facts it omits through `omitFacts`. The developer
@@ -379,13 +440,36 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   on a public page too (today: the kata tour video) is never duplicated: it stays
   in the deck folder and `PROMO_MEDIA` in `build/render.mjs` copies it into the
   same `/media/`. `/secured/` is gated, so a public page can never link into it.
-  `_headers` gives `/media/*` its own cache policy. **Nothing prefetches it**:
+  `_headers` gives `/media/*` its own cache policy — and, since the security
+  headers went in, `/*` carries `Strict-Transport-Security` (a year, this
+  hostname, no `includeSubDomains` or `preload` until somebody has checked every
+  name under smartagents.be) and a `Content-Security-Policy-Report-Only` that
+  reports and blocks nothing. It becomes `Content-Security-Policy` when a week
+  of real traffic has named nothing; there is no `report-uri`, because a
+  reporting endpoint is a third-party request on a site whose policy is not to
+  make any, so the console is the destination. `/secured/*` has a policy of its
+  own allowing inline scripts, because the gated documents were authored as
+  standalone HTML and still carry them — one global rule would fill the console
+  with reports about the one area that is not public. The gated area is also
+  `private, no-store`, in `_headers` and again in the Function, which builds a
+  redirect that never passes through that file. **Nothing prefetches it**:
   the two course one-pagers are about 200 KB each and the training page links
   both, so a reader running an eye down the offer used to pull half a megabyte of
   PDF nobody asked for. The exclusion is in the speculation rules in `base.mjs`
   and in the hover fallback in `src/app.js`, which also skips a metered
   connection — a prefetch is for a page the reader is about to navigate to, and a
   file the browser hands to a download bar is not that.
+- **A page carries only the silhouettes it draws.** `clipDefs()` emitted all
+  twenty-two on every page — 7.4 KB of path data in the `<body>` of the privacy
+  notice and the four articles, which draw no dark shape at all. The body is
+  rendered before the shell wraps it, so it is simply asked: every
+  `data-clip="X"` it names, plus the handful a stylesheet reaches for on the
+  page's behalf (`heroSwoop` below 620px, `dnaFieldMask` for the helix), which
+  is the `CLIP_ALSO` map in `base.mjs`. A page with no dark shape prints no
+  `<svg>` at all. What makes it safe is the check in `check-dist.mjs`, which
+  reads the `clip-path: url(#id)` rules out of the CSS rather than restating
+  them: a missing definition does not warn, it draws the shape as its bounding
+  box, and only at the viewport width that asks for it.
 - **Tokens live once.** `src/styles/tokens.css` is the only place custom
   properties are defined; `build/render.mjs` prepends it to `critical.css` and
   inlines the pair in every `<head>`. Never redefine a token in `main.css`.
@@ -396,6 +480,18 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   fills. Nine of them are still declared in `src/content/secured/tokens.css`,
   which is a separate file for a separate build and does use them: the two files
   are kept in step on the values they share, never on the set of names.
+  **The type scale is in rem and the px value is in a comment beside it.** In px
+  it ignored the browser's own default text size and Firefox's and Safari's
+  "zoom text only" entirely — the root went to 24px and nothing on the page
+  moved. Every step divides into 16 exactly, so the default root renders
+  byte-identically to what it did. Four sizes stay in px on purpose and each
+  says why where it is written: the header's nav row and the brand beside it,
+  which are measured to the pixel at 1181px against a row that clips, and the
+  phone's form controls, where 16px is the number iOS Safari watches. Spacing
+  stays in px. Two new tokens are there for the opposite reason to the fourteen
+  that came out — `--scroll-clearance` (96px) and `--header-phone` (56px) each
+  had readers in two different stylesheets, and a number that has to match
+  across files is what a token is for.
 - **A colour token has to name the colour that renders, and `check-dist.mjs`
   fails the build if it does not.** Every `oklch()` in `dist/` is checked
   against the sRGB gamut for its own lightness and hue. This is not pedantry
@@ -434,6 +530,27 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   cannot be animated to nothing, because its own padding is the floor its height
   stops at. The same no-JS-first reasoning is why the mobile nav is a
   `<details>`.
+  **What a `<details>` cannot be on its own is modal, and on a phone the nav
+  sheet is.** `src/app.js` puts `inert` on the skip link, `main`, the footer and
+  the sticky action bar while the sheet is open, stops the document scrolling
+  through `.has-sheet`, and closes on Escape or a pointerdown outside — so the
+  page behind the sheet is out of the tab order and off the accessibility tree
+  instead of being a list of links nobody can see. `inert` is the whole of it;
+  there is no focus trap. The trigger's two bars turn into a × in CSS on
+  `[open]`, because the one control on screen used to say "open the menu" while
+  the menu was open. Above the phone the same panel is a dropdown and none of
+  this applies except the outside click, which a menu left standing open behind
+  the page needed anyway.
+- **Every media query is range syntax, and that is what closed the fractional
+  cracks.** `(width < 621px)` and `(width >= 621px)` partition the axis;
+  `max-width: 620px` paired with `min-width: 621px` matched neither at 620.5,
+  which is an ordinary width under browser zoom. Everywhere on the site that
+  crack cost a layout seam nobody saw; on the training bead and the jobs drifts
+  it printed a dark shape with the magnets off, which is why those two queries
+  carried a hand-written `1080.98px` patch. The patches are gone. Converting a
+  pair is mechanical — `max-width: N` becomes `width < N+1`, `min-width: M`
+  becomes `width >= M` — and it puts the site's floor at Safari 16.4, which is
+  a few months later than the 16.2 `color-mix()` already asks for.
 - **The tablet is drawn, so it is not invented.** `SmartAgents Homepage Tablet`
   (834x1112) in the design project is the source for everything between the
   desk and the phone, and four breakpoints carry it now. 1180px is where the
@@ -495,10 +612,35 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   front of a rate limit invites exactly the retry that caused it, so
   `form.rateLimited` names the wait and the phone, and every other failure keeps
   the one line it had.
+  **The form is upgraded whether or not a site key is configured**, and only the
+  token step is gated on one: it used to return before upgrading, so a build
+  with no `TURNSTILE_SITE_KEY` fell all the way back to the browser's own
+  validation — one field at a time, in a bubble, in the browser's language over
+  Dutch copy. Two more things the component now gets right. The submit is
+  stopped **synchronously**, always, and the `mailto:` fallback is dispatched by
+  hand: the decision used to be taken after `await this.prepare()`, so an Enter
+  pressed while Turnstile was still loading opened the mail client *and* posted
+  the JSON. And Turnstile's `expired-callback` and `timeout-callback` are wired
+  beside `error-callback`, because with those two unwired a stalled challenge
+  never settled the promise and the button stayed busy for the life of the page.
+  **A same-page action that opens a form puts the cursor in it**: a click on a
+  link whose anchor contains a form focuses that form's first control, on the
+  next frame and with `preventScroll` — the next frame because following a
+  fragment is the click's own default action and it puts the focus on `<body>`
+  when the target is not focusable, which a `<section>` never is.
   **A missing `TURNSTILE_SECRET_KEY` is a 500, not a failed captcha.** Unbound,
   the key was posted to Turnstile as the literal string "undefined", Turnstile
   answered `invalid-input-secret`, and the visitor was told their captcha had
   failed — a 403 blaming them for a binding nobody had set.
+- **The message field is called `body` on the wire and `message` at the
+  endpoint, and the markup says so twice.** `name="body"` is what the `mailto:`
+  fallback needs — a mail client reads `subject` and `body` out of the query
+  string and drops every other key, so a textarea called `message` handed the
+  visitor an empty mail with JS off — and `data-post-as="message"` is what
+  `contact-form.js` renames it back to for the JSON post. The rename is declared
+  in the rendered HTML rather than written in two files, because
+  `scripts/check-contact.mjs` builds its payload from that same markup and reads
+  the same attribute.
 - **The contact path is checked end to end, because it broke in the gap between
   its two halves.** The form posts what its inputs are named; `/api/contact`
   validates its own list; nothing compared them, so a required `subject` no
@@ -566,7 +708,20 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 - **Validation**: `scripts/check-dist.mjs` is the gatekeeper. It checks unresolved
   templates, broken internal links, missing alt text, undefined CSS custom
   properties, robots meta, the full hreflang contract, the routing table, and the
-  performance budgets from `fast-static-site` §1.
+  performance budgets from `fast-static-site` §1 — including a
+  `criticalCssBytes` budget on the inlined `<style>` block, which is paid for on
+  every page view of every page.
+  Seven cheap checks were added on top, each one a loop over files it had
+  already parsed and each one for a bug that shipped: exactly one `<h1>` per
+  page and no skipped heading level; every `aria-labelledby` /
+  `aria-describedby` / `aria-controls` and every in-page `href="#id"` resolving
+  on that page; the JSON-LD parsing; `og:image` and every `imagesrcset`
+  candidate resolving in `dist/`; every `<loc>` in the sitemap resolving; and
+  every `clip-path: url(#id)` a page can reach having a `<clipPath>` behind it.
+  That last one is what makes the per-page clip defs safe — the rules are read
+  out of the CSS rather than restated, so a stylesheet pointing at a shape a
+  page does not carry fails the build instead of rendering the shape as its
+  bounding box.
 
 ## Known follow-ups
 
@@ -680,3 +835,21 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   already prints. `scripts/start-local.mjs` serves it too — it used to answer a
   missing URL with the two words "Not found" as `text/plain`, so nobody working
   on the site ever saw the real page.
+- **The service worker's three caches are keyed on three different things,
+  because they go stale for three different reasons.** `pages-<content>` is a
+  hash of every rendered document in `dist/`, computed by `contentVersion()` in
+  `render.mjs`: it used to be keyed on the hashed asset names, so a deploy that
+  only changed copy, added an article or picked up a vacancy from Odoo produced
+  a byte-identical `sw.js`, the browser saw no update, and stale-while-revalidate
+  served the *previous* HTML on the first view of every page to every returning
+  visitor. A hash of the documents changes exactly when a document does, and an
+  unchanged rebuild still produces a byte-identical `sw.js`. `assets` is not
+  versioned at all — a hashed URL is its own version — and that is what stops a
+  deploy stranding an open tab: with a versioned name, `skipWaiting()` plus the
+  cleanup in `activate` deleted the cache under a page that was already open,
+  and the first lazy chunk it imported afterwards (`sa-node-field`,
+  `sa-accordion`, the contact form) was gone from the cache and from the server
+  both. One cache holding a few generations, bounded by `ASSET_LIMIT`, keeps the
+  old chunk reachable until it ages out. `images-<version>` stays keyed on the
+  assets, because `/media/` is un-hashed and the version is the only thing that
+  can invalidate an image that changed under a URL it kept.

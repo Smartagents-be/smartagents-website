@@ -18,7 +18,13 @@ const { languages, defaultLanguage } = await import('../build/lib/i18n.mjs');
 const BUDGETS = {
   htmlCompressedBytes: 30 * 1024,
   criticalJsCompressedBytes: 50 * 1024,
-  renderBlockingRequests: 3
+  renderBlockingRequests: 3,
+  /* The inlined `<style>` block, paid for in every one of the site's 60
+     documents. fast-static-site §2 asks for under 14 KB; this is the current
+     size plus about 5% of headroom, so the next rule added to the critical
+     sheet is a decision rather than a byte that appears in sixty files.
+     Getting to 14 KB means per-layout critical CSS (improvements.md item 50). */
+  criticalCssBytes: 17_600
 };
 
 const textExtensions = new Set(['.html', '.xml', '.txt', '.css', '.js']);
@@ -121,24 +127,18 @@ const cssTokenDefinitions = new Set(
 
 /**
  * A custom property declared twice in one block keeps the last value, and the
- * declarations that wanted the first one do not warn — they resolve to a value
- * of the wrong kind, the declaration is thrown away as invalid, and the
- * property inherits instead. `--text-body` was the ink of body copy at the top
- * of `:root` and 15.5px at the bottom of it; seventeen blocks asking for
- * `color: var(--text-body)` had been inheriting the page's full ink since the
- * ramp was written, and every check here passed, because the property is
- * defined — just not as a colour.
+ * declarations that wanted the first do not warn: they resolve to a value of the
+ * wrong kind, the declaration is thrown away as invalid, and the property
+ * inherits instead. `--text-body` was the ink of body copy at the top of `:root`
+ * and 15.5px at the bottom, and seventeen blocks had been inheriting the page's
+ * full ink since the ramp was written.
  *
- * So: no name may be declared twice inside one `{ ... }`. Scoped redefinitions
- * are the point of custom properties and are not touched — this only looks
- * inside a single block, which is where a redefinition is always a mistake.
- * "Tokens live once" (CLAUDE.md) is the rule; this is what enforces it.
+ * So no name may be declared twice inside one `{ ... }`. Scoped redefinitions
+ * are the point of custom properties and are untouched — this only looks inside
+ * a single block, where a redefinition is always a mistake.
  *
  * Documents are read as well as stylesheets: `tokens.css` never ships as a file
- * of its own — `render.mjs` prepends it to the critical CSS and inlines the
- * pair in every `<head>` — so a stylesheet-only scan would have missed the one
- * file the rule exists for. A `{ ... }` in a document that is not CSS cannot
- * match, because the declaration pattern needs a `--name:` inside it.
+ * of its own, so a stylesheet-only scan would miss the one file this exists for.
  */
 for (const file of distFiles) {
   if (!file.relativePath.endsWith('.css') && !file.relativePath.endsWith('.html')) continue;
@@ -157,27 +157,19 @@ for (const file of distFiles) {
  * Every `oklch()` in the output has to be a colour sRGB can actually show.
  *
  * A colour outside the gamut is not an error and nothing warns: the browser
- * gamut-maps it on the way to the screen and draws something near it. Three
- * things make that worse than a rounding difference. The mapping reduces
- * chroma, so a colour asked to be *brighter* than the medium allows comes back
- * paler — `--sa-cyan-bright-hover` was declared at 0.128 against a ceiling of
- * 0.1047 and washed out. It turns the hue as well, because the channel that
- * has gone negative is clamped and the other two are not — the accent said hue
- * 214 and the screen showed 218, which is how "the brand is teal, not cyan"
- * came to be a thing that had to be re-measured off a screenshot. And worst,
- * `color-mix()` and the `/ alpha` form run on the *declared* coordinates and
- * map the result, along a different path than the base colour took, so every
- * wash derived from an out-of-gamut token drifts off the token it came from.
- * `/secured/` had eight such washes off one unreachable accent.
+ * gamut-maps it and draws something near it. Three things make that worse than a
+ * rounding difference. The mapping reduces chroma, so a colour asked to be
+ * *brighter* than the medium allows comes back paler. It turns the hue as well,
+ * because the channel that has gone negative is clamped and the other two are
+ * not — the accent said hue 214 and the screen showed 218. And `color-mix()` and
+ * the `/ alpha` form run on the *declared* coordinates and map the result along
+ * a different path, so every wash derived from an out-of-gamut token drifts off
+ * the token it came from.
  *
- * So a token is required to name the colour it will actually be. The ceiling
- * is found per (lightness, hue) by bisection, and the tolerance is one part in
- * ten thousand of a linear channel — well inside a 1/255 step, so a value
- * sitting deliberately on the gamut edge passes and one asking for a colour
- * that does not exist does not.
- *
- * Comments are stripped first: the prose above several of these tokens quotes
- * the out-of-gamut value it replaced, and that is documentation, not a colour.
+ * The ceiling is found per (lightness, hue) by bisection, with a tolerance well
+ * inside a 1/255 step, so a value sitting deliberately on the gamut edge passes.
+ * Comments are stripped first: the prose above several tokens quotes the
+ * out-of-gamut value it replaced.
  */
 const OKLAB_TO_LRGB = [
   [4.0767416621, -3.3077115913, 0.2309699292],
@@ -225,18 +217,14 @@ for (const file of distFiles) {
 }
 
 /**
- * Resolve one `href` or `src` to the path it would have inside `dist/`, or
- * `null` when it is not ours to check.
+ * Resolve one `href` or `src` to the path it would have inside `dist/`, or `null`
+ * when it is not ours to check. Anything carrying a scheme belongs to somebody
+ * else, so the test is for a scheme at all rather than a list of the ones seen
+ * so far; a protocol-relative `//host/path` is external too.
  *
- * Anything carrying a scheme belongs to somebody else — `https:`, `mailto:`,
- * `tel:`, `data:`, `blob:`, `about:` and whatever comes next — so the test is
- * for a scheme at all rather than a list of the ones seen so far. A
- * protocol-relative `//host/path` is external too.
- *
- * `directoriesAreIndexes` is what separates a link from an asset: a page is
- * addressed by its directory and served as the `index.html` inside it, while
- * an asset is addressed by its own name and a missing extension means the file
- * is missing, not that a directory was meant.
+ * `directoriesAreIndexes` separates a link from an asset: a page is addressed by
+ * its directory and served as the `index.html` inside it, while an asset is
+ * addressed by its own name and a missing extension means a missing file.
  */
 function resolveLocal(from, value, { directoriesAreIndexes = false } = {}) {
   if (/^[a-z][a-z0-9+.-]*:/i.test(value) || value.startsWith('//')) return null;
@@ -279,14 +267,11 @@ for (const file of distFiles) {
 
   // The same walk over `src`. An `href` that goes nowhere is a click that does
   // nothing; a `src` that goes nowhere is a hole in the page, and on a slide it
-  // is a hole in front of a room. A deck folder is copied through verbatim, so
-  // a portrait renamed in `assets/` and not in the slide used to ship silently
-  // and 404 in the meeting.
+  // is a hole in front of a room.
   //
-  // `srcset` cannot match here (the pattern needs whitespace then `src=`), and
-  // it is left alone deliberately: it is a candidate list the browser is free
-  // to skip, and the `src` beside it is the one that must work. `<source src>`
-  // inside a `<video>` does match, and should.
+  // `srcset` cannot match here and is left alone deliberately: it is a candidate
+  // list the browser may skip, and the `src` beside it is the one that must
+  // work. `<source src>` inside a `<video>` does match, and should.
   for (const match of content.matchAll(/\ssrc="([^"#{][^"]*)"/g)) {
     const target = resolveLocal(relativePath, match[1]);
     if (target && !allDistPaths.has(target)) fail(relativePath, 'broken asset reference', match[1]);
@@ -294,6 +279,154 @@ for (const file of distFiles) {
 
   for (const match of content.matchAll(/<img\s[^>]*>/g)) {
     if (!match[0].includes('alt=')) fail(relativePath, 'missing alt attribute on image', match[0].slice(0, 80));
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 2b. Cheap checks over the files already parsed
+ * ------------------------------------------------------------------ */
+
+/**
+ * Every `clip-path: url(#id)` a page can reach has a `<clipPath id>` behind it.
+ * A missing definition does not warn — the shape renders as its bounding box,
+ * a navy rectangle where a drawn flank should be, at the one viewport width
+ * that asks for it. The pairing of rule to trigger is read out of the CSS
+ * rather than restated here, so a new rule finds the pages it breaks.
+ */
+const clipTriggers = [];
+for (const file of distFiles) {
+  if (!file.relativePath.endsWith('.css') && !file.relativePath.endsWith('.html')) continue;
+  const css = file.relativePath.endsWith('.html')
+    ? (file.content.match(/<style>([\s\S]*?)<\/style>/)?.[1] ?? '')
+    : file.content;
+
+  for (const rule of css.matchAll(/([^{}]+)\{[^{}]*clip-path:\s*url\(#([\w-]+)\)/g)) {
+    const id = rule[2];
+    for (const selector of rule[1].split(',')) {
+      // The minifier drops the quotes inside an attribute selector, so both
+      // `[data-clip=heroArch]` and `[data-clip="heroArch"]` have to match.
+      const attribute = selector.match(/\[data-clip=["']?([\w-]+)["']?\]/);
+      if (attribute) {
+        clipTriggers.push({ id, needle: `data-clip="${attribute[1]}"` });
+        continue;
+      }
+      const className = [...selector.matchAll(/\.([\w-]+)/g)].at(-1);
+      if (className) clipTriggers.push({ id, needle: `class="${className[1]}` });
+    }
+  }
+}
+
+for (const { relativePath, content } of htmlFiles) {
+  const defined = new Set([...content.matchAll(/<clipPath id="([\w-]+)"/g)].map((m) => m[1]));
+  // One report per missing shape: five selectors sharing a rule are one bug.
+  const reported = new Set();
+
+  for (const { id, needle } of clipTriggers) {
+    if (defined.has(id) || reported.has(id)) continue;
+    // A class can stand anywhere in `class="a b"`, so match the whole attribute.
+    const present = needle.startsWith('class="')
+      ? new RegExp(`class="[^"]*\\b${needle.slice(7)}\\b`).test(content)
+      : content.includes(needle);
+    if (present) {
+      reported.add(id);
+      fail(relativePath, 'clip-path points at an undefined clipPath', `#${id}`);
+    }
+  }
+}
+
+/**
+ * One `<h1>` per page, and no skipped heading level. A skipped level is
+ * invisible on the page and only bites the reader navigating by headings.
+ */
+for (const { relativePath, content } of htmlFiles) {
+  if (!isPublicPage(relativePath)) continue;
+
+  const levels = [...content.matchAll(/<h([1-6])\b/g)].map((m) => Number(m[1]));
+  const h1s = levels.filter((level) => level === 1).length;
+  if (h1s !== 1) fail(relativePath, 'a page has exactly one <h1>', `found ${h1s}`);
+
+  let previous = 0;
+  for (const level of levels) {
+    if (previous && level > previous + 1) {
+      fail(relativePath, 'heading level skipped', `h${previous} then h${level}`);
+      break;
+    }
+    previous = level;
+  }
+}
+
+/**
+ * Anything the page points at by id is on the page: `aria-labelledby`,
+ * `aria-describedby`, `aria-controls`, and every in-page `href="#..."`. A
+ * reference to a missing id fails silently and only for a screen reader.
+ */
+for (const { relativePath, content } of htmlFiles) {
+  const ids = new Set([...content.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+
+  for (const match of content.matchAll(/\saria-(?:labelledby|describedby|controls)="([^"]+)"/g)) {
+    for (const target of match[1].trim().split(/\s+/)) {
+      if (!ids.has(target)) fail(relativePath, 'aria reference to a missing id', target);
+    }
+  }
+
+  for (const match of content.matchAll(/href="#([^"]+)"/g)) {
+    const target = decodeURIComponent(match[1]);
+    if (!ids.has(target)) fail(relativePath, 'in-page link to a missing id', `#${target}`);
+  }
+}
+
+/**
+ * The JSON-LD graph parses, and the share card it sits beside resolves. The
+ * graph is built out of `t()` values, so an unescaped character in a string
+ * file is a graph the crawler throws away with nothing on the page to show it.
+ */
+const siteOrigin = (htmlFiles[0]?.content.match(/<link rel="canonical" href="(https?:\/\/[^/"]+)/) || [])[1] || '';
+
+function resolveAbsolute(from, value) {
+  const local = siteOrigin && value.startsWith(siteOrigin) ? value.slice(siteOrigin.length) : value;
+  return resolveLocal(from, local);
+}
+
+for (const { relativePath, content } of htmlFiles) {
+  for (const block of content.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try {
+      JSON.parse(block[1]);
+    } catch (error) {
+      fail(relativePath, 'JSON-LD does not parse', error.message.slice(0, 80));
+    }
+  }
+
+  if (!isPublicPage(relativePath)) continue;
+
+  const ogImage = content.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+  if (!ogImage) fail(relativePath, 'missing og:image', '<meta property="og:image">');
+  else {
+    const target = resolveAbsolute(relativePath, ogImage);
+    if (target && !allDistPaths.has(target)) fail(relativePath, 'og:image does not resolve', ogImage);
+  }
+
+  // A preload's candidate list is a real fetch, unlike a `srcset` the browser
+  // may skip: a wrong name costs the LCP image its head start, silently.
+  for (const match of content.matchAll(/\simagesrcset="([^"]+)"/g)) {
+    for (const candidate of match[1].split(',')) {
+      const href = candidate.trim().split(/\s+/)[0];
+      if (!href) continue;
+      const target = resolveLocal(relativePath, href);
+      if (target && !allDistPaths.has(target)) fail(relativePath, 'imagesrcset candidate missing', href);
+    }
+  }
+}
+
+/** Every URL in the sitemap is a page that exists. */
+const sitemap = distFiles.find((file) => file.relativePath === 'sitemap.xml');
+if (sitemap) {
+  for (const match of sitemap.content.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    const target = resolveAbsolute('sitemap.xml', match[1].trim());
+    const page = target && !path.extname(target) ? path.join(target, 'index.html') : target;
+    const resolved = target?.endsWith('/') ? `${target}index.html` : page;
+    if (resolved && !allDistPaths.has(resolved)) {
+      fail('sitemap.xml', 'sitemap URL does not resolve in dist/', match[1].trim());
+    }
   }
 }
 
@@ -344,11 +477,9 @@ for (const { relativePath, content } of htmlFiles) {
  * 4. Performance budgets (public pages only; /secured/ is internal)
  * ------------------------------------------------------------------ */
 
-/* Every public page's brotli size, measured once.
-   It was measured twice — once here against the budget and once at the foot of
-   the file to print the largest — and quality 11 over 60 pages is not a cheap
-   thing to do twice: 3.5 s of this script's 3.8 s runtime, on every build, for
-   a number that cannot have changed between the two calls. */
+/* Every public page's brotli size, measured once. Measured twice — here against
+   the budget and again at the foot of the file — quality 11 over 60 pages was
+   3.5 s of this script's 3.8 s runtime for a number that cannot have changed. */
 const compressedBytes = new Map();
 
 for (const { relativePath, content, fullPath } of htmlFiles) {
@@ -382,8 +513,15 @@ for (const { relativePath, content, fullPath } of htmlFiles) {
     );
   }
 
-  if (!/<style>/.test(head)) {
+  const critical = head.match(/<style>([\s\S]*?)<\/style>/)?.[1];
+  if (!critical) {
     fail(relativePath, 'no inline critical CSS in head', '<style>');
+  } else if (Buffer.byteLength(critical) > BUDGETS.criticalCssBytes) {
+    fail(
+      relativePath,
+      `inline critical CSS over budget (${BUDGETS.criticalCssBytes} B)`,
+      `${Buffer.byteLength(critical)} B`
+    );
   }
 }
 
@@ -479,18 +617,14 @@ for (const file of sourceFiles) {
 /* ------------------------------------------------------------------ *
  * 7. No build secret is in the output
  *
- * The build reads Odoo Recruitment with an API key (`build/lib/odoo-jobs.mjs`)
- * and the whole safety argument for doing that at build time rather than in the
- * browser is that the key stays on the build machine: what ships is the job
- * text. This is that argument enforced instead of asserted — if the value of
- * any of these ever turns up in a file that deploys, the build stops.
+ * The safety argument for reading Odoo with an API key at build time is that the
+ * key stays on the build machine and only the job text ships. This is that
+ * argument enforced rather than asserted.
  *
- * Every file in `dist/` is checked, not only HTML: a secret interpolated into a
- * script chunk, a JSON file or a sitemap is exactly as published as one in a
- * paragraph. Short values are skipped, because a two-character "key" would
- * match everywhere and fail every build for no reason — and a key that short is
- * a misconfiguration to fix in Odoo, not something to smuggle past a checker.
- * The failure prints the variable's name and never its value.
+ * Every file in `dist/` is checked, not only HTML. Short values are skipped: a
+ * two-character "key" would match everywhere, and a key that short is a
+ * misconfiguration to fix in Odoo. The failure prints the variable's name and
+ * never its value.
  * ------------------------------------------------------------------ */
 
 /* Only values that are secret. `ODOO_LOGIN` is deliberately not here: it is a

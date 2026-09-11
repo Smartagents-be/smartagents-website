@@ -13,13 +13,9 @@
 html {
   color-scheme: light;
   scroll-behavior: smooth;
-  /* The sticky header covers the top of the page, so anchors need the offset —
-     plus air, or the heading lands glued to the bar's underside. 64px was the
-     header's own height and nothing more: 2px of clearance at 1180px, where the
-     row is 61.7px tall, and 4px at the tablet's 72. The privacy notice's clause
-     index is what made that visible, being the one block on the site whose
-     whole job is to send people to an anchor. */
-  scroll-padding-top: 96px;
+  /* The sticky header covers the top of the page, so anchors need the offset
+     plus air. The header's own height alone left 2px of clearance at 1180px. */
+  scroll-padding-top: var(--scroll-clearance);
 }
 
 body {
@@ -48,12 +44,9 @@ a {
   text-decoration: none;
 }
 
-/* To `--sa-deep`, not to the lighter cyan step. WCAG 1.4.3 applies to every
-   state a link has, and `--sa-cyan-hover` (#038fab) measures 3.64:1 on paper
-   against the 4.5:1 the rest state clears at 4.72 — so the one state a reader
-   deliberately puts a link into was the one state that failed. Diepzee is the
-   colour the primary action is already made of, it is 12:1, and moving toward
-   the ink rather than away from it is what a hover on paper should do anyway. */
+/* To `--sa-deep`, not the lighter cyan step: WCAG 1.4.3 applies to every state,
+   and `--sa-cyan-hover` is 3.64:1 on paper against the rest state's 4.72 — the
+   one state a reader deliberately puts a link into was the one that failed. */
 a:hover {
   color: var(--sa-deep);
 }
@@ -115,11 +108,11 @@ select {
  * ------------------------------------------------------------------ */
 
 /* Flex column so a short page still puts the footer at the bottom of the
-   viewport instead of leaving a band of bare background under it. */
+   viewport rather than leaving bare background under it. */
 /* `clip`, not `hidden`: both keep the dark shapes from widening the page, but
-   `hidden` would make this a scroll container, which would pin the sticky
-   header to it instead of the viewport. The `hidden` first line keeps the
-   clipping on browsers without `clip` (Safari < 16); they lose only the stick. */
+   `hidden` would make this a scroll container and pin the sticky header to it.
+   The `hidden` first line keeps the clipping on Safari < 16, which loses only
+   the stick. */
 .shell {
   display: flex;
   overflow: hidden;
@@ -152,14 +145,10 @@ select {
 }
 
 /* The wedge behind the logo: the first window onto the dark field. */
-/* The cut is 3 points steeper than it was drawn. With four service names in the
-   row the nav starts further left than it ever did, and at 1181px the first
-   link's hover chip met the slope: the text cleared it by 8px but the chip's
-   rounded corner did not, so a light chip sat partly on navy. Three points is
-   about 10px of the wedge back, and the nav's own gap gives a little at the
-   same time (`.site-nav`, below), which together put ~8px between the chip and
-   the slope at the narrowest width the bar is printed at. The wordmark is 146px
-   wide and still sits well inside. */
+/* The cut is 3 points steeper than drawn: with four service names the nav
+   starts further left, and at 1181px the first link's hover chip met the slope —
+   the text cleared it by 8px, the chip's rounded corner did not. Three points is
+   about 10px of wedge back, which leaves ~8px between chip and slope. */
 .header-wedge {
   position: absolute;
   inset: 0 auto 0 0;
@@ -168,25 +157,19 @@ select {
   clip-path: polygon(0 0, 87% 0, 71.2% 100%, 0 100%);
 }
 
-/* The field inside the wedge stops before the wordmark.
-   It ran the whole wedge, and the wedge is drawn to hold the wordmark, so its
-   nodes and its connectors travelled through the letterforms — on the one
-   element on the site that has to stay crisp at every width, that reads as
-   rendering noise rather than as texture. What is left live is the wedge's
-   tail: the band past the brand where the diagonal cut is, which is the part
-   of the shape that is most itself.
-   The stops are shares of the wedge rather than pixels, because the two move
-   together: measured, the brand box ends at 62% of the wedge at 1100px and at
-   65% at 1440px, so 68% clears it with room and the field is fully back by 82%.
-   Below the desk it is dropped rather than masked — the wedge narrows to about
-   170px there and the brand ends at 88% of it, so there is no tail left to put
-   a field in, and a flat navy plate is what the shape is down there. */
+/* The field inside the wedge stops before the wordmark: run the whole width its
+   nodes and connectors travelled through the letterforms, which reads as
+   rendering noise on the one element that has to stay crisp. What is left live
+   is the tail past the brand, where the diagonal cut is.
+   The stops are shares of the wedge, because the two move together: the brand
+   box ends at 62% of it at 1100px and 65% at 1440, so 68% clears it. Below the
+   desk the wedge is a flat plate — no tail left to put a field in. */
 .header-wedge sa-node-field {
   -webkit-mask-image: linear-gradient(90deg, transparent 0 68%, #000 82%);
   mask-image: linear-gradient(90deg, transparent 0 68%, #000 82%);
 }
 
-@media (max-width: 1180px) {
+@media (width < 1181px) {
   .header-wedge sa-node-field {
     display: none;
   }
@@ -207,10 +190,9 @@ select {
   color: var(--text-on-dark);
 }
 
-/* `flex: none`: the header is a flex row, and on a narrow phone it runs out of
-   room. Without this the mark is the item that gives way and collapses to a
-   sliver — the copy beside it never shrinks, so the logo would take the whole
-   shortfall on its own. */
+/* `flex: none`: the header is a flex row and on a narrow phone it runs out of
+   room. The copy beside the mark never shrinks, so without this the logo takes
+   the whole shortfall and collapses to a sliver. */
 .brand-link .logo {
   flex: none;
   width: 30px;
@@ -231,50 +213,25 @@ select {
 
 /* The bar exists from 1181px up and nowhere else (see the tablet header block
    below). Seven names in three languages is more than the desk's old slack
-   covers, so the row is fluid here too, and it is the slopes that do the work
-   rather than the floors: at 1181px, the narrowest width the bar is ever
-   printed at, the type is at 12.05px and the link padding at 7.3px, and both
-   open back out to the drawn values by the time there is room for them. The
-   floors are there to stop the row collapsing, not because anything reaches
-   them — nothing does above 645px. The gap in front of the nav gives at the
-   same time, because a desk that has run out of room has run out of it there
-   first.
+   covers, so the row is fluid here too and it is the slopes that do the work:
+   at 1181px the type is at 12.05px and the link padding at 7.3px, both opening
+   back out to the drawn values. The floors are there to stop the row collapsing;
+   nothing reaches them above 645px.
 
-   Measured, not estimated, and the row is seven names now — Jobs joined it and
-   the measurement moved with it. At 1181px the primary action ends 74px from
-   the window edge against a 59px gutter in Dutch and English: 15px of true
-   slack, unchanged, because those two rows had free space between the nav and
-   the language chips for the seventh name to take. French had 42px of that free
-   space and Jobs costs 62, so it ends 28px from the edge instead of 74 — the
-   button has taken 31px of the gutter rather than standing on it. Nothing is
-   clipped, nothing overlaps, and the document does not scroll; the action is
-   simply not on the page gutter the rest of the page is ranged against, and
-   only in French. It clears again from about 1240px up (13px short at 1220,
-   14px of slack at 1280) so the band is about sixty pixels wide.
+   Measured, and the row is seven names. At 1181px the primary action ends 74px
+   from the window edge against a 59px gutter in Dutch and English: 15px of true
+   slack. French had 42px of free space and Jobs costs 62, so there the action
+   stands 31px inside the gutter rather than on it — nothing is clipped, nothing
+   overlaps, and it clears again from about 1240px, so the band is ~60px wide.
+   That is bought deliberately; if it has to be paid back, the lever is printing
+   the row from 1240px rather than the gaps here, which are at their floors.
 
-   That band is bought deliberately: the alternative was to keep the jobs page
-   out of the bar, and a page nothing links to is a page nobody reaches. If it
-   ever has to be paid back, the lever is the bar's own fold — printing the row
-   from 1240px instead of 1180px — and not the gaps here, which are already at
-   the floors this block describes.
-
-   The overflow check matters because `.shell` is `overflow: clip`, so a row
-   that did overflow would be silently cut rather than scrollable, and the
-   document's own scrollWidth would never say so.
-
-   It is worth knowing that this was measured and found broken. The comment
-   above used to claim 29px of clearance at 1181px, and by the time the offer
-   was four services with names like "AI-native SDLC-transformatie" the real
-   number was −14px in Dutch and −53px in French: the button was hanging past
-   the window edge and being clipped, on every desk narrower than about 1300px,
-   in silence. What fixed it is that the nav prints the short name of a service
-   (`navLabel` in `src/layouts/base.mjs`) and not the full one — 706px of names
-   became 502px — which is also what made room for Home. Re-measure this row
-   whenever a name in it changes, and whenever the face does: 15px is about
-   1.5% of the nav's own width, and the Geist binaries the site asks for and
-   does not ship set wider than the platform face it is measured in. In French
-   there is no slack left to give at all, so a wider face widens the band the
-   action stands inside the gutter in rather than clipping anything. */
+   The overflow matters because `.shell` is `overflow: clip`, so a row that did
+   overflow would be silently cut and `scrollWidth` would never say so. What
+   makes it fit at all is that the nav prints the short name of a service
+   (`navLabel`) — 706px of names became 502px. Re-measure whenever a name
+   changes, and whenever the face does: 15px is about 1.5% of the nav's width,
+   and the Geist binaries the site asks for and does not ship set wider. */
 .site-nav {
   display: flex;
   gap: var(--space-1);
@@ -305,61 +262,27 @@ select {
   color: var(--text-strong);
 }
 
-/* The page you are on. The bar first said nothing about it at all, and then
-   said it in ink and weight, which is a shade and a hair in a row of six names
-   set identically: nothing in the row says *which* item is marked until two of
-   them are compared, and the longest item in the row is the SDLC one at every
-   width and in all three languages (213.6px in Dutch at 1440 against 208.6 for
-   the next, and 26px clear in French), so a shade there reads as the row's own
-   unevenness rather than as a mark. What it says now is the mark the rest of
-   the site already means "you are here" with — the 2px cyan rule on the clause
-   index's current row, on the landed heading, on the pull quote it was taken
-   from — laid flat under the label, because a rule beside a name is what a
-   stacked list can carry and a rule under it is what a row can.
+/* The page you are on. Ink and weight alone is a shade and a hair in a row of
+   names set identically — and the SDLC item is the longest in the row at every
+   width and in all three languages, so a shade there reads as the row's own
+   unevenness. The mark is the one the rest of the site means "you are here"
+   with: the clause index's 2px cyan rule, laid flat under the label.
 
-   Turning it flat is the one thing here that was not free: a horizontal 2px
-   cyan rule already means "a block starts here" on this site
-   (`.section-heading`, `.error-page h1`, `.step--first`), and under a sticky
-   header the two are on screen together. It is taken anyway, because a rule
-   drawn under a nav item is read by its position long before it is read as a
-   rule, and because the alternative is a mark this site does not otherwise use.
+   Turning it flat was the one thing not free: a horizontal cyan rule already
+   means "a block starts here" (`.section-heading`), and under a sticky header
+   the two are on screen together. Taken anyway, because a rule under a nav item
+   is read by its position long before it is read as a rule.
 
-   Four things follow.
-
-   It is a border and not a painted 2px bar, like `.notice__clauses
-   .rail-row[aria-current]`, and for a reason that is not recorded there: a
-   forced palette substitutes a system colour for a border and keeps it, where
-   `background-color` is forced to the Canvas family and a painted bar would go.
-   Above 1180px this is the only thing left saying where the reader is once the
-   ink difference collapses, so it has to survive.
-
-   It spans the label and not the link box, because the box carries the hover
-   chip and a rule drawn to the box's edges crosses its 8px corners: 2px up from
-   the box's foot the radius has already taken 2.71px off each end, and
-   `--nav-link-pad` never falls below 7.32px in the band the bar exists in.
-   Inside the chip it also leaves the current item a hover state, which the old
-   marker did too — ink and hover shared only the colour — and which is the
-   whole reason the wash was never the marker.
-
-   It turns to ink while the item has focus, and does not go. The ring is
-   `--sa-cyan` at 2px with a 3px offset and the rule is `--sa-cyan` at 2px about
-   5px inside the ring's foot, stopping short of it at both ends: two cyan lines
-   that read as one mis-drawn ring rather than as focus on the current item.
-   Hiding the rule was the first answer and it is the wrong one — a focused
-   *non-current* item draws exactly the same ring, so with the rule gone the tab
-   stop on the marked page is the one place in the bar that says nothing about
-   where the reader is, and under a forced palette it says nothing at all. In
-   ink the two lines stop being the same line. Chrome's forced palette gives the
-   ring `Highlight` and the rule `LinkText`, so they stay two colours there too;
-   an engine that forced both to the same one would hand the doubling back, and
-   that is still the better end of the trade, because the alternative is no
-   current-page mark at that stop at all.
-
-   And weight is no longer part of it. A semibold item is a wider item, so it
-   pushed everything to its right along by up to 5px — measured: 4.88px on the
-   SDLC page, 0.75 on the homepage, 0 on the team page, whose marked item is
-   last in the row. The row's metrics are identical on all six now; only the
-   rule and the ink move. */
+   Four things follow. It is a **border**, not a painted bar: a forced palette
+   substitutes a system colour for a border and keeps it, where a background goes
+   — and above 1180px this is the only thing left saying where the reader is. It
+   spans the **label**, not the link box, whose 8px corners a rule drawn to its
+   edges would cross. It turns to **ink while focused** rather than going: the
+   ring is cyan at 2px about 5px outside it, and two cyan lines read as one
+   mis-drawn ring — but hiding the rule leaves the tab stop on the marked page
+   the one place in the bar that says nothing. And **weight is no longer part of
+   it**: a semibold item is a wider item, and it pushed the row along by up to
+   4.88px. The metrics are identical on all six pages now. */
 .nav-link.is-current {
   color: var(--text-strong);
 }
@@ -377,25 +300,19 @@ select {
   border-bottom-color: var(--text-strong);
 }
 
-/* The disclosure's copy of the state, and what is left of the rule the bar and
-   the panel used to share. The ink half is inert — `.nav-toggle__panel a` sets
-   every item to `--text-strong` already, and this beats it on specificity
-   (two classes against a class and an element) rather than the other way round,
-   so the declaration stands whatever that rule says. The weight half is not
-   inert and is the reason the bar's marker is not simply copied down here: in
-   the dropdown band the current item computes 600 against 500 for the rest, and
-   under `forced-colors` it is the only mark left down there — the accent dot in
-   main.css is a background, so it goes, and that is the trade a dot makes for
-   not moving the row. Only on the phone, where every item is already semibold,
-   is the dot the whole of it. */
+/* The disclosure's copy of the state. The ink half is inert — the panel already
+   sets every item to `--text-strong` — but the weight half is not, and in the
+   dropdown band it is the only mark left under `forced-colors`, where the accent
+   dot in main.css goes because it is a background. On the phone, where every
+   item is already semibold, the dot is the whole of it. */
 .nav-sheet__item.is-current {
   color: var(--text-strong);
   font-weight: var(--weight-semibold);
 }
 
 /* The one chevron left in the header, on the menu trigger under 768px. It sits
-   in a flex row beside a word that will not shrink, so `flex: none` is what
-   keeps it from being the thing that disappears on a narrow phone. */
+   beside a word that will not shrink, so `flex: none` keeps it from being the
+   thing that disappears on a narrow phone. */
 .nav-chevron {
   flex: none;
   display: inline-flex;
@@ -419,10 +336,9 @@ select {
 
 .lang-switcher a {
   transition: var(--transition-tint);
-  /* A flex box with a floor under it rather than a plain block: the chips were
-     46x37 in the phone sheet and 26x33 in the tablet header, and 26px wide is
-     under the 24px WCAG floor in one axis only because of the gap beside it.
-     The floor is on the box, so the type stays the size it is drawn at. */
+  /* A flex box with a floor rather than a plain block: the chips were 26x33 in
+     the tablet header, under the 24px WCAG floor in one axis but for the gap
+     beside them. The floor is on the box, so the type keeps its drawn size. */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -440,13 +356,11 @@ select {
   color: var(--text-strong);
 }
 
-/* The language you are reading. This said `[aria-current="true"]` and the
-   switcher has always emitted `aria-current="page"`, so the rule matched
-   nothing: all three chips computed to the same colour, the same weight and no
-   underline, and the only thing naming the current language was an attribute no
-   sighted reader can see. Matching on the attribute's presence is what fixes it
-   — and the mark is the nav's own, an underline, because colour alone is not a
-   distinction (WCAG 1.4.1) and the chip's wash is a 1.06:1 tint of the paper. */
+/* The language you are reading. This said `[aria-current="true"]` while the
+   switcher emits `aria-current="page"`, so it matched nothing and the only thing
+   naming the current language was an attribute no sighted reader can see. The
+   mark is an underline, because colour alone is not a distinction (WCAG 1.4.1)
+   and the chip's wash is a 1.06:1 tint of the paper. */
 .lang-switcher a[aria-current] {
   background: var(--surface-chip);
   color: var(--text-strong);
@@ -459,20 +373,14 @@ select {
 /* ------------------------------------------------------------------ *
  * Buttons — "Diepzee"
  *
- * The primary action is the deep-sea step of the accent rather than ink, and
- * every state it has is a colour step: no lift, no cast shadow, no travel.
- * What was there before was a card idiom borrowed by a button — rise 2px,
- * throw a shadow — and it made the one control on the page that is genuinely
- * pressable behave like the one thing on the page that is not. A fill that
- * darkens under the finger is the older and the truer answer, and it is the
- * only one of the two that has somewhere left to go when the button is
- * actually pressed.
+ * The primary action is the deep-sea step of the accent, and every state is a
+ * colour step: no lift, no cast shadow, no travel. A fill that darkens under the
+ * finger is the only one of the two that has somewhere left to go when the
+ * button is actually pressed.
  *
- * Four states, four fills, and the relief is the only thing drawn: a hairline
- * of white along the top edge at rest, the same hairline turned into a shadow
- * under the edge when pressed. Nothing here transitions but colour, which is
- * why `--transition-move` is gone from the base and the press and the focus
- * ring both land on the frame they are asked for.
+ * Four states, four fills, and the relief is the only thing drawn: a white
+ * hairline along the top edge at rest, the same turned into a shadow under it
+ * when pressed. Nothing transitions but colour.
  * ------------------------------------------------------------------ */
 
 .btn {
@@ -490,11 +398,9 @@ select {
   cursor: pointer;
 }
 
-/* The ring is drawn flush against the fill instead of the site's offset
-   outline, so a button swaps the two rather than wearing both. That is a
-   box-shadow, and a forced palette drops box-shadows entirely — hence the
-   `forced-colors` rule at the foot of this block, which is the only reason a
-   keyboard user in a high-contrast theme still sees where they are. */
+/* The ring is drawn flush against the fill instead of the site's offset outline,
+   so a button swaps the two rather than wearing both. That is a box-shadow, and
+   a forced palette drops box-shadows — hence the `forced-colors` rule below. */
 .btn:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--focus-ring-action);
@@ -516,17 +422,15 @@ select {
 }
 
 /* After the ring, deliberately: while a key is held both states are live, and
-   the press is the one the reader is causing. The ring comes back the moment
-   the key is let go. */
+   the press is the one the reader is causing. */
 .btn--primary:active {
   background: var(--action-primary-bg-press);
   box-shadow: var(--shadow-action-press);
 }
 
-/* Last of the five, so it wins over every state above it without a second
-   selector saying so. `aria-disabled` and not `disabled`, because the form's
-   submit is only ever busy — it keeps its focus and it keeps announcing
-   itself, and what stops the second click is the guard in contact-form.js. */
+/* Last of the five, so it wins without a second selector. `aria-disabled` and
+   not `disabled`, because the submit is only ever busy — it keeps its focus and
+   keeps announcing itself, and the guard in contact-form.js stops the click. */
 .btn--primary:disabled,
 .btn--primary[aria-disabled="true"] {
   background: var(--action-primary-bg-off);
@@ -543,23 +447,17 @@ select {
   font-weight: var(--weight-medium-plus);
 }
 
-/* To the primary's own colour, not to cyan. The two buttons stand side by side
-   in every hero on the site, and hovering the second one used to introduce a
-   third colour to a pair that has two. */
+/* To the primary's own colour, not cyan: the two stand side by side in every
+   hero, and hovering the second introduced a third colour to a pair of two. */
 .btn--ghost:hover {
   border-color: var(--action-secondary-hover);
   color: var(--action-secondary-hover);
 }
 
-/* There is no `.btn--ondark` here any more. It was four rules — a fill, a
-   hover, an offset focus outline and a press — for a button on the dark field,
-   and the dark field carries no buttons: nothing in the 60 rendered pages uses
-   the class, and nothing has since the navy bands the redesign replaced. It was
-   inlined into every `<head>` on the site to style an element no page emits. The
-   argument it carried is worth keeping if it ever comes back — a ring drawn
-   flush against #00d8ff has two edges to clear 3:1 on and nothing clears both
-   it and the navy behind it, so that button wants the site's offset outline
-   rather than the flush ring every other button swaps to. */
+/* There is no `.btn--ondark` here any more: nothing in the 60 rendered pages
+   used it. If it ever comes back — a ring drawn flush against #00d8ff has two
+   edges to clear 3:1 on and nothing clears both it and the navy behind it, so
+   that button wants the site's offset outline, not the flush ring. */
 
 .btn--sm {
   padding: var(--space-2) var(--space-6);
@@ -567,39 +465,30 @@ select {
 }
 
 /* The ring is a box-shadow and a forced palette has none, so the outline the
-   button gave up comes back where it is the only thing left. Filed here rather
-   than in the forced-colours block at the foot of main.css: that block is for
-   decoration being dropped, and this is a control being given back what it
-   needs. It is also in the critical sheet on purpose — a focus ring that
-   arrives with main.css arrives after the first Tab. */
+   button gave up comes back where it is the only thing left. In the critical
+   sheet on purpose: a focus ring that arrives with main.css arrives after the
+   first Tab. */
 @media (forced-colors: active) {
   .btn:focus-visible {
     outline: 2px solid;
     outline-offset: 2px;
   }
 
-  /* The orbit rings go, site-wide. They are five hairlines drawn at 5 to 11%
-     precisely so they sit under the type; a forced palette substitutes a system
-     colour for every border and drops the alpha with it, so ground designed to
-     be barely there came back as `CanvasText` at the layer's full opacity —
-     five full-strength circles through the reading column, the strongest lines
-     on the screen. A decoration has no weight it can be given in a palette it
-     does not choose, so it goes, the way `@media print` already drops it.
-     `.cycle__phase` on the AI-native SDLC page is the other half of the same
-     thought: that figure carries meaning, so it is given a border it can keep.
-
-     It is here rather than in main.css because `.orbits` is a critical rule: a
-     page whose rings arrived unhidden until the stylesheet landed would flash
-     them across the copy on every first paint. */
+  /* The orbit rings go, site-wide. They are hairlines at 5 to 11% precisely so
+     they sit under the type, and a forced palette substitutes a system colour
+     for every border and drops the alpha with it — five full-strength circles
+     through the reading column. A decoration has no weight it can be given in a
+     palette it does not choose. (`.cycle__phase` is the other half of the same
+     thought: that figure carries meaning, so it keeps a border.)
+     Here rather than in main.css because a page whose rings arrived unhidden
+     until the stylesheet landed would flash them on every first paint. */
   .orbits {
     display: none;
   }
 
-  /* The burger's two bars are painted backgrounds on a 1.5px box, and a forced
-     palette forces a background to the Canvas family — so the one control that
-     opens the navigation on a phone had no icon in it at all. Drawn as a border
-     it survives, which is the same reason `.nav-link.is-current::after` is a
-     border and not a painted bar. */
+  /* The burger's bars are painted backgrounds, which a forced palette forces to
+     the Canvas family — so the one control that opens the navigation on a phone
+     had no icon in it. Drawn as a border it survives. */
   .nav-toggle__burger i {
     height: 0;
     border-top: 2px solid CanvasText;
@@ -621,11 +510,11 @@ select {
   background: var(--surface-dark);
 }
 
-/* The clip lives on the element that carries data-magnet, never on a wrapper:
+/* The clip lives on the element carrying data-magnet, never on a wrapper:
    src/motion.js grows that element's box and remaps the outline into it, so a
-   clip applied one level up would no longer line up with the silhouette. The
-   rules are keyed on `data-clip` rather than on `.field` so the shape and the
-   clip stay named together. */
+   clip one level up would no longer line up with the silhouette. Keyed on
+   `data-clip` rather than `.field`, so the shape and the clip stay named
+   together. */
 [data-clip="heroPetal"] {
   clip-path: url(#heroPetal);
 }
@@ -642,10 +531,9 @@ select {
   clip-path: url(#dnaBlob);
 }
 
-/* The AI staffing page's own hero shape: an arch on the flank the petal is a
-   leaf on, and the two pebbles that have come away from it into the light half
-   of the hero. `heroPebbleA` is shared: the training hero uses it for the bead
-   standing above its petal. */
+/* The AI staffing page's hero: an arch on the flank the petal is a leaf on, and
+   the two pebbles come away from it. `heroPebbleA` is shared with the training
+   hero's bead. */
 [data-clip="heroArch"] {
   clip-path: url(#heroArch);
 }
@@ -720,12 +608,9 @@ select {
 }
 
 /* Both shapes hang off a page edge and stop short of the other three: an edge
-   cut by the hero's own bottom would read as clipped, not drawn. Every offset
-   is a share of the hero, never a pixel size — the shapes hold the same
-   proportion of the page at every width, which is what the design draws.
-   Sized by insets alone, never width/height — src/motion.js grows the box by
-   subtracting from all four offsets, and an explicit size would move the box
-   instead of growing it. */
+   cut by the hero's own bottom would read as clipped, not drawn. Every offset is
+   a share of the hero, and it is sized by insets alone — src/motion.js grows the
+   box by subtracting from all four, and an explicit size would move it. */
 .hero__field--right {
   inset: 0.8% 0 7.8% 56%;
 }
@@ -734,31 +619,21 @@ select {
   inset: 23.4% 44% 3.4% 0;
 }
 
-/* The orbit diagram: five rings struck from one origin off the left edge. It is
-   clipped to the hero by its own layer, never by `.hero` itself — the dark
-   shapes deform outside their box and must not be cut off with it. */
-/* The layer is wider than the page's own box in every direction the rings need,
-   and `overflow: hidden` is what keeps that off the document. What it cannot do
-   is end an arc gracefully, and it was ending one thing badly: the travelling
-   node.
+/* The orbit diagram, clipped to the hero by its own layer and never by `.hero`
+   itself — the dark shapes deform outside their box and must not be cut with
+   it. */
+/* The layer is wider than the page's box in every direction the rings need, and
+   `overflow: hidden` keeps that off the document. What it cannot do is end an
+   arc gracefully, and it was ending the travelling node badly: a node's opacity
+   is keyed to the rotation alone, so on a layer whose origin is struck near a
+   page edge it is lit while outside the layer, and a lit dot crossing a hard
+   clip is drawn as a sliver of itself — measured, 1px of grey on the page gutter
+   above the "Inzichten" heading, which reads as dirt on the screen.
 
-   A node is a 4-5px dot on the ring's circumference, and on every layer whose
-   origin is struck near or past a page edge — the insights list's is at 104% —
-   it spends part of its turn outside the layer. Its opacity is keyed to the
-   rotation and nothing else, so it is lit for that stretch too, and a lit dot
-   crossing a hard clip is drawn as a sliver of itself: measured on the homepage,
-   `home-insights-orbit-02` stands 4px past the right edge with 1px of it
-   showing, a grey speck on the page gutter just above the "Inzichten" heading.
-   It reads as dirt on the screen, which is the one thing a texture must not do.
-
-   So the layer fades out over its last 44px on the left and right rather than
-   stopping. The node dissolves before the edge can cut it, and the arcs — which
-   ran off the page edge and stopped dead there — now leave the page instead of
-   being sliced by it, which is the same argument `.orbits--notice` makes at its
-   own foot. Horizontal only: no node on any layer on the site reaches the top or
-   the bottom edge lit, and a vertical fade would pull the rings off the hero's
-   own hairline, where an arc stopping under the header reads as an arc going
-   behind it. */
+   So the layer fades out over its last 44px left and right rather than stopping.
+   Horizontal only: no node on the site reaches the top or bottom edge lit, and a
+   vertical fade would pull the rings off the hero's own hairline, where an arc
+   stopping under the header reads as an arc going behind it. */
 .orbits {
   position: absolute;
   inset: 0;
@@ -768,30 +643,19 @@ select {
   pointer-events: none;
 }
 
-/* Under a hero the rings run on past its foot, and they have to be given the
-   room to do it. They are struck 90px below the layer's top and the outermost
-   is 845px in radius, so on the 540px hero of `.hero--page` the last three
-   rings close 82px, 232px and 397px below the foot — and `.orbits` clips to its
-   own box, so all three were cut dead on the same horizontal line. Three arcs
-   ending on one rule is a seam, not ground: it is the artefact
-   `.orbits--notice` masks away at the bottom of the privacy notice, here drawn
-   straight across the gap between the hero and the section under it. Every hero
-   on the site was cut this way — the homepage's 820px hero by 115px, the team
-   page's 771px hero by 164, the four page heroes by 395.
+/* Under a hero the rings run on past its foot and have to be given the room.
+   They are struck 90px below the layer's top with an outermost radius of 845px,
+   so on a 440px hero the last three rings close below the foot — and `.orbits`
+   clips to its own box, so all three were cut dead on the same horizontal line.
+   Three arcs ending on one rule is a seam, and every hero on the site had one.
 
-   So the layer is given the height its geometry needs — 90px to the origin,
-   845px of radius, 1px of stroke — rather than the hero's. `bottom` is ignored
-   once an absolutely positioned box is over-constrained, so this grows the box
-   downward and leaves the origin, and every ring on it, exactly where it was.
-   The rings then pass under the section below: `.section` is `position:
-   relative; z-index: 1`, so its content paints over them and its transparent
-   ground lets them through, which is what makes the diagram continue rather
-   than stop. Nothing is masked, because nothing is cut.
+   So the layer is given the height its geometry needs rather than the hero's.
+   `bottom` is ignored once an absolutely positioned box is over-constrained, so
+   this grows the box downward and leaves the origin where it was. The rings then
+   pass under the section below, which paints over them and lets them through.
 
-   Scoped to a hero. The other three sets — the training offer, the insights
-   list and the privacy notice — are struck against the section they ground,
-   and a height struck from the hero's geometry would push them into the next
-   one. */
+   Scoped to a hero: the other three sets are struck against the section they
+   ground, and this height would push them into the next one. */
 .hero .orbits {
   min-height: 936px;
 }
@@ -846,77 +710,76 @@ select {
   border-color: color-mix(in oklch, var(--sa-ink) 5%, transparent);
 }
 
-/* Three of the rings carry a node. The ring-sized box rotates; the node rides
-   its top edge and fades in and out over one turn, so it reads as one node
-   travelling rather than as a permanent dot. */
+/* Three of the rings carry a node: a point that turns around the diagram's
+   origin and fades in and out over one turn, so it reads as one node travelling
+   rather than as a permanent dot.
+
+   The thing that rotates has no size. Rotating a box as wide as its ring also
+   carries the node round, and it hands the compositor four layers of up to
+   1690px square — around 20 MB of texture at DPR 2 — to paint four 5px dots. A
+   0x0 box rotates about the point it stands on, so the anchor stands on the
+   origin and the node is hung out at the ring's radius plus half its own width,
+   a box being positioned by its corner. The cost is that the radius is written
+   twice per ring, so a ring that moves has to move in both places. */
 .orbits__path {
   position: absolute;
+  inset: 0 auto auto 0;
+  width: 0;
+  height: 0;
   animation: sa-orbit linear infinite;
 }
 
 .orbits__node {
   position: absolute;
-  left: 50%;
   border-radius: 50%;
   animation: sa-orbit-fade ease-in-out infinite;
 }
 
 .orbits__path--01 {
-  inset: -390px auto auto -390px;
-  width: 780px;
-  height: 780px;
   animation-duration: 34s;
 }
 
 .orbits__path--01 .orbits__node {
-  top: -4px;
+  top: -394px; /* ring radius 390 + half the dot */
+  left: -4px;
   width: 8px;
   height: 8px;
-  margin-left: -4px;
   background: var(--sa-cyan);
   box-shadow: 0 0 14px 2px color-mix(in oklch, var(--sa-cyan) 50%, transparent);
   animation-duration: 34s;
 }
 
 .orbits__path--02 {
-  inset: -530px auto auto -530px;
-  width: 1060px;
-  height: 1060px;
   animation-duration: 62s;
   animation-direction: reverse;
 }
 
 .orbits__path--02 .orbits__node {
-  top: -3px;
+  top: -533px; /* 530 + 3 */
+  left: -3px;
   width: 6px;
   height: 6px;
-  margin-left: -3px;
   background: var(--sa-grey-1);
   animation-duration: 62s;
   animation-delay: -14s;
 }
 
 .orbits__path--03 {
-  inset: -680px auto auto -680px;
-  width: 1360px;
-  height: 1360px;
   animation-duration: 88s;
 }
 
 .orbits__path--03 .orbits__node {
-  top: -2.5px;
+  top: -682.5px; /* 680 + 2.5 */
+  left: -2.5px;
   width: 5px;
   height: 5px;
-  margin-left: -2.5px;
   background: color-mix(in oklch, var(--sa-cyan) 75%, transparent);
   animation-duration: 88s;
 }
 
-/* Ring 04's travelling node lives in main.css, not here. Only a ground taller
-   than a hero gives that ring room to read, so the three call sites that ask
-   for it are all below the fold — the offer, the insights list and the privacy
-   notice — and two rules for a thing no first paint can show were 380 bytes of
-   every `<head>` on the site. */
+/* Ring 04's travelling node lives in main.css: only a ground taller than a hero
+   gives that ring room, so all three call sites are below the fold and two rules
+   no first paint can show were 380 bytes of every `<head>`. */
 
 @keyframes sa-orbit {
   from {
@@ -963,19 +826,15 @@ select {
 }
 
 /* The copy sits at the top of its column, not on the hero's centre line: the
-   petal's pinch is at mid-height, and the block reads better above it. */
+   petal's pinch is at mid-height and the block reads better above it. */
 .hero__text {
   align-self: start;
 }
 
 
-/* Every hero heading, at one size. The homepage used to print a wordmark at
-   this size with the claim under it a step smaller (`.hero h1.hero__claim`),
-   which is why this rule named two selectors and why the claim needed an
-   element-qualified override to beat `.hero h1`. The wordmark is gone — the
-   header carries the brand 120px above it — so the claim is simply the heading,
-   at the size the lockup had, and the whole `.hero__wordmark` block and the
-   override with it. */
+/* Every hero heading, at one size. The homepage's wordmark at this size is gone
+   — the header carries the brand 120px above it — so the claim is simply the
+   heading, and `.hero__wordmark` and its override went with it. */
 .hero h1 {
   max-width: var(--measure-display);
   color: var(--text-strong);
@@ -994,11 +853,10 @@ select {
   align-items: center;
 }
 
-/* Between the magnet breakpoint and the tablet, the flanks are too narrow to
-   carry the shapes at their drawn size: both pull back into their corner, and
-   the lobe drops below the copy rather than rising behind it. The copy keeps
-   its column, so it never crosses the petal. */
-@media (max-width: 1080px) {
+/* Between the magnet breakpoint and the tablet the flanks are too narrow to
+   carry the shapes at their drawn size: both pull back into their corner and the
+   lobe drops below the copy. The copy keeps its column. */
+@media (width < 1081px) {
   .hero__inner {
     min-height: 720px;
     padding-left: var(--gutter-page);
@@ -1013,27 +871,21 @@ select {
   }
 }
 
-/* The tablet keeps the hero split, and so does everything down to the phone.
-   The artboard draws the copy in a column just over half the page with the
-   petal hung off the right edge beside it — the desk's composition at the
-   tablet's proportions, not a new one — and the column and the lobe are both
-   shares of the width, so the pair holds all the way to the phone's own line.
-   The counter-lobe goes: at this width the two shapes meet in the middle and
-   the copy loses the light ground it is ranged against. */
-@media (min-width: 621px) and (max-width: 940px) {
-  /* 51%, not the artboard's 57%: the petal's tip reaches back to 54% of the
-     page at mid-height, and the artboard's own column ends a hair short of it
-     in one language at one width. A line of copy that fills the column has to
-     clear the shape at every width in the band and in all three, so the column
-     gives up the six points the tip needs. */
+/* The tablet keeps the hero split, and so does everything down to the phone:
+   the artboard draws the copy in a column just over half the page with the petal
+   beside it, and both are shares of the width. The counter-lobe goes — at this
+   width the two shapes meet in the middle and the copy loses its light ground. */
+@media (621px <= width < 941px) {
+  /* 51%, not the artboard's 57%: the petal's tip reaches back to 54% of the page
+     at mid-height, and a line of copy that fills the column has to clear the
+     shape at every width in the band and in all three languages. */
   .hero__inner {
     grid-template-columns: minmax(0, 51%);
     min-height: clamp(470px, 66vw, 620px);
   }
 
-  /* On the desk the copy sits above the petal's pinch. Here the shape is a
-     lobe hung off one edge with no pinch to clear, and the block reads on the
-     hero's centre line. */
+  /* On the desk the copy sits above the petal's pinch; here the shape is a lobe
+     with no pinch to clear, so the block reads on the hero's centre line. */
   .hero__text {
     align-self: center;
   }
@@ -1042,7 +894,7 @@ select {
      largest thing on the page, which is what the phone already does. */
   .hero h1 {
     max-width: none;
-    font-size: clamp(38px, 6.4vw, 54px);
+    font-size: clamp(2.375rem, 6.4vw, 3.375rem);
   }
 
   .hero__field--right {
@@ -1057,39 +909,27 @@ select {
 /* ------------------------------------------------------------------ *
  * The tablet header
  *
- * The tablet artboard ("SmartAgents Homepage Tablet", 834x1112) keeps the
- * header a header, and it was drawn against a bar of four items. The offer is
- * six now — four services named in full, plus Team and the sections — and four
- * of those names are two and three words long. Fitted into 834px they are
- * 11px type in a row with no gaps, which is not the artboard's header either;
- * so the row is a desk-only thing and the tablet takes the disclosure the
- * phone already has, in its compact dropdown mode. Everything else the
- * artboard prescribes for this width still stands: the taller row, the fluid
- * brand, the narrowed wedge, the tightened gutter.
+ * The tablet artboard (834x1112) keeps the header a header, and was drawn
+ * against a bar of four items. The offer is six, four of them named in two and
+ * three words: fitted into 834px that is 11px type in a row with no gaps, which
+ * is not the artboard's header either. So the row is desk-only and the tablet
+ * takes the disclosure in its compact dropdown mode; everything else the
+ * artboard prescribes still stands. If the offer shrinks back to two services,
+ * the row fits again and this band should get it back.
  *
- * If the offer ever shrinks back to two services, the row fits again and this
- * band should get it back.
- *
- * The band itself stops at 1000px, not at the 1180px where the row folds. It
- * carries the tablet's whole shell — a 72px row, a 22px gutter, a 212px wedge,
- * a brand scaled down with them — and that shell has to range with the page it
- * sits over. Run up to 1180px it did not: the header's gutter caps at 22px
- * while `--gutter-page` under it is still 59px, so the brand sat 34px outboard
- * of the first heading on the page and the primary action 37px outboard of the
- * content edge. In a full-bleed layout the gutter is the composition, and a
- * 1180px laptop read as mis-set. Above 1000px the desk shell carries the
- * disclosure instead, which is the same row it always was minus the links.
+ * The band stops at 1000px, not at the 1180px where the row folds. It carries
+ * the tablet's whole shell — 72px row, 22px gutter, 212px wedge — and that shell
+ * has to range with the page under it: run up to 1180px the header's gutter caps
+ * at 22px while `--gutter-page` is still 59, so the brand sat 34px outboard of
+ * the first heading on the page.
  * ------------------------------------------------------------------ */
-@media (min-width: 768px) and (max-width: 1000px) {
-  /* Every measurement in this row is fluid between the tablet's two ends:
-     at 834px, the artboard's own width, they land on the artboard's values,
-     and they tighten from there so the row still holds at 768px — the
-     narrowest width a tablet is held upright at. */
-  /* The header is taller here than on the desk, so the offset an anchor is
-     scrolled to has to grow with it — and by the same air, not by the header's
-     height alone. 76 against a 72px row was 4px of clearance, on the band where
-     the privacy notice's clause index sits above the copy and is the reader's
-     only way around a 2820px document. */
+@media (768px <= width < 1001px) {
+  /* Every measurement in this row is fluid between the tablet's two ends: at
+     834px they land on the artboard's values and tighten from there, so the row
+     still holds at 768px. */
+  /* The header is taller here, so an anchor's offset grows with it — and by the
+     same air, not by the header's height alone. 76 against a 72px row was 4px of
+     clearance, on the band where the clause index sits above the copy. */
   html {
     scroll-padding-top: 108px;
   }
@@ -1111,14 +951,13 @@ select {
     height: clamp(22px, 3.1vw, 28px);
   }
 
-  /* The wedge is a share of the row, and the row lost the gutter that used to
-     stand in front of the brand. Narrowed with it, the cut lands clear of the
-     wordmark on one side and of the first nav item on the other — a nav link
-     half over navy is the one thing this row cannot afford. */
+  /* The wedge is a share of the row, and the row lost the gutter in front of the
+     brand. Narrowed with it, the cut lands clear of the wordmark on one side and
+     the first nav item on the other. */
   .header-wedge {
-    /* Steeper than the desk's cut, like the phone's, and wide enough to hold
-       the wordmark at every width and in all three languages: on a row this
-       full the slope is the only slack there is, so it has to be short. */
+    /* Steeper than the desk's cut, like the phone's, and wide enough for the
+       wordmark in all three languages: on a row this full the slope is the only
+       slack there is. */
     width: clamp(158px, 20.6vw, 212px);
     clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
   }
@@ -1140,7 +979,7 @@ select {
 /* Under the desk the row folds into the disclosure (`.nav-toggle`, in
    main.css), so the header carries the brand, that trigger, the language chips
    and the primary action. */
-@media (max-width: 1180px) {
+@media (width < 1181px) {
   .site-nav {
     display: none;
   }
@@ -1149,14 +988,11 @@ select {
 /* ------------------------------------------------------------------ *
  * Under the tablet: the header tightens around the disclosure
  *
- * Four items where the desk had six, but a third of the width — and the wedge
- * is what gives: at the desk's 318px the cut runs past the trigger and "Menu"
- * sits on navy, unreadable. It narrows to the shape it takes on the phone, cut
- * to the brand and nothing more, and the row beside it tightens with it so the
- * group clears the slope at 621px too, the narrowest width that still has the
- * actions in the row.
+ * Four items where the desk had six, but a third of the width — and the wedge is
+ * what gives: at the desk's 318px the cut runs past the trigger and "Menu" sits
+ * on navy. It narrows to the phone's shape, cut to the brand and nothing more.
  * ------------------------------------------------------------------ */
-@media (max-width: 767px) {
+@media (width < 768px) {
   /* Steeper than the desk cut and welded to the top edge, so the wordmark sits
      inside the wedge at every width under the tablet. */
   .header-wedge {
@@ -1174,9 +1010,8 @@ select {
     height: 26px;
   }
 
-  /* Everything left of the page edge gives a little at once — the gap before
-     the actions, the gap inside them, the chips and the button's own flanks —
-     and the four items travel right together, off the slope. */
+  /* Everything left of the page edge gives a little at once, so the four items
+     travel right together, off the slope. */
   .site-header {
     gap: var(--space-4);
   }
@@ -1197,17 +1032,15 @@ select {
 /* ------------------------------------------------------------------ *
  * The phone
  *
- * The header carries the brand and one way into the menu, and nothing else:
- * the language chips and the primary action move into the sheet, which is the
- * only place down here with room to give them a touch target. That leaves the
- * wedge its full share of a narrow row again, so the dark field still opens
- * the page where the design has it open. A fixed 56px row, because the sheet
- * hangs from the header's bottom edge and has to know where that is.
+ * The header carries the brand and one way into the menu. The chips and the
+ * primary action move into the sheet, the only place with room to give them a
+ * touch target, which leaves the wedge its full share of a narrow row. A fixed
+ * 56px row, because the sheet hangs from the header's bottom edge.
  * ------------------------------------------------------------------ */
-@media (max-width: 620px) {
+@media (width < 621px) {
   .site-header {
     gap: var(--space-4);
-    height: 56px;
+    height: var(--header-phone);
     padding: 0 var(--gutter-page) 0 0;
   }
 
@@ -1221,11 +1054,9 @@ select {
     display: none;
   }
 
-  /* The hero. Above this the copy keeps a column with the petal hung off the
-     right edge beside it; a phone is too narrow to split, so the shape stops
-     standing beside the copy and lies over it — the sliver of itself that fits
-     across the top, welded to the top, left and right edges and free of the
-     bottom, with the copy running under it in a column that clears it. */
+  /* The hero. A phone is too narrow to split, so the shape stops standing beside
+     the copy and lies over it: the sliver that fits across the top, welded to
+     three edges, with the copy running under it. */
   .hero {
     display: block;
     overflow: hidden;
@@ -1258,9 +1089,7 @@ select {
   }
 
   /* The half-page column is the share the copy takes of a hero it splits with
-     the petal. With the shape overhead there is nothing to split with, and
-     holding the copy to half the page only sets the headline in a column
-     narrower than the buttons under it. */
+     the petal. With the shape overhead there is nothing to split with. */
   .hero__inner {
     z-index: 2;
     grid-template-columns: minmax(0, 1fr);
@@ -1268,11 +1097,9 @@ select {
     padding: var(--space-11) var(--gutter-page) 0;
   }
 
-  /* The measure belongs to the whole block, not to the headline alone. The
-     petal's tail comes down the right edge to 58% of the shape's height, well
-     past the last line of type, so anything in the copy that runs the full
-     column ends on navy — which is what the buttons under it did. One share
-     holds them all off it. */
+  /* The measure belongs to the whole block, not the headline alone: the petal's
+     tail comes down the right edge to 58% of the shape's height, so anything
+     running the full column ends on navy — which is what the buttons did. */
   .hero__text {
     max-width: 80%;
   }
@@ -1297,7 +1124,7 @@ select {
 }
 
 /* The narrowest phones: the brand gives up what the wedge cannot. */
-@media (max-width: 400px) {
+@media (width < 401px) {
   .brand-link {
     gap: var(--space-3);
     font-size: var(--text-ui-sm);

@@ -319,7 +319,7 @@ outside it, and are decided the same way everywhere in `src/`:
 
    **There is no hero, and no dark shape at all.** Every other page opens on one because it is
    selling something and the petal is what says whose page it is. This one is a piece of writing, and
-   a 540px shape between the header and the first paragraph is a screen the reader has to scroll past
+   a hero-sized shape between the header and the first paragraph is a screen the reader has to scroll past
    before they can start. So the page opens on the headline, at the measure the body runs at, and it
    is the one page on the public site that is paper end to end. An article headline is a sentence, so
    it is set at `--text-h1-sub` on a 26ch measure rather than at the display size: at the display
@@ -567,11 +567,11 @@ outside it, and are decided the same way everywhere in `src/`:
     takes that licence on a different argument, and the argument is worth writing down because the
     next page will want one too.
 
-    **It is bought by proximity and by the join, not by the weld.** The bead stands 41px off the
-    petal's drawn flank at 1081, 50 at 1440 and 61 at 2560, directly over the shoulder rather than
+    **It is bought by proximity and by the join, not by the weld.** The bead stands 86px off the
+    petal's drawn flank at 1081, 91 at 1440 and 94 at 2560, directly over the shoulder rather than
     out in the open paper — near enough that the two are read as one field at rest, and near enough
-    that a cursor brought into the gap runs them together into a single fluid with a concave fillet
-    at each body. That is the whole of it: **a shape hanging from nothing needs a ground within
+    that a cursor brought into the gap closes the two displaced outlines to under 10px and runs them
+    together into a single fluid with a concave fillet at each body. That is the whole of it: **a shape hanging from nothing needs a ground within
     reach of it, and a flank the reader can see it came off is a ground.** A bead struck in the
     middle of the light half, where the pebbles sit on the staffing page, would need the weld.
 
@@ -590,7 +590,7 @@ outside it, and are decided the same way everywhere in `src/`:
     box would be 124px wide against a 118px height and the pebble in a square box is a disc, so the
     width carries a floor; the aspect runs 1.30 to 1.45 across the desk band instead of 1.05 to 1.46.
 
-    **The box is on the slot, not on the field**, and that is the general lesson. A hero is 540px
+    **The box is on the slot, not on the field**, and that is the general lesson. A hero is 440px
     tall at every desk width and as wide as the window, so a box struck as a share of it in both
     axes holds its height and stretches without limit: the staffing pebbles run from 1.20 to 2.15 in
     aspect between 1440 and 2560, and by 2560 they are touching the arch and each other — a

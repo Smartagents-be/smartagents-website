@@ -331,6 +331,19 @@ also retires the first bullet of item 44.
 
 ## Medium effort (a component, a section, a decision)
 
+> **Applied on 11 September 2026** on the `redesign` branch. Items 26, 28, 30
+> and 32–45 are done, measured in headless Chrome at 390, 620/621, 834, 1080/1081,
+> 1180/1181, 1280, 1440, 1600 and 1920 in all three languages, with `npm run build`
+> green (60 pages, contact path check passed) and no console errors on any public
+> page. Item 27 was already half done and its second half is a client copy
+> decision; item 29 needs content only the client has; item 31 is a decision the
+> client already took once and this pass measures rather than overrules. As in
+> the low band, the item text is left as it was written, as the record of what
+> was found, and a **Done** line says what was actually changed where that
+> differs from the recommendation. `CLAUDE.md` and the `motion-fields`,
+> `smartagents-design` and `jobs-and-odoo` skills were updated wherever a change
+> contradicted them.
+
 ### 26. Detail-page heroes are 640px of decoration before any content. [UX]
 Same root as item 1, but structural. On a 1280×800 laptop the hero on every
 detail page ends at y≈640 and the first section heading at y≈740: the first
@@ -338,6 +351,27 @@ fold is a headline, two buttons and a navy shape. Cut the hero to ~420px on
 detail pages (keep the homepage's), or fill it: standfirst + the page's own
 facts strip (kata) or the first row of the page's list. The jobs hero is the
 clearest case — its only action scrolls to a list one screen down.
+
+**Done, by cutting the height — the only lever item 1 left.** A hero on this site
+is a headline and its actions and nothing between them, which is the client's
+call, so "fill it" was off the table. `.hero--page .hero__inner` is 440px rather
+than 540, and the number is derived rather than chosen: `--section-rhythm` of
+paper, the copy, and `--section-rhythm` again is 398px at 1280 for a two-line
+headline and two buttons, and 440 is that with 42px of slack. It is a floor, so
+the kata hero stands at 458 with its eyebrow and the jobs hero does not fall to
+341. Measured at 1280×800 the first section heading moves from y=696 to 596 and
+the first row of every detail page's own content lands above the fold.
+
+The cost is that every silhouette struck as a share of the hero is drawn 19%
+shorter, which is inside the drift they already take across viewport widths. The
+one composition that is not a share — the jobs pendant, struck in `vw` against a
+fixed band — has its four numbers scaled by the same 440/540, so it keeps its
+traced aspect, its two caps still meet on one width and its floor still crosses
+at 731px; what it costs is stated in `main.css` rather than designed around. The
+training bead was re-measured: 20px of paper under the header rather than 24,
+86–94px off the petal's flank at rest rather than 117–130, and 2–10px between
+the displaced outlines under the cursor rather than 41–61 — so the join it
+exists for forms sooner and the two are still plainly separate at rest.
 
 ### 27. The homepage carries three overlapping taxonomies. [Slop][IA]
 "Wat we doen" (four services), "Ons DNA" (four self-descriptions), "Digitale
@@ -357,6 +391,17 @@ modifier nothing else used and 384 lines of `main.css`. "Ons DNA" stays — that
 half is a copy decision, not a layout one, and it was not asked for. The
 homepage is hero → services → DNA → insights → contact.
 
+**Revisited in the medium pass, and still half done — the other half is not
+ours.** "Digitale transformatie" is gone, as recorded above. Reducing "Ons DNA" to one paragraph or moving it to the
+team page is a rewrite of the company's own description of itself, on the one
+page a stranger lands on, and it is the only thing on that page that says who
+these people are — which is the gap item 29 is about. The one row that is
+plainly filler ("Innovators — Nieuwe technologie trekt ons aan, en geeft ons
+energie") cannot come out on its own either: the list is a 2×2 grid whose last
+row carries the block's closing hairline, so three entries is a layout change as
+well as a copy one. Put the four rows in front of the client with item 29's
+question, which is the same conversation.
+
 ### 28. "Waarom investeren in AI-training?" is a generated benefits list. [Slop]
 Five rows: Snellere adoptie, Hogere productiviteit, Minder risico, Kostenbewust,
 Minder afhankelijk van externen (`training.benefit.*`). This is the pattern a
@@ -364,6 +409,14 @@ reader now recognises as AI copy, and it stands between the hero and the actual
 offer. Keep the two that are specific to this company ("Kostenbewust" with the
 token argument, "Minder afhankelijk") as one sentence in the offer intro, drop
 the section.
+
+**Done, exactly as recommended.** The section is gone, and with it
+`training.why.title` and the ten `training.benefit.*` keys. The two arguments
+that were ours are one sentence under "Ons aanbod" (`training.offer.lede`): the
+token argument — the lightest model that can do the job, which is also what
+`training.course.agentic.learn.3` teaches — and the independence it buys. The
+test they pass and the other three fail is whether a competitor's training page
+could print the same line. The offer now starts on the first fold at 1280×900.
 
 ### 29. No proof anywhere. [Trust]
 No client name, logo, quote, number or certification on any page; the Aviso+
@@ -373,6 +426,14 @@ or three client names from real engagements and one quote with a name and a
 role — placed after "Wat we doen" on the homepage and on the staffing page.
 Needs the client. Do not invent it.
 
+**Not done: it is content, not code.** Nothing in this repository or on the site
+knows a client name, a quote or a number, and the one thing that would make this
+block worse than its absence is an invented one. It stays open, and it is the
+biggest thing on this list. What can be prepared without the client: the block's
+shape is already on the site — a hairline row list after "Wat we doen" on the
+homepage and above the form on the staffing page — so what is needed is two or
+three names from real engagements and one quote with a name and a role.
+
 ### 30. Staffing accordion: half the panel is empty. [UX][Layout]
 The open track panel is 1150px wide; the copy sits in the left 590px and the
 right half is paper. Either run body left and "Past wanneer" right as two
@@ -380,11 +441,36 @@ columns, or cap the panel at the prose measure. The section heading "Wat we
 doen" duplicates the homepage heading; name it for the page ("Het aanbod",
 "Drie manieren van meewerken" without the count).
 
+**Done, both halves, taking the first option.** `.track__inner` is a two-column
+grid from 1001px up: the two paragraphs in the left 58%, "Past wanneer" beside
+them behind a hairline on its left flank. Measured at 1280, the open row goes
+from 505px to 394 and the question a reader opens the row to answer moves from
+260px below the block's fold to level with the first paragraph. Below 1000px —
+the line every two-abreast list on the site collapses on — it folds back to one
+column and the rule turns from the left flank to the top. The heading is "Hoe we
+meewerken" rather than "Wat we doen", which was the homepage's own section
+heading word for word, and the hero's second button names the same thing
+("Bekijk hoe we meewerken"). No count in either, per the house rule.
+
 ### 31. Article measure is ~100 characters; privacy 128. [Readability]
 `.article__main` on the four insight pages is 828px at 16px; the notice is
 1022px. The checklist's 50–75ch is `--measure-prose: 100ch` → ~72ch. CLAUDE.md
 records this as the client's call; put the number in front of them with the
 two screenshots side by side.
+
+**Measured, not decided: this one is the client's and they have taken it once.**
+The numbers, sampled off the rendered copy rather than estimated from `ch`: the
+four articles and the notice both run 828px at 1280 and 1022px from about 1500px
+up, which at the body size is 112 characters to the line at 1280 and 138–140
+above it. The checklist asks for 50–75. Dropping `--measure-prose` from 100ch to
+56ch puts the column at 573px and the line at about 75 characters — but it only
+bites above 1500px, so the 112-character line at 1280 is the grid column and
+would need its own cap. Two screenshots at 1600 (current and 56ch) are in the
+session's scratchpad for whoever puts this to the client; the visible cost in
+the second one is a band of empty paper between the column and the rail. Nothing
+was changed, because CLAUDE.md records the width as the client's call and
+lowering it silently while fixing a legal page is exactly what that note warns
+against.
 
 ### 32. Inline validation depends on the Turnstile key. [Form][Code]
 `contact-form.js:49` returns before upgrading when `data-sitekey` is empty, so
@@ -398,16 +484,52 @@ Enter during script load sends the `mailto:` and the JSON post; and the no-JS
 `mailto:` fallback loses the message body (`contact-form.mjs:121`: mail
 clients drop unknown query keys — name the textarea `body`).
 
+**Done, all four.** The component upgrades whether or not a site key is
+configured and only the token step is gated on one, so a build without
+`TURNSTILE_SITE_KEY` keeps inline validation in the page's own language instead
+of falling back to the browser's bubbles. `expired-callback` and
+`timeout-callback` are wired beside `error-callback`, which is what lets a
+stalled challenge settle the promise and clear the busy state. `preventDefault()`
+is synchronous and unconditional now, and the `mailto:` fallback is dispatched by
+hand with `form.submit()` — the decision used to be taken after an `await`, so an
+Enter during script load did both. And the textarea is `name="body"` with
+`data-post-as="message"`: a mail client reads `subject` and `body` out of a
+`mailto:` query string and drops every other key, so the one thing the visitor
+wrote was the one thing the mail did not contain. The rename is declared in the
+markup rather than in two files, and `scripts/check-contact.mjs` reads the same
+attribute when it builds its payload — so the check that exists to catch the two
+halves disagreeing still catches it.
+
 ### 33. The action does not move focus into the form. [UX][A11y]
 Clicking "Plan een gesprek" scrolls `#contact` to the top with the header
 cleared, but `document.activeElement` stays on `body`; the first field is 160px
 lower. Focus the name field (with `preventScroll`) on the same-page CTA.
+
+**Done, with one thing the item could not know.** A click on a link whose anchor
+contains a form focuses that form's first control, with `preventScroll` — on the
+*next frame*, because following a fragment is the click's own default action and
+it runs after the listeners do: one of the things it does is put the focus on
+`<body>` when the target is not focusable, which a `<section>` never is. Focusing
+in the handler was focusing a moment before the browser took it away, which is
+exactly what it did until it was measured. Nothing happens on load: a page that
+arrives with `#contact` in the URL has not asked for the keyboard, and a phone
+would open one over the page it had just loaded.
 
 ### 34. Phone nav sheet is not modal. [A11y][Mobile]
 Below 621px the panel is `position: fixed` over the page, but `main`/`footer`
 are not `inert`, the body still scrolls under it, Tab walks out of it, and the
 toggle keeps the hamburger icon while open. Set `inert` + `overflow: hidden`
 on toggle, swap the icon to ×, close on outside click.
+
+**Done, and `inert` is the whole of it.** Below 621px, opening the sheet puts
+`inert` on the skip link, `main`, the footer and the sticky action bar, and
+`.has-sheet` on the root stops the document scrolling; Escape and a pointerdown
+outside close it. There is no focus trap and there does not need to be: `inert`
+takes an element and everything under it out of the tab order, out of hit-testing
+and off the accessibility tree in one attribute. The trigger's two bars turn into
+a × on `[open]` in CSS. The outside click is not scoped to the phone — above it
+the same panel is a compact dropdown, and a menu left standing open behind the
+page a reader has just clicked on is a menu that has not noticed.
 
 ### 35. Animations that never stop. [Perf][Motion]
 `<sa-node-field>` drifts up to 2,200 nodes at 30 fps forever on every page
@@ -421,10 +543,40 @@ window intersects the viewport (the IO exists at `:147`), react to
 moving and idle out after ~2 s — at 0.16px/tick a paused field is
 indistinguishable at a glance.
 
+**Done, the two cheapest wins, and one of them is much bigger than it looked.**
+The orbit layers were the expensive half: each ring's travelling node was carried
+round by rotating a box the size of its ring, and CDP's `LayerTree` on the
+training page showed two 1360×1360 and two 1060×1060 composited layers, none of
+which painted anything but a 5px dot. The thing that rotates is 0×0 now and
+stands on the diagram's origin, with the node hung out at the radius; the node
+travels the identical circle (verified at `currentTime` 0 and a quarter turn)
+and the four large layers are gone.
+`<sa-node-field>` stops its clock instead of skipping the work: on
+`visibilitychange` rather than `document.hidden` read inside the timer, under
+`prefers-reduced-motion`, and when no window is on screen. Be honest about that
+last one — the header's wedge is a window and the header is sticky, so on every
+page of the public site there is one on screen at all times and the gate only
+fires for a hidden tab or a reduced-motion reader. It is kept because it is the
+correct rule and costs a set membership test. The "step further" is deliberately
+not taken: the field drifting at 30fps is in the design README as the brand, and
+measured with `Performance.getMetrics` the whole thing is about 28ms of script in
+four idle seconds, so idling it out would trade a brand behaviour for nothing.
+
 ### 36. Type is in px; text-only zoom does nothing. [A11y]
 Setting the root to 32px changes no size on the page. Page zoom works, so
 WCAG 1.4.4 is technically met, but Firefox/Safari "zoom text only" users get
 nothing. Move the scale in `tokens.css` to rem.
+
+**Done.** The type scale is in rem with the px value in a comment beside each
+step. Every step divides into 16 exactly, so at the default root the site renders
+byte-identically to what it did in px; at a 24px root the body goes 16→24px and
+every heading scales with it, where before nothing on the page moved at all.
+Four sizes stay in px and each says why where it is written: the header's nav row
+and the brand beside it, measured to the pixel at 1181px in three languages
+against a row that clips rather than scrolls, and the phone's form controls,
+where 16px is the number iOS Safari watches to decide whether to zoom a focused
+field. Spacing stays in px — text-only zoom asks for the type to grow inside the
+layout, and every gutter and rhythm on the site is already a viewport `clamp()`.
 
 ### 37. Stale HTML after a content-only deploy. [Code]
 `renderServiceWorker` (`build/render.mjs:491`) derives the SW version from the
@@ -435,6 +587,19 @@ first view of every page for every returning visitor. Fold a build id into
 `skipWaiting` + immediate old-cache deletion (`sw.js:15-32`) can also strand a
 lazy chunk an open page requests later.
 
+**Done, and the second half of the item turned out to be the sharper one.** The
+page cache is keyed on `contentVersion()` — a hash of every rendered document in
+`dist/` — so it is dropped exactly when a page has changed and on no other
+deploy; an unchanged rebuild still produces a byte-identical `sw.js` (verified).
+Network-first was not taken: stale-while-revalidate is what makes a repeat view
+render instantly, and the staleness was a cache key, not a strategy. The asset
+cache is now unversioned, which is what closes the stranding: a hashed URL is its
+own version, so one cache holding a few generations (bounded by `ASSET_LIMIT`,
+trimmed in insertion order) keeps the chunk an open tab has not imported yet
+reachable after a deploy, where the versioned name plus `skipWaiting` deleted it
+out from under that tab. `images-` stays keyed on the assets, because `/media/`
+is un-hashed and the version is its only invalidation.
+
 ### 38. Critical CSS is 18 KB against a 14 KB promise, and main.css blocks anyway. [Perf]
 The inline block is 18,071 B (4.1 KB brotli) in all 47 pages, `main.css` is a
 plain blocking `<link>` (48 KB raw / 8 KB br), so the inline block buys no
@@ -442,11 +607,40 @@ earlier paint. Decide once: trim critical (items 24, 39) and add a
 `criticalCssBytes` budget to `check-dist.mjs`, or load `main.css` async and
 move the phone header/actions rules into critical.
 
+**Decided, and the decision is "not yet", with the measurement written down.**
+The inline block is 16,678 B raw / 3,973 B brotli after items 24 and 39, and a
+`criticalCssBytes` budget of 17,600 B now fails the build if it grows. The second
+half — loading `main.css` asynchronously so the block buys the paint it is there
+for — is measured and refused for now: against a 150ms round trip the HTML lands
+at 251ms and the first paint at 308, which is the stylesheet's own trip, so the
+block currently buys nothing. What it would take is the critical sheet actually
+covering the first screen, and rendered with `main.css` disabled a detail page
+shows the phone's "Menu" disclosure in the desk header, the hero at the
+homepage's 820px height with the homepage's deep left padding, and no sticky
+action bar on a phone. Those are above-the-fold rules living in the below-the-fold
+sheet; moving them is item 50, and the 14 KB and the async load both belong
+there. The budget is what keeps the block from growing while it is not paying for
+itself. The arithmetic is in `check-dist.mjs` beside the number.
+
 ### 39. Every page ships all 22 clip paths and 20 `[data-clip]` rules. [Perf][Code]
 `clipDefs()` (`base.mjs:281-546`) emits 7.4 KB of SVG on every page; the
 privacy notice and the articles use none. Render the body first and emit only
 the ids found in `data-clip`. Same for the `[data-clip="X"]` rules in
 `critical.css:595-681`.
+
+**Done, the `clipDefs()` half.** The body is rendered before the shell wraps it,
+so it is asked which shapes it names: a page emits the ids in its own
+`data-clip` attributes plus the few a stylesheet reaches for on its behalf
+(`heroSwoop` below 620px, `dnaFieldMask` for the helix), and a page with no dark
+shape — the notice and the four articles — prints no `<svg>` at all. The largest
+public page went from 12,873 B brotli to 11,442. What makes it safe rather than
+clever is the new check in `check-dist.mjs`: it reads the `clip-path: url(#id)`
+rules out of the CSS instead of restating them, so a rule pointing at a shape a
+page does not carry fails the build. Negative-tested by removing an entry from
+the dependency map.
+The `[data-clip="X"]` rules in `critical.css` are *not* per page and cannot be
+until the critical sheet is: 20 rules of about 35 bytes, and splitting them is
+item 50.
 
 ### 40. Breakpoints leave fractional-pixel cracks. [Code]
 Census: 620 ×23, 1000 ×13 (+1001), 940 ×8 (+941), 1080 ×5 (+1081, +1080.98
@@ -455,6 +649,22 @@ exists because max/min pairs miss 1080.5px. Use range syntax
 (`(width < 1081px)`) and retire the pairs. Header clearance (96px, 56px) and
 591px are repeated literals that want tokens.
 
+**Done, both halves.** Every media query is range syntax: `(width < 621px)` and
+`(width >= 621px)` partition the axis where `max-width: 620px` and
+`min-width: 621px` matched neither at 620.5. The two hand-written `1080.98px`
+patches are gone with it, and their comments now explain the range form instead.
+The conversion is mechanical — `max-width: N` → `width < N+1`, `min-width: M` →
+`width >= M`, and a min/max pair becomes one `(A <= width < B)` — and the
+boundaries were verified at 620/621, 1080/1081 and 1180/1181: the hero unsplits,
+the bead appears and the bar folds exactly where they did. It moves the site's
+floor to Safari 16.4, a few months later than the 16.2 `color-mix()` already
+asks for, and the CSS minifier passes the syntax through.
+The repeated literals are tokens: `--scroll-clearance` (96px, `scroll-padding-top`
+in `critical.css` and the clause index's sticky top in `main.css`) and
+`--header-phone` (56px, the phone header's row and the sheet welded to its
+bottom edge). 591px was two rules eight lines apart in one media block and is now
+one selector list.
+
 ### 41. Missing security headers. [Code]
 `public/_headers` has `X-Frame-Options`, `nosniff`, `Referrer-Policy`,
 `Permissions-Policy`; no `Content-Security-Policy` (start Report-Only with
@@ -462,11 +672,33 @@ exists because max/min pairs miss 1080.5px. Use range syntax
 `challenges.cloudflare.com`), no `Strict-Transport-Security`. `/secured/*`
 responses come from a Function and should say `private, no-store` themselves.
 
+**Done.** `Strict-Transport-Security` is a year on this hostname, deliberately
+without `includeSubDomains` or `preload`: both are promises about every name
+under smartagents.be and this repo cannot see that list. The CSP ships as
+`Content-Security-Policy-Report-Only` with no `report-uri` — a reporting endpoint
+is a third-party request on a site whose policy is not to make any, so the
+console is the destination, and the header becomes enforcing when a week of real
+traffic has named nothing. `form-action` carries `mailto:`, because the one path
+that works with JS off is a `mailto:` submit and a policy that breaks it would
+be the wrong first thing to enforce. `/secured/*` gets a policy of its own that
+allows inline scripts: the gated documents were authored as standalone HTML and
+still carry them, and a single global rule would fill the console with reports
+about the one area that is not public. `/secured/*` is also `private, no-store`
+in `_headers` and again in the Function, which builds a redirect that never
+passes through that file.
+
 ### 42. Cheap checks `check-dist.mjs` does not run yet. [Code]
 Heading order (would have caught item 20), one `<h1>` per page, `og:image` /
 `imagesrcset` candidates resolved against `dist/`, `aria-labelledby` targets
 exist, JSON-LD parses, `sitemap.xml` locs resolve, critical CSS size budget.
 Each is one loop over the files it already parses.
+
+**Done, all seven, each negative-tested.** Exactly one `<h1>` per public page and
+no skipped heading level (caught by breaking the homepage's DNA rows to `h5`);
+every `aria-labelledby` / `aria-describedby` / `aria-controls` and every in-page
+`href="#id"` resolving on that page; JSON-LD parsing; `og:image` and every
+`imagesrcset` candidate resolving in `dist/`; every sitemap `<loc>` resolving;
+the `criticalCssBytes` budget of item 38; and the clip-path check of item 39.
 
 ### 43. Duplication across page modules. [Code]
 Ten identical `meta()` bodies; eight identical `contact(t, lang)` wrappers;
@@ -477,6 +709,24 @@ hard-codes `P1D`, 5, 15 and `['nl','en']` while its comment says they are
 read off `kata.spec.*`. Default `meta` and `contact` from `page.id`, one
 `pathOf(page, lang)` in `i18n.mjs`, and structured spec data in `kata.mjs`.
 
+**Done, five of six; the sixth is item 49's.** `courseNode` no longer carries
+`P1D`, `onsite`, 5, 15 and `['nl','en']` as literals under a comment claiming
+they came off `kata.spec.*` — they are `SPEC_FACTS` in `kata.mjs`, beside the
+list that prints their sentences, so the graph cannot go on telling a crawler the
+old numbers after the page changes. `SERVICE_PAGES` is defined once, in
+`base.mjs`, and `render.mjs` imports it: the two copies were identical and
+nothing kept them so, and `llms.txt` is the file that would have been missing a
+fifth service. `pathOf(page, lang)` in `i18n.mjs` replaces seven copies of
+`slug === undefined ? null : pagePath(lang, slug)`. `pageMeta()` in `render.mjs`
+defaults the title and description off the page id, so eight modules lost their
+identical four-line `meta()` and the two whose strings are keyed on something
+else say so with `strings`. `contactSection()` defaults its two lines to
+`<prefix>.cta.title` and `<prefix>.cta.body`, which is what six of the eight call
+sites were spelling out; the homepage and the training page still pass
+`contact.lede`, which is the difference that was hiding in the repetition.
+Not done: the nine breadcrumb builders. Each names a different label key, and the
+helper that would collapse them is the registry item 49 describes.
+
 ### 44. Motion pass does per-frame work it could cache. [Perf][Code]
 `src/motion.js`: spotlight handler reads `getBoundingClientRect()` and writes
 a gradient string on every `pointermove` (`:15-34`); one rect read per magnet
@@ -486,10 +736,39 @@ per frame interleaved with `setAttribute('d')` writes (`:1095, :1204`);
 frame (`:1153, :1202`). Cache rects at setup, squared distances, typed arrays,
 one decimal.
 
+**Done, the three that are safe, and measured.** The nearest-point search
+compares squared distances and takes one square root at the end instead of a
+`Math.hypot` per sampled point; a bounding-box early-out returns before the walk
+when the cursor is further than `REACH` outside a shape's own box, which on a
+page with five magnets is most of them on most frames; and `toPathData` takes a
+scale so the frame loop no longer builds a second array of ~480 two-element
+arrays per magnet per frame. Measured with `Performance.getMetrics` over 360
+frames of a cursor sweep across the hero — the worst case, with the cursor inside
+the composition — script time goes from 298ms to 284ms, about 0.79ms a frame.
+Two of the item's bullets were already true: reads and writes are in separate
+loops in `update()`, and `closest()` already uses typed arrays and squared
+distances.
+Not done: caching the rects. They are viewport-relative, so a cache has to track
+scroll as well as layout, and the page's layout moves under the cursor — the
+accordion, a lazy video, a font arriving. A stale rect puts the pull in the wrong
+place, which is worse than a forced layout a frame. The precision is also left
+at four decimals: the coordinates are `objectBoundingBox` units, so on the widest
+shape on the site the fourth decimal is a tenth of a pixel and the third is a
+pixel and a bit.
+
 ### 45. Odoo read is sequential and unbounded. [Code]
 `build/lib/odoo-jobs.mjs:379-389` awaits three language reads in series (8 s
 timeout each) and the API chain before them; worst case holds a deploy 40 s+
 before the snapshot wins. `Promise.all` and one overall deadline.
+
+**Done, both.** The per-language reads run in `Promise.all` rather than one after
+another, and the whole live read is bounded by a single `BUDGET_MS` of 20
+seconds across every attempt — the chain is an authenticate, a language read, one
+read per Odoo language and then the public path's own reads, so eight seconds
+per socket bounded nothing that mattered. The timer is unref'd, so a request
+still in flight cannot hold the build process open after the answer is decided.
+Verified with and without credentials: the public-page path still answers in
+under a second and the snapshot still takes over when nothing does.
 
 ---
 

@@ -1,14 +1,6 @@
 /* advocatuur-pitch — no rules of its own.
 
-   Every slide here is one of the eight archetypes in ../shared/slide.css:
-   rows, one statement, one compare, one steps, one media with the founders'
-   portraits in it, a cover and a close. Nothing is declared here, and nothing
-   here overrides the shared stylesheet.
-
-   `.nobreak` and `.portraits` used to stand in this file. Both are shared
-   now: this deck's Dutch legal compounds ("kennis-assistent", "EU-gehost")
-   are not the only hyphens in the nine decks, and the founders are on four
-   other slides. If this deck ever needs a figure of its own, write it here
-   with tokens (--sa-grey-3, --sa-line, --ls-h3, --fw-semibold) in absolute
-   pixels against the 1920x1080 stage, and move it into ../shared/slide.css
-   the moment a second deck wants the same thing. */
+   Every slide here is one of the eight archetypes in ../shared/slide.css. A
+   figure of this deck's own goes here, in tokens and in absolute pixels
+   against the 1920x1080 stage, and moves into ../shared/slide.css the moment
+   a second deck wants the same thing. */

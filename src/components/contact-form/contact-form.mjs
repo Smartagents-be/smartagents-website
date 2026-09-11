@@ -1,32 +1,29 @@
 // <sa-contact-form> — the build-time half of the component.
 //
-// `contact-form.js` beside this file is the behaviour: it upgrades the light
-// DOM this module emits, and the form works without it (mailto: fallback).
-// Keeping the markup here means the section is authored once and every page
-// that needs it renders exactly the same fields, ids and fallbacks
-// (webcomponent-mpa-spa §4: components upgrade light DOM, never replace it).
+// `contact-form.js` beside this file is the behaviour: it upgrades the light DOM
+// this module emits, and the form works without it (mailto: fallback). Keeping
+// the markup here means every page that needs the section renders the same
+// fields, ids and fallbacks (webcomponent-mpa-spa §4).
 //
 // Text is passed in, never hard-coded: `title` and `lede` are the two lines a
 // page phrases for itself, everything else comes from the shared `contact.*`
 // and `form.*` keys (static-i18n §1).
 //
 // Two of the fields are hidden and neither is decoration. `/api/contact`
-// forwards `subject` and `page_context` to n8n, and the form sent neither:
-// `validatePayload` required `subject`, so every upgraded submission came back
-// 400 and the visitor read "Versturen lukte niet" on the site's only conversion
-// path. They are rendered here rather than assembled in `contact-form.js`, so
-// the payload is the same whether the component upgrades or not — with JS off
-// they travel in the `mailto:` body, where they are just as useful.
-// `page_context` is the caller's own id prefix, which is what says which of the
-// six pages a message came from. The server treats both as optional now; see
-// the note above `validatePayload` in `functions/api/contact.js`.
+// forwards `subject` and `page_context` to n8n and the form sent neither, so
+// every upgraded submission came back 400. They are rendered here rather than
+// assembled in `contact-form.js`, so the payload is the same whether the
+// component upgrades or not — with JS off they travel in the `mailto:` body.
 //
-// `form.subject` carries the exact strings the live site sends today. The
-// Eleventy form on `main` posts them from a hidden `_subject` field, and its
-// own JS says why they matter: "n8n's classifier expects a `subject`". The
-// value is therefore not ours to phrase — it is an input to a workflow that
-// already runs on it — so it is copied from `contact.form.subject` on `main`
-// rather than written fresh.
+// The message field is named twice over: `name="body"` for the `mailto:`
+// fallback, whose query string a mail client reads `subject` and `body` out of
+// and drops every other key from, and `data-post-as="message"` for the endpoint.
+// `contact-form.js` and `scripts/check-contact.mjs` both read that attribute, so
+// the rename is declared once, here, in the markup rather than in two files.
+//
+// `form.subject` carries the exact strings the live site sends today: n8n's
+// classifier expects a `subject`, so the value is an input to a workflow that
+// already runs on it rather than ours to phrase.
 import { html, raw, escapeHtml } from '../../../build/lib/html.mjs';
 import { pagePath } from '../../../build/lib/i18n.mjs';
 import { TURNSTILE_SITE_KEY } from '../../../build/lib/config.mjs';
@@ -38,13 +35,11 @@ import { page as privacyPage } from '../../pages/privacy/privacy.mjs';
 // duplicated constant.
 /**
  * GDPR article 13 wants the notice at the point of collection, so it goes under
- * the button rather than only in the footer. The key carries the link's label
- * in square brackets — `…ons [privacybeleid].` — because where the link falls
- * in the sentence is a translator's decision, not a template's: Dutch ends on
- * it, French needs four words for it.
- *
- * A language the notice is not published in gets the sentence without a link
- * rather than a link to nothing, the same rule `servicePath()` follows.
+ * the button rather than only in the footer. The key carries the link's label in
+ * square brackets — `…ons [privacybeleid].` — because where the link falls in
+ * the sentence is a translator's decision: Dutch ends on it, French needs four
+ * words for it. A language the notice is not published in gets the sentence
+ * without a link rather than a link to nothing.
  */
 function privacyNote(t, lang, id) {
   const slug = privacyPage.slugs[lang];
@@ -64,29 +59,24 @@ export const PHONE_HREF = 'tel:+3211111020';
 export const EMAIL = 'info@smartagents.be';
 
 /**
- * One labelled control, its required marker and the slot its error message
- * lands in.
+ * One labelled control, its required marker and the slot its error message lands
+ * in.
  *
  * Three of the four fields are required and nothing said so: the visitor found
  * out on submit, from the browser's own bubble, one field at a time. The marker
  * is a `*` with the word behind it for a screen reader, and `form.requiredLegend`
- * at the head of the form is what makes the `*` mean something rather than
- * being a glyph the reader has to guess at.
+ * at the head of the form is what makes the `*` mean something.
  *
- * The error slot ships empty and hidden. `aria-describedby` points at it from
- * the moment the page loads — a hidden element contributes nothing to the
+ * The error slot ships empty and hidden, with `aria-describedby` pointing at it
+ * from the moment the page loads: a hidden element contributes nothing to the
  * description, so an untouched field is described by nothing and a failing one
- * is described by its message, without the attribute ever being rewritten.
- * `contact-form.js` fills and unhides it; with JS off the browser's own
- * validation is what reports, which is the same thing it did before.
+ * by its message, without the attribute ever being rewritten.
  */
 function field({ t, id, key, label, required, control }) {
   /* Required is a `*` with the word behind it; optional says so in as many
-     words. Marking only one of the two leaves the other ambiguous — a reader
-     who has not read the legend cannot tell an unmarked field from one whose
-     marker they missed — and on a four-field form the optional label is one
-     word. It is not `visually-hidden`: "(optioneel)" is exactly the information
-     a sighted reader wants beside the label. */
+     words. Marking only one of the two leaves the other ambiguous to a reader
+     who has not read the legend. Not `visually-hidden`: "(optioneel)" is
+     exactly what a sighted reader wants beside the label. */
   const mark = required
     ? html`<span id="${id}-field-${key}-required" class="field-label__required"><span id="${id}-field-${key}-required-mark" aria-hidden="true">*</span><span id="${id}-field-${key}-required-word" class="visually-hidden">${t('form.required')}</span></span>`
     : html`<span id="${id}-field-${key}-optional" class="field-label__optional">${t('form.optional')}</span>`;
@@ -101,22 +91,31 @@ function field({ t, id, key, label, required, control }) {
 /**
  * The contact section: the facts on the left, the form on the right.
  *
+ * The heading and the lede default to the calling page's own `<prefix>.cta.*`
+ * keys, which is what six of the eight pages were passing by hand. The two
+ * that differ still pass: the homepage and the training page take
+ * `contact.lede`, having no closing line of their own. `??` and not `||`, so an
+ * empty lede stays an empty lede and `t()` is never asked for the key.
+ *
  * @param {object} options
  * @param {Function} options.t       translator for this language
  * @param {string} options.lang      language code, for the privacy notice's URL
  * @param {string} options.prefix    id prefix for this page (element-ids §4)
- * @param {string} options.title     the heading, phrased by the calling page
- * @param {string} [options.lede]    the paragraph under it, likewise; omit
- *                                  it and the section opens on the heading
+ * @param {string} [options.title]   the heading; defaults to `<prefix>.cta.title`
+ * @param {string} [options.lede]    the paragraph under it; defaults to
+ *                                  `<prefix>.cta.body`. Pass an empty string to
+ *                                  open the section on the heading alone.
  */
 export function contactSection({ t, lang, prefix, title, lede }) {
   const id = `${prefix}-contact`;
+  const heading = title ?? t(`${prefix}.cta.title`);
+  const standfirst = lede ?? t(`${prefix}.cta.body`);
 
   return html`<section class="section" id="contact" aria-labelledby="${id}-title">
   <div id="${id}" class="contact">
-    <div id="${id}-intro" class="contact__intro${lede ? '' : ' contact__intro--nolede'}">
-      <h2 id="${id}-title" class="section-heading">${title}</h2>${lede ? html`
-      <p id="${id}-lede" class="contact__lede">${lede}</p>` : ''}
+    <div id="${id}-intro" class="contact__intro${standfirst ? '' : ' contact__intro--nolede'}">
+      <h2 id="${id}-title" class="section-heading">${heading}</h2>${standfirst ? html`
+      <p id="${id}-lede" class="contact__lede">${standfirst}</p>` : ''}
       <div id="${id}-facts" class="contact__facts">
         <span id="${id}-fact-call">${t('contact.callLabel')} <a id="${id}-fact-call-link" href="${PHONE_HREF}">${PHONE}</a></span>
         <span id="${id}-fact-mail">${t('contact.mailLabel')} <a id="${id}-fact-mail-link" href="mailto:${EMAIL}">${EMAIL}</a></span>
@@ -131,7 +130,7 @@ ${field({ t, id, key: 'name', label: t('form.name'), required: true, control: ht
 ${field({ t, id, key: 'company', label: t('form.company'), required: false, control: html`<input id="${id}-input-company" type="text" name="company" autocomplete="organization">` })}
         </div>
 ${field({ t, id, key: 'email', label: t('form.email'), required: true, control: html`<input id="${id}-input-email" type="email" name="email" autocomplete="email" required aria-required="true" aria-describedby="${id}-error-email">` })}
-${field({ t, id, key: 'message', label: t('form.message'), required: true, control: html`<textarea id="${id}-input-message" name="message" rows="5" required aria-required="true" aria-describedby="${id}-error-message"></textarea>` })}
+${field({ t, id, key: 'message', label: t('form.message'), required: true, control: html`<textarea id="${id}-input-message" name="body" data-post-as="message" rows="5" required aria-required="true" aria-describedby="${id}-error-message"></textarea>` })}
         <input id="${id}-input-subject" type="hidden" name="subject" value="${t('form.subject')}">
         <input id="${id}-input-page" type="hidden" name="page_context" value="${prefix}">
         <div id="${id}-form-foot" class="contact-form__foot">

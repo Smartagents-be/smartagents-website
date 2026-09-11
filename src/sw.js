@@ -4,9 +4,26 @@
 /* eslint-env serviceworker */
 
 const VERSION = '__VERSION__';
+const CONTENT = '__CONTENT__';
 const SHELL = '__PRECACHE__';
-const PAGES = `pages-${VERSION}`;
-const ASSETS = `assets-${VERSION}`;
+/* Three caches, keyed on three different things, because they go stale for
+   three different reasons.
+
+   `pages` holds documents, and a document changes whenever a word does, so it
+   is keyed on a hash of the rendered HTML. Keyed on the asset names it survived
+   every copy-only deploy, and stale-while-revalidate then served the *previous*
+   HTML on the first view of every page to every returning visitor.
+
+   `assets` holds hashed files, and a hashed URL is its own version, so the
+   cache is not versioned at all. A versioned name plus `skipWaiting()` deleted
+   the cache under a page that was already open, and the next chunk that page
+   imported lazily was gone from the cache and from the server both. Holding a
+   few generations, bounded by `ASSET_LIMIT`, keeps the old chunk reachable.
+
+   `images` stays on `VERSION`: `/media/` is un-hashed, so an image can change
+   under a URL it keeps and the version is the only thing that invalidates it. */
+const PAGES = `pages-${CONTENT}`;
+const ASSETS = 'assets';
 const IMAGES = `images-${VERSION}`;
 const IMAGE_LIMIT = 200;
 /* The page cache was the one unbounded cache here. A visitor who reads every
@@ -15,12 +32,19 @@ const IMAGE_LIMIT = 200;
    loop or a future sitemap from filling a phone's quota. 80 is well over the
    site's own page count, so an ordinary visit never evicts anything. */
 const PAGE_LIMIT = 80;
+/* Room for several builds of a site whose whole JS and CSS surface is about a
+   dozen files. `trim()` evicts in insertion order, so the oldest generation
+   falls out first — the one no open tab can still be asking for. */
+const ASSET_LIMIT = 60;
 
 const CURRENT = new Set([PAGES, ASSETS, IMAGES]);
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(ASSETS).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting())
+    caches
+      .open(ASSETS)
+      .then((cache) => cache.addAll(SHELL).then(() => trim(ASSETS, ASSET_LIMIT)))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -39,13 +63,10 @@ self.addEventListener('activate', (event) => {
 
 /**
  * A response is only worth caching if it is what was asked for. A URL that
- * matches nothing is answered by Cloudflare with index.html and a 200, not with
- * an error (CLAUDE.md, "Known follow-ups"), so a missing asset comes back as
- * HTML that `response.ok` calls fine. A cache-first handler that trusts `ok`
- * then holds that HTML under the asset's own URL for as long as the cache lives:
- * the image never loads again, its alt text shows on every later visit, and no
- * amount of reloading helps because the network is never consulted. Checking the
- * type is what keeps a soft 404 from becoming permanent.
+ * matches nothing can be answered with HTML and a 200, which `response.ok` calls
+ * fine — and a cache-first handler that trusts `ok` then holds that HTML under
+ * the asset's own URL for as long as the cache lives, with no amount of
+ * reloading helping, because the network is never consulted.
  */
 function isCacheable(response, expected) {
   if (!response.ok) return false;
@@ -69,11 +90,10 @@ async function handlePage(event) {
   const network = (async () => {
     const preload = await event.preloadResponse;
     const response = preload || (await fetch(event.request));
-    /* `response.ok` alone is not the test, and the reason is the same one
-       `isCacheable` was written for one level up: a navigation is any top-level
-       request the browser makes, including a click on one of the course PDFs in
-       `/media/`, so trusting `ok` put 200 KB of one-pager in the page cache
-       under its own URL. The type check is what keeps this cache documents. */
+    /* `response.ok` alone is not the test, for the reason `isCacheable` exists: a
+       navigation is any top-level request the browser makes, including a click
+       on one of the course PDFs, so trusting `ok` put 200 KB of one-pager in the
+       page cache. */
     if (isCacheable(response, 'text/html')) {
       await cache.put(event.request, response.clone());
       await trim(PAGES, PAGE_LIMIT);
@@ -100,7 +120,10 @@ async function handleAsset(request) {
   if (cached) return cached;
 
   const response = await fetch(request);
-  if (isCacheable(response)) await cache.put(request, response.clone());
+  if (isCacheable(response)) {
+    await cache.put(request, response.clone());
+    await trim(ASSETS, ASSET_LIMIT);
+  }
   return response;
 }
 

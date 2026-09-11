@@ -49,7 +49,6 @@
   "dna.4.title": "Partenaires",
   "dna.4.body": "Nous cherchons des entreprises qui veulent grandir, et nous restons jusqu'à ce que cela arrive.",
 
-
   "article.tag.news": "Actualités",
   "article.tag.ai": "IA",
   "article.tag.tips": "Conseils",
@@ -105,10 +104,9 @@
 
   "training.cta.offer": "Voir notre offre",
 
-  "training.why.title": "Pourquoi investir dans la formation à l'IA ?",
-
   "training.offer.title": "Notre offre",
   "training.offer.learn": "Ce que vous apprenez",
+  "training.offer.lede": "Les deux formations sont attentives aux coûts : vos collaborateurs savent ce que coûte une requête et choisissent le modèle le plus léger qui fait l'affaire. Et qui applique l'IA lui-même n'a plus besoin d'aide externe pour le travail de routine et les petites adaptations.",
 
   "training.download": "Télécharger la fiche",
 
@@ -143,17 +141,6 @@
   "training.format.accents": "L'accent est mis sur ce que vous utilisez dès le lendemain : un usage plus malin de l'IA, une vue claire sur ce que coûte chaque requête, et des workflows qui s'intègrent à la façon dont votre équipe travaille déjà. Les slides et le support de cours restent à vous ensuite.",
   "training.format.videoLabel": "Visite guidée de la formation développeurs de SmartAgents",
   "training.format.fallback": "Voir la visite guidée (MP4)",
-
-  "training.benefit.adoption.title": "Adoption plus rapide",
-  "training.benefit.adoption.body": "Les équipes qui comprennent ce que fait l'IA adoptent les nouveaux outils plus vite et trouvent elles-mêmes des applications.",
-  "training.benefit.productivity.title": "Productivité plus élevée",
-  "training.benefit.productivity.body": "Les collaborateurs apprennent à paralléliser leur travail avec l'IA, au lieu d'enchaîner les tâches une à une.",
-  "training.benefit.risk.title": "Moins de risques",
-  "training.benefit.risk.body": "Qui connaît les limites de l'IA prend de meilleures décisions et évite des erreurs coûteuses.",
-  "training.benefit.return.title": "Maîtrise des coûts",
-  "training.benefit.return.body": "Les participants apprennent à ajuster les tokens à la tâche : le modèle le plus léger qui fait l'affaire.",
-  "training.benefit.autonomy.title": "Moins de dépendance aux externes",
-  "training.benefit.autonomy.body": "Des collaborateurs qui appliquent l'IA eux-mêmes ont moins besoin d'aide pour le travail de routine et les petites adaptations.",
 
   "training.cta.title": "Prêt à former votre équipe ?",
 
@@ -229,9 +216,9 @@
 
   "staffing.hero.title": "Un ingénieur AI-native dans votre équipe",
 
-  "staffing.cta.tracks": "Voir ce que nous faisons",
+  "staffing.cta.tracks": "Voir comment nous travaillons",
 
-  "staffing.tracks.title": "Ce que nous faisons",
+  "staffing.tracks.title": "Comment nous travaillons avec vous",
 
   "staffing.track.fitLabel": "Le bon choix si",
   "staffing.track.engineer.title": "AI engineer staffing",

@@ -49,6 +49,16 @@ happens.
     fallback is announced in the build log rather than taken silently. The rule
     behind the order: a stale vacancy on the site is recoverable, and a red
     build on `main` is the site not deploying at all.
+  - **The live read is bounded twice: per request and overall.** `TIMEOUT_MS` is
+    eight seconds on one socket and `BUDGET_MS` is twenty across the whole
+    attempt chain, because the chain is an authenticate, a language read, one
+    read per Odoo language and then the public path's own reads — every one of
+    which could sit at the full eight seconds, so a recruitment site that was up
+    but crawling held a deploy for the better part of a minute before falling
+    back to a snapshot that is committed in this repository. The per-language
+    reads also run in parallel rather than one after another. Twenty seconds is
+    the answer to "how long is a third party worth waiting for when the fallback
+    is on disk".
   - **The public-page reader knows when it has been broken.** Odoo prints its
     own result count in the search bar, so "nothing is published" and "the theme
     changed and every selector missed" — the same zero otherwise — are told

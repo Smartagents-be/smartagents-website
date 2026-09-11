@@ -1,22 +1,12 @@
 /* token-efficient-ai-development — rules that belong to this deck alone.
 
-   The whole visual system is ../shared/slide.css. This file adds one figure.
+   One figure: the code sample. This is a workshop about the files an agent
+   reads, and thirteen slides show one verbatim — the exact characters are the
+   content, and nothing in the archetypes sets mono text.
 
-   The figure is the code sample. This is a workshop about the files an agent
-   reads: an ignore file, an instruction file, a skill, a hook, an MCP server,
-   a spec, a terminal session. Thirteen slides show one of those verbatim, and
-   the exact characters are the content, so paraphrasing them into a row detail
-   would be paraphrasing the lesson away. Nothing in the seven archetypes sets
-   mono text, so the sample lives here.
-
-   It is drawn the way a row is drawn: a label, a hairline, and the text. No
-   window chrome, no terminal frame, no fill behind the code. The retired deck
-   painted every sample as a dark editor window with three coloured dots, which
-   is the thing this stylesheet exists to end: a slide is paper, and a code
-   sample on paper is mono text under a rule.
-
-   Two or three samples abreast, sized so the longest line in the deck still
-   fits its column on the 1920px stage. */
+   It is drawn the way a row is: a label, a hairline, and the text. No window
+   chrome, no terminal frame, no fill behind the code. Two or three abreast,
+   sized so the longest line in the deck still fits its column. */
 
 .snips {
   display: grid;

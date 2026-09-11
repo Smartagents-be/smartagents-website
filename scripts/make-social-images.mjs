@@ -1,19 +1,13 @@
-// Renders the two raster brand images the site needs and cannot derive at build
-// time: the default Open Graph card and the square logo that `Organization`
-// structured data points at.
+// Renders the two raster brand images the site cannot derive at build time: the
+// default Open Graph card and the square logo `Organization` points at.
 //
 // Not part of `npm run build`, for the reason `check-slides.mjs` is not: it
-// needs a browser, and the Cloudflare Pages build image has none. Both outputs
-// are committed under `public/media/`, so a deploy never runs this. Run it again
-// when the wordmark, the claim or the dark field change:
+// needs a browser, and the Pages build image has none. Both outputs are
+// committed under `public/media/`. Run it again when the wordmark, the claim or
+// the dark field change.
 //
-//   node scripts/make-social-images.mjs
-//
-// The card is drawn from the same tokens the site is — the navy field, the one
-// cyan, the logo mark from `src/layouts/base.mjs` — rather than from a picture
-// somebody exported, so it cannot drift from the brand it stands for. There is
-// no photograph and no stock art in it, which is the design system's own rule
-// about imagery (design README, "Iconography and imagery").
+// The card is drawn from the same tokens the site is, rather than from a picture
+// somebody exported, so it cannot drift from the brand it stands for.
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';

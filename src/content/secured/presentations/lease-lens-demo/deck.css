@@ -1,21 +1,15 @@
 /* lease-lens-demo — rules that belong to this deck alone.
 
-   Two things, and nothing else: the cover's first word, and the QR figure on
-   the demo slide. Everything else comes from ../shared/slide.css.
+   1. "Plaatsbeschrijvingen" is a twenty-character compound: at the shared
+      104px it is wider than the cover's 52% column and cannot wrap, so this
+      deck sets its cover one step down.
 
-   1. "Plaatsbeschrijvingen" is a twenty-character Dutch compound. At the
-      shared 104px it is wider than the cover's 52% column and cannot wrap, so
-      it would run out under the petal. This deck sets its cover one step down.
-
-   2. The demo slide is a `.media` slide whose right-hand half is a QR code
-      rather than a screenshot. It is not in `.media__frame`: that frame is a
-      washed panel with `object-fit: cover`, which would crop a square code
-      into a landscape box. A QR code needs its quiet zone and its own paper,
-      so it stands on the slide with the URL in mono under it. The code is a
-      committed file, never a live request: a room without wifi is exactly
-      where this slide has to work. `assets/qr-leaselens.png` is 1320px on
-      the side (33 modules at scale 40, quiet zone 2), drawn here at 440 so
-      the downscale is a clean third. Regenerate it only if the URL changes. */
+   2. The demo slide's QR code is not in `.media__frame`, whose
+      `object-fit: cover` would crop a square code into a landscape box. A code
+      needs its quiet zone and its own paper. It is a committed file, never a
+      live request — a room without wifi is where this slide has to work —
+      1320px on the side and drawn at 440, so the downscale is a clean third.
+      Regenerate it only if the URL changes. */
 
 
 .qr {

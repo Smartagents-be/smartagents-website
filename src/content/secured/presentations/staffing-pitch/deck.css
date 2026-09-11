@@ -1,13 +1,7 @@
 /* staffing-pitch — no rules of its own.
 
-   Every slide here is one of the eight archetypes in ../shared/slide.css:
-   rows, one statement, one compare, two steps, one media with the founders'
-   portraits in it, a cover and a close. If a slide in this folder needs a
-   class that is not in that file, the slide is wrong, not the stylesheet.
-
-   `.nobreak` and `.portraits` used to stand here and are shared now. The
-   deck's hyphenated compounds ("AI-talent", "AI-ready", "AI-engineering")
-   still have to be held together at 60px and above, and still are: on the
-   founders slide the pair "AI-talent en -impact" is wrapped as two units
-   rather than one, because the second half opens on a hanging hyphen and so
-   "en" has to travel with it. */
+   Every slide here is one of the eight archetypes in ../shared/slide.css.
+   `.nobreak` holds this deck's hyphenated compounds together at 60px and
+   above; on the founders slide "AI-talent en -impact" is wrapped as two units,
+   because the second half opens on a hanging hyphen and "en" has to travel
+   with it. */

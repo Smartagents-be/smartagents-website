@@ -1,23 +1,19 @@
 /* ──────────────────────────────────────────────────────────────────────────
    SmartAgents — the slide vocabulary of the redesigned brand.
 
-   One stylesheet, shared by every deck built from the `new-presentation`
-   skill. It is the "Slide Template" design canvas turned into classes: the
-   canvas has to inline every declaration, a deck does not, and a deck that
-   inlines them drifts from the next one within two slides.
+   One stylesheet, shared by every deck built from the `new-presentation` skill:
+   the "Slide Template" design canvas turned into classes. A canvas has to inline
+   every declaration; a deck that does the same drifts within two slides.
 
-   Read alongside:
-     ../../tokens.css   the palette and the type scale, loaded first
-     ./brand.css        the wordmark
-     ./deck-stage.js    navigation, thumbnails, speaker notes
+   Read alongside ../../tokens.css (palette and type scale, loaded first),
+   ./brand.css (the wordmark) and ./deck-stage.js (navigation, thumbnails).
 
    The stage is a fixed 1920x1080 canvas that `<deck-stage>` scales with a
-   transform, so every length here is an absolute pixel measured against that
-   canvas. Do not reach for rem, vw or clamp: they would be measured against
-   the browser window, not the slide.
+   transform, so every length here is an absolute pixel against that canvas: no
+   rem, vw or clamp, which would measure against the browser window.
 
-   Paper is the ground. `.field` (from tokens.css) is the only dark, and on a
-   slide it is a clipped shape, never the whole surface. One shape per slide.
+   Paper is the ground. `.field` is the only dark, and on a slide it is a clipped
+   shape, never the whole surface. One shape per slide.
    ────────────────────────────────────────────────────────────────────────── */
 
 deck-stage:not(:defined) {
@@ -78,25 +74,18 @@ body {
   z-index: 1;
 }
 
-/* The head stays pinned at the top of the slide; everything below it goes in
-   here and centres in the space that is left. A three-row list then floats in
-   the middle of the paper instead of clinging to the heading with 200px of
-   nothing under it, and a full slide is unaffected.
+/* The head stays pinned at the top of the slide; everything below goes in here
+   and centres in what is left, so a three-row list floats in the middle of the
+   paper instead of clinging to the heading. This is the one deliberate departure
+   from the Slide Template canvas, which has no footer to clear. Never centre
+   `.slide__inner` itself: that drops the heading to the middle too.
 
-   This is the one deliberate departure from the Slide Template canvas, which
-   has no footer to clear and was drawn with the content hard against the head.
-   Never centre `.slide__inner` itself: that drops the heading to the middle
-   too. A `.slide__note` stays outside this wrapper, so it keeps landing on the
-   foot of the slide.
-
-   `safe center` rather than `center`: a block taller than the space left over
-   is pushed past both ends by plain centring, and the slide has
-   `overflow: hidden`, so the first row's hairline is cut off the top where
-   nobody thinks to look for it. `safe` falls back to packing at the start, so
-   an overrun spills one way only, downward, into the padding the footer
-   reserves. It buys about 90px of silent headroom and hides nothing that was
-   not already going to be tight; `npm run check:slides` is what tells you a
-   slide is using it. */
+   `safe center` rather than `center`: a block taller than the space left over is
+   pushed past both ends by plain centring, and the slide is `overflow: hidden`,
+   so the first row's hairline is cut off the top where nobody looks. `safe`
+   packs at the start instead, so an overrun spills downward into the padding the
+   footer reserves — about 90px of silent headroom, which `npm run check:slides`
+   is what tells you about. */
 .slide__body {
   flex: 1 1 auto;
   min-height: 0;
@@ -386,23 +375,16 @@ body {
 }
 
 /* ══ People ════════════════════════════════════════════════════════════════
-   Who is in the room, or who signed the deck. Three decks carry one, and
-   before it was written down each of the three had solved it its own way: a
-   `.founders` grid in two of them, a portrait wedged into a `.row__term` in
-   the third.
-
-   It is the `.rows` grammar turned on its side. A row is bracketed by
-   hairlines with equal air inside them; so is a person. What changes is the
-   axis: rows stack and share their rules, people stand side by side and each
-   carries its own pair. Nothing is filled, bordered on four sides, or raised,
-   because that would be a card and this system has no cards.
+   Who is in the room, or who signed the deck. The `.rows` grammar turned on its
+   side: a row is bracketed by hairlines with equal air inside them, and so is a
+   person; what changes is the axis. Nothing is filled, bordered on four sides or
+   raised, because that would be a card and this system has no cards.
 
    The classes are scoped under `.people` on purpose. `.person`, `.person__name`
-   and `.person__body` also exist in `src/styles/main.css`, where they are a
-   different object entirely: a photo card with the name over a gradient, which
-   is right on a page you scroll and furniture on a slide. The two stylesheets
-   are never loaded together today; the descendant selector is what keeps that
-   an accident rather than a requirement. */
+   and `.person__body` also exist in `src/styles/main.css` as a different object
+   entirely — a photo card with the name over a gradient. The two stylesheets are
+   never loaded together today; the descendant selector keeps that an accident
+   rather than a requirement. */
 
 .people {
   display: grid;
@@ -419,12 +401,10 @@ body {
   border-bottom: 1px solid var(--sa-line);
 }
 
-/* 2:3, which is the ratio the portraits in `assets/` are cut to, so nothing is
-   cropped at all and the framing is decided in the file rather than here. Cut
-   them head-and-shoulders: at this size a full-length photograph is a person
-   standing in a room, and the face is twenty pixels of it. `--sa-wash` behind
-   it means a file that fails to load reads as a held space, the same way
-   `.media__frame` does. */
+/* 2:3, the ratio the portraits in `assets/` are cut to, so nothing is cropped
+   here and the framing is decided in the file. Cut them head-and-shoulders: at
+   this size a full-length photograph is a person standing in a room. `--sa-wash`
+   behind it means a file that fails to load reads as a held space. */
 .people .person__photo {
   flex: none;
   width: 180px;
@@ -527,27 +507,20 @@ body {
   order: 2;
 }
 
-/* An asset whose own edges are the content: a UI screenshot, a screen
-   recording, a portrait video. `cover` fills the frame by throwing away
-   whatever does not fit, which is right for a photograph and wrong here: the
-   third it crops off a screenshot is the app's own chrome, and off a 9:16
-   recording it is the top of someone's head. Contain the asset instead, and
-   drop the wash while doing it: the wash is there to say "an image belongs
-   here" when the image does not reach the frame's edges, and an asset that is
-   deliberately letterboxed would wear it as two grey bands. This frame is a
-   bound, not a panel.
+/* An asset whose own edges are the content: a UI screenshot, a screen recording,
+   a portrait video. `cover` throws away whatever does not fit, which is right for
+   a photograph and wrong here — the third it crops off a screenshot is the app's
+   own chrome. So contain the asset, and drop the wash while doing it: the wash
+   says "an image belongs here" when the image does not reach the frame's edges,
+   and a deliberately letterboxed asset would wear it as two grey bands.
 
-   The asset is sized by its own ratio inside that bound rather than filled to
-   it and contained, which for a still image is the same picture and for a
-   `<video controls>` is not: the control bar is drawn at the foot of the
-   element, so an element that fills the frame hangs its controls a hundred
-   pixels below the letterboxed picture with paper in between.
+   The asset is sized by its own ratio inside that bound rather than filled and
+   contained, which for a still image is the same picture and for a `<video
+   controls>` is not: an element that fills the frame hangs its control bar a
+   hundred pixels below the letterboxed picture.
 
-   The hairline moves onto the asset with it. Dropping the wash and leaving
-   nothing behind is fine for a photograph and wrong for a screenshot of a
-   white interface, which then has no edge at all and floats loose on paper.
-   A rule around the picture is the same answer every list on the slide gives:
-   an edge is a hairline, not a panel. */
+   The hairline moves onto the asset with it, or a screenshot of a white
+   interface has no edge at all and floats loose on paper. */
 .media__frame--fit {
   display: grid;
   place-items: center;
@@ -574,16 +547,13 @@ body {
 }
 
 /* Sound with no picture. An `<audio>` element has an intrinsic height of one
-   control bar and no intrinsic width, so left to the rules above it pins
-   itself to the top-left corner of a 900px-tall panel and the slide reads as
-   a mistake. Centre it, and hold the frame to the height of a band rather
-   than letting it take the whole row.
+   control bar and no intrinsic width, so left to the rules above it pins itself
+   to the top-left corner of a 900px panel. Centre it, and hold the frame to a
+   band rather than the whole row.
 
-   This is a stopgap and the skill says so. What sits in the band is the
-   browser's own control bar, which is off-brand and looks different in every
-   engine, and a deck is presented from whatever browser is at hand. Replacing
-   it means building a player out of the slide vocabulary; until a second deck
-   needs sound, the band is enough. */
+   A stopgap, and the skill says so: what sits in the band is the browser's own
+   control bar, which is off-brand and different in every engine. Replacing it
+   means building a player out of the slide vocabulary. */
 .media__frame--audio {
   align-self: center;
   display: grid;
@@ -740,20 +710,17 @@ body {
 }
 
 /* ══ The dark shape ════════════════════════════════════════════════════════
-   `.field` comes from tokens.css and flips the semantic roles to their
-   on-navy values; everything below is the geometry.
+   `.field` comes from tokens.css and flips the semantic roles to their on-navy
+   values; everything below is the geometry.
 
    A shape is positioned in stage pixels and clipped with `clip-path: path()`,
-   whose coordinates are the element's own border box. The two shapes here are
-   the ones drawn on the canvas: the cover's petal, hung off the right edge,
-   and the closing slide's lobe, rising out of the bottom-left corner. Both
-   run off the edge they are hung from. A shape that floats free of every edge
-   reads as a hole, not as a field.
+   whose coordinates are the element's own border box. Both shapes run off the
+   edge they are hung from: a shape that floats free of every edge reads as a
+   hole, not as a field.
 
-   The public site's magnetic pull and its live node network do not travel:
-   `src/motion.js` binds to document coordinates and the stage has none. The
-   nodes below are placed by hand instead, which is why they are the one thing
-   on a slide still positioned inline. */
+   The public site's magnetic pull does not travel — `src/motion.js` binds to
+   document coordinates and the stage has none — so the nodes below are placed by
+   hand, which is why they are the one thing on a slide still positioned inline. */
 
 .slide__shape {
   position: absolute;
@@ -887,12 +854,10 @@ sa-node-field {
   animation: sa-orbit linear infinite;
 }
 
-/* The site lights a node for about two fifths of its turn, which works on a
-   page you scroll past: you catch one somewhere on its arc. A slide is looked
-   at, and a node that is dark for most of a cycle reads as nothing moving at
-   all. So the deck uses the long fade, lit for roughly four fifths, and runs
-   every ring at about half the site's period. The cycle still ends dark, so
-   the jump back to the top of the ring is never seen. */
+/* The site lights a node for two fifths of its turn, which works on a page you
+   scroll past. A slide is looked at, and a node dark for most of a cycle reads as
+   nothing moving at all, so the deck uses the long fade at about half the site's
+   period. The cycle still ends dark, so the jump back is never seen. */
 .orbits__node {
   position: absolute;
   left: 50%;

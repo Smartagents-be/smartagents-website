@@ -1,48 +1,33 @@
-// Page motion: the magnetic dark shapes. Imported by app.js, which is a
-// deferred module script, so none of it can delay LCP. It was described here as
-// lazily loaded and has not been since the magnets had to grow their boxes
-// before the first paint to keep CLS at zero.
+// Page motion: the magnetic dark shapes. Imported by app.js, a deferred module
+// script, and not lazily loaded — the magnets have to grow their boxes before
+// the first paint to keep CLS at zero.
 //
-// Two speeds only (design system, "Motion"): travel is 0.34s ease-out-expo,
-// colour is 0.22s ease. Nothing bounces, nothing scales, nothing spins.
-// Everything here is decorative: with JS off, or under
-// `prefers-reduced-motion`, the page is simply static and fully readable.
+// Two speeds only (design system, "Motion"): travel 0.34s ease-out-expo, colour
+// 0.22s ease. Everything here is decorative: with JS off, or under
+// `prefers-reduced-motion`, the page is static and fully readable.
 
 const still = matchMedia('(prefers-reduced-motion: reduce)');
-
-/* The spotlight is gone. It hung a `pointermove` handler on every
-   `[data-spotlight]` element, read that element's box and wrote a
-   `radial-gradient` string into its inline style on every event — and no page
-   on the site has carried the attribute since the dark cards it was drawn for
-   were replaced by hairline rows. It shipped in the entry chunk on every page
-   and ran on none of them. If a spotlight is ever wanted again, it wants the
-   rect cached at setup rather than read per event. */
 
 /* ------------------------------------------------------------------ *
  * Magnets — a dark shape deforms toward a nearby cursor, and two shapes
  * pulled into each other's reach run together like ferrofluid
  *
- * A shape's own silhouette is the outline itself, moved: every sample slides
- * toward the cursor by a Gaussian in *arc length* along the perimeter, so the
- * swell is a bell with the drawn curvature intact and a stretch of edge that is
- * far along the outline cannot move, however close it happens to lie in the
- * plane. One silhouette, never a seam: the clip path is rewritten, so the swell
- * carries the node field with it instead of revealing an edge.
+ * A shape's silhouette is the outline itself, moved: every sample slides toward
+ * the cursor by a Gaussian in *arc length* along the perimeter, so the swell is
+ * a bell with the drawn curvature intact and a stretch of edge that is far along
+ * the outline cannot move however close it lies in the plane. The clip path is
+ * rewritten, so the swell carries the node field with it rather than revealing
+ * an edge.
  *
- * The join between two shapes is the only place a field is used, and it is
- * struck over a small window across the gap rather than over a whole shape.
- * There the outlines are read as `exp(-distance/k)` and summed; the contour
- * where that sum is 1 is the metaball union, which lies outside every outline
- * and necks between two of them with a concave fillet at each body. It is
- * traced by marching squares, smoothed, and appended to the lowest of the
- * shapes it was struck from as extra subpaths under one fill, so the join is a
- * union of one fill with itself and there is nothing to fold, notch or seam.
- * The trace is not the silhouette, though — it is drawn a little inside the
- * union, so wherever the join has lifted the contour by less than that the
- * authored outline is what shows and every apex is exactly as drawn. Outside
- * the window there is no field at all. `k` is scaled by how near the cursor is
- * to the gap, not to either shape: at rest it is zero, and two shapes that
- * merely sit close together stay apart until the cursor comes between them.
+ * The join is the only place a field is used, struck over a small window across
+ * the gap. There the outlines are read as `exp(-distance/k)` and summed; the
+ * contour where that sum is 1 is the metaball union, which lies outside every
+ * outline and necks between two of them with a concave fillet at each body. It
+ * is traced by marching squares and appended to the lowest of the shapes as
+ * extra subpaths under one fill, so there is nothing to fold or seam. The trace
+ * runs a little inside the union, so where the join lifts the contour by less
+ * than that the authored outline is what shows. `k` is scaled by how near the
+ * cursor is to the gap, not to either shape: at rest it is zero.
  * ------------------------------------------------------------------ */
 
 const POINTS = 220; // per shape, unless data-magnet-points says otherwise
@@ -91,14 +76,14 @@ function scratch(slot, size, Kind) {
 
 
 /**
- * The authored outline moved into the grown box: every coordinate pair mapped
- * by `x -> (x·w + BLEED) / (w + 2·BLEED)` and the same in y, which is what
- * growing the element's box by BLEED on all four sides does to unit space.
+ * The authored outline moved into the grown box: every coordinate pair mapped by
+ * `x -> (x·w + BLEED) / (w + 2·BLEED)`, which is what growing the element's box
+ * by BLEED on all four sides does to unit space.
  *
- * The silhouettes in `clipDefs()` are absolute `M`, `L`, `C` and `Z` and
- * nothing else, so the parse is a scan for numbers between commands. A command
- * this does not know how to move is a silhouette that would land somewhere
- * wrong, so it says so and the caller falls back to the sampled spline.
+ * The silhouettes are absolute `M`, `L`, `C` and `Z` and nothing else, so the
+ * parse is a scan for numbers between commands. An unknown command would land
+ * the shape somewhere wrong, so it says so and the caller falls back to the
+ * sampled spline.
  */
 const SIMPLE_PATH = /^[MLCZ\s,\d.eE+-]+$/;
 
@@ -123,21 +108,16 @@ function remapPathData(d, w, h) {
  * Every magnet on the page, measured and grown.
  *
  * Two passes, and the split is not tidiness: pass one only reads the layout and
- * pass two only writes to it. Interleaved — measure a shape, grow it, measure
- * the next — each measurement after the first has to flush the style and layout
- * the previous write invalidated, on a document five thousand pixels tall with
- * five live clip paths in it. That was 117ms of forced synchronous layout for
- * five shapes, and it is what made this too expensive to run before the first
- * paint, which in turn is why the grown boxes arrived a tenth of a second after
- * the page did and scored 0.07 of layout shift. Read everything, then write
- * everything, and it is one layout.
+ * pass two only writes to it. Interleaved, each measurement after the first has
+ * to flush the layout the previous write invalidated — 117ms of forced
+ * synchronous layout for five shapes, which is what made this too expensive to
+ * run before the first paint and cost 0.07 of layout shift.
  */
 function collectMagnets() {
   const items = [];
 
-  /* Pass one: reads only. Nothing in this loop may touch a style, an attribute
-     or the DOM — the moment it does, every `getBoundingClientRect` after it
-     pays for a fresh layout. */
+  /* Pass one: reads only. Nothing here may touch a style or the DOM, or every
+     `getBoundingClientRect` after it pays for a fresh layout. */
   const measured = [];
   for (const element of document.querySelectorAll('[data-magnet]')) {
     const clip = document.getElementById(element.dataset.clip);
@@ -180,17 +160,13 @@ function collectMagnets() {
     const guarded = !element.hasAttribute('data-magnet-free');
 
     // The resting silhouette is the *authored* curve moved into the bigger box,
-    // not a spline redrawn through samples of it. Growing the box is an affine
-    // map in unit space, and an affine map of a Bézier is the same map applied
-    // to its control points, so this is exact where a spline through 480
-    // samples is only very close — and it is ten segments where that is four
-    // hundred and eighty.
+    // not a spline through samples of it: growing the box is an affine map in
+    // unit space, and an affine map of a Bézier is the same map on its control
+    // points — exact, and ten segments where a spline is 480.
     //
-    // It is also what lets the box be grown without sampling anything. Sampling
-    // is 111ms on a cold engine for the five shapes on the homepage, almost all
-    // of it `getPointAtLength` warming up, and it is only needed for the pull.
-    // So the growth happens here, before the first paint, and the sampling
-    // waits for `arm()`.
+    // It is also what lets the box grow without sampling anything. Sampling is
+    // 111ms on a cold engine for the homepage's five shapes, almost all of it
+    // `getPointAtLength` warming up, and it is only needed for the pull.
     const resting = remapPathData(original, w, h);
     if (resting) path.setAttribute('d', resting);
 
@@ -198,8 +174,7 @@ function collectMagnets() {
       element,
       path,
       // Filled by `arm()`, except where `remapPathData` could not move the
-      // authored path and the sampled outline is the only resting shape there
-      // is — then it is armed on the spot, below.
+      // authored path — then it is armed on the spot, below.
       resting,
       count,
       original,
@@ -215,13 +190,13 @@ function collectMagnets() {
       // not bulge there; `data-magnet-free` opts out of that guard.
       guarded,
       // How far the outline travels, and how much of it travels with it. Both
-      // are per shape: a big shape swells over a wider stretch of its edge than
-      // a small one, or the pull reads as a spike rather than as a turn.
+      // per shape: a big shape swells over a wider stretch of its edge, or the
+      // pull reads as a spike rather than a turn.
       amplitude: parseFloat(element.dataset.magnetAmp) || (guarded ? 92 : 34),
       sigma: parseFloat(element.dataset.magnetSigma) || 96,
-      // The page edges the shape hangs from, if any: it stays welded to each of
-      // them. A comma-separated list, because a shape tucked into a corner is
-      // welded along two sides and a shape spanning a flank along three.
+      // The page edges the shape hangs from: it stays welded to each. A list,
+      // because a shape in a corner is welded along two sides and one spanning
+      // a flank along three.
       pins: (element.dataset.magnetPin || '').split(',').map((side) => side.trim()).filter(Boolean),
       active: false,
       // Per-frame state.
@@ -234,8 +209,7 @@ function collectMagnets() {
 
     // A silhouette this cannot move as a curve has to be moved as points, and
     // then there is no resting path until it is sampled. Nothing on the site is
-    // in that position today; the branch is what makes adding an arc, a
-    // quadratic or a relative command a slower shape rather than a broken one.
+    // in that position today.
     if (!resting) arm(items[items.length - 1]);
   }
 
@@ -243,17 +217,14 @@ function collectMagnets() {
 }
 
 /**
- * The half of a magnet the pull needs: the outline as points, its arc length
- * and its winding.
+ * The half of a magnet the pull needs: the outline as points, its arc length and
+ * its winding.
  *
- * Split from the growth above because it is the expensive half and the growth
- * is the urgent one. `getPointAtLength` costs about 85µs a call on a cold
- * engine and about 20µs once it is warm, so the five shapes on the homepage
- * are 111ms the first time and 8ms every time after — and the shapes cannot be
- * grown after the first paint without moving five boxes on a page the visitor
- * is already looking at, which is 0.07 of layout shift. So the box grows before
- * the paint and this runs after it, or on the first pointer move, whichever
- * comes first. Neither costs the visitor anything: there is no pull to draw
+ * Split from the growth above because it is the expensive half and the growth is
+ * the urgent one — `getPointAtLength` is ~85µs a call cold and ~20µs warm, so
+ * the homepage's five shapes are 111ms the first time. The box grows before the
+ * paint and this runs after it, or on the first pointer move, whichever comes
+ * first; neither costs the visitor anything, because there is no pull to draw
  * until the cursor arrives.
  */
 function arm(item) {
@@ -278,12 +249,11 @@ function arm(item) {
 
   item.outline = points.map(([x, y]) => [x * w, y * h]);
 
-  // Which way the sampled outline is wound. Nothing about a lone shape cares,
-  // but a join is handed to one of these as an extra subpath under one fill,
-  // and the default `clip-rule: nonzero` turns a loop wound against the body it
-  // overlaps into a hole punched through it. The arch on the AI staffing page is
-  // wound the other way from every other silhouette on the site, so this cannot
-  // be assumed — it is measured.
+  // Which way the sampled outline is wound. A lone shape does not care, but a
+  // join is handed to one of these as an extra subpath under one fill, and
+  // `clip-rule: nonzero` turns a loop wound against the body it overlaps into a
+  // hole. The staffing arch is wound the other way from every other silhouette,
+  // so this is measured rather than assumed.
   item.turn = shoelace(item.outline) < 0 ? -1 : 1;
 
   // Arc length along the outline, so a bulge falls off along the edge rather
@@ -300,22 +270,17 @@ function arm(item) {
   item.perimeter = perimeter;
 }
 
-/* A closed loop as cubic curves rather than chords: a Catmull-Rom spline
- * through the points, centripetally parameterised so a tight turn rounds
- * instead of cusping or overshooting, written out as the Bézier segments it is
- * equal to. Every join is drawn this way, so wherever the trace leaves a corner
- * — a grid cell the contour turned in, the chord that closes a loop against the
- * window's rim — the silhouette carries a curve through it instead of a point.
- * The bodies stay chords: they are sampled every few pixels off a curve that
- * was smooth to begin with, and the sagitta of a chord that short is a
- * hundredth of a pixel. */
+/* A closed loop as cubic curves rather than chords: a Catmull-Rom spline through
+ * the points, centripetally parameterised so a tight turn rounds instead of
+ * cusping. Every join is drawn this way, so wherever the trace leaves a corner
+ * the silhouette carries a curve through it. The bodies stay chords — sampled
+ * every few pixels off a curve that was smooth to begin with. */
 function toCurveData(points, sx, sy) {
   const n = points.length;
   if (n < 3) return '';
   // Centripetal knots: the square root of each chord's length, struck in the
   // pixels the loop was traced in — the box a clip path is written against is
-  // not square, and knots taken after the squash would round one axis harder
-  // than the other.
+  // not square, and knots taken after the squash round one axis harder.
   const knot = new Float64Array(n);
   for (let i = 0; i < n; i++) {
     const a = points[i];
@@ -340,8 +305,18 @@ function toCurveData(points, sx, sy) {
   return `${data}Z`;
 }
 
-function toPathData(points) {
-  return `${points.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(4)},${y.toFixed(4)}`).join('')}Z`;
+/**
+ * A closed polyline as path data, scaled on the way out. The scale is folded in
+ * because the call site is the frame loop. Four decimals is not a spare digit:
+ * these are `objectBoundingBox` units, so on the widest shape on the site the
+ * third decimal is already a pixel.
+ */
+function toPathData(points, sx = 1, sy = 1) {
+  let data = '';
+  for (let i = 0; i < points.length; i++) {
+    data += `${i ? 'L' : 'M'}${(points[i][0] * sx).toFixed(4)},${(points[i][1] * sy).toFixed(4)}`;
+  }
+  return `${data}Z`;
 }
 
 /* ------------------------------------------------------------------ *
@@ -349,15 +324,12 @@ function toPathData(points) {
  * ------------------------------------------------------------------ */
 
 /* Signed distance from every node of a window to a closed polyline: negative
- * inside, positive out, clamped to `band` either way. Exact against the
- * segments within reach, which is what lets the union contour land on the
- * outline itself where only one shape contributes. The window is `cols x rows`
- * nodes of CELL px, its top-left node at (ox, oy).
- *
- * The polyline arrives flat — x, y, x, y — and the hash is two typed arrays
- * rather than an array of arrays. This runs once per shape per window per
- * frame over several thousand nodes, and it is the one place on the site where
- * the shape of the data costs more than the arithmetic. */
+ * inside, positive out, clamped to `band`. Exact against the segments within
+ * reach, which is what lets the union contour land on the outline itself where
+ * only one shape contributes. The polyline arrives flat — x, y, x, y — and the
+ * hash is two typed arrays: this runs once per shape per window per frame over
+ * several thousand nodes, the one place the shape of the data costs more than
+ * the arithmetic. */
 function signedDistance(pts, count, cols, rows, ox, oy, band, sd) {
   const nodes = cols * rows;
   sd.fill(band, 0, nodes);
@@ -403,14 +375,10 @@ function signedDistance(pts, count, cols, rows, ox, oy, band, sd) {
   }
 
   // The segments hashed into coarse buckets over the window, so a node only
-  // measures the few that can be nearest. The hash spans the window grown by
-  // `band`, and a segment that misses it entirely is further than `band` from
-  // every node and is dropped rather than clamped onto the rim — clamping is
-  // what makes an outline longer than the window pile onto its edge, and every
-  // node along that edge then measures the whole shape. One that only overhangs
-  // is still clamped into the rim buckets it reaches, which costs a little and
-  // is exact either way: what a bucket holds is a hint, and the distance is
-  // measured against the segment itself.
+  // measures the few that can be nearest. A segment that misses the hash
+  // entirely is further than `band` from every node and is dropped rather than
+  // clamped onto the rim — clamping is what makes an outline longer than the
+  // window pile onto its edge, where every node then measures the whole shape.
   const bx0 = Math.floor((ox - band) / BUCKET);
   const by0 = Math.floor((oy - band) / BUCKET);
   const bw = Math.floor((ox + (cols - 1) * CELL + band) / BUCKET) + 1 - bx0;
@@ -420,9 +388,7 @@ function signedDistance(pts, count, cols, rows, ox, oy, band, sd) {
   heads.fill(0, 0, cells + 1);
 
   // A counting sort in place of a bucket of arrays: tally, run the tally into
-  // offsets, then write the segments. `heads[n]` ends one bucket along, which
-  // is exactly the layout the lookup wants — bucket n runs from heads[n] to
-  // heads[n + 1].
+  // offsets, then write. Bucket n runs from heads[n] to heads[n + 1].
   for (let a = 0, b = count - 1; a < count; b = a++) {
     const ax = pts[2 * a];
     const ay = pts[2 * a + 1];
@@ -444,9 +410,8 @@ function signedDistance(pts, count, cols, rows, ox, oy, band, sd) {
     refs += heads[n];
     heads[n] = refs;
   }
-  // Nothing within reach of the window, but the scanline may still have found
-  // it enclosing: a shape large enough to swallow the window whole has an
-  // outline that misses the hash entirely, and every node in it is inside.
+  // Nothing within reach, but the scanline may still have found it enclosing: a
+  // shape large enough to swallow the window misses the hash entirely.
   if (!refs) {
     for (let n = 0; n < nodes; n++) if (inside[n]) sd[n] = -band;
     return sd;
@@ -476,10 +441,9 @@ function signedDistance(pts, count, cols, rows, ox, oy, band, sd) {
     }
   }
 
-  // Everything left unsearched after ring R is at least R buckets away, so
-  // stopping at ceil(band / BUCKET) is exact rather than approximate: what it
-  // gives up is only distances past `band`, which are clamped anyway. Deriving
-  // it from `band` is what keeps that true if the window or the hash changes.
+  // Everything left unsearched after ring R is at least R buckets away, so this
+  // is exact rather than approximate: what it gives up is distances past `band`,
+  // which are clamped anyway.
   const rings = Math.ceil(band / BUCKET);
   const reach = band * band;
 
@@ -535,10 +499,9 @@ function signedDistance(pts, count, cols, rows, ox, oy, band, sd) {
 
 /* The contour at 0 of a scalar field on a window, as closed loops of points in
  * the window's own pixels. Marching squares, each crossing interpolated
- * linearly. The winding the trace falls into is kept as it is, which is what
- * makes an island between three joined shapes come out wound against the loop
- * around it; whether the whole set is then turned around is the caller's
- * business, because that depends on the body the loops are handed to. */
+ * linearly. The winding the trace falls into is kept, which is what makes an
+ * island between three joined shapes come out wound against the loop around it;
+ * turning the whole set around is the caller's business. */
 const corner = new Float64Array(4);
 const keys = new Int32Array(4);
 const kind = new Int8Array(4); // 1: inside runs out across this edge, -1: back in
@@ -586,11 +549,9 @@ function contour(values, cols, rows, ox, oy) {
       corner[2] = c;
       corner[3] = d;
 
-      // Walk the cell clockwise: an edge is crossed where the corner before it
-      // and the corner after it disagree. Only those edges are struck — an
-      // uncrossed one has no crossing to interpolate, and two corners that are
-      // equal (two rim nodes, two saturated interior nodes) would divide by
-      // zero and cache a NaN under the edge's key.
+      // Walk the cell clockwise: an edge is crossed where the corners either
+      // side disagree. Only those are struck — an uncrossed edge has no crossing
+      // to interpolate, and two equal corners would divide by zero.
       let crossed = 0;
       for (let e = 0; e < 4; e++) {
         const before = corner[e] >= 0;
@@ -604,8 +565,7 @@ function contour(values, cols, rows, ox, oy) {
       if (kind[3]) keys[3] = crossing(vKey(i, j), x, y, a, x, y + CELL, d);
 
       // A segment runs from where the inside runs out to where it comes back.
-      // With four crossings the cell is ambiguous, and its centre decides
-      // whether the two inside corners are joined across it.
+      // Four crossings is ambiguous, and the centre decides.
       const joined = crossed === 4 && a + b + c + d >= 0;
       for (let e = 0; e < 4; e++) {
         if (kind[e] !== 1) continue;
@@ -658,14 +618,10 @@ function contour(values, cols, rows, ox, oy) {
 }
 
 /* A marched loop made fit to draw: two Chaikin passes to take the CELL-px
- * staircase out of it, then a resample at even arc length.
- *
- * The resample is what the spline that follows needs. Dropping vertices by how
- * far they stand off a chord — the obvious way to shorten the path — leaves
- * them unevenly spaced, with a few tenths of a pixel of jitter between them,
- * and a Catmull-Rom through points like that overshoots between the far-apart
- * ones and scallops the edge. Even spacing costs a few more points and gives a
- * curve that lies on the loop. */
+ * staircase out, then a resample at even arc length. The resample is what the
+ * spline needs — dropping vertices by their offset from a chord leaves them
+ * unevenly spaced with a few tenths of a pixel of jitter, and a Catmull-Rom
+ * through points like that overshoots and scallops the edge. */
 function smooth(loop) {
   let cur = loop;
   for (let pass = 0; pass < ROUND; pass++) {
@@ -717,15 +673,12 @@ function shoelace(loop) {
   return area;
 }
 
-/* How close two outlines come: a coarse sweep, then the same sweep again over
- * the stretch around the winner. The stride is not a constant — it is chosen so
- * a coarse step is about STEP px of arc on either outline, because a stride
- * that is a fine step on a 200-point pebble is a 47px stride on the arch, and a
- * coarse pass that skips a whole turn reads the gap as wider than it is.
- *
- * Only the distance is wanted, never the place: which of two near-equal gaps
- * wins flips from frame to frame as the shapes move, and anything downstream
- * that leaned on the winner's position would flip with it. */
+/* How close two outlines come: a coarse sweep, then the same sweep over the
+ * stretch around the winner. The stride is chosen so a coarse step is about
+ * STEP px of arc on either outline — a fine step on a 200-point pebble is a 47px
+ * stride on the arch, and a coarse pass that skips a whole turn reads the gap as
+ * wider than it is. Only the distance is wanted, never the place: which of two
+ * near-equal gaps wins flips from frame to frame. */
 function closest(a, na, sa, b, nb, sb) {
   const strideA = Math.max(1, Math.round(STEP / sa));
   const strideB = Math.max(1, Math.round(STEP / sb));
@@ -777,25 +730,17 @@ function flatten(S) {
 
 /* Everything the cursor has drawn between two shapes, once per frame.
  *
- * A pair is considered when both are within `SPAN` of each other after they
- * have been displaced, and the strength of the join is how near the cursor is
- * to the gap itself — not to either shape. So a pull the cursor aims elsewhere
- * never quietly welds two shapes together, and at rest nothing joins at all.
+ * A pair is considered when both are within `SPAN` of each other after they have
+ * been displaced, and the strength of the join is how near the cursor is to the
+ * gap itself — not to either shape — so a pull aimed elsewhere never quietly
+ * welds two shapes together.
  *
- * Everything here works in viewport pixels — where `getBoundingClientRect` and
- * a pointer event agree — and each element remaps the result into its own box
- * when it writes its path.
- *
- * It takes no cursor. It used to be handed one and never read it: what the
- * cursor decides is `k`, and `displace()` has already written that onto every
- * item by the time this runs. Two parameters that looked like the thing the
- * function keys on and were not. */
+ * Everything works in viewport pixels, where `getBoundingClientRect` and a
+ * pointer event agree; each element remaps into its own box as it writes. */
 function joins(items, linked) {
-  // Every shape the page has, not only the pulled ones: a shape standing still
-  // is still something a neighbour's swell can arrive at, and leaving it out of
-  // the field would butt the neck against it instead of filleting into it.
-  // Its outline in viewport pixels is flattened only if a window actually needs
-  // it — most frames strike none.
+  // Every shape on the page, not only the pulled ones: a shape standing still is
+  // still something a neighbour's swell can arrive at, and leaving it out would
+  // butt the neck against it instead of filleting into it.
   const shapes = [];
   for (let index = 0; index < items.length; index++) {
     const item = items[index];
@@ -849,32 +794,23 @@ function joins(items, linked) {
       // How close the two displaced outlines come.
       const gap = closest(flatten(A), A.count, A.step, flatten(B), B.count, B.step);
 
-      // Strength: how near the cursor is to the further of the two shapes, so
-      // a join needs the cursor to be near both, eased so it arrives and leaves
-      // without a step. Nothing else scales it — two shapes that merely sit
-      // close stay apart until the cursor comes to them.
-      //
-      // It is the *distance* to each outline, never the place on it. Distance
-      // to a closed curve moves as smoothly as the cursor does; the point that
-      // realises it jumps from one side of a shape to the other the moment two
-      // approaches tie, and a strength keyed on that jumps with it — which is
-      // seen as the whole join flickering as the pointer travels.
+      // Strength: how near the cursor is to the further of the two shapes, so a
+      // join needs it near both, eased so it arrives and leaves without a step.
+      // It is the *distance* to each outline, never the place on it — distance
+      // to a closed curve moves as smoothly as the cursor does, where the point
+      // realising it jumps the moment two approaches tie, and the whole join is
+      // seen to flicker with it.
       const t = Math.min(1, Math.max(A.item.reach, B.item.reach) / REACH);
       const near = 1 - t * t * (3 - 2 * t);
       const k = MERGE * near;
-      // Two outlines facing each other across g join when 2·e^(-g/2k) reaches
-      // 1, so g = 2k·ln2 is the widest gap any pair of them can close; a turn
-      // in either outline only narrows it. Past that there is nothing to draw
-      // and the window is not worth striking. Below k = 6 the blend is shorter
-      // than the grid can resolve.
+      // Two outlines facing each other across g join when 2·e^(-g/2k) reaches 1,
+      // so g = 2k·ln2 is the widest gap any pair can close. Below k = 6 the blend
+      // is shorter than the grid can resolve.
       //
-      // A neck is born at that limit with no width at all, and a 4px grid
-      // cannot draw a waist thinner than a cell: right at the limit the trace
-      // flickers between joined and apart on sub-pixel cursor travel. So a join
-      // has to arrive a little inside the limit, where the waist is already
-      // tens of pixels wide, and is then held to the limit itself once it is
-      // open. It still pinches away smoothly on the way out; what it no longer
-      // does is stutter on the way in.
+      // A neck is born at that limit with no width at all and a 4px grid cannot
+      // draw a waist thinner than a cell, so right at the limit the trace
+      // flickers on sub-pixel travel. A join therefore arrives a little inside
+      // the limit and is held to the limit itself once open.
       const key = A.index * items.length + B.index;
       const limit = 2 * k * Math.LN2;
       if (k < 6 || gap > limit * (linked.has(key) ? 1 : ONSET)) {
@@ -884,11 +820,10 @@ function joins(items, linked) {
       linked.add(key);
 
       // The window is where these two shapes can reach each other: the overlap
-      // of their boxes, opened out by how far one still lifts the other's
-      // contour. It is not a box around the gap — once two shapes are close
-      // enough to run together their outlines cross well away from the
-      // narrowest point, and a window centred on that point cuts the fillets
-      // off at its rim.
+      // of their boxes opened out by how far one still lifts the other's
+      // contour. Not a box around the gap — once two shapes run together their
+      // outlines cross well away from the narrowest point, and a window centred
+      // there cuts the fillets off at its rim.
       const spread = SPREAD * k;
       const lx = Math.max(A.minX, B.minX) - spread;
       const hx = Math.min(A.maxX, B.maxX) + spread;
@@ -903,15 +838,12 @@ function joins(items, linked) {
       if (cols < 4 || rows < 4) continue;
       const band = spread + 2 * CELL;
       // What one shape's term is worth at the rim, and so what has to come off
-      // every term but the nearest for the lift to be gone by the time the
-      // window ends.
+      // every term but the nearest for the lift to be gone by the window's end.
       const floor = Math.exp(-spread / k);
 
       // Every shape that could move the contour inside the window, not just the
-      // pair: three shapes meeting is one field, and the island they can leave
-      // between them has to come out of the same trace as the loops around it.
-      // A shape further than `spread` from the window cannot lift anything
-      // there by as much as the floor already takes off, so it is left out.
+      // pair: three shapes meeting is one field, and the island between them has
+      // to come out of the same trace as the loops around it.
       const group = [];
       for (const S of shapes) {
         if (
@@ -932,28 +864,21 @@ function joins(items, linked) {
       );
 
       // The union: k·log(the nearest shape's term, plus what the others add).
-      // Each shape alone reaches 1 on its own outline, so the contour never
-      // cuts inside a body; where two of them are within reach of each other
-      // the sum lifts the contour off both and it necks between them with a
-      // fillet at each. Nothing is stitched, so there is no seam — and with the
-      // floor taken off what the others add and the remainder faded out over the
-      // margin, the lift is gone by the rim and the contour there is the outline
-      // itself, whatever else happens to be standing nearby.
-      // How far into the window the lift may reach full strength. The `floor`
-      // below cancels what the *others* add only if every one of them is at
-      // least `spread` away — that is the assumption it is built on. A third
-      // shape standing nearer than that still lifts the contour at the rim,
-      // where the pass clamps the field to `-band` and marching squares closes
-      // the loop along a straight line: a ledge across the far side of whichever
-      // shape the rim crossed. It is the artifact this pass exists to avoid,
-      // arriving from the one direction the floor cannot see.
+      // Each shape alone reaches 1 on its own outline, so the contour never cuts
+      // inside a body; where two are within reach the sum lifts it off both and
+      // it necks between them with a fillet at each.
       //
-      // So the lift is faded to nothing at the rim by construction instead of by
-      // assumption. Over the outer half of the margin, which leaves it at full
-      // strength across the middle of the window — the gap, both facing edges
-      // and the waist the join is actually made of — and takes it smoothly to
-      // zero by the edge, where `sum` is `top` alone and the contour is the
-      // nearest outline itself. The rim then has nothing left to cut.
+      // The `floor` below cancels what the others add only if every one of them
+      // is at least `spread` away. A third shape standing nearer still lifts the
+      // contour at the rim, where the field is clamped and marching squares
+      // closes the loop along a straight line — a ledge across the far side of
+      // whichever shape the rim crossed, which is the artifact this pass exists
+      // to avoid, arriving from the one direction the floor cannot see.
+      //
+      // So the lift is faded to nothing at the rim by construction, over the
+      // outer half of the margin: full strength across the middle of the window
+      // — the gap, both facing edges, the waist — and zero by the edge, where
+      // `sum` is `top` alone and the contour is the nearest outline itself.
       const fade = spread * 0.5;
       const values = scratch(VALUES, nodes, Float32Array);
       let any = false;
@@ -979,19 +904,17 @@ function joins(items, linked) {
             }
           }
           // Taken off smoothly, not clipped: `max(0, extra - floor)` creases the
-          // contour along the level set where the two meet, and a crease in a
-          // silhouette is exactly the artifact this whole pass exists to avoid.
-          // Below twice the floor the term eases into zero with a matching
-          // slope instead, so the join leaves the outline tangentially.
+          // contour where the two meet, and a crease in a silhouette is the
+          // artifact this pass exists to avoid. Below twice the floor the term
+          // eases into zero with a matching slope, so the join leaves the
+          // outline tangentially.
           const over = extra - floor;
           const lift = over > floor ? over : extra > 0 ? (extra * extra) / (4 * floor) : 0;
           const sum = top + lift * taper;
-          // Traced a hair inside the union rather than on it. Where the join
-          // has lifted the contour by less than that, the loop runs inside the
-          // body and the outline the body draws is the silhouette, so the two
-          // hand over under cover rather than crossing in the open. Half a
-          // pixel is all it takes: the loop is drawn as a curve, which carries
-          // whatever is left of the crossing through as a bend.
+          // Traced a hair inside the union rather than on it, so where the join
+          // has lifted the contour by less than that the two hand over under
+          // cover rather than crossing in the open. Half a pixel is all it
+          // takes: the loop is drawn as a curve.
           const v = sum > 0 ? k * Math.log(sum) - INSET : -band;
           values[n] = v;
           if (v >= 0) any = true;
@@ -999,8 +922,8 @@ function joins(items, linked) {
         }
       }
       // Nothing to draw, or a window that fell entirely inside the union: the
-      // contour would then be the rim itself, a rectangle of straight lines
-      // through the middle of a curve, adding nothing the bodies do not.
+      // contour would be the rim itself, straight lines through the middle of a
+      // curve.
       if (!any || sealed) continue;
       for (let i = 0; i < cols; i++) {
         values[i] = -band;
@@ -1015,19 +938,16 @@ function joins(items, linked) {
       if (!loops.length) continue;
 
       // The union covers the bodies it was struck from, so it is painted by the
-      // one of them that sits lowest: every other shape in the group paints its
-      // own body over the top, and nothing a shape carries above a neighbour —
-      // the DNA helix over the disc — can be painted out from underneath it.
+      // lowest of them: every other shape paints its own body over the top, and
+      // nothing a shape carries above a neighbour can be painted out.
       const host = group[0].item;
 
-      // Wound the way that host's body is wound, or the nonzero fill rule reads
-      // the union as a hole punched through it. The trace keeps its own
-      // relative winding, so an island between three shapes stays wound against
-      // the loop around it and is painted as the paper it is; what decides
-      // whether the whole set is turned around is the areas summed, which is
-      // the area of the region itself — asking the largest loop instead would
-      // turn the set inside out on a window where the rim happened to cut the
-      // outer loop smaller than an island inside it.
+      // Wound the way that host's body is wound, or the nonzero rule reads the
+      // union as a hole. The trace keeps its own relative winding, so an island
+      // between three shapes stays wound against the loop around it; what
+      // decides whether the set is turned around is the areas summed, because
+      // asking the largest loop turns it inside out on a window where the rim
+      // cut the outer loop smaller than an island inside it.
       let wound = 0;
       for (const loop of loops) wound += shoelace(loop);
       if (wound * host.turn < 0) for (const loop of loops) loop.reverse();
@@ -1050,9 +970,8 @@ function magnets() {
   let items = collectMagnets();
   if (!items.length) return;
 
-  /* The sampling half, run once, whenever it is first needed. Idle time is the
-     usual answer; the first pointer move is the deadline, because that is the
-     first frame that has a pull to draw. */
+  /* The sampling half, run once. Idle time is the usual answer; the first
+     pointer move is the deadline. */
   let armed = false;
   const armAll = () => {
     if (armed) return;
@@ -1076,9 +995,8 @@ function magnets() {
     item.active = false;
   };
 
-  // One shape's displaced outline: the committed deformation, unchanged. The
-  // outline is what moves, so every curve keeps the shape it was drawn with and
-  // a stretch of edge far along the perimeter cannot follow the cursor.
+  // One shape's displaced outline. The outline is what moves, so every curve
+  // keeps the shape it was drawn with.
   const displace = (item, cursorX, cursorY) => {
     const rect = item.element.getBoundingClientRect();
     item.rect = rect;
@@ -1092,8 +1010,18 @@ function magnets() {
     const y = (cursorY - rect.top) / scale;
 
     const { outline, arc, perimeter, w, h } = item;
+
+    /* Out of range of the box, so out of range of every point on the outline
+       inside it: skip the 480-distance walk the loop below would spend arriving
+       at that. `item.reach` stays Infinity, which `joins()` reads as "not near".
+       On a page with five magnets this is four walks a frame saved. */
+    if (x < -REACH || x > w + REACH || y < -REACH || y > h + REACH) return;
+
     let nearest = 0;
-    let best = Infinity;
+    /* Squared until the end: comparing squares picks the same nearest point,
+       and `Math.hypot` rescales against an overflow that pixel offsets inside a
+       box a few thousand across cannot reach. */
+    let bestSq = Infinity;
     let inside = false;
     for (let i = 0, j = outline.length - 1; i < outline.length; j = i++) {
       if (
@@ -1105,12 +1033,15 @@ function magnets() {
       ) {
         inside = !inside;
       }
-      const d = Math.hypot(x - outline[i][0], y - outline[i][1]);
-      if (d < best) {
-        best = d;
+      const dx0 = x - outline[i][0];
+      const dy0 = y - outline[i][1];
+      const dSq = dx0 * dx0 + dy0 * dy0;
+      if (dSq < bestSq) {
+        bestSq = dSq;
         nearest = i;
       }
     }
+    const best = Math.sqrt(bestSq);
 
     // How far the cursor stands from this outline, whichever side of it: what
     // a join is scaled by, and the one measure of nearness that cannot jump.
@@ -1127,9 +1058,8 @@ function magnets() {
       return;
     }
 
-    // Peak pull at mid-reach, where the turn stretches furthest. It eases off
-    // again at the far limit and as the cursor comes back onto the edge, so
-    // neither approach nor contact has a step in it.
+    // Peak pull at mid-reach, where the turn stretches furthest, easing off at
+    // the far limit and as the cursor comes back onto the edge.
     const t = best / REACH;
     const bell = Math.sin(Math.PI * t) ** 0.85;
     // The tip reaches toward the cursor, never past it.
@@ -1187,7 +1117,7 @@ function magnets() {
         continue;
       }
       const body = item.moved
-        ? toPathData(item.shape.map(([x, y]) => [x / item.w, y / item.h]))
+        ? toPathData(item.shape, 1 / item.w, 1 / item.h)
         : item.resting;
       item.path.setAttribute('d', body + item.bridge);
       item.active = true;
@@ -1238,13 +1168,9 @@ function magnets() {
  * Wire-up
  * ------------------------------------------------------------------ */
 
-/* `prefers-reduced-motion` was read once, here, at module evaluation, and the
-   whole block stood inside that one reading. A reader who turns the system
-   setting on mid-visit expects the page to go still, and everything else on the
-   site does react — `magnetic` below has always had its own listener, and the
-   CSS half is a media query, which is live by definition. Both queries feed one
-   `sync` now, so a magnet already running is torn down rather than left pulling
-   under a setting that has just forbidden it. */
+/* Both queries feed one `sync`, so a reader who turns `prefers-reduced-motion`
+   on mid-visit gets a running magnet torn down rather than left pulling. Read
+   once at module evaluation, it could not. */
 {
   // The magnets only make sense with a real pointer and a desktop layout; the
   // narrow layouts swap in different clip paths.
@@ -1265,13 +1191,11 @@ function magnets() {
   still.addEventListener('change', sync);
 
   // Setting up a magnet is a measurement: the box is grown by BLEED in pixels
-  // and the authored outline is remapped into the bigger box using that box's
-  // own width and height. Both are only true at the size they were read at, so
-  // a window that changes size leaves every shape struck against a box that no
-  // longer exists — the silhouettes stretch and slide off the edges they are
-  // supposed to hang from. Crossing the breakpoint already rebuilt them, which
-  // is why this only ever showed up on a resize that stayed on one side of it.
-  // Struck again from the authored path, at the size the page now is.
+  // and the outline remapped using that box's width and height, both only true
+  // at the size they were read at. A window that changes size leaves every shape
+  // struck against a box that no longer exists. Crossing the breakpoint already
+  // rebuilt them, which is why this only showed up on a resize that stayed on
+  // one side of it.
   let settle = 0;
   addEventListener(
     'resize',

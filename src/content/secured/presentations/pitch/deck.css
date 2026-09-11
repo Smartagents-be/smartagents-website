@@ -1,18 +1,6 @@
 /* pitch — no rules of its own.
 
-   Every slide here is one of the eight archetypes in ../shared/slide.css and
-   needs no geometry of its own; the deck that stood here before carried 1700
-   lines of cards, icons and per-category colour, which is exactly what the
-   shared vocabulary exists to end.
-
-   Two rules used to stand here. `.nobreak`, which holds the client's own word
-   "ai-impact" together at 76px, is shared. So is the fix for the SmartSpace
-   screenshot: the frame is taller than the image (1052x800 against 2000x1114)
-   and `object-fit: cover` threw away a third of its width, taking the app
-   rail off one side and the chat panel's edge off the other. That slide names
-   `.media__frame--fit` now, which letterboxes into the wash instead.
-
-   Anything added below is written with tokens (--sa-grey-3, --sa-line,
-   --ls-h3, --fw-semibold) and in absolute pixels against the 1920x1080 stage.
-   A figure that would be written twice across two decks belongs in
-   ../shared/slide.css instead. */
+   Every slide here is one of the eight archetypes in ../shared/slide.css. A
+   figure of this deck's own goes here, in tokens and in absolute pixels
+   against the 1920x1080 stage, and moves into ../shared/slide.css the moment
+   a second deck wants the same thing. */

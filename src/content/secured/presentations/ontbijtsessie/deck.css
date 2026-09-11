@@ -1,20 +1,6 @@
 /* ontbijtsessie — no rules of its own.
 
-   There are none. Every slide is one of the eight archetypes from
-   `../shared/slide.css`: the cover and the close, hairline rows, statements,
-   two compares, the step rows, and the demo slides on the media archetype.
-   The deck that stood here before carried 1700 lines of its own cards,
-   category colours and animated demo widgets; the demos now live in the room
-   rather than in the markup, and nothing is left that the shared vocabulary
-   does not already say.
-
-   Two of those demo slides used to name a class no stylesheet defined. The
-   music demo asked for `.media__frame--audio` and got nothing, so the player
-   sat in the top-left corner of an empty 900px panel; the avatar demo is a
-   9:16 recording that `object-fit: cover` cropped through the top of Tom's
-   head. Both modifiers are in the shared stylesheet now.
-
-   If this deck ever needs a figure of its own, write it here with tokens
-   (--sa-grey-3, --sa-line, --ls-h3, --fw-semibold) in absolute pixels against
-   the 1920x1080 stage, and move it into `../shared/slide.css` the moment a
-   second deck wants the same thing. */
+   Every slide here is one of the eight archetypes in ../shared/slide.css. A
+   figure of this deck's own goes here, in tokens and in absolute pixels
+   against the 1920x1080 stage, and moves into ../shared/slide.css the moment
+   a second deck wants the same thing. */

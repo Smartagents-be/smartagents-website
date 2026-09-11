@@ -28,13 +28,11 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: 'Forbidden' }, 403);
   }
 
-  /* The size guard runs before the parse, not after it. `validatePayload` caps
-     every field it knows about, but it only sees the object once the whole body
-     has been read and parsed — so a megabyte of JSON was fully decoded in the
-     isolate before anything looked at it. The largest honest submission is the
-     5000-character message plus four short fields; 16 KB is several times that
-     and a tenth of anything worth worrying about. A body with no
-     `Content-Length` is read anyway: the platform caps it long before this. */
+  /* The size guard runs before the parse. `validatePayload` caps every field it
+     knows about, but only once the whole body has been read — so a megabyte of
+     JSON was fully decoded in the isolate before anything looked at it. The
+     largest honest submission is the 5000-character message plus four short
+     fields. */
   const declaredLength = Number(request.headers.get('Content-Length') || 0);
   if (declaredLength > MAX_BODY_BYTES) {
     return jsonResponse({ error: 'Payload too large' }, 413);
@@ -58,10 +56,9 @@ export async function onRequestPost(context) {
   }
 
   /* An unbound secret is this endpoint's fault and has to say so. Without this
-     the key's absence was posted to Turnstile as the literal string
-     "undefined", Turnstile answered `invalid-input-secret`, and the visitor was
-     told their captcha had failed — a 403 blaming them for a binding nobody had
-     set, on the site's only conversion path, with nothing in the log. */
+     the key's absence was posted to Turnstile as the string "undefined",
+     Turnstile answered `invalid-input-secret`, and the visitor was told their
+     captcha had failed — a 403 blaming them for a binding nobody had set. */
   if (!env.TURNSTILE_SECRET_KEY) {
     console.error('contact: TURNSTILE_SECRET_KEY is not bound; see functions/api/README.md');
     return jsonResponse({ error: 'Captcha verification unavailable' }, 500);
@@ -78,23 +75,19 @@ export async function onRequestPost(context) {
   }
 
   // Validation first, then the counter. The other way round a malformed
-  // submission burned one of the caller's five attempts an hour, so a visitor
-  // who mistyped an e-mail address five times was locked out of the site's only
-  // conversion path for the rest of the hour — and while the endpoint rejected
-  // every submission the form made, five page loads locked out everyone. The
-  // counter now only ever counts a submission that was worth forwarding.
+  // submission burned one of the caller's five attempts an hour, so five
+  // mistyped e-mail addresses locked a visitor out of the only conversion path.
+  // The counter now only counts a submission that was worth forwarding.
   const rateLimitError = await checkAndIncrementRateLimit(env.CONTACT_RATE, ip);
   if (rateLimitError) {
     return jsonResponse({ error: rateLimitError }, 429);
   }
 
   // Awaited, not `waitUntil`. Handed to `waitUntil` this call outlived the
-  // response, so its result could not reach the visitor: a missing
-  // `N8N_WEBHOOK_URL` or a webhook that was down both answered `{ ok: true }`
-  // and dropped the message. A contact form that reports success it cannot
-  // vouch for is worse than one that reports failure, because nobody goes
-  // looking. The cost is that the visitor waits for n8n; that is the right way
-  // round for the site's only conversion path.
+  // response, so a missing `N8N_WEBHOOK_URL` or a webhook that was down both
+  // answered `{ ok: true }` and dropped the message. A form that reports success
+  // it cannot vouch for is worse than one that reports failure, because nobody
+  // goes looking.
   const delivered = await forwardToN8n(body, env.N8N_WEBHOOK_URL, env.N8N_SHARED_SECRET);
   if (!delivered) {
     return jsonResponse({ error: 'Unable to deliver message' }, 502);
@@ -146,15 +139,13 @@ async function checkAndIncrementRateLimit(kv, ip) {
 }
 
 /**
- * What a submission must carry: a name, an e-mail and a message. That is what
- * the visitor actually fills in.
+ * What a submission must carry: a name, an e-mail and a message.
  *
  * `subject` is optional and used to be required, which is how this endpoint
- * rejected every submission the site ever made: the form posts what its fields
- * are named, and none of them was called `subject`. The form sends one now, and
- * the rule still does not require it — a lead is worth more than a subject
- * line, and a required field nothing on the site renders is a trap that only
- * springs in production. It is still type- and length-checked when present.
+ * rejected every submission the site ever made: no field on the form was called
+ * `subject`. The form sends one now and the rule still does not require it — a
+ * required field nothing on the site renders is a trap that only springs in
+ * production. It is still type- and length-checked when present.
  */
 function validatePayload(body) {
   const { name, email, subject, message } = body;
@@ -175,13 +166,10 @@ function validatePayload(body) {
 }
 
 /**
- * Hands the message to n8n and says whether it arrived.
- *
- * Every failure path returns false and says why on the way out. It used to
- * swallow both — a missing binding and a dead webhook were indistinguishable
- * from success, and `wrangler.toml` has never carried `N8N_WEBHOOK_URL`, so
- * that is not a hypothetical. `console.error` is what reaches `wrangler pages
- * deployment tail` and the dashboard's live log.
+ * Hands the message to n8n and says whether it arrived. Every failure path
+ * returns false and says why on the way out: it used to swallow both, so a
+ * missing binding and a dead webhook were indistinguishable from success.
+ * `console.error` is what reaches `wrangler pages deployment tail`.
  */
 async function forwardToN8n(body, webhookUrl, sharedSecret) {
   if (!webhookUrl) {
@@ -199,10 +187,7 @@ async function forwardToN8n(body, webhookUrl, sharedSecret) {
   };
   if (company) payload.company = String(company).slice(0, 200);
   /* `intent` was forwarded here too and no form on the site has ever rendered a
-     field by that name, so the branch could only ever fire on a hand-made
-     request. A field the page cannot produce is a field nothing downstream can
-     rely on; it is gone rather than left as a hook for a form that may never be
-     built. */
+     field by that name, so the branch could only fire on a hand-made request. */
   if (page_context) payload.page_context = String(page_context).slice(0, 200);
 
   try {
@@ -227,10 +212,9 @@ async function forwardToN8n(body, webhookUrl, sharedSecret) {
 }
 
 
-/* `no-store` on every answer. These are per-submission results — accepted,
-   rate-limited, captcha failed — and nothing between the visitor and this
-   function has any business holding one: a proxy that cached a 200 would tell
-   the next visitor their unsent message arrived. */
+/* `no-store` on every answer. These are per-submission results and nothing
+   between the visitor and this function has any business holding one: a proxy
+   that cached a 200 would tell the next visitor their unsent message arrived. */
 function jsonResponse(data, status) {
   return new Response(JSON.stringify(data), {
     status,

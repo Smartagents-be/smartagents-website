@@ -9,12 +9,8 @@ import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 
 // The four services, in the order they are offered. Training and AI staffing
 // lead because they are the two a reader arrives already looking for; the two
-// AI-native tracks follow, engineering first and business second, because the
-// SDLC page is the one that names the journey the business page is a part of.
-// Agentic automatisatie is gone: it is what the staffing track does inside a
-// project, not a fifth thing to pick from. Procesoptimalisatie is gone too —
-// it was one row standing for two different engagements, and it is now the
-// two rows it always was.
+// AI-native tracks follow, engineering first, because the SDLC page names the
+// journey the business page is part of.
 const SERVICES = ['training', 'staffing', 'sdlc', 'processes'];
 const DNA = ['1', '2', '3', '4'];
 
@@ -22,11 +18,6 @@ export const page = {
   id: 'home',
   // One entry per language. An empty slug is that language's root, e.g. /nl/.
   slugs: { nl: '', en: '', fr: '' },
-
-  meta: (t) => ({
-    title: t('home.title'),
-    description: t('home.description')
-  }),
 
   render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
@@ -44,10 +35,8 @@ ${contact(t, lang)}
  * flank: a petal hung off the right edge, its counter-lobe rising out of the
  * bottom-left. Both are windows onto the same dark field.
  *
- * Each carries its own magnet tuning. `data-magnet-pin` welds the shape to the
- * page edge it hangs from, which is why both can opt out of the nav guard with
- * `data-magnet-free`; the denser sampling is what keeps these curves smooth
- * under a pull, and true in the field a join is traced from.
+ * `data-magnet-pin` welds each shape to the page edge it hangs from, which is
+ * why both can opt out of the nav guard with `data-magnet-free`.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
@@ -83,18 +72,14 @@ ${orbitRings('home-hero')}
 /* ------------------------------------------------------------------ *
  * Wat we doen — hairline-separated rows, not cards
  *
- * A service with a detail page of its own is a link, and carries the cue: the
- * hover, the translate and the arrow. All four have one today, so every row is a
- * link — but the plain-row branch stays: a service is only a link in a language
- * its page is published in, and `servicePath()` returns null everywhere else
- * (design README, "Deviations", item 4).
+ * A service with a detail page of its own is a link and carries the cue. All
+ * four have one today, but the plain-row branch stays: a service is only a link
+ * in a language its page is published in, and `servicePath()` returns null
+ * everywhere else.
  *
- * The cue is the arrow and nothing else. It used to print "Ontdek →", and with
- * the four article rows further down printing the same two words the homepage
- * carried them eight times — on rows that are links end to end, 1152px wide,
- * whose own title already names what is at the other end. The word was
- * decoration on a link that does not need announcing; the arrow is the part
- * that moves on hover and the part that says which way.
+ * The cue is the arrow and nothing else. "Ontdek →" printed on four service rows
+ * and four article rows is one word eight times on a page of 1152px links whose
+ * own titles already name the destination.
  * ------------------------------------------------------------------ */
 
 function services(t, lang) {
@@ -168,18 +153,13 @@ ${join(items)}
 /* ------------------------------------------------------------------ *
  * Inzichten — the one list on this page that carries pictures.
  *
- * The rows stay rows: a hairline list, not a grid of cards. A row is a
- * thumbnail, then the title with its excerpt directly underneath, then the date
- * and the category badges out at the row's right edge. The article therefore
- * reads as one block in one measure, the row stays about as tall as its
- * picture, and the meta anchors the row to the same right edge every other list
- * on this page runs to.
+ * The rows stay rows: a thumbnail, the title with its excerpt directly
+ * underneath, then the date and the badges at the right edge. The article reads
+ * as one block in one measure, and the row stays about as tall as its picture.
  *
- * Each thumbnail is a 16:9 crop, framed like the founder portraits on the team
- * page — hairline, card radius, and the same cool grade that pulls a
- * photograph, an illustration and a screenshot into one family. See
- * "Deviations from the design doc", item 5, in
- * .claude/skills/smartagents-design/README.md.
+ * Each thumbnail is a 16:9 crop framed like the founder portraits, with the same
+ * cool grade that pulls a photograph, an illustration and a screenshot into one
+ * family. See "Deviations from the design doc", item 5.
  * ------------------------------------------------------------------ */
 
 function insights(t, lang) {
@@ -204,11 +184,5 @@ ${join(articleRows({ t, lang, prefix: 'home-insights' }))}
  * ------------------------------------------------------------------ */
 
 function contact(t, lang) {
-  return contactSection({
-    t,
-    lang,
-    prefix: 'home',
-    title: t('contact.title'),
-    lede: t('contact.lede')
-  });
+  return contactSection({ t, lang, prefix: 'home', title: t('contact.title'), lede: t('contact.lede') });
 }

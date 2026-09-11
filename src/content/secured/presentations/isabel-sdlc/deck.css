@@ -1,89 +1,51 @@
 /* isabel-sdlc — rules that belong to this deck alone.
 
-   Three figures, none of them one of the eight archetypes: a diagram drawn for
-   one argument belongs to the deck that makes the argument. Each answers a
-   different question, which is why none of them shares a class with the
-   others: slide 03 asks where the queue is, slide 06 asks where the agent
-   works, slide 07 asks where the way of working lands.
+   Three figures, none of them one of the eight archetypes, and none sharing a
+   class with the others: slide 03 asks where the queue is, 06 where the agent
+   works, 07 where the way of working lands.
 
-   The first: the three-stage pipeline on slide 03. It is a channel, not a
-   table. Each stage draws the same five-step lifecycle as one navy ribbon
-   whose height is throughput at that step, so a step everything queues behind
-   is drawn as the thing it is: a narrowing. Read the three ribbons top to
-   bottom and the narrowing moves, which is the entire claim of the slide and
-   needs no legend to land.
+   Slide 03 is a channel, not a table. Each stage draws the same five-step
+   lifecycle as one navy ribbon whose height is throughput at that step, so a
+   step everything queues behind is drawn as a narrowing. Read the three ribbons
+   top to bottom and the narrowing moves, which is the whole claim of the slide.
+   An earlier grid of cells with a coloured rule over each was accurate and read
+   as a spreadsheet: the eye had to be told which cell was the bottleneck.
 
-   An earlier version was a grid of cells with a coloured rule over each. It was
-   accurate and it read as a spreadsheet: the eye had to be told which cell was
-   the bottleneck instead of seeing it.
-
-   Four invariants hold the figure up, and the slide was presented to a room
-   that argued with the words instead of the picture because three of them did
-   not.
+   Four invariants hold the figure up, and it was presented to a room that
+   argued with the words instead of the picture because three of them did not.
 
    1. The five step names are identical in all three rows. A second vocabulary
-      for the same lifecycle in the third row is what got a manager asking how
-      intent differs from requirements rather than looking at where the ribbon
-      narrowed. Rename a step in one row and the slide is about terminology
-      again.
+      for the same lifecycle turns the slide into one about terminology.
 
    2. The rows are named for the queue and not for an era. Traditional, Agentic
-      and AI-native are three words from an industry lexicon, and the room spent
-      the slide defining them against each other. Before AI, AI without gates
+      and AI-native are three words from an industry lexicon and the room spent
+      the slide defining them against each other; before AI, AI without gates
       and AI with gates differ by one variable at a time, and each carries a
-      `.flow__queue` line naming who waits on what. The term the deck is named
-      after is not on the slide at all now. The source credit used to carry it
-      and no longer does, which is the only reason that sentence is true; put
-      "AI-native" back into the credit and the invariant is a lie. The place to
-      answer the word is out loud, by pointing at the third row. Not in a
-      `#speaker-notes` block: `_loadNotes` in `shared/deck-stage.js` accepts an
-      array and the skill documents an object, `_notes` is read nowhere in the
-      file, and the `postMessage` it fires has no listener in this repo, so the
-      mechanism is inert and swallows what you put in it without an error.
+      `.flow__queue` line naming who waits on what. The place to answer the
+      lexicon is out loud, by pointing at the third row — not in a
+      `#speaker-notes` block, whose mechanism is inert in this repo and swallows
+      what you put in it without an error.
 
-   3. Every row is drawn on the same baseline, `y 9` to `y 63`, and every row
-      is full at every one of the five step columns except its own neck. Not
-      "starts and ends at the baseline", which is what it said first: that
-      wording made the third row reopen over the last 100 units, drawing
-      throughput recovering after Release, where the lifecycle has no step for
-      it to recover into. Its neck holds to the right edge now, and it is the
-      only neck of the three that is not symmetric because it is the only one
-      with an edge on one side. The rows used to run at 46, 54 and 54 with
-      different ends, and the label column is fixed precisely so the eye
-      compares down the columns: read that way, the row being sold was the
-      thinnest cell at Requirements and 21% below the top row at Release. The
-      slide was arguing against its own proposal. With one baseline the only
-      difference between the three ribbons is where the neck is and how deep,
-      and the honest reading of a channel, its narrowest point, comes out 7
-      then 9 then 30. That reading is the one thing on the slide a reader will
-      not arrive at unaided: the fixed label track trains the eye to compare
-      down the columns, and down the Release column the row being sold is the
-      only one that is narrow. So the first footnote states it. It is the
-      slide's whole argument and it is one line; do not spend that line on
-      anything else.
+   3. Every row is drawn on the same baseline and is full at every step column
+      except its own neck. "Starts and ends at the baseline" is what it said
+      first, and that made the third row reopen after Release, drawing
+      throughput recovering into a step the lifecycle does not have. With one
+      baseline the only difference between the ribbons is where the neck is and
+      how deep — 7, then 9, then 30 — and the fixed label track trains the eye
+      to compare down the columns. That reading is the one thing a reader will
+      not arrive at unaided, so the first footnote states it and nothing else.
 
-   4. One neck per row, and it travels left to right: Build, Test, Release.
-      The title says "the bottleneck", singular, and moving. The third row
-      carried two necks at its outer ends, which is a funnel and an outlet
-      rather than a constriction, and before that it carried none at all, which
-      said the bottleneck disappears and needed an asterisk and a caveat
-      footnote to walk back. Give a row two necks and the room has to be told
-      which one is meant; give the third row none and the slide promises
-      something the deck does not. */
+   4. One neck per row, travelling left to right: Build, Test, Release. The
+      title says "the bottleneck", singular, and moving. Two necks is a funnel
+      and an outlet; none at all says the bottleneck disappears, which is a
+      promise the deck does not make. */
 
-/* The gap does the whole job of separating the three ribbons, and it only does
-   so because the box is cropped to the ink. The pipes were drawn on a
-   1000x72 box whose content never left y 9..63, so a quarter of every pipe was
-   empty paper posing as part of the gap, and the figure was overrunning its
-   own box by 44px into the band the notes sit in. `check-slides.mjs` never
-   said so: its slack is 90px. Cropping to `0 9 1000 54` gave the slide those
-   72px back. Every row touches both edges of its box wherever it is at
-   baseline, so ink-to-ink separation is this number everywhere except under
-   row 3's neck, which holds to the right edge at y 21..51 and opens the gap
-   there to about 63px. That is invariant 4's doing and it is the price of it:
-   the alternative was a ribbon recovering after a step the lifecycle does not
-   have. The neck is symmetric about the centreline, 664.0 at the left edge
-   against 664.4 at the right, so it reads as a narrowing and not as a drift. */
+/* The gap does the whole job of separating the three ribbons, and only because
+   the box is cropped to the ink: drawn on a 1000x72 box whose content never left
+   y 9..63, a quarter of every pipe was empty paper posing as gap and the figure
+   overran into the notes band by 44px. `check-slides.mjs` never said so — its
+   slack is 90px. Every row touches both edges of its box at baseline, so
+   ink-to-ink separation is this number everywhere except under row 3's neck. */
 .flow {
   display: flex;
   flex-direction: column;
@@ -95,20 +57,13 @@
    the columns, and a ragged left edge would break that.
 
    340px, not the 280 it was drawn at, and the width is set by the queue lines
-   rather than by the name or the figure. The longest name never wrapped at
-   280: "AI without gates" measures 242px, with 38px to spare there. Two of the
-   three queue lines did. In the 340px track they measure 263.6, 273.5 and
-   286.8, so the longest clears by 53px, about 16%.
-
-   That margin is the point of the number and it has been spent once already.
-   "Waiting on people to write the code" measured 334.2px here, clearing by
-   1.7%, which is tighter than the 3.1% that condemned the 280px track in the
-   first place, and there is no wrap to catch it: a queue line either fits its
-   track or overlaps the figure. It is "code it" now. No Geist binary is
-   shipped, so what is measured is the platform face: re-measure when the face
-   arrives or a label is re-worded, and treat anything under about 8% as a
-   rewrite rather than a widening. The 60px came off the pipe, which is 54/1000
-   of its own width and therefore lost 3px of height for it. */
+   rather than the names: the longest name clears 280 by 38px, and two of the
+   three queue lines did not. In the 340px track the longest clears by 53px,
+   about 16% — and that margin has been spent once already, by a queue line that
+   cleared by 1.7% before it was re-worded. There is no wrap to catch it: a queue
+   line either fits its track or overlaps the figure. No Geist binary is shipped,
+   so this is the platform face; re-measure when the face arrives or a label
+   changes, and treat anything under about 8% as a rewrite. */
 .flow__stage {
   display: grid;
   grid-template-columns: 340px 1fr;
@@ -132,15 +87,11 @@
   font-weight: var(--fw-semibold);
 }
 
-/* The second line of a label names the queue the row is drawn around. It is
-   what stops the three names being read as three competing words for the same
-   thing: every row waits on people, and what changes is what those people are
-   doing.
-
-   `--sa-grey-6`, a step back from the step names rather than a step in front
-   of them. Drawn at `--sa-grey-3` it was darker than the five names it
-   supports, and those names being read as identical is what the whole slide
-   rests on: the eye landed on the sub-label and skimmed the row above it. */
+/* The second line of a label names the queue the row is drawn around, which is
+   what stops the three names being read as competing words for the same thing.
+   `--sa-grey-6`, a step back from the step names rather than in front of them:
+   drawn darker, the eye landed on the sub-label and skimmed the row above it,
+   and those names being read as identical is what the slide rests on. */
 .flow__queue {
   font-size: 22px;
   line-height: 1.35;
@@ -164,14 +115,10 @@
 }
 
 /* The step the ribbon narrows at, one per row. Ink and semibold, because it is
-   not a colour choice: everything upstream of it is waiting.
-
-   There was a second class here, `--block` for a queue of capacity and
-   `--human` for a queue of judgement, and the third row took the lighter of
-   the two. Reading down the column the mark lost weight in the row being sold,
-   which is a fourth way the picture whispered that the bottleneck had gone.
-   One mark, one meaning, one weight; what says the third row's queue is a
-   different kind of queue is the cyan gate drawn inside its neck. */
+   not a colour choice: everything upstream of it is waiting. A second class for
+   a queue of judgement made the mark lose weight in the row being sold, which is
+   a fourth way the picture whispered that the bottleneck had gone. One mark, one
+   meaning; what says the third row's queue differs is the cyan gate in its neck. */
 .flow__step--block {
   color: var(--sa-ink);
   font-weight: var(--fw-semibold);
@@ -188,27 +135,20 @@
   fill: var(--sa-field);
 }
 
-/* The one place a person still decides, drawn inside the neck rather than
-   across it: a gap would say "blocked", which is the opposite of what the
-   third row claims. It is the only cyan in the figure, so it lands the eye on
-   the step the row is named for. There were two, at the channel's outer ends,
-   for the draft that marked Requirements as well: a person deciding what to
-   build is true of all three rows and was never what set this one apart. */
+/* The one place a person still decides, drawn inside the neck rather than across
+   it: a gap would say "blocked", the opposite of what the third row claims. The
+   only cyan in the figure, so it lands the eye on the step the row is named for. */
 .flow__gate {
   fill: var(--sa-cyan-bright);
 }
 
-/* Three footnotes: how to read the figure, then what a gate is, then the
-   credit. They have to share one slot: as siblings of `.slide__inner` they
-   would be pushed 56px apart by its own gap and read as three unrelated blocks
-   of mono.
+/* Three footnotes: how to read the figure, what a gate is, then the credit. They
+   share one slot because as siblings of `.slide__inner` they would be pushed
+   56px apart and read as three unrelated blocks of mono.
 
-   Where the count bites is not the foot of the slide. `.slide-notes` sits
-   after `.slide__body { flex: 1 1 auto }`, so the block is bottom-anchored and
-   its last line lands 6px above the footer's band whether there are two notes
-   or three: that number does not move, and an earlier version of this comment
-   read a ceiling into it that was not there. What a note costs is
-   `.slide__body`'s height. Off the stylesheet, with no measuring:
+   What a note costs is `.slide__body`'s height, not the foot of the slide — the
+   block is bottom-anchored, so its last line lands 6px above the footer either
+   way. Off the stylesheet, with no measuring:
 
      content box   1080 - 96 - 184           = 800.0
      head          3 + 22 + 72 x 1.1         = 104.2
@@ -218,10 +158,9 @@
      figure        3 x (30 + 12 + 70.2) + 96 = 432.6
 
    So the slack is 23.2px and a fourth note costs 46. **A fourth note overlaps
-   the figure by 23px, and nothing tells you**: `.slide__body` is
-   `justify-content: safe center`, so the overrun spills downward into the
-   notes rather than clipping, and `OVERFLOW_SLACK` in `check-slides.mjs` is
-   90px, so the deck still reports as fitting. Three is the ceiling. */
+   the figure by 23px and nothing tells you**: `.slide__body` is `justify-content:
+   safe center`, so the overrun spills into the notes rather than clipping, and
+   `OVERFLOW_SLACK` in `check-slides.mjs` is 90px. Three is the ceiling. */
 .slide-notes {
   display: flex;
   flex-direction: column;
@@ -234,15 +173,13 @@
 
 /* ══ Slide 06: where the way of working lands ═══════════════════════════════
    A fork with a dead end and a loop. The same knowledge leaves the same place
-   twice: once into a page that is read once and goes stale, once into files
-   that are delivered through MCP and a Claude Code plugin and come back round
-   to be updated. The loop is the whole argument, so it is the only cyan on the
-   slide.
+   twice: once into a page that is read once and goes stale, once into files that
+   are delivered and come back round to be updated. The loop is the whole
+   argument, so it is the only cyan on the slide.
 
-   The lines are one SVG on a 1696x360 grid; the labels are ordinary elements
-   positioned on the same grid, so type comes from the tokens rather than from
-   SVG text metrics. Both are absolute against `.map`, which is exactly that
-   size: the stage is fixed at 1920x1080, so a pixel here is a pixel there. */
+   The lines are one SVG on a 1696x360 grid and the labels are ordinary elements
+   on the same grid, so type comes from the tokens rather than SVG text metrics.
+   The stage is fixed at 1920x1080, so a pixel here is a pixel there. */
 
 .map {
   position: relative;
@@ -352,40 +289,25 @@
 /* ══ Slide 07: the environment the loop runs in ═════════════════════════════
    An enclosure with a cycle inside it and one way out. The argument is
    containment, not sequence: everything the agent can settle by running
-   something settles inside the box, and a person meets the result once
-   instead of meeting every attempt.
+   something settles inside the box, and a person meets the result once instead
+   of meeting every attempt.
 
    So the box is the figure and the arrow leaving it is the payoff. The four
-   steps are hairline rows, the system's own list form; what makes them a
-   cycle rather than a checklist is the cyan bracket in the gutter, which
-   carries the last row back to the first. That is the only accent on the
-   slide, for the same reason slide 07 spends its only cyan on the loop.
+   steps are hairline rows; what makes them a cycle is the cyan bracket in the
+   gutter, the only accent on the slide. They carry no gloss — two drafts did,
+   and both made the box the whole slide, a block of small type inside a border
+   with the arrow reduced to punctuation. Said aloud the glosses were the
+   speaker's anyway.
 
-   The four rows are four words each and carry no gloss. Two drafts did carry
-   one, first describing what the agent does at each stage and then naming the
-   condition that has to hold at it, and both made the box the whole slide: a
-   block of small type inside a border, with the arrow leaving it reduced to
-   punctuation. Said aloud the glosses were the speaker's anyway. What is left
-   is a box the room can read in a second and a long arrow out of it, which is
-   the comparison the slide exists to make. The step numbers went with them,
-   for a smaller reason: the bracket already says this is a cycle.
+   An earlier draft drew four gates on a channel: a picture of a pipeline, which
+   slide 03 already is, and it put the agent nowhere. The enclosure is a hairline
+   and never a fill — a navy panel this size is a slide painted navy. */
 
-   An earlier draft of this slide drew four gates on a channel. It was a
-   picture of a pipeline, which the deck already has on slide 03, and it put
-   the agent nowhere: a change flowed through checks with no account of who
-   ran them or what happened on a failure. The box is the missing half.
-
-   The enclosure is a hairline and never a fill. A navy panel this size is a
-   slide painted navy, which rule 1 refuses, and the legend interrupting the
-   top border is what names it without spending a row on a heading. */
-
-/* The box is wider than its four words need, and the width is set by the
-   label on the bottom border rather than by the rows: that string is 490px in
-   the platform face and the box gives it 725, so it clears by 63px, about 13%.
-   Measured at 620 it cleared by 23px, which is inside the margin a different
-   sans can eat, and there is no wrap to catch it: a one-line label on a
-   border either fits or hangs past the corner. No Geist binary is shipped, so
-   re-measure this whenever the face arrives or the label is re-worded. */
+/* The box is wider than its four words need, and the width is set by the label
+   on the bottom border: that string is 490px in the platform face and the box
+   gives it 725, clearing by about 13%. At 620 it cleared by 23px, inside the
+   margin a different sans can eat, and a one-line label on a border either fits
+   or hangs past the corner. Re-measure when the face arrives. */
 .env {
   display: grid;
   grid-template-columns: 660px 1fr 420px;
@@ -412,12 +334,10 @@
   border-radius: 6px;
 }
 
-/* Two labels sit on the border rather than inside the box: the top one names
-   it, the bottom one says where it exists. Paper behind each breaks the
-   hairline for it, which is what makes them read as belonging to the boundary
-   instead of floating near it, and neither costs the box any height. Read in
-   order they are one sentence about one box, which is the point: the thing in
-   the pipeline and the thing on the laptop are not two environments. */
+/* Two labels sit on the border rather than inside the box: the top names it, the
+   bottom says where it exists. Paper behind each breaks the hairline, which is
+   what makes them read as belonging to the boundary, and neither costs height.
+   Read in order they are one sentence about one box. */
 .env__legend,
 .env__where {
   position: absolute;
@@ -472,12 +392,11 @@
   font-weight: var(--fw-semibold);
 }
 
-/* The bracket that makes the four rows a cycle. Stretched over the whole
-   column and inset by half a row at each end, so it meets the first and last
-   rows on their centre lines whatever the copy does to the rows' height.
-   The head is a border triangle rather than an SVG marker: the whole shape is
-   three borders already, and a second drawing system for the tip of it is a
-   file nobody wants to keep in step. */
+/* The bracket that makes the four rows a cycle. Stretched over the column and
+   inset by half a row at each end, so it meets the first and last rows on their
+   centre lines whatever the copy does. The head is a border triangle: the shape
+   is three borders already, and a second drawing system for the tip is a file
+   nobody wants to keep in step. */
 .env__loop {
   position: relative;
   grid-column: 1;
@@ -500,15 +419,10 @@
 }
 
 /* Two things cross the boundary and they are drawn differently, because the
-   difference is the point. The question goes out and an answer comes back, so
-   it is a pair of lines in cyan: cyan marks a loop on this slide, and this is
-   the second one. The merge request only leaves, so it is one line in ink.
-   Read the right-hand edge and the rule is legible without a legend: what is
-   cyan comes back, what is ink does not.
-
-   The pair sits above the exit because that is the order in time. A question
-   is asked mid-flight, while the loop is still turning; the merge request is
-   what the loop finally produces. */
+   difference is the point. The question goes out and an answer comes back, so it
+   is a pair of lines in cyan; the merge request only leaves, so it is one line in
+   ink. Read the right-hand edge and the rule is legible without a legend. The
+   pair sits above the exit because that is the order in time. */
 .env__ask-path {
   display: flex;
   flex-direction: column;

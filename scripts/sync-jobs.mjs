@@ -1,15 +1,10 @@
 // `npm run sync:jobs` — refresh the committed vacancy snapshot from Odoo.
 //
-// The build reads Odoo live and only falls back to `src/content/jobs/` when the
-// network, the credentials or Odoo's own markup let it down. This script is how
+// The build reads Odoo live and falls back to `src/content/jobs/`. This is how
 // that fallback stays worth having: run it, look at the diff, commit it. The
-// build deliberately does not write it — a build that edits tracked files
-// leaves a dirty tree behind every `npm run build`, and the one moment you want
-// to *see* what Odoo now says is the moment it changes.
-//
-// It is not part of `npm run build` for the same reason `check:slides` is not:
-// it needs the network, and a Pages build image that cannot reach Odoo would
-// then fail instead of falling back.
+// build deliberately does not write it — a build that edits tracked files leaves
+// a dirty tree behind, and the moment you want to *see* what Odoo now says is
+// the moment it changes. It needs the network, so it is not part of the build.
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

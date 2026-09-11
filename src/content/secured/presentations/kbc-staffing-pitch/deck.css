@@ -1,12 +1,6 @@
 /* kbc-staffing-pitch — no rules of its own.
 
-   The two founders on the closing content slide used to be a `.founders` grid
-   written here. It is the `.people` archetype in ../shared/slide.css now:
-   this deck was one of five that each invented its own answer to "put the two
-   of us on a slide", which is exactly the drift the shared stylesheet exists
-   to end.
-
-   If this deck ever needs a figure of its own, write it here with tokens
-   (--sa-grey-3, --sa-line, --ls-h3, --fw-semibold) in absolute pixels against
-   the 1920x1080 stage, and move it into ../shared/slide.css the moment a
-   second deck wants the same thing. */
+   Every slide here is one of the eight archetypes in ../shared/slide.css. A
+   figure of this deck's own goes here, in tokens and in absolute pixels
+   against the 1920x1080 stage, and moves into ../shared/slide.css the moment
+   a second deck wants the same thing. */

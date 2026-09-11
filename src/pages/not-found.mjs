@@ -1,16 +1,12 @@
 // Per-language 404 (static-i18n §4, item 7).
 //
-// It used to be a heading, a line and one button, in a bare `<main>` with no
-// frame around it: the copy started at x=0, hard against the left edge of the
-// window, which made the one page on the site a visitor only ever reaches by
-// accident also the one page that looks broken. It is a section like every other
-// section now — the page gutter, the section rhythm, the heading's own cyan rule
-// — and it offers somewhere to go rather than only somewhere to go back to.
+// A section like every other section — the page gutter, the section rhythm, the
+// heading's cyan rule — because the one page a visitor reaches only by accident
+// should not also be the one that looks broken.
 //
 // The three destinations are read off keys the chrome already prints, so this
-// page cannot name a section by a word no other page uses. Two of them are
-// homepage anchors, which every language has; the insights index is a real page
-// and drops out of the list in a language it is not published in.
+// page cannot name a section by a word no other page uses. The insights index is
+// a real page and drops out in a language it is not published in.
 import { html, join } from '../../build/lib/html.mjs';
 import { pagePath } from '../../build/lib/i18n.mjs';
 import { insightsIndexPath } from './insights/insights.mjs';
@@ -22,10 +18,7 @@ export const page = {
   excludeFromSitemap: true,
   noindex: true,
 
-  meta: (t) => ({
-    title: t('notfound.title'),
-    description: t('notfound.description')
-  }),
+  strings: 'notfound',
 
   render: ({ t, lang }) => {
     const home = pagePath(lang);

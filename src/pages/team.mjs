@@ -1,11 +1,10 @@
 // The team page. The two founders are the hero: the page opens on the headline
-// and the rest of the first screen is the two of them at full size. There is no
-// eyebrow, no standfirst and no separate "De oprichters" section — this is it.
+// and the rest of the first screen is the two of them at full size.
 //
-// This is the first page in the redesign that carries photography, which the
-// design system otherwise rules out. The portraits are therefore treated like
-// every other surface here: a hairline frame, the card radius, no ring, and a
-// cool, slightly desaturated grade that only lifts on hover.
+// The first page in the redesign that carries photography, which the design
+// system otherwise rules out, so the portraits are treated like every other
+// surface: a hairline frame, the card radius, no ring, and a cool, slightly
+// desaturated grade that only lifts on hover.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
@@ -15,7 +14,7 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
 /**
  * The founders, in the order the live site lists them. Names, portraits and
  * LinkedIn URLs are language-independent, so they live here rather than in the
- * string files; everything a reader reads as prose comes from `t()`.
+ * string files.
  */
 const FOUNDERS = [
   {
@@ -33,9 +32,9 @@ const FOUNDERS = [
 ];
 
 /**
- * The LinkedIn "in" mark, drawn inline in `currentColor`. It is a brand mark,
- * like the SmartAgents logo, not the first member of an icon set: the design
- * system's ban on an icon library still stands (design README, "Iconography").
+ * The LinkedIn "in" mark, drawn inline in `currentColor`. A brand mark like the
+ * SmartAgents logo, not the first member of an icon set: the design system's ban
+ * on an icon library still stands.
  */
 const linkedinMark = (id) =>
   raw(
@@ -59,12 +58,11 @@ export const page = {
   id: 'team',
   slugs: { nl: 'team', en: 'team', fr: 'equipe' },
 
-  meta: (t) => ({
-    title: t('team.title'),
-    description: t('team.description'),
-    // The first portrait sits in the opening screen and is the page's largest
-    // paint. `type` gates the hint, so a browser without AVIF skips it and
-    // falls through to the JPEG in the normal way (fast-static-site §3).
+  /* Title and description default off the page id (`pageMeta` in
+     `build/render.mjs`); the preload is what this page adds. The first portrait
+     is the opening screen's largest paint. `type` gates the hint, so a browser
+     without AVIF skips it and falls through to the JPEG (fast-static-site §3). */
+  meta: () => ({
     preloadImage: {
       href: `${FOUNDERS[0].portrait}-440.avif`,
       as: 'image',
@@ -93,8 +91,7 @@ ${contact(t, lang)}
 
 /* ------------------------------------------------------------------ *
  * The hero: the headline, and the two founders under it. The petal hangs off
- * the right edge as it does on every other hero, alongside the pair rather
- * than in place of them.
+ * the right edge alongside the pair rather than in place of them.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
@@ -114,8 +111,8 @@ ${join(FOUNDERS.map((founder, i) => person({ t, eager: i === 0, ...founder })))}
 
 /**
  * One founder: the portrait, with everything about them laid over its foot on a
- * scrim of the brand's own navy, so the photograph reads as another window onto
- * the dark field rather than as a picture with a caption under it.
+ * scrim of the brand's navy, so the photograph reads as another window onto the
+ * dark field rather than a picture with a caption.
  *
  * @param {object} options
  * @param {Function} options.t
@@ -144,14 +141,9 @@ function person({ t, key, name, portrait, linkedin, eager }) {
 /* ------------------------------------------------------------------ *
  * Waarom we begonnen zijn — the page's own prose
  *
- * The page used to be a headline and two thirty-word bios, and nothing else:
- * about 180 words including the nav, the footer and the form. That is thin for
- * the page a prospect opens to decide whether to trust two people they have
- * never met, and it is the only page on the site where the company can say why
- * it exists without it reading as a sales line.
- *
- * Two paragraphs, at the reading measure, in the article's own idiom rather
- * than in a row list: this is writing, not an offer.
+ * Two paragraphs at the reading measure, in the article's idiom rather than a
+ * row list: this is writing, not an offer. It is the only page where the company
+ * can say why it exists without it reading as a sales line.
  * ------------------------------------------------------------------ */
 
 function story(t) {
@@ -175,11 +167,5 @@ ${join(paragraphs)}
  * ------------------------------------------------------------------ */
 
 function contact(t, lang) {
-  return contactSection({
-    t,
-    lang,
-    prefix: 'team',
-    title: t('team.cta.title'),
-    lede: t('team.cta.body')
-  });
+  return contactSection({ t, lang, prefix: 'team' });
 }

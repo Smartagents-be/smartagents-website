@@ -2,6 +2,7 @@
 // Runs after `vite build`, which produces the hashed assets and the manifest.
 // See .claude/skills/fast-static-site/SKILL.md §1.
 import { cpSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { minify } from 'html-minifier-terser';
@@ -20,7 +21,9 @@ import {
 import { loadManifest } from './lib/assets.mjs';
 import { PHONE, EMAIL } from '../src/components/contact-form/contact-form.mjs';
 import { loadDecks, loadSecuredDocuments } from './lib/decks.mjs';
-import { basePage } from '../src/layouts/base.mjs';
+// `SERVICE_PAGES` is the nav's own list of the four services; `llms.txt` is
+// built from it rather than from a second copy that could fall behind it.
+import { basePage, SERVICE_PAGES } from '../src/layouts/base.mjs';
 import { deckPage, securedIndexPage } from '../src/layouts/deck.mjs';
 
 import { page as homePage } from '../src/pages/home.mjs';
@@ -35,14 +38,6 @@ import { readVacancies } from './lib/odoo-jobs.mjs';
 import { page as privacyPage } from '../src/pages/privacy/privacy.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
 import { INSIGHTS, indexPage as insightsIndexPage, insightPages } from '../src/pages/insights/insights.mjs';
-
-/** The four services `llms.txt` lists, keyed the way the nav and the rows key them. */
-const SERVICE_PAGES = {
-  training: trainingPage,
-  staffing: staffingPage,
-  sdlc: sdlcPage,
-  processes: processesPage
-};
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(rootDir, 'dist');
@@ -88,6 +83,26 @@ async function writeHtml(relativePath, markup) {
  * Public, language-prefixed pages
  * ------------------------------------------------------------------ */
 
+/**
+ * A page's head, with the two lines every page carries defaulted off its id —
+ * so "a page's strings are keyed on its own name" is a rule rather than a
+ * habit, and a missing key fails the build like any other.
+ *
+ * A page keyed on something else says so with `strings` (the kata page's id is
+ * `training-kata`, its copy is `kata.*`); a page with more to say keeps a
+ * `meta()` and whatever it returns wins. `??` and not `||`, so the default is
+ * never even looked up when it does — an article has no `insight-<key>` keys.
+ */
+function pageMeta(page, t) {
+  const own = page.meta?.(t) || {};
+  const key = page.strings || page.id;
+  return {
+    ...own,
+    title: own.title ?? t(`${key}.title`),
+    description: own.description ?? t(`${key}.description`)
+  };
+}
+
 async function renderPublicPages({ strings, criticalCss, assets, vacancies }) {
   const sitemapEntries = [];
 
@@ -99,7 +114,7 @@ async function renderPublicPages({ strings, criticalCss, assets, vacancies }) {
       if (slug === undefined) continue; // Intentionally not available in this language.
 
       const t = createTranslator(strings, language.code);
-      const meta = page.meta(t);
+      const meta = pageMeta(page, t);
       const url = pagePath(language.code, slug);
 
       const body = page.render({
@@ -136,32 +151,24 @@ async function renderPublicPages({ strings, criticalCss, assets, vacancies }) {
         })
       );
 
-      // A second copy of the default language's 404, at the root of dist/.
-      // Cloudflare serves `404.html` with a real 404 status for a URL that
-      // matches nothing; without it the host fell back to `index.html` with a
-      // 200, so every missing page was a soft 404. That matters beyond SEO:
-      // a cache-first service worker that stores a 200 stores the homepage
-      // under the missing asset's URL, which is why `src/sw.js` has to check
-      // the Content-Type before it writes (`isCacheable`).
+      // A second copy of the default language's 404 at the root of dist/, which
+      // Cloudflare serves with a real 404 status. Without it the host fell back
+      // to `index.html` with a 200, and a cache-first service worker that
+      // stores a 200 stores the homepage under the missing asset's URL — which
+      // is why `src/sw.js` checks the Content-Type before it writes.
       //
-      // Copied, not rendered again. It was a second `basePage()` call with the
-      // same arguments, followed by a second minify of the same 13 KB — the one
-      // difference being a hard-coded `noindex: true` that `page.noindex` was
-      // already producing. Two renders of one document can only ever agree by
-      // accident; one render and a copy agree by construction.
+      // Copied, not rendered again: two renders of one document can only ever
+      // agree by accident.
       if (page === notFoundPage && language.code === defaultLanguage.code) {
         cpSync(path.join(distDir, url.slice(1), 'index.html'), path.join(distDir, '404.html'));
         written++;
       }
 
       if (!page.excludeFromSitemap) {
-        /* `lastmod` where the page knows one, and nowhere else. Four articles
-           and the privacy notice carry a date the page itself prints; the rest
-           of the site has no honest answer, and a `lastmod` invented from the
-           build clock tells a crawler every page changed on every deploy, which
-           is how a sitemap stops being read. `meta.lastmod` is the page's own
-           statement of it — the articles take it off the same value the
-           `<time datetime>` and `article:modified_time` are printed from. */
+        /* `lastmod` where the page knows one, and nowhere else: four articles
+           and the privacy notice carry a date the page itself prints. A
+           `lastmod` invented from the build clock tells a crawler every page
+           changed on every deploy, which is how a sitemap stops being read. */
         sitemapEntries.push({ url, alternates, lastmod: meta.lastmod });
       }
     }
@@ -181,11 +188,10 @@ async function renderRootFallback() {
       html`<li><a href="${pagePath(language.code)}" lang="${language.code}" hreflang="${language.code}">${language.name}</a></li>`
   );
 
-  // The host redirects / to the default language (see _redirects). This file only
-  // matters when that redirect is unavailable, so it must work with no CSS and no
-  // JS. It never negotiates: an unprefixed URL always resolves to the default
-  // language, the browser's own preference does not override it. The other
-  // languages stay one click away in the list below.
+  // The host redirects / to the default language (see _redirects), so this file
+  // only matters when that redirect is unavailable and must work with no CSS and
+  // no JS. It never negotiates: an unprefixed URL always resolves to the default
+  // language.
   await writeHtml(
     'index.html',
     html`<!doctype html>
@@ -217,12 +223,10 @@ const COPY_SKIP = new Set(['.html', '.json']);
  * Everything under `src/content/secured/` that is not rendered: the decks'
  * images and video, the stylesheets, the fonts. About 78 MB of it.
  *
- * One recursive copy with a filter, not a walk making its own `mkdirSync` and
- * `cpSync` per file. The walk was several thousand syscall pairs on every build
- * where `cpSync`'s own recursion does the same work in one call, and the filter
- * is the only thing the walk was really for. A directory always passes the
- * filter — returning false for one would prune the whole subtree — so the
- * extension test is written against files alone.
+ * One recursive copy with a filter rather than a walk making its own `mkdirSync`
+ * and `cpSync` per file, which was several thousand syscall pairs a build. A
+ * directory always passes the filter — returning false would prune the subtree —
+ * so the extension test is written against files alone.
  */
 function copySecuredStatic() {
   const source = path.join(contentDir, 'secured');
@@ -303,17 +307,13 @@ function renderSitemap(entries) {
 /**
  * The AI crawlers, named rather than left to the wildcard.
  *
- * `User-agent: *` already allows them, so on the wire this file says nothing
- * new. It is here because silence is not a policy: a crawler operator, a
- * customer and a court all read an unnamed agent as "nobody decided", and this
- * is a company that sells AI expertise. Being findable by the engines it sells
- * expertise in is the point, so every one of them is allowed explicitly, and
- * the one rule that matters — `/secured/` is off limits — is repeated for each
- * so it cannot be missed by an agent that stops reading at its own block.
+ * `User-agent: *` already allows them, so on the wire this says nothing new. It
+ * is here because silence is not a policy, and this is a company that sells AI
+ * expertise. The one rule that matters — `/secured/` is off limits — is repeated
+ * for each, so an agent that stops reading at its own block cannot miss it.
  *
  * Google-Extended is not a crawler: it is the switch that says whether content
- * Googlebot already fetched may train Gemini and ground its answers. Allowing
- * it is the same decision as the rest.
+ * Googlebot already fetched may train Gemini.
  */
 const AI_CRAWLERS = [
   'GPTBot',
@@ -345,13 +345,10 @@ function robotsTxt() {
 }
 
 /**
- * `/llms.txt` — the site, in one page, for a model that has to answer a question
- * about it without crawling six pages first.
- *
- * It is generated from the same page modules and the same string files the site
- * is, in the default language, so it cannot describe an offer the site no longer
- * has. Every URL in it is the canonical one; the other two languages are named
- * once at the foot rather than tripling the file.
+ * `/llms.txt` — the site in one page, for a model answering a question about it
+ * without crawling six pages first. Generated from the same page modules and
+ * string files the site is, in the default language, so it cannot describe an
+ * offer the site no longer has.
  */
 function renderLlmsTxt({ strings }) {
   const t = createTranslator(strings, defaultLanguage.code);
@@ -422,23 +419,18 @@ Elke pagina bestaat in drie talen. ${alternates}
  * The authored rules in public/_redirects plus the catch-all that sends an
  * unprefixed URL to the default language: `/training/` lands on `/nl/training/`.
  *
- * A catch-all in a _redirects file swallows everything after it, `/assets/*` and
- * `/nl/*` included, because the file has no negative match and a redirect is
- * followed whether or not an asset matches the request. The exclusion is a
- * same-path 200 rewrite: the first matching rule wins and no later rule is
- * considered, so the rule serves the file and hides it from the catch-all. That
- * list is generated from what is actually in dist/, so a new top-level file or
- * directory excludes itself by existing rather than by someone remembering to
- * add a line here. Pages Functions never reach this table, so /api/ and
- * /secured/ are handled before it applies.
+ * A catch-all swallows everything after it, `/assets/*` and `/nl/*` included,
+ * because the file has no negative match and a redirect is followed whether or
+ * not an asset matches. The exclusion is a same-path 200 rewrite: the first
+ * matching rule wins, so it serves the file and hides it from the catch-all.
+ * That list is generated from what is in dist/, so a new top-level entry
+ * excludes itself by existing.
  *
- * A splat rule does not cover the bare directory it stands for: `/secured/*`
- * matches `/secured/anything` but not `/secured`, so without a rule of its own
- * that URL falls through to the catch-all and is sent to `/nl/secured`, which
- * is nothing. Every top-level directory therefore also gets the trailing-slash
- * redirect a static host would have issued itself. `/secured` matters most —
- * it is the entry point people type, and it has to reach the Pages Function
- * that guards `/secured/*` rather than the Dutch tree.
+ * A splat rule does not cover the bare directory it stands for — `/secured/*`
+ * does not match `/secured` — so every top-level directory also gets the
+ * trailing-slash redirect a static host would have issued itself. `/secured`
+ * matters most: it is what people type, and it has to reach the Function that
+ * guards `/secured/*` rather than the Dutch tree.
  *
  * Cloudflare wants every static rule above the first rule with a splat, hence
  * the two generated blocks around the authored one.
@@ -486,15 +478,39 @@ function renderRedirects() {
   writeFileSync(path.join(distDir, '_redirects'), `${generated.join('\n')}\n`);
 }
 
+/**
+ * What the rendered site says, as one hash: every `.html` file in `dist/`, by
+ * path and by content, in a stable order. The service worker's page cache is
+ * keyed on it, so the cache is dropped exactly when a document changes and an
+ * unchanged rebuild still produces a byte-identical `sw.js`. See `src/sw.js`.
+ */
+function contentVersion() {
+  const hash = createHash('sha1');
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.endsWith('.html')) {
+        hash.update(path.relative(distDir, full));
+        hash.update(readFileSync(full));
+      }
+    }
+  };
+  walk(distDir);
+  return hash.digest('hex').slice(0, 16);
+}
+
 function renderServiceWorker(precache) {
   const template = readFileSync(path.join(rootDir, 'src/sw.js'), 'utf8');
-  // The hashed asset names are the version: new assets mean a new cache.
+  // The hashed asset names are the version: new assets mean a new image cache
+  // and a new precache list. The pages cache turns on `contentVersion()`.
   const version = precache.join('|').replace(/[^a-z0-9]/gi, '').slice(-16) || 'dev';
 
   writeFileSync(
     path.join(distDir, 'sw.js'),
     template
       .replace("'__VERSION__'", JSON.stringify(version))
+      .replace("'__CONTENT__'", JSON.stringify(contentVersion()))
       .replace("'__PRECACHE__'", JSON.stringify(precache))
   );
 }
@@ -511,11 +527,10 @@ const criticalCss = ['src/styles/tokens.css', 'src/styles/critical.css']
   .join('\n');
 const assets = loadManifest(distDir);
 
-/* Odoo Recruitment owns the vacancy list, and the build reads it. It never
-   throws: a source that fails falls through to the next one and finally to the
-   committed snapshot, because a third party being down or restyled must not
-   turn into a red build on main. What it does do is say which source answered,
-   so a deploy log shows a silent fallback instead of hiding it. */
+/* Odoo owns the vacancy list and the build reads it. It never throws: a source
+   that fails falls through to the next and finally to the committed snapshot,
+   because a third party being down must not turn into a red build on main. It
+   does say which source answered, so a deploy log shows a silent fallback. */
 const vacancies = await readVacancies({ rootDir, live: process.env.ODOO_OFFLINE !== '1' });
 const vacancyCounts = languages.map((language) => `${language.code} ${(vacancies.byLang[language.code] || []).length}`).join(' · ');
 console.log(`Vacancies from Odoo (${vacancies.source}): ${vacancyCounts}`);

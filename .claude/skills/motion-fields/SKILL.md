@@ -29,8 +29,8 @@ load-bearing unless it says otherwise.
   `(L_old - 0.2143) / 0.7857`, so 56% becomes 44%, 62% 51.64%, 53% 40.18%. Change
   the shared rule and these have to be recomputed or the ridge stretches.
   **The orbs do not share that box, and this is the one hero where they cannot.**
-  It is a share of the page width against a hero that is 540px tall at every
-  width, so its aspect runs 1.2 at 1081 to 2.9 at 2560; the ridge stretches with
+  It is a share of the page width against a hero that is 440px tall at every
+  width, so its aspect runs about 1.5 at 1081 to 3.6 at 2560; the ridge stretches with
   it and reads as drawn either way, but an orb that stretches is a flat disc —
   at 2560 they came out half again as wide as tall. Each takes a square slot of
   its own, 1.7 times the orb across so its grown box still contains the join
@@ -365,21 +365,30 @@ load-bearing unless it says otherwise.
   is there for the join.** `.hero__bead` in `main.css` is a slot inside
   `.hero__field--right` holding one more `.field` on `heroPebbleA` — the
   staffing page's larger pebble, now a shared silhouette rather than that
-  page's own. It stands 41px off the petal's drawn flank at 1081, 50 at 1440
-  and 61 at 2560, against the 60px a join closes at (`2·MERGE·ln2·ONSET` in
-  `src/motion.js`, measured on the *displaced* outlines), so a cursor brought
-  into the gap runs the two together into one fluid and at rest they are two
-  shapes. Three things are load-bearing. The box is on the **slot** and not on
+  page's own. Two distances, and the pair is the point. At rest, sampled off
+  the two clip paths, it stands 86px off the petal's drawn flank at 1081, 91 at
+  1440 and 94 at 2560 — plainly two shapes. With the cursor walked down the gap
+  the two displaced outlines close to 2px, 7px and 10px, against the 60px a join
+  closes at (`2·MERGE·ln2·ONSET` in `src/motion.js`, measured on those displaced
+  outlines), so the union forms with room to spare and runs them together into
+  one fluid. Both sets came down when the hero band did, from 540px to 440
+  (improvements.md item 26): the resting gap was 117 to 130 and the displaced
+  one 41 to 61, which was near enough the limit to be the thing that closed it.
+  It is now comfortably inside, which is the same behaviour arrived at sooner. Three things are load-bearing. The box is on the **slot** and not on
   the field, with a floor under its width: a box struck as a share of a hero
-  that is 540px tall at every desk width and as wide as the window keeps its
+  that is 440px tall at every desk width and as wide as the window keeps its
   height and stretches without limit — the pebbles run 1.20 to 2.15 in aspect
   between 1440 and 2560 and by 2560 they have closed on the arch and on each
   other — and a bead is a pill at one end of that and a disc at the other, which
   is the bullet `clipDefs()` says the silhouette was drawn off-round to avoid.
-  The band it stands in is 185px deep at 1081 and that is what fixes its height:
-  26px of paper under the header, the 118px box, then the gap — re-measured
-  whenever the width floor moves, because a wider bead meets a higher part of
-  the flank. And it is **printed only where
+  The band it stands in is what fixes its height: the paper under the header,
+  the 118px box, then the gap — re-measured whenever the width floor moves,
+  because a wider bead meets a higher part of the flank. It was re-measured when
+  the hero band came down from 540px to 440 (improvements.md item 26): the bead
+  now stands 20px under the header rather than 24, and sampled off the two clip
+  paths at rest it is 86px clear of the petal's flank at 1081, 89 at 1280, 91 at
+  1440 and 94 at 2560, where it was 117 to 130. Two shapes at every width, and a
+  shorter distance for the swell to cross. And it is **printed only where
   a join can happen** — the media query is the negative of the gates
   `src/motion.js` arms the magnets on, so a coarse pointer and
   `prefers-reduced-motion` drop it as well as a narrow window. What CSS cannot

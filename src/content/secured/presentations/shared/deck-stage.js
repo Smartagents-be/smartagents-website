@@ -1,67 +1,32 @@
 /**
  * <deck-stage> — reusable web component for HTML decks.
  *
- * Handles:
- *  (a) speaker notes — reads <script type="application/json" id="speaker-notes">
- *      and posts {slideIndexChanged: N} to the parent window on nav.
- *  (b) keyboard navigation — ←/→, PgUp/PgDn, Space, Home/End, number keys.
- *  (c) press R to reset to slide 0 (with a tasteful keyboard hint).
- *  (d) bottom-center overlay showing slide count + hints, fades out on idle.
- *  (e) auto-scaling — inner canvas is a fixed design size (default 1920×1080)
- *      scaled with `transform: scale()` to fit the viewport, letterboxed.
- *      Set the `noscale` attribute to render at authored size (1:1) — the
- *      PPTX exporter sets this so its DOM capture sees unscaled geometry.
- *  (f) print — `@media print` lays every slide out as its own page at the
- *      design size, so the browser's Print → Save as PDF produces a clean
- *      one-page-per-slide PDF with no extra setup.
- *  (g) thumbnail rail — resizable left-hand column of per-slide thumbnails
- *      (static clones). Click to navigate; ↑/↓ with a thumbnail focused to
- *      step between slides; drag to reorder; right-click for
- *      Skip / Move up / Move down / Delete (opens a Cancel/Delete confirm
- *      dialog). Drag the rail's right edge to resize; width persists to
- *      localStorage. Skipped slides carry `data-deck-skip`, are dimmed in
- *      the rail, omitted from prev/next navigation, and hidden at print.
- *      The rail is suppressed in presenting mode, on `noscale`, and via
- *      the `no-rail` attribute. Rail mutations dispatch a `deckchange`
- *      CustomEvent on the element: detail = {action, from, to, slide}.
+ * Handles speaker notes, keyboard navigation (←/→, PgUp/PgDn, Space, Home/End,
+ * number keys, R to reset), the idle-fading slide counter, auto-scaling of a
+ * fixed design canvas (default 1920x1080) with letterboxing, one-page-per-slide
+ * printing, and a resizable thumbnail rail with drag-reorder and a
+ * Skip / Move / Delete context menu. `noscale` renders at authored size (the
+ * PPTX exporter sets it); `no-rail` suppresses the rail.
  *
- * Slides are HIDDEN, not unmounted. Non-active slides stay in the DOM with
- * `visibility: hidden` + `opacity: 0`, so their state (videos, iframes,
- * form inputs, React trees) is preserved across navigation.
+ * Slides are HIDDEN, not unmounted: non-active slides keep `visibility: hidden`
+ * and `opacity: 0`, so videos, iframes, inputs and component state survive
+ * navigation. They are the direct element children of <deck-stage>, and each is
+ * tagged with `data-screen-label` and `data-om-validate`.
  *
- * Lifecycle event — the component dispatches a `slidechange` CustomEvent on
- * itself whenever the active slide changes (including the initial mount).
- * The event bubbles and composes out of shadow DOM, so you can listen on
- * the <deck-stage> element or on document:
- *
- *   document.querySelector('deck-stage').addEventListener('slidechange', (e) => {
- *     e.detail.index         // new 0-based index
- *     e.detail.previousIndex // previous index, or -1 on init
- *     e.detail.total         // total slide count
- *     e.detail.slide         // the new active slide element
- *     e.detail.previousSlide // the prior slide element, or null on init
- *     e.detail.reason        // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
- *   });
- *
- * Persistence: none at the deck level. The host app keeps the current slide
- * in its own URL (?slide=) and re-delivers it via location.hash on load, so a
- * bare load with no hash always starts at slide 1.
+ * Events: `slidechange` on the element (bubbles, composed) with
+ * `{index, previousIndex, total, slide, previousSlide, reason}`; `deckchange`
+ * for rail mutations with `{action, from, to, slide}`.
  *
  * Usage:
  *   <style>deck-stage:not(:defined){visibility:hidden}</style>
  *   <deck-stage width="1920" height="1080">
  *     <section data-label="Title">...</section>
- *     <section data-label="Agenda">...</section>
  *   </deck-stage>
  *   <script src="deck-stage.js"></script>
  *
- * The :not(:defined) rule prevents a flash of the first slide at its
- * authored styles before this script runs and attaches the shadow root.
- *
- * Slides are the direct element children of <deck-stage>. Each slide is
- * automatically tagged with:
- *   - data-screen-label="NN Label"   (1-indexed, for comment flow)
- *   - data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text"
+ * The :not(:defined) rule prevents a flash of the first slide at its authored
+ * styles before this script attaches the shadow root. No persistence at the deck
+ * level: the host app keeps the current slide in its own URL.
  */
 
 (() => {
@@ -82,12 +47,10 @@
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
       overflow: hidden;
     }
-    /* connectedCallback holds this until document.fonts.ready (capped 2s) so
-     * the first visible paint has the deck's real typography + final rail
-     * layout. opacity (not visibility) so the active slide can't un-hide
-     * itself via the ::slotted([data-deck-active]) visibility:visible rule.
-     * Only the stage/rail hide — the black :host background stays, so the
-     * iframe doesn't flash the page's default white. */
+    /* connectedCallback holds this until document.fonts.ready (capped 2s) so the
+     * first visible paint has the deck's real typography and final rail layout.
+     * opacity, not visibility, so the active slide cannot un-hide itself via the
+     * ::slotted([data-deck-active]) rule. The black :host background stays. */
     :host([data-fonts-pending]) .stage,
     :host([data-fonts-pending]) .rail { opacity: 0; pointer-events: none; }
 
@@ -250,10 +213,9 @@
     }
 
     /* ── Thumbnail rail ──────────────────────────────────────────────────
-       Fixed column on the left; each thumbnail is a static deep-clone of
-       the light-DOM slide scaled into a 16:9 (or design-aspect) frame. The
-       stage re-fits around it (see _fit); hidden during present / noscale
-       / print so capture geometry and fullscreen output are unchanged. */
+       Fixed column on the left, each thumbnail a static deep-clone scaled into
+       a 16:9 frame. Hidden during present / noscale / print, so capture
+       geometry and fullscreen output are unchanged. */
     .rail {
       position: fixed;
       left: 0;
@@ -486,12 +448,10 @@
     .confirm .danger:hover { background: #b5563a; }
 
     /* ── Print: one page per slide, no chrome ────────────────────────────
-       The screen layout stacks every slide at inset:0 inside a scaled
-       canvas; for print we want them in document flow at the authored
-       design size so the browser paginates one slide per sheet. The
-       @page size is set from the width/height attributes via the inline
-       <style id="deck-stage-print-page"> that connectedCallback injects
-       into <head> (the @page at-rule has no effect inside shadow DOM). */
+       The screen layout stacks every slide at inset:0 inside a scaled canvas;
+       print wants them in document flow at the authored size. The @page size
+       comes from the inline <style> connectedCallback injects into <head>, the
+       at-rule having no effect inside shadow DOM. */
     @media print {
       :host {
         position: static;
@@ -617,11 +577,9 @@
       try {
         if (localStorage.getItem('deck-stage.railVisible') === '1') this._railVisible = true;
       } catch (e) {}
-      // Live thumbnail updates: watch the light-DOM slides for content
-      // edits and re-clone just the affected thumb(s), debounced. Ignore
-      // the data-deck-* / data-screen-label / data-om-validate attributes
-      // this component itself writes so nav and skip don't trigger
-      // spurious refreshes.
+      // Live thumbnail updates: watch the light-DOM slides for edits and
+      // re-clone the affected thumbs, debounced. Ignore the attributes this
+      // component writes itself, or nav and skip trigger spurious refreshes.
       const OWN_ATTRS = /^data-(deck-|screen-label$|om-validate$)/;
       this._liveDirty = new Set();
       this._liveObserver = new MutationObserver((records) => {
@@ -652,13 +610,10 @@
           }
         });
       }, { root: this._rail, rootMargin: '400px 0px' });
-      // Tweaks typically change CSS vars / attrs OUTSIDE <deck-stage>
-      // (on <html>, <body>, a wrapper div, or a <style> tag), which
-      // _liveObserver can't see. Re-snapshot author CSS (constructable
-      // sheet is shared by reference, so one replaceSync updates every
-      // thumb shadow root) and re-sync each thumb host's attrs + custom
-      // properties. In-slide DOM mutations are _liveObserver's job.
-      // Debounced so slider drags don't thrash.
+      // Tweaks typically change CSS vars or attrs OUTSIDE <deck-stage> — on
+      // <html>, a wrapper, a <style> tag — which _liveObserver cannot see. So
+      // re-snapshot author CSS and re-sync each thumb host. Debounced, or
+      // slider drags thrash.
       this._onTweakChange = () => {
         clearTimeout(this._tweakTimer);
         this._tweakTimer = setTimeout(() => {
@@ -681,40 +636,30 @@
       this._fit();
     }
 
-    /** Snapshot document stylesheets into a constructable sheet that each
-     *  thumbnail's nested shadow root adopts — so author CSS styles the
-     *  cloned slide content without touching this component's chrome.
-     *  Cross-origin sheets throw on .cssRules — skip them. Re-callable:
-     *  the existing constructable sheet is reused via replaceSync so every
-     *  already-adopted shadow root picks up the fresh CSS without re-adopt. */
+    /** Snapshot document stylesheets into a constructable sheet each thumbnail's
+     *  nested shadow root adopts, so author CSS styles the cloned slide without
+     *  touching this component's chrome. Cross-origin sheets throw on .cssRules.
+     *  Re-callable: replaceSync updates every adopted root at once. */
     _snapshotAuthorCss() {
-      // :root in an adopted sheet inside a shadow root matches nothing
-      // (only the document root qualifies), so author rules like
-      // `:root[data-voice="modern"] .serif` never reach the clones.
-      // Rewrite :root → :host and mirror <html>'s data-*/class/lang onto
-      // each thumb host (see _syncThumbHostAttrs) so the same selectors
-      // match inside the thumbnail's shadow tree.
+      // :root in an adopted sheet inside a shadow root matches nothing, so
+      // author rules like `:root[data-voice] .serif` never reach the clones.
+      // Rewrite :root -> :host and mirror <html>'s attrs onto each thumb host
+      // (see _syncThumbHostAttrs).
       const authorCss = Array.from(document.styleSheets).map((sh) => {
         try {
           return Array.from(sh.cssRules).map((r) => r.cssText).join('\n');
         } catch (e) { return ''; }
       }).join('\n')
-        // The shadow host is featureless outside the functional :host(...)
-        // form, so any compound on :root — [attr], .class, #id, :pseudo —
-        // must become :host(<compound>) not :host<compound>. Same for the
-        // html type selector (Tailwind class-strategy dark mode emits
-        // html.dark; Pico uses html[data-theme]), which has nothing to
-        // match inside the thumb's shadow tree.
+        // The shadow host is featureless outside the functional :host(...) form,
+        // so any compound on :root must become :host(<compound>). Same for the
+        // html type selector, which has nothing to match inside the shadow tree.
         .replace(/:root((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)/g, ':host($1)')
         .replace(/:root\b/g, ':host')
         .replace(/(^|[\s,>~+(}])html((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)(?![-\w])/g, '$1:host($2)')
         .replace(/(^|[\s,>~+(}])html(?![-\w])/g, '$1:host');
-      // Every custom property the author references. _syncThumbHostAttrs
-      // mirrors each one's *computed* value at <deck-stage> onto the
-      // thumb host so the live value wins over the :host default above
-      // regardless of which ancestor the tweak wrote to (<html>, <body>,
-      // a wrapper div, or the deck-stage element itself all inherit
-      // down to getComputedStyle(this)).
+      // Every custom property the author references. _syncThumbHostAttrs mirrors
+      // each one's *computed* value at <deck-stage> onto the thumb host, so the
+      // live value wins whichever ancestor the tweak wrote to.
       this._authorVars = new Set(authorCss.match(/--[\w-]+/g) || []);
       try {
         if (!this._adoptedSheet) this._adoptedSheet = new CSSStyleSheet();
@@ -727,11 +672,9 @@
 
     _syncThumbHostAttrs(host, cs) {
       const de = document.documentElement;
-      // setAttribute overwrites but can't delete — an attr removed from
-      // <html> (toggleAttribute off, classList emptied) would linger on
-      // the host and :host([data-*]) / :host(.foo) rules would keep
-      // matching. Remove stale mirrored attrs first; iterate backward
-      // because removeAttribute mutates the live NamedNodeMap.
+      // setAttribute overwrites but cannot delete, so an attr removed from
+      // <html> would linger and keep :host([data-*]) matching. Iterate backward:
+      // removeAttribute mutates the live NamedNodeMap.
       for (let i = host.attributes.length - 1; i >= 0; i--) {
         const n = host.attributes[i].name;
         if ((n.startsWith('data-') || n === 'class' || n === 'lang')
@@ -744,15 +687,10 @@
           host.setAttribute(a.name, a.value);
         }
       }
-      // The :root→:host rewrite in _snapshotAuthorCss pins each custom
-      // property to its stylesheet default on the thumb host, shadowing
-      // the live value that would otherwise inherit. Tweaks can write the
-      // live value on any ancestor — <html>, <body>, a wrapper div, the
-      // deck-stage element — so read it as the *computed* value at
-      // <deck-stage> (which sees the whole inheritance chain) rather than
-      // trying to guess which element the author wrote to. Inline on the
-      // host beats the :host{} rule. remove-stale covers vars dropped
-      // from the stylesheet between snapshots.
+      // The :root->:host rewrite pins each custom property to its stylesheet
+      // default on the thumb host, shadowing the live value. Read it as the
+      // *computed* value at <deck-stage>, which sees the whole inheritance
+      // chain, rather than guessing which element the author wrote to.
       const vars = this._authorVars || new Set();
       for (let i = host.style.length - 1; i >= 0; i--) {
         const p = host.style[i];
@@ -1115,22 +1053,16 @@
         else s.removeAttribute('data-deck-active');
       });
       if (this._countEl) this._countEl.textContent = String(curr + 1);
-      // Follow-scroll on every navigation (init deep-link, keyboard, click,
-      // tap, external goTo) — the only time we *don't* want the rail to
-      // track current is after a rail-internal mutation, where _renderRail
-      // has already restored the user's scroll position and yanking back to
-      // current would undo it.
+      // Follow-scroll on every navigation except a rail-internal mutation,
+      // where _renderRail has already restored the user's scroll position.
       this._syncRail(reason !== 'mutation');
 
       if (broadcast) {
         // (1) Legacy: host-window postMessage for speaker-notes renderers.
         try { window.postMessage({ slideIndexChanged: curr, deckTotal: this._slides.length, deckSkipped: this._skippedIndices() }, '*'); } catch (e) {}
 
-        // (2) In-page CustomEvent on the <deck-stage> element itself.
-        //     Bubbles and composes out of shadow DOM so slide code can listen:
-        //       document.querySelector('deck-stage').addEventListener('slidechange', e => {
-        //         e.detail.index, e.detail.previousIndex, e.detail.total, e.detail.slide, e.detail.reason
-        //       });
+        // (2) In-page CustomEvent on the <deck-stage> element itself, bubbling
+        //     and composing out of shadow DOM so slide code can listen.
         const detail = {
           index: curr,
           previousIndex: prev,
@@ -1351,12 +1283,10 @@
 
     // ── Thumbnail rail ────────────────────────────────────────────────────
     //
-    // Thumbs are keyed by slide element and reused across _renderRail()
-    // calls, so a reorder/delete is an O(changed) DOM shuffle instead of an
-    // O(N) teardown-and-re-clone. Each thumb starts as a lightweight shell
-    // (num + empty frame); the clone is materialized lazily by an
-    // IntersectionObserver when the frame scrolls into (or near) view, so
-    // only visible-ish slides pay the clone + image-decode cost.
+    // Thumbs are keyed by slide element and reused across _renderRail() calls,
+    // so a reorder is an O(changed) shuffle rather than a full re-clone. Each
+    // starts as a shell and is materialized lazily by an IntersectionObserver,
+    // so only visible-ish slides pay the clone and image-decode cost.
 
     _renderRail() {
       if (!this._rail || !this._railEnabled) { this._thumbs = []; return; }
@@ -1448,11 +1378,9 @@
       const idx = () => entry.i;
 
       thumb.addEventListener('click', () => this._go(idx(), 'click'));
-      // ↑/↓ step through the rail when a thumb has focus. _go clamps at the
-      // ends and _applyIndex→_syncRail scrolls the new current thumb into
-      // view; we move focus to it (preventScroll — _syncRail already
-      // scrolled) so a held key walks the whole list. stopPropagation keeps
-      // this out of the window-level _onKey nav handler.
+      // ↑/↓ step through the rail when a thumb has focus; focus moves with
+      // preventScroll, _syncRail having already scrolled. stopPropagation keeps
+      // this out of the window-level nav handler.
       thumb.addEventListener('keydown', (e) => {
         if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
         if (e.metaKey || e.ctrlKey || e.altKey) return;
@@ -1537,14 +1465,10 @@
         el.decoding = 'async';
         if (el.srcset) el.sizes = (this._railPx || 188) + 'px';
       });
-      // Custom elements inside the slide would have their
-      // connectedCallback fire when the clone is appended. Replace them
-      // with inert boxes so a component-heavy deck doesn't run N copies
-      // of each component's mount logic in the rail. Children are
-      // preserved so layout-wrapper elements (<my-column><h2>…</h2>)
-      // still show their authored content; the querySelectorAll NodeList
-      // is static, so nested custom elements in the moved subtree are
-      // still visited on later iterations.
+      // Custom elements inside the slide would fire connectedCallback when the
+      // clone is appended. Replace them with inert boxes, preserving children so
+      // layout wrappers still show their content. The NodeList is static, so
+      // nested custom elements in the moved subtree are still visited.
       const neuter = (el) => {
         const box = document.createElement('div');
         box.style.cssText = (el.getAttribute('style') || '') +

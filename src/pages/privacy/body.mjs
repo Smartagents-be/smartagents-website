@@ -1,66 +1,45 @@
 // The privacy notice, in the three languages the site is published in.
 //
-// Every factual claim here is read off the code, not assumed, and the ones that
-// are easy to get wrong are worth naming so the next person editing this knows
-// what to re-check:
+// Every factual claim here is read off the code, and the ones that are easy to
+// get wrong are worth naming so the next person knows what to re-check:
 //
-//   • The public pages set no cookies and load nothing third-party. Verified:
-//     the only external host in a built public page is the LinkedIn href in the
-//     footer, and it is a link, not a request. `localStorage` appears only under
-//     /secured/, which is password-gated and internal.
+//   • The public pages set no cookies and load nothing third-party. The only
+//     external host in a built public page is the LinkedIn href in the footer,
+//     and it is a link, not a request. `localStorage` appears only under
+//     /secured/.
 //   • Art. 13 is answered item by item, 13(2)(e) included: "Wat we verzamelen"
-//     ends by saying that nothing here is obligatory and what follows from not
-//     giving it. That was the one sub-article the notice did not answer, which
-//     is the kind of gap a DPO reading it notices first.
-//   • The two ways to reach a person are both links. The number was plain text
-//     and four ordinary spaces, so it broke across two lines at a 768px tablet
-//     in English, at 500px in French and at 1024 in Dutch — and it was the one
-//     SmartAgents phone number on the site that was not a `tel:`, on the page
-//     where it is an art. 13(1)(a) contact detail rather than a convenience.
-//     `.prose a[href^="tel:"]` is `white-space: nowrap`, which is the same
-//     answer the footer's legal microline already gives.
-//   • The clause says "no cookies *of our own*", not "no cookies", and the one
-//     string outside this file that summarises it — `privacy.description`, the
-//     page's own search snippet — carries the same qualifier. It did not, for a
-//     round: the body conceded that touching the form loads Turnstile, which may
-//     place a technical value of its own, while the snippet a reviewer reads
-//     first said none ever is. The homepage's FAQ said it a third time, in
-//     `faq.data.a` and in `FAQPage` structured data; both are gone with the
-//     block, so this is the last place the qualifier has to hold.
-//   • /secured/ does set one cookie, and the notice says so. `export_session` is
-//     written by `functions/secured/login.js` — HttpOnly, Secure, SameSite=Strict,
-//     `Max-Age=604800`, scoped to the secured path. Two drafts of the Cookies
-//     clause said this site sets no cookies at all, which is false in the
-//     absolute on a page whose whole posture is that every claim is read off the
-//     code. Seven days is that Max-Age, not a rounding.
-//   • Turnstile loads on the first interaction with the form and never before —
-//     `contact-form.js` binds it to `focusin` with `{ once: true }`.
-//   • The rate limiter keys on the caller's IP and stores the counter in
-//     Cloudflare KV with `expirationTtl: 7200`, so that record is gone two hours
-//     later. That is a real number, not a rounded one.
+//     ends by saying nothing here is obligatory and what follows from not
+//     giving it.
+//   • Both ways to reach a person are links. The number was plain text and four
+//     ordinary spaces, so it broke across two lines at a 768px tablet — on the
+//     page where it is an art. 13(1)(a) contact detail rather than a convenience.
+//   • The clause says "no cookies *of our own*", and `privacy.description`, the
+//     page's search snippet, carries the same qualifier. It did not, for a
+//     round, while the body conceded that touching the form loads Turnstile.
+//   • /secured/ does set one cookie and the notice says so: `export_session`,
+//     written by `functions/secured/login.js` with `Max-Age=604800`. Seven days
+//     is that number, not a rounding. Two drafts said this site sets no cookies
+//     at all, which is false in the absolute on a page whose whole posture is
+//     that every claim is read off the code.
+//   • Turnstile loads on the first interaction with the form and never before.
+//   • The rate limiter keys on the caller's IP and stores the counter in KV with
+//     `expirationTtl: 7200`, so that record is gone two hours later.
 //   • n8n forwards; it does not store. The message lands in Slack and in the
 //     mailbox, which is where retention actually applies.
 //
 // The 24-month retention is a commitment, not an observation: nothing in the
-// code enforces it, so it has to be honoured by hand in Slack and the mailbox.
-// Shorten the number here if that is not realistic.
+// code enforces it. Shorten the number here if it is not realistic.
 //
-// The opening sentence is not in here. It is `privacy.lede` in src/i18n, printed
-// in the head as the standfirst every other page on the site carries — it is the
-// one line that says what the document is, and as the first block of the body it
-// sat under the clause index at every width below 1000px, which put the summary
-// after its own table of contents. Everything from the first `h2` down is here.
+// The opening sentence is `privacy.lede` in src/i18n, printed in the head as the
+// standfirst: as the first block of the body it sat under the clause index at
+// every width below 1000px, which put the summary after its own contents.
 //
 // One href in the copy is not a URL: `clause:NN` is the NNth `h2` of this
 // notice, resolved in privacy.mjs against the same derivation the clause index
-// uses. A cross-reference inside a document nobody reads end to end has to be a
-// link — "zie hieronder" is useless to a reader who arrived at that clause from
-// the index — and hand-writing the anchor would be hand-keeping a number the
-// rest of this page is generated precisely to avoid. The ordinal is safe
-// because the three languages carry the same eight clauses in the same order.
-//
-// The copy is authored with the shared `prose` vocabulary (src/pages/prose.mjs),
-// which is what lets a Dutch or French sentence carry its apostrophes unescaped.
+// uses. A cross-reference in a document nobody reads end to end has to be a link
+// — "zie hieronder" is useless to a reader who arrived from the index — and the
+// ordinal is safe because the three languages carry the same eight clauses in
+// the same order.
 import { p, h2, list } from '../prose.mjs';
 
 const CONTROLLER = 'SmartAgents BV';

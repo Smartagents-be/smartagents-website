@@ -49,7 +49,6 @@
   "dna.4.title": "Partners",
   "dna.4.body": "We zoeken gelijkgestemde bedrijven die willen groeien, en blijven tot dat ook gebeurt.",
 
-
   "article.tag.news": "Nieuws",
   "article.tag.ai": "AI",
   "article.tag.tips": "Tips",
@@ -105,10 +104,9 @@
 
   "training.cta.offer": "Bekijk het aanbod",
 
-  "training.why.title": "Waarom investeren in AI-training?",
-
   "training.offer.title": "Ons aanbod",
   "training.offer.learn": "Wat u leert",
+  "training.offer.lede": "Beide cursussen zijn kostenbewust: uw mensen weten wat een vraag kost en kiezen het lichtste model dat de klus aankan. En wie AI zelf toepast, heeft voor routinewerk en kleine aanpassingen geen externe hulp meer nodig.",
 
   "training.download": "Download de fiche",
 
@@ -143,17 +141,6 @@
   "training.format.accents": "De klemtoon ligt op wat u de dag erna gebruikt: slimmer omgaan met AI, zicht op wat elke vraag kost, en workflows die passen bij hoe uw team al werkt. De slides en het lesmateriaal blijven achteraf van u.",
   "training.format.videoLabel": "Rondleiding door de developercursus van SmartAgents",
   "training.format.fallback": "Bekijk de rondleiding (MP4)",
-
-  "training.benefit.adoption.title": "Snellere adoptie",
-  "training.benefit.adoption.body": "Teams die begrijpen wat AI doet, pakken nieuwe tools sneller op en vinden zelf toepassingen.",
-  "training.benefit.productivity.title": "Hogere productiviteit",
-  "training.benefit.productivity.body": "Medewerkers leren hun werk parallelliseren met AI, in plaats van taak na taak af te werken.",
-  "training.benefit.risk.title": "Minder risico",
-  "training.benefit.risk.body": "Wie de grenzen van AI kent, neemt betere beslissingen en vermijdt dure fouten.",
-  "training.benefit.return.title": "Kostenbewust",
-  "training.benefit.return.body": "Deelnemers leren tokens afstemmen op de taak: het lichtste model dat de klus aankan.",
-  "training.benefit.autonomy.title": "Minder afhankelijk van externen",
-  "training.benefit.autonomy.body": "Mensen die AI zelf toepassen, hebben minder hulp nodig voor routinewerk en kleine aanpassingen.",
 
   "training.cta.title": "Klaar om uw team bij te scholen?",
 
@@ -229,9 +216,9 @@
 
   "staffing.hero.title": "Een AI-native engineer in uw team",
 
-  "staffing.cta.tracks": "Bekijk het aanbod",
+  "staffing.cta.tracks": "Bekijk hoe we meewerken",
 
-  "staffing.tracks.title": "Wat we doen",
+  "staffing.tracks.title": "Hoe we meewerken",
 
   "staffing.track.fitLabel": "Past wanneer",
   "staffing.track.engineer.title": "AI engineer staffing",

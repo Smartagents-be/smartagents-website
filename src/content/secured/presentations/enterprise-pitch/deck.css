@@ -1,12 +1,6 @@
 /* enterprise-pitch — no rules of its own.
 
-   The two founders on slide 03 used to be a portrait wedged into a
-   `.row__term`, with three rules here to make a row hold a face. They are the
-   `.people` archetype in ../shared/slide.css now, which is the same hairline
-   grammar written once instead of five times across five decks. `.nobreak`,
-   which holds "AI-native" together at 104px on the cover, is shared too.
-
-   If this deck ever needs a figure of its own, write it here with tokens
-   (--sa-grey-3, --sa-line, --ls-h3, --fw-semibold) in absolute pixels against
-   the 1920x1080 stage, and move it into ../shared/slide.css the moment a
-   second deck wants the same thing. */
+   Every slide here is one of the eight archetypes in ../shared/slide.css. A
+   figure of this deck's own goes here, in tokens and in absolute pixels
+   against the 1920x1080 stage, and moves into ../shared/slide.css the moment
+   a second deck wants the same thing. */

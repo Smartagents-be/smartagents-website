@@ -1,50 +1,35 @@
 // The open vacancies, read from Odoo Recruitment at build time.
 //
-// Odoo owns the list. The jobs page renders whatever `hr.job` has published,
-// and each vacancy's action goes to that job's own Odoo application form, which
-// is the real intake — a candidate who applies lands in Recruitment rather than
-// in the contact webhook. Nothing about a vacancy is authored in this repo any
-// more; what is authored here is the chrome around it, in `src/i18n`.
+// Odoo owns the list, and each vacancy's action goes to that job's own Odoo
+// application form, so a candidate lands in Recruitment rather than in the
+// contact webhook. What is authored in this repo is the chrome around it.
 //
 // Three sources, tried in order, and the build never fails on any of them:
 //
 //   1. **The external API**, when `ODOO_LOGIN` and `ODOO_API_KEY` are set.
-//      JSON-RPC against `hr.job`, filtered on `is_published`. This is the
-//      robust one: real field names, a real published flag, and a closed job
-//      disappears the moment it is unpublished.
-//   2. **The public jobs page**, when they are not. No credentials at all, and
-//      the data is public anyway — but it is Odoo's own theme markup, and
-//      Odoo restyles its themes on SaaS upgrades, so a class name that changes
-//      empties the list. That is what the sanity check below is for.
-//   3. **The committed snapshot** in `src/content/jobs/`, when neither answers
-//      or when what they answered does not look like a job list. Cloudflare
-//      Pages builds must not fail because a third party is down or has been
-//      restyled: a stale vacancy on the site is recoverable, a red build on
+//      JSON-RPC against `hr.job`, filtered on `is_published`: real field names,
+//      a real published flag, and an unpublished job disappears at once.
+//   2. **The public jobs page**, when they are not. No credentials, but it is
+//      Odoo's own theme markup, and Odoo restyles its themes on SaaS upgrades —
+//      which is what the sanity check below is for.
+//   3. **The committed snapshot**, when neither answers or what came back does
+//      not look like a job list. A stale vacancy is recoverable; a red build on
 //      main is the site not deploying at all.
 //
-// **The API key never reaches a browser and that is the whole point of doing
-// this here.** It is read from the environment by the build, used for one
-// HTTPS call from the build container, and what is written into `dist/` is the
-// job text. It is not in the bundle, not in the HTML and not in any request a
-// visitor makes — `scripts/check-dist.mjs` fails the build if the value turns
-// up anywhere in the output, so that is enforced rather than asserted. Two
-// things still have to be true on the Odoo side: the key belongs to a user with
-// read access to Recruitment and nothing else (an Odoo API key carries the full
-// rights of the user it was made for), and it lives in a Cloudflare Pages build
-// variable marked as a secret, never in this repo.
+// **The API key never reaches a browser.** It is used for one call from the
+// build container, and `scripts/check-dist.mjs` fails the build if its value
+// turns up anywhere in the output. Two things have to be true on the Odoo side:
+// the key belongs to a user with read access to Recruitment and nothing else (an
+// Odoo API key carries that user's full rights), and it lives in a Pages build
+// variable marked as a secret.
 //
-// Language: Odoo is asked for whichever of its own languages best serves each
-// of the site's three, and for English when it has none of them — so a job
-// translated in Odoo arrives translated here with no change to this file, and
-// an untranslated one arrives in English. Only *active* languages may be asked
-// for: an inactive code is not a soft fallback, it is an error and a failed
-// read. Today `en_US` is the only active language on the recruitment site, so
-// all three resolve to it and the whole list is fetched once.
-//
-// What "English" means here is Odoo's `en_US`, which is where a translatable
-// field's source value is stored — so a job typed in Dutch under an English UI
-// comes back as that Dutch text. That is the honest thing to print: the
-// alternative is an English page with an empty vacancy on it.
+// Language: Odoo is asked for whichever of its own languages best serves each of
+// the site's three, and for English when it has none of them. Only *active*
+// languages may be asked for — an inactive code is an error, not a soft
+// fallback. Today `en_US` is the only active language, so all three resolve to
+// it and the list is fetched once. "English" there means Odoo's `en_US`, where a
+// translatable field's source value is stored, so a job typed in Dutch under an
+// English UI comes back as that Dutch text.
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { languages } from './i18n.mjs';
@@ -69,25 +54,26 @@ const ODOO_API_KEY = process.env.ODOO_API_KEY;
 const ODOO_LANG = { nl: ['nl_BE', 'nl_NL'], en: ['en_US'], fr: ['fr_BE', 'fr_FR'] };
 
 /**
- * What a site language falls back to when Odoo has none of its own.
- *
- * English, deliberately, and not the site's own default of Dutch. Odoo stores a
- * translatable field's source value under `en_US` and hands that back for any
- * language it has no translation for, so English is already the language every
- * untranslated job arrives in — naming it here makes the site's fallback the
- * same one Odoo is going to apply anyway, instead of a second, different
- * answer layered on top.
- *
- * It also has to be a language Odoo will accept at all: asking for an inactive
- * one is not a silent fallback, it is `Invalid language code: nl_BE` and a
- * failed read. Today `en_US` is the only active language on the recruitment
- * site, so all three site languages resolve to it and the API is asked once
- * rather than three times.
+ * What a site language falls back to when Odoo has none of its own: English,
+ * deliberately, not the site's own default of Dutch. Odoo stores a translatable
+ * field's source value under `en_US` and hands that back for any language it has
+ * no translation for, so English is already what an untranslated job arrives in.
+ * It also has to be a language Odoo will accept: asking for an inactive one is
+ * `Invalid language code` and a failed read.
  */
 const ODOO_FALLBACK_LANG = 'en_US';
 
-/** A slow recruitment site must not hold a deploy open. */
+/** A slow recruitment site must not hold a deploy open. Per request. */
 const TIMEOUT_MS = 8000;
+
+/**
+ * And the whole live read, however many requests it takes, gets this.
+ * `TIMEOUT_MS` bounds one socket; nothing bounded the chain of them, and an
+ * authenticate plus a read per language could each sit at the full eight
+ * seconds before falling back to a snapshot that is committed in this
+ * repository. Generous against the sub-second a healthy Odoo answers in.
+ */
+const BUDGET_MS = 20000;
 
 const SNAPSHOT_PATH = 'src/content/jobs/odoo-snapshot.json';
 
@@ -188,16 +174,14 @@ async function rpc(service, method, args) {
  * Every published job, in one language.
  *
  * The address is resolved in a second call, to the same city-and-country pair
- * Odoo's own jobs page prints. A many2one comes back as `[id, "display name"]`
- * and a job address's display name is the partner's — a postal address, which
- * is not what the recruitment site shows — so the two fields are read and
- * joined the way Odoo joins them. Both sources have to produce the identical
- * string: a vacancy must not change its location text because a build fell
+ * Odoo's own jobs page prints: a many2one's display name is the partner's postal
+ * address, which is not what the recruitment site shows, so the two fields are
+ * read and joined the way Odoo joins them. Both sources have to produce the
+ * identical string, or a vacancy changes its location text when a build falls
  * back from the API to the public page.
  *
  * Odoo returns the country in the recruitment site's own language rather than
- * the reader's, so the Dutch page says "Beringen, Belgium". That is Odoo's to
- * fix or to leave; it is not rewritten here. Odoo owns this content.
+ * the reader's. That is Odoo's to fix; it is not rewritten here.
  */
 async function fromApi(odooLang, uid) {
   const rows = await rpc('object', 'execute_kw', [
@@ -268,10 +252,8 @@ async function citiesFor(rows, uid) {
 
 /**
  * Odoo prints how many jobs the page found, in its own search bar, and that is
- * the one thing here that is not markup we are guessing at. It is what tells an
- * empty list ("nothing is published") apart from a broken parse ("the theme
- * changed and every card selector missed"), which are the same zero otherwise
- * and must not be treated the same way.
+ * the one thing here that is not markup we are guessing at. It tells an empty
+ * list apart from a broken parse, which are the same zero otherwise.
  */
 function reportedCount(html) {
   const match = html.match(/o_search_count[^>]*>\s*(\d+)\s*</);
@@ -286,10 +268,8 @@ async function fromPublicPage(odooLang) {
   const html = await response.text();
   const jobs = [];
 
-  /* One card per job: a link to the job, an <h3> with its name, the editor's
-     own description block, and a `PostalAddress` for where it is. Each is
-     pulled out of the card's own slice of the document rather than off the
-     page, so two cards cannot borrow each other's fields. */
+  /* One card per job, each field pulled out of that card's own slice of the
+     document rather than off the page, so two cards cannot borrow each other's. */
   const cards = html.split(/<div class="card"[^>]*data-publish=/i).slice(1);
 
   for (const card of cards) {
@@ -298,10 +278,9 @@ async function fromPublicPage(odooLang) {
 
     const title = card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
     const description = card.match(/data-oe-version="[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
-    /* The location exactly as the recruitment site prints it: the locality and
-       the country, in that order. Odoo returns the country in its own site
-       language rather than the reader's, so the Dutch page says "Beringen,
-       Belgium" — Odoo owns this content and it is not rewritten here. */
+    /* The location exactly as the recruitment site prints it. Odoo returns the
+       country in its own site language rather than the reader's; Odoo owns this
+       content and it is not rewritten here. */
     const text = (match) => (match ? clean(decodeEntities(match[1].replace(/<[^>]+>/g, ''))) : '');
     const locality = card.match(/itemprop="addressLocality"[^>]*>([\s\S]*?)<\/span>/i);
     const country = card.match(/itemprop="addressCountry"[^>]*>([\s\S]*?)<\/span>/i);
@@ -346,12 +325,10 @@ function fromSnapshot(rootDir) {
  * ------------------------------------------------------------------ */
 
 /**
- * Site language -> the Odoo language that will serve it.
- *
- * `active` is the list of codes Odoo will accept, or null when that cannot be
- * known (the public page, which has no way to ask). A site language takes the
- * first of its preferences that is active; failing that, English — see
- * `ODOO_FALLBACK_LANG` for why English and not the site's own default.
+ * Site language -> the Odoo language that will serve it. `active` is the list of
+ * codes Odoo will accept, or null when that cannot be known (the public page). A
+ * site language takes the first of its preferences that is active; failing that,
+ * English — see `ODOO_FALLBACK_LANG`.
  */
 function resolveLanguages(active) {
   const accepts = active ? new Set(active) : null;
@@ -369,19 +346,17 @@ function resolveLanguages(active) {
 
 /**
  * Run `read` once per *distinct* Odoo language and hand each site language the
- * result for the language it resolved to.
- *
- * The dedupe is not a micro-optimisation: with only `en_US` active — which is
- * the recruitment site today — all three site languages resolve to it, and
- * without this the build would ask Odoo for the same list three times on every
- * deploy to paste the same answer into three variables.
+ * result for the language it resolved to. The dedupe is not a
+ * micro-optimisation: with only `en_US` active all three site languages resolve
+ * to it, and the build would otherwise ask Odoo the same question three times.
  */
 async function byResolvedLanguage(resolved, read) {
-  const results = new Map();
-
-  for (const odooLang of new Set(Object.values(resolved))) {
-    results.set(odooLang, await read(odooLang));
-  }
+  /* In parallel: the reads are independent, and in series three timeouts is 24
+     seconds of a deploy. The dedupe above usually leaves one read anyway; this
+     is for the day a second language is installed in Odoo. */
+  const wanted = [...new Set(Object.values(resolved))];
+  const answers = await Promise.all(wanted.map((odooLang) => read(odooLang)));
+  const results = new Map(wanted.map((odooLang, i) => [odooLang, answers[i]]));
 
   return Object.fromEntries(
     Object.entries(resolved).map(([code, odooLang]) => [code, results.get(odooLang) || []])
@@ -412,10 +387,9 @@ export async function readVacancies({ rootDir, live = true }) {
         const uid = await rpc('common', 'authenticate', [ODOO_DB, ODOO_LOGIN, ODOO_API_KEY, {}]);
         if (!uid) throw new Error('Odoo refused the login and API key');
 
-        /* Which languages Odoo will actually accept. This read is the whole
-           reason the API path is worth having over the public one: asking for
-           an inactive language is an error, not a fallback, and only the
-           database can say which are on. */
+        /* Which languages Odoo will actually accept — the whole reason the API
+           path is worth having over the public one: asking for an inactive
+           language is an error, and only the database can say which are on. */
         const active = await rpc('object', 'execute_kw', [
           ODOO_DB,
           uid,
@@ -437,18 +411,33 @@ export async function readVacancies({ rootDir, live = true }) {
     'public page',
     async () => {
       /* No credentials, so no way to ask which languages are installed. Odoo
-         serves its default — English — for a language it does not have, which
-         is the same answer the resolver reaches, so the preferences are simply
-         requested as they stand. */
+         serves English for a language it does not have, which is the answer the
+         resolver reaches anyway. */
       return byResolvedLanguage(resolveLanguages(null), fromPublicPage);
     }
   ]);
 
   const failures = [];
 
+  /* One deadline across every attempt: what is left of the budget is what the
+     next attempt gets, and when it is gone the snapshot answers. The timer is
+     unref'd so a request still in flight cannot hold the build open. */
+  const deadline = Date.now() + BUDGET_MS;
+  const withinBudget = (promise) => {
+    const left = deadline - Date.now();
+    if (left <= 0) return Promise.reject(new Error(`the ${BUDGET_MS} ms budget for Odoo is spent`));
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => {
+        const timer = setTimeout(() => reject(new Error(`no answer within ${BUDGET_MS} ms`)), left);
+        timer.unref?.();
+      })
+    ]);
+  };
+
   for (const [source, run] of attempts) {
     try {
-      const byLang = await run();
+      const byLang = await withinBudget(run());
       return { source, byLang, warning: failures.length ? failures.join(' · ') : null };
     } catch (error) {
       failures.push(`${source}: ${error.message}`);

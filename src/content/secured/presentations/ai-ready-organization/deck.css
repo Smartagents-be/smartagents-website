@@ -1,11 +1,6 @@
 /* ai-ready-organization — no rules of its own.
 
-   The authors' figure on the last content slide used to be a `.founders` grid
-   written here. It is the `.people` archetype in ../shared/slide.css now: two
-   portraits, a name, a role and a line each, still hairline-ruled rather than
-   boxed so the pair reads as the same page as the rows before it.
-
-   If this deck ever needs a figure of its own, write it here with tokens
-   (--sa-grey-3, --sa-line, --ls-h3, --fw-semibold) in absolute pixels against
-   the 1920x1080 stage, and move it into ../shared/slide.css the moment a
-   second deck wants the same thing. */
+   Every slide here is one of the eight archetypes in ../shared/slide.css. A
+   figure of this deck's own goes here, in tokens and in absolute pixels
+   against the 1920x1080 stage, and moves into ../shared/slide.css the moment
+   a second deck wants the same thing. */

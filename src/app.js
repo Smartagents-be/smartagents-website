@@ -59,41 +59,99 @@ document.addEventListener('page:change', () => scan());
  * The menu disclosure
  *
  * The header menu is a <details>, so it opens and closes with no JS at all and
- * the page is fully navigable without this. What it cannot do on its own is
- * close: on a phone the panel is a full-height sheet and almost every entry in
- * it is an anchor on the page behind it, so following one leaves the sheet
- * standing over the section it just jumped to. Closing it here, and on Escape,
- * is the whole of it.
+ * the page is fully navigable without this. What a `<details>` cannot be on its
+ * own is modal, and on a phone the panel is a full-height sheet over the page:
+ * everything it covers goes `inert` — out of the tab order, out of hit-testing
+ * and off the accessibility tree in one attribute, where a focus trap would be
+ * a hundred lines — the document stops scrolling, and Escape or a click outside
+ * puts the sheet away. What stays reachable is the header row it hangs from.
+ *
+ * Above the phone the same panel is a compact dropdown and is not modal. It
+ * takes only the outside click from this block: a menu left standing open
+ * behind the page you have just clicked on is a menu that has not noticed.
  * ------------------------------------------------------------------ */
 
 const navToggle = document.getElementById('nav-toggle');
 
 if (navToggle) {
+  /* Where the panel becomes the sheet (`main.css`). Listened to, not read once:
+     a phone that turns to landscape crosses it mid-visit. */
+  const sheetWidth = matchMedia('(max-width: 620px)');
+
+  /* The skip link is in here because it points into `#main`, and a link to
+     inert content is a tab stop that goes nowhere. */
+  const behindSheet = ['site-skip-link', 'main', 'site-footer', 'mobile-actions']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  const syncSheet = () => {
+    const modal = navToggle.open && sheetWidth.matches;
+    for (const element of behindSheet) element.inert = modal;
+    document.documentElement.classList.toggle('has-sheet', modal);
+  };
+
+  navToggle.addEventListener('toggle', syncSheet);
+  sheetWidth.addEventListener('change', syncSheet);
+
+  const close = ({ focusTrigger } = {}) => {
+    navToggle.open = false;
+    syncSheet();
+    if (focusTrigger) navToggle.querySelector('summary')?.focus();
+  };
+
   navToggle.addEventListener('click', (event) => {
-    if (event.target.closest('a[href]')) navToggle.open = false;
+    if (event.target.closest('a[href]')) close();
+  });
+
+  /* `pointerdown`, not `click`: a drag that starts inside the panel and ends
+     outside it fires `click` and is not a dismissal. */
+  document.addEventListener('pointerdown', (event) => {
+    if (navToggle.open && !navToggle.contains(event.target)) close();
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && navToggle.open) {
-      navToggle.open = false;
-      navToggle.querySelector('summary')?.focus();
-    }
+    if (event.key === 'Escape' && navToggle.open) close({ focusTrigger: true });
   });
 }
+
+/* ------------------------------------------------------------------ *
+ * A same-page action that opens a form puts the cursor in it
+ *
+ * "Plan een gesprek" scrolls `#contact` into view and leaves the focus on
+ * `<body>`, so the next Tab starts back at the top of the document. A link to
+ * an anchor on this page that contains a form hands the focus to that form's
+ * first control instead; `preventScroll` leaves the anchor jump to the browser.
+ * Nothing happens on load — a landing on `#contact` has not asked for the
+ * keyboard, and on a phone it would raise one over the page it just loaded.
+ * ------------------------------------------------------------------ */
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest?.('a[href*="#"]');
+  if (!link || event.defaultPrevented) return;
+
+  const url = new URL(link.href, location.href);
+  if (url.origin !== location.origin || url.pathname !== location.pathname) return;
+  if (!url.hash || url.hash === '#') return;
+
+  const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+  const field = target?.querySelector('form :is(input, textarea, select):not([type="hidden"])');
+  /* On the next frame: following the fragment is the click's default action, it
+     runs after the listeners, and it moves the focus to `<body>` when the target
+     is not focusable — which a `<section>` never is. Focusing in the handler is
+     focusing a moment before the browser takes it away again. */
+  if (field) requestAnimationFrame(() => field.focus({ preventScroll: true }));
+});
 
 /* ------------------------------------------------------------------ *
  * The phone's action bar, held back while the hero's own action is on screen
  *
  * At 390x844 the hero's primary button and the sticky bar's copy of it are both
- * visible on the first screen: the same words twice, 490px apart, one of them
- * covering the bottom of the page to say what the other already says. The bar
- * exists for the rest of the document, so it waits for the rest of the document.
+ * on the first screen: the same words 490px apart, one covering the bottom of
+ * the page to say what the other already says.
  *
  * The bar ships visible and this hides it, never the other way round: with JS
- * off, or before this line runs, the reader gets a duplicated action rather than
- * no action at all. `data-hide-until` names the element the bar defers to —
- * the hero's first button, or the 404's — so the markup says what it waits for
- * and this does not have to know the shape of any page.
+ * off the reader gets a duplicated action rather than none. `data-hide-until`
+ * names the element the bar defers to, so the markup says what it waits for.
  * ------------------------------------------------------------------ */
 
 const actionBar = document.getElementById('mobile-actions');
@@ -128,10 +186,8 @@ if (!HTMLScriptElement.supports?.('speculationrules')) {
     const url = new URL(link.href, location.href);
     if (url.origin !== location.origin) return;
     if (url.pathname.startsWith('/secured/')) return;
-    /* `/media/` is files, not pages: the two course one-pagers are 200 KB each
-       and hovering the link on the training page fetched one. Speculation Rules
-       carry the same exclusion; this is the fallback path for engines without
-       them. */
+    /* `/media/` is files, not pages: the two course one-pagers are 200 KB each.
+       Speculation Rules carry the same exclusion; this is the fallback. */
     if (url.pathname.startsWith('/media/')) return;
     if (link.hasAttribute('download') || link.target) return;
     if (url.pathname === location.pathname) return;

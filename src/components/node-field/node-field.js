@@ -58,10 +58,10 @@ function seed() {
 /**
  * Match the population to a field that has changed size, without disturbing the
  * nodes already in it. Re-seeding is a whole new network, and a page's height is
- * not a constant: the AI staffing page's accordion moves it every frame for a
- * third of a second, and re-seeding on each of those frames was the network
- * flying apart and reassembling thirty times a second, everywhere on the page at
- * once. A taller document is the same field with more nodes in it.
+ * not a constant: the staffing page's accordion moves it every frame for a third
+ * of a second, and re-seeding on each of those frames was the network flying
+ * apart and reassembling thirty times a second. A taller document is the same
+ * field with more nodes in it.
  */
 function refill() {
   const target = population();
@@ -106,18 +106,39 @@ function tick() {
   for (const view of windows) view.draw();
 }
 
+/**
+ * Whether a frame has anything to do: a window with a piece of the field on
+ * screen, in a tab being looked at, with motion allowed. The clock stops rather
+ * than waking thirty times a second to decide it has nothing to paint.
+ *
+ * It deliberately does not idle out while the reader is reading: the field
+ * drifting at 30fps is the brand (design README), and a shape that dies after
+ * two still seconds is not that. Nothing on screen, nothing to draw — no more.
+ */
+function shouldRun() {
+  if (still.matches || document.hidden) return false;
+  for (const view of windows) if (view.visible) return true;
+  return false;
+}
+
+function syncClock() {
+  if (shouldRun()) startClock();
+  else stopClock();
+}
+
 function startClock() {
-  if (timer || still.matches || windows.size === 0) return;
-  timer = setInterval(() => {
-    if (document.hidden) return;
-    tick();
-  }, 1000 / FPS);
+  if (timer || !shouldRun()) return;
+  timer = setInterval(tick, 1000 / FPS);
 }
 
 function stopClock() {
   clearInterval(timer);
   timer = 0;
 }
+
+/* A tab in the background paints nothing, and `setInterval` is throttled there
+   rather than stopped. Listened to once for every window on the page. */
+document.addEventListener('visibilitychange', syncClock);
 
 /* ------------------------------------------------------------------ *
  * The element
@@ -135,6 +156,7 @@ class NodeField extends HTMLElement {
     this.helix = this.getAttribute('variant') === 'helix';
     this.phase = 0;
     this.floats = [];
+    // True until the observer says otherwise, and where there is no observer.
     this.visible = true;
 
     this.observer = new ResizeObserver(() => {
@@ -143,11 +165,20 @@ class NodeField extends HTMLElement {
     });
     this.observer.observe(this);
 
-    // A window that scrolled far out of sight costs nothing to skip.
+    /* A window that scrolled far out of sight costs nothing to skip, and when
+       the last one goes off screen the clock stops rather than drifting two
+       thousand nodes for windows that all decline to paint. */
     if ('IntersectionObserver' in window) {
       this.inView = new IntersectionObserver(
         ([entry]) => {
           this.visible = entry.isIntersecting;
+          syncClock();
+          // Coming back on screen with the clock stopped: there is no next tick
+          // to measure in, so paint once here.
+          if (this.visible) {
+            this.measure();
+            this.draw();
+          }
         },
         { rootMargin: '250px' }
       );
@@ -158,11 +189,10 @@ class NodeField extends HTMLElement {
     measureField();
     this.measure();
     this.draw();
-    startClock();
+    syncClock();
 
     this.onMotionChange = () => {
-      stopClock();
-      startClock();
+      syncClock();
       this.draw();
     };
     still.addEventListener('change', this.onMotionChange);
@@ -173,7 +203,7 @@ class NodeField extends HTMLElement {
     this.observer?.disconnect();
     this.inView?.disconnect();
     still.removeEventListener('change', this.onMotionChange);
-    if (windows.size === 0) stopClock();
+    syncClock();
   }
 
   measure() {

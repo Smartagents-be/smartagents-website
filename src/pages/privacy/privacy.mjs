@@ -1,51 +1,29 @@
 // The privacy notice: the GDPR article 13 notice for smartagents.be.
 //
 // It has no hero, for the reason the insights have none: it is a piece of
-// writing, and a 540px navy shape between the header and the first paragraph is
-// a screen the reader has to scroll past before they can start reading. So it
-// opens on the headline at the measure the body runs at.
+// writing, and a navy shape between the header and the first paragraph is a
+// screen to scroll past before reading.
 //
-// It is the article layout, rail and all. The rail is what the page took two
-// drafts to get right. It cannot be "read next" — there is no next from a legal
-// notice — but that is not the only thing a rail can be, and this page has the
-// one piece of navigation a notice genuinely needs: its own clauses. Nobody
-// reads a privacy statement end to end; they arrive wanting one thing, and
-// eight headings over 2420px of prose is a scroll hunt without an index. With
-// the rail dropped instead, the notice was a 1022px column of GDPR prose (133
-// characters to the line, the longest measure on the site) with 354px of empty
-// paper beside it for 79% of the page — the "single column with the rest of the
-// band empty" the design README refuses at page scale. The clause list answers
-// the measure and the emptiness at once, in a component the article page
-// already has.
+// It is the article layout, rail and all, and the rail is what took two drafts.
+// It cannot be "read next" — there is no next from a legal notice — but this
+// page has the one piece of navigation a notice genuinely needs: its own
+// clauses. Nobody reads a privacy statement end to end, and eight headings over
+// 2420px of prose is a scroll hunt without an index. With the rail dropped
+// instead, the notice was a 1022px column with 354px of empty paper beside it
+// for 79% of the page.
 //
-// The brand on this page is the orbit rings and nothing else. There is no dark
-// shape: two were drawn — a crest in the air beside the head, through three
-// drafts, and a mirrored close standing on the footer's hairline — and both are
-// gone. A notice is a piece of writing, and this one now says so the way the
-// insight articles do, in paper end to end.
+// The brand on this page is the orbit rings and nothing else; two dark shapes
+// were drawn and both are gone. The rings are not the insights index's, though,
+// and that is the one thing to keep: they stick. This section is 2820px and the
+// outermost ring is 845px in radius, so an origin nailed anywhere in it leaves a
+// third of the page with no ground under it. See `.orbits--notice` in main.css.
 //
-// The rings are not the insights index's, though, and that is the one thing to
-// keep: they stick. Every other orbit set on the site is nailed to its section,
-// which is right for a hero and for a list one screen tall; this section is
-// 2820px and the outermost ring is 845px in radius, so an origin nailed
-// anywhere in it leaves a third of the page with no ground under it. Struck
-// against the viewport instead, the arcs hold the right flank the whole way
-// down and the reading column travels past them. See `.orbits--notice` in
-// main.css for the three details that make a sticky origin work inside a
-// clipped layer.
-//
-// It also has no contact section, which every other page carries. Two reasons.
-// The form is a sales CTA and this page is not selling anything; and a notice
-// that explains what happens to the data you hand over should not end by asking
-// for more of it. The reader who wants to exercise a right gets a mailto: in
-// the body, which is the route the notice itself names.
-//
-// That is about the section and not about the site's furniture. The phone's
-// fixed action bar carries "Plan een gesprek" over this page like every other,
-// and it stays: it also carries the phone number, it is the only way to reach a
-// person from a phone on any page here, and a notice that is the one page on
-// the site without the standard bar is a notice that has broken the site's
-// navigation to make a point.
+// It also has no contact section. The form is a sales CTA and this page is not
+// selling anything, and a notice explaining what happens to the data you hand
+// over should not end by asking for more of it; the reader who wants to exercise
+// a right gets a mailto: in the body. That is about the section and not the
+// site's furniture — the phone's action bar stays, because it is the only way to
+// reach a person from a phone on any page here.
 //
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../../build/lib/html.mjs';
@@ -58,8 +36,7 @@ import { body } from './body.mjs';
 /**
  * When this notice last changed, in ISO form for the `<time datetime>`. The
  * printed form is `privacy.updated` in each language, so the two have to be
- * moved together — there is no formatter in this build, by the same decision
- * that has the insights print their dates from translation keys.
+ * moved together — there is no formatter in this build.
  */
 const UPDATED = '2026-09-03';
 
@@ -69,13 +46,10 @@ export const page = {
   id: SCOPE,
   slugs: { nl: 'privacy', en: 'privacy', fr: 'confidentialite' },
 
-  meta: (t) => ({
-    title: t('privacy.title'),
-    description: t('privacy.description'),
-    // The date the notice itself prints, so the sitemap cannot claim a revision
-    // the document does not show.
-    lastmod: UPDATED
-  }),
+  /* Title and description default off the page id (`pageMeta` in
+     `build/render.mjs`). The date is the one the notice prints itself, so the
+     sitemap cannot claim a revision the document does not show. */
+  meta: () => ({ lastmod: UPDATED }),
 
   /* A breadcrumb and nothing else. There is no schema.org type for "the legal
      notice about this site" that says more than the page's own title does, and
@@ -134,31 +108,16 @@ ${prose(body[lang], { scope: `${SCOPE}-body`, resolveHref: clauseHref(lang) })}
 
 /**
  * The clause index: every `h2` in the body of this language, in order, linking
- * to itself.
+ * to itself. Read off the same array `prose()` renders and deriving the anchor
+ * the same way, so a heading added to `body.mjs` appears here with no second
+ * edit and the two can never name different ids.
  *
- * It is read off the same array `prose()` renders and it derives the anchor the
- * same way `prose()` does, so a heading added to `body.mjs` appears here with no
- * second edit and the two can never name different ids. That is the whole
- * reason it is generated rather than written: an index that has to be kept in
- * step by hand is an index that is wrong one commit later, and this one has to
- * hold in three languages.
+ * A `<nav>`, not the article rail's `<aside>`: eight in-page links whose whole
+ * purpose is navigation do not belong in a `complementary` landmark.
  *
- * `article__rail-list` is the article's own rail list and `rail-row` its rows —
- * the same idiom, one line each instead of a title and a date, because a clause
- * has no date. It sticks, like the article's, so it is still there at the foot
- * of a long notice.
- *
- * A `<nav>`, not the article rail's `<aside>`. Eight in-page links whose whole
- * purpose is navigation do not belong in a `complementary` landmark: a reader
- * pulling up the landmark list to find their way to the retention clause is
- * looking for a navigation landmark, and would not think to open this one.
- *
- * It is also first in the DOM rather than last. The article's rail is a "read
- * next" and belongs after the piece; an index belongs before the thing it
- * indexes, and putting it there is what lets the two-column desk layout be an
- * `order` on the rail rather than an `order: -1` that leaves a phone's tab
- * order running through the whole notice before it reaches the index a reader
- * can see under the headline.
+ * It is also first in the DOM. An index belongs before the thing it indexes, and
+ * putting it there is what lets the desk layout be an `order` on the rail rather
+ * than a phone's tab order running through the whole notice first.
  */
 /**
  * Every `h2` of this language's body, in order, with the id `prose()` will give
@@ -172,11 +131,10 @@ function clauses(lang) {
 }
 
 /**
- * Resolve an authored href. Everything is passed through untouched except
- * `clause:NN`, which is the NNth clause of this notice — see the note at the top
- * of `body.mjs` for why a cross-reference in here is a link and why it is an
- * ordinal rather than an id. An ordinal with no clause behind it is a build-time
- * error rather than a dead link in three languages.
+ * Resolve an authored href. Everything passes through untouched except
+ * `clause:NN`, which is the NNth clause of this notice — see `body.mjs` for why
+ * a cross-reference is an ordinal rather than an id. An ordinal with no clause
+ * behind it is a build-time error rather than a dead link in three languages.
  */
 function clauseHref(lang) {
   const list = clauses(lang);

@@ -1,14 +1,11 @@
 // Posts the contact form's real payload through the real /api/contact handler.
 //
-// This exists because the two halves of the contact path were written against
-// different field lists and nothing compared them: the form posts what its
-// inputs are named, `validatePayload` required a `subject` no input carried,
-// and every submission the site ever made came back 400 while the visitor read
-// "Versturen lukte niet". A static check could not see it — both files were
-// correct on their own — so this builds the payload out of the *rendered* HTML
-// rather than out of a fixture, and runs it through the function that answers
-// in production. Rename a field and this fails; add a required field the form
-// does not render and this fails.
+// The two halves of the contact path were written against different field lists
+// and nothing compared them: the form posts what its inputs are named,
+// `validatePayload` required a `subject` no input carried, and every submission
+// the site ever made came back 400. A static check could not see it — both files
+// were correct on their own — so this builds the payload out of the *rendered*
+// HTML and runs it through the function that answers in production.
 //
 // Run after `npm run build`, like `check-dist.mjs`. Needs no network: Turnstile
 // and the n8n webhook are stubbed at `globalThis.fetch`.
@@ -44,6 +41,11 @@ function pass(check) {
  * real visitor could have typed. Text inputs and the textarea get sample copy;
  * a hidden field keeps the value the build put in it, because that value is the
  * thing being checked.
+ *
+ * A control with `data-post-as` travels under that name instead of its own, the
+ * way `contact-form.js` posts it: the message field is `name="body"` for the
+ * `mailto:` fallback and `message` on the wire. Both read the attribute off the
+ * markup, so neither carries a copy of the mapping to drift.
  */
 function payloadFromRenderedForm(html) {
   const form = html.match(/<form[^>]*class="contact-form"[\s\S]*?<\/form>/);
@@ -55,13 +57,14 @@ function payloadFromRenderedForm(html) {
     const name = attrs.match(/\sname="([^"]*)"/)?.[1];
     if (!name) continue;
 
+    const posted = attrs.match(/\sdata-post-as="([^"]*)"/)?.[1] || name;
     const type = attrs.match(/\stype="([^"]*)"/)?.[1];
     if (type === 'hidden') {
-      payload[name] = attrs.match(/\svalue="([^"]*)"/)?.[1] ?? '';
-    } else if (name === 'email') {
-      payload[name] = 'visitor@example.com';
+      payload[posted] = attrs.match(/\svalue="([^"]*)"/)?.[1] ?? '';
+    } else if (posted === 'email') {
+      payload[posted] = 'visitor@example.com';
     } else {
-      payload[name] = `Sample ${name}`;
+      payload[posted] = `Sample ${posted}`;
     }
   }
   return payload;

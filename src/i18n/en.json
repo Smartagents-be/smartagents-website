@@ -49,7 +49,6 @@
   "dna.4.title": "Partners",
   "dna.4.body": "We look for like-minded companies that want to grow, and we stay until that actually happens.",
 
-
   "article.tag.news": "News",
   "article.tag.ai": "AI",
   "article.tag.tips": "Tips",
@@ -105,10 +104,9 @@
 
   "training.cta.offer": "See our courses",
 
-  "training.why.title": "Why invest in AI training?",
-
   "training.offer.title": "Our courses",
   "training.offer.learn": "What you learn",
+  "training.offer.lede": "Both courses are cost-aware: your people know what a question costs and pick the lightest model that can do the job. And anyone who applies AI themselves stops needing outside help for routine work and small adjustments.",
 
   "training.download": "Download the one-pager",
 
@@ -143,17 +141,6 @@
   "training.format.accents": "The emphasis is on what you use the day after: smarter use of AI, a clear view of what every question costs, and workflows that fit the way your team already works. The slides and the course material stay yours afterwards.",
   "training.format.videoLabel": "Tour of the SmartAgents developer course",
   "training.format.fallback": "Watch the tour (MP4)",
-
-  "training.benefit.adoption.title": "Faster adoption",
-  "training.benefit.adoption.body": "Teams that understand what AI does pick up new tools faster and find their own use cases.",
-  "training.benefit.productivity.title": "Higher productivity",
-  "training.benefit.productivity.body": "People learn to parallelise their work with AI, instead of finishing one task after another.",
-  "training.benefit.risk.title": "Less risk",
-  "training.benefit.risk.body": "Anyone who knows the limits of AI makes better decisions and avoids expensive mistakes.",
-  "training.benefit.return.title": "Cost-aware",
-  "training.benefit.return.body": "Participants learn to match tokens to the task: the lightest model that can do the job.",
-  "training.benefit.autonomy.title": "Less dependent on outside help",
-  "training.benefit.autonomy.body": "People who apply AI themselves need less help with routine work and small adjustments.",
 
   "training.cta.title": "Ready to upskill your team?",
 
@@ -229,9 +216,9 @@
 
   "staffing.hero.title": "An AI-native engineer in your team",
 
-  "staffing.cta.tracks": "See what we do",
+  "staffing.cta.tracks": "See how we work with you",
 
-  "staffing.tracks.title": "What we do",
+  "staffing.tracks.title": "How we work with you",
 
   "staffing.track.fitLabel": "Right when",
   "staffing.track.engineer.title": "AI engineer staffing",

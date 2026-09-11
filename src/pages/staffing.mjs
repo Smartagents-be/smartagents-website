@@ -1,9 +1,6 @@
 // The AI staffing and coaching page: the detail page behind the "AI staffing en
-// coaching" service row on the homepage. Three blocks and nothing else — the
-// page hero, the offer, the form — because the offer is the page. It used to
-// carry an onboarding sequence and a navy reporting band under the offer as
-// well; both said in two screens what the tracks already say in one, and the
-// page now closes on the form while the reader is still on the offer.
+// coaching" service row. Three blocks and nothing else — the page hero, the
+// offer, the form — because the offer is the page.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
@@ -11,10 +8,8 @@ import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /**
- * The three ways this offer reaches a team: one engineer inside the project,
- * coaching for the people who write the code, and coaching for the people who
- * do not. Also the order they open in — the first is the one the page is titled
- * after, so it is the one that stands open on arrival.
+ * The three ways this offer reaches a team, and the order they open in. The
+ * first is the one the page is titled after, so it stands open on arrival.
  */
 const TRACKS = ['engineer', 'developers', 'business'];
 
@@ -22,15 +17,8 @@ export const page = {
   id: 'staffing',
   slugs: { nl: 'ai-staffing', en: 'ai-staffing', fr: 'ai-staffing' },
 
-  meta: (t) => ({
-    title: t('staffing.title'),
-    description: t('staffing.description')
-  }),
-
-  /* What this page is, for a machine: one `Service` provided by the company
-     node every page carries, and the trail back to the language root. Both are
-     read off the same keys the page prints, so the graph cannot describe an
-     offer the page no longer makes. */
+  /* One `Service` provided by the company node every page carries, and the trail
+     back to the language root, both read off the keys the page prints. */
   schema: ({ t, lang, url }) => [
     serviceNode({ t, lang, url, key: 'staffing' }),
     breadcrumbNode([homeStep(t, lang), { name: t('service.staffing.title'), url }])
@@ -48,27 +36,20 @@ ${contact(t, lang)}
 };
 
 /* ------------------------------------------------------------------ *
- * Hero — the page hero the training page opens on, carrying this page's own
- * shapes instead of the petal.
+ * Hero — the shared page hero carrying this page's own shapes.
  *
- * Three shapes, one composition: an arch hung off the right flank, and two
- * pebbles that have come away from it into the light half of the hero. The
- * arch is the ground the page is set against; the pebbles are what says the
- * ground is not a wall. They are the only free-floating dark shapes on the
- * site — everything else is welded to a page edge or to a rule — and they earn
- * it here because the arch itself is welded along three sides.
+ * An arch hung off the right flank and two pebbles that have come away from it
+ * into the light half. The arch is the ground the page is set against; the
+ * pebbles are what says the ground is not a wall, and they earn their licence
+ * here because the arch itself is welded along three sides.
  *
- * The arch's box hangs past the hero's own foot, so its tail runs on into the
- * section below and passes behind the track panel. That is the whole reason the
- * panel is opaque: the tail slides under it and comes out in the gutter, which
- * is what ties the two blocks together without a rule between them.
+ * The arch's box hangs past the hero's foot, so its tail runs on behind the
+ * track panel — which is why that panel is opaque: the tail slides under it and
+ * comes out in the gutter, tying the two blocks together with no rule.
  *
- * All three are `data-magnet-free`: none of them may be refused a pull by the
- * nav guard, and the arch does not need it — pinned along its top edge, a
- * cursor up under the header gets a swell that fades to nothing before it can
- * peel the shape off the bar. The arch is sampled more densely than a shape
- * this size normally is: its free side is three turns of one curve, and a pull
- * reads as a fold rather than a swell if the sampling cannot follow it.
+ * All three are `data-magnet-free`. The arch is sampled more densely than a
+ * shape this size normally is: its free side is three turns of one curve, and a
+ * pull reads as a fold rather than a swell if the sampling cannot follow it.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
@@ -99,43 +80,32 @@ ${orbitRings('staffing-hero')}
 }
 
 /* ------------------------------------------------------------------ *
- * Wat we doen — the three tracks, one open at a time
+ * Hoe we meewerken — the three tracks, one open at a time
  *
- * The one figure on the page, so it gets to be a panel rather than a column:
- * three rows on white, each a name and the three words that place it, opening
- * onto a paragraph. Side by side as three columns the three read as a price
- * table and the reader compares them; stacked as rows that open, the reader
- * picks the one that is theirs and reads only that. The offer has never been a
- * choice between three — it is one of three, and which one is obvious from the
+ * Three columns side by side read as a price table and the reader compares them;
+ * rows that open let them pick the one that is theirs. The offer has never been
+ * a choice between three — it is one of three, and which one is obvious from the
  * team asking.
  *
- * Every row is a `<details>` and they share a `name`, so the panel works with JS
- * off: the rows open, and the browser closes the open one when another opens.
- * `<sa-accordion>` takes both over when it loads, because that is the only way
- * either of them travels rather than snaps — see the note at the top of
- * `components/accordion/accordion.js`. The first row stands open, so the block
- * never arrives as three closed bars.
+ * Every row is a `<details>` sharing a `name`, so the panel works with JS off,
+ * and `<sa-accordion>` takes both over when it loads. The first row stands open,
+ * so the block never arrives as three closed bars.
  *
- * The panel is opaque and sits above the hero's tail, and it is flanked by two
- * shapes of its own: the leaf in the left gutter and the tail-wedge dropping
- * from the far corner, a diagonal across the block rather than an ornament on
- * one side of it.
+ * The panel is opaque, sits above the hero's tail, and is flanked by the leaf in
+ * the left gutter and the wedge under the far corner.
  * ------------------------------------------------------------------ */
 
 /**
  * One track: a summary that is a name and three words, and a body it opens on.
  *
- * The three words that used to sit under the name are gone. "Direct impact op
- * uw project • Agents op uw codebase • Expert AI-gebruik" is the paragraph the
- * row opens on, cut into three noun phrases and printed above it — the "too many
- * subtexts" pattern, on a closed row where the reader has not yet asked for any
- * of it. "Past wanneer" stays: it is the one sub-block here that tells a reader
- * something the body does not, which is whether this track is theirs.
+ * The three words under the name are gone — they were the paragraph the row
+ * opens on, cut into noun phrases and printed above it, on a closed row where
+ * the reader has not asked for any of it. "Past wanneer" stays: it is the one
+ * sub-block that tells a reader whether this track is theirs.
  *
- * The name is an `<h3>`, not a `<span>`. `<summary>` takes phrasing content
- * "optionally intermixed with heading content", so a heading is allowed there,
- * and without one the three offers this page exists to sell were the only named
- * blocks on the site missing from the heading outline.
+ * The name is an `<h3>`: `<summary>` takes heading content, and without one the
+ * three offers this page exists to sell were the only named blocks on the site
+ * missing from the heading outline.
  *
  * @param {object} options
  * @param {Function} options.t
@@ -154,8 +124,10 @@ function track({ t, key, open }) {
         </summary>
         <div id="${id}-panel" class="track__panel">
           <div id="${id}-panel-inner" class="track__inner">
-            <p id="${id}-body" class="track__body">${t(`staffing.track.${key}.body`)}</p>
-            <p id="${id}-how" class="track__body">${t(`staffing.track.${key}.how`)}</p>
+            <div id="${id}-copy" class="track__copy">
+              <p id="${id}-body" class="track__body">${t(`staffing.track.${key}.body`)}</p>
+              <p id="${id}-how" class="track__body">${t(`staffing.track.${key}.how`)}</p>
+            </div>
             <div id="${id}-fit" class="track__fit">
               <p id="${id}-fit-label" class="track__fit-label">${t('staffing.track.fitLabel')}</p>
               <p id="${id}-fit-body" class="track__fit-body">${t(`staffing.track.${key}.fit`)}</p>
@@ -191,11 +163,5 @@ ${join(rows)}
  * ------------------------------------------------------------------ */
 
 function contact(t, lang) {
-  return contactSection({
-    t,
-    lang,
-    prefix: 'staffing',
-    title: t('staffing.cta.title'),
-    lede: t('staffing.cta.body')
-  });
+  return contactSection({ t, lang, prefix: 'staffing' });
 }

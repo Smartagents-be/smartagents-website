@@ -1,20 +1,16 @@
 // <sa-accordion> — makes a stack of <details> open and close on travel instead
 // of snapping, and keeps one of them open at a time.
 //
-// Light DOM: the markup inside is the no-JS version and stays exactly as the
-// build rendered it. Without this file the rows still open and close, and the
-// shared `name` attribute still makes them exclusive — that is the browser's own
-// behaviour and it is what the page falls back to.
+// Light DOM: the markup inside is the no-JS version and stays as the build
+// rendered it. Without this file the rows still open and close, and the shared
+// `name` attribute still makes them exclusive.
 //
-// Why not CSS. `::details-content` with `block-size: 0` -> `auto` under
-// `interpolate-size: allow-keywords` does this in a handful of declarations and
-// needs no script at all, and it is what this was written as first. It travelled
-// in Blink and snapped in Gecko, which took a while to read because the obvious
-// suspect is innocent: Firefox 153 does support `::details-content`. What it
-// does not support is `interpolate-size`, so `auto` was never an interpolable
-// value there and every row arrived at full height. A row that travels on one
-// engine and jumps on another is worse than one behaviour everywhere, so the
-// pseudo-element is gone and this owns it.
+// Why not CSS: `::details-content` with `block-size: 0` -> `auto` under
+// `interpolate-size: allow-keywords` does this in a handful of declarations, and
+// it is what this was written as first. Firefox supports `::details-content` but
+// not `interpolate-size`, so `auto` was never interpolable there and every row
+// arrived at full height. A row that travels on one engine and jumps on another
+// is worse than one behaviour everywhere.
 //
 // See .claude/skills/webcomponent-mpa-spa/SKILL.md §4.
 
@@ -44,10 +40,9 @@ class Accordion extends HTMLElement {
   };
 
   connectedCallback() {
-    // Exclusivity moves from the browser to here. Left to the `name` group, the
+    // Exclusivity moves from the browser to here: left to the `name` group, the
     // row being replaced is closed the instant the new one opens, so it
-    // disappears rather than collapsing — and the panel jumps by its height
-    // while the other one is still growing.
+    // disappears rather than collapsing.
     for (const details of this.#rows()) details.removeAttribute('name');
     this.addEventListener('click', this.#onClick);
   }
@@ -64,8 +59,7 @@ class Accordion extends HTMLElement {
 
   /** The one element between `<summary>` and the end of the row: its panel. It
       clips in CSS and carries no padding of its own — a padded box cannot be
-      animated to nothing, because its own padding is the floor its height stops
-      at. The padding is on the box inside it. */
+      animated to nothing, its padding being the floor its height stops at. */
   #panel(details) {
     return details.querySelector(':scope > :not(summary)');
   }
@@ -96,10 +90,8 @@ class Accordion extends HTMLElement {
     const from = panel.getBoundingClientRect().height;
 
     // `open` cannot go false until the row has finished collapsing, and the
-    // chevron is hung off `[open]` — so without this it would sit pointing up
-    // for the whole close and flip a third of a second after the click that
-    // asked for it. The flag turns it now; the attribute follows when the row
-    // is actually gone.
+    // chevron hangs off `[open]`, so without this it points up for the whole
+    // close and flips a third of a second after the click.
     details.dataset.closing = '';
 
     this.#travel(details, panel, from, 0, () => {
@@ -113,10 +105,9 @@ class Accordion extends HTMLElement {
 
     const animation = panel.animate(
       { height: [`${from}px`, `${to}px`] },
-      // `fill: both` holds the last frame while `done` runs: without it the
-      // panel snaps back to its full height for the frame between the end of
-      // the animation and `open` going false, which is the flicker this whole
-      // component exists to remove.
+      // `fill: both` holds the last frame while `done` runs: without it the panel
+      // snaps back to full height for the frame between the animation ending and
+      // `open` going false.
       { duration: DURATION, easing: EASE, fill: 'both' }
     );
 

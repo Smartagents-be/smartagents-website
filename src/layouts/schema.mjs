@@ -3,29 +3,20 @@
 // Every public page carries the same two nodes — the company and the site — and
 // adds whatever it is itself: a `Service` on a service page, a `BlogPosting` on
 // an article, `Person` on the team page, a `BreadcrumbList` on anything below
-// the homepage. `basePage` merges the two halves into a single `@graph`, which
-// is what lets a page-specific node point at the company with `{"@id": …}`
-// instead of restating it.
+// the homepage. `basePage` merges the two halves into one `@graph`, which is
+// what lets a page-specific node point at the company with `{"@id": …}`.
 //
-// Why it exists at all: the site had no structured data of any kind, so an
-// answer engine had no machine-readable statement of who SmartAgents is, what
-// it sells or who wrote the articles — and the four articles are the strongest
-// thing on the site. Everything here is read off the same `t()` keys and the
-// same page modules the visible page is built from, so a claim in the graph
-// cannot outlive the sentence it was made from.
-//
-// One rule: nothing in here may say something the page does not. Structured
-// data that describes a page the visitor cannot see is the thing search engines
-// penalise, and it is also just untrue.
+// One rule: nothing in here may say something the page does not. Everything is
+// read off the same `t()` keys the visible page is built from, so a claim in the
+// graph cannot outlive the sentence it was made from.
 import { SITE_ORIGIN, absolute, defaultLanguage, languages, pagePath } from '../../build/lib/i18n.mjs';
 import { EMAIL, PHONE } from '../components/contact-form/contact-form.mjs';
 
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
 
 /* Stable node identities. A `@id` is what makes the graph a graph rather than a
-   pile of repeated objects: the company is declared once per document and every
-   other node refers to it. They are fragment URLs on the origin, not on the
-   page, so the same company node is the same node on all 57 pages. */
+   pile of repeated objects. They are fragment URLs on the origin, not on the
+   page, so the company node is the same node on all 57 pages. */
 export const ORGANISATION_ID = `${SITE_ORIGIN}/#organisation`;
 export const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
 export const founderId = (key) => `${SITE_ORIGIN}/#${key}`;
@@ -38,10 +29,10 @@ export const OG_IMAGE = {
 };
 
 /**
- * The two founders. The names, the portraits and the profile URLs live in
- * `src/pages/team.mjs`, which is where the page renders them from; this is the
- * same list keyed for the graph, and it is short enough that duplicating it
- * costs less than a shared module that both would have to import.
+ * The two founders. Names, portraits and profile URLs live in
+ * `src/pages/team.mjs`, where the page renders them; this is the same list keyed
+ * for the graph, short enough that duplicating it costs less than a shared
+ * module both would import.
  */
 const FOUNDERS = [
   { key: 'axel', name: 'Axel Segers', linkedin: 'https://www.linkedin.com/in/axelsegers/' },
@@ -49,15 +40,11 @@ const FOUNDERS = [
 ];
 
 /**
- * The registered seat, split into the fields schema.org wants.
- *
- * The footer prints the two as one line, because a reader reads an address as a
- * line; a `PostalAddress` wants the street, the town and the postcode apart,
- * which is the only reason they are still two keys.
+ * The registered seat, split into the fields schema.org wants. The footer prints
+ * the two as one line, because a reader reads an address as a line.
  * They are the register's own values (KBO/BCE, enterprise number 1037.114.694)
- * and are the same in all three languages, so they are constants here rather
- * than keys — only the country's *name* translates, and `addressCountry` takes
- * the ISO code instead.
+ * and the same in all three languages, so they are constants rather than keys —
+ * only the country's *name* translates, and `addressCountry` takes the ISO code.
  */
 const SEAT = {
   postalCode: '3580',
@@ -163,34 +150,29 @@ export function serviceNode({ t, lang, url, key }) {
 
 /**
  * One course the training page sells a detail page for. `Course` rather than a
- * second `Service`: the training page already carries the `Service`, and this
- * page is one named, dated-by-duration thing inside it — a day, a group size, a
- * place, two languages, all of them printed in the spec strip the reader sees.
+ * second `Service`: the training page already carries the `Service`, and this is
+ * one named thing inside it with a duration, a group size and two languages, all
+ * printed in the spec strip the reader sees.
  *
- * `hasCourseInstance` is what turns it from a description into an offering, and
- * every field in it is read off the same `kata.spec.*` values the strip prints:
- * on site because the strip says "bij u op kantoor", one day because it says
- * one day, Dutch and English because it names both. Nothing here is a fact the
- * page does not state — the price is not in the graph for exactly that reason,
+ * Nothing here is a fact the page does not state. The price is not in the graph
  * because the page does not quote one, and neither is a `location`: the day is
- * held at the client's office, so the only address we could name here is the
- * one place the course is not.
+ * held at the client's office, so the only address we could name is the one
+ * place the course is not.
  *
- * The `Course` carries no `inLanguage` either, and that one is a trap worth
- * naming: read off `lang`, it told a French reader the course is given in
- * French while the spec strip beside it said "Néerlandais ou anglais" and the
- * instance below it said `["nl","en"]` — the page's language and the course's
- * language are two different facts and only the second one belongs here.
+ * The `Course` carries no `inLanguage` either, and that one is a trap: read off
+ * `lang` it told a French reader the course is given in French while the spec
+ * strip beside it said "Néerlandais ou anglais". The page's language and the
+ * course's language are two different facts.
  *
  * `teaches` is the theme's name *and* its sentence, joined the way the row
- * prints them. Six bare nouns ("Waarheid", "Parallel") are a label a reader
- * decodes from the sentence beside it; on their own they assert nothing.
+ * prints them: six bare nouns on their own assert nothing.
  *
- * The page hands over its own `key` and its own list of themes, the way
- * `serviceNode` takes a key: this reads six `<key>.theme.*` pairs and a title
- * and a description, so a second course page needs no change here.
+ * The page hands over its own `key`, themes and facts, the way `serviceNode`
+ * takes a key, so a second course page needs no change here. The facts were
+ * literals in the `CourseInstance` below, which left the page free to change its
+ * length and go on telling a crawler the old one.
  */
-export function courseNode({ t, url, key, themes }) {
+export function courseNode({ t, url, key, themes, facts }) {
   return node({
     '@type': 'Course',
     '@id': `${absolute(url)}#course`,
@@ -201,11 +183,11 @@ export function courseNode({ t, url, key, themes }) {
     teaches: themes.map((theme) => `${t(`${key}.theme.${theme}.title`)}: ${t(`${key}.theme.${theme}.body`)}`),
     hasCourseInstance: node({
       '@type': 'CourseInstance',
-      courseMode: 'onsite',
-      courseWorkload: 'P1D',
-      inLanguage: ['nl', 'en'],
-      minimumAttendeeCapacity: 5,
-      maximumAttendeeCapacity: 15
+      courseMode: facts.mode,
+      courseWorkload: facts.workload,
+      inLanguage: facts.languages,
+      minimumAttendeeCapacity: facts.group[0],
+      maximumAttendeeCapacity: facts.group[1]
     })
   });
 }
