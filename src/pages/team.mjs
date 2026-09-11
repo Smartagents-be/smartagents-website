@@ -152,12 +152,12 @@ function person({ t, key, name, portrait, linkedin, eager }) {
  * never met, and it is the only page on the site where the company can say why
  * it exists without it reading as a sales line.
  *
- * Three paragraphs, at the reading measure, in the article's own idiom rather
+ * Two paragraphs, at the reading measure, in the article's own idiom rather
  * than in a row list: this is writing, not an offer.
  * ------------------------------------------------------------------ */
 
 function story(t) {
-  const paragraphs = ['1', '2', '3'].map(
+  const paragraphs = ['1', '2'].map(
     (n) => html`      <p id="team-story-body-${n}">${t(`team.story.${n}`)}</p>`
   );
 

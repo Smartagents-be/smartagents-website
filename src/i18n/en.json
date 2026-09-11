@@ -178,7 +178,6 @@
   "training.benefit.autonomy.body": "People who apply AI themselves need less help with routine work and small adjustments.",
 
   "training.cta.title": "Ready to upskill your team?",
-  "training.cta.body": "Tell us briefly who needs training and on what. We propose a programme built around you, at your office or remote, and we also say when a training is not needed.",
 
   "kata.title": "AI for developers: the agentic engineering kata · SmartAgents",
   "kata.description": "A one-day hands-on training for developers: from loose prompts to an agent that works in a real codebase, with quality gates and a grip on the cost.",
@@ -405,8 +404,7 @@
 
   "team.story.title": "Why we started",
   "team.story.1": "Most of the companies we spoke to had the same problem, and it was not that they had heard too little about AI. It was that nobody could say where to begin. There had been a pilot, or a tool somebody switched on, and then it stopped. We started SmartAgents to fill that gap: not with a presentation about what is possible, but with work that is running the week after.",
-  "team.story.2": "We use the tooling we recommend every day, on our own projects. That is not a slogan, it is the reason we dare say when something does not work. What we recommend to you runs at our place first. And what goes unused we take back out, even when we built it ourselves.",
-  "team.story.3": "We are based in Beringen and work for Belgian organisations, from SME to enterprise, in Dutch, English and French. You will usually meet one of the two of us at the table, and the same person works on the project.",
+  "team.story.2": "We use the tooling we recommend every day, on our own projects. That is not a slogan, it is the reason we dare say when something does not work. What we recommend to you runs at our place first.",
   "team.cta.title": "Shall we get to know each other?",
   "team.cta.body": "Tell us briefly what could run better. You get one of the two of us at the table, and we will also say when you do not need us.",
 

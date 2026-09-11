@@ -215,15 +215,33 @@ Two things to watch in any language:
 
 ## 6. Speaker notes
 
-Optional. One JSON object keyed by slide index, placed once in the deck's first slide
-fragment; `deck-stage.js` reads `#speaker-notes` and posts the active index to the host
-window.
+**There are none, and the mechanism that looks like it provides them is inert. Do not put
+anything in a deck that a human needs to read into `#speaker-notes`.** This section used to
+document an object keyed by slide index:
 
 ```html
 <script type="application/json" id="speaker-notes">
 { "0": "Titelscherm. Noem de aanleiding.", "1": "Drie punten, niet vier." }
 </script>
 ```
+
+Three things are wrong with that and each one alone would be enough.
+
+- `_loadNotes` in `shared/deck-stage.js` does `JSON.parse` and then `if (Array.isArray(parsed))`.
+  An object parses fine and fails the guard, so `this._notes` keeps the `[]` it was
+  constructed with. The `catch` only fires on a parse error, so **nothing warns**.
+- `this._notes` is assigned in four places (547, 1084, 1087, 1090) and **read in none**. Grep it.
+- The only thing that leaves the component is `window.postMessage({ slideIndexChanged: N })`,
+  posted to its own `window` rather than to `parent`, and no file in this repo listens for
+  it. There is no presenter view under `/secured/`.
+
+So a note written here is swallowed silently. The `isabel-sdlc` deck found this the
+expensive way: the one sentence telling a reader how to read slide 03's figure was put in a
+speaker note, and it existed nowhere a human could reach. It is a footnote on the slide now.
+A line the room has to hear belongs on the slide, in the PDF, or in the presenter's head.
+
+Fixing this means teaching `_loadNotes` the object form **and** building something that
+renders it. Until both exist, this section says what it says.
 
 ## 7. Finishing
 

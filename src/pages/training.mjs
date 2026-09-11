@@ -318,7 +318,7 @@ ${join(
 }
 
 /* ------------------------------------------------------------------ *
- * Contact — the shared form, with the two lines this page phrases for itself.
+ * Contact — the shared form, with the heading this page phrases for itself.
  * ------------------------------------------------------------------ */
 
 function contact(t, lang) {
@@ -326,7 +326,6 @@ function contact(t, lang) {
     t,
     lang,
     prefix: 'training',
-    title: t('training.cta.title'),
-    lede: t('training.cta.body')
+    title: t('training.cta.title')
   });
 }

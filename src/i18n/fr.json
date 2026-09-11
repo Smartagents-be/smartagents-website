@@ -178,7 +178,6 @@
   "training.benefit.autonomy.body": "Des collaborateurs qui appliquent l'IA eux-mêmes ont moins besoin d'aide pour le travail de routine et les petites adaptations.",
 
   "training.cta.title": "Prêt à former votre équipe ?",
-  "training.cta.body": "Dites-nous brièvement qui doit être formé et sur quoi. Nous proposons un programme sur mesure, chez vous ou à distance, et nous disons aussi quand une formation n'est pas nécessaire.",
 
   "kata.title": "L'IA pour les développeurs : le kata agentic engineering · SmartAgents",
   "kata.description": "Une journée de formation pratique pour développeurs : des prompts épars à un agent qui tourne dans une vraie base de code, avec des portes de qualité et une maîtrise du coût.",
@@ -405,8 +404,7 @@
 
   "team.story.title": "Pourquoi nous avons commencé",
   "team.story.1": "La plupart des entreprises que nous avons rencontrées avaient le même problème, et ce n'était pas d'avoir trop peu entendu parler de l'IA. C'était que personne ne savait par où commencer. Il y avait eu un pilote, ou un outil que quelqu'un avait activé, et puis plus rien. Nous avons lancé SmartAgents pour combler ce vide : pas avec une présentation sur ce qui est possible, mais avec un travail qui tourne dès la semaine suivante.",
-  "team.story.2": "Nous utilisons chaque jour les outils que nous recommandons, sur nos propres projets. Ce n'est pas un slogan, c'est ce qui nous permet de dire quand quelque chose ne fonctionne pas. Ce que nous vous conseillons tourne d'abord chez nous. Et ce qui n'est pas utilisé, nous le retirons, même si nous l'avons construit nous-mêmes.",
-  "team.story.3": "Nous sommes établis à Beringen et travaillons pour des organisations belges, de la PME au grand groupe, en néerlandais, en anglais et en français. Vous rencontrerez le plus souvent l'un de nous deux autour de la table, et c'est la même personne qui travaille sur le projet.",
+  "team.story.2": "Nous utilisons chaque jour les outils que nous recommandons, sur nos propres projets. Ce n'est pas un slogan, c'est ce qui nous permet de dire quand quelque chose ne fonctionne pas. Ce que nous vous conseillons tourne d'abord chez nous.",
   "team.cta.title": "On fait connaissance ?",
   "team.cta.body": "Dites-nous brièvement ce qui pourrait mieux tourner. Vous aurez l'un de nous deux à table, et nous vous dirons aussi quand vous n'avez pas besoin de nous.",
 
