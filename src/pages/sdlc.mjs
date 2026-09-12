@@ -1,11 +1,12 @@
 // The AI-native SDLC page: the detail page behind the "AI-native SDLC" service
-// row on the homepage. The page has one argument and it is not technical — the
-// lifecycle moves from traditional to agentic to AI-native, the bottleneck moves
-// with it, and what carries a team across is people changing their minds. So it
-// opens on the diagnosis, draws the journey once as a figure, and spends its
-// last block on the work.
+// row on the homepage. The page has one argument and it is not technical. A
+// lifecycle is six desks, and today the work waits at five handoffs between
+// them; AI-native, it is one run with three places a person decides. The
+// bottleneck does not disappear, it changes kind. What carries a team across is
+// people changing their minds, so the page opens on the diagnosis, draws that
+// one figure, and spends its last block on the work.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
-import { html, join } from '../../build/lib/html.mjs';
+import { html, join, raw } from '../../build/lib/html.mjs';
 import { index, orbitRings } from '../layouts/base.mjs';
 import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
@@ -21,49 +22,66 @@ const PLAYBOOK_URL = 'https://claude.com/blog/the-ai-native-sdlc-playbook';
 const ISSUES = ['belief', 'capability', 'foundation', 'tooling'];
 
 /**
- * The three stages, and the lifecycle each one runs.
+ * The lifecycle, in the order a team meets it, and the same six words in every
+ * row. A second vocabulary for the same lifecycle turns the figure into one
+ * about terminology.
+ */
+const PHASES = ['product', 'analysis', 'build', 'review', 'test', 'release'];
+
+/**
+ * The three rows.
  *
- * `mark` is what the figure draws: `block` is a phase everything upstream waits
- * behind, `human` a phase a person still owns. Read top to bottom, the thickened
- * run travels outward and changes colour — the bottleneck moves, it does not
- * disappear. Phase names are shared keys, because "Bouwen" is the same word in
- * all three lines and three copies of it drift.
+ * Each row is one band, never broken, with the six desks named on it. `necks`
+ * says where the band narrows and how far: `at` is a desk's centre or the
+ * boundary before one, `pinch` is what is left of the band's thickness there as
+ * a share of the whole, and `shoulder` is how far either side the narrowing
+ * takes, counted in desks. `slow` names the desks the row waits on, which the
+ * band necks under and which are set in bold.
+ *
+ * **`pinchTall` is not a second opinion, it is a different medium.** Standing
+ * up, the band's thickness is the page's width and the names run across it, so
+ * a pinch deep enough to read on the desk leaves nothing for the words. 0.34
+ * against 0.38 is as far apart as the two get, which is close enough that the
+ * reader of one is not told something different from the reader of the other.
+ *
+ * The middle row has two necks, which is what its own sentence has always said:
+ * the bottleneck moves to what you ask for *and* to whoever checks it. It is
+ * the one row that breaks the deck's one-neck rule, deliberately.
  */
 const STAGES = [
   {
-    key: 'traditional',
-    phases: [
-      { key: 'requirements' },
-      { key: 'design' },
-      { key: 'build', mark: 'block' },
-      { key: 'test' },
-      { key: 'release' }
-    ]
+    key: 'today',
+    slow: ['build'],
+    necks: [{ at: { desk: 'build' }, pinch: 0.38, pinchTall: 0.34, shoulder: 2 }]
   },
   {
-    key: 'agentic',
-    phases: [
-      { key: 'requirements', mark: 'block' },
-      { key: 'design' },
-      { key: 'build' },
-      { key: 'review', mark: 'block' },
-      { key: 'release' }
+    key: 'ungated',
+    slow: ['analysis', 'review'],
+    necks: [
+      { at: { desk: 'analysis' }, pinch: 0.52, pinchTall: 0.4, shoulder: 1 },
+      { at: { desk: 'review' }, pinch: 0.45, pinchTall: 0.34, shoulder: 1 }
     ]
   },
   {
     key: 'native',
-    phases: [
-      { key: 'intent', mark: 'human' },
-      { key: 'spec' },
-      { key: 'build' },
-      { key: 'gates' },
-      { key: 'accept', mark: 'human' }
-    ]
+    run: true,
+    necks: [{ at: { before: 'release' }, pinch: 0.74, pinchTall: 0.74, shoulder: 1.2 }],
+    gates: [
+      { key: 'intent', before: 'analysis' },
+      { key: 'spec', before: 'build' },
+      { key: 'review', before: 'test' },
+      { key: 'release', before: 'release' }
+    ],
+    loop: true
   }
 ];
 
-/** The two marks the figure uses, in the order they first appear in it. */
-const LEGEND = ['block', 'human'];
+/**
+ * The two marks the key names. The neck and the bold desk are one claim drawn
+ * twice and share a line; a handoff is the hairline between two desks and the
+ * row's own clause already counts them.
+ */
+const LEGEND = ['flow', 'gate'];
 
 /** What the work actually is, in the order a team meets it. */
 const WORK = ['people', 'culture', 'training', 'gates', 'platform'];
@@ -169,89 +187,279 @@ ${join(rows)}
 }
 
 /* ------------------------------------------------------------------ *
+ * The channel
+ *
+ * One band per row, struck on a 1000-unit span and a 100-unit thickness, the
+ * band inset 2 at each edge. `preserveAspectRatio="none"` against a fixed
+ * rendered size does the rest: the neck is a *share* of the thickness, so a
+ * non-uniform scale keeps it exactly and only shortens the shoulders.
+ *
+ * It is drawn twice, once along each axis, because the two are not the same
+ * shape. Lying down the band narrows from both edges, which is what a channel
+ * does. Standing up it narrows from the far edge only: the near edge is where
+ * the names start, and a name that follows the shape is a name that gets
+ * clipped. A symmetric pinch was tried standing up and that is exactly what it
+ * did.
+ *
+ * **`bandShare()` is what makes the marks safe.** A gate's length was a number
+ * written by hand beside it, and it was wrong twice over: struck against the
+ * figure's box rather than the band inside it, three gates fell short of the
+ * band and the fourth, standing in the neck, ran past it. Every mark reads its
+ * extent from the same neck table the path is drawn from, so a pinch can change
+ * and nothing needs re-measuring.
+ *
+ * The share is exact at a neck and at or beyond a shoulder, and approximate
+ * between them, because a cubic's parameter is not its x. Every mark this figure
+ * draws sits at one of the exact positions: a gate stands on a boundary, and the
+ * only boundary a neck sits on is its own.
+ * ------------------------------------------------------------------ */
+
+const SPAN = 1000;
+const MID = 50;
+const HALF = 48;
+
+const round = (n) => Math.round(n * 100) / 100;
+
+/** Where a neck sits, in span units: a desk's centre, or the boundary before one. */
+function neckPos(at) {
+  const step = SPAN / PHASES.length;
+  return at.desk ? (PHASES.indexOf(at.desk) + 0.5) * step : PHASES.indexOf(at.before) * step;
+}
+
+/**
+ * Each neck's position and reach, the reach clamped twice: to the ends of the
+ * box, and to half the gap to its neighbour. Two shoulders that overlap draw a
+ * path that doubles back on itself, which is what the middle row's pair did
+ * before the second clamp existed.
+ */
+function struck({ necks, vertical }) {
+  const step = SPAN / PHASES.length;
+  const list = necks.map((n) => ({
+    pos: neckPos(n.at),
+    pinch: vertical ? n.pinchTall ?? n.pinch : n.pinch,
+    reach: n.shoulder * step
+  }));
+
+  return list.map((n, i) => {
+    const gaps = [n.pos, SPAN - n.pos];
+    if (i > 0) gaps.push((n.pos - list[i - 1].pos) / 2);
+    if (i < list.length - 1) gaps.push((list[i + 1].pos - n.pos) / 2);
+    return { ...n, reach: Math.min(n.reach, ...gaps) };
+  });
+}
+
+/** What is left of the band's thickness at `pos`, as a share of the whole. */
+function bandShare({ necks, pos, vertical = false }) {
+  return struck({ necks, vertical }).reduce((share, n) => {
+    const d = Math.abs(pos - n.pos);
+    if (d >= n.reach) return share;
+    const t = (n.reach - d) / n.reach;
+    return Math.min(share, 1 - t * t * (3 - 2 * t) * (1 - n.pinch));
+  }, 1);
+}
+
+/** The band. `vertical` swaps the axes and drops the near edge's curve. */
+function channelPath({ necks, vertical = false }) {
+  const list = struck({ necks, vertical });
+  const P = vertical ? (a, b) => `${round(b)},${round(a)}` : (a, b) => `${round(a)},${round(b)}`;
+  const ease = (a0, b0, a1, b1) => {
+    const m = a0 + (a1 - a0) / 2;
+    return `C${P(m, b0)} ${P(m, b1)} ${P(a1, b1)}`;
+  };
+  const flat = (sign) => MID + sign * HALF;
+  const tight = (sign, pinch) => MID + sign * HALF * pinch;
+
+  const along = (sign, back) =>
+    (back ? [...list].reverse() : list).flatMap((n) => {
+      const from = back ? n.pos + n.reach : n.pos - n.reach;
+      const to = back ? n.pos - n.reach : n.pos + n.reach;
+
+      return [
+        `L${P(from, flat(sign))}`,
+        ease(from, flat(sign), n.pos, tight(sign, n.pinch)),
+        ease(n.pos, tight(sign, n.pinch), to, flat(sign))
+      ];
+    });
+
+  return [
+    `M${P(0, flat(-1))}`,
+    ...(vertical ? [] : along(-1, false)),
+    `L${P(SPAN, flat(-1))}`,
+    `L${P(SPAN, flat(1))}`,
+    ...along(1, true),
+    `L${P(0, flat(1))}`,
+    'Z'
+  ].join(' ');
+}
+
+/* ------------------------------------------------------------------ *
  * De weg ernaartoe — the one figure on the page
  *
- * Three stages, each a name, a clause, and one bar divided into the five phases
- * of that stage. A phase that holds the cycle up takes the room: ink where the
- * work waits, cyan where a person decides. Read top to bottom the wide block
- * leaves the middle, splits to the two ends and turns cyan — the lede's own
- * sentence, drawn instead of asserted.
+ * Three rows, each a name, the one clause it makes, and the same six-desk
+ * lifecycle. **The band is the bar**: the six desks are named on it in white,
+ * divided by hairlines, and the band's own silhouette narrows where the work is
+ * slowest. Read top to bottom the narrowest point travels right and gets wider.
  *
- * **The width is a share of one cycle, and that is the only thing it claims.**
- * Every bar is the same length and always full, so nothing here says an agentic
- * cycle is shorter, or counts hours. Do not add a scale, a tick or a number: the
- * moment a reader can read a quantity off it, it is asserting one.
+ * Four things it took several drawings to arrive at, each of which reads as a
+ * detail and is not.
  *
- * Four drawings were tried first and each failed differently. A dot on a
- * hairline, then a thickened run of it: a mark you have to go looking for and
- * then be told the meaning of. A navy band pinching at the bottleneck: a
- * constriction says "low capacity here", not "the work is stacked up behind it".
- * A drawn heap on the rule: right, and three dark lumps on a page built out of
- * hairlines and one cyan. The bar is the site's own vocabulary, which is why it
- * reads as designed rather than drawn.
+ * 1. **The band is never broken.** A handoff was a paper cut clean through it
+ *    for a while, and five of those turn one flowing channel into six blocks
+ *    with curved ends: the line stops being a line, which is most obvious
+ *    standing up, where it disappears entirely. A handoff is the hairline
+ *    between two desks. What says the last row has none is that its desks carry
+ *    no hairline at all, only the four gates.
  *
- * `SHARE` is where the argument lives, so it is one table rather than a number
- * per row: adding a phase or a mark cannot silently rescale the claim.
+ * 2. **Nothing is drawn over the neck.** The bottleneck desk had its own paper
+ *    chip, which bought a deeper pinch and hid the pinch it was marking. The
+ *    chip is gone, the pinch is capped at what a line of type can sit in, and
+ *    the desk is marked by weight alone.
+ *
+ * 3. **The neck is on the desk that is slow, not the handoff in front of it.**
+ *    The playbook's claim is that Build itself was the expensive stage. The neck
+ *    was moved to the boundary once to keep the names readable, and the Dutch
+ *    was then written to justify the move, which is the wrong way round.
+ *
+ * 4. **Every mark is struck against the band, never against the box.** See
+ *    `bandShare()` above.
+ *
+ * Nothing here is a measurement. The bar is always full and always the same
+ * length; the only thing it claims is where it narrows.
  * ------------------------------------------------------------------ */
 
 /**
- * What a phase holds of its own cycle. Not minutes: the ratio between a phase
- * that stops the work and one that does not, which is the only comparison the
- * copy makes. A person deciding holds less than a jam and more than a phase that
- * flows, because the lede's point is that the bottleneck does not disappear.
- */
-const SHARE = { block: 3.4, human: 2.2, flow: 1 };
-
-/**
- * One stage: the name, the clause it makes, and the cycle it runs.
+ * One row: the name, the clause it makes, and the lifecycle it runs.
  *
- * The bar is an `<ol>` and each phase an `<li>` carrying its own name, so it is
- * content rather than a picture of content. `aria-describedby` points the list
- * at the stage's clause, because the movement between the three bars is the
- * argument and a screen reader gets it from that sentence or not at all.
+ * The bar is an `<ol>` and each desk an `<li>` carrying its own name, so it is
+ * content rather than a picture of content, and it sits over the band rather
+ * than beside it. `aria-describedby` points the list at the row's clause,
+ * because the movement between the three bars is the argument and a screen
+ * reader gets it from that sentence or not at all.
  *
  * @param {object} options
  * @param {Function} options.t
- * @param {string} options.key    stage key, also the id suffix
- * @param {Array} options.phases  `{ key, mark? }` in lifecycle order
+ * @param {string} options.key        row key, also the id suffix
+ * @param {string[]} [options.slow]   desks the row waits on
+ * @param {Array} options.necks       where the band narrows, and how far
+ * @param {boolean} [options.run]     one run: no hairlines between desks
+ * @param {Array} [options.gates]     `{ key, before }`, in the order they stand
+ * @param {boolean} [options.loop]    draw the dotted return to Product
  */
-function stage({ t, key, phases }) {
+function stage({ t, key, slow = [], necks, run, gates, loop }) {
   const id = `sdlc-stage-${key}`;
 
-  const items = phases.map(({ key: phase, mark }) => {
-    const share = SHARE[mark ?? 'flow'];
+  const cells = PHASES.map((phase) => {
+    const marked = slow.includes(phase);
 
-    // A marked phase says so in words as well as by width and colour, or the
-    // distinction is colour carrying meaning alone. The label is the legend's
-    // own key, so the two can never say different things.
-    return html`        <li id="${id}-phase-${phase}" class="cycle__phase${mark ? ` cycle__phase--${mark}` : ''}" style="--share: ${share}"><span id="${id}-phase-${phase}-name" class="cycle__name">${t(`sdlc.phase.${phase}`)}</span>${
-      mark
-        ? html`<span id="${id}-phase-${phase}-mark" class="visually-hidden">, ${t(`sdlc.legend.${mark}`)}</span>`
-        : ''
+    // A marked desk says so in words as well as in weight, or the distinction is
+    // typography carrying meaning alone.
+    return html`          <li id="${id}-phase-${phase}" class="cycle__phase${marked ? ' cycle__phase--slow' : ''}">${t(`sdlc.phase.${phase}`)}${
+      marked ? html`<span id="${id}-phase-${phase}-mark" class="visually-hidden">, ${t('sdlc.mark.slow')}</span>` : ''
     }</li>`;
   });
+
+  // One element per gate, carrying both axes as custom properties: a viewBox
+  // cannot be swapped from a stylesheet, but a number can, and the alternative
+  // is a second set of marks that has to be kept in step with the first.
+  //
+  // The two axes turn the same share into two different lengths, because the
+  // two bands are not the same shape. Lying down the band narrows from both
+  // edges, so what is left is `2 x HALF x share`, inset by the same amount top
+  // and bottom. Standing up only the far edge moves, so the near edge stays at
+  // `MID - HALF` and what is left is `HALF x (1 + share)` off it. Reading the
+  // symmetric length on both axes is what left the fourth gate 12% of the
+  // figure short of the band it stands in, which is the very failure
+  // `bandShare()` was written to end.
+  const marks = (gates ?? []).map(({ key: gate, before }, i) => {
+    const pos = neckPos({ before });
+    const wide = bandShare({ necks, pos });
+    const tall = bandShare({ necks, pos, vertical: true });
+
+    return html`        <span id="${id}-gate-mark-${gate}" class="cycle__gate" style="--at: ${round((pos / SPAN) * 100)}%; --inset: ${round(MID - HALF * wide)}%; --reach: ${round(HALF * (1 + tall))}%" aria-hidden="true">${i + 1}</span>`;
+  });
+
+  const channel = (axis, vertical) => {
+    const box = vertical ? '0 0 100 1000' : '0 0 1000 100';
+
+    return html`        <svg id="${id}-channel-${axis}" class="cycle-channel cycle-channel--${axis}" viewBox="${box}" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path id="${id}-channel-${axis}-path" d="${channelPath({ necks, vertical })}"></path></svg>`;
+  };
+
+  // The gates are named under the figure. A name on a 22px mark either overlaps
+  // its neighbour or sets too small to read, and the number on each mark is what
+  // ties the two together, so the list is a key rather than a thing to count
+  // along. It comes after the return: the arrowhead is at the left edge and so
+  // is the first word of this line, and the other way round the arrow pointed at
+  // the words instead of at Product.
+  const gateNames = gates
+    ? html`
+      <div id="${id}-gates" class="cycle-gates">
+        <span id="${id}-gates-label" class="cycle-gates__label">${t('sdlc.gates.label')}</span>
+        <ol id="${id}-gates-list" class="cycle-gates__list" aria-labelledby="${id}-gates-label">
+${join(
+  gates.map(
+    ({ key: gate }, i) => html`          <li id="${id}-gate-${gate}" class="cycle-gates__item"><span id="${id}-gate-${gate}-num" class="cycle-gates__num">${i + 1}</span>${t(`sdlc.gate.${gate}`)}</li>`
+  )
+)}
+        </ol>
+      </div>`
+    : '';
+
+  // The return. Its sentence is the whole of it for a screen reader, which is
+  // right: the dashes and the arrowhead are how the sentence is drawn, not a
+  // second thing to announce.
+  const feedback = loop
+    ? html`
+      <div id="${id}-return" class="cycle-return">
+        <span id="${id}-return-line" class="cycle-return__line" aria-hidden="true"></span>
+        <span id="${id}-return-label" class="cycle-return__label">${t('sdlc.loop.label')}</span>
+      </div>`
+    : '';
 
   return html`    <div id="${id}" class="stage">
       <div id="${id}-head" class="stage__head">
         <h3 id="${id}-name" class="stage__name">${t(`sdlc.stage.${key}.title`)}</h3>
         <p id="${id}-body" class="stage__body">${t(`sdlc.stage.${key}.body`)}</p>
       </div>
-      <ol id="${id}-cycle" class="cycle" aria-describedby="${id}-body">
-${join(items)}
-      </ol>
+      <div id="${id}-figure" class="cycle-figure">
+${channel('wide', false)}
+${channel('tall', true)}
+        <ol id="${id}-cycle" class="cycle${run ? ' cycle--run' : ''}" aria-describedby="${id}-body">
+${join(cells)}
+        </ol>${marks.length ? raw(`\n${join(marks)}`) : ''}
+      </div>${feedback}${gateNames}
     </div>`;
 }
 
 function journey(t) {
-  const stages = STAGES.map(({ key, phases }) => stage({ t, key, phases }));
+  const stages = STAGES.map((row) => stage({ t, ...row }));
 
-  // The legend is copy, not decoration: it says the wide block is where the work
-  // waits rather than where most of it happens.
-  const legend = LEGEND.map(
-    (key) => html`    <li id="sdlc-journey-legend-${key}" class="legend">
-      <span id="sdlc-journey-legend-${key}-mark" class="legend__mark legend__mark--${key}" aria-hidden="true"></span>${t(`sdlc.legend.${key}`)}
-    </li>`
-  );
+  // The legend is copy, not decoration. It names the two marks in the figure's
+  // own words, which is what stops the narrowing being read as a gap in the
+  // argument and the band being read as where most of the work happens.
+  const legend = LEGEND.map((key) => {
+    const id = `sdlc-journey-legend-${key}`;
+
+    // The channel's swatch is the channel, struck by the same generator: a
+    // painted box with a flat edge would be the one key on the page that does
+    // not show its own mark.
+    //
+    // **The shoulder is what makes it read, not the pinch.** The swatch is 34px
+    // for the span a row gives 1100, so a desk of shoulder is 5.7px here: at
+    // 2.4 desks the taper ran 13.6px in from each end, the whole swatch was
+    // transition, and it drew a bowtie, with no flat band left to narrow *from*. At
+    // 1.5 it is 8.5px in from each end and half the swatch is still band, which
+    // is the thing the eye needs before a narrowing is a narrowing. The pinch is
+    // the row's own, near enough: 0.55 against 0.38 only because three pixels of
+    // waist is the floor a 14px swatch can show.
+    const mark =
+      key === 'flow'
+        ? html`<svg id="${id}-mark" class="legend__mark legend__mark--flow" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path id="${id}-mark-path" d="${channelPath({ necks: [{ at: { desk: 'build' }, pinch: 0.55, shoulder: 1.5 }] })}"></path></svg>`
+        : html`<span id="${id}-mark" class="legend__mark legend__mark--${key}" aria-hidden="true"></span>`;
+
+    return html`    <li id="${id}" class="legend">
+      ${mark}${t(`sdlc.legend.${key}`)}
+    </li>`;
+  });
 
   return html`<section id="journey" class="section" aria-labelledby="sdlc-journey-title">
   <div id="sdlc-journey-head" class="section__head">

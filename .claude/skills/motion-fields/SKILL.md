@@ -487,9 +487,14 @@ load-bearing unless it says otherwise.
   does not choose, so it goes, the way `@media print` already drops it.
   `.cycle__phase` on the AI-native SDLC page is the other half of the same
   thought: that figure carries meaning, so a forced palette gets a border it can
-  keep instead — and `.legend__mark`, the key under that figure, is the same case
-  one step on: two painted swatches that came back as invisible rectangles beside
-  two labels, so they take the border their phases take, at the same weight. This
+  keep instead. That figure is now one navy band per row with the desks named on
+  it, so a forced palette dropping the fill would leave six invisible words: the
+  band goes the way the rings do, and what is left is the row drawn in borders,
+  with the slow desk and the numbered gates taking a heavier one. The neck cannot
+  survive that, and does not need to — the weight and the marks carry the
+  argument. `.legend__mark`, the key under the figure, is the same case one step
+  on: painted swatches that came back as invisible rectangles beside their
+  labels, so they take the border their marks take, at the same weight. This
   entry was written before the rule existed and described the intention rather
   than the code; the `.orbits` rule is in `critical.css` now, not in main.css,
   because rings that arrive unhidden until the stylesheet lands flash across the

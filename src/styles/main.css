@@ -3348,13 +3348,12 @@ html:not([data-clause-spy]) .prose__heading:target,
  * ------------------------------------------------------------------ */
 
 /* ------------------------------------------------------------------ *
- * De weg ernaartoe — the three stages
+ * De weg ernaartoe — the three rows
  *
- * Each stage is a name, the one clause it makes, and one bar divided into five
- * phases, where the phase that holds the cycle up takes the room. The rule that
- * the width may never become a measurement is in `src/pages/sdlc.mjs`.
- * The bar is the site's own vocabulary rather than a drawing: panel radius, a
- * hairline between cells, one accent.
+ * Each row is one band with the six desks named on it. The rule that nothing
+ * here may become a measurement, and the four drawings it took to get here, are
+ * in `src/pages/sdlc.mjs`. What this stylesheet does is put the names on the
+ * band and strike every mark against it.
  * ------------------------------------------------------------------ */
 
 .journey {
@@ -3385,75 +3384,212 @@ html:not([data-clause-spy]) .prose__heading:target,
   line-height: var(--leading-body);
 }
 
-/* Always full and always the same length on all three rows: that is what keeps
-   the width a share of a cycle rather than a duration. `overflow` plus the radius
-   makes five cells read as one object rather than five chips. */
-.cycle {
-  display: flex;
-  border-radius: var(--radius-panel);
-  overflow: hidden;
-  list-style: none;
+/* The frame the band is drawn in and every mark is positioned against. Its
+   height is the bar's, because the bar is the only child in flow. */
+.cycle-figure {
+  position: relative;
 }
 
-/* `--share` comes from the markup. `flex` with a zero basis divides the bar by
-   those shares, so a row is normalised by construction. */
-.cycle__phase {
-  flex: var(--share) 1 0;
-  min-width: 0;
-  display: grid;
-  place-items: center;
-  padding: var(--space-7) var(--space-3);
-  background: var(--surface-chip);
-  color: var(--text-muted);
-  font-size: var(--text-ui-sm);
-  line-height: var(--leading-snug);
-  text-align: center;
+.cycle-channel {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--sa-field);
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
 }
 
-/* The division is a gap in the paper, not a drawn line: a border would sit
-   inside the last cell's radius and show as a nick at both ends of the bar. */
-.cycle__phase + .cycle__phase {
-  box-shadow: -1px 0 0 var(--surface-page);
+/* Drawn on every row and shown at one width each, because a viewBox cannot be
+   swapped from a stylesheet. Two paths of about 250 bytes per row is what that
+   costs, against a page budget of 30 KB brotli. */
+.cycle-channel--tall {
+  display: none;
 }
 
-/* A phase the whole cycle waits behind. Ink, not a colour: it is not one of
-   several categories, it is the thing that is wrong with the row. */
-.cycle__phase--block {
-  background: var(--sa-field);
+/* Six equal desks, no ground of their own: the band behind them is the ground.
+   The zero basis is what makes them equal whatever words they hold, so a long
+   name cannot buy itself room the figure would then be read as claiming. */
+.cycle {
+  position: relative;
+  display: flex;
+  list-style: none;
+}
+
+/* A desk name never wraps: the bar's height is the tallest cell, so one wrap in
+   the narrowest would deepen all three bars. `overflow: hidden` is the guard
+   behind that. The six names clear their cells in all three languages today
+   (the horizontal bar is only drawn from 1001px up, which gives each desk about
+   145px against a longest name of about 60), but the cell used to be a `<span>`
+   that ellipsised, and without a guard a longer name would run silently over its
+   neighbour instead. Clipped is a failure you can see; overlapping is not.
+   (No ellipsis: the text is an anonymous grid item, which `text-overflow`
+   cannot reach, and a wrapper for it would be six more elements per bar.) */
+.cycle__phase {
+  flex: 1 1 0;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: var(--space-9) var(--space-3);
   color: var(--sa-white);
+  font-size: var(--text-ui-sm);
+  line-height: var(--leading-snug);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* A handoff: the hairline between two desks, and that is the whole mark. It was
+   a paper cut clean through the band for a while, and five of those turn one
+   flowing channel into six blocks with curved ends. The band is never broken. */
+.cycle__phase + .cycle__phase {
+  box-shadow: -1px 0 0 rgb(255 255 255 / 0.22);
+}
+
+/* One run: nothing changes hands in it, so nothing divides it. */
+.cycle--run .cycle__phase + .cycle__phase {
+  box-shadow: none;
+}
+
+/* A desk the row waits on. Weight and nothing else: the band is ink now, so the
+   old figure's navy cell has nowhere to go, and a paper chip here is what was
+   hiding the neck it is supposed to mark. */
+.cycle__phase--slow {
   font-weight: var(--weight-semibold);
 }
 
-/* White type, not the dark cyan ink the on-navy button uses: against `--sa-cyan`
-   white is 4.93:1 and `--sa-cyan-ink` is 3.93:1, so the pairing that looks safer
-   is the one that fails. Measure before swapping either. */
-.cycle__phase--human {
+/* A gate: the mark a person stands at, carrying its number. Both axes come in
+   as custom properties from the same table the path is struck from, because a
+   viewBox cannot be swapped from a stylesheet but a number can, and the
+   alternative is a second set of marks to keep in step with the first.
+   `--inset` is how far the band is off each edge here, `--reach` how wide it is;
+   see `bandShare()` in the page module.
+
+   The fill is `--sa-cyan-bright-press` and not `--sa-cyan-bright`, which is the
+   on-navy accent everywhere else. One bright pill in a navy shape is an accent;
+   four full-height ones are the thing the figure is made of, and at #00d8ff they
+   took the row over. The press step is one below it, already measured against
+   `--sa-cyan-ink` at 7.9:1, and it is the value the drawing was approved at. */
+.cycle__gate {
+  position: absolute;
+  z-index: 2;
+  top: var(--inset);
+  bottom: var(--inset);
+  left: var(--at);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  transform: translateX(-50%);
+  background: var(--sa-cyan-bright-press);
+  color: var(--sa-cyan-ink);
+  font-size: var(--text-nano);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* The gates, named under the figure in the order they stand in the band. */
+.cycle-gates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  margin-top: var(--space-7);
+  font-size: var(--text-meta);
+}
+
+.cycle-gates__label {
+  color: var(--sa-deep);
+  font-weight: var(--weight-semibold);
+}
+
+.cycle-gates__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+  color: var(--text-muted);
+  list-style: none;
+}
+
+/* Laid out as a flex row rather than nudged off a baseline: an 18px box on a
+   13.5px line never sits right on a `vertical-align` guess, and it drifts again
+   the moment either size changes. */
+.cycle-gates__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.cycle-gates__num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
   background: var(--sa-deep);
   color: var(--sa-white);
+  font-size: var(--text-nano);
   font-weight: var(--weight-semibold);
+  line-height: 1;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
-/* A phase name never wraps inside the bar: the bar's height is the tallest cell,
-   so one wrap in the narrowest would deepen every bar on the page. The narrow
-   cells are 100px at 1000px against about 90 for the longest word. */
-.cycle__name {
+/* The return to Product, on the last row alone. Dashed because the loop is
+   advised rather than required: a team that never closes it still has an
+   AI-native lifecycle, only a blinder one, and a solid line would read as a
+   seventh step. The sentence sits on the bottom edge with paper behind it
+   breaking the dash, which is what makes it read as belonging to the line. */
+.cycle-return {
+  position: relative;
+  margin-top: var(--space-5);
+}
+
+/* The arrowhead is a border triangle at the head of the left edge: the shape is
+   three borders already, and a second drawing system for a tip is a file nobody
+   wants to keep in step. Darker than the dashes, because it is the head of the
+   line rather than more of it. */
+.cycle-return__line {
+  position: relative;
   display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
+  height: 38px;
+  border: 1px dashed var(--sa-line-3);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-panel) var(--radius-panel);
 }
 
-/* The legend is copy, not decoration: it says the wide block is where the work
-   waits rather than where most of it happens — the bar-chart reading this figure
-   must not carry. */
+.cycle-return__line::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: -6px;
+  border-right: 6px solid transparent;
+  border-bottom: 9px solid var(--sa-line-4);
+  border-left: 6px solid transparent;
+}
+
+.cycle-return__label {
+  position: absolute;
+  bottom: -0.75em;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 var(--space-5);
+  background: var(--surface-page);
+  color: var(--text-muted);
+  font-size: var(--text-meta);
+  white-space: nowrap;
+}
+
+/* The key names two marks. The neck and the bold desk are one claim drawn twice
+   and share a line; a handoff is a hairline and the row's clause counts them. */
 .journey__legend {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-6) var(--space-11);
-  margin-top: var(--space-10);
+  margin-top: var(--space-12);
   list-style: none;
 }
 
@@ -3469,68 +3605,118 @@ html:not([data-clause-spy]) .prose__heading:target,
   flex: none;
   width: 34px;
   height: 14px;
-  border-radius: var(--radius-chip);
-  background: var(--mark);
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
 }
 
-.legend__mark--block {
-  --mark: var(--sa-field);
+.legend__mark--flow {
+  display: block;
+  fill: var(--sa-field);
 }
 
-.legend__mark--human {
-  --mark: var(--sa-deep);
+/* The gate's swatch is the mark on its own ground: a bare accent chip would be
+   the one key here that does not show what the figure shows. */
+.legend__mark--gate {
+  background: linear-gradient(90deg, var(--sa-field) 0 38%, var(--sa-cyan-bright-press) 38% 62%, var(--sa-field) 62%);
 }
 
 /* Below the width where every other two-abreast block collapses, the bar stands
-   up: five cells across a tablet put the narrowest at 62px, under the longest
-   phase name in all three languages, and a smaller type would be the figure
-   failing. Standing, the share becomes a height and reads the same way. */
+   up: six desks across a tablet put each at about 100px, under the longest name
+   in French, and a smaller type would be the figure failing. Standing, the band
+   narrows from the far edge only and the names keep their inset. */
 @media (width < 1001px) {
+  .cycle-channel--wide {
+    display: none;
+  }
+
+  .cycle-channel--tall {
+    display: block;
+  }
+
   .cycle {
     flex-direction: column;
-    height: 320px;
+    height: 372px;
   }
 
   .cycle__phase {
     place-items: center start;
-    padding: var(--space-3) var(--space-6);
+    padding: var(--space-3) var(--space-8);
     text-align: left;
   }
 
   .cycle__phase + .cycle__phase {
-    box-shadow: 0 -1px 0 var(--surface-page);
+    box-shadow: 0 -1px 0 rgb(255 255 255 / 0.22);
+  }
+
+  .cycle--run .cycle__phase + .cycle__phase {
+    box-shadow: none;
+  }
+
+  /* `--reach` is the band's width here, and `--inset` its distance off the near
+     edge, which standing up is the same 2% everywhere because that edge is
+     flat. */
+  .cycle__gate {
+    top: var(--at);
+    bottom: auto;
+    left: 2%;
+    width: var(--reach);
+    height: 20px;
+    transform: translateY(-50%);
+  }
+
+  /* The sentence comes off the line and goes under it. Held on the border it is
+     one nowrap line of about 340px, which a phone does not have. */
+  .cycle-return__line {
+    height: 26px;
+  }
+
+  .cycle-return__label {
+    position: static;
+    display: block;
+    margin-top: var(--space-3);
+    padding: 0;
+    background: none;
+    transform: none;
+    white-space: normal;
   }
 }
 
-/* The bar keeps its proportions but not its height: 320px three times over is
-   three screens of figure. The narrowest cell is 26px, still a line of 14px. */
+/* The bar keeps its proportions but not its height: 372px three times over is
+   three screens of figure. */
 @media (width < 621px) {
   .journey {
     gap: var(--space-14);
   }
 
   .cycle {
-    height: 260px;
+    height: 312px;
   }
 }
 
-/* Forced colours drop every background, so the figure would be five identical
-   cells. The marked ones keep a thicker border instead. */
+/* A forced palette drops every fill, and the desks have no ground of their own
+   any more: left alone the figure would be six invisible words. So the band goes
+   the way the orbit rings do, and what is left is the row drawn in borders, with
+   the slow desk and the gates taking a heavier one. The neck cannot survive
+   this; the weight and the marks carry the argument instead. */
 @media (forced-colors: active) {
-  .cycle__phase {
-    border: 1px solid CanvasText;
+  .cycle-channel {
+    display: none;
   }
 
-  .cycle__phase--block,
-  .cycle__phase--human {
+  .cycle__phase {
+    border: 1px solid CanvasText;
+    color: CanvasText;
+  }
+
+  .cycle__phase--slow {
     border-width: 4px;
   }
 
-  /* The legend one step further on: its swatches are a background on an empty
-     box, which a forced palette turns into two invisible rectangles. They take
-     the border their phases take, so key and figure say the same thing. */
+  .cycle__gate,
+  .cycle-gates__num {
+    border: 1px solid CanvasText;
+  }
+
   .legend__mark {
     border: 4px solid CanvasText;
   }

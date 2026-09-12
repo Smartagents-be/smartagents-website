@@ -268,7 +268,7 @@
   "processes.cta.body": "Vertel kort welk werk elke week terugkomt en wie het vandaag doet. We stellen voor waar we zouden beginnen, en zeggen ook wanneer AI er niets aan toevoegt.",
 
   "sdlc.title": "AI-native SDLC · SmartAgents",
-  "sdlc.description": "Van traditioneel naar agentic naar AI-native. Wij begeleiden softwareteams door die omslag: het knelpunt verschuift mee, en het meeste werk zit niet in de techniek maar in de mensen.",
+  "sdlc.description": "Van een SDLC met zes bureaus en vijf overdrachten naar een AI-native SDLC met vier gates. Wij begeleiden softwareteams door die omslag: het meeste werk zit niet in de techniek maar in de mensen.",
 
   "sdlc.hero.title": "Van traditionele SDLC naar AI-native",
 
@@ -286,29 +286,34 @@
   "sdlc.issue.tooling.body": "Elk team werkt anders, er is geen gedeelde manier van werken, en de gemiddelde developer krijgt te weinig toegang tot AI om er vlot mee te leren werken.",
 
   "sdlc.journey.title": "De weg ernaartoe",
-  "sdlc.journey.lede": "We bouwen op wat Anthropic publiceert over AI-native engineering. Het knelpunt verdwijnt niet, het verschuift.",
+  "sdlc.journey.lede": "We bouwen op wat Anthropic publiceert over AI-native engineering. Het knelpunt verdwijnt niet, het verschuift: uiteindelijk naar het moment waarop iemand beslist.",
   "sdlc.journey.source": "Anthropic: The AI-native SDLC playbook",
 
-  "sdlc.stage.traditional.title": "Traditioneel",
-  "sdlc.stage.traditional.body": "Bouwen is het knelpunt.",
-  "sdlc.stage.agentic.title": "Agentic",
-  "sdlc.stage.agentic.body": "Agents bouwen. Het knelpunt schuift naar wat je vraagt en wie het nakijkt.",
+  "sdlc.stage.today.title": "Vandaag",
+  "sdlc.stage.today.body": "Zes bureaus, vijf overdrachten. Build duurt het langst, en dat bepaalt het tempo van de hele keten.",
+  "sdlc.stage.ungated.title": "AI zonder gates",
+  "sdlc.stage.ungated.body": "Agents bouwen. Het knelpunt schuift naar wat je vraagt en wie het nakijkt.",
   "sdlc.stage.native.title": "AI-native",
-  "sdlc.stage.native.body": "Een mens bepaalt de intentie en aanvaardt het resultaat.",
+  "sdlc.stage.native.body": "Één doorloop, geen overdrachten. Een mens beslist nog vier keer, en dat is het enige wat het werk nog ophoudt.",
 
-  "sdlc.phase.requirements": "Vereisten",
-  "sdlc.phase.design": "Ontwerp",
-  "sdlc.phase.build": "Bouw",
-  "sdlc.phase.test": "Test",
-  "sdlc.phase.release": "Uitrol",
+  "sdlc.phase.product": "Product",
+  "sdlc.phase.analysis": "Analyse",
+  "sdlc.phase.build": "Build",
   "sdlc.phase.review": "Review",
-  "sdlc.phase.intent": "Intentie",
-  "sdlc.phase.spec": "Specificatie",
-  "sdlc.phase.gates": "Gates",
-  "sdlc.phase.accept": "Aanvaarding",
+  "sdlc.phase.test": "Test",
+  "sdlc.phase.release": "Release",
 
-  "sdlc.legend.block": "Waar het werk wacht",
-  "sdlc.legend.human": "Waar een mens beslist",
+  "sdlc.gates.label": "Vier gates",
+  "sdlc.gate.intent": "Intentie aanvaard",
+  "sdlc.gate.spec": "Spec goedgekeurd",
+  "sdlc.gate.review": "Review goedgekeurd",
+  "sdlc.gate.release": "Release vrijgegeven",
+
+  "sdlc.loop.label": "Wat in productie gebeurt, voedt het volgende stuk werk",
+
+  "sdlc.legend.flow": "Waar de doorloop smaller wordt, wacht het werk",
+  "sdlc.legend.gate": "Gate: een mens beslist",
+  "sdlc.mark.slow": "waar het werk wacht",
 
   "sdlc.work.title": "Waar de inspanning zit",
   "sdlc.work.lede": "Het meeste werk zit niet in de techniek. Het zit in mensen meekrijgen, en in een werkwijze die voortbouwt op de cultuur en de gewoontes die bij jou al bestaan.",

@@ -268,7 +268,7 @@
   "processes.cta.body": "Dites-nous brièvement quel travail revient chaque semaine et qui le fait aujourd'hui. Nous proposons par où nous commencerions, et nous disons aussi quand l'IA n'y apporte rien.",
 
   "sdlc.title": "SDLC AI-native · SmartAgents",
-  "sdlc.description": "Du traditionnel à l'agentique, puis à l'AI-native. Nous accompagnons vos équipes de développement : le goulot d'étranglement se déplace, et l'essentiel du travail n'est pas technique mais humain.",
+  "sdlc.description": "D'un SDLC à six bureaux et cinq transferts vers un SDLC AI-native à quatre gates. Nous accompagnons vos équipes de développement : l'essentiel du travail n'est pas technique mais humain.",
 
   "sdlc.hero.title": "Du SDLC traditionnel à l'AI-native",
 
@@ -286,29 +286,34 @@
   "sdlc.issue.tooling.body": "Chaque équipe travaille à sa façon, il n'y a pas de manière de travailler commune, et le développeur moyen a trop peu accès à l'IA pour apprendre à s'en servir correctement.",
 
   "sdlc.journey.title": "Le chemin vers l'AI-native",
-  "sdlc.journey.lede": "Nous nous appuyons sur ce qu'Anthropic publie sur l'ingénierie AI-native. Le goulet ne disparaît pas, il se déplace.",
+  "sdlc.journey.lede": "Nous nous appuyons sur ce qu'Anthropic publie sur l'ingénierie AI-native. Le goulet ne disparaît pas, il se déplace : au bout du compte, vers le moment où quelqu'un décide.",
   "sdlc.journey.source": "Anthropic : The AI-native SDLC playbook",
 
-  "sdlc.stage.traditional.title": "Traditionnel",
-  "sdlc.stage.traditional.body": "Le développement est le goulet.",
-  "sdlc.stage.agentic.title": "Agentic",
-  "sdlc.stage.agentic.body": "Les agents développent. Le goulet passe à la demande et à la relecture.",
+  "sdlc.stage.today.title": "Aujourd'hui",
+  "sdlc.stage.today.body": "Six bureaux, cinq transferts. Le build est l'étape la plus longue, et c'est elle qui donne le rythme à toute la chaîne.",
+  "sdlc.stage.ungated.title": "IA sans gates",
+  "sdlc.stage.ungated.body": "Les agents développent. Le goulet se déplace vers ce que vous demandez et vers qui relit.",
   "sdlc.stage.native.title": "AI-native",
-  "sdlc.stage.native.body": "Une personne définit l'intention et accepte le résultat.",
+  "sdlc.stage.native.body": "Un seul parcours, sans transfert. Une personne décide encore quatre fois, et c'est la seule chose qui retient encore le travail.",
 
-  "sdlc.phase.requirements": "Exigences",
-  "sdlc.phase.design": "Conception",
-  "sdlc.phase.build": "Réalisation",
-  "sdlc.phase.test": "Tests",
-  "sdlc.phase.release": "Livraison",
+  "sdlc.phase.product": "Produit",
+  "sdlc.phase.analysis": "Analyse",
+  "sdlc.phase.build": "Build",
   "sdlc.phase.review": "Revue",
-  "sdlc.phase.intent": "Intention",
-  "sdlc.phase.spec": "Cadrage",
-  "sdlc.phase.gates": "Gates",
-  "sdlc.phase.accept": "Recette",
+  "sdlc.phase.test": "Test",
+  "sdlc.phase.release": "Release",
 
-  "sdlc.legend.block": "Là où le travail attend",
-  "sdlc.legend.human": "Là où un humain décide",
+  "sdlc.gates.label": "Quatre gates",
+  "sdlc.gate.intent": "Intention acceptée",
+  "sdlc.gate.spec": "Cadrage approuvé",
+  "sdlc.gate.review": "Revue approuvée",
+  "sdlc.gate.release": "Mise en production autorisée",
+
+  "sdlc.loop.label": "Ce qui se passe en production alimente le travail suivant",
+
+  "sdlc.legend.flow": "Là où le parcours se resserre, le travail attend",
+  "sdlc.legend.gate": "Gate : un humain décide",
+  "sdlc.mark.slow": "là où le travail attend",
 
   "sdlc.work.title": "Où se situe le vrai travail",
   "sdlc.work.lede": "L'essentiel du travail n'est pas technique. Il s'agit d'embarquer les personnes et de construire une manière de travailler à partir de la culture et des habitudes qui existent déjà chez vous.",

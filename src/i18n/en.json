@@ -268,7 +268,7 @@
   "processes.cta.body": "Tell us briefly what work comes back every week and who does it today. We propose where we would start, and we also say when AI adds nothing to it.",
 
   "sdlc.title": "AI-native SDLC · SmartAgents",
-  "sdlc.description": "From traditional to agentic to AI-native. We guide software teams through that shift: the bottleneck travels with it, and most of the work is not technical but human.",
+  "sdlc.description": "From an SDLC with six desks and five handoffs to an AI-native one with four gates. We guide software teams through that shift: most of the work is not technical but human.",
 
   "sdlc.hero.title": "From traditional SDLC to AI-native",
 
@@ -286,29 +286,34 @@
   "sdlc.issue.tooling.body": "Every team works its own way, there is no shared way of working, and the average developer has too little access to AI to get any good at it.",
 
   "sdlc.journey.title": "The way there",
-  "sdlc.journey.lede": "We build on what Anthropic publishes about AI-native engineering. The bottleneck does not disappear, it moves.",
+  "sdlc.journey.lede": "We build on what Anthropic publishes about AI-native engineering. The bottleneck does not disappear, it moves: in the end, to the moment someone decides.",
   "sdlc.journey.source": "Anthropic: The AI-native SDLC playbook",
 
-  "sdlc.stage.traditional.title": "Traditional",
-  "sdlc.stage.traditional.body": "Build is the bottleneck.",
-  "sdlc.stage.agentic.title": "Agentic",
-  "sdlc.stage.agentic.body": "Agents build. The bottleneck moves to what you asked for and who checks it.",
+  "sdlc.stage.today.title": "Today",
+  "sdlc.stage.today.body": "Six desks, five handoffs. Build takes the longest, and it sets the pace for the whole chain.",
+  "sdlc.stage.ungated.title": "AI without gates",
+  "sdlc.stage.ungated.body": "Agents build. The bottleneck moves to what you asked for and to whoever checks it.",
   "sdlc.stage.native.title": "AI-native",
-  "sdlc.stage.native.body": "A person sets the intent and accepts the result.",
+  "sdlc.stage.native.body": "One run, no handoffs. A person still decides four times, and that is the only thing still holding the work up.",
 
-  "sdlc.phase.requirements": "Requirements",
-  "sdlc.phase.design": "Design",
+  "sdlc.phase.product": "Product",
+  "sdlc.phase.analysis": "Analysis",
   "sdlc.phase.build": "Build",
+  "sdlc.phase.review": "Review",
   "sdlc.phase.test": "Test",
   "sdlc.phase.release": "Release",
-  "sdlc.phase.review": "Review",
-  "sdlc.phase.intent": "Intent",
-  "sdlc.phase.spec": "Spec",
-  "sdlc.phase.gates": "Gates",
-  "sdlc.phase.accept": "Accept",
 
-  "sdlc.legend.block": "Where the work waits",
-  "sdlc.legend.human": "Where a person decides",
+  "sdlc.gates.label": "Four gates",
+  "sdlc.gate.intent": "Intent accepted",
+  "sdlc.gate.spec": "Spec approved",
+  "sdlc.gate.review": "Review approved",
+  "sdlc.gate.release": "Release authorised",
+
+  "sdlc.loop.label": "What happens in production feeds the next piece of work",
+
+  "sdlc.legend.flow": "Where the run narrows, the work waits",
+  "sdlc.legend.gate": "Gate: a person decides",
+  "sdlc.mark.slow": "where the work waits",
 
   "sdlc.work.title": "Where the real work is",
   "sdlc.work.lede": "Most of this is not technical. It is bringing people along, and building a way of working on the culture and the habits you already have.",

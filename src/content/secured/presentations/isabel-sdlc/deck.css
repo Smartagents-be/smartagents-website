@@ -4,81 +4,110 @@
    class with the others: slide 03 asks where the queue is, 06 where the agent
    works, 07 where the way of working lands.
 
-   Slide 03 is a channel, not a table. Each stage draws the same five-step
-   lifecycle as one navy ribbon whose height is throughput at that step, so a
-   step everything queues behind is drawn as a narrowing. Read the three ribbons
-   top to bottom and the narrowing moves, which is the whole claim of the slide.
-   An earlier grid of cells with a coloured rule over each was accurate and read
-   as a spreadsheet: the eye had to be told which cell was the bottleneck.
+   Slide 03 is one band per row with the six desks named on it. The same six
+   desks (Product, Analysis, Build, Review, Test, Release) in all three rows, and
+   what differs is where the band narrows: read top to bottom, the narrowest
+   point travels right and gets wider. The geometry is struck by the same
+   generator the site's copy of this figure uses, in `src/pages/sdlc.mjs`, so the
+   two cannot drift into different shapes; the paths and the gate offsets here
+   are its output, pasted, because a deck is static and self-contained.
 
-   Four invariants hold the figure up, and it was presented to a room that
-   argued with the words instead of the picture because three of them did not.
+   Three drawings came before it, each wrong in a way worth recording. A grid of
+   cells with a coloured rule over each was accurate and read as a spreadsheet.
+   A navy ribbon under a row of labels drew phases with nobody in them, so "what
+   changes" could only be read as "a shape got wider". A row of grey chips over a
+   ribbon put the desks in but left two objects stacked, and no amount of overlap
+   made them one.
 
-   1. The five step names are identical in all three rows. A second vocabulary
-      for the same lifecycle turns the slide into one about terminology.
+   Six invariants hold it up. The first two were learned in front of a room that
+   argued with the words instead of the picture; the rest were learned by drawing
+   the thing wrong.
 
-   2. The rows are named for the queue and not for an era. Traditional, Agentic
-      and AI-native are three words from an industry lexicon and the room spent
-      the slide defining them against each other; before AI, AI without gates
-      and AI with gates differ by one variable at a time, and each carries a
-      `.flow__queue` line naming who waits on what. The place to answer the
-      lexicon is out loud, by pointing at the third row — not in a
+   1. The six names are identical in all three rows. A second vocabulary for the
+      same lifecycle turns the slide into one about terminology.
+
+   2. The rows are named for what is true of them and not for an era. Traditional,
+      Agentic and AI-native are three words from an industry lexicon and the room
+      spent the slide defining them against each other. Today, AI without gates
+      and AI-native differ by one variable at a time, and each carries a
+      `.flow__queue` line. The place to answer the lexicon is out loud, not in a
       `#speaker-notes` block, whose mechanism is inert in this repo and swallows
       what you put in it without an error.
 
-   3. Every row is drawn on the same baseline and is full at every step column
-      except its own neck. "Starts and ends at the baseline" is what it said
-      first, and that made the third row reopen after Release, drawing
-      throughput recovering into a step the lifecycle does not have. With one
-      baseline the only difference between the ribbons is where the neck is and
-      how deep — 7, then 9, then 30 — and the fixed label track trains the eye
-      to compare down the columns. That reading is the one thing a reader will
-      not arrive at unaided, so the first footnote states it and nothing else.
+   3. **The band is never broken.** A handoff was a paper cut clean through it
+      for a while, and five of those turn one flowing channel into six blocks
+      with curved ends: the line stops being a line. A handoff is the hairline
+      between two desks. What says the last row has none is that its desks carry
+      no hairline at all, only the four gates.
 
-   4. One neck per row, travelling left to right: Build, Test, Release. The
-      title says "the bottleneck", singular, and moving. Two necks is a funnel
-      and an outlet; none at all says the bottleneck disappears, which is a
-      promise the deck does not make. */
+   4. **Nothing is drawn over a neck.** The slow desk had its own paper chip,
+      which bought a deeper pinch and hid the pinch it was marking. The pinch is
+      capped at what a line of type can sit in, and the desk is marked by weight.
 
-/* The gap does the whole job of separating the three ribbons, and only because
-   the box is cropped to the ink: drawn on a 1000x72 box whose content never left
-   y 9..63, a quarter of every pipe was empty paper posing as gap and the figure
-   overran into the notes band by 44px. `check-slides.mjs` never said so — its
-   slack is 90px. Every row touches both edges of its box at baseline, so
-   ink-to-ink separation is this number everywhere except under row 3's neck. */
+   5. **Every mark is struck against the band, not against the box it is drawn
+      in.** A gate's length was a hand-written number and it was wrong twice:
+      three gates fell short of the band and the fourth, standing in the neck,
+      ran past it. `--inset` on each mark is the band's own offset at that point.
+
+   6. Every desk is the same width, and nothing here is a measurement. The bar is
+      always full and always the same length; the only thing it claims is where
+      it narrows.
+
+   A gate is a decision a person makes, and the second footnote has to keep
+   saying so. It read "a check your pipeline runs, deciding to ship is still a
+   person", which was true of the drawing before this one, where a single cyan
+   gate stood in the Release neck. With four of them named above it, that line
+   told the room three of the four were automatic: the opposite of the list it
+   sat under, and of the playbook it credits, whose human-in-the-loop points are
+   these four: plan acceptance, spec review against intent, review of whether the
+   change did what the plan intended, and release authorisation. What the
+   pipeline does is enforce the gate, not take the decision.
+
+   The middle row has two necks, which is the one place this figure breaks its
+   own "one neck per row". It is deliberate: that row's sentence has always said
+   the bottleneck moves to what you ask for *and* to whoever checks it, and a
+   single neck at Review says half of it.
+
+   Off the stylesheet, on the 1920x1080 stage, then measured in Chrome because
+   this slide has no room to be wrong:
+
+     content box   1080 - 96 - 184                = 800.0
+     head          3 + 22 + 72 x 1.1              = 104.2
+     three notes   3 x 24 x 1.5 + 2 x 10          = 128.0
+     two gaps      2 x 56                         = 112.0
+     body          800 - 104.2 - 112 - 128        = 455.8
+
+   `.slide__body` is `justify-content: safe center` and `OVERFLOW_SLACK` in
+   `check-slides.mjs` is 90px, so an overrun spills into the notes rather than
+   clipping and the checker does not see it. **Measure this slide in the browser
+   after changing anything on it.** */
+
 .flow {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 40px;
 }
 
 /* Label on the left, the lifecycle on the right. The label column is fixed so
-   the five steps start on the same x in all three rows: the eye compares down
-   the columns, and a ragged left edge would break that.
+   the six desks start on the same x in all three rows: the eye compares down the
+   columns, and a ragged left edge would break that.
 
-   340px, not the 280 it was drawn at, and the width is set by the queue lines
-   rather than the names: the longest name clears 280 by 38px, and two of the
-   three queue lines did not. In the 340px track the longest clears by 53px,
-   about 16% — and that margin has been spent once already, by a queue line that
-   cleared by 1.7% before it was re-worded. There is no wrap to catch it: a queue
-   line either fits its track or overlaps the figure. No Geist binary is shipped,
-   so this is the platform face; re-measure when the face arrives or a label
-   changes, and treat anything under about 8% as a rewrite. */
+   340px, set by the queue lines rather than the names. No Geist binary is
+   shipped, so this is the platform face: re-measure when the face arrives or a
+   label changes, and treat anything under about 8% of clearance as a rewrite. */
 .flow__stage {
   display: grid;
   grid-template-columns: 340px 1fr;
   column-gap: 56px;
-  align-items: start;
+  align-items: center;
 }
 
 .flow__label {
-  grid-row: 1 / span 2;
-  align-self: center;
+  grid-column: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-
 
 .flow__name {
   font-size: 34px;
@@ -87,11 +116,9 @@
   font-weight: var(--fw-semibold);
 }
 
-/* The second line of a label names the queue the row is drawn around, which is
-   what stops the three names being read as competing words for the same thing.
-   `--sa-grey-6`, a step back from the step names rather than in front of them:
-   drawn darker, the eye landed on the sub-label and skimmed the row above it,
-   and those names being read as identical is what the slide rests on. */
+/* The second line of a label names what the row is drawn around, which is what
+   stops the three names being read as competing words for the same thing.
+   `--sa-grey-6`, a step back from the desks rather than in front of them. */
 .flow__queue {
   font-size: 22px;
   line-height: 1.35;
@@ -99,68 +126,141 @@
   text-wrap: pretty;
 }
 
-/* Five steps, centred over the five zones of the ribbon below. */
-.flow__steps {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+/* The frame the band is drawn in and every mark is struck against. Its height is
+   the bar's, because the bar is the only child in flow. */
+.flow__figure {
+  position: relative;
+  grid-column: 2;
 }
 
-.flow__step {
-  font-size: 25px;
-  line-height: 1.2;
-  letter-spacing: var(--ls-h3);
-  font-weight: var(--fw-medium);
-  color: var(--sa-grey-3);
-  text-align: center;
-}
-
-/* The step the ribbon narrows at, one per row. Ink and semibold, because it is
-   not a colour choice: everything upstream of it is waiting. A second class for
-   a queue of judgement made the mark lose weight in the row being sold, which is
-   a fourth way the picture whispered that the bottleneck had gone. One mark, one
-   meaning; what says the third row's queue differs is the cyan gate in its neck. */
-.flow__step--block {
-  color: var(--sa-ink);
-  font-weight: var(--fw-semibold);
-}
-
-/* The ribbon. `height: auto` against a fixed viewBox keeps the curves from
-   shearing: a non-uniform scale would flatten the pinch, which is the one
-   thing on the slide that has to survive being projected. */
-.flow__pipe {
+/* `preserveAspectRatio="none"` against a fixed height: the neck is a *share* of
+   the thickness, so a non-uniform scale keeps it exactly and only shortens the
+   shoulders. */
+.flow__channel {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  margin-top: 12px;
+  height: 100%;
   fill: var(--sa-field);
 }
 
-/* The one place a person still decides, drawn inside the neck rather than across
-   it: a gap would say "blocked", the opposite of what the third row claims. The
-   only cyan in the figure, so it lands the eye on the step the row is named for. */
+.flow__bar {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Six equal desks with no ground of their own: the band behind them is the
+   ground. The zero basis is what makes them equal whatever words they hold. */
+.flow__desk {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 30px 14px;
+  color: var(--sa-white);
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-medium);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* A handoff. */
+.flow__desk + .flow__desk {
+  box-shadow: -2px 0 0 rgb(255 255 255 / 0.22);
+}
+
+/* One run: nothing changes hands in it, so nothing divides it. */
+.flow__bar--run .flow__desk + .flow__desk {
+  box-shadow: none;
+}
+
+/* A desk the row waits on. */
+.flow__desk--slow {
+  font-weight: var(--fw-semibold);
+}
+
+/* A gate, struck against the band: `--inset` is how far the band is off each
+   edge at that point, which is 2% at three of them and 14.48% at the fourth,
+   because the fourth stands in the neck. */
+.flow__gate-mark {
+  position: absolute;
+  z-index: 1;
+  top: var(--inset);
+  bottom: var(--inset);
+  left: var(--at);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  transform: translateX(-50%);
+  background: var(--sa-cyan-bright);
+  color: var(--sa-cyan-ink);
+  font-size: 20px;
+  /* The site's copy of this mark is a step darker (`--sa-cyan-bright-press`),
+     because four full-height pills at #00d8ff take a hairline page over. A
+     projector washes the other way, and this deck has no press step in its own
+     token file, so here it stays bright. */
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+}
+
+/* The gates, named under the figure in the order they stand in the band. A name
+   on a 30px mark either overlaps its neighbour or sets too small to read; the
+   number on each mark is what ties the two together. */
+.flow__gates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  grid-column: 2;
+  margin-top: 18px;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+.flow__gates-label {
+  color: var(--accent);
+  font-weight: var(--fw-semibold);
+}
+
+.flow__gates-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 0;
+  padding: 0;
+  color: var(--sa-grey-6);
+  list-style: none;
+}
+
+/* Laid out as a flex row rather than nudged off a baseline: a 26px box on a 22px
+   line never sits right on a `vertical-align` guess. */
 .flow__gate {
-  fill: var(--sa-cyan-bright);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flow__gate-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 17px;
+  font-weight: var(--fw-semibold);
+  line-height: 1;
 }
 
 /* Three footnotes: how to read the figure, what a gate is, then the credit. They
    share one slot because as siblings of `.slide__inner` they would be pushed
-   56px apart and read as three unrelated blocks of mono.
-
-   What a note costs is `.slide__body`'s height, not the foot of the slide — the
-   block is bottom-anchored, so its last line lands 6px above the footer either
-   way. Off the stylesheet, with no measuring:
-
-     content box   1080 - 96 - 184           = 800.0
-     head          3 + 22 + 72 x 1.1         = 104.2
-     three notes   3 x 24 x 1.5 + 2 x 10     = 128.0
-     two gaps      2 x 56                    = 112.0
-     body          800 - 104.2 - 112 - 128   = 455.8
-     figure        3 x (30 + 12 + 70.2) + 96 = 432.6
-
-   So the slack is 23.2px and a fourth note costs 46. **A fourth note overlaps
-   the figure by 23px and nothing tells you**: `.slide__body` is `justify-content:
-   safe center`, so the overrun spills into the notes rather than clipping, and
-   `OVERFLOW_SLACK` in `check-slides.mjs` is 90px. Three is the ceiling. */
+   56px apart and read as three unrelated blocks of mono. */
 .slide-notes {
   display: flex;
   flex-direction: column;
