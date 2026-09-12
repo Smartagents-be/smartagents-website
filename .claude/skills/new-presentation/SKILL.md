@@ -249,7 +249,7 @@ renders it. Until both exist, this section says what it says.
 npm run build          # renders, then check-dist.mjs gates it
 npm run check:slides   # needs a current dist/ and Chrome; measures every slide
 npm run dev            # serves dist/ on :8000; open /secured/presentations/<slug>/
-npm run export:pdfs    # needs a current dist/; writes <slug>.pdf into the deck folder
+npm run export:pdfs <slug>   # needs a current dist/; writes <slug>.pdf into the deck folder
 ```
 
 `check:slides` is the one that catches the mistake this system is most prone to. The stage
@@ -259,9 +259,18 @@ script opens each deck in headless Chrome and measures every slide, which takes 
 seconds for all ten decks. Pass a slug to do one: `node scripts/check-slides.mjs <slug>`.
 It is not part of `npm run build`, because the Cloudflare Pages image has no browser.
 
-`export:pdfs` re-exports **every** deck, not just yours, so it dirties the other PDFs in the
-working tree. Restore them (`git checkout -- <path>`) and keep only the one you meant to
-produce.
+`export:pdfs` with no argument re-exports **every** deck, not just yours, and a PDF is a
+committed binary, so ten fresh prints land in the working tree and nine of them are changes
+nobody reviewed. Pass the slug: `npm run export:pdfs <slug>`. If you have already run it
+bare, restore the rest (`git checkout -- <path>`) and keep only the one you meant to produce.
+
+A run that finishes is not a run that worked. Chrome exits 0 and writes a file whether or not
+the deck's stylesheets landed inside the virtual-time budget, and when they do not it writes
+the slide markup reflowed as an unstyled A4 document: serif, portrait, several slides to a
+page. One of those was committed over a good export and nothing said a word. The script now
+counts the pages in what it wrote and fails the deck when that is not the number of slides in
+`deck.json`, because a print that lost the stylesheet loses one-slide-per-page with it. If you
+see that failure, just run it again: it is a flaky print, not a broken deck.
 
 `check-dist.mjs` catches an undefined custom property, a broken `href`, a `src` pointing at a
 file that is not in `dist/` (an image, a video, an audio file, a script) and a missing `alt`.

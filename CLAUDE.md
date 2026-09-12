@@ -59,7 +59,12 @@ they are applied here.
   commit it. `npm run dev` sets `ODOO_OFFLINE=1` and reads the snapshot instead
   of the network, so a save still rebuilds in under a second and the watch loop
   works on a train.
-- **Deck PDFs**: `npm run export:pdfs` (needs a current `dist/`)
+- **Deck PDFs**: `npm run export:pdfs <deck-slug>` (needs a current `dist/`). With no
+  slug it re-exports all ten and puts nine unreviewed binaries in the diff. It counts
+  the pages it wrote against the deck's own slide list and fails the deck when they
+  disagree: Chrome exits 0 on a print whose stylesheets never landed, and what it
+  writes then is the slide markup reflowed as an unstyled A4 document. One of those
+  was committed over a good export and nothing said a word. On that failure, re-run.
 - **Course fiches**: `npm run export:fiches` rebuilds the two one-pagers in
   `public/media/` from `scripts/export-training-fiches.mjs` in headless Chrome
   (needs Chrome, or `CHROME_BIN`). Not part of the build, for the reason

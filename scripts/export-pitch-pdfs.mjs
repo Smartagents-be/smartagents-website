@@ -6,7 +6,7 @@
 // passthrough asset. Run after `npm run build`; CHROME_BIN overrides the
 // browser.
 
-import { createReadStream, existsSync, statSync, readdirSync } from 'node:fs';
+import { createReadStream, existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
@@ -71,11 +71,44 @@ function serveDist() {
   });
 }
 
+/** How many slides the deck declares, or 0 if the manifest cannot be read. */
+function slideCount(slug) {
+  try {
+    const deck = JSON.parse(readFileSync(join(presentationsDir, slug, 'deck.json'), 'utf8'));
+    return Array.isArray(deck.slides) ? deck.slides.length : 0;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * How many pages the written PDF has, or 0 if it cannot be told. Chrome's page
+ * tree may be nested, and every node carries its own `/Count`, so the total is
+ * the largest of them. Unparseable means unknown, never zero: this number gates
+ * a failure, and a check that cannot read its input must not invent one.
+ */
+function pageCount(file) {
+  const counts = [...readFileSync(file, 'latin1').matchAll(/\/Count\s+(\d+)/g)].map((m) => Number(m[1]));
+  return counts.length ? Math.max(...counts) : 0;
+}
+
+// An optional slug exports one deck, the way `check-slides.mjs` takes one. Every
+// run rewrites the PDF of every deck it touches, and a PDF is a committed
+// binary: exporting all ten to pick up a change to one puts nine unrelated
+// files in the diff, each of them a fresh print that differs from the committed
+// one in ways nobody reviewed.
+const only = process.argv[2];
 const decks = readdirSync(presentationsDir, { withFileTypes: true })
   .filter((e) => e.isDirectory() && e.name !== 'shared')
   .filter((e) => existsSync(join(presentationsDir, e.name, 'deck.json')))
   .map((e) => e.name)
+  .filter((name) => !only || name === only)
   .sort();
+
+if (!decks.length) {
+  console.error(only ? `No deck named "${only}".` : 'No decks found.');
+  process.exit(1);
+}
 
 const server = await serveDist();
 const { port } = server.address();
@@ -104,13 +137,28 @@ for (const slug of decks) {
     child.on('error', () => res(1));
   });
 
-  if (status === 0 && existsSync(out)) {
-    console.log(`ok (${(statSync(out).size / 1024 / 1024).toFixed(1)} MB)`);
-  } else {
+  if (status !== 0 || !existsSync(out)) {
     failures += 1;
-    console.log('FAILED');
-    if (result.stderr) console.error(result.stderr.split('\n').slice(-3).join('\n'));
+    console.log(`FAILED (chrome exited ${status})`);
+    continue;
   }
+
+  // A run that finishes is not a run that worked. Chrome answers 0 and writes a
+  // file whether or not the deck's stylesheets landed before the virtual-time
+  // budget ran out, and what it writes then is the slide markup reflowed as an
+  // unstyled A4 document: serif, portrait, several slides to the page. One of
+  // those was committed over a good export and nothing said a word, so the page
+  // count is checked against the deck's own slide list: a print that lost the
+  // stylesheet loses the one-slide-per-page rule with it, every time.
+  const expected = slideCount(slug);
+  const pages = pageCount(out);
+  if (expected && pages && pages !== expected) {
+    failures += 1;
+    console.log(`FAILED (${pages} pages for ${expected} slides; the stylesheet did not land, re-run)`);
+    continue;
+  }
+
+  console.log(`ok (${(statSync(out).size / 1024 / 1024).toFixed(1)} MB, ${pages || '?'} pages)`);
 }
 
 server.close();
