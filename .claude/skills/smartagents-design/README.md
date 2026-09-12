@@ -22,8 +22,14 @@ The site is Dutch-first (NL / FR / EN).
 
 ## Content fundamentals
 
-- **Language**: Dutch (Belgian), formal *u* — never *je* — in body copy. Headings occasionally
-  drop into second person plural anyway ("Zullen we eens praten").
+- **Language**: Dutch (Belgian), informal *je* in body copy, never formal *u*. The site was
+  written in *u* and converted in one pass; the jobs page was already in *je* and is no longer
+  the exception it used to be. Reach for *jouw* or *jou* only where the pronoun carries stress
+  or stands after a preposition ("bij jou op kantoor", "blijven achteraf van jou", "Jij beslist
+  over elke commit"), and *je* everywhere else. Watch the verb in inversion: *Zoek je*, not
+  *Zoekt je*. French keeps *vous*, because it has no register that reads as
+  friendly-and-professional the way Belgian Dutch *je* does. Headings occasionally drop into
+  first person plural anyway ("Zullen we eens praten").
 - **Sentence case everywhere.** No all-caps, no title case, not even in buttons or labels.
 - **Short declaratives.** "Wat werkt en wat niet." "Digitale collega's die nooit slapen."
   Copy is confident but plain — no superlatives, no "revolutionary", no exclamation marks.
@@ -216,8 +222,8 @@ outside it, and are decided the same way everywhere in `src/`:
 5. **Two surfaces carry pictures**, which the doc rules out everywhere else.
 
    **The team page** puts photography in its hero: under the headline, the two founders fill the
-   rest of the opening screen side by side, with the petal hung off the right edge and running
-   past their feet. The petal and the two portrait scrims are the whole dark field on that page —
+   rest of the opening screen side by side, with `teamHeroPair` hung off the right edge and running
+   past their feet. That shape and the two portrait scrims are the whole dark field on that page —
    it closes on paper, because a navy band under a pair of navy-scrimmed portraits was a third
    dark mass in one screen. Each portrait *is* the card — a 2:3 crop, a 1px hairline, the card
    radius, no ring, no shadow — and everything about the person is laid over its foot on a scrim
@@ -226,10 +232,10 @@ outside it, and are decided the same way everywhere in `src/`:
    over a photograph.
 
    Below 940px the pair needs the whole page, so this hero turns the split a quarter rather than
-   losing it: the headline keeps a column, the petal is hung off the right edge beside it at the
-   proportion it is drawn at, and the two faces run underneath on the full width. The shape is in
+   losing it: the headline keeps a column, the shape is hung off the right edge beside it at the
+   proportion it is drawn at, and the two faces run underneath on the full width. It is in
    normal flow for the only time on the site — sized by `aspect-ratio`, with a negative margin
-   putting its welded edge back on the page edge — so the row it sits in *is* the petal's height
+   putting its welded edge back on the page edge — so the row it sits in *is* the shape's height
    and the headline reads on its centre line. Under 621px the phone's own treatment takes over
    unchanged: the sliver across the top-right, the headline under it. What this replaced was a
    flat navy band between the headline and the faces, which is the thing the homepage hero
@@ -516,8 +522,10 @@ outside it, and are decided the same way everywhere in `src/`:
     **It reuses the parent's silhouette rather than drawing its own.** Every other detail page on
     the site hangs off a service row and draws a shape of its own — the arch, the ridge — because
     each is a different offer, and the shape is how the page says so. This one is the *same* offer
-    read closer, and the reader arrives on it from the petal. A new silhouette here would be the
-    one thing the page is not saying. The rule generalises: **a new shape marks a new offer, not a
+    read closer, and the reader arrives on it from `trainingHeroSwell`. A new silhouette here would
+    be the one thing the page is not saying — and the reuse is a live constraint, not a note: when
+    the training hero stopped borrowing the petal this page moved with it, box cap included, in the
+    same pass. The rule generalises: **a new shape marks a new offer, not a
     new URL.**
 
     **The spec strip** (`.spec`, under the hero) is the block that earns the page. Four facts —
@@ -560,18 +568,46 @@ outside it, and are decided the same way everywhere in `src/`:
     `llms.txt` — had no route back up to the offer but the nav bar. The closing block carries both,
     the way an insight carries "Alle artikelen →".
 
-13. **The training hero carries a bead above the petal, and what buys it is the join rather than a
+13. **The training and team heroes stopped borrowing the homepage's petal.** Three heroes drew one
+    silhouette — the homepage, the training page and the team page — which is a template rather
+    than a composition, and the silhouette itself pinches to a point at 0.05 of its box, which read
+    at hero scale is a spike. Nothing else on the site makes one: the businessprocessen line, the
+    jobs join and the two pebbles are all traced metaball unions, and a union has a concave fillet
+    where two bodies meet and no corner anywhere.
+
+    **So both new shapes are traced, not drawn.** Lobes are placed in the pixels of the box at
+    1440, summed as `Σ r²/d²`, traced at the 1 contour on a 1100² grid, resampled at even arc
+    length and written out as a cubic chain — the method `jobsJoin` already used. `trainingHeroSwell`
+    is three lobes: a shoulder, a body and a foot, with two bays between them that are not authored
+    but are where the field between two lobes stays under 1. `teamHeroPair` is two lobes of nearly
+    one size on a diagonal, and the waist is the figure — the two founders are that page, and the
+    shape beside them is a pair that has become one body. Both are clipped to the right page edge,
+    so the only straight run in either path is that edge.
+
+    **Three things keep the team shape off the jobs hero**, which is the other traced union on the
+    site and sits next to that page in the nav: the lobes are equal where the jobs pair is a heavy
+    and a light, the diagonal runs the other way, and this one is welded rather than floating — a
+    flank the height of the hero, not a pendant in a band.
+
+    **Both boxes are capped.** `min(44vw, 660px)` on the training swell and `min(38vw, 620px)` on
+    the team pair, with `left: auto` so the cap leaves the weld where it is. The shared
+    `.hero__field--right` is a share of the page against a hero that is 540px tall at every desk
+    width, so uncapped the training box runs 0.96 in aspect at 1081 and 2.28 at 2560. A long sweep
+    survives that; a body with three swellings comes out as a lozenge, and the bead beside it as a
+    flat disc. This is the jobs hero's own lever, applied to a welded shape.
+
+14. **The training hero carries a bead beside the swell, and what buys it is the join rather than a
     weld.** The rule two sections up is that a free-floating shape is what an arch welded along
     three sides buys: the pebbles read because the arch is a ground that has visibly shed them. The
-    petal is welded on the right page edge alone and both its apexes float, so the training page
-    takes that licence on a different argument, and the argument is worth writing down because the
-    next page will want one too.
+    swell is welded on the right page edge alone, so the training page takes that licence on a
+    different argument, and the argument is worth writing down because the next page will want one
+    too.
 
-    **It is bought by proximity and by the join, not by the weld.** The bead stands 86px off the
-    petal's drawn flank at 1081, 91 at 1440 and 94 at 2560, directly over the shoulder rather than
-    out in the open paper — near enough that the two are read as one field at rest, and near enough
-    that a cursor brought into the gap closes the two displaced outlines to under 10px and runs them
-    together into a single fluid with a concave fillet at each body. That is the whole of it: **a shape hanging from nothing needs a ground within
+    **It is bought by proximity and by the join, not by the weld.** The bead stands off the swell's
+    body, against its convex bulge rather than out in the open paper — near enough that the two are
+    read as one field at rest, and near enough
+    that a cursor brought into the gap runs them together into a single fluid with a concave fillet
+    at each body. That is the whole of it: **a shape hanging from nothing needs a ground within
     reach of it, and a flank the reader can see it came off is a ground.** A bead struck in the
     middle of the light half, where the pebbles sit on the staffing page, would need the weld.
 
@@ -583,12 +619,21 @@ outside it, and are decided the same way everywhere in `src/`:
     on the site reads at rest and this one reads at rest *less well*, which is the price of the
     narrower licence and the reason a third free-floating shape should be argued again from scratch.
 
+    **Its nearest point lands on a convex stretch, and that is measured rather than eyeballed.**
+    The swell has two concave bays in its left flank. A free shape parked in the mouth of either
+    bridges across the opening instead of against a flank, seals the bay into an enclosed lens of
+    paper and stair-steps the trace where marching squares carries contour the authored outline
+    should have kept. At every width in the band the closest approach is at (0.35-0.39, 0.42-0.46)
+    of the box, which is the body's own bulge below the upper bay.
+
     **The silhouette is reused and the reuse is now a constraint.** It is `heroPebbleA`, the larger
     of the staffing pebbles, redrawn for nothing: a second bead within a few points of that one
-    would be drift. So that path is shared by two compositions — edit it for one and check the
-    other — and the "drawn off-round" note on it is load-bearing on both. Under 1192px the bead's
-    box would be 124px wide against a 118px height and the pebble in a square box is a disc, so the
-    width carries a floor; the aspect runs 1.30 to 1.45 across the desk band instead of 1.05 to 1.46.
+    would be drift. So that path is shared by three compositions — edit it for one and check the
+    others — and the "drawn off-round" note on it is load-bearing on all of them. Both of the
+    bead's dimensions are shares of the box now, which is what the swell forced: a fixed 154-172px
+    bead overlaps the shape in a 476px box at 1081 and strands itself in a 660px one at the cap.
+    `aspect-ratio: 1.3` rather than a height is what keeps the share from handing the bead the box's
+    own aspect, because the pebble in a square box is a disc.
 
     **The box is on the slot, not on the field**, and that is the general lesson. A hero is 440px
     tall at every desk width and as wide as the window, so a box struck as a share of it in both
@@ -608,9 +653,9 @@ outside it, and are decided the same way everywhere in `src/`:
     forward are 13.7k and 26.8k**: this bead, which is a plate, and staffing pebble A, which at
     nearly twice the area does carry a weave. The line between them is not measured, so read them as
     the anchors they are — a silhouette near 14k is a plate, one near 27k is a window, and the box
-    that reaches the second is about 190px square. The band under the header is 185px deep, so the
-    choice here was the plate or no bead; under the cursor the join hands it the petal's own network
-    and the plate stops being one. The footer's wedge is the far end of the same fact and carries no
+    that reaches the second is about 190px square. The bead runs 116x89 at 1081 and 160x123 at
+    the cap, so the choice here was the plate or no bead; under the cursor the join hands it the
+    swell's own network and the plate stops being one. The footer's wedge is the far end of the same fact and carries no
     field at all.
 
     **What it looks like joined is the state it exists for, and it is the one thing here that is a
@@ -620,8 +665,11 @@ outside it, and are decided the same way everywhere in `src/`:
     drawn: the reading is transient, cursor-driven and width-dependent, where the "reads as a black
     triangle" test the arch failed was a resting silhouette on every screen. If it ever has to
     change there are two cheap levers, and both move every number above. **Slide it right**
-    (`left: 10.09%` toward 16%) so the union rises off a steeper stretch of the flank instead of
-    sitting on a horizontal one; it spends gap, which is already tightest at 1081. Or **flatten it**
-    (`height: 118px` toward 96, aspect 1.6–1.8) so the knob becomes a crest, which is what
+    (`left: 10%` toward 13%) so the union rises off a steeper stretch of the flank instead of
+    sitting on a horizontal one; it spends gap, which is already tightest at the cap. Or
+    **flatten it** (`aspect-ratio: 1.3` toward 1.6–1.8) so the knob becomes a crest, which is what
     `clipDefs()` means by the larger pebble carrying the flatter side; it spends area, which is
-    already short of the weave. There is no lever that spends neither.
+    already short of the weave. There is no lever that spends neither. Both levers moved once
+    already, when the petal became the swell: the bead sits lower (`top: 17%`, 88px of paper under
+    the header rather than 26) because the swell's crown is hard against the right page edge and
+    there was no reason left to crowd the bar.

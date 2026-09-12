@@ -361,42 +361,83 @@ load-bearing unless it says otherwise.
   struck corner to corner with a shallow bow read as a black triangle, and the
   cove that replaced it filled the whole corner and needed a second silhouette
   in the opposite one to balance it.
-- **The training hero carries a bead of the same field above the petal, and it
-  is there for the join.** `.hero__bead` in `main.css` is a slot inside
-  `.hero__field--right` holding one more `.field` on `heroPebbleA` — the
-  staffing page's larger pebble, now a shared silhouette rather than that
-  page's own. Two distances, and the pair is the point. At rest, sampled off
-  the two clip paths, it stands 86px off the petal's drawn flank at 1081, 91 at
-  1440 and 94 at 2560 — plainly two shapes. With the cursor walked down the gap
-  the two displaced outlines close to 2px, 7px and 10px, against the 60px a join
-  closes at (`2·MERGE·ln2·ONSET` in `src/motion.js`, measured on those displaced
-  outlines), so the union forms with room to spare and runs them together into
-  one fluid. Both sets came down when the hero band did, from 540px to 440
-  (improvements.md item 26): the resting gap was 117 to 130 and the displaced
-  one 41 to 61, which was near enough the limit to be the thing that closed it.
-  It is now comfortably inside, which is the same behaviour arrived at sooner. Three things are load-bearing. The box is on the **slot** and not on
-  the field, with a floor under its width: a box struck as a share of a hero
-  that is 440px tall at every desk width and as wide as the window keeps its
-  height and stretches without limit — the pebbles run 1.20 to 2.15 in aspect
-  between 1440 and 2560 and by 2560 they have closed on the arch and on each
-  other — and a bead is a pill at one end of that and a disc at the other, which
-  is the bullet `clipDefs()` says the silhouette was drawn off-round to avoid.
-  The band it stands in is what fixes its height: the paper under the header,
-  the 118px box, then the gap — re-measured whenever the width floor moves,
-  because a wider bead meets a higher part of the flank. It was re-measured when
-  the hero band came down from 540px to 440 (improvements.md item 26): the bead
-  now stands 20px under the header rather than 24, and sampled off the two clip
-  paths at rest it is 86px clear of the petal's flank at 1081, 89 at 1280, 91 at
-  1440 and 94 at 2560, where it was 117 to 130. Two shapes at every width, and a
-  shorter distance for the swell to cross. And it is **printed only where
-  a join can happen** — the media query is the negative of the gates
-  `src/motion.js` arms the magnets on, so a coarse pointer and
-  `prefers-reduced-motion` drop it as well as a narrow window. What CSS cannot
-  reach is JS that never runs, which is the one state where it is a dark spot on
-  the paper with nothing to have come away from. That trade, and the licence for
-  a free-floating shape beside a flank welded on one edge rather than three, are
-  argued in "Deviations from the design doc", item 13, in the
+- **The training hero is a body with three swellings, and a bead beside it.**
+  `trainingHeroSwell` is three lobes — (530, 150) r 116, (300, 340) r 124 and
+  (582, 382) r 92 in the pixels of the box at 1440 — summed as `Σ r²/d²`, traced
+  at the 1 contour and clipped to the right page edge, so the only straight run
+  in the path is that edge and everything a reader sees is curve. It replaced
+  the homepage's petal, which this page and the team page were both borrowing:
+  one silhouette on three heroes, and the one silhouette closes to a point at
+  0.05 of its box, which at hero scale is a spike. The two bays in the left
+  flank are not authored — they are where the field between two lobes stays
+  under 1 — and they are the reason the bead's position is measured rather than
+  chosen.
+  **The box is capped at `min(44vw, 660px)`.** The shared `.hero__field--right`
+  is a share of the page against a hero that is 540px tall at every desk width,
+  so uncapped its aspect runs 0.96 at 1081 to 2.28 at 2560: a long sweep
+  survives that and a body with three swellings does not. `left: auto` is what
+  lets the cap leave the weld where it is.
+- **The bead is there for the join, and everything about it is a share of that
+  box.** `.hero__bead` in `main.css` is a slot inside `.hero__field--right`
+  holding one more `.field` on `heroPebbleA` — the staffing page's larger
+  pebble, a shared silhouette rather than that page's own. At rest it clears
+  the swell's drawn flank at every desk width; a cursor brought into the gap
+  closes the displaced outlines inside the 60px a join forms at (`2·MERGE·ln2·ONSET`
+  in `src/motion.js`) and runs the two together into one fluid. Re-measure the
+  resting gap whenever the hero's height or the box cap moves. Four things
+  are load-bearing.
+  **The width is a share and not a pixel size.** Against the petal it could be a
+  fixed 154-172px in the box's upper-left corner, because the petal's upper
+  flank stands far right at that height; the swell's body reaches x 0.26 and its
+  upper flank crosses x 0.45 at y 0.40, so a fixed bead overlaps the shape in a
+  476px box at 1081 and strands itself in a 660px one at the cap.
+  **`aspect-ratio` and not a height.** Both dimensions as shares of a box whose
+  own aspect moves hands the bead that movement, and `heroPebbleA` in a square
+  box is a disc — the bullet `clipDefs()` says it was drawn off-round to avoid.
+  1.3 is the drawing's own.
+  **Its nearest point has to land on a convex stretch**, which is measured, not
+  eyeballed: at (0.35-0.39, 0.42-0.46) of the box at every width in the band,
+  which is the body's own bulge below the upper bay. Parked in the mouth of
+  either bay the bridge forms across the opening instead of against a flank,
+  seals the bay into an enclosed lens of paper and stair-steps the trace.
+  **It is printed only where a join can happen** — the media query is the
+  negative of the gates `src/motion.js` arms the magnets on, so a coarse pointer
+  and `prefers-reduced-motion` drop it as well as a narrow window. What CSS
+  cannot reach is JS that never runs, which is the one state where it is a dark
+  spot on the paper with nothing to have come away from. That trade, and the
+  licence for a free-floating shape beside a flank welded on one edge rather
+  than three, are argued in "Deviations from the design doc", item 13, in the
   `smartagents-design` README.
+- **The training offer is a sheet over two free shapes, and both shapes are
+  borrowed.** `.section--training-offer` in `main.css` lays the two course
+  columns on a paper surface (`.training-offer__surface`: one rounded corner,
+  no shadow) and hangs two fields under it — `training-offer__field`, the
+  homepage's `dnaField` disc entering from the left page edge and running 80px
+  past the section's foot, and `training-offer__companion`, another
+  `heroPebbleA` standing off to its right and 135px below the foot. Neither is
+  a hero silhouette, so the one-shape-per-page rule for heroes does not bind
+  them: what the reader sees is the curve that clears the sheet, not the
+  drawing. Two things are load-bearing. **The next section makes room** —
+  `.section--training-format` takes 104px of top padding, the 80px reveal plus
+  the 20px cursor pull with margin, so the disc never crosses the "Hoe een
+  cursus verloopt" heading. And **the section is raised**, `z-index: 2` on a
+  `.section` that is already positioned, so what hangs past its foot paints
+  over the section below rather than under it. The pair replaced `tourDome` and
+  `tourStone`, the two shapes that hung off the rules around the course tour;
+  both paths are gone from `clipDefs()` and both rules from `critical.css`.
+- **The team hero is a pair.** `teamHeroPair` is two lobes of nearly one size —
+  (430, 230) r 155 and (300, 530) r 170 in the pixels of the box at 1440 — run
+  together on a diagonal and hung off the right page edge, traced the same way
+  as the training swell. The waist between them is the figure: the two founders
+  are the page, and the shape beside them is a pair that has become one body.
+  Three things keep it off the jobs hero, which is the other traced union on the
+  site and sits next to this page in the nav — the lobes are **equal** where
+  that one is a heavy and a light, the diagonal runs the **other way**, and this
+  one is **welded** rather than floating, so it is a flank the height of the
+  hero rather than a pendant in a band. Its box is capped at `min(38vw, 620px)`
+  for the reason the swell's is: the team hero is the tallest on the site, and
+  uncapped the box ran 411px across at 1081 and 730 at 1920 against a height of
+  about 700, which turns the waist from a vertical pinch into a horizontal one.
 
 ## The orbit layer
 

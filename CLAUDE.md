@@ -60,6 +60,14 @@ they are applied here.
   of the network, so a save still rebuilds in under a second and the watch loop
   works on a train.
 - **Deck PDFs**: `npm run export:pdfs` (needs a current `dist/`)
+- **Course fiches**: `npm run export:fiches` rebuilds the two one-pagers in
+  `public/media/` from `scripts/export-training-fiches.mjs` in headless Chrome
+  (needs Chrome, or `CHROME_BIN`). Not part of the build, for the reason
+  `check:slides` is not. The copy is the fiche's own; the facts a fiche shares
+  with the site — the group size and the location — are read from
+  `src/i18n/nl.json`, so the strip on the training page and the download one
+  click away cannot disagree. Run it and commit both PDFs whenever one of
+  those keys changes.
 
 ## Deployment
 
@@ -436,7 +444,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   name in the download bar, and the two were named after the products the
   courses were once built around, so a reader clicked one course and was handed
   something that looked like another. The link prints the format and the size,
-  read off the file at build time in `training.mjs`. The awareness and
+  read off the file at build time in `training.mjs`. Both PDFs are generated
+  by `npm run export:fiches` rather than exported by hand. The awareness and
   management fiches that were left over from the learning path "Ons aanbod"
   replaced are deleted: nothing linked them and Google would have indexed them
   as orphan PDFs competing with `/training/`. A file authored inside a deck and shown

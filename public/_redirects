@@ -4,6 +4,10 @@
 # for hosts that ignore this file and points at /nl/ too.
 / /nl/ 302
 
+# Keep contact addresses printed on earlier course fiches working.
+/contact /nl/#contact 301
+/contact/ /nl/#contact 301
+
 # Pitch-decks staan achter de secured-login onder /secured/presentations/.
 # De oude korte link en de vorige publieke /presentations/-paden zijn al
 # gedeeld. Browsers behouden het #slide-fragment bij een redirect, dus

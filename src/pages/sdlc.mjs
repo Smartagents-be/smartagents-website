@@ -133,7 +133,7 @@ ${orbitRings('sdlc-hero')}
            also the only way the page and the snippet can never drift apart. -->
       <div id="sdlc-hero-actions" class="hero__actions">
         <a id="sdlc-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
-        <a id="sdlc-hero-cta-journey" class="btn btn--ghost" href="#journey">${t('sdlc.cta.journey')} <span id="sdlc-hero-cta-journey-arrow" aria-hidden="true">&rarr;</span></a>
+        <a id="sdlc-hero-cta-journey" class="btn btn--ghost" href="#journey">${t('sdlc.cta.journey')}</a>
       </div>
     </div>
   </div>

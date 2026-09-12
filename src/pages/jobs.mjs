@@ -13,8 +13,9 @@
 // jobs page is in `je` throughout. French keeps `vous`.
 //
 // **The vacancies are Odoo's, not this repo's.** `build/lib/odoo-jobs.mjs` reads
-// every published job at build time in all three languages. What this repo owns
-// is the chrome around the list, in `src/i18n`.
+// every published job at build time in all three languages and runs the reviewed
+// corrections in `src/content/jobs/editorial-copy.json` over them. What this
+// repo owns is the chrome around the list, in `src/i18n`.
 //
 // **Nothing below the hero is a new idiom**: the staffing page's accordion for
 // the vacancies, the plain hairline `.rows` list under it. The hero is the
@@ -108,7 +109,7 @@ ${orbitRings('jobs-hero')}
            is printed from that key instead of written a second time, which is
            also the only way the page and the snippet can never drift apart. -->
       <div id="jobs-hero-actions" class="hero__actions">
-        <a id="jobs-hero-cta-vacancies" class="btn btn--primary" href="#vacancies">${t('jobs.cta.vacancies')} <span id="jobs-hero-cta-vacancies-arrow" aria-hidden="true">&rarr;</span></a>
+        <a id="jobs-hero-cta-vacancies" class="btn btn--primary" href="#vacancies">${t('jobs.cta.vacancies')}</a>
       </div>
     </div>
   </div>
@@ -216,6 +217,8 @@ ${join(rows)}
  * for. One links, to the team page, and it is the only place on the site where a
  * cue carries a word: two of the three rows go nowhere, so an arrow on the third
  * is a difference a reader has to notice before they can read it.
+ * It is also the only row list with a third column (`rows--cued` on the list):
+ * everywhere else the arrow moved into the title, and a word cannot be.
  * ------------------------------------------------------------------ */
 
 function reasons(t, lang) {
@@ -242,7 +245,7 @@ ${inner}
   <div id="jobs-why-head" class="section__head">
     <h2 id="jobs-why-title" class="section-heading">${t('jobs.why.title')}</h2>
   </div>
-  <div id="jobs-why-rows" class="rows">
+  <div id="jobs-why-rows" class="rows rows--cued">
 ${join(rows)}
   </div>
 </section>`;

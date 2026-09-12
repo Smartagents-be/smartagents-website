@@ -155,17 +155,16 @@ export function articleRows({ t, lang, prefix, level = 3 }) {
       </picture>
     </figure>
     <div id="${id}-text" class="article-row__text">
-      <${raw(Title)} id="${id}-title" class="article-row__title">${t(`article.${key}.title`)}</${raw(Title)}>
+      <${raw(Title)} id="${id}-title" class="article-row__title">${t(`article.${key}.title`)}${href
+        ? html`&nbsp;<span id="${id}-cue" class="article-row__cue" aria-hidden="true">&rarr;</span>`
+        : ''}</${raw(Title)}>
       <p id="${id}-body" class="article-row__body">${t(`article.${key}.body`)}</p>
     </div>
     <div id="${id}-meta" class="article-row__meta">
       <time id="${id}-date" class="article-row__date" datetime="${byKey.get(key).published}">${t(`article.${key}.date`)}</time>
       <ul id="${id}-tags" class="article-row__tags">
 ${join(chips)}
-      </ul>${href
-        ? html`
-      <span id="${id}-cue" class="article-row__cue" aria-hidden="true">&rarr;</span>`
-        : ''}
+      </ul>
     </div>`;
 
     // The link wraps the whole row, so without a name of its own its accessible

@@ -1,7 +1,8 @@
 // The privacy notice, in the three languages the site is published in.
 //
-// Every factual claim here is read off the code, and the ones that are easy to
-// get wrong are worth naming so the next person knows what to re-check:
+// Every factual claim here is read off the code, except what a processor does
+// with the data once it has left the site, which is stated as what we can and
+// cannot confirm. The ones that are easy to get wrong are worth naming:
 //
 //   • The public pages set no cookies and load nothing third-party. The only
 //     external host in a built public page is the LinkedIn href in the footer,
@@ -24,8 +25,8 @@
 //   • Turnstile loads on the first interaction with the form and never before.
 //   • The rate limiter keys on the caller's IP and stores the counter in KV with
 //     `expirationTtl: 7200`, so that record is gone two hours later.
-//   • n8n forwards; it does not store. The message lands in Slack and in the
-//     mailbox, which is where retention actually applies.
+//   • n8n forwards, and may keep execution data. Its workflow retention setting
+//     is not in this repository, so the notice says "may" and offers deletion.
 //
 // The 24-month retention is a commitment, not an observation: nothing in the
 // code enforces it. Shorten the number here if it is not realistic.
@@ -60,102 +61,99 @@ const PHONE_HREF = 'tel:+3211111020';
 const nl = [
   h2`Wie is verantwoordelijk`,
   p`${CONTROLLER}, ${VAT}, Mijnschoolstraat 18, 3580 Beringen, België, is de
-    verwerkingsverantwoordelijke. U bereikt ons op
+    verwerkingsverantwoordelijke. Je bereikt ons op
     [${EMAIL}](mailto:${EMAIL}) of op [${PHONE}](${PHONE_HREF}). We hebben geen
-    functionaris voor gegevensbescherming aangesteld: daarvoor zijn we te klein,
-    en uw vraag komt bij een van de twee zaakvoerders terecht.`,
+    functionaris voor gegevensbescherming aangesteld: je vraag komt rechtstreeks bij een van
+    de twee zaakvoerders terecht.`,
 
   h2`Wat we verzamelen`,
-  p`Er is één plek op deze website waar u gegevens achterlaat, en dat is het
+  p`Er is één plek op deze website waar je gegevens achterlaat, en dat is het
     contactformulier. Daarnaast verwerken we, zoals elke website, technische
     gegevens die nodig zijn om de pagina te tonen en om misbruik tegen te gaan.`,
   list([
-    `**Het contactformulier.** Uw naam, uw e-mailadres en uw bericht, en uw
-     bedrijf als u dat invult. Het formulier stuurt ook twee verborgen velden
-     mee: een vaste onderwerpregel en de naam van de pagina waarop u het
-     invulde, zodat we weten waarover uw vraag gaat.`,
-    `**Uw IP-adres.** Onze server gebruikt het om te controleren dat u een mens
+    `**Het contactformulier.** Je naam, je e-mailadres en je bericht, en je
+     bedrijf als je dat invult. Het formulier stuurt ook twee verborgen velden
+     mee: een vaste onderwerpregel en de naam van de pagina waarop je het
+     invulde, zodat we weten waarover je vraag gaat.`,
+    `**Je IP-adres.** Onze server gebruikt het om te controleren dat je een mens
      bent en om te tellen hoeveel berichten er vanaf één adres komen.`,
     `**Gewone serverlogs** bij onze hostingpartner, die horen bij het uitleveren
      van een webpagina.`
   ]),
-  p`U bent niet verplicht ons iets te geven. Het formulier invullen is een
-    keuze; laat u het staan, dan verandert er niets en missen we alleen de
-    gegevens die we nodig hebben om u te antwoorden. Bellen of mailen kan
+  p`Je bent niet verplicht ons iets te geven. Het formulier invullen is een
+    keuze; laat je het staan, dan verandert er niets en missen we alleen de
+    gegevens die we nodig hebben om je te antwoorden. Bellen of mailen kan
     natuurlijk ook.`,
   p`We verzamelen niets anders. Er is geen analytics, geen tracking, geen
     advertentiepixel en geen profilering op deze website. We nemen ook geen
-    beslissingen over u op een geautomatiseerde manier.`,
+    beslissingen over jou op een geautomatiseerde manier.`,
 
   h2`Waarom, en op welke grond`,
-  p`Uw bericht verwerken we om erop te antwoorden en om de stappen te zetten die
-    u vraagt voor er eventueel een samenwerking is. Dat is artikel 6, lid 1, b)
-    en f) van de AVG: de uitvoering van precontractuele stappen op uw verzoek,
+  p`Je bericht verwerken we om erop te antwoorden en om de stappen te zetten die
+    je vraagt voor er eventueel een samenwerking is. Dat is artikel 6, lid 1, b)
+    en f) van de AVG: de uitvoering van precontractuele stappen op je verzoek,
     en ons gerechtvaardigd belang om op een vraag te kunnen antwoorden.`,
-  p`Uw IP-adres verwerken we om het formulier te beschermen tegen spam en
-    misbruik. Dat is artikel 6, lid 1, f): zonder die bescherming is een open
-    formulier binnen een dag onbruikbaar.`,
+  p`Je IP-adres verwerken we om het formulier te beschermen tegen spam en
+    misbruik. Dat is ons gerechtvaardigd belang, artikel 6, lid 1, f): zonder die bescherming
+    is een open formulier binnen een dag onbruikbaar.`,
 
-  h2`Wie uw bericht te zien krijgt`,
-  p`Uw bericht gaat niet verder dan deze partijen, en we verkopen of verhuren
-    uw gegevens aan niemand.`,
+  h2`Wie je bericht te zien krijgt`,
+  p`Je bericht gaat niet verder dan deze partijen, en we verkopen of verhuren
+    je gegevens aan niemand.`,
   list([
     `**Cloudflare** host deze website, levert de spamcontrole (Turnstile) en
-     bewaart kortstondig de teller die aan uw IP-adres hangt.`,
-    `**n8n Cloud** (EU-regio) neemt uw bericht van onze server over en stuurt
-     het door. Het bewaart uw bericht niet.`,
-    `**Slack** is waar uw bericht bij ons binnenkomt, samen met een e-mail naar
+     bewaart kortstondig de teller die aan je IP-adres hangt.`,
+    `**n8n Cloud** verwerkt je bericht en stuurt het door. Daarbij kunnen berichtgegevens in de uitvoeringsgeschiedenis worden opgeslagen.`,
+    `**Slack** is waar je bericht bij ons binnenkomt, samen met een e-mail naar
      onze eigen mailbox.`
   ]),
   p`Cloudflare en Slack zijn bedrijven die gegevens ook buiten de Europese
     Economische Ruimte kunnen verwerken. Dat gebeurt op basis van de
     standaardcontractbepalingen van de Europese Commissie; een kopie daarvan
-    kunt u bij ons opvragen via [${EMAIL}](mailto:${EMAIL}). n8n Cloud draait in
+    kun je bij ons opvragen via [${EMAIL}](mailto:${EMAIL}). n8n Cloud draait in
     de EU-regio.`,
 
   h2`Hoe lang we het bijhouden`,
   list([
-    `**Uw bericht** blijft in onze Slack en onze mailbox staan zolang we ermee
-     bezig zijn, en daarna tot 24 maanden na ons laatste contact. Wordt u klant,
-     dan valt uw dossier onder de bewaartermijnen van die samenwerking.`,
-    `**De teller op uw IP-adres** verdwijnt automatisch na twee uur. Dat is geen
-     schatting: de sleutel wordt met een vervaltermijn van 7200 seconden
-     weggeschreven en daarna gewist.`,
+    `**Je bericht** blijft in onze Slack en onze mailbox staan zolang we ermee
+     bezig zijn, en daarna tot 24 maanden na ons laatste contact. Word je klant,
+     dan valt je dossier onder de bewaartermijnen van die samenwerking.`,
+    `**De teller op je IP-adres** verdwijnt vanzelf, twee uur na je laatste bericht.`,
+    `**Uitvoeringsgegevens bij n8n** kunnen bewaard blijven. We kunnen daarvoor geen automatische verwijdering na een vaste termijn bevestigen. Je kunt ons vragen je berichtgegevens te laten verwijderen.`,
     `**Serverlogs** vallen onder de bewaartermijnen van onze hostingpartner.`
   ]),
-  p`Wilt u eerder weg, dan volstaat een mail. Zie [Uw rechten](clause:07).`,
+  p`Wil je het eerder weg, dan volstaat een mail. Zie [Je rechten](clause:07).`,
 
   h2`Cookies`,
   p`Op de publieke pagina's van deze website plaatsen we zelf geen cookies, en er
-    staat dan ook geen cookiebanner. Als u het contactformulier aanraakt, laadt
+    staat dan ook geen cookiebanner. Als je het contactformulier aanraakt, laadt
     de spamcontrole van Cloudflare, en die kan daarbij zelf een technisch gegeven
-    plaatsen dat ze nodig heeft om de controle uit te voeren. Raakt u het
+    plaatsen dat ze nodig heeft om de controle uit te voeren. Raak je het
     formulier niet aan, dan gebeurt dat niet.`,
   p`Er is één uitzondering, en die ligt buiten het publieke deel van de site. Wie
     op het afgeschermde gedeelte inlogt, krijgt daarbij één strikt noodzakelijke
     sessiecookie die na zeven dagen vervalt. Die is er alleen om de aanmelding te
-    onthouden; hij volgt u niet en hij komt niet op een publieke pagina terecht.`,
-  p`Uw browser bewaart wel pagina's en afbeeldingen van deze site zodat ze de
-    tweede keer sneller openen. Dat blijft op uw eigen toestel, bevat geen
-    persoonsgegevens, en u wist het met de gewone knop om browsergegevens te
+    onthouden; hij volgt jou niet en hij komt niet op een publieke pagina terecht.`,
+  p`Je browser bewaart wel pagina's en afbeeldingen van deze site zodat ze de
+    tweede keer sneller openen. Dat blijft op je eigen toestel, bevat geen
+    persoonsgegevens, en je wist het met de gewone knop om browsergegevens te
     verwijderen.`,
 
-  h2`Uw rechten`,
-  p`U hebt het recht om uw gegevens in te kijken, te laten verbeteren of te
+  h2`Je rechten`,
+  p`Je hebt het recht om je gegevens in te kijken, te laten verbeteren of te
     laten wissen, om de verwerking te laten beperken, om er bezwaar tegen te
     maken, en om ze in een leesbaar formaat mee te krijgen. Mail naar
     [${EMAIL}](mailto:${EMAIL}) en we handelen het binnen de maand af. We vragen
     geen kosten en we vragen ook niet meer bewijs dan nodig om zeker te zijn dat
-    u het bent.`,
-  p`Bent u niet tevreden met hoe we dat doen, dan kunt u klacht indienen bij de
+    jij het bent.`,
+  p`Ben je niet tevreden met hoe we dat doen, dan kun je klacht indienen bij de
     Gegevensbeschermingsautoriteit, Drukpersstraat 35, 1000 Brussel,
     [contact@apd-gba.be](mailto:contact@apd-gba.be). We horen het liever eerst
     zelf, maar dat recht staat los van ons.`,
 
   h2`Wijzigingen`,
   p`Verandert er iets aan wat we verwerken, dan passen we deze pagina aan en
-    verzetten we de datum bovenaan. Er is geen archief van oudere versies: de
-    pagina beschrijft wat de website vandaag doet.`
+    werken we de datum bovenaan bij.`
 ];
 
 /* ------------------------------------------------------------------ *
@@ -167,8 +165,8 @@ const en = [
   p`${CONTROLLER}, ${VAT}, Mijnschoolstraat 18, 3580 Beringen, Belgium, is the data controller.
     You can reach us at [${EMAIL}](mailto:${EMAIL}) or on
     [${PHONE}](${PHONE_HREF}). We have not
-    appointed a data protection officer: we are too small to need one, and your
-    question reaches one of the two founders.`,
+    appointed a data protection officer: your question goes straight to one of the two
+    founders.`,
 
   h2`What we collect`,
   p`There is one place on this site where you leave data behind, and that is the
@@ -196,9 +194,9 @@ const en = [
     asking for before there is any engagement. That is article 6(1)(b) and (f)
     of the GDPR: pre-contractual steps at your own request, and our legitimate
     interest in being able to answer a question.`,
-  p`We process your IP address to protect the form against spam and abuse. That
-    is article 6(1)(f): without that protection an open form is unusable within
-    a day.`,
+  p`We process your IP address to protect the form against spam and abuse. That is our
+    legitimate interest, article 6(1)(f): without that protection an open form is unusable
+    within a day.`,
 
   h2`Who sees your message`,
   p`Your message goes no further than these parties, and we neither sell nor
@@ -206,8 +204,7 @@ const en = [
   list([
     `**Cloudflare** hosts this site, provides the spam check (Turnstile) and
      briefly holds the counter attached to your IP address.`,
-    `**n8n Cloud** (EU region) takes your message from our server and forwards
-     it. It does not store it.`,
+    `**n8n Cloud** processes and forwards your message. Message data may also be saved in its execution history.`,
     `**Slack** is where your message arrives with us, alongside an e-mail to our
      own mailbox.`
   ]),
@@ -221,10 +218,10 @@ const en = [
     `**Your message** stays in our Slack and our mailbox while we are working on
      it, and after that for up to 24 months from our last contact. If you become
      a client, your file falls under the retention terms of that engagement.`,
-    `**The counter on your IP address** disappears automatically after two
-     hours. That is not an estimate: the key is written with an expiry of 7200
-     seconds and deleted afterwards.`,
-    `**Server logs** fall under our hosting provider's retention terms.`
+    `**The counter on your IP address** disappears by itself, two hours after your last
+     message.`,
+    `**Execution data at n8n** may be retained. We cannot confirm automatic deletion after a fixed period. You can ask us to have your message data removed.`,
+    `**Server logs** are subject to our hosting provider's retention periods.`
   ]),
   p`If you would rather we removed it sooner, an e-mail is enough. See
     [Your rights](clause:07).`,
@@ -256,9 +253,7 @@ const en = [
     first ourselves, but that right does not depend on us.`,
 
   h2`Changes`,
-  p`If what we process changes, we change this page and move the date at the
-    top. There is no archive of older versions: the page describes what the site
-    does today.`
+  p`If what we process changes, we update this page and the date at the top.`
 ];
 
 /* ------------------------------------------------------------------ *
@@ -270,9 +265,8 @@ const fr = [
   p`${CONTROLLER}, ${VAT}, Mijnschoolstraat 18, 3580 Beringen, en Belgique, est le responsable
     du traitement. Vous nous joignez à [${EMAIL}](mailto:${EMAIL}) ou au
     [${PHONE}](${PHONE_HREF}). Nous n'avons pas désigné de délégué à la
-    protection des données :
-    nous sommes trop petits pour y être tenus, et votre question arrive chez
-    l'un des deux fondateurs.`,
+    protection des données : votre question arrive directement chez l'un des deux
+    fondateurs.`,
 
   h2`Ce que nous recueillons`,
   p`Il y a un seul endroit sur ce site où vous laissez des données, et c'est le
@@ -305,8 +299,8 @@ const fr = [
     1, b) et f) du RGPD : des mesures précontractuelles prises à votre demande,
     et notre intérêt légitime à pouvoir répondre à une question.`,
   p`Nous traitons votre adresse IP pour protéger le formulaire du spam et des
-    abus. C'est l'article 6, paragraphe 1, f) : sans cette protection, un
-    formulaire ouvert devient inutilisable en une journée.`,
+    abus. C'est notre intérêt légitime, article 6, paragraphe 1, f) : sans cette protection,
+    un formulaire ouvert devient inutilisable en une journée.`,
 
   h2`Qui voit votre message`,
   p`Votre message ne va pas plus loin que ces parties, et nous ne vendons ni ne
@@ -314,8 +308,7 @@ const fr = [
   list([
     `**Cloudflare** héberge ce site, fournit le contrôle antispam (Turnstile) et
      conserve brièvement le compteur rattaché à votre adresse IP.`,
-    `**n8n Cloud** (région UE) reprend votre message depuis notre serveur et le
-     transmet. Il ne le conserve pas.`,
+    `**n8n Cloud** traite et transmet votre message. Les données du message peuvent aussi être enregistrées dans l'historique des exécutions.`,
     `**Slack** est l'endroit où votre message nous parvient, en même temps qu'un
      e-mail vers notre propre boîte.`
   ]),
@@ -331,11 +324,10 @@ const fr = [
      nous en occupons, puis jusqu'à 24 mois après notre dernier contact. Si vous
      devenez client, votre dossier relève des durées de conservation de cette
      collaboration.`,
-    `**Le compteur lié à votre adresse IP** disparaît automatiquement après deux
-     heures. Ce n'est pas une estimation : la clé est écrite avec une expiration
-     de 7200 secondes, puis effacée.`,
-    `**Les journaux de serveur** relèvent des durées de conservation de notre
-     hébergeur.`
+    `**Le compteur lié à votre adresse IP** disparaît de lui-même, deux heures après votre
+     dernier message.`,
+    `**Les données d'exécution chez n8n** peuvent être conservées. Nous ne pouvons pas confirmer leur suppression automatique après une durée fixe. Vous pouvez nous demander de faire supprimer les données de votre message.`,
+    `**Les journaux serveur** sont soumis aux durées de conservation de notre hébergeur.`
   ]),
   p`Si vous préférez que nous l'effacions plus tôt, un e-mail suffit. Voyez
     [Vos droits](clause:07).`,
@@ -372,8 +364,7 @@ const fr = [
 
   h2`Modifications`,
   p`Si ce que nous traitons change, nous modifions cette page et déplaçons la
-    date en haut. Il n'y a pas d'archive des versions antérieures : la page
-    décrit ce que le site fait aujourd'hui.`
+    date de mise à jour en haut.`
 ];
 
 export const body = { nl, en, fr };

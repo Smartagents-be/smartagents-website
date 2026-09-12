@@ -90,15 +90,19 @@ ${contact(t, lang)}
 };
 
 /* ------------------------------------------------------------------ *
- * The hero: the headline, and the two founders under it. The petal hangs off
- * the right edge alongside the pair rather than in place of them.
+ * The hero: the headline, and the two founders under it. `teamHeroPair` hangs
+ * off the right edge alongside the pair rather than in place of them — this
+ * page's own shape, two equal lobes traced as a metaball union, so the waist
+ * between them is a pair of concave fillets and there is no corner in it.
+ * `amp` 52 and `sigma` 92 are the jobs hero's numbers, lowered from the petal's
+ * 86 and 118 because the whole drawing is the waist.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
   return html`<section id="team-hero" class="hero hero--team" aria-labelledby="team-hero-title">
 ${orbitRings('team-hero')}
   <div id="team-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    <div id="team-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="team-hero-nodes-right"></sa-node-field></div>
+    <div id="team-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="420" data-magnet-amp="52" data-magnet-sigma="92" data-clip="teamHeroPair"><sa-node-field id="team-hero-nodes-right"></sa-node-field></div>
   </div>
   <div id="team-hero-head" class="team-hero__head">
     <h1 id="team-hero-title">${t('team.hero.title')}</h1>

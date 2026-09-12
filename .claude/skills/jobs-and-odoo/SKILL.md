@@ -39,7 +39,8 @@ happens.
   while the site renders, and `src/pages/jobs.mjs` prints whatever came back.
   Nothing about a vacancy is authored in this repo — the chrome around the list
   is (`jobs.vacancies.title`, `jobs.vacancies.empty`, `jobs.cta.apply`), the
-  vacancy is not. Each row's action goes to that job's own Odoo application
+  vacancy is not. The one thing this repo adds is a reviewed correction layer
+  keyed on exact sentences, described below. Each row's action goes to that job's own Odoo application
   form, which is the point of the integration: an applicant lands in Recruitment
   with a stage and a file rather than in the contact webhook.
   - **Three sources, and the build never fails on any of them.** The external
@@ -76,11 +77,29 @@ happens.
     off the partner and joins them the same way, so a vacancy cannot change its
     location text because a build fell back from one source to the other. Odoo
     returns the country in the recruitment site's own language rather than the
-    reader's, so the Dutch page says "Beringen, Belgium". That is Odoo's to fix
-    or to leave. **Nothing on this page rewrites Odoo's content** — not the
-    country, not the typo in the current job description. The one thing that is
-    changed is form, not substance: a description authored as dashed lines
-    becomes a real list, because the alternative is a dash inside a bullet.
+    reader's, so a raw read says "Beringen, Belgium" in every language. Today
+    the page prints no location at all; the field is read, normalised and kept
+    in the snapshot so it is there the day a row wants it. What the build
+    changes on its own is form, not substance: a description authored as dashed
+    lines becomes a real list, because the alternative is a dash inside a
+    bullet.
+  - **A reviewed correction layer sits between Odoo and the page, keyed on
+    exact sentences.** `build/lib/job-copy.mjs` runs
+    `src/content/jobs/editorial-copy.json` over every read — API, public page
+    or snapshot. An entry names a job by slug and, per point, the exact source
+    sentences it may replace (`sources`) and the reviewed Dutch, English and
+    French to print instead; a location string is mapped the same way. This is
+    what fixes the typo in the current description and puts "België" in the
+    Dutch snapshot, and it is also how a Dutch vacancy gets an English and a
+    French rendering while `en_US` is the only active language on the
+    recruitment site. Three rules keep Odoo in charge. A sentence that matches
+    no `sources` entry passes through untouched, so an edit made in Odoo wins
+    over the correction the moment it is made. A closed vacancy is gone
+    whatever the file says, because the file only rewrites rows that came back.
+    And the corrected sentence is itself listed under `sources`, so a snapshot
+    written after the layer ran — every snapshot is, see `sync:jobs` — still
+    matches on the next offline read. Add an entry only for a sentence a human
+    has reviewed, and never a translation with no Dutch source to match.
   - **English is the fallback language, and only *active* Odoo languages may be
     asked for.** Each site language names the Odoo languages that would serve it
     best first (`nl_BE` then `nl_NL`, `fr_BE` then `fr_FR`) and falls back to
@@ -117,13 +136,13 @@ happens.
   AI staffing page's `<sa-accordion>` for the vacancies and the plain hairline
   `.rows` list under it. The hero is the exception, and it is the only thing on
   the page that is drawn rather than reused. Five things are worth knowing.
-  - **It is written in `je`, and it is the only page that is.** The design
-    README's content rule is formal `u`, never `je`, and that rule is about a
-    reader deciding whether to buy. This page is read by someone deciding
-    whether to apply, and the client's own jobs copy — which this page is ported
-    from — is `je` throughout. French stays `vous`: it has no register that
-    reads as friendly and professional at once in a job ad. A page addressed to
-    a customer that slips into `je` is still a bug.
+  - **It was the first page written in `je`, and it is no longer the only
+    one.** The design README's content rule used to be formal `u`; this page
+    broke it first, because it is read by someone deciding whether to apply and
+    the client's own jobs copy — which this page is ported from — is `je`
+    throughout. The rest of the Dutch site has since followed, so nothing here
+    is a local voice any more. French stays `vous`: it has no register that
+    reads as friendly and professional at once.
   - **The open vacancy's panel has rules of its own**, which the staffing
     page's tracks did not need: a track carries two capped paragraphs, a vacancy
     carries Odoo's description as a list of lines and then the action. Both took

@@ -8,20 +8,17 @@ export const body = {
   nl: [
     p`Vanmorgen stond de koffie klaar voor een zaal vol ondernemers. Samen met
       **Aviso+** verwelkomden we hun klanten voor een ontbijtsessie rond één vraag die
-      bij veel KMO's leeft: hoe zet je AI nu écht concreet in binnen je onderneming?`,
+      bij veel kmo's leeft: hoe zet je AI nu écht concreet in binnen je onderneming?`,
     p`Het is een vraag die we vaak horen. AI klinkt groot, abstract en een beetje ver
       weg. Daarom draaiden we het om. Geen toekomstmuziek, maar tastbare voorbeelden
       die je morgen al kan gebruiken.`,
-    h2`AI hoeft geen ver-van-mijn-bed-show te zijn`,
-    p`We praten niet graag over AI als een magische doos. Het zijn **digitale
-      collega's**. Ze nemen herhaalbaar werk over, versterken je team en maken je
+    h2`AI hoeft geen ver-van-mijn-bedshow te zijn`,
+    p`We praten niet graag over AI als een magische doos. Met AI bouwen we **digitale collega's**. Ze nemen herhaalbaar werk over, versterken je team en maken je
       processen lichter.`,
-    quote`AI hoeft geen ver-van-mijn-bed-show te zijn. Het zijn digitale collega's
-      die je team versterken en je werk lichter maken.`,
+    quote`AI hoeft geen ver-van-mijn-bedshow te zijn. Digitale collega's versterken je team en maken je werk lichter.`,
     h2`Van demo naar dagelijkse praktijk`,
     p`Dat werd tastbaar zodra we de demo's bovenhaalden. Eén voorbeeld: een **avatar
-      die eruitziet en klinkt zoals jij**, opgebouwd uit één foto en een stukje
-      voorbeeldtekst. Bruikbaar voor productvideo's, onboarding, training en
+      die eruitziet en klinkt zoals jij**, opgebouwd uit één foto en een korte stemopname. Bruikbaar voor productvideo's, onboarding, training en
       meertalige klantencommunicatie, zonder telkens opnieuw voor de camera te
       kruipen.`,
     p`Elk voorbeeld vertrok vanuit een herkenbare taak: een offerte opstellen, een
@@ -32,7 +29,7 @@ export const body = {
       iedereen die erbij was, voor de boeiende gesprekken en de kritische vragen. Net
       daar begint de echte impact: niet bij de tool, maar bij de vraag wat ze voor
       jouw onderneming betekent.`,
-    p`Benieuwd hoe AI in jouw KMO het verschil maakt? [Laten we praten](#contact).`
+    p`Benieuwd hoe AI in jouw kmo het verschil maakt? [Laten we praten](#contact).`
   ],
 
   en: [
@@ -44,15 +41,13 @@ export const body = {
       So we turned it around. No distant future, just tangible examples you can use
       tomorrow.`,
     h2`AI doesn't have to be a distant promise`,
-    p`We don't like talking about AI as a magic box. They are **digital colleagues**.
+    p`We don't like talking about AI as a magic box. We use AI to build **digital colleagues**.
       They take over repeatable work, strengthen your team, and make your processes
       lighter.`,
-    quote`AI doesn't have to be a distant promise. They are digital colleagues that
-      strengthen your team and make your work lighter.`,
+    quote`AI doesn't have to be a distant promise. Digital colleagues strengthen your team and make your work lighter.`,
     h2`From demo to daily practice`,
     p`That became tangible the moment we brought out the demos. One example: an
-      **avatar that looks and sounds like you**, built from a single photo and a short
-      piece of sample text. Useful for product videos, onboarding, training, and
+      **avatar that looks and sounds like you**, built from a single photo and a short voice recording. Useful for product videos, onboarding, training, and
       multilingual customer communication, without stepping in front of the camera
       every time.`,
     p`Every example started from a recognisable task: drafting a quote, sorting a
@@ -75,15 +70,12 @@ export const body = {
       un peu lointaine. Nous avons donc pris le problème à l'envers. Pas de promesses
       lointaines, mais des exemples concrets que vous pouvez utiliser dès demain.`,
     h2`L'IA ne doit pas rester une promesse lointaine`,
-    p`Nous n'aimons pas parler de l'IA comme d'une boîte magique. Ce sont des
-      **collègues numériques**. Ils prennent en charge les tâches répétitives,
+    p`Nous n'aimons pas parler de l'IA comme d'une boîte magique. Nous utilisons l'IA pour construire des **collègues numériques**. Ils prennent en charge les tâches répétitives,
       renforcent votre équipe et allègent vos processus.`,
-    quote`L'IA ne doit pas rester une promesse lointaine. Ce sont des collègues
-      numériques qui renforcent votre équipe et allègent votre travail.`,
+    quote`L'IA ne doit pas rester une promesse lointaine. Des collègues numériques renforcent votre équipe et allègent votre travail.`,
     h2`De la démo à la pratique quotidienne`,
     p`Cela est devenu tangible dès que nous avons sorti les démos. Un exemple: un
-      **avatar qui vous ressemble et parle comme vous**, construit à partir d'une
-      seule photo et d'un court texte d'exemple. Utile pour les vidéos produit,
+      **avatar qui vous ressemble et parle comme vous**, construit à partir d'une seule photo et d'un court enregistrement vocal. Utile pour les vidéos produit,
       l'onboarding, la formation et la communication client multilingue, sans devoir
       repasser chaque fois devant la caméra.`,
     p`Chaque exemple partait d'une tâche reconnaissable: rédiger une offre, organiser

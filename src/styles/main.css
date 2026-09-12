@@ -347,7 +347,7 @@
 .contact__facts a {
   display: inline-flex;
   /* A flex container drops the whitespace between its children, so the gap is
-     declared: 0.4em, the same gap `.btn` leaves between a label and its arrow. */
+     declared: 0.4em, the gap every arrowed link on the site sets. */
   gap: 0.4em;
   align-items: center;
   min-height: 32px;
@@ -419,14 +419,44 @@
 .row {
   transition: var(--transition-move), var(--transition-tint);
   display: grid;
-  /* The cue column is reserved cue or no cue: the bodies of a list of rows have
-     to start and end on the same line. */
-  grid-template-columns: 1fr 1.9fr 116px;
+  grid-template-columns: 1fr 1.9fr;
   gap: var(--gap-column);
   align-items: baseline;
   padding: var(--space-10) var(--space-9);
   border-top: 1px solid var(--border-hairline);
   color: inherit;
+}
+
+/* The one list whose cue carries a word keeps a column for it, and the track is
+   `auto` rather than a figure: it is sized by the widest cue in the list. It
+   used to be 116px on every row on the site: a fixed column for a 16px glyph,
+   which left about a hundred pixels of paper at the end of four service rows,
+   the kata's themes and the SDLC's issues, and was too narrow for the only cue
+   that ever needed it. "Ontmoet het team →" is 137px and overflowed its own
+   track.
+
+   The track has to be struck once for the whole list, and that is what this
+   rule is. A row is its own grid, so an `auto` track declared on the row is
+   sized by that row alone: the one row with a cue paid for it out of its own
+   width and the two silent rows split the full width between two tracks, so
+   the three bodies started at three different x. The list holds the tracks
+   now and every row is a subgrid of them, which is the same thing the two
+   course columns on the training page do. Only above 1000px, because under it
+   a row stacks to one column and there is nothing left to line up. */
+@media (width >= 1001px) {
+  .rows--cued {
+    display: grid;
+    grid-template-columns: 1fr 1.9fr auto;
+    /* The row keeps its own `gap` for the stacked case; matched here so the
+       subgrid's gutters and the parent's are the same figure and the tracks
+       land on the parent's lines. */
+    gap: 0 var(--gap-column);
+  }
+
+  .rows--cued .row {
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
 }
 
 .row__title {
@@ -441,17 +471,28 @@
   line-height: var(--leading-body);
 }
 
-/* The arrow at the end of a row that links, and it is the arrow alone: the row
-   is a link end to end and its own title names the destination.
+/* The arrow of a row that links, after the row's own title: alone in a third
+   column it was a 16px glyph in 116px of paper. It is inline, glued to the last
+   word by the no-break space in the markup, so it follows the title wherever it
+   wraps; an inline box takes no transform, so the row's own 3px is the travel.
    `.row__cue--named` is the exception — the jobs page's three "Werken bij" rows,
-   where only the middle one goes anywhere and an arrow is a difference a reader
-   has to notice before they can read it. */
+   where only the middle one goes anywhere and a word says where. A word is not
+   read off a title, so it keeps its column, its size and the lead. */
 .row__cue {
-  transition: transform var(--dur-move) var(--ease-out-expo);
+  /* The no-break space is in the markup and it is what glues the arrow to the
+     last word; this is the rest of the gap. A space plus 0.15em is the 0.4em
+     `.section-link` and the two fiches set their own arrows at, so the three
+     idioms match at three different type sizes. */
+  margin-left: 0.15em;
   color: var(--text-accent);
-  font-size: var(--text-ui-sm);
   font-weight: var(--weight-medium-plus);
   white-space: nowrap;
+}
+
+.row__cue--named {
+  transition: transform var(--dur-move) var(--ease-out-expo);
+  margin-left: 0;
+  font-size: var(--text-ui-sm);
 }
 
 /* One hover for the three lists that have rows: a wash, the row's own ink kept,
@@ -464,8 +505,7 @@ a.article-row:hover,
   transform: translateX(3px);
 }
 
-a.row:hover .row__cue,
-a.article-row:hover .article-row__cue {
+a.row:hover .row__cue--named {
   transform: translateX(5px);
 }
 
@@ -579,7 +619,7 @@ a.article-row:hover .article-row__cue {
 .dna__helix {
   position: absolute;
   inset: 0;
-  clip-path: url(#dnaFieldMask);
+  /* The parent field clips both the background and helix as its edge moves. */
   pointer-events: none;
 }
 
@@ -906,20 +946,13 @@ a.article-row:hover .article-row__cue {
   line-height: var(--leading-body-tight);
 }
 
-/* The linked-row cue, on its own line under the badges: `width: 100%` is what
-   breaks the meta's wrap, and the alignment follows the column it stands in.
-   It stops 10px short of the content edge the badges end on, because the row
-   travels 3px on hover and the arrow another 5 — flush, the one thing on the
-   page that moves would be the one thing that overhangs the vertical every
-   other block ends on. */
+/* An article with a page behind it gets the same cue a linked service row
+   gets, in the same place: after the title. */
 .article-row__cue {
-  transition: transform var(--dur-move) var(--ease-out-expo);
-  width: 100%;
-  padding-right: var(--space-4);
+  margin-left: 0.15em;
   color: var(--text-accent);
-  font-size: var(--text-ui-sm);
   font-weight: var(--weight-medium-plus);
-  text-align: right;
+  white-space: nowrap;
 }
 
 /* The grade only lifts where there is a link to reward the hover. */
@@ -947,10 +980,6 @@ a.article-row:hover .article-row__image {
     justify-content: flex-start;
     padding-top: 0;
   }
-
-  .article-row__cue {
-    text-align: left;
-  }
 }
 
 /* Where the article stacks: the picture takes a column half the page wide and
@@ -971,10 +1000,6 @@ a.article-row:hover .article-row__image {
   .article-row__meta {
     justify-content: flex-start;
     padding-top: 0;
-  }
-
-  .article-row__cue {
-    text-align: left;
   }
 }
 
@@ -1572,33 +1597,44 @@ sa-node-field {
   max-width: 17ch;
 }
 
-/* The bead above the petal's shoulder, on the training page alone. It hangs
-   inside the petal's own box, so the two travel together — but only in position:
-   the size is keyed to the viewport, so a page that moves the field moves the
-   bead without resizing it, and the gap below moves with it.
+/* The bead beside the swell's upper flank, on the training page alone. It
+   hangs inside the swell's own box, the way the staffing pebbles hang inside the
+   arch's, so the composition travels and scales as one thing.
 
-   A slot with a stable box, not insets on the field. A box struck as a share of
-   the hero in both axes stretches without limit — the staffing pebbles run 1.20
-   to 2.15 in aspect between 1440 and 2560 — and a stretched bead reads as a
-   pill. Held here the drift is 1.30 to 1.45. What may never take a width or a
-   height is the `.field` inside it: src/motion.js grows a magnet's box by
-   subtracting from all four offsets, and a size would move it instead.
+   Everything about it is a share of that box: the swell's body reaches x 0.26
+   and its upper flank crosses x 0.45 at y 0.40, so a fixed-width bead overlaps
+   it in a 476px box at 1081 and strands itself in a 660px one at the cap.
+   `aspect-ratio` rather than a height, because `heroPebbleA` in a square box is
+   a disc; 1.3 is the drawing's own.
 
-   The band is struck off the petal's upper flank: the bead's underside stands
-   41px from the drawn edge at 1081, 50 at 1440, 61 at 2560, against the 60px a
-   join closes at on the displaced outlines. Move it up and it hangs off the bar;
-   move it down and the two read as one shape at rest. Re-measure the band
-   whenever the width floor moves — a wider bead meets a higher part of the flank.
+   `top: 17%` keeps it under the header in the empty upper-left quarter of the
+   box. Its nearest point lands on the body's convex bulge below the upper bay,
+   at (0.35-0.39, 0.42-0.46) of the box at every width, never in the mouth of a
+   bay: parked there the join bridges the opening and seals it into a lens of
+   paper. Re-measure the resting gap whenever the hero's height or the cap
+   moves. At rest it holds a node or two and now and then nothing — ~14k px²
+   against one node per 8700px² (`NODE_AREA`) — and under the cursor the join
+   hands it the swell's network. What may never take a width or a height is the
+   `.field` inside the slot: src/motion.js grows a magnet's box by subtracting
+   from all four offsets. */
+/* The training hero's box, capped: `.hero__field--right` is a share of the page
+   against a fixed-height hero, so uncapped its aspect runs from under 1 at 1081
+   to over 2 at 2560, and a body with three swellings comes out as a lozenge.
+   `left: auto` leaves the weld on `right: 0`. The kata page takes the same
+   silhouette and so the same cap; it carries no bead. */
+@media (width >= 1081px) {
+  .hero--training .hero__field--right,
+  .hero--kata .hero__field--right {
+    left: auto;
+    width: min(44vw, 660px);
+  }
+}
 
-   At rest it holds a node or two and now and then nothing: the silhouette is
-   ~14k px² against one node per 8700px² (`NODE_AREA`), so a blank draw is an
-   ordinary outcome. The weave arrives at about twice this area, which does not
-   fit the 185px band under the header. */
 .hero__bead {
-  top: 4.05%;
-  left: 10.09%;
-  width: clamp(154px, 10.4vw, 172px);
-  height: 118px;
+  top: 17%;
+  left: 10%;
+  width: 24.3%;
+  aspect-ratio: 1.3;
 }
 
 /* The bead exists for the join, so it is printed only where a join can happen:
@@ -1671,8 +1707,63 @@ sa-node-field {
  * Ons aanbod — two courses side by side
  *
  * A vertical hairline splits them, so the pair reads as two columns of one
- * page rather than two cards. No index, no card, no shadow.
+ * page rather than two cards. No index, no card, no shadow; the pair sits on a
+ * paper sheet over the dark field.
  * ------------------------------------------------------------------ */
+
+/* The offer is a sheet above the field. Full silhouettes continue behind it,
+   so the exposed curves belong to a larger space beneath the content. The sheet
+   carries no shadow: the design README allows none on the offer, and where the
+   sheet crosses navy the edge of paper over ink is all the separation it needs. */
+.section--training-offer {
+  z-index: 2;
+}
+
+.training-offer__surface {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 0 0 40px 0;
+  background: var(--surface-page);
+}
+
+.training-offer__surface .offer-course {
+  border-bottom: 0;
+}
+
+/* The broad field enters from the left edge beneath the offer. Its 80px
+   reveal plus 20px cursor pull stays above the heading at 104px. */
+.training-offer__field {
+  left: -12%;
+  right: 46%;
+  bottom: -80px;
+  height: clamp(340px, 30vw, 460px);
+}
+
+.training-offer__companion {
+  right: 22vw;
+  bottom: -135px;
+  width: clamp(130px, 11vw, 180px);
+  aspect-ratio: 1.35;
+}
+
+@media (width < 941px) {
+  .training-offer__surface {
+    border-bottom-right-radius: 28px;
+  }
+
+  .training-offer__field {
+    left: -12%;
+    right: 64%;
+    bottom: -52px;
+    height: 230px;
+  }
+
+  .training-offer__companion {
+    display: none;
+  }
+}
 
 .offer {
   display: grid;
@@ -2000,51 +2091,20 @@ sa-node-field {
   border-top: 1px solid var(--border-hairline);
 }
 
-/* The head is the ground: anchoring the stone to its bottom edge puts the foot
-   on the tour's rule however the heading above it wraps. */
-.tour__ground {
-  position: relative;
+/* Leave room for the field to emerge beside the heading, above the video. */
+.section--training-format {
+  padding-top: 104px;
 }
 
-/* Right-aligned to the video below it. Capped at 218px: the rhythm stops
-   growing at 104px, which leaves ~50px of headroom for the stone's 42px swell
-   under the rule closing the offer. */
-.tour__stone {
-  right: var(--space-9);
-  bottom: 0;
-  width: clamp(142px, 15.2vw, 218px);
-  aspect-ratio: 1.5 / 1;
-}
-
-/* Hung from the rule the offer closes on, and crossing the split between the
-   two courses by one step of the scale, so it hangs under the corner rather than
-   centring on either course. The offer is a two-column grid inside the page
-   gutters, so the split is at exactly 50% of this box. */
-.tour__dome {
-  top: 0;
-  /* Offset from the split in the same units as the width: a fixed offset would
-     let the disc and the stone close on each other as the viewport narrows. */
-  left: calc(50% + 3.9vw);
-  /* Not a plain vw: the stone grows too, and both plus the gutter eat into the
-     run faster than it grows. The offset term holds the narrow end open. */
-  width: clamp(180px, calc(26vw - 66px), 340px);
-  aspect-ratio: 2.6 / 1;
-}
-
-/* Below the width the magnets run at, the longest heading starts reaching past
-   the left end of the disc, so flatten it and keep the belly off the rule. */
-@media (width < 1081px) {
-  .tour__dome {
-    aspect-ratio: 2.95 / 1;
-  }
-}
-
-/* Stacked, the heading and the copy take the band back. */
 @media (width < 941px) {
-  .tour__dome,
-  .tour__stone {
-    display: none;
+  .section--training-format {
+    padding-top: 80px;
   }
+}
+
+.tour--training {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .tour__body {
@@ -2426,7 +2486,7 @@ sa-node-field {
  * ------------------------------------------------------------------ */
 
 /* Its own grid: one column holding the head and the pair, the remaining width
-   left to the petal. The orbits and the field are out of flow. */
+   left to the shape. The orbits and the field are out of flow. */
 .hero--team {
   display: grid;
   grid-template-columns: minmax(0, 60%);
@@ -2435,11 +2495,27 @@ sa-node-field {
 }
 
 /* Pulled further right than the other heroes: it shares the hero with the pair
-   rather than standing in for them. The negative bottom offset runs the petal
+   rather than standing in for them. The negative bottom offset runs the shape
    past the hero's edge so it does not read as cut off at the pair's feet — no
    deeper than one `--section-rhythm`, or navy lands behind the form's fields. */
 .hero--team .hero__field--right {
   inset: 0.8% 0 -10% 62%;
+}
+
+/* The width, capped, from the tablet's own band up. `teamHeroPair` is two lobes
+   of nearly one size run together on a diagonal, and a box struck as 38% of the
+   page against a hero whose height is the two portraits' hands that pair the
+   page's whole width: 411px across at 1081 and 730 at 1920 on a box about 700
+   tall, so the waist turns from a vertical pinch into a horizontal one and the
+   two lobes stop being a pair and become a lozenge lying down. `min(38vw, 620px)`
+   holds the aspect between about 0.55 and 0.97 and leaves the weld alone, because
+   `left` is `auto` and the shape hangs from `right: 0`. The training swell above
+   takes the same lever for the same reason. */
+@media (width >= 1081px) {
+  .hero--team .hero__field--right {
+    left: auto;
+    width: min(38vw, 620px);
+  }
 }
 
 .team-hero__head {
@@ -2572,7 +2648,7 @@ sa-node-field {
   line-height: var(--leading-body-tight);
 }
 
-/* Between the magnet breakpoint and the stack, the petal pulls back and the pair
+/* Between the magnet breakpoint and the stack, the shape pulls back and the pair
    takes the width: two portraits split what is left, so every point the shape
    gives up is worth twice as much to them. */
 @media (width < 1081px) {
@@ -2592,7 +2668,7 @@ sa-node-field {
 }
 
 /* The tablet. The pair needs the whole page, so the hero splits horizontally:
-   the headline keeps a column with the petal hung off the right edge beside it,
+   the headline keeps a column with the shape hung off the right edge beside it,
    and the two faces take the full width underneath. A flat band across the page
    under a block of copy reads as a misprint — the homepage refuses it too. */
 @media (621px <= width < 941px) {
@@ -2607,7 +2683,7 @@ sa-node-field {
   .hero--team .team-hero__head {
     display: grid;
     grid-area: 1 / 1;
-    /* The petal is the tall thing in the row, so the headline reads on its
+    /* The shape is the tall thing in the row, so the headline reads on its
        centre line rather than hanging at the top of an empty column. */
     align-content: center;
   }

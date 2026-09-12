@@ -259,11 +259,10 @@ const PEBBLE_B =
 
 /**
  * Shapes a page needs that its markup never names, keyed by the one it does:
- * `heroSwoop` is what every hero silhouette becomes below 620px, and
- * `dnaFieldMask` holds the rotating helix inside the disc. Both are a
- * stylesheet reaching for a second path on the page's behalf. A third one
- * belongs here too — `check-dist.mjs` fails the build on a `clip-path:
- * url(#id)` with no `<clipPath>` behind it.
+ * `heroSwoop` is what every hero silhouette becomes below 620px: a stylesheet
+ * reaching for a second path on the page's behalf. A new one belongs here too —
+ * `check-dist.mjs` fails the build on a `clip-path: url(#id)` with no
+ * `<clipPath>` behind it.
  */
 const CLIP_ALSO = {
   heroPetal: ['heroSwoop'],
@@ -271,7 +270,8 @@ const CLIP_ALSO = {
   sdlcHeroRidge: ['heroSwoop'],
   processLobe: ['heroSwoop'],
   jobsJoin: ['heroSwoop'],
-  dnaField: ['dnaFieldMask']
+  trainingHeroSwell: ['heroSwoop'],
+  teamHeroPair: ['heroSwoop']
 };
 
 /**
@@ -296,20 +296,22 @@ export function clipDefs(body) {
   const paths = {
     // hero: a petal hung off the right edge, pinching almost shut at mid-height
     // where the copy passes. Below 940px it becomes a band under the copy.
+    // It is the homepage's alone: the training and team pages drew it too, and
+    // three heroes on one silhouette read as a template. They have their own now.
     heroPetal:
       'M1,0.000 C0.930,0.124 0.800,0.227 0.600,0.281 C0.400,0.335 0.132,0.396 0.052,0.484 C0.008,0.532 0.030,0.578 0.114,0.620 C0.198,0.662 0.348,0.694 0.520,0.734 C0.700,0.776 0.858,0.822 0.930,0.888 C0.976,0.930 1.000,0.958 1,1.000 Z',
-    // hero, the counter-shape: a lobe rising out of the bottom-left to a rounded
-    // tip, so the pair reads bottom-left to top-right rather than as a mirror.
+    // A compact, rounded flank with a detached island beside its convex edge.
+    // The space between them lets the cursor draw the two bodies together.
     heroLobe:
-      'M0,0.000 C0.032,0.155 0.090,0.315 0.175,0.450 C0.258,0.552 0.382,0.620 0.530,0.660 C0.642,0.690 0.732,0.708 0.800,0.708 C0.8263,0.708 0.8476,0.7286 0.8476,0.754 C0.8476,0.7794 0.8263,0.800 0.800,0.800 C0.560,0.812 0.320,0.826 0.170,0.878 C0.090,0.908 0.030,0.962 0,1 Z',
+      'M0,0 C0.035,0.160 0.070,0.290 0.150,0.400 C0.230,0.510 0.400,0.520 0.430,0.650 C0.465,0.800 0.320,0.890 0.170,0.920 C0.080,0.938 0.030,0.970 0,1 Z',
+    homeHeroIsland:
+      'M0.050,0.480 C0.080,0.240 0.300,0.070 0.570,0.080 C0.820,0.090 0.990,0.280 0.960,0.540 C0.930,0.800 0.700,0.960 0.430,0.930 C0.180,0.902 0.020,0.720 0.050,0.480 Z',
     // hero on a phone: the petal reduced to the sliver that fits beside one
     // column of copy. Welded to the top and the right, free of the other two.
     heroSwoop:
       'M0.670,0.000 C0.772,0.074 0.848,0.148 0.890,0.214 C0.922,0.270 0.912,0.324 0.878,0.368 C0.848,0.408 0.876,0.452 0.928,0.492 C0.966,0.522 0.990,0.552 1.000,0.578 L1.000,0.000 Z',
-    // Ons DNA: a disc, and the same silhouette again as a mask for the helix
+    // Ons DNA: the disc clips its helix too, including magnetic deformations.
     dnaField:
-      'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
-    dnaFieldMask:
       'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
     // The small companion. The four handles are set by curvature rather than by
     // eye, so the radius runs on across each join instead of stepping — drawn by
@@ -317,16 +319,22 @@ export function clipDefs(body) {
     // and the lengths want refitting.
     dnaBlob:
       'M0.330,0.045 C0.560,-0.030 0.800,0.115 0.910,0.345 C1.020,0.580 0.980,0.845 0.790,0.955 C0.600,1.060 0.3360,0.9882 0.180,0.775 C0.0466,0.5910 0.0048,0.3312 0.140,0.170 C0.1884,0.1128 0.260,0.068 0.330,0.045 Z',
-    // Hoe een cursus verloopt: a stone on the hairline the tour hangs from. It
-    // stands on a fifth of its own width, so the cursor rocks it without lifting.
-    tourStone:
-      'M0.560,1.000 C0.740,0.995 0.880,0.930 0.945,0.800 C1.000,0.688 0.980,0.545 0.895,0.430 C0.800,0.302 0.640,0.190 0.470,0.120 C0.330,0.062 0.210,0.048 0.140,0.100 C0.060,0.160 0.030,0.320 0.055,0.510 C0.082,0.716 0.180,0.900 0.300,0.970 C0.375,1.014 0.450,1.004 0.560,1.000 Z',
-    // The counterweight under the agentic engineering course: flat top welded to
-    // the rule that closes the offer, free-hand underside running out long and
-    // shallow to the right. The one easing lifts 4px over 37px, which is about
-    // the limit — twice that and the underside reads as scallops.
-    tourDome:
-      'M0,0 L1,0 C0.978,0.150 0.835,0.330 0.780,0.330 C0.742,0.330 0.698,0.295 0.660,0.295 C0.560,0.295 0.340,1.000 0.230,1.000 C0.130,1.000 0.018,0.560 0,0 Z',
+    // Training: a body, a shoulder and a foot run together into one mass hung
+    // off the right page edge — three lobes, (530, 150) r 116, (300, 340) r 124
+    // and (582, 382) r 92 in the pixels of the box at 1440, summed as Σ r²/d²,
+    // traced at the 1 contour and written out as a cubic chain, the way
+    // `jobsJoin` is. It replaced the petal, whose pinch reads at hero scale as a
+    // spike. The two bays in the left flank are not authored, and the bead
+    // (`.hero__bead`) stands off a convex stretch: a free shape in the mouth of
+    // a bay bridges it and seals it into an island.
+    trainingHeroSwell:
+      'M1,0.154 C0.980,0.137 0.925,0.066 0.880,0.054 C0.835,0.042 0.770,0.056 0.728,0.081 C0.686,0.106 0.659,0.161 0.630,0.205 C0.601,0.250 0.593,0.312 0.556,0.346 C0.520,0.380 0.453,0.381 0.411,0.411 C0.369,0.441 0.327,0.481 0.302,0.526 C0.277,0.570 0.264,0.628 0.264,0.679 C0.263,0.731 0.274,0.790 0.298,0.834 C0.321,0.879 0.363,0.927 0.407,0.947 C0.451,0.967 0.512,0.961 0.563,0.953 C0.613,0.946 0.663,0.896 0.711,0.901 C0.759,0.905 0.800,0.971 0.849,0.981 C0.897,0.990 0.975,0.962 1,0.958 L1,0.154 Z',
+    // Team: two lobes of nearly one size, (430, 230) r 155 and (300, 530) r 170,
+    // run together on a diagonal and hung off the right page edge; the waist is
+    // the figure. Equal lobes, the diagonal the other way and a weld keep it off
+    // the jobs join, the other traced union on the site.
+    teamHeroPair:
+      'M1,0.159 C0.976,0.149 0.908,0.108 0.859,0.098 C0.809,0.088 0.754,0.088 0.704,0.098 C0.655,0.108 0.602,0.129 0.562,0.158 C0.522,0.188 0.489,0.232 0.464,0.276 C0.438,0.320 0.436,0.378 0.410,0.422 C0.384,0.465 0.338,0.497 0.308,0.538 C0.277,0.579 0.238,0.621 0.225,0.668 C0.213,0.715 0.215,0.775 0.233,0.820 C0.251,0.864 0.293,0.907 0.334,0.935 C0.375,0.964 0.428,0.982 0.478,0.991 C0.528,1.000 0.583,0.999 0.633,0.990 C0.682,0.980 0.735,0.961 0.776,0.932 C0.817,0.904 0.855,0.863 0.880,0.819 C0.905,0.776 0.905,0.718 0.925,0.671 C0.945,0.624 0.987,0.560 1,0.538 L1,0.159 Z',
     // AI staffing en coaching: an arch, one long descent from the top edge down
     // to the bottom right corner. Three turns of the same curve, each easing out
     // of the last, because struck as a single sweep it reads as a bevel — and
@@ -337,8 +345,9 @@ export function clipDefs(body) {
     // The two pebbles that fall away from the arch into the light half of the
     // hero. Both off-round — a circle beside a hand-drawn arch reads as a bullet
     // — with the flatter side on the larger, so the pair has a heavy and a light.
-    // `heroPebbleA` is not the staffing page's alone: the training hero stands
-    // one above the petal's shoulder (`.hero__bead`), so redrawing it moves both.
+    // `heroPebbleA` is shared: the training bead (`.hero__bead`), a jobs drift
+    // and the training offer's companion all draw it, so redrawing it moves all
+    // three, and its off-round is why the bead's box is an `aspect-ratio`.
     heroPebbleA: PEBBLE_A,
     heroPebbleB: PEBBLE_B,
     // The two smaller blobs of the businessprocessen line. Separate ids because

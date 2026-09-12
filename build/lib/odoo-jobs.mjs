@@ -2,7 +2,9 @@
 //
 // Odoo owns the list, and each vacancy's action goes to that job's own Odoo
 // application form, so a candidate lands in Recruitment rather than in the
-// contact webhook. What is authored in this repo is the chrome around it.
+// contact webhook. What is authored in this repo is the chrome around it, plus
+// the reviewed sentence corrections in `src/content/jobs/editorial-copy.json`,
+// which match exact source sentences so Odoo stays authoritative.
 //
 // Three sources, tried in order, and the build never fails on any of them:
 //
@@ -33,6 +35,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { languages } from './i18n.mjs';
+import { applyEditorialCopy } from './job-copy.mjs';
 
 /** Where the recruitment site lives. Overridable for a staging database. */
 export const ODOO_ORIGIN = (process.env.ODOO_ORIGIN || 'https://smartagents.odoo.com').replace(/\/$/, '');
@@ -373,7 +376,7 @@ async function byResolvedLanguage(resolved, read) {
  *                                  offline checks want
  * @returns {Promise<{source: string, byLang: Record<string, Vacancy[]>, warning: string|null}>}
  */
-export async function readVacancies({ rootDir, live = true }) {
+async function readRawVacancies({ rootDir, live = true }) {
   if (!live) {
     return { source: 'snapshot', ...fromSnapshot(rootDir), warning: null };
   }
@@ -450,6 +453,12 @@ export async function readVacancies({ rootDir, live = true }) {
     ...fromSnapshot(rootDir),
     warning: `${failures.join(' · ')} — fell back to ${SNAPSHOT_PATH}`
   };
+}
+
+/** Correct only reviewed source sentences; Odoo still owns the job list and links. */
+export async function readVacancies(options) {
+  const result = await readRawVacancies(options);
+  return { ...result, byLang: applyEditorialCopy(result.byLang) };
 }
 
 export { SNAPSHOT_PATH, ODOO_LANG };

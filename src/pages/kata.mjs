@@ -121,10 +121,10 @@ ${contact(t, lang)}
 function hero(t, lang) {
   const parent = servicePath('training', lang);
 
-  return html`<section id="kata-hero" class="hero hero--page">
+  return html`<section id="kata-hero" class="hero hero--page hero--kata">
 ${orbitRings('kata-hero')}
   <div id="kata-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    <div id="kata-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="kata-hero-nodes-right"></sa-node-field></div>
+    <div id="kata-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="420" data-magnet-amp="56" data-magnet-sigma="96" data-clip="trainingHeroSwell"><sa-node-field id="kata-hero-nodes-right"></sa-node-field></div>
   </div>
   <div id="kata-hero-inner" class="hero__inner">
     <div id="kata-hero-text" class="hero__text">
@@ -144,7 +144,7 @@ ${parent
       <!-- The standfirst; see the note in the training page's hero. -->
       <div id="kata-hero-actions" class="hero__actions">
         <a id="kata-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
-        <a id="kata-hero-cta-day" class="btn btn--ghost" href="#kata-day">${t('kata.cta.day')} <span id="kata-hero-cta-day-arrow" aria-hidden="true">&rarr;</span></a>
+        <a id="kata-hero-cta-day" class="btn btn--ghost" href="#kata-day">${t('kata.cta.day')}</a>
       </div>
     </div>
   </div>

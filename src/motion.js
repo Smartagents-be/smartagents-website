@@ -939,7 +939,8 @@ function joins(items, linked) {
 
       // The union covers the bodies it was struck from, so it is painted by the
       // lowest of them: every other shape paints its own body over the top, and
-      // nothing a shape carries above a neighbour can be painted out.
+      // nothing a shape carries inside its own box (the DNA helix, a child of
+      // the disc and clipped by it) can be painted out.
       const host = group[0].item;
 
       // Wound the way that host's body is wound, or the nonzero rule reads the

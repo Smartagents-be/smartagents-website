@@ -5,6 +5,12 @@
 // build deliberately does not write it — a build that edits tracked files leaves
 // a dirty tree behind, and the moment you want to *see* what Odoo now says is
 // the moment it changes. It needs the network, so it is not part of the build.
+//
+// What is written is what the site prints, not the raw read: `readVacancies`
+// runs the reviewed corrections in `src/content/jobs/editorial-copy.json`
+// first, so a snapshot carries the corrected Dutch and the English and French
+// renderings Odoo never produced. A sentence Odoo has since changed matches no
+// `sources` entry and comes through untouched, so the diff still shows it.
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

@@ -18,11 +18,11 @@ export const body = {
     list([
       `we brengen processen in kaart en elimineren manueel werk`,
       `we trainen teams zodat ze AI zelf leren hanteren`,
-      `we bouwen ai agents, software die taken volledig zelfstandig uitvoert.`
+      `we bouwen AI-agents, software die taken volledig zelfstandig uitvoert.`
     ]),
     p`Het eerste wat we aanbieden is de **SmartScan**: een korte doorlichting die in
-      kaart brengt waar AI bij jou het meeste verschil maakt. Daarmee pakken we ook
-      direct de eerste van onze diensten aan.`
+      kaart brengt waar AI bij jou het meeste verschil maakt. Zo weet je meteen welke taken je
+      het eerst aanpakt.`
   ],
 
   en: [
@@ -38,11 +38,11 @@ export const body = {
     list([
       `mapping processes and cutting out manual work`,
       `training teams so they can use AI themselves`,
-      `and building ai agents, software that carries out tasks fully autonomously.`
+      `building AI agents, software that carries out tasks fully autonomously.`
     ]),
     p`The first thing we offer is the **SmartScan**: a short assessment that maps out
-      where AI will make the biggest difference for you and your team. This directly
-      tackles the first of our services.`
+      where AI will make the biggest difference for you and your team. That shows you straight
+      away which tasks to tackle first.`
   ],
 
   fr: [
@@ -61,11 +61,10 @@ export const body = {
     list([
       `nous cartographions les processus et éliminons le travail manuel`,
       `nous formons les équipes pour qu'elles apprennent à utiliser l'IA elles-mêmes`,
-      `nous construisons des agents IA, des logiciels qui exécutent des tâches de
-       façon entièrement autonome.`
+      `nous construisons des agents IA, des logiciels qui exécutent des tâches de façon entièrement autonome.`
     ]),
     p`La première chose que nous proposons est le **SmartScan**: une analyse rapide
-      qui identifie là où l'IA fait la plus grande différence chez vous. Cela
-      s'attaque ainsi directement au premier de nos services.`
+      qui identifie là où l'IA fait la plus grande différence chez vous. Vous savez ainsi tout de
+      suite par quelles tâches commencer.`
   ]
 };

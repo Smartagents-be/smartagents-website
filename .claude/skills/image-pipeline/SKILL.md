@@ -29,6 +29,18 @@ Two blocks carry pictures and both sets were derived once, by hand, with
   the four — aviso is 1600px across and smartspace 3710px, what-works is 996px
   and launch 542px.
 
+**The portraits' own sources are not in `public/`.** The two full-resolution
+frames live in a deck's asset folder,
+`src/content/secured/presentations/advocatuur-pitch/assets/{axel,tom}-profile.webp`
+(Axel at 2403x3600, Tom at 1201x1800), and that is where a re-crop is cut from.
+Tom's published set is his whole frame, scaled; Axel's is a crop, because the
+photographer stood further back for him and at the full frame his head read a
+quarter smaller than Tom's beside it. The two were matched by aligning the top
+of the head: Axel is cut at 1340x2010 from (854, 504), which puts his head at
+the same size and the same height in the card as Tom's. Re-cut from the
+original rather than from a published file, and hold to that pair of rules
+(head size, head top) if either photograph is ever replaced.
+
 `sips --cropOffset` is the top-left of the crop window in *points*, so set the
 source to 72dpi first or the offset lands at half the distance, and never pass
 `0 0` — it reads as "unset" and centres the crop. Turn the derivation into a

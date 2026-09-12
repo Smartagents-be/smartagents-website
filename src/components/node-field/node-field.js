@@ -14,6 +14,7 @@
 
 const CYAN = '0,216,255';
 const FPS = 30;
+const HELIX_TURN_SECONDS = 60;
 const LINK_RADIUS = 128;
 // One node per this many square px of document, so the field keeps the same
 // weave whatever the page height. The floor keeps a short page from looking
@@ -154,8 +155,8 @@ class NodeField extends HTMLElement {
     this.append(this.canvas);
 
     this.helix = this.getAttribute('variant') === 'helix';
+    this.frame = this.helix ? this.closest('[data-helix-frame]') : null;
     this.phase = 0;
-    this.floats = [];
     // True until the observer says otherwise, and where there is no observer.
     this.visible = true;
 
@@ -216,13 +217,21 @@ class NodeField extends HTMLElement {
     this.ox = (rect.left + scrollX) / (scale || 1);
     this.oy = (rect.top + scrollY) / (scale || 1);
 
+    // Magnets grow the paint box to reveal the field beyond its resting edge.
+    // Keep the helix anchored to the illustration, so that growth changes only
+    // the visible window, never the helix's scale or position.
+    const frame = this.frame?.getBoundingClientRect() || rect;
+    this.frameW = frame.width / (scale || 1);
+    this.frameH = frame.height / (scale || 1);
+    this.frameX = (frame.left - rect.left) / (scale || 1);
+    this.frameY = (frame.top - rect.top) / (scale || 1);
+
     const dpr = Math.min(devicePixelRatio || 1, 2);
     const width = Math.round(this.w * dpr);
     const height = Math.round(this.h * dpr);
     if (this.canvas.width !== width || this.canvas.height !== height) {
       this.canvas.width = width;
       this.canvas.height = height;
-      if (this.helix) this.seedFloats();
     }
     this.context.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
@@ -230,8 +239,12 @@ class NodeField extends HTMLElement {
   draw() {
     if (!this.w || !this.h || !this.visible) return;
     this.context.clearRect(0, 0, this.w, this.h);
-    if (this.helix) this.drawHelix();
-    else this.drawNetwork();
+    if (this.helix) {
+      this.context.save();
+      this.context.translate(this.frameX, this.frameY);
+      this.drawHelix();
+      this.context.restore();
+    } else this.drawNetwork();
   }
 
   /** The drifting network: this element's slice of the shared field. */
@@ -280,27 +293,29 @@ class NodeField extends HTMLElement {
    * The helix variant
    * ---------------------------------------------------------------- */
 
-  seedFloats() {
-    this.floats = Array.from({ length: 6 }, () => ({
-      x: Math.random() * this.w,
-      y: Math.random() * this.h,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: 1.1 + Math.random() * 1.4
-    }));
-  }
-
-  strand(offset, k) {
-    const N = 40;
+  strand(offset) {
+    const w = this.frameW;
+    const h = this.frameH;
     const points = [];
-    for (let i = 0; i <= N; i++) {
-      const t = i / N;
-      const envelope = 0.5 + 0.5 * Math.sin(Math.PI * t);
-      const angle = t * Math.PI * 3.6 + this.phase + offset;
-      const wobble = Math.sin(i * 2.3 + k * 5.1) * 2.6 + Math.sin(i * 0.7 + k * 1.9) * 3.4;
+    const steps = 180;
+    const height = h - 64;
+    const zoom = 1.8;
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const ease = t * t * (3 - 2 * t);
+      const angle = t * Math.PI * 5.5 + this.phase + offset;
+      // Enlarge the whole helix equally in both axes, so the silhouette crops
+      // it without flattening the turns by stretching only their width.
+      const cx = w * (0.65 - 0.35 * ease);
+      const cy = 32 + t * height;
+      const tangentX = -w * 2.1 * t * (1 - t);
+      const length = Math.hypot(tangentX, height) || 1;
+      const radius = w * (0.09 + 0.055 * Math.abs(2 * t - 1));
+      const across = Math.sin(angle) * radius;
       points.push({
-        x: this.w * (0.665 - 0.335 * t) + Math.sin(angle) * this.w * 0.175 * envelope + wobble * 0.5,
-        y: 18 + t * (this.h - 36) + Math.sin(i * 1.7 + k * 3.3) * 2.2
+        x: w / 2 + (cx + across * height / length - w / 2) * zoom,
+        y: h / 2 + (cy - across * tangentX / length - h / 2) * zoom,
+        depth: Math.cos(angle)
       });
     }
     return points;
@@ -308,70 +323,60 @@ class NodeField extends HTMLElement {
 
   drawHelix() {
     const ctx = this.context;
-    if (!this.floats.length) this.seedFloats();
-    if (!still.matches) {
-      this.phase += 0.016;
-      for (const node of this.floats) {
-        node.x += node.vx;
-        node.y += node.vy;
-        if (node.x < -16) node.x = this.w + 16;
-        else if (node.x > this.w + 16) node.x = -16;
-        if (node.y < -16) node.y = this.h + 16;
-        else if (node.y > this.h + 16) node.y = -16;
-      }
-    }
-
-    const a = this.strand(0, 0);
-    const b = this.strand(Math.PI, 1);
-
+    if (!still.matches) this.phase += Math.PI * 2 / (HELIX_TURN_SECONDS * FPS);
+    // The same dots and straight hairline links as the shared field, arranged
+    // into a helix. Dense, bright curves made this look like a separate graphic.
+    const strands = [0, Math.PI].map((offset) => {
+      const points = this.strand(offset);
+      return points.filter((_, i) => i % 8 === 0 || i === points.length - 1);
+    });
     ctx.lineWidth = 1;
-    ctx.strokeStyle = `rgba(${CYAN},0.18)`;
-    for (let i = 0; i < a.length; i += 8) {
-      ctx.beginPath();
-      ctx.moveTo(a[i].x, a[i].y);
-      ctx.lineTo(b[i].x, b[i].y);
-      ctx.stroke();
-    }
 
-    const rungs = [a, b].map((strand) => strand.filter((_, i) => !(i % 4)));
-    ctx.strokeStyle = `rgba(${CYAN},0.28)`;
-    ctx.lineWidth = 1.1;
-    for (const strand of rungs) {
-      ctx.beginPath();
-      strand.forEach((p, i) => (i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)));
-      ctx.stroke();
-    }
-
-    const all = rungs[0].concat(rungs[1]);
-    ctx.lineWidth = 1;
-    for (const node of this.floats) {
-      let nearest = null;
-      let best = Infinity;
-      for (const point of all) {
-        const d = Math.hypot(point.x - node.x, point.y - node.y);
-        if (d < best) {
-          best = d;
-          nearest = point;
+    // Rear backbone, paired rungs, then the front backbone: crossings read as
+    // two strands winding around an axis instead of an intersecting network.
+    const backbone = (front) => {
+      for (const strand of strands) {
+        for (let i = 1; i < strand.length; i++) {
+          const a = strand[i - 1];
+          const b = strand[i];
+          const depth = (a.depth + b.depth) / 2;
+          if ((depth >= 0) !== front) continue;
+          const near = (depth + 1) / 2;
+          ctx.strokeStyle = `rgba(${CYAN},${0.13 + near * 0.09})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
         }
       }
-      if (nearest && best < 132) {
-        ctx.strokeStyle = `rgba(${CYAN},${(0.3 * (1 - best / 132)).toFixed(3)})`;
-        ctx.beginPath();
-        ctx.moveTo(node.x, node.y);
-        ctx.lineTo(nearest.x, nearest.y);
-        ctx.stroke();
-      }
-      ctx.fillStyle = `rgba(${CYAN},0.55)`;
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    };
 
-    ctx.fillStyle = `rgba(${CYAN},0.62)`;
-    for (const point of all) {
+    backbone(false);
+    for (let i = 0; i < strands[0].length; i += 2) {
+      const a = strands[0][i];
+      const b = strands[1][i];
+      ctx.strokeStyle = `rgba(${CYAN},0.18)`;
       ctx.beginPath();
-      ctx.arc(point.x, point.y, 2, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+    backbone(true);
+
+    // Only the rung junctions carry dots; intermediate line vertices keep the
+    // helix's outline without adding more visual weight.
+    for (const front of [false, true]) {
+      for (const strand of strands) {
+        for (let i = 0; i < strand.length; i += 2) {
+          const point = strand[i];
+          if ((point.depth >= 0) !== front) continue;
+          const near = (point.depth + 1) / 2;
+          ctx.fillStyle = `rgba(${CYAN},${0.45 + near * 0.17})`;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, 1.5 + near * 0.9, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
     }
   }
 }

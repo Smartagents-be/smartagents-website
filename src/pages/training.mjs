@@ -76,41 +76,43 @@ ${contact(t, lang)}
 };
 
 /* ------------------------------------------------------------------ *
- * Hero — the homepage hero minus the wordmark, plus a bead of the same field
- * standing in the paper above the petal's shoulder.
+ * Hero — the orbit rings, one dark mass hung off the right page edge, the copy
+ * in its own column, and a bead of the same field beside the mass's upper
+ * flank. The mass is `trainingHeroSwell`, this page's own: three lobes traced
+ * as a metaball union, replacing the petal three heroes were drawing.
  *
  * The bead is `heroPebbleA`, the larger of the two the AI staffing arch has
  * shed, reused rather than redrawn: a second pebble drawn to within a few points
- * of it would be drift. That silhouette is shared by two pages now — change it
- * for one composition and the other moves with it.
+ * of it would be drift. That silhouette is shared by three compositions now —
+ * change it for one and the others move with it.
  *
  * What buys a shape hanging from nothing is stated in the design README for the
  * arch: a ground welded along three sides is what makes a piece read as shed
- * from it. The petal is welded on the right edge alone, so this page takes the
+ * from it. The swell is welded on the right edge alone, so this page takes the
  * licence on a narrower argument — the bead stands over the flank and the cursor
  * runs the two together. Read "Deviations from the design doc" before drawing a
  * third one.
  *
- * At rest the gap is 86px at 1081, 89 at 1280, 91 at 1440 and 94 at 2560,
- * sampled off the two clip paths; under the cursor the displaced outlines close
- * to 2px, 7px and 10px, against the 60px a join closes at. So the bead is
- * dropped wherever a join cannot happen — the query in `.hero__bead` is read off
- * the gates in `src/motion.js`.
+ * The bead is dropped wherever a join cannot happen — the query in `.hero__bead`
+ * is read off the gates in `src/motion.js`. Where it stands, and why its nearest
+ * point lands on a convex stretch of the swell rather than in a bay, is in that
+ * rule's own comment.
  *
- * The three magnet numbers are struck for this shape, not copied. `sigma` is 60,
- * 14% of the bead's 420px perimeter: at the default 96 a quarter of the outline
- * moved at once and the whole bead slid toward the cursor instead of swelling.
- * `points` is a sample every 3.0px, inside the join's 4px grid. And
- * `data-magnet-free` is taken 26px under the nav, which CLAUDE.md says to think
- * twice about: a cursor in the nav row does lift the crown across the bar, and
- * what makes it safe is that the header paints over whatever arrives under it.
+ * The magnet numbers are struck for these shapes, not copied. On the bead
+ * `sigma` is 60, 14% of its 420px perimeter: at the default 96 the whole bead
+ * slid toward the cursor instead of swelling. `points` is a sample every 3.0px,
+ * inside the join's 4px grid. On the swell `amp` is 56 and `sigma` 96, lowered
+ * from the petal's 86 and 118 because this drawing is its two bays and `sigma`
+ * is the share of the perimeter that travels together. The bead's
+ * `data-magnet-free` is taken under the nav; the header paints over whatever
+ * arrives under it.
  * ------------------------------------------------------------------ */
 
 function hero(t) {
-  return html`<section id="training-hero" class="hero hero--page">
+  return html`<section id="training-hero" class="hero hero--page hero--training">
 ${orbitRings('training-hero')}
   <div id="training-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    <div id="training-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="training-hero-nodes-right"></sa-node-field></div>
+    <div id="training-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="420" data-magnet-amp="56" data-magnet-sigma="96" data-clip="trainingHeroSwell"><sa-node-field id="training-hero-nodes-right"></sa-node-field></div>
     <div id="training-hero-field-slot-bead" class="field-slot hero__bead">
       <div id="training-hero-field-bead" class="field" data-magnet data-magnet-free data-magnet-points="140" data-magnet-amp="30" data-magnet-sigma="60" data-clip="heroPebbleA"><sa-node-field id="training-hero-nodes-bead"></sa-node-field></div>
     </div>
@@ -127,7 +129,7 @@ ${orbitRings('training-hero')}
            also the only way the page and the snippet can never drift apart. -->
       <div id="training-hero-actions" class="hero__actions">
         <a id="training-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
-        <a id="training-hero-cta-offer" class="btn btn--ghost" href="#offer">${t('training.cta.offer')} <span id="training-hero-cta-offer-arrow" aria-hidden="true">&rarr;</span></a>
+        <a id="training-hero-cta-offer" class="btn btn--ghost" href="#offer">${t('training.cta.offer')}</a>
       </div>
     </div>
   </div>
@@ -198,14 +200,22 @@ ${
 function offer(t, lang) {
   const columns = COURSES.map((course) => courseColumn({ t, lang, ...course }));
 
-  return html`<section id="offer" class="section section--orbits" aria-labelledby="training-offer-title">
-${orbitRings('training-offer', 'orbits--offer')}
-  <div id="training-offer-head" class="section__head">
-    <h2 id="training-offer-title" class="section-heading">${t('training.offer.title')}</h2>
+  return html`<section id="offer" class="section section--training-offer" aria-labelledby="training-offer-title">
+  <div id="training-offer-field-slot" class="field-slot training-offer__field" aria-hidden="true">
+    <div id="training-offer-field" class="field" data-magnet data-magnet-free data-magnet-points="480" data-magnet-amp="20" data-magnet-sigma="100" data-clip="dnaField"><sa-node-field id="training-offer-nodes"></sa-node-field></div>
   </div>
-  <p id="training-offer-lede" class="section-lede">${t('training.offer.lede')}</p>
-  <div id="training-offer-list" class="offer">
+  <div id="training-offer-companion-slot" class="field-slot training-offer__companion" aria-hidden="true">
+    <div id="training-offer-companion" class="field" data-magnet data-magnet-free data-magnet-points="200" data-magnet-amp="30" data-magnet-sigma="60" data-clip="heroPebbleA"><sa-node-field id="training-offer-companion-nodes"></sa-node-field></div>
+  </div>
+  <div id="training-offer-surface" class="training-offer__surface section--orbits">
+${orbitRings('training-offer', 'orbits--offer')}
+    <div id="training-offer-head" class="section__head">
+      <h2 id="training-offer-title" class="section-heading">${t('training.offer.title')}</h2>
+    </div>
+    <p id="training-offer-lede" class="section-lede">${t('training.offer.lede')}</p>
+    <div id="training-offer-list" class="offer">
 ${join(columns)}
+    </div>
   </div>
 </section>`;
 }
@@ -213,28 +223,16 @@ ${join(columns)}
 /* ------------------------------------------------------------------ *
  * Hoe een cursus verloopt — the copy beside the developer course tour
  *
- * Two shapes hung off the two rules that bound the section: a half disc dropping
- * from the rule the offer closes on, just left of the split between the courses,
- * and a stone standing on the rule the tour hangs from, lower and further right,
- * so the pair reads as one diagonal. Each is pinned to its own rule, so the
- * cursor swells and rocks them but never peels them off.
- *
- * The stone lives inside the section head, which is what puts its foot on the
- * rule whatever the heading does to the height above it.
+ * The offer floats above a continuous dark field that emerges into this gap.
+ * The heading and practical details sit beside its exposed curves.
  * ------------------------------------------------------------------ */
 
 function format(t) {
-  return html`<section id="training-format" class="section" aria-labelledby="training-format-title">
-  <div id="training-format-dome-slot" class="field-slot tour__dome" aria-hidden="true">
-    <div id="training-format-dome" class="field" data-magnet data-magnet-free data-magnet-pin="top" data-magnet-points="280" data-magnet-amp="24" data-magnet-sigma="70" data-clip="tourDome"><sa-node-field id="training-format-dome-nodes"></sa-node-field></div>
-  </div>
-  <div id="training-format-head" class="section__head tour__ground">
+  return html`<section id="training-format" class="section section--training-format" aria-labelledby="training-format-title">
+  <div id="training-format-head" class="section__head">
     <h2 id="training-format-title" class="section-heading">${t('training.format.title')}</h2>
-    <div id="training-format-stone-slot" class="field-slot tour__stone" aria-hidden="true">
-      <div id="training-format-stone" class="field" data-magnet data-magnet-free data-magnet-pin="bottom" data-magnet-points="300" data-magnet-amp="42" data-magnet-sigma="70" data-clip="tourStone"><sa-node-field id="training-format-stone-nodes"></sa-node-field></div>
-    </div>
   </div>
-  <div id="training-format-inner" class="tour">
+  <div id="training-format-inner" class="tour tour--training">
     <div id="training-format-copy" class="tour__copy">
       <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
       <p id="training-format-accents" class="tour__body tour__body--follow">${t('training.format.accents')}</p>

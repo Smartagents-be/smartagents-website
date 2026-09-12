@@ -38,7 +38,7 @@ import { body } from './body.mjs';
  * printed form is `privacy.updated` in each language, so the two have to be
  * moved together — there is no formatter in this build.
  */
-const UPDATED = '2026-09-03';
+const UPDATED = '2026-09-11';
 
 const SCOPE = 'privacy';
 
