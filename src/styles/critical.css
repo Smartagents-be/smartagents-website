@@ -636,6 +636,18 @@ select {
   clip-path: url(#homeHeroIsland);
 }
 
+/* The island exists for the join, so it is printed only where a join can
+   happen: this query is the negative of the gates `src/motion.js` arms the
+   magnets on, the same one `.hero__bead` carries in `main.css`. The flank it
+   stands beside only goes at 941px, so width alone left the island on a 1024px
+   tablet, on every reduced-motion desk and on every touch screen above the
+   phone: a disc floating 27px off a shape it can never reach. */
+@media (width < 1081px), (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .hero__island-slot {
+    display: none;
+  }
+}
+
 /* The orbit diagram, clipped to the hero by its own layer and never by `.hero`
    itself — the dark shapes deform outside their box and must not be cut with
    it. */

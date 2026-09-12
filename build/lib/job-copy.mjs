@@ -11,12 +11,17 @@ export function applyEditorialCopy(byLang) {
     jobs.map((job) => {
       const entry = copy[job.slug];
       if (!entry) return job;
+      /* Both halves of an entry are optional. A file that corrects only the
+         points of a job, or only its location, is a reasonable thing to write
+         and nothing upstream validates it. `readVacancies` has no catch around
+         this, so a half-written entry would fail the build instead of falling
+         back to what Odoo said. */
       return {
         ...job,
         points: job.points.map((point) =>
-          entry.points.find((item) => item.sources.includes(point))?.[lang] || point
+          entry.points?.find((item) => item.sources?.includes(point))?.[lang] || point
         ),
-        location: entry.locations[job.location]?.[lang] || job.location
+        location: entry.locations?.[job.location]?.[lang] || job.location
       };
     })
   ]));

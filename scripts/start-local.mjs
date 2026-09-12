@@ -112,8 +112,11 @@ const server = createServer((req, res) => {
 
     const rule = matchRedirect(requestPath);
     if (rule && rule.status !== 200) {
-        // Cloudflare carries the query string across a redirect.
-        const location = `${rule.to}${requestUrl.search}`;
+        /* Cloudflare carries the query string across a redirect, and it goes
+           before the fragment: appended to the whole destination it lands
+           inside the fragment of a rule like `/contact /nl/#contact`. */
+        const [target, fragment] = rule.to.split('#');
+        const location = `${target}${requestUrl.search}${fragment ? `#${fragment}` : ''}`;
         res.writeHead(rule.status, { "Location": location, "Cache-Control": "no-store" });
         res.end();
         return;

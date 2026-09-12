@@ -79,7 +79,16 @@ happens.
     returns the country in the recruitment site's own language rather than the
     reader's, so a raw read says "Beringen, Belgium" in every language. Today
     the page prints no location at all; the field is read, normalised and kept
-    in the snapshot so it is there the day a row wants it. What the build
+    in the snapshot so it is there the day a row wants it.
+    **Today it is also empty.** The published vacancy carries no `address_id`
+    in Odoo, so the recruitment page prints the editor's own placeholder inside
+    a `css_non_editable_mode_hidden` block and leaves the `PostalAddress` with
+    nothing in it. Both sources therefore read `null` and the committed snapshot
+    holds `null` in all three languages, where it used to hold "Beringen,
+    Belgium". That is Odoo's record to fix, not a scraper that has fallen behind
+    its markup: the `locations` map in `editorial-copy.json` is correct and
+    dormant, and it starts matching again the moment an address is set. What the
+    build
     changes on its own is form, not substance: a description authored as dashed
     lines becomes a real list, because the alternative is a dash inside a
     bullet.

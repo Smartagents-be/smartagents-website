@@ -21,14 +21,27 @@ const chrome = [process.env.CHROME_BIN,
 if (!chrome) throw new Error('Chrome not found. Set CHROME_BIN to its executable.');
 const temporary = mkdtempSync(join(tmpdir(), 'smartagents-fiches-'));
 
+/* Duration and language are the same for both courses and the kata page is the
+   only place on the site that words them, so both fiches read that wording
+   instead of inventing a second one a click away. The business course's
+   location is the one fact here the site states nowhere, so it stays editorial
+   copy, worded like the kata's so the two fiches cannot disagree either. */
+const duration = t('kata.spec.duration.value');
+const languages = t('kata.spec.language.value');
+
 const courses = [
   {
     key: 'agentic', file: 'SmartAgents_Agentic_Engineering_Onepager.pdf',
     title: 'AI voor developers', subtitle: 'effectief, kostenbewust, samen',
     audienceLabel: 'Developers', heroLabel: 'Praktijktraining',
     intro: 'Voor developers die AI dagelijks willen inzetten: programmeerervaring vereist, geen AI-voorkennis nodig. Praktijktraining in je eigen omgeving, met je eigen IDE, CLI en agents. Daarna weet je wanneer AI helpt, wat je delegeert en hoe je dat kostenbewust en in team aanpakt.',
-    facts: [['Duur', '1 dag'], ['Deelnemers', t('kata.spec.group.value')],
-      ['Locatie', t('kata.spec.location.value')], ['Taal', 'NL / EN']],
+    facts: [['Duur', duration], ['Deelnemers', t('kata.spec.group.value')],
+      ['Locatie', t('kata.spec.location.value')], ['Taal', languages]],
+    /* The programme page the fiche points at. The slug is written out rather
+       than read off `kataPath()`: that module closes an import cycle with the
+       training page and cannot be loaded from a script. Move it with the slug;
+       nothing here can check a URL inside a PDF. */
+    detail: 'https://smartagents.be/nl/training/agentic-engineering-kata/',
     learnLabel: 'Wat je leert', learnSubtitle: "De inhoud in zes thema's",
     cards: [
       ['Omgeving', 'Eigen setup', 'AI goed ingericht in je eigen omgeving, met zaken zoals MCP, skills en context.'],
@@ -57,8 +70,8 @@ const courses = [
     title: 'Microsoft 365 Copilot', subtitle: 'van chat tot eigen agents',
     audienceLabel: 'Iedereen', heroLabel: 'Praktijktraining',
     intro: 'Voor elk team dat Copilot professioneel wil inzetten, ongeacht rol of afdeling. Geen voorkennis nodig. Alle Copilot-capaciteiten in één dag, live in een complete M365-omgeving. Daarna weet je team exact waar Copilot het verschil maakt.',
-    facts: [['Duur', '1 dag'], ['Deelnemers', t('training.course.business.group').replace(/ deelnemers$/, '')],
-      ['Locatie', t('training.course.business.format')], ['Taal', 'NL / EN']],
+    facts: [['Duur', duration], ['Deelnemers', t('training.course.business.group').replace(/ deelnemers$/, '')],
+      ['Locatie', 'Bij jou op kantoor of online'], ['Taal', languages]],
     learnLabel: 'Wat je leert', learnSubtitle: "De inhoud in zes thema's",
     cards: [
       ['Chat', 'Copilot Chat', 'Eén venster voor mail, Teams, OneDrive en kalender: alles in één vraag.'],
@@ -127,13 +140,17 @@ li::marker { color: #0aa983; font-weight: 700; }
 a { color: #087862; text-decoration: none; }
 footer { border-top: 1px solid #e1e6ed; padding-top: 3mm; font-size: 8pt; margin-top: 4mm; }
 footer .tagline { font-weight: 700; }
-:is(.page--agentic, .page--business) { position: relative; }
+/* The footer was pinned with position: absolute, which takes it out of the
+   flow: the taller of the two fiches pushed its CTA row under the footer's own
+   rule. A flex column keeps it on the bottom edge of a short page and lets a
+   full one push it down instead of through it. */
+:is(.page--agentic, .page--business) { display: flex; flex-direction: column; }
 :is(.page--agentic, .page--business) .results, :is(.page--agentic, .page--business) .practice { padding: 4mm; }
-:is(.page--agentic, .page--business) li { padding: 1.3mm 0; }
+:is(.page--agentic, .page--business) li { padding: 0.9mm 0; }
 :is(.page--agentic, .page--business) .hero { padding-block: 5mm; }
 :is(.page--agentic, .page--business) .requirements { margin-top: 3mm; }
 :is(.page--agentic, .page--business) .cta { margin-block: 3mm; }
-:is(.page--agentic, .page--business) footer { position: absolute; bottom: 11mm; left: 14mm; right: 14mm; margin-top: 0; }
+:is(.page--agentic, .page--business) footer { margin-top: auto; }
 </style></head><body><main class="page page--${course.key}">
 <header><div class="brand">Smart<span>Agents</span></div><div class="eyebrow">${esc(course.audienceLabel || 'Praktijktraining')}</div></header>
 <section class="hero"><p class="eyebrow">${esc(course.heroLabel || 'Leren door te doen')}</p>

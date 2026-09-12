@@ -1748,6 +1748,18 @@ sa-node-field {
   aspect-ratio: 1.35;
 }
 
+/* The companion is a free pebble, so it takes the bead's gate rather than a
+   width of its own: the negative of the gates `src/motion.js` arms the magnets
+   on. It used to go at 941px, which left it standing in two states it cannot be
+   read in: with no magnet to join anything between 941 and 1080px, and, from
+   1000px down, straddling `.section-heading`'s rule where that rule starts
+   running the full width of the page over "Hoe een cursus verloopt". */
+@media (width < 1081px), (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .training-offer__companion {
+    display: none;
+  }
+}
+
 @media (width < 941px) {
   .training-offer__surface {
     border-bottom-right-radius: 28px;
@@ -1758,10 +1770,6 @@ sa-node-field {
     right: 64%;
     bottom: -52px;
     height: 230px;
-  }
-
-  .training-offer__companion {
-    display: none;
   }
 }
 

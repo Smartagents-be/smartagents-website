@@ -63,11 +63,19 @@ they are applied here.
 - **Course fiches**: `npm run export:fiches` rebuilds the two one-pagers in
   `public/media/` from `scripts/export-training-fiches.mjs` in headless Chrome
   (needs Chrome, or `CHROME_BIN`). Not part of the build, for the reason
-  `check:slides` is not. The copy is the fiche's own; the facts a fiche shares
-  with the site — the group size and the location — are read from
-  `src/i18n/nl.json`, so the strip on the training page and the download one
-  click away cannot disagree. Run it and commit both PDFs whenever one of
-  those keys changes.
+  `check:slides` is not. The copy is the fiche's own; every fact a fiche shares
+  with the site is read from `src/i18n/nl.json`, so the strip on the training
+  page and the download one click away cannot disagree. Run it and commit both
+  PDFs whenever one of those keys changes.
+  Four facts sit in each strip and the kata page is the only page that words
+  three of them, so both fiches read `kata.spec.duration.value` and
+  `kata.spec.language.value`, the agentic one reads `kata.spec.group.value` and
+  `kata.spec.location.value`, and the business one reads
+  `training.course.business.group`. Its location is the single fact here the
+  site states nowhere and it stays editorial copy in the script, worded like
+  the kata's. It used to read `training.course.business.format`, a key deleted
+  when the format row came off the facts strip, and since the script throws on a
+  missing key that one line meant neither PDF could be regenerated at all.
 
 ## Deployment
 

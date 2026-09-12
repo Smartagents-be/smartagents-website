@@ -65,6 +65,20 @@ load-bearing unless it says otherwise.
   three shapes in a line are the composition either way, so they stay on a coarse
   pointer and under `prefers-reduced-motion`, and only the phone drops them.
 
+- **The homepage hero is the petal, the counter-lobe and one island between
+  them.** `homeHeroIsland` stands in `.hero__island-slot`, a slot of its own
+  inside `.hero__field--left` rather than a box on that field, so a magnet may
+  grow the flank's box without dragging the island with it. It takes an
+  `aspect-ratio` of 1.3 for the reason the training bead does: the drawing in a
+  near-square box is a disc, and a disc beside a drawn flank is the bullet
+  `clipDefs()` was drawn to avoid.
+  **It is a satellite, so it is gated like one.** The slot carries the query
+  `.hero__bead` carries, the negative of the gates `src/motion.js` arms the
+  magnets on. The flank it answers only goes at 941px, so on width alone it
+  stood through the whole 941-1080px band, on every reduced-motion desk and on
+  every touch screen above the phone: a disc floating 27px off a shape it could
+  never reach.
+
 
 ## The footer
 
@@ -417,14 +431,22 @@ load-bearing unless it says otherwise.
   `heroPebbleA` standing off to its right and 135px below the foot. Neither is
   a hero silhouette, so the one-shape-per-page rule for heroes does not bind
   them: what the reader sees is the curve that clears the sheet, not the
-  drawing. Two things are load-bearing. **The next section makes room** —
+  drawing. Three things are load-bearing. **The next section makes room** —
   `.section--training-format` takes 104px of top padding, the 80px reveal plus
   the 20px cursor pull with margin, so the disc never crosses the "Hoe een
   cursus verloopt" heading. And **the section is raised**, `z-index: 2` on a
   `.section` that is already positioned, so what hangs past its foot paints
-  over the section below rather than under it. The pair replaced `tourDome` and
-  `tourStone`, the two shapes that hung off the rules around the course tour;
-  both paths are gone from `clipDefs()` and both rules from `critical.css`.
+  over the section below rather than under it. Last, **only the disc is an edge
+  shape**: it enters from the page edge and reads as drawn with the magnets off,
+  where the companion is a free pebble standing clear of everything, so that one
+  takes the bead's query rather than a width of its own. It used to go at 941px,
+  which left it in two states it cannot be read in: with no magnet to join
+  anything between 941 and 1080px, and, from 1000px down, straddling
+  `.section-heading`'s rule, which at that width stops being a cut of the
+  heading and runs the full page directly under the pebble.
+  The pair replaced `tourDome` and `tourStone`, the two shapes that hung off the
+  rules around the course tour; both paths are gone from `clipDefs()` and both
+  rules from `critical.css`.
 - **The team hero is a pair.** `teamHeroPair` is two lobes of nearly one size —
   (430, 230) r 155 and (300, 530) r 170 in the pixels of the box at 1440 — run
   together on a diagonal and hung off the right page edge, traced the same way
