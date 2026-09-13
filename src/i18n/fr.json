@@ -233,7 +233,7 @@
   "staffing.track.business.how": "Concrètement : des sessions avec les personnes qui font le travail, sur leurs propres dossiers. Nous dessinons ensemble quelle étape l'IA reprend et laquelle non, nous l'inscrivons comme un workflow que votre équipe relance, et nous restons jusqu'à ce que cela tourne sans nous. Pas une bibliothèque de prompts, une manière de travailler.",
   "staffing.track.business.fit": "Vos équipes utilisent déjà l'IA, chacune dans son coin, et personne ne peut dire ce qui est réellement gagné.",
   "staffing.cta.title": "Vous cherchez quelqu'un qui le fait déjà ?",
-  "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous proposons la piste qui convient, et nous disons aussi quand vous n'avez pas besoin de nous.",
+  "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous proposons la piste qui convient.",
 
   "processes.title": "Processus métier AI-native · SmartAgents",
   "processes.description": "Nous passons en revue le travail que vos équipes font aujourd'hui, disons où l'IA fait gagner du temps et où elle n'apporte rien, et laissons des workflows, des skills et des agents réutilisables.",
@@ -350,7 +350,7 @@
   "team.story.1": "La plupart des entreprises que nous avons rencontrées butaient sur la même chose. Elles avaient assez entendu parler de l'IA, mais personne ne pouvait dire par où commencer. Il y avait eu un pilote, ou un outil que quelqu'un avait activé, et puis plus rien. C'est pour cela que nous avons lancé SmartAgents : pas avec une présentation sur ce qui est possible, mais avec un travail qui tourne dès la semaine suivante.",
   "team.story.2": "Nous utilisons chaque jour les outils que nous recommandons, sur nos propres projets. Ce n'est pas un slogan, c'est ce qui nous permet de dire quand quelque chose ne fonctionne pas. Ce que nous vous conseillons tourne d'abord chez nous.",
   "team.cta.title": "On fait connaissance ?",
-  "team.cta.body": "Dites-nous brièvement ce qui pourrait mieux tourner. Vous aurez l'un de nous deux à table, et nous vous dirons aussi quand vous n'avez pas besoin de nous.",
+  "team.cta.body": "Dites-nous brièvement ce qui pourrait mieux tourner. Vous aurez l'un de nous deux à table.",
 
   "nav.jobs": "Emplois",
   "jobs.title": "Emplois · SmartAgents",
