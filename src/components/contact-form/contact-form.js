@@ -148,16 +148,29 @@ class ContactForm extends HTMLElement {
 
     try {
       const turnstile = await loadTurnstile();
+      /* The widget is rendered the way the pre-redesign form rendered it —
+         `interaction-only`, `flexible` — above the button. It used to be
+         `size: 'invisible'` in a hidden host: that is not a size Turnstile has,
+         and a challenge that asks for a click could never be answered in a box
+         nobody can see. The host is still hidden while there is nothing to click,
+         because an empty flex item takes a gap in the form's column; the two
+         interactive callbacks show it for exactly as long as a click is wanted.
+         `execution: 'execute'` keeps the challenge off the network until submit. */
       const host = document.createElement('div');
+      host.id = `${this.id}-challenge`;
       host.hidden = true;
-      this.append(host);
+      this.form.insertBefore(host, this.form.querySelector('.contact-form__foot'));
       /* All three failure callbacks, not only `error-callback`. An expiry or a
          timeout reports on its own channel, and unwired it never settles the
          promise `token()` waits on: the button stays busy for the life of the
          page and the only way out is a reload. */
       this.widget = turnstile.render(host, {
         sitekey: this.sitekey,
-        size: 'invisible',
+        appearance: 'interaction-only',
+        size: 'flexible',
+        execution: 'execute',
+        'before-interactive-callback': () => { host.hidden = false; },
+        'after-interactive-callback': () => { host.hidden = true; },
         callback: (token) => this.settleToken?.(null, token),
         'error-callback': () => this.settleToken?.(new Error('challenge failed')),
         'expired-callback': () => this.settleToken?.(new Error('challenge expired')),

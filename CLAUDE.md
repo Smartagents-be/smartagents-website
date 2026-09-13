@@ -113,8 +113,10 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   are read by `build/lib/config.mjs` and `build/lib/i18n.mjs` while the site
   renders, so they are ordinary Pages build settings and `wrangler.toml` does not
   touch them. Both have fallbacks, so a missing one changes the output instead of
-  failing the build: no site key means the contact form keeps its `mailto:`
-  fallback.
+  failing the build. The site key's fallback is the real key the pre-redesign
+  site shipped with, not an empty string: it was empty for a while, nothing set
+  the variable on Pages, and every contact form on the site fell back to
+  `mailto:` without once reaching `/api/contact` or n8n.
 - **Node is pinned in `.nvmrc` (22.14.0), with a floor of `>=22.12` in
   `engines` in `package.json`.** Vite 7 needs `^20.19 || >=22.12` and the Pages build image
   defaults to a much older Node, so the pin is what keeps the build alive.

@@ -77,7 +77,9 @@ Run it alone with `npm run check:contact` after a build.
 
 The front end is `src/components/contact-form/`: `contact-form.mjs` renders the
 section at build time, `contact-form.js` upgrades it in the browser and POSTs
-here. The form only posts to this endpoint when `TURNSTILE_SITE_KEY` is set as a
-**build** environment variable; without it the markup keeps its `mailto:`
-fallback and this function is never called. Build variables are ordinary Pages
-build settings and are unaffected by `wrangler.toml`.
+here. The form only posts to this endpoint when a Turnstile site key is rendered
+into it. `build/lib/config.mjs` defaults to the key the pre-redesign site used;
+it was empty for a while, no `TURNSTILE_SITE_KEY` build variable was set on
+Pages, and every form quietly fell back to `mailto:` without ever calling this
+function. The build variable still overrides the default. Build variables are
+ordinary Pages build settings and are unaffected by `wrangler.toml`.
