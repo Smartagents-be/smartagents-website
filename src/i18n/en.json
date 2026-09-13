@@ -276,14 +276,14 @@
 
   "sdlc.issues.title": "What we see today",
 
-  "sdlc.issue.belief.title": "Trust",
+  "sdlc.issue.belief.title": "Belief",
   "sdlc.issue.belief.body": "Part of the team dismisses AI before trying it, and another part expects miracles. That is the same mistake in two directions.",
   "sdlc.issue.capability.title": "Capability",
-  "sdlc.issue.capability.body": "No training, and processes built for a world where writing code was the expensive part.",
+  "sdlc.issue.capability.body": "No training, too little access to AI tooling, and processes built for a world where writing code was the expensive part.",
   "sdlc.issue.foundation.title": "Foundation",
-  "sdlc.issue.foundation.body": "Code quality is not visible and nothing enforces it. Most product knowledge lives in people's heads.",
-  "sdlc.issue.tooling.title": "Tooling",
-  "sdlc.issue.tooling.body": "Every team works its own way, there is no shared way of working, and the average developer has too little access to AI to get any good at it.",
+  "sdlc.issue.foundation.body": "Most product knowledge lives in people's heads. AI workflows are fragmented, each only as good as whoever built it.",
+  "sdlc.issue.tooling.title": "Adoption",
+  "sdlc.issue.tooling.body": "The spread between teams is huge: some work almost AI-first, others barely use AI. There is no common way of working to close that gap.",
 
   "sdlc.journey.title": "The way there",
   "sdlc.journey.lede": "We build on what Anthropic publishes about AI-native engineering. The bottleneck does not disappear, it moves: in the end, to the moment someone decides.",
@@ -291,7 +291,7 @@
 
   "sdlc.stage.today.title": "Today",
   "sdlc.stage.today.body": "Six desks, five handoffs. Build takes the longest, and it sets the pace for the whole chain.",
-  "sdlc.stage.ungated.title": "AI without gates",
+  "sdlc.stage.ungated.title": "AI-assisted",
   "sdlc.stage.ungated.body": "Agents build. The bottleneck moves to what you asked for and to whoever checks it.",
   "sdlc.stage.native.title": "AI-native",
   "sdlc.stage.native.body": "One run, no handoffs. A person still decides four times, and that is the only thing still holding the work up.",
@@ -306,7 +306,7 @@
   "sdlc.gates.label": "Four gates",
   "sdlc.gate.intent": "Intent accepted",
   "sdlc.gate.spec": "Spec approved",
-  "sdlc.gate.review": "Review approved",
+  "sdlc.gate.review": "Change approved",
   "sdlc.gate.release": "Release authorised",
 
   "sdlc.loop.label": "What happens in production feeds the next piece of work",
@@ -324,10 +324,10 @@
   "sdlc.work.culture.body": "There is no standard process we come and install. We start from how your teams work today and from what already works well, and build on that.",
   "sdlc.work.training.title": "Training",
   "sdlc.work.training.body": "People who use AI every day still ask us what MCP is, use the agent as a search box, and point it at small chores instead of at whole workflows. The willingness is there, the knowledge is not yet. We train your engineers on agentic workflows, not on one-off prompts.",
-  "sdlc.work.gates.title": "Gates that enforce quality",
-  "sdlc.work.gates.body": "We build the gates into your CI/CD, so quality becomes visible and automatic. Nobody reviews by hand the volume an agent produces: the gates take the volume, your reviewers judge the decisions. Access without gates buys you more code and less confidence in it.",
+  "sdlc.work.gates.title": "Quality gates",
+  "sdlc.work.gates.body": "We build quality gates into your CI/CD, so quality becomes visible and automatic, and every team holds to today’s standards, or stricter. Nobody reviews by hand the volume an agent produces: the quality gates take the volume, your reviewers judge the decisions. Access without gates buys you more code and less confidence in it.",
   "sdlc.work.platform.title": "One way of working",
-  "sdlc.work.platform.body": "We set the agreements down in the repository and carry them into every team through the tooling itself, not through a wiki page written once and never read again. We adjust them as feedback comes in.",
+  "sdlc.work.platform.body": "We help a small platform team of your own set the agreements down in the repository and carry them into every team through the tooling itself, not through a wiki page written once and never read again. It is a baseline, not a limit: each team builds on it, and feedback from every team adjusts it.",
 
   "sdlc.cta.title": "Where does your team stand today?",
   "sdlc.cta.body": "Tell us briefly how your teams work today and where it is rubbing. We say which step comes first, and why it comes first.",

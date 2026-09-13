@@ -17,10 +17,12 @@
     "03-bottleneck",
     "04-middle-stage",
     "05-proposal",
-    "06-platform",
+    "06-gates",
     "07-environment",
-    "08-training",
-    "09-ask",
-    "10-close"
+    "08-platform",
+    "09-training",
+    "10-timeline",
+    "11-ask",
+    "12-close"
   ]
 }

@@ -276,14 +276,14 @@
 
   "sdlc.issues.title": "Ce que nous voyons aujourd'hui",
 
-  "sdlc.issue.belief.title": "Confiance",
+  "sdlc.issue.belief.title": "Conviction",
   "sdlc.issue.belief.body": "Une partie de l'équipe rejette l'IA d'avance, et l'autre en attend des miracles. C'est la même erreur dans deux directions.",
   "sdlc.issue.capability.title": "Compétences",
-  "sdlc.issue.capability.body": "Pas de formation, et des processus conçus pour un monde où écrire du code était la partie coûteuse.",
+  "sdlc.issue.capability.body": "Pas de formation, trop peu d'accès aux outils d'IA, et des processus conçus pour un monde où écrire du code était la partie coûteuse.",
   "sdlc.issue.foundation.title": "Fondations",
-  "sdlc.issue.foundation.body": "La qualité du code n'est pas visible et rien ne l'impose. L'essentiel de la connaissance du produit reste dans la tête de quelques personnes.",
-  "sdlc.issue.tooling.title": "Outillage",
-  "sdlc.issue.tooling.body": "Chaque équipe travaille à sa façon, il n'y a pas de manière de travailler commune, et le développeur moyen a trop peu accès à l'IA pour apprendre à s'en servir correctement.",
+  "sdlc.issue.foundation.body": "L'essentiel de la connaissance du produit reste dans la tête de quelques personnes. Les workflows IA sont fragmentés, chacun ne vaut que ce que vaut la personne qui l'a construit.",
+  "sdlc.issue.tooling.title": "Adoption",
+  "sdlc.issue.tooling.body": "L'écart entre les équipes est énorme : certaines travaillent presque en AI-first, d'autres utilisent à peine l'IA. Il n'y a pas de manière de travailler commune pour combler cet écart.",
 
   "sdlc.journey.title": "Le chemin vers l'AI-native",
   "sdlc.journey.lede": "Nous nous appuyons sur ce qu'Anthropic publie sur l'ingénierie AI-native. Le goulet ne disparaît pas, il se déplace : au bout du compte, vers le moment où quelqu'un décide.",
@@ -291,7 +291,7 @@
 
   "sdlc.stage.today.title": "Aujourd'hui",
   "sdlc.stage.today.body": "Six bureaux, cinq transferts. Le build est l'étape la plus longue, et c'est elle qui donne le rythme à toute la chaîne.",
-  "sdlc.stage.ungated.title": "IA sans gates",
+  "sdlc.stage.ungated.title": "IA assistée",
   "sdlc.stage.ungated.body": "Les agents développent. Le goulet se déplace vers ce que vous demandez et vers qui relit.",
   "sdlc.stage.native.title": "AI-native",
   "sdlc.stage.native.body": "Un seul parcours, sans transfert. Une personne décide encore quatre fois, et c'est la seule chose qui retient encore le travail.",
@@ -306,7 +306,7 @@
   "sdlc.gates.label": "Quatre gates",
   "sdlc.gate.intent": "Intention acceptée",
   "sdlc.gate.spec": "Cadrage approuvé",
-  "sdlc.gate.review": "Revue approuvée",
+  "sdlc.gate.review": "Modification approuvée",
   "sdlc.gate.release": "Mise en production autorisée",
 
   "sdlc.loop.label": "Ce qui se passe en production alimente le travail suivant",
@@ -324,10 +324,10 @@
   "sdlc.work.culture.body": "Il n'existe pas de processus standard que nous viendrions installer chez vous. Nous partons de la façon dont vos équipes travaillent aujourd'hui et de ce qui fonctionne déjà, et nous construisons dessus.",
   "sdlc.work.training.title": "Formation",
   "sdlc.work.training.body": "Des personnes qui utilisent l'IA tous les jours nous demandent encore ce qu'est MCP, s'en servent comme d'un moteur de recherche et la mettent sur de petites tâches plutôt que sur des workflows entiers. La volonté est là, le savoir-faire pas encore. Nous formons vos ingénieurs aux workflows agentiques, pas aux prompts isolés.",
-  "sdlc.work.gates.title": "Des gates qui imposent la qualité",
-  "sdlc.work.gates.body": "Nous construisons les gates dans votre CI/CD, pour que la qualité devienne visible et automatique. Personne ne relit à la main le volume que produit un agent : les gates absorbent le volume, vos reviewers évaluent les choix. L'accès sans gates vous donne plus de code et moins de confiance dans ce code.",
+  "sdlc.work.gates.title": "Quality gates",
+  "sdlc.work.gates.body": "Nous construisons des quality gates dans votre CI/CD, pour que la qualité devienne visible et automatique, et que chaque équipe tienne au moins les standards d'aujourd'hui. Personne ne relit à la main le volume que produit un agent : les quality gates absorbent le volume, vos reviewers évaluent les choix. L'accès sans gates vous donne plus de code et moins de confiance dans ce code.",
   "sdlc.work.platform.title": "Une seule manière de travailler",
-  "sdlc.work.platform.body": "Nous inscrivons les règles dans le dépôt et les faisons arriver dans chaque équipe par l'outillage lui-même, pas par une page de wiki écrite une fois et jamais relue. Nous les ajustons à partir des retours.",
+  "sdlc.work.platform.body": "Nous aidons une petite équipe plateforme de chez vous à inscrire les règles dans le dépôt et à les faire arriver dans chaque équipe par l'outillage lui-même, pas par une page de wiki écrite une fois et jamais relue. C'est une base, pas une limite : chaque équipe construit dessus, et les retours de chaque équipe la font évoluer.",
 
   "sdlc.cta.title": "Où en est votre équipe aujourd'hui ?",
   "sdlc.cta.body": "Dites-nous brièvement comment vos équipes travaillent aujourd'hui et où cela coince. Nous disons quelle étape vient en premier, et pourquoi celle-là d'abord.",

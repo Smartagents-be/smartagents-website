@@ -1,7 +1,7 @@
 // The AI-native SDLC page: the detail page behind the "AI-native SDLC" service
 // row on the homepage. The page has one argument and it is not technical. A
 // lifecycle is six desks, and today the work waits at five handoffs between
-// them; AI-native, it is one run with three places a person decides. The
+// them; AI-native, it is one run with four places a person decides. The
 // bottleneck does not disappear, it changes kind. What carries a team across is
 // people changing their minds, so the page opens on the diagnosis, draws that
 // one figure, and spends its last block on the work.
@@ -84,7 +84,7 @@ const STAGES = [
 const LEGEND = ['flow', 'gate'];
 
 /** What the work actually is, in the order a team meets it. */
-const WORK = ['people', 'culture', 'training', 'gates', 'platform'];
+const WORK = ['people', 'culture', 'gates', 'platform', 'training'];
 
 export const page = {
   id: 'sdlc',

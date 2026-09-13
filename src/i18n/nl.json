@@ -276,14 +276,14 @@
 
   "sdlc.issues.title": "Wat we vandaag zien",
 
-  "sdlc.issue.belief.title": "Vertrouwen",
+  "sdlc.issue.belief.title": "Overtuiging",
   "sdlc.issue.belief.body": "Een deel van het team schrijft AI bij voorbaat af, en een ander deel verwacht wonderen. Dat is dezelfde fout in twee richtingen.",
   "sdlc.issue.capability.title": "Vaardigheid",
-  "sdlc.issue.capability.body": "Geen opleiding, en processen die gebouwd zijn voor een wereld waarin code schrijven het dure deel was.",
+  "sdlc.issue.capability.body": "Geen opleiding, te weinig toegang tot AI-tooling, en processen die gebouwd zijn voor een wereld waarin code schrijven het dure deel was.",
   "sdlc.issue.foundation.title": "Fundament",
-  "sdlc.issue.foundation.body": "Codekwaliteit is niet zichtbaar en wordt nergens afgedwongen. De meeste productkennis zit in de hoofden van een paar mensen.",
-  "sdlc.issue.tooling.title": "Tooling",
-  "sdlc.issue.tooling.body": "Elk team werkt anders, er is geen gedeelde manier van werken, en de gemiddelde developer krijgt te weinig toegang tot AI om er vlot mee te leren werken.",
+  "sdlc.issue.foundation.body": "De meeste productkennis zit in de hoofden van een paar mensen. AI-workflows zijn versnipperd, elk maar zo goed als wie hem bouwde.",
+  "sdlc.issue.tooling.title": "Adoptie",
+  "sdlc.issue.tooling.body": "Het verschil tussen teams is groot: sommige werken bijna AI-first, andere gebruiken nauwelijks AI. Er is geen gedeelde manier van werken om die kloof te dichten.",
 
   "sdlc.journey.title": "De weg ernaartoe",
   "sdlc.journey.lede": "We bouwen op wat Anthropic publiceert over AI-native engineering. Het knelpunt verdwijnt niet, het verschuift: uiteindelijk naar het moment waarop iemand beslist.",
@@ -291,7 +291,7 @@
 
   "sdlc.stage.today.title": "Vandaag",
   "sdlc.stage.today.body": "Zes bureaus, vijf overdrachten. Build duurt het langst, en dat bepaalt het tempo van de hele keten.",
-  "sdlc.stage.ungated.title": "AI zonder gates",
+  "sdlc.stage.ungated.title": "AI-ondersteund",
   "sdlc.stage.ungated.body": "Agents bouwen. Het knelpunt schuift naar wat je vraagt en wie het nakijkt.",
   "sdlc.stage.native.title": "AI-native",
   "sdlc.stage.native.body": "Één doorloop, geen overdrachten. Een mens beslist nog vier keer, en dat is het enige wat het werk nog ophoudt.",
@@ -306,7 +306,7 @@
   "sdlc.gates.label": "Vier gates",
   "sdlc.gate.intent": "Intentie aanvaard",
   "sdlc.gate.spec": "Spec goedgekeurd",
-  "sdlc.gate.review": "Review goedgekeurd",
+  "sdlc.gate.review": "Wijziging goedgekeurd",
   "sdlc.gate.release": "Release vrijgegeven",
 
   "sdlc.loop.label": "Wat in productie gebeurt, voedt het volgende stuk werk",
@@ -324,10 +324,10 @@
   "sdlc.work.culture.body": "Er bestaat geen standaardproces dat wij bij jou komen installeren. We vertrekken van hoe je teams vandaag werken en van wat er al goed zit, en bouwen daarop verder.",
   "sdlc.work.training.title": "Opleiding",
   "sdlc.work.training.body": "Mensen die AI elke dag gebruiken vragen ons nog altijd wat MCP is, zetten de agent in als zoekbalk en geven hem kleine klusjes in plaats van hele workflows. De wil is er wel, de kennis nog niet. Wij trainen je engineers op agentic workflows, niet op losse prompts.",
-  "sdlc.work.gates.title": "Gates die kwaliteit afdwingen",
-  "sdlc.work.gates.body": "Wij bouwen de gates in je CI/CD, zodat kwaliteit zichtbaar en automatisch wordt. Niemand kijkt met de hand na wat een agent aan volume produceert: de gates vangen het volume op, je reviewers beoordelen de keuzes. Toegang zonder gates levert je meer code op, en minder vertrouwen erin.",
+  "sdlc.work.gates.title": "Quality gates",
+  "sdlc.work.gates.body": "Wij bouwen quality gates in je CI/CD, zodat kwaliteit zichtbaar en automatisch wordt, en elk team minstens de standaarden van vandaag haalt. Niemand kijkt met de hand na wat een agent aan volume produceert: de quality gates vangen het volume op, je reviewers beoordelen de keuzes. Toegang zonder gates levert je meer code op, en minder vertrouwen erin.",
   "sdlc.work.platform.title": "Eén manier van werken",
-  "sdlc.work.platform.body": "Wij leggen de afspraken vast in de repository en brengen ze bij elk team binnen via de tooling zelf, niet via een wikipagina die één keer geschreven wordt en nooit meer gelezen. We sturen ze bij op basis van feedback.",
+  "sdlc.work.platform.body": "Wij helpen een klein platformteam uit je eigen organisatie de afspraken vast te leggen in de repository en ze bij elk team binnen te brengen via de tooling zelf, niet via een wikipagina die één keer geschreven wordt en nooit meer gelezen. Het is een basis, geen grens: elk team bouwt erop verder, en feedback uit elk team stuurt die basis bij.",
 
   "sdlc.cta.title": "Waar staat je team vandaag?",
   "sdlc.cta.body": "Vertel kort hoe je teams vandaag werken en waar het schuurt. We zeggen welke stap eerst komt, en waarom die eerst komt.",

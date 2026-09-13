@@ -1,62 +1,76 @@
-<!-- ════════════════ 07 · ENVIRONMENT ════════════════ -->
-<section id="isabel-sdlc-slide-07" data-label="Environment" class="slide slide--footed">
+<!-- ════════════════ 07 · INSIDE BUILD ════════════════ -->
+<section id="isabel-sdlc-slide-07" data-label="Inside build" class="slide slide--footed">
   <div id="isabel-sdlc-slide-07-inner" class="slide__inner">
 
     <div id="isabel-sdlc-slide-07-head" class="slide__head">
       <div id="isabel-sdlc-slide-07-rule" class="rule" aria-hidden="true"></div>
-      <h2 id="isabel-sdlc-slide-07-title" class="slide__title">The agent needs somewhere to work</h2>
+      <h2 id="isabel-sdlc-slide-07-title" class="slide__title">Inside Build: the agent runs the gates itself</h2>
     </div>
 
     <div id="isabel-sdlc-slide-07-body" class="slide__body">
-      <div id="isabel-sdlc-slide-07-env" class="env">
+      <div id="isabel-sdlc-slide-07-zoom" class="zoom">
 
-        <div id="isabel-sdlc-slide-07-env-box" class="env__box">
-          <p id="isabel-sdlc-slide-07-env-legend" class="env__legend">The environment</p>
+        <div id="isabel-sdlc-slide-07-lifecycle" class="flow__figure">
+          <svg id="isabel-sdlc-slide-07-channel" class="flow__channel" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path id="isabel-sdlc-slide-07-channel-path" d="M0,2 L1000,2 L1000,98 L0,98 Z"></path></svg>
+          <ol id="isabel-sdlc-slide-07-bar" class="flow__bar flow__bar--run">
+            <li id="isabel-sdlc-slide-07-desk-product" class="flow__desk zoom__desk--dim">Product</li>
+            <li id="isabel-sdlc-slide-07-desk-analysis" class="flow__desk zoom__desk--dim">Analysis</li>
+            <li id="isabel-sdlc-slide-07-desk-build" class="flow__desk zoom__desk--focus">Build</li>
+            <li id="isabel-sdlc-slide-07-desk-review" class="flow__desk zoom__desk--dim">Review</li>
+            <li id="isabel-sdlc-slide-07-desk-test" class="flow__desk zoom__desk--dim">Test</li>
+            <li id="isabel-sdlc-slide-07-desk-release" class="flow__desk zoom__desk--dim">Release</li>
+          </ol>
+        </div>
 
-          <p id="isabel-sdlc-slide-07-env-where" class="env__where">The same one in GitLab and on a developer’s laptop.</p>
+        <svg id="isabel-sdlc-slide-07-lens" class="zoom__lens" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path id="isabel-sdlc-slide-07-lens-left" d="M333.33,0 L0,100"></path><path id="isabel-sdlc-slide-07-lens-right" d="M500,0 L693.4,100"></path></svg>
 
-          <div id="isabel-sdlc-slide-07-env-steps" class="env__steps">
-            <div id="isabel-sdlc-slide-07-env-loop" class="env__loop" aria-hidden="true"></div>
+        <div id="isabel-sdlc-slide-07-work" class="zoom__work">
 
-            <div id="isabel-sdlc-slide-07-env-list" class="env__list">
-              <div id="isabel-sdlc-slide-07-env-step-01" class="env__step">
-                <span id="isabel-sdlc-slide-07-env-step-01-term" class="env__term">Build and run it</span>
-              </div>
-              <div id="isabel-sdlc-slide-07-env-step-02" class="env__step">
-                <span id="isabel-sdlc-slide-07-env-step-02-term" class="env__term">Run the checks</span>
-              </div>
-              <div id="isabel-sdlc-slide-07-env-step-03" class="env__step">
-                <span id="isabel-sdlc-slide-07-env-step-03-term" class="env__term">Read the result</span>
-              </div>
-              <div id="isabel-sdlc-slide-07-env-step-04" class="env__step">
-                <span id="isabel-sdlc-slide-07-env-step-04-term" class="env__term">Fix and go again</span>
+          <div id="isabel-sdlc-slide-07-box" class="zoom__box">
+            <p id="isabel-sdlc-slide-07-legend" class="zoom__legend">The same in GitLab and on a laptop</p>
+            <div id="isabel-sdlc-slide-07-cycle" class="zoom__cycle">
+              <ol id="isabel-sdlc-slide-07-steps" class="zoom__steps">
+                <li id="isabel-sdlc-slide-07-step-build" class="zoom__step">Build and run the code</li>
+                <li id="isabel-sdlc-slide-07-step-gates" class="zoom__step">Run the quality gates</li>
+                <li id="isabel-sdlc-slide-07-step-read" class="zoom__step">Read the result</li>
+                <li id="isabel-sdlc-slide-07-step-fix" class="zoom__step">Fix</li>
+              </ol>
+              <div id="isabel-sdlc-slide-07-return" class="zoom__return">
+                <p id="isabel-sdlc-slide-07-repeat" class="zoom__repeat">Repeat until every gate passes</p>
               </div>
             </div>
           </div>
-        </div>
 
-        <div id="isabel-sdlc-slide-07-ask-path" class="env__ask-path" aria-hidden="true">
-          <div id="isabel-sdlc-slide-07-ask-out" class="env__ask-out"></div>
-          <div id="isabel-sdlc-slide-07-ask-back" class="env__ask-back"></div>
-        </div>
+          <div id="isabel-sdlc-slide-07-out" class="zoom__out">
+            <p id="isabel-sdlc-slide-07-out-label" class="zoom__out-label">all pass</p>
+          </div>
 
-        <div id="isabel-sdlc-slide-07-env-ask" class="env__after">
-          <p id="isabel-sdlc-slide-07-env-ask-title" class="env__after-title">A question for a person</p>
-          <p id="isabel-sdlc-slide-07-env-ask-body" class="env__after-body">A design decision, an ambiguity, a trade-off nobody wrote down. The agent asks rather than guesses.</p>
-        </div>
+          <div id="isabel-sdlc-slide-07-review" class="zoom__node zoom__node--review">
+            <p id="isabel-sdlc-slide-07-review-next" class="zoom__next">Next stage: Review</p>
+            <p id="isabel-sdlc-slide-07-review-title" class="zoom__node-title">Merge request</p>
+            <p id="isabel-sdlc-slide-07-review-body" class="zoom__node-body">An AI reviewer checks it first, then a person approves it.</p>
+          </div>
 
-        <div id="isabel-sdlc-slide-07-out" class="env__out" aria-hidden="true"></div>
+          <div id="isabel-sdlc-slide-07-ask" class="zoom__ask">
+            <div id="isabel-sdlc-slide-07-ask-arrows" class="zoom__ask-arrows">
+              <div id="isabel-sdlc-slide-07-ask-down" class="zoom__down" aria-hidden="true"></div>
+              <div id="isabel-sdlc-slide-07-ask-up" class="zoom__up" aria-hidden="true"></div>
+              <p id="isabel-sdlc-slide-07-ask-label" class="zoom__ask-label">stuck on a decision</p>
+            </div>
+            <div id="isabel-sdlc-slide-07-decide" class="zoom__node zoom__node--ask">
+              <p id="isabel-sdlc-slide-07-decide-who" class="zoom__who">A person</p>
+              <p id="isabel-sdlc-slide-07-decide-title" class="zoom__node-title">Decides, and the agent carries on</p>
+              <p id="isabel-sdlc-slide-07-decide-body" class="zoom__node-body">A design decision or an ambiguity: the agent asks instead of guessing.</p>
+            </div>
+          </div>
 
-        <div id="isabel-sdlc-slide-07-env-after" class="env__after">
-          <p id="isabel-sdlc-slide-07-env-after-title" class="env__after-title">Merge request review</p>
-          <p id="isabel-sdlc-slide-07-env-after-body" class="env__after-body">A person reviews the result.</p>
         </div>
 
       </div>
     </div>
 
-    <p id="isabel-sdlc-slide-07-note" class="slide__note">Quality gates only help if the agent can run them itself. Otherwise they are a queue with a person at the front.</p>
+    <p id="isabel-sdlc-slide-07-note" class="slide__note">The gates hold every change to today’s standards, or stricter, before a person ever sees it.</p>
 
   </div>
-  <!--chrome 07/09-->
+  <!--chrome 07/11-->
 </section>
