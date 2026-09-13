@@ -1,15 +1,75 @@
-import { createReadStream, existsSync, statSync } from 'node:fs';
+import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 import { createServer } from 'node:http';
+import { createLiveReload } from './live-reload.mjs';
 
 const rootDir = resolve(process.cwd(), "dist");
 const host = "127.0.0.1";
-const port = Number(process.env.PORT || 8000);
+
+// --port wins over PORT so `npm run ai` can pin 8001 without an env prefix that
+// only works on a POSIX shell.
+const portFlag = process.argv.find((arg) => arg.startsWith("--port="));
+const port = Number(portFlag ? portFlag.slice("--port=".length) : process.env.PORT || 8000);
+
+// `npm run dev` passes --watch: rebuild on save and reload the open page.
+// `npm run serve` serves dist exactly as it will be deployed.
+const watching = process.argv.includes("--watch");
+const liveReload = watching ? createLiveReload({ repoRoot: process.cwd() }) : null;
+
+// `npm run ai` passes --reuse: a server left running on the port by an earlier
+// agent session is the wanted outcome, not a crash.
+const reusing = process.argv.includes("--reuse");
+
+// dist/_redirects is Cloudflare's routing table, and the language fallback lives
+// in it: an unprefixed URL resolves to the default language. Without this,
+// `/training/` would 404 here while working in production. Only the three shapes
+// the file uses are implemented: an exact path, a trailing splat, and the
+// same-path 200 rewrite that serves a file in place instead of redirecting.
+let redirectCache = { mtime: 0, rules: [] };
+
+function redirectRules() {
+    const file = join(rootDir, "_redirects");
+    if (!existsSync(file)) return [];
+
+    const mtime = statSync(file).mtimeMs;
+    if (mtime === redirectCache.mtime) return redirectCache.rules;
+
+    const rules = readFileSync(file, "utf8")
+        .split("\n")
+        .map((line) => line.trim())
+        .filter((line) => line.startsWith("/"))
+        .map((line) => {
+            const [from, to, status] = line.split(/\s+/);
+            return { from, to, status: Number(status) || 302 };
+        });
+
+    redirectCache = { mtime, rules };
+    return rules;
+}
+
+// First match wins, and nothing after it is considered.
+function matchRedirect(pathname) {
+    for (const rule of redirectRules()) {
+        if (rule.from.endsWith("/*")) {
+            const prefix = rule.from.slice(0, -1);
+            if (pathname.startsWith(prefix)) {
+                return { ...rule, to: rule.to.replace(":splat", pathname.slice(prefix.length)) };
+            }
+        } else if (rule.from === pathname) {
+            return rule;
+        }
+    }
+
+    return null;
+}
 
 const contentTypes = {
+    ".avif": "image/avif",
     ".css": "text/css; charset=utf-8",
     ".html": "text/html; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
+    ".jpeg": "image/jpeg",
+    ".jpg": "image/jpeg",
     ".json": "application/json; charset=utf-8",
     ".pdf": "application/pdf",
     ".png": "image/png",
@@ -19,9 +79,50 @@ const contentTypes = {
     ".xml": "application/xml; charset=utf-8"
 };
 
+/**
+ * What a missing URL is answered with. Cloudflare serves `dist/404.html` with a
+ * 404 status, and this served the two words "Not found" as `text/plain` — so the
+ * one page nobody could preview locally was the one whose whole purpose is to be
+ * seen when something has gone wrong. Falls back to plain text if the build has
+ * not produced one.
+ */
+function notFound(res, rootDir, liveReload) {
+    const page = join(rootDir, "404.html");
+    if (!existsSync(page)) {
+        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+        res.end("Not found");
+        return;
+    }
+
+    const raw = readFileSync(page, "utf8");
+    const body = liveReload ? liveReload.inject(raw) : raw;
+    res.writeHead(404, {
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": Buffer.byteLength(body),
+        "Cache-Control": "no-store"
+    });
+    res.end(body);
+}
+
 const server = createServer((req, res) => {
+    if (liveReload?.handle(req, res)) return;
+
     const requestUrl = new URL(req.url || "/", `http://${host}:${port}`);
-    const pathname = decodeURIComponent(requestUrl.pathname);
+    const requestPath = decodeURIComponent(requestUrl.pathname);
+
+    const rule = matchRedirect(requestPath);
+    if (rule && rule.status !== 200) {
+        /* Cloudflare carries the query string across a redirect, and it goes
+           before the fragment: appended to the whole destination it lands
+           inside the fragment of a rule like `/contact /nl/#contact`. */
+        const [target, fragment] = rule.to.split('#');
+        const location = `${target}${requestUrl.search}${fragment ? `#${fragment}` : ''}`;
+        res.writeHead(rule.status, { "Location": location, "Cache-Control": "no-store" });
+        res.end();
+        return;
+    }
+
+    const pathname = rule ? rule.to : requestPath;
     const safePath = normalize(pathname).replace(/^(\.\.[/\\])+/, "");
     let filePath = join(rootDir, safePath);
 
@@ -43,8 +144,7 @@ const server = createServer((req, res) => {
     }
 
     if (!existsSync(filePath)) {
-        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-        res.end("Not found");
+        notFound(res, rootDir, liveReload);
         return;
     }
 
@@ -54,12 +154,23 @@ const server = createServer((req, res) => {
     }
 
     if (!existsSync(filePath)) {
-        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-        res.end("Not found");
+        notFound(res, rootDir, liveReload);
         return;
     }
 
     const contentType = contentTypes[extname(filePath)] || "application/octet-stream";
+
+    if (liveReload && extname(filePath) === ".html") {
+        const body = liveReload.inject(readFileSync(filePath, "utf8"));
+        res.writeHead(200, {
+            "Content-Type": contentType,
+            "Content-Length": Buffer.byteLength(body),
+            "Cache-Control": "no-store"
+        });
+        res.end(body);
+        return;
+    }
+
     res.writeHead(200, { "Content-Type": contentType });
     const fileStream = createReadStream(filePath);
     fileStream.on("error", (err) => {
@@ -72,6 +183,17 @@ const server = createServer((req, res) => {
     fileStream.pipe(res);
 });
 
+server.on("error", (err) => {
+    if (err.code === "EADDRINUSE" && reusing) {
+        console.log(`Already serving at http://${host}:${port} - reusing it.`);
+        process.exit(0);
+    }
+
+    console.error(err.message);
+    process.exit(1);
+});
+
 server.listen(port, host, () => {
     console.log(`Serving dist at http://${host}:${port}`);
+    liveReload?.start();
 });

@@ -1,0 +1,42 @@
+{
+  "title": "SmartAgents — De AI-ready organisatie",
+  "description": "Een praktische gids om AI structureel te verankeren in een organisatie: vanuit strategie, mensen en technologie.",
+  "width": "1920",
+  "height": "1080",
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
+  "slides": [
+    "00-cover",
+    "01-inhoud",
+    "02-inleiding",
+    "03-drie-vragen",
+    "04-visie-quote",
+    "05-adoptie-stats",
+    "06-de-kloof",
+    "07-productivity-paradox",
+    "08-definitie",
+    "09-drie-dynamieken",
+    "10-dynamiek-01",
+    "11-dynamiek-02",
+    "12-dynamiek-03",
+    "13-rising-tides",
+    "14-strategie-quote",
+    "15-deel-ii",
+    "16-stappenplan",
+    "17-stap-1",
+    "18-visie-hierarchie",
+    "19-stap-2",
+    "20-stap-3-map",
+    "21-capabilities",
+    "22-stap-4",
+    "23-stap-5",
+    "24-roi",
+    "25-diensten",
+    "26-auteurs",
+    "27-close"
+  ]
+}

@@ -1,0 +1,37 @@
+/* lease-lens-demo — rules that belong to this deck alone.
+
+   1. "Plaatsbeschrijvingen" is a twenty-character compound: at the shared
+      104px it is wider than the cover's 52% column and cannot wrap, so this
+      deck sets its cover one step down.
+
+   2. The demo slide's QR code is not in `.media__frame`, whose
+      `object-fit: cover` would crop a square code into a landscape box. A code
+      needs its quiet zone and its own paper. It is a committed file, never a
+      live request — a room without wifi is where this slide has to work —
+      1320px on the side and drawn at 440, so the downscale is a clean third.
+      Regenerate it only if the URL changes. */
+
+
+.qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+}
+
+.qr__code {
+  display: block;
+  width: 440px;
+  height: 440px;
+}
+
+.qr__url {
+  max-width: 560px;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 1.5;
+  text-align: center;
+  overflow-wrap: anywhere;
+  color: var(--sa-grey-6);
+}

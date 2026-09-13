@@ -1,0 +1,722 @@
+/* isabel-sdlc — rules that belong to this deck alone.
+
+   Three figures, none of them one of the eight archetypes, and none sharing a
+   class with the others: slide 03 asks where the queue is, 07 zooms into Build to
+   show where the agent works, 08 shows how the way of working reaches every team.
+
+   Slide 03 is one band per row with the six desks named on it. The same six
+   desks (Product, Analysis, Build, Review, Test, Release) in all three rows, and
+   what differs is where the band narrows: read top to bottom, the narrowest
+   point travels right and gets wider. The geometry is struck by the same
+   generator the site's copy of this figure uses, in `src/pages/sdlc.mjs`, so the
+   two cannot drift into different shapes; the paths and the gate offsets here
+   are its output, pasted, because a deck is static and self-contained.
+
+   Three drawings came before it, each wrong in a way worth recording. A grid of
+   cells with a coloured rule over each was accurate and read as a spreadsheet.
+   A navy ribbon under a row of labels drew phases with nobody in them, so "what
+   changes" could only be read as "a shape got wider". A row of grey chips over a
+   ribbon put the desks in but left two objects stacked, and no amount of overlap
+   made them one.
+
+   Six invariants hold it up. The first two were learned in front of a room that
+   argued with the words instead of the picture; the rest were learned by drawing
+   the thing wrong.
+
+   1. The six names are identical in all three rows. A second vocabulary for the
+      same lifecycle turns the slide into one about terminology.
+
+   2. The rows are named for what is true of them and not for an era. Traditional,
+      Agentic and AI-native are three words from an industry lexicon and the room
+      spent the slide defining them against each other. Today, AI-assisted
+      and AI-native differ by one variable at a time, and each carries a
+      `.flow__queue` line. The place to answer the lexicon is out loud, not in a
+      `#speaker-notes` block, whose mechanism is inert in this repo and swallows
+      what you put in it without an error.
+
+   3. **The band is never broken.** A handoff was a paper cut clean through it
+      for a while, and five of those turn one flowing channel into six blocks
+      with curved ends: the line stops being a line. A handoff is the hairline
+      between two desks. What says the last row has none is that its desks carry
+      no hairline at all, only the four gates.
+
+   4. **Nothing is drawn over a neck.** The slow desk had its own paper chip,
+      which bought a deeper pinch and hid the pinch it was marking. The pinch is
+      capped at what a line of type can sit in, and the desk is marked by weight.
+
+   5. **Every mark is struck against the band, not against the box it is drawn
+      in.** A gate's length was a hand-written number and it was wrong twice:
+      three gates fell short of the band and the fourth, standing in the neck,
+      ran past it. `--inset` on each mark is the band's own offset at that point.
+
+   6. Every desk is the same width, and nothing here is a measurement. The bar is
+      always full and always the same length; the only thing it claims is where
+      it narrows.
+
+   A gate is a decision a person makes, and the second footnote has to keep
+   saying so. It read "a check your pipeline runs, deciding to ship is still a
+   person", which was true of the drawing before this one, where a single cyan
+   gate stood in the Release neck. With four of them named above it, that line
+   told the room three of the four were automatic: the opposite of the list it
+   sat under, and of the playbook it credits, whose human-in-the-loop points are
+   these four: plan acceptance, spec review against intent, review of whether the
+   change did what the plan intended, and release authorisation. What the
+   pipeline does is enforce the gate, not take the decision.
+
+   The middle row has two necks, which is the one place this figure breaks its
+   own "one neck per row". It is deliberate: that row's sentence has always said
+   the bottleneck moves to what you ask for *and* to whoever checks it, and a
+   single neck at Review says half of it.
+
+   Off the stylesheet, on the 1920x1080 stage, then measured in Chrome because
+   this slide has no room to be wrong:
+
+     content box   1080 - 96 - 184                = 800.0
+     head          3 + 22 + 72 x 1.1              = 104.2
+     three notes   3 x 24 x 1.5 + 2 x 10          = 128.0
+     two gaps      2 x 56                         = 112.0
+     body          800 - 104.2 - 112 - 128        = 455.8
+
+   `.slide__body` is `justify-content: safe center` and `OVERFLOW_SLACK` in
+   `check-slides.mjs` is 90px, so an overrun spills into the notes rather than
+   clipping and the checker does not see it. **Measure this slide in the browser
+   after changing anything on it.** */
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Label on the left, the lifecycle on the right. The label column is fixed so
+   the six desks start on the same x in all three rows: the eye compares down the
+   columns, and a ragged left edge would break that.
+
+   340px, set by the queue lines rather than the names. No Geist binary is
+   shipped, so this is the platform face: re-measure when the face arrives or a
+   label changes, and treat anything under about 8% of clearance as a rewrite. */
+.flow__stage {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  column-gap: 56px;
+  align-items: center;
+}
+
+.flow__label {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flow__name {
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+/* The second line of a label names what the row is drawn around, which is what
+   stops the three names being read as competing words for the same thing.
+   `--sa-grey-6`, a step back from the desks rather than in front of them. */
+.flow__queue {
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--sa-grey-6);
+  text-wrap: pretty;
+}
+
+/* The frame the band is drawn in and every mark is struck against. Its height is
+   the bar's, because the bar is the only child in flow. */
+.flow__figure {
+  position: relative;
+  grid-column: 2;
+}
+
+/* `preserveAspectRatio="none"` against a fixed height: the neck is a *share* of
+   the thickness, so a non-uniform scale keeps it exactly and only shortens the
+   shoulders. */
+.flow__channel {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--sa-field);
+}
+
+.flow__bar {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Six equal desks with no ground of their own: the band behind them is the
+   ground. The zero basis is what makes them equal whatever words they hold. */
+.flow__desk {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 30px 14px;
+  color: var(--sa-white);
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-medium);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* A handoff. */
+.flow__desk + .flow__desk {
+  box-shadow: -2px 0 0 rgb(255 255 255 / 0.22);
+}
+
+/* One run: nothing changes hands in it, so nothing divides it. */
+.flow__bar--run .flow__desk + .flow__desk {
+  box-shadow: none;
+}
+
+/* A desk the row waits on. */
+.flow__desk--slow {
+  font-weight: var(--fw-semibold);
+}
+
+/* A gate, struck against the band: `--inset` is how far the band is off each
+   edge at that point, which is 2% at three of them and 14.48% at the fourth,
+   because the fourth stands in the neck. */
+.flow__gate-mark {
+  position: absolute;
+  z-index: 1;
+  top: var(--inset);
+  bottom: var(--inset);
+  left: var(--at);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  transform: translateX(-50%);
+  background: var(--sa-cyan-bright);
+  color: var(--sa-cyan-ink);
+  font-size: 20px;
+  /* The site's copy of this mark is a step darker (`--sa-cyan-bright-press`),
+     because four full-height pills at #00d8ff take a hairline page over. A
+     projector washes the other way, and this deck has no press step in its own
+     token file, so here it stays bright. */
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+}
+
+/* The gates, named under the figure in the order they stand in the band. A name
+   on a 30px mark either overlaps its neighbour or sets too small to read; the
+   number on each mark is what ties the two together. */
+.flow__gates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  grid-column: 2;
+  margin-top: 18px;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+.flow__gates-label {
+  color: var(--accent);
+  font-weight: var(--fw-semibold);
+}
+
+.flow__gates-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 0;
+  padding: 0;
+  color: var(--sa-grey-6);
+  list-style: none;
+}
+
+/* Laid out as a flex row rather than nudged off a baseline: a 26px box on a 22px
+   line never sits right on a `vertical-align` guess. */
+.flow__gate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flow__gate-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 17px;
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+}
+
+/* Three footnotes: how to read the figure, what a gate is, then the credit. They
+   share one slot because as siblings of `.slide__inner` they would be pushed
+   56px apart and read as three unrelated blocks of mono. */
+.slide-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slide-notes .slide__note {
+  margin-top: 0;
+}
+
+/* ══ Slide 07: a zoom into Build ════════════════════════════════════════════
+   Slide 03's bar on top with only Build lit, so the room sees this is one stage
+   of the lifecycle and not the whole of it. Two dashed lines open Build into
+   the box below, where the agent loops.
+
+   Inside Build a person acts once: the decision hanging under the box, reached
+   by a pair of arrows because a question goes out and an answer comes back.
+   The box on the right is not part of Build. It is the handoff to the next
+   stage, so its label is grey where the person's is cyan.
+
+   The columns are fixed so the right-hand dashed line can land on the box's
+   corner: 1176 of 1696 is 69.34% of the lens. */
+
+.zoom {
+  display: flex;
+  flex-direction: column;
+}
+
+.zoom__desk--dim {
+  color: rgb(255 255 255 / 0.4);
+}
+
+/* Chained onto `.flow__bar` so it outranks the run bar's `box-shadow: none`. */
+.flow__bar .flow__desk.zoom__desk--focus {
+  font-weight: var(--fw-semibold);
+  box-shadow: inset 0 -6px 0 var(--sa-cyan-bright);
+}
+
+.zoom__lens {
+  display: block;
+  width: 100%;
+  height: 44px;
+  overflow: visible;
+}
+
+.zoom__lens path {
+  fill: none;
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+  stroke-dasharray: 5 9;
+  vector-effect: non-scaling-stroke;
+}
+
+.zoom__work {
+  display: grid;
+  grid-template-columns: 1176px 120px 400px;
+  grid-template-rows: auto auto;
+  align-items: center;
+}
+
+.zoom__box {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  box-sizing: border-box;
+  padding: 44px 40px 52px;
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+}
+
+/* Centred, because the two dashed lines land on the box's top corners. */
+.zoom__legend {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 14px;
+  background: var(--sa-paper);
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--sa-grey-3);
+  white-space: nowrap;
+}
+
+.zoom__cycle {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.zoom__steps {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zoom__step {
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.zoom__step + .zoom__step::before {
+  content: "→";
+  margin: 0 22px;
+  color: var(--sa-grey-6);
+  font-weight: var(--fw-medium);
+}
+
+/* The return runs under the steps from Fix back to the first one. Its ends sit
+   near the centres of the first and last step, which is what the side margins
+   approximate. */
+.zoom__return {
+  position: relative;
+  height: 28px;
+  margin: 16px 22px 0 165px;
+  border: 2.5px solid var(--sa-cyan);
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+}
+
+.zoom__return::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: -12px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--sa-cyan);
+}
+
+.zoom__repeat {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 16px;
+  background: var(--sa-paper);
+  color: var(--sa-cyan);
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+.zoom__out {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  height: 2.5px;
+  margin: 0 12px 0 0;
+  background: var(--sa-ink);
+}
+
+.zoom__out::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--sa-ink);
+}
+
+.zoom__out-label {
+  position: absolute;
+  left: 0;
+  right: -12px;
+  bottom: 12px;
+  margin: 0;
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-6);
+  white-space: nowrap;
+}
+
+/* Boxes, like the nodes on slide 08, so every arrow ends on an edge. */
+.zoom__node {
+  box-sizing: border-box;
+  padding: 20px 28px 22px;
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+}
+
+.zoom__node--review {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.zoom__who {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  color: var(--sa-cyan);
+}
+
+.zoom__next {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  color: var(--sa-grey-6);
+}
+
+.zoom__node-title {
+  margin: 2px 0 0;
+  font-size: 27px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.zoom__node-body {
+  margin: 8px 0 0;
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* Centred under the box. The arrows run from the box's bottom edge to the
+   node's top edge, and the label hangs beside them without moving them off the
+   centre line. */
+.zoom__ask {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.zoom__ask-arrows {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  height: 60px;
+}
+
+.zoom__down,
+.zoom__up {
+  position: relative;
+  width: 2.5px;
+  height: 48px;
+  background: var(--sa-cyan);
+}
+
+.zoom__down::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: -7px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid var(--sa-cyan);
+}
+
+.zoom__up {
+  margin-top: 12px;
+}
+
+.zoom__up::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: -7px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--sa-cyan);
+}
+
+.zoom__ask-label {
+  position: absolute;
+  left: calc(100% + 18px);
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-6);
+  white-space: nowrap;
+}
+
+/* ══ Slide 08: how the way of working reaches every team ═════════════════════
+   Left to right: who writes it, where it lives, whose agent loads it. The loop
+   underneath is the argument, so it is the only cyan on the slide.
+
+   The columns are fixed so the fan can be drawn at its real size: the team
+   list is three 80px boxes with 20px between them, 280px in all, and the fan's
+   three ends sit on their centres at 40, 140 and 240. */
+
+.hub {
+  display: grid;
+  grid-template-columns: 300px 240px 520px 236px 400px;
+  grid-template-rows: 280px auto;
+  align-items: center;
+}
+
+.hub__node {
+  box-sizing: border-box;
+  padding: 24px 28px;
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+}
+
+.hub__node--platform {
+  grid-column: 1;
+  grid-row: 1;
+  height: 120px;
+}
+
+.hub__node--repo {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.hub__title {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.hub__sub {
+  margin: 8px 0 0;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-3);
+}
+
+.hub__arrow {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  height: 2.5px;
+  margin: 0 12px 0 20px;
+  background: var(--sa-ink);
+}
+
+.hub__arrow::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--sa-ink);
+}
+
+.hub__arrow-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  margin: 0;
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-6);
+  white-space: nowrap;
+}
+
+.hub__fan {
+  grid-column: 4;
+  grid-row: 1;
+  display: block;
+}
+
+.hub__fan > path {
+  fill: none;
+  stroke: var(--sa-ink);
+  stroke-width: 2.5;
+}
+
+.hub__fan-head {
+  fill: var(--sa-ink);
+}
+
+.hub__teams {
+  grid-column: 5;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hub__team {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 0 28px;
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+/* Starts under the middle of the team column, runs back under the whole row and
+   climbs 80px into the platform node, which is how far its 120px box sits above
+   the bottom of the 280px row. */
+.hub__feedback {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  position: relative;
+  height: 70px;
+  margin: 0 200px 0 150px;
+  border: 2.5px solid var(--sa-cyan);
+  border-top: none;
+  border-radius: 0 0 22px 22px;
+}
+
+.hub__feedback::before {
+  content: "";
+  position: absolute;
+  left: -2.5px;
+  bottom: 100%;
+  width: 2.5px;
+  height: 68px;
+  background: var(--sa-cyan);
+}
+
+.hub__feedback::after {
+  content: "";
+  position: absolute;
+  left: -9px;
+  bottom: calc(100% + 68px);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--sa-cyan);
+}
+
+.hub__feedback-label {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 16px;
+  background: var(--sa-paper);
+  color: var(--sa-cyan);
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}

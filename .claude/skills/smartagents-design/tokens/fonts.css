@@ -1,0 +1,8 @@
+/* No webfont is loaded. fast-static-site SKILL.md §4 forbids third-party font
+   origins, and no licensed Geist or Instrument Serif binaries were supplied.
+   Geist is named first in --font-sans so the intended face is used wherever it
+   is installed; everything else falls back to the platform UI face.
+
+   To ship the real faces: ask the client for the WOFF2 files, subset them, drop
+   them in assets/fonts/ and add @font-face rules here with font-display: swap
+   plus a size-adjusted fallback face so nothing shifts. */

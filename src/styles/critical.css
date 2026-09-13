@@ -1,0 +1,1171 @@
+/* Above-the-fold only: reset, the page frame, the header and the hero.
+   build/render.mjs prepends tokens.css and inlines the pair into every <head>.
+   Keep the combined block under 14 KB (fast-static-site SKILL.md §2). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  /* The sticky header covers the top of the page, so anchors need the offset
+     plus air. The header's own height alone left 2px of clearance at 1180px. */
+  scroll-padding-top: var(--scroll-clearance);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background: var(--surface-page);
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-size: var(--text-copy-lg);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-book);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+/* To `--sa-deep`, not the lighter cyan step: WCAG 1.4.3 applies to every state,
+   and `--sa-cyan-hover` is 3.64:1 on paper against the rest state's 4.72 — the
+   one state a reader deliberately puts a link into was the one that failed. */
+a:hover {
+  color: var(--sa-deep);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--weight-display);
+  text-wrap: pretty;
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--sa-cyan) 26%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sa-cyan);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 100;
+  top: var(--space-4);
+  left: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-button);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  font-size: var(--text-ui-sm);
+  font-weight: var(--weight-semibold);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  color: var(--action-primary-fg);
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * The page frame: edge to edge, no sheet, no desk
+ * ------------------------------------------------------------------ */
+
+/* Flex column so a short page still puts the footer at the bottom of the
+   viewport rather than leaving bare background under it. */
+/* `clip`, not `hidden`: both keep the dark shapes from widening the page, but
+   `hidden` would make this a scroll container and pin the sticky header to it.
+   The `hidden` first line keeps the clipping on Safari < 16, which loses only
+   the stick. */
+.shell {
+  display: flex;
+  overflow: hidden;
+  overflow: clip;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  background: var(--surface-page);
+}
+
+/* ------------------------------------------------------------------ *
+ * Header
+ * ------------------------------------------------------------------ */
+
+.shell > main {
+  flex: 1 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  z-index: 60;
+  top: 0;
+  display: flex;
+  flex: none;
+  gap: var(--space-8);
+  align-items: center;
+  padding: var(--space-4) var(--gutter-page);
+  border-bottom: 1px solid var(--border-hairline);
+  background: var(--surface-page);
+}
+
+/* The wedge behind the logo: the first window onto the dark field. */
+/* The cut is 3 points steeper than drawn: with four service names the nav
+   starts further left, and at 1181px the first link's hover chip met the slope —
+   the text cleared it by 8px, the chip's rounded corner did not. Three points is
+   about 10px of wedge back, which leaves ~8px between chip and slope. */
+.header-wedge {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(318px, 64%);
+  background: var(--surface-dark);
+  clip-path: polygon(0 0, 87% 0, 71.2% 100%, 0 100%);
+}
+
+/* The field inside the wedge stops before the wordmark: run the whole width its
+   nodes and connectors travelled through the letterforms, which reads as
+   rendering noise on the one element that has to stay crisp. What is left live
+   is the tail past the brand, where the diagonal cut is.
+   The stops are shares of the wedge, because the two move together: the brand
+   box ends at 62% of it at 1100px and 65% at 1440, so 68% clears it. Below the
+   desk the wedge is a flat plate — no tail left to put a field in. */
+.header-wedge sa-node-field {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0 68%, #000 82%);
+  mask-image: linear-gradient(90deg, transparent 0 68%, #000 82%);
+}
+
+@media (width < 1181px) {
+  .header-wedge sa-node-field {
+    display: none;
+  }
+}
+
+.brand-link {
+  position: relative;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  color: var(--text-on-dark);
+  font-size: 16.5px;
+  font-weight: var(--weight-display);
+  letter-spacing: -0.01em;
+}
+
+.brand-link:hover {
+  color: var(--text-on-dark);
+}
+
+/* `flex: none`: the header is a flex row and on a narrow phone it runs out of
+   room. The copy beside the mark never shrinks, so without this the logo takes
+   the whole shortfall and collapses to a sliver. */
+.brand-link .logo {
+  flex: none;
+  width: 30px;
+  height: 30px;
+}
+
+.logo--field {
+  color: var(--sa-cyan-bright);
+}
+
+.logo--ink {
+  color: var(--sa-cyan);
+}
+
+.brand-accent {
+  color: var(--sa-cyan-bright);
+}
+
+/* The bar exists from 1181px up and nowhere else (see the tablet header block
+   below). Seven names in three languages is more than the desk's old slack
+   covers, so the row is fluid here too and it is the slopes that do the work:
+   at 1181px the type is at 12.05px and the link padding at 7.3px, both opening
+   back out to the drawn values. The floors are there to stop the row collapsing;
+   nothing reaches them above 645px.
+
+   Measured, and the row is seven names. At 1181px the primary action ends 74px
+   from the window edge against a 59px gutter in Dutch and English: 15px of true
+   slack. French had 42px of free space and Jobs costs 62, so there the action
+   stands 31px inside the gutter rather than on it — nothing is clipped, nothing
+   overlaps, and it clears again from about 1240px, so the band is ~60px wide.
+   That is bought deliberately; if it has to be paid back, the lever is printing
+   the row from 1240px rather than the gaps here, which are at their floors.
+
+   The overflow matters because `.shell` is `overflow: clip`, so a row that did
+   overflow would be silently cut and `scrollWidth` would never say so. What
+   makes it fit at all is that the nav prints the short name of a service
+   (`navLabel`) — 706px of names became 502px. Re-measure whenever a name
+   changes, and whenever the face does: 15px is about 1.5% of the nav's width,
+   and the Geist binaries the site asks for and does not ship set wider. */
+.site-nav {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  margin-right: auto;
+  margin-left: clamp(16px, 3.9vw, 74px);
+  color: var(--text-nav);
+  font-size: clamp(12px, 1.02vw, 14px);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.nav-link {
+  /* Named so the current item's rule can be drawn to the label rather than to
+     the hover chip: the mark is under the word, not under the padding. */
+  --nav-link-pad: clamp(4px, 0.62vw, 10px);
+
+  transition: var(--transition-tint);
+  position: relative;
+  padding: var(--space-2) var(--nav-link-pad);
+  border-radius: var(--radius-nav);
+  color: inherit;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background: var(--surface-nav-hover);
+  color: var(--text-strong);
+}
+
+/* The page you are on. Ink and weight alone is a shade and a hair in a row of
+   names set identically — and the SDLC item is the longest in the row at every
+   width and in all three languages, so a shade there reads as the row's own
+   unevenness. The mark is the one the rest of the site means "you are here"
+   with: the clause index's 2px cyan rule, laid flat under the label.
+
+   Turning it flat was the one thing not free: a horizontal cyan rule already
+   means "a block starts here" (`.section-heading`), and under a sticky header
+   the two are on screen together. Taken anyway, because a rule under a nav item
+   is read by its position long before it is read as a rule.
+
+   Four things follow. It is a **border**, not a painted bar: a forced palette
+   substitutes a system colour for a border and keeps it, where a background goes
+   — and above 1180px this is the only thing left saying where the reader is. It
+   spans the **label**, not the link box, whose 8px corners a rule drawn to its
+   edges would cross. It turns to **ink while focused** rather than going: the
+   ring is cyan at 2px about 5px outside it, and two cyan lines read as one
+   mis-drawn ring — but hiding the rule leaves the tab stop on the marked page
+   the one place in the bar that says nothing. And **weight is no longer part of
+   it**: a semibold item is a wider item, and it pushed the row along by up to
+   4.88px. The metrics are identical on all six pages now. */
+.nav-link.is-current {
+  color: var(--text-strong);
+}
+
+.nav-link.is-current::after {
+  content: "";
+  position: absolute;
+  right: var(--nav-link-pad);
+  bottom: 0;
+  left: var(--nav-link-pad);
+  border-bottom: 2px solid var(--sa-cyan);
+}
+
+.nav-link.is-current:focus-visible::after {
+  border-bottom-color: var(--text-strong);
+}
+
+/* The disclosure's copy of the state. The ink half is inert — the panel already
+   sets every item to `--text-strong` — but the weight half is not, and in the
+   dropdown band it is the only mark left under `forced-colors`, where the accent
+   dot in main.css goes because it is a background. On the phone, where every
+   item is already semibold, the dot is the whole of it. */
+.nav-sheet__item.is-current {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
+}
+
+/* The one chevron left in the header, on the menu trigger under 768px. It sits
+   beside a word that will not shrink, so `flex: none` keeps it from being the
+   thing that disappears on a narrow phone. */
+.nav-chevron {
+  flex: none;
+  display: inline-flex;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Language chip: real links, decided at build time (static-i18n §5). */
+.lang-switcher ul {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  list-style: none;
+}
+
+.lang-switcher a {
+  transition: var(--transition-tint);
+  /* A flex box with a floor rather than a plain block: the chips were 26x33 in
+     the tablet header, under the 24px WCAG floor in one axis but for the gap
+     beside them. The floor is on the box, so the type keeps its drawn size. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-chip);
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+  text-transform: uppercase;
+}
+
+.lang-switcher a:hover {
+  color: var(--text-strong);
+}
+
+/* The language you are reading. This said `[aria-current="true"]` while the
+   switcher emits `aria-current="page"`, so it matched nothing and the only thing
+   naming the current language was an attribute no sighted reader can see. The
+   mark is an underline, because colour alone is not a distinction (WCAG 1.4.1)
+   and the chip's wash is a 1.06:1 tint of the paper. */
+.lang-switcher a[aria-current] {
+  background: var(--surface-chip);
+  color: var(--text-strong);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--sa-cyan);
+}
+
+/* ------------------------------------------------------------------ *
+ * Buttons — "Diepzee"
+ *
+ * The primary action is the deep-sea step of the accent, and every state is a
+ * colour step: no lift, no cast shadow, no travel. A fill that darkens under the
+ * finger is the only one of the two that has somewhere left to go when the
+ * button is actually pressed.
+ *
+ * Four states, four fills, and the relief is the only thing drawn: a white
+ * hairline along the top edge at rest, the same turned into a shadow under it
+ * when pressed. Nothing transitions but colour.
+ * A button carries no arrow: the arrow is the cue of a link with no box to say
+ * it is one, and a button has the box. `gap` went with it.
+ * ------------------------------------------------------------------ */
+
+.btn {
+  transition: var(--transition-tint);
+  display: inline-flex;
+  align-items: center;
+  padding: 13px var(--space-7);
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: var(--text-ui);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-ui);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* The ring is drawn flush against the fill instead of the site's offset outline,
+   so a button swaps the two rather than wearing both. That is a box-shadow, and
+   a forced palette drops box-shadows — hence the `forced-colors` rule below. */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring-action);
+}
+
+.btn--primary {
+  background: var(--action-primary-bg);
+  box-shadow: var(--shadow-action);
+  color: var(--action-primary-fg);
+}
+
+.btn--primary:hover {
+  background: var(--action-primary-bg-hover);
+  color: var(--action-primary-fg);
+}
+
+.btn--primary:focus-visible {
+  box-shadow: var(--shadow-action), 0 0 0 3px var(--focus-ring-action);
+}
+
+/* After the ring, deliberately: while a key is held both states are live, and
+   the press is the one the reader is causing. */
+.btn--primary:active {
+  background: var(--action-primary-bg-press);
+  box-shadow: var(--shadow-action-press);
+}
+
+/* Last of the five, so it wins without a second selector. `aria-disabled` and
+   not `disabled`, because the submit is only ever busy — it keeps its focus and
+   keeps announcing itself, and the guard in contact-form.js stops the click. */
+.btn--primary:disabled,
+.btn--primary[aria-disabled="true"] {
+  background: var(--action-primary-bg-off);
+  box-shadow: none;
+  color: var(--action-primary-fg-off);
+  cursor: default;
+}
+
+.btn--ghost {
+  padding: 13px var(--space-6);
+  border: 1px solid var(--border-button);
+  background: var(--surface-raised);
+  color: var(--text-lead);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* To the primary's own colour, not cyan: the two stand side by side in every
+   hero, and hovering the second introduced a third colour to a pair of two. */
+.btn--ghost:hover {
+  border-color: var(--action-secondary-hover);
+  color: var(--action-secondary-hover);
+}
+
+/* There is no `.btn--ondark` here any more: nothing in the 60 rendered pages
+   used it. If it ever comes back — a ring drawn flush against #00d8ff has two
+   edges to clear 3:1 on and nothing clears both it and the navy behind it, so
+   that button wants the site's offset outline, not the flush ring. */
+
+.btn--sm {
+  padding: var(--space-2) var(--space-6);
+  font-size: var(--text-ui-sm);
+}
+
+/* The ring is a box-shadow and a forced palette has none, so the outline the
+   button gave up comes back where it is the only thing left. In the critical
+   sheet on purpose: a focus ring that arrives with main.css arrives after the
+   first Tab. */
+@media (forced-colors: active) {
+  .btn:focus-visible {
+    outline: 2px solid;
+    outline-offset: 2px;
+  }
+
+  /* The orbit rings go, site-wide. They are hairlines at 5 to 11% precisely so
+     they sit under the type, and a forced palette substitutes a system colour
+     for every border and drops the alpha with it — five full-strength circles
+     through the reading column. A decoration has no weight it can be given in a
+     palette it does not choose. (`.cycle__phase` is the other half of the same
+     thought: that figure carries meaning, so it keeps a border.)
+     Here rather than in main.css because a page whose rings arrived unhidden
+     until the stylesheet landed would flash them on every first paint. */
+  .orbits {
+    display: none;
+  }
+
+  /* The burger's bars are painted backgrounds, which a forced palette forces to
+     the Canvas family — so the one control that opens the navigation on a phone
+     had no icon in it. Drawn as a border it survives. */
+  .nav-toggle__burger i {
+    height: 0;
+    border-top: 2px solid CanvasText;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The dark field: every dark shape is one window onto the same network
+ * ------------------------------------------------------------------ */
+
+.field-slot {
+  position: absolute;
+  pointer-events: none;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-dark);
+}
+
+/* The clip lives on the element carrying data-magnet, never on a wrapper:
+   src/motion.js grows that element's box and remaps the outline into it, so a
+   clip one level up would no longer line up with the silhouette. Keyed on
+   `data-clip` rather than `.field`, so the shape and the clip stay named
+   together. */
+[data-clip="heroPetal"] {
+  clip-path: url(#heroPetal);
+}
+
+[data-clip="trainingHeroSwell"] {
+  clip-path: url(#trainingHeroSwell);
+}
+
+[data-clip="teamHeroPair"] {
+  clip-path: url(#teamHeroPair);
+}
+
+[data-clip="heroLobe"] {
+  clip-path: url(#heroLobe);
+}
+
+[data-clip="dnaField"] {
+  clip-path: url(#dnaField);
+}
+
+[data-clip="dnaBlob"] {
+  clip-path: url(#dnaBlob);
+}
+
+[data-clip="tourStone"] {
+  clip-path: url(#tourStone);
+}
+
+[data-clip="tourDome"] {
+  clip-path: url(#tourDome);
+}
+
+/* The AI staffing page's hero: an arch on the flank the petal is a leaf on, and
+   the two pebbles come away from it. `heroPebbleA` is shared with the training
+   hero's bead. */
+[data-clip="heroArch"] {
+  clip-path: url(#heroArch);
+}
+
+[data-clip="heroPebbleA"] {
+  clip-path: url(#heroPebbleA);
+}
+
+[data-clip="heroPebbleB"] {
+  clip-path: url(#heroPebbleB);
+}
+
+/* The jobs page's pendant: the one shape on the site hung from the top edge
+   instead of standing on a flank. See `clipDefs()` in src/layouts/base.mjs. */
+[data-clip="jobsJoin"] {
+  clip-path: url(#jobsJoin);
+}
+
+/* The pair that flanks the track panel on the same page: a leaf standing in the
+   left gutter and a wedge dropping from the far corner. */
+[data-clip="tracksLeaf"] {
+  clip-path: url(#tracksLeaf);
+}
+
+[data-clip="tracksTail"] {
+  clip-path: url(#tracksTail);
+}
+
+[data-clip="sdlcOrbNear"] {
+  clip-path: url(#sdlcOrbNear);
+}
+
+[data-clip="sdlcOrbFar"] {
+  clip-path: url(#sdlcOrbFar);
+}
+
+[data-clip="sdlcHeroRidge"] {
+  clip-path: url(#sdlcHeroRidge);
+}
+
+[data-clip="processBeadA"] {
+  clip-path: url(#processBeadA);
+}
+
+[data-clip="processBeadC"] {
+  clip-path: url(#processBeadC);
+}
+
+[data-clip="processBeadB"] {
+  clip-path: url(#processBeadB);
+}
+
+[data-clip="processLobe"] {
+  clip-path: url(#processLobe);
+}
+
+/* ------------------------------------------------------------------ *
+ * Hero
+ * ------------------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  background: var(--surface-section);
+}
+
+/* Both shapes hang off a page edge and stop short of the other three: an edge
+   cut by the hero's own bottom would read as clipped, not drawn. Every offset is
+   a share of the hero, and it is sized by insets alone — src/motion.js grows the
+   box by subtracting from all four, and an explicit size would move it. */
+.hero__field--right {
+  inset: 0.8% 0 7.8% 56%;
+}
+
+.hero__field--left {
+  inset: 23.4% 44% 3.4% 0;
+}
+
+/* An independent slot with an aspect of its own, so the island is off-round at
+   every width: `homeHeroIsland` in a near-square box is a disc, and a disc
+   beside a drawn flank reads as a bullet, which is the rule every pebble on
+   the site is drawn under. The box is on the slot and not on the field, so the
+   magnet can grow the field's box. It disappears with the left flank on mobile. */
+.hero__island-slot {
+  top: 58%;
+  left: 48%;
+  width: clamp(170px, 14vw, 230px);
+  aspect-ratio: 1.3;
+}
+
+[data-clip="homeHeroIsland"] {
+  clip-path: url(#homeHeroIsland);
+}
+
+/* The island exists for the join, so it is printed only where a join can
+   happen: this query is the negative of the gates `src/motion.js` arms the
+   magnets on, the same one `.hero__bead` carries in `main.css`. The flank it
+   stands beside only goes at 941px, so width alone left the island on a 1024px
+   tablet, on every reduced-motion desk and on every touch screen above the
+   phone: a disc floating 27px off a shape it can never reach. */
+@media (width < 1081px), (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .hero__island-slot {
+    display: none;
+  }
+}
+
+/* The orbit diagram, clipped to the hero by its own layer and never by `.hero`
+   itself — the dark shapes deform outside their box and must not be cut with
+   it. */
+/* The layer is wider than the page's box in every direction the rings need, and
+   `overflow: hidden` keeps that off the document. What it cannot do is end an
+   arc gracefully, and it was ending the travelling node badly: a node's opacity
+   is keyed to the rotation alone, so on a layer whose origin is struck near a
+   page edge it is lit while outside the layer, and a lit dot crossing a hard
+   clip is drawn as a sliver of itself — measured, 1px of grey on the page gutter
+   above the "Inzichten" heading, which reads as dirt on the screen.
+
+   So the layer fades out over its last 44px left and right rather than stopping.
+   Horizontal only: no node on the site reaches the top or bottom edge lit, and a
+   vertical fade would pull the rings off the hero's own hairline, where an arc
+   stopping under the header reads as an arc going behind it. */
+.orbits {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+  pointer-events: none;
+}
+
+/* Under a hero the rings run on past its foot and have to be given the room.
+   They are struck 90px below the layer's top with an outermost radius of 845px,
+   so on a 440px hero the last three rings close below the foot — and `.orbits`
+   clips to its own box, so all three were cut dead on the same horizontal line.
+   Three arcs ending on one rule is a seam, and every hero on the site had one.
+
+   So the layer is given the height its geometry needs rather than the hero's.
+   `bottom` is ignored once an absolutely positioned box is over-constrained, so
+   this grows the box downward and leaves the origin where it was. The rings then
+   pass under the section below, which paints over them and lets them through.
+
+   Scoped to a hero: the other three sets are struck against the section they
+   ground, and this height would push them into the next one. */
+.hero .orbits {
+  min-height: 936px;
+}
+
+.orbits__origin {
+  position: absolute;
+  top: 90px;
+  left: 12%;
+  width: 0;
+  height: 0;
+}
+
+.orbits__ring {
+  position: absolute;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.orbits__ring--01 {
+  inset: -260px auto auto -260px;
+  width: 520px;
+  height: 520px;
+  border-color: color-mix(in oklch, var(--sa-ink) 10%, transparent);
+}
+
+.orbits__ring--02 {
+  inset: -390px auto auto -390px;
+  width: 780px;
+  height: 780px;
+  border-color: color-mix(in oklch, var(--sa-cyan) 20%, transparent);
+}
+
+.orbits__ring--03 {
+  inset: -530px auto auto -530px;
+  width: 1060px;
+  height: 1060px;
+  border-style: dashed;
+  border-color: color-mix(in oklch, var(--sa-ink) 11%, transparent);
+}
+
+.orbits__ring--04 {
+  inset: -680px auto auto -680px;
+  width: 1360px;
+  height: 1360px;
+  border-color: color-mix(in oklch, var(--sa-ink) 7%, transparent);
+}
+
+.orbits__ring--05 {
+  inset: -845px auto auto -845px;
+  width: 1690px;
+  height: 1690px;
+  border-color: color-mix(in oklch, var(--sa-ink) 5%, transparent);
+}
+
+/* Three of the rings carry a node: a point that turns around the diagram's
+   origin and fades in and out over one turn, so it reads as one node travelling
+   rather than as a permanent dot.
+
+   The thing that rotates has no size. Rotating a box as wide as its ring also
+   carries the node round, and it hands the compositor four layers of up to
+   1690px square — around 20 MB of texture at DPR 2 — to paint four 5px dots. A
+   0x0 box rotates about the point it stands on, so the anchor stands on the
+   origin and the node is hung out at the ring's radius plus half its own width,
+   a box being positioned by its corner. The cost is that the radius is written
+   twice per ring, so a ring that moves has to move in both places. */
+.orbits__path {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 0;
+  height: 0;
+  animation: sa-orbit linear infinite;
+}
+
+.orbits__node {
+  position: absolute;
+  border-radius: 50%;
+  animation: sa-orbit-fade ease-in-out infinite;
+}
+
+.orbits__path--01 {
+  animation-duration: 34s;
+}
+
+.orbits__path--01 .orbits__node {
+  top: -394px; /* ring radius 390 + half the dot */
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  background: var(--sa-cyan);
+  box-shadow: 0 0 14px 2px color-mix(in oklch, var(--sa-cyan) 50%, transparent);
+  animation-duration: 34s;
+}
+
+.orbits__path--02 {
+  animation-duration: 62s;
+  animation-direction: reverse;
+}
+
+.orbits__path--02 .orbits__node {
+  top: -533px; /* 530 + 3 */
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  background: var(--sa-grey-1);
+  animation-duration: 62s;
+  animation-delay: -14s;
+}
+
+.orbits__path--03 {
+  animation-duration: 88s;
+}
+
+.orbits__path--03 .orbits__node {
+  top: -682.5px; /* 680 + 2.5 */
+  left: -2.5px;
+  width: 5px;
+  height: 5px;
+  background: color-mix(in oklch, var(--sa-cyan) 75%, transparent);
+  animation-duration: 88s;
+}
+
+/* Ring 04's travelling node lives in main.css: only a ground taller than a hero
+   gives that ring room, so all three call sites are below the fold and two rules
+   no first paint can show were 380 bytes of every `<head>`. */
+
+@keyframes sa-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sa-orbit-fade {
+  0%,
+  4% {
+    opacity: 0;
+  }
+
+  12%,
+  34% {
+    opacity: 1;
+  }
+
+  44%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The rings stay; only the travelling nodes are motion. */
+@media (prefers-reduced-motion: reduce) {
+  .orbits__path {
+    display: none;
+  }
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 52%);
+  min-height: 820px;
+  padding: var(--section-rhythm) var(--gutter-page);
+  /* Deeper than the page gutter: the copy starts inboard of the lobe's tip. */
+  padding-left: calc(var(--gutter-page) + 17%);
+}
+
+/* The copy sits at the top of its column, not on the hero's centre line: the
+   petal's pinch is at mid-height and the block reads better above it. */
+.hero__text {
+  align-self: start;
+}
+
+
+/* Every hero heading, at one size. The homepage's wordmark at this size is gone
+   — the header carries the brand 120px above it — so the claim is simply the
+   heading, and `.hero__wordmark` and its override went with it. */
+.hero h1 {
+  max-width: var(--measure-display);
+  color: var(--text-strong);
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--track-display);
+  font-weight: var(--weight-display);
+  text-wrap: pretty;
+}
+
+.hero__actions {
+  margin-top: var(--space-10);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+/* Between the magnet breakpoint and the tablet the flanks are too narrow to
+   carry the shapes at their drawn size: both pull back into their corner and the
+   lobe drops below the copy. The copy keeps its column. */
+@media (width < 1081px) {
+  .hero__inner {
+    min-height: 720px;
+    padding-left: var(--gutter-page);
+  }
+
+  .hero__field--right {
+    inset: 4% 0 12% 62%;
+  }
+
+  .hero__field--left {
+    inset: 46% 66% 4% 0;
+  }
+}
+
+/* The tablet keeps the hero split, and so does everything down to the phone:
+   the artboard draws the copy in a column just over half the page with the petal
+   beside it, and both are shares of the width. The counter-lobe goes — at this
+   width the two shapes meet in the middle and the copy loses its light ground. */
+@media (621px <= width < 941px) {
+  /* 51%, not the artboard's 57%: the petal's tip reaches back to 54% of the page
+     at mid-height, and a line of copy that fills the column has to clear the
+     shape at every width in the band and in all three languages. */
+  .hero__inner {
+    grid-template-columns: minmax(0, 51%);
+    min-height: clamp(470px, 66vw, 620px);
+  }
+
+  /* On the desk the copy sits above the petal's pinch; here the shape is a lobe
+     with no pinch to clear, so the block reads on the hero's centre line. */
+  .hero__text {
+    align-self: center;
+  }
+
+  /* The artboard turns the hero's hierarchy over and the headline is the
+     largest thing on the page, which is what the phone already does. */
+  .hero h1 {
+    max-width: none;
+    font-size: clamp(2.375rem, 6.4vw, 3.375rem);
+  }
+
+  .hero__field--right {
+    inset: 2.5% 0 9% 53%;
+  }
+
+  .hero__field--left {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The tablet header
+ *
+ * The tablet artboard (834x1112) keeps the header a header, and was drawn
+ * against a bar of four items. The offer is six, four of them named in two and
+ * three words: fitted into 834px that is 11px type in a row with no gaps, which
+ * is not the artboard's header either. So the row is desk-only and the tablet
+ * takes the disclosure in its compact dropdown mode; everything else the
+ * artboard prescribes still stands. If the offer shrinks back to two services,
+ * the row fits again and this band should get it back.
+ *
+ * The band stops at 1000px, not at the 1180px where the row folds. It carries
+ * the tablet's whole shell — 72px row, 22px gutter, 212px wedge — and that shell
+ * has to range with the page under it: run up to 1180px the header's gutter caps
+ * at 22px while `--gutter-page` is still 59, so the brand sat 34px outboard of
+ * the first heading on the page.
+ * ------------------------------------------------------------------ */
+@media (768px <= width < 1001px) {
+  /* Every measurement in this row is fluid between the tablet's two ends: at
+     834px they land on the artboard's values and tighten from there, so the row
+     still holds at 768px. */
+  /* The header is taller here, so an anchor's offset grows with it — and by the
+     same air, not by the header's height alone. 76 against a 72px row was 4px of
+     clearance, on the band where the clause index sits above the copy. */
+  html {
+    scroll-padding-top: 108px;
+  }
+
+  .site-header {
+    gap: clamp(8px, 1.4vw, 14px);
+    /* The artboard's header is a hand taller than the desk's. */
+    min-height: 72px;
+    padding: var(--space-4) clamp(12px, 2.6vw, 22px);
+  }
+
+  .brand-link {
+    gap: clamp(7px, 1.1vw, 10px);
+    font-size: clamp(13.5px, 1.8vw, 16px);
+  }
+
+  .brand-link .logo {
+    width: clamp(22px, 3.1vw, 28px);
+    height: clamp(22px, 3.1vw, 28px);
+  }
+
+  /* The wedge is a share of the row, and the row lost the gutter in front of the
+     brand. Narrowed with it, the cut lands clear of the wordmark on one side and
+     the first nav item on the other. */
+  .header-wedge {
+    /* Steeper than the desk's cut, like the phone's, and wide enough for the
+       wordmark in all three languages: on a row this full the slope is the only
+       slack there is. */
+    width: clamp(158px, 20.6vw, 212px);
+    clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+  }
+
+  .lang-switcher a {
+    padding-inline: clamp(5px, 0.7vw, 7px);
+  }
+
+  .header-actions {
+    gap: clamp(8px, 1.7vw, 18px);
+  }
+
+  .header-actions .btn--sm {
+    padding-inline: clamp(9px, 1.7vw, 18px);
+    font-size: clamp(12.5px, 1.62vw, 14px);
+  }
+}
+
+/* Under the desk the row folds into the disclosure (`.nav-toggle`, in
+   main.css), so the header carries the brand, that trigger, the language chips
+   and the primary action. */
+@media (width < 1181px) {
+  .site-nav {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Under the tablet: the header tightens around the disclosure
+ *
+ * Four items where the desk had six, but a third of the width — and the wedge is
+ * what gives: at the desk's 318px the cut runs past the trigger and "Menu" sits
+ * on navy. It narrows to the phone's shape, cut to the brand and nothing more.
+ * ------------------------------------------------------------------ */
+@media (width < 768px) {
+  /* Steeper than the desk cut and welded to the top edge, so the wordmark sits
+     inside the wedge at every width under the tablet. */
+  .header-wedge {
+    width: min(212px, 60%);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  }
+
+  .brand-link {
+    gap: 9px;
+    font-size: var(--text-ui);
+  }
+
+  .brand-link .logo {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Everything left of the page edge gives a little at once, so the four items
+     travel right together, off the slope. */
+  .site-header {
+    gap: var(--space-4);
+  }
+
+  .header-actions {
+    gap: var(--space-4);
+  }
+
+  .lang-switcher a {
+    padding-inline: var(--space-2);
+  }
+
+  .header-actions .btn--sm {
+    padding-inline: var(--space-5);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * The phone
+ *
+ * The header carries the brand and one way into the menu. The chips and the
+ * primary action move into the sheet, the only place with room to give them a
+ * touch target, which leaves the wedge its full share of a narrow row. A fixed
+ * 56px row, because the sheet hangs from the header's bottom edge.
+ * ------------------------------------------------------------------ */
+@media (width < 621px) {
+  .site-header {
+    gap: var(--space-4);
+    height: var(--header-phone);
+    padding: 0 var(--gutter-page) 0 0;
+  }
+
+  /* The header lost its left padding, so the brand carries the gutter itself
+     and the wedge still starts at the page edge. */
+  .brand-link {
+    padding-left: var(--gutter-page);
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  /* The hero. A phone is too narrow to split, so the shape stops standing beside
+     the copy and lies over it: the sliver that fits across the top, welded to
+     three edges, with the copy running under it. */
+  .hero {
+    display: block;
+    overflow: hidden;
+  }
+
+  .hero__field {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .hero__field--right {
+    inset: 0 0 auto 0;
+    height: 424px;
+  }
+
+  /* One shape is the whole dark field down here; the counter-lobe has nothing
+     left to answer once the petal has stopped being a flank. */
+  .hero__field--left {
+    display: none;
+  }
+
+  /* Both hero shapes are a flank on every other viewport and neither has a
+     flank left down here, so both become the same sliver across the top. */
+  [data-clip="heroPetal"],
+  [data-clip="trainingHeroSwell"],
+  [data-clip="teamHeroPair"],
+  [data-clip="heroArch"],
+  [data-clip="sdlcHeroRidge"],
+  [data-clip="processLobe"],
+  [data-clip="jobsJoin"] {
+    clip-path: url(#heroSwoop);
+  }
+
+  /* The half-page column is the share the copy takes of a hero it splits with
+     the petal. With the shape overhead there is nothing to split with. */
+  .hero__inner {
+    z-index: 2;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding: var(--space-11) var(--gutter-page) 0;
+  }
+
+  /* The measure belongs to the whole block, not the headline alone: the petal's
+     tail comes down the right edge to 58% of the shape's height, so anything
+     running the full column ends on navy — which is what the buttons did. */
+  .hero__text {
+    max-width: 80%;
+  }
+
+  .hero h1 {
+    font-size: var(--text-display);
+  }
+
+  /* Two buttons side by side leave neither of them a full thumb. Stacked, both
+     are the width of the copy's measure and both clear the 48px target. */
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .hero__actions .btn {
+    justify-content: center;
+    min-height: 48px;
+    padding-block: 0;
+  }
+}
+
+/* The narrowest phones: the brand gives up what the wedge cannot. */
+@media (width < 401px) {
+  .brand-link {
+    gap: var(--space-3);
+    font-size: var(--text-ui-sm);
+  }
+}

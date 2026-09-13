@@ -1,0 +1,35 @@
+<!-- ════════════════ 47 · LAB B1 · TWO STRUCTURES ════════════════ -->
+<section id="token-efficient-ai-development-slide-47" data-label="Lab B1: structures" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-47-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-47-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-47-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-47-title" class="slide__title">Same bug, two structures.</h2>
+      <p id="token-efficient-ai-development-slide-47-lede" class="slide__lede">Both branches are the same app with the same session-timeout bug. Only the structure differs, so any token difference is the structure’s doing.</p>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-47-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-47-steps" class="steps steps--3">
+        <div id="token-efficient-ai-development-slide-47-step-01" class="step">
+          <span id="token-efficient-ai-development-slide-47-step-01-num" class="step__num">01</span>
+          <span id="token-efficient-ai-development-slide-47-step-01-title" class="step__title">lab/monolith</span>
+          <span id="token-efficient-ai-development-slide-47-step-01-body" class="step__body">The whole app in one file of about 625 lines, the bug buried among look-alike timeout helpers. Ask the agent to find and fix it, and record the tokens read.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-47-step-02" class="step">
+          <span id="token-efficient-ai-development-slide-47-step-02-num" class="step__num">02</span>
+          <span id="token-efficient-ai-development-slide-47-step-02-title" class="step__title">lab/structured</span>
+          <span id="token-efficient-ai-development-slide-47-step-02-body" class="step__body">The same app as small vertical slices: auth/, snippets/, web/. Same prompt, same model. Record again.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-47-step-03" class="step">
+          <span id="token-efficient-ai-development-slide-47-step-03-num" class="step__num">03</span>
+          <span id="token-efficient-ai-development-slide-47-step-03-title" class="step__title">Compare</span>
+          <span id="token-efficient-ai-development-slide-47-step-03-body" class="step__body">The fix is the same one-line unit change. The context needed to reach it is not.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-47-note" class="slide__note">Expected result: an identical fix, but the structured branch needs a fraction of the tokens. The structure did the scoping for you.</p>
+
+  </div>
+  <!--chrome 47/56-->
+</section>

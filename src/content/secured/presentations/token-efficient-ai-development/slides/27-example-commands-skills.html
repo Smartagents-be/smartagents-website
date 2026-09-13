@@ -1,0 +1,51 @@
+<!-- ════════════════ 27 · EXAMPLE · COMMANDS AND SKILLS ════════════════ -->
+<section id="token-efficient-ai-development-slide-27" data-label="Command and skill" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-27-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-27-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-27-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-27-title" class="slide__title">A review command and a release-notes skill.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-27-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-27-snips" class="snips snips--3">
+        <div id="token-efficient-ai-development-slide-27-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-27-snip-01-label" class="snip__label">Command, you invoke</span>
+          <span id="token-efficient-ai-development-slide-27-snip-01-file" class="snip__file">.claude/commands/review.md</span>
+          <pre id="token-efficient-ai-development-slide-27-snip-01-code" class="snip__code">Review the diff for bugs
+and security issues.
+Give a short list.</pre>
+          <span id="token-efficient-ai-development-slide-27-snip-01-cap" class="snip__cap">Invoke with /review. The same file works in Copilot and Cursor.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-27-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-27-snip-02-label" class="snip__label">Skill, the agent invokes</span>
+          <span id="token-efficient-ai-development-slide-27-snip-02-file" class="snip__file">.claude/skills/release-notes/SKILL.md</span>
+          <pre id="token-efficient-ai-development-slide-27-snip-02-code" class="snip__code">---
+name: release-notes
+description: Generate release
+  notes from the git log
+  since the tag.
+---
+1. Read the git log
+2. Group by change type
+3. Write a changelog</pre>
+          <span id="token-efficient-ai-development-slide-27-snip-02-cap" class="snip__cap">The agent picks this skill when you ask for release notes.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-27-snip-03" class="snip">
+          <span id="token-efficient-ai-development-slide-27-snip-03-label" class="snip__label">GitHub Copilot note</span>
+          <span id="token-efficient-ai-development-slide-27-snip-03-file" class="snip__file">.github/prompts/review.prompt.md</span>
+          <pre id="token-efficient-ai-development-slide-27-snip-03-code" class="snip__code">---
+description: "Review the diff"
+agent: "copilot-gpt-4.1"
+---
+Review the diff for bugs
+and security issues.
+Give a short list.</pre>
+          <span id="token-efficient-ai-development-slide-27-snip-03-cap" class="snip__cap">Copilot prompt frontmatter uses agent, not mode.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--chrome 27/56-->
+</section>

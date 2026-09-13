@@ -1,0 +1,40 @@
+<!-- ════════════════ 13 · EXAMPLE · SCOPING ════════════════ -->
+<section id="token-efficient-ai-development-slide-13" data-label="Scope or discover" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-13-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-13-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-13-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-13-title" class="slide__title">Scope it yourself, or let it discover?</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-13-compare" class="compare">
+
+      <div id="token-efficient-ai-development-slide-13-col-01" class="compare__col">
+        <div id="token-efficient-ai-development-slide-13-col-01-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-13-col-01-title" class="compare__title">Let it discover</span>
+          <span id="token-efficient-ai-development-slide-13-col-01-sub" class="compare__sub">Fallback, for an unfamiliar or large codebase</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-13-col-01-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-13-col-01-item-01" class="compare__item">You give the symptom: fix the session timeout.</span>
+          <span id="token-efficient-ai-development-slide-13-col-01-item-02" class="compare__item">The agent greps for session, reads session.config.ts, and works out where the code lives.</span>
+          <span id="token-efficient-ai-development-slide-13-col-01-item-03" class="compare__item">It gets there, at the cost of extra reads.</span>
+        </div>
+      </div>
+
+      <div id="token-efficient-ai-development-slide-13-col-02" class="compare__col compare__col--then">
+        <div id="token-efficient-ai-development-slide-13-col-02-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-13-col-02-title" class="compare__title">Scope it yourself</span>
+          <span id="token-efficient-ai-development-slide-13-col-02-sub" class="compare__sub">The default when you know where it lives</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-13-col-02-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-13-col-02-item-01" class="compare__item">You name the files: @session.config.ts, @auth.middleware.ts, fix the session timeout.</span>
+          <span id="token-efficient-ai-development-slide-13-col-02-item-02" class="compare__item">The agent opens exactly those two and starts.</span>
+          <span id="token-efficient-ai-development-slide-13-col-02-item-03" class="compare__item">Faster, more precise, fewer tokens.</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!--chrome 13/56-->
+</section>

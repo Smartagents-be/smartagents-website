@@ -1,0 +1,59 @@
+<!-- ════════════════ 31 · EXAMPLE · HOOKS ════════════════ -->
+<section id="token-efficient-ai-development-slide-31" data-label="Hooks in three tools" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-31-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-31-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-31-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-31-title" class="slide__title">Auto-format and test after every edit.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-31-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-31-snips" class="snips snips--3">
+        <div id="token-efficient-ai-development-slide-31-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-31-snip-01-label" class="snip__label">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-31-snip-01-file" class="snip__file">.github/hooks/test.json</span>
+          <pre id="token-efficient-ai-development-slide-31-snip-01-code" class="snip__code">{
+  "hooks": {
+    "PostToolUse": [
+      { "command":
+        "npm test" }
+    ]
+  }
+}</pre>
+          <span id="token-efficient-ai-development-slide-31-snip-01-cap" class="snip__cap">Runs the test suite after every change.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-31-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-31-snip-02-label" class="snip__label">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-31-snip-02-file" class="snip__file">.claude/settings.json</span>
+          <pre id="token-efficient-ai-development-slide-31-snip-02-code" class="snip__code">{
+  "hooks": {
+    "PostToolUse": [
+      { "command":
+        "npx prettier --write ." }
+    ]
+  }
+}</pre>
+          <span id="token-efficient-ai-development-slide-31-snip-02-cap" class="snip__cap">Prettier formats after every tool action.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-31-snip-03" class="snip">
+          <span id="token-efficient-ai-development-slide-31-snip-03-label" class="snip__label">Cursor</span>
+          <span id="token-efficient-ai-development-slide-31-snip-03-file" class="snip__file">.cursor/hooks.json</span>
+          <pre id="token-efficient-ai-development-slide-31-snip-03-code" class="snip__code">{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      { "command":
+        "npx prettier --write ." }
+    ]
+  }
+}</pre>
+          <span id="token-efficient-ai-development-slide-31-snip-03-cap" class="snip__cap">Formats on every file edit, with a camelCase event name.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-31-note" class="slide__note">The guardrail runs by itself, with no token and no click needed.</p>
+
+  </div>
+  <!--chrome 31/56-->
+</section>

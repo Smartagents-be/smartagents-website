@@ -1,0 +1,29 @@
+:root {
+  /* the page runs on a coarse rhythm: 104 between sections, 64 gutter, 72 column gap */
+  --space-1: 2px;
+  --space-2: 5px;
+  --space-3: 7px;
+  --space-4: 10px;
+  --space-5: 14px;
+  --space-6: 18px;
+  --space-7: 22px;
+  --space-8: 26px;
+  --space-9: 28px;
+  --space-10: 30px;
+  --space-11: 36px;
+  --space-12: 46px;
+  --space-13: 56px;
+  --space-14: 64px;
+  --space-15: 72px;
+  --space-16: 104px;
+
+  /* the three page-level measures collapse on narrow viewports */
+  --gutter-page: clamp(20px, 5vw, 64px);
+  --gap-column: clamp(28px, 5vw, 72px);
+  --section-rhythm: clamp(56px, 8vw, 104px);
+  --shell-width: 1180px;
+  --measure: 44ch;
+  --measure-display: 14ch;
+  /* Long-form only — the insight pages. See README.md, "Deviations", item 7. */
+  --measure-prose: 100ch;
+}

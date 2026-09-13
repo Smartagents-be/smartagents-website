@@ -1,0 +1,37 @@
+/* ──────────────────────────────────────────────────────────────────
+   SmartAgents wordmark — shared across all presentation decks.
+
+   Colour comes from tokens.css, which every deck loads first, so the
+   mark follows the ground it sits on: ink and the paper cyan on a light
+   slide, white and the bright cyan inside a `.field`.
+
+   Markup:
+     <span class="sa-brand"><img src="assets/logo.svg" alt="">Smart<span class="accent">Agents</span></span>
+   ────────────────────────────────────────────────────────────────── */
+.sa-brand {
+  display: inline-flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-ui);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--fg);
+}
+.sa-brand img,
+.sa-brand svg {
+  width: 27px;
+  height: 27px;
+  display: block;
+  flex-shrink: 0;
+  margin-right: 10px;        /* space sits only between glyph and word */
+}
+.sa-brand .accent {
+  color: var(--accent);
+}
+
+/* The modifier for a mark that sits on navy without the surrounding element
+   being a `.field`. Where the mark is inside one, the tokens above already
+   resolve to these values and the modifier is a no-op. */
+.sa-brand.on-dark { color: var(--sa-on-field); }
+.sa-brand.on-dark .accent { color: var(--sa-cyan-bright); }

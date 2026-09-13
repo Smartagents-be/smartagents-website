@@ -1,0 +1,40 @@
+<!-- ════════════════ 54 · ANTI-PATTERNS · PROMPT ════════════════ -->
+<section id="token-efficient-ai-development-slide-54" data-label="Prompt leaks" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-54-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-54-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-54-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-54-title" class="slide__title">Where the prompt and the setup leak tokens.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-54-compare" class="compare">
+
+      <div id="token-efficient-ai-development-slide-54-col-01" class="compare__col">
+        <div id="token-efficient-ai-development-slide-54-col-01-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-54-col-01-title" class="compare__title">The habit</span>
+          <span id="token-efficient-ai-development-slide-54-col-01-sub" class="compare__sub">What it costs you</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-54-col-01-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-54-col-01-item-01" class="compare__item">Vague prompts that assume the model shares your context.</span>
+          <span id="token-efficient-ai-development-slide-54-col-01-item-02" class="compare__item">Just-in-case context: every rule, every edge case, the whole log.</span>
+          <span id="token-efficient-ai-development-slide-54-col-01-item-03" class="compare__item">Every MCP server enabled, and a CLAUDE.md or AGENTS.md so full that the rules drown each other.</span>
+        </div>
+      </div>
+
+      <div id="token-efficient-ai-development-slide-54-col-02" class="compare__col compare__col--then">
+        <div id="token-efficient-ai-development-slide-54-col-02-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-54-col-02-title" class="compare__title">The fix</span>
+          <span id="token-efficient-ai-development-slide-54-col-02-sub" class="compare__sub">What to do instead</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-54-col-02-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-54-col-02-item-01" class="compare__item">Be specific: name the files, and name the goal.</span>
+          <span id="token-efficient-ai-development-slide-54-col-02-item-02" class="compare__item">Send the high-signal minimum, and let a hook extract the failing lines.</span>
+          <span id="token-efficient-ai-development-slide-54-col-02-item-03" class="compare__item">Enable only what this task needs, and keep the instructions lean: detail belongs in skills.</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!--chrome 54/56-->
+</section>

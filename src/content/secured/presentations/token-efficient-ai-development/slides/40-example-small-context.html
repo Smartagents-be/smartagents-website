@@ -1,0 +1,40 @@
+<!-- ════════════════ 40 · EXAMPLE · SMALL CONTEXT ════════════════ -->
+<section id="token-efficient-ai-development-slide-40" data-label="One module or slices" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-40-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-40-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-40-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-40-title" class="slide__title">Same change, a fraction of the context.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-40-compare" class="compare">
+
+      <div id="token-efficient-ai-development-slide-40-col-01" class="compare__col">
+        <div id="token-efficient-ai-development-slide-40-col-01-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-40-col-01-title" class="compare__title">One big module</span>
+          <span id="token-efficient-ai-development-slide-40-col-01-sub" class="compare__sub">Costly</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-40-col-01-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-40-col-01-item-01" class="compare__item">src/userService.ts, 820 lines: auth, billing, email, validation, db, mailer.</span>
+          <span id="token-efficient-ai-development-slide-40-col-01-item-02" class="compare__item">Edit the plan-upgrade rule and the agent loads all 820 lines to find the few that matter.</span>
+          <span id="token-efficient-ai-development-slide-40-col-01-item-03" class="compare__item">Auth, email and db come along for the ride.</span>
+        </div>
+      </div>
+
+      <div id="token-efficient-ai-development-slide-40-col-02" class="compare__col compare__col--then">
+        <div id="token-efficient-ai-development-slide-40-col-02-head" class="compare__head">
+          <span id="token-efficient-ai-development-slide-40-col-02-title" class="compare__title">Hexagonal slices</span>
+          <span id="token-efficient-ai-development-slide-40-col-02-sub" class="compare__sub">Cheap</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-40-col-02-list" class="compare__list">
+          <span id="token-efficient-ai-development-slide-40-col-02-item-01" class="compare__item">src/billing/ with domain/plan.ts, usecases/upgradePlan.ts, ports/billingRepo.ts, adapters/stripeRepo.ts.</span>
+          <span id="token-efficient-ai-development-slide-40-col-02-item-02" class="compare__item">The same edit opens usecases/upgradePlan.ts and the ports/billingRepo interface.</span>
+          <span id="token-efficient-ai-development-slide-40-col-02-item-03" class="compare__item">Domain, adapters and the other features never load.</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!--chrome 40/56-->
+</section>

@@ -1,0 +1,49 @@
+{
+  "agentic-ai-engineer-1": {
+    "points": [
+      {
+        "sources": [
+          "Je bouwt oplossingen die echte bedrijfsprocessen verbeteren, van copilots en workflow-automatisatie tot multi-agent systemen.",
+          "Je bouwt oplossingen die echte bedrijfsprocessen verbeteren, van copilots en workflowautomatisatie tot multi-agentsystemen."
+        ],
+        "nl": "Je bouwt oplossingen die echte bedrijfsprocessen verbeteren, van copilots en workflowautomatisatie tot multi-agentsystemen.",
+        "en": "You build solutions that improve real business processes, from copilots and workflow automation to multi-agent systems.",
+        "fr": "Vous développez des solutions qui améliorent de vrais processus métier, des copilotes et de l'automatisation des workflows aux systèmes multi-agents."
+      },
+      {
+        "sources": [
+          "Je vertaald technische mogelijkheden naar schaalbare toepassingen die passen binnen echte operationele workflows.",
+          "Je vertaalt technische mogelijkheden naar schaalbare toepassingen die passen bij het dagelijkse werk van onze klanten."
+        ],
+        "nl": "Je vertaalt technische mogelijkheden naar schaalbare toepassingen die passen bij het dagelijkse werk van onze klanten.",
+        "en": "You translate technical possibilities into scalable applications that fit our clients' day-to-day work.",
+        "fr": "Vous traduisez les possibilités techniques en applications évolutives adaptées au travail quotidien de nos clients."
+      },
+      {
+        "sources": [
+          "Je werkt met LLM's, tool-use, RAG en integraties met bestaande systemen om oplossingen bruikbaar te maken in de praktijk.",
+          "Je werkt met LLM's, tools, RAG en integraties met bestaande systemen om oplossingen bruikbaar te maken in de praktijk."
+        ],
+        "nl": "Je werkt met LLM's, tools, RAG en integraties met bestaande systemen om oplossingen bruikbaar te maken in de praktijk.",
+        "en": "You work with LLMs, tools, RAG and integrations with existing systems to make solutions useful in practice.",
+        "fr": "Vous utilisez des LLM, des outils, le RAG et des intégrations aux systèmes existants pour rendre les solutions utiles en pratique."
+      },
+      {
+        "sources": [
+          "Je werkt in korte iteraties, neem ownership en zie snel het effect van wat je bouwt.",
+          "Je werkt in korte iteraties, neemt verantwoordelijkheid en ziet snel het effect van wat je bouwt."
+        ],
+        "nl": "Je werkt in korte iteraties, neemt verantwoordelijkheid en ziet snel het effect van wat je bouwt.",
+        "en": "You work in short iterations, take responsibility and quickly see the impact of what you build.",
+        "fr": "Vous travaillez par itérations courtes, prenez vos responsabilités et voyez rapidement les effets de votre travail."
+      }
+    ],
+    "locations": {
+      "Beringen, Belgium": {
+        "nl": "Beringen, België",
+        "en": "Beringen, Belgium",
+        "fr": "Beringen, Belgique"
+      }
+    }
+  }
+}

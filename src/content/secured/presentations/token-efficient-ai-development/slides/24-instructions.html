@@ -1,0 +1,31 @@
+<!-- ════════════════ 24 · INSTRUCTIONS ════════════════ -->
+<section id="token-efficient-ai-development-slide-24" data-label="Instructions" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-24-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-24-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-24-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-24-title" class="slide__title">Capture conventions once, as persistent instructions.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-24-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-24-rows" class="rows rows--tight">
+        <div id="token-efficient-ai-development-slide-24-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-24-row-01-term" class="row__term">GitHub Copilot</span>
+          <span id="token-efficient-ai-development-slide-24-row-01-detail" class="row__detail">.github/copilot-instructions.md applies repo-wide. Path-specific rules live in *.instructions.md with applyTo globs.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-24-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-24-row-02-term" class="row__term">Claude Code</span>
+          <span id="token-efficient-ai-development-slide-24-row-02-detail" class="row__detail">CLAUDE.md carries project context, style and commands, loaded automatically every session. Per project, or globally in ~/.claude.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-24-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-24-row-03-term" class="row__term">Cursor</span>
+          <span id="token-efficient-ai-development-slide-24-row-03-detail" class="row__detail">.cursor/rules holds modular .mdc rules with four triggers: always apply, apply intelligently, apply to specific files, apply manually. Split one bloated file into targeted rules.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-24-note" class="slide__note">AGENTS.md is the neutral standard that both Copilot and Cursor read. Good instructions save tokens: you do not re-explain conventions every prompt.</p>
+
+  </div>
+  <!--chrome 24/56-->
+</section>

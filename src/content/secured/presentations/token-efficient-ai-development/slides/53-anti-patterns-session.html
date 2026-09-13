@@ -1,0 +1,31 @@
+<!-- ════════════════ 53 · ANTI-PATTERNS · SESSION ════════════════ -->
+<section id="token-efficient-ai-development-slide-53" data-label="Session leaks" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-53-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-53-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-53-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-53-title" class="slide__title">Where the session leaks tokens.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-53-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-53-rows" class="rows">
+        <div id="token-efficient-ai-development-slide-53-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-53-row-01-term" class="row__term">The infinite exploration</span>
+          <span id="token-efficient-ai-development-slide-53-row-01-detail" class="row__detail">A prompt like investigate the codebase, with no scope, reads hundreds of files into the window. Scope it, or send a subagent that reports back the answer.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-53-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-53-row-02-term" class="row__term">The kitchen-sink session</span>
+          <span id="token-efficient-ai-development-slide-53-row-02-detail" class="row__detail">One session drifting across unrelated tasks reprocesses the junk on every later message. One task per session, and compact early rather than when the window is nearly full.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-53-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-53-row-03-term" class="row__term">Correcting over and over</span>
+          <span id="token-efficient-ai-development-slide-53-row-03-detail" class="row__detail">After two failed fixes the thread is full of dead ends that distract the model. A fresh session beats more iteration.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-53-note" class="slide__note">Anthropic, Claude Code best practices.</p>
+
+  </div>
+  <!--chrome 53/56-->
+</section>

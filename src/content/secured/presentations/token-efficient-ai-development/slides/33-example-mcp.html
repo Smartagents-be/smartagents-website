@@ -1,0 +1,42 @@
+<!-- ════════════════ 33 · EXAMPLE · MCP ════════════════ -->
+<section id="token-efficient-ai-development-slide-33" data-label="Configure, then ask" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-33-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-33-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-33-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-33-title" class="slide__title">Configure once, then just ask.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-33-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-33-snips" class="snips">
+        <div id="token-efficient-ai-development-slide-33-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-33-snip-01-label" class="snip__label">1 · Configure once</span>
+          <span id="token-efficient-ai-development-slide-33-snip-01-file" class="snip__file">.mcp.json</span>
+          <pre id="token-efficient-ai-development-slide-33-snip-01-code" class="snip__code">{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": ["mcp-postgres"]
+    }
+  }
+}</pre>
+          <span id="token-efficient-ai-development-slide-33-snip-01-cap" class="snip__cap">Same JSON everywhere. Copilot uses servers, and the path differs per tool: .vscode/, .mcp.json, .cursor/.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-33-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-33-snip-02-label" class="snip__label">2 · Then just ask</span>
+          <span id="token-efficient-ai-development-slide-33-snip-02-file" class="snip__file">agent</span>
+          <pre id="token-efficient-ai-development-slide-33-snip-02-code" class="snip__code">&gt; Which columns are on the
+  sessions table? Write a query
+  for the ones active in the last hour.
+⏺ postgres · describe "sessions"
+⏺ postgres · query (read-only)</pre>
+          <span id="token-efficient-ai-development-slide-33-snip-02-cap" class="snip__cap">The agent reads the schema itself. You never pasted it.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-33-note" class="slide__note">Instead of pasting the schema, the log or the docs, the agent fetches exactly what it needs: less context, and always current.</p>
+
+  </div>
+  <!--chrome 33/56-->
+</section>

@@ -1,0 +1,9 @@
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-move: 0.34s;   /* transform, shadow — anything that travels */
+  --dur-tint: 0.22s;   /* colour, border, background */
+  --dur-tint-fast: 0.2s;
+  --lift: translateY(-2px);
+  --transition-move: transform var(--dur-move) var(--ease-out-expo), box-shadow var(--dur-move) var(--ease-out-expo);
+  --transition-tint: color var(--dur-tint) ease, background-color var(--dur-tint) ease, border-color var(--dur-tint) ease;
+}

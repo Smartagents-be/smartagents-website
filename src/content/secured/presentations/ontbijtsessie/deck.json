@@ -1,0 +1,46 @@
+{
+  "title": "SmartAgents · Ontbijtsessie",
+  "description": "SmartAgents · Ontbijtsessie. Kennismaking met AI voor je bedrijf.",
+  "width": "1920",
+  "height": "1080",
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
+  "slides": [
+    "00-cover",
+    "01-agenda",
+    "02-deel-een",
+    "03-demo-avatar",
+    "04-demo-app-builder",
+    "05-demo-muziek",
+    "06-deel-twee",
+    "07-demo-versus-proces",
+    "08-meer-dan-chatgpt",
+    "09-ai-landschap",
+    "10-vier-bouwstenen",
+    "11-bouwsteen-llm",
+    "12-bouwsteen-rag",
+    "13-bouwsteen-tools",
+    "14-bouwsteen-agents",
+    "15-deel-drie",
+    "16-mail-briefing",
+    "17-mail-triage",
+    "18-facturen",
+    "19-mailbox-doorzoeken",
+    "20-documenten-doorzoeken",
+    "21-faq-bot",
+    "22-offertes",
+    "23-cv-matching",
+    "24-klant-360",
+    "25-aanbestedingen",
+    "26-re-site",
+    "27-over-smartagents",
+    "28-onze-aanpak",
+    "29-volgende-stap",
+    "30-smartspace-demo",
+    "31-close"
+  ]
+}

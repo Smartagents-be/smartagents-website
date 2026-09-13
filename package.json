@@ -1,13 +1,23 @@
 {
   "name": "smartagents-website",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "html-minifier-terser": "^7.2.0",
+    "vite": "^7.3.6"
   },
   "scripts": {
-    "build": "node scripts/build-site.mjs",
-    "dev": "node scripts/start-local.mjs",
-    "watch": "eleventy --serve",
-    "export:pdfs": "node scripts/export-pitch-pdfs.mjs"
+    "build": "node --env-file-if-exists=.env scripts/build-site.mjs",
+    "dev": "ODOO_OFFLINE=1 npm run build && node scripts/start-local.mjs --watch",
+    "serve": "node scripts/start-local.mjs",
+    "ai": "npm run build && node scripts/start-local.mjs --port=8001 --reuse",
+    "check:contact": "node scripts/check-contact.mjs",
+    "export:pdfs": "node scripts/export-pitch-pdfs.mjs",
+    "export:fiches": "node scripts/export-training-fiches.mjs",
+    "check:slides": "node scripts/check-slides.mjs",
+    "sync:jobs": "node --env-file-if-exists=.env scripts/sync-jobs.mjs"
   }
 }

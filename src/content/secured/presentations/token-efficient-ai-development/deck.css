@@ -1,0 +1,97 @@
+/* token-efficient-ai-development — rules that belong to this deck alone.
+
+   One figure: the code sample. This is a workshop about the files an agent
+   reads, and thirteen slides show one verbatim — the exact characters are the
+   content, and nothing in the archetypes sets mono text.
+
+   It is drawn the way a row is: a label, a hairline, and the text. No window
+   chrome, no terminal frame, no fill behind the code. Two or three abreast,
+   sized so the longest line in the deck still fits its column. */
+
+.snips {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.snips--3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px;
+}
+
+.snip {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* What the sample is, in the deck's own words: the tool, or the step. */
+.snip__label {
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+  color: var(--sa-ink);
+}
+
+/* The path the sample lives at, on the hairline that separates it from the
+   code. `anywhere` because a path has no spaces to break at and a long one
+   would otherwise push its column wider than the grid track. */
+.snip__file {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--sa-line);
+  font-family: var(--font-mono);
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--sa-grey-6);
+  overflow-wrap: anywhere;
+}
+
+/* `pre-wrap`, not `pre`: the lines here are written short enough to fit, and
+   a line that grows past its column should fold rather than run off the slide
+   with no warning. */
+.snip__code {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--sa-grey-1);
+  white-space: pre-wrap;
+}
+
+.snips--3 .snip__code {
+  font-size: 20px;
+}
+
+.snips--3 .snip__file {
+  font-size: 18px;
+}
+
+.snip__cap {
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* ══ The closing slide: who to call about what ══════════════════════════════
+   The retired close carried both founders as photo cards, each with the three
+   fields it works in under the name. The cards are the retired deck's
+   furniture and go with it, but the fields are the reason an audience calls
+   one name rather than the other, so they stay as a line of text over the
+   contact row.
+
+   It is not a second `.close__sub`: at 30px and 40ch the two names would take
+   four lines and read as a paragraph competing with the summary above it.
+   Set at the size of the contact row instead, so it reads as the caption to
+   that row that it is. */
+.close__roles {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-5);
+  text-wrap: pretty;
+}

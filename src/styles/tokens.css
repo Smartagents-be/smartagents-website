@@ -1,0 +1,312 @@
+/* SmartAgents design tokens.
+   Lifted verbatim from the design system in the "Smartagents.be Redesign
+   Direction" project (homepage direction 1a). This file is the single source of
+   truth: build/render.mjs prepends it to critical.css and inlines the result in
+   every <head>, so main.css and every component can rely on it being present. */
+
+:root {
+  /* ---------------------------------------------------------------- *
+   * Colour — two darks, one accent, a lot of paper
+   *
+   * This file is prepended to `critical.css` and inlined into all 60 `<head>`s,
+   * so a token with no reader is paid for on every page view of every page.
+   * Nine of the ten that came out are still declared in
+   * `src/content/secured/tokens.css`, which is a separate file for a separate
+   * build and does use them: the two are kept in step on the values they share,
+   * never on the set of names.
+   * ---------------------------------------------------------------- */
+
+  /* ink and dark field */
+  --sa-ink: oklch(0.148 0.005 247.84);
+  --sa-field: oklch(0.183 0.022 252);
+  --sa-field-line: oklch(0.3 0.03 250);
+
+  /* paper */
+  --sa-desk: oklch(0.94 0.004 247.84);
+  --sa-paper: oklch(0.9846 0.0017 247.84);
+  --sa-paper-2: oklch(0.985 0.003 247.84);
+  /* Chroma 0.001, not the 0.002 it was declared at: 0.001 is the sRGB ceiling at
+     this lightness and the old value mapped down to about here anyway. Held on
+     the paper ramp's own hue rather than the mapped colour's 197. */
+  --sa-paper-3: oklch(0.998 0.001 247.84);
+  --sa-white: #fff;
+  --sa-wash: oklch(0.973 0.003 247.84);
+  --sa-wash-2: oklch(0.968 0.003 247.84);
+  --sa-wash-3: oklch(0.963 0.003 247.84);
+  --sa-wash-4: oklch(0.945 0.004 247.84);
+
+  /* greys and hairlines */
+  --sa-grey-1: oklch(0.3 0.01 247.84);
+  --sa-grey-2: oklch(0.34 0.01 247.84);
+  --sa-grey-3: oklch(0.42 0.014 247.84);
+  --sa-grey-4: oklch(0.45 0.014 247.84);
+  /* The faint step, and the only grey on this ramp that is measured rather than
+     picked: at 0.56 it read 4.43:1 on --sa-paper, under the AA floor. 0.54 is
+     the smallest step that clears it on every paper-family surface — 4.82:1 on
+     --sa-paper, 4.65:1 on the --sa-wash a row hover paints under it, 5.04:1 on
+     white. Do not lighten it again. */
+  --sa-grey-6: oklch(0.54 0.018 247.84);
+  --sa-line: oklch(0.925 0.005 247.84);
+  --sa-line-2: oklch(0.9 0.006 247.84);
+  --sa-line-3: oklch(0.885 0.006 247.84);
+  /* Dark enough to read as a mark rather than as a rule: the dot that separates
+     two words on one line, never a border. */
+  --sa-line-4: oklch(0.74 0.012 247.84);
+
+  /* The one colour that is neither ink, paper nor cyan: a field that failed
+     validation. Measured like the grey above — 5.72:1 on --sa-paper, 5.95:1 on
+     the input's own ground, 5.98:1 on white. */
+  --sa-red: oklch(0.52 0.16 25);
+
+  /* One accent, two values: paper and field. The brand is teal, not cyan, and
+     that sentence had to be recovered from the render rather than read off this
+     file. `--sa-cyan` was declared at chroma 0.112 where the sRGB ceiling at
+     that lightness is 0.0932, and clamping a channel that has gone negative
+     turns the hue as well: the file said 214 and the screen showed 218.
+
+     That would be a footnote if the token were only painted. It is also mixed
+     and made translucent, and both run on the *declared* coordinates before
+     anything is clamped, then clamp again along a different path — which is the
+     "every derived colour slightly wrong" the design canvas measured.
+
+     Every value below is the colour that renders, checked by converting back to
+     hex: name what is on the screen and the mixes come out on it too. */
+  --sa-cyan: oklch(0.5381 0.0962 217.9); /* #027b93 — the wordmark's teal */
+  --sa-cyan-hover: oklch(0.6 0.1073 217.9); /* #038fab */
+  --sa-cyan-bright: #00d8ff;
+  /* The two steps the bright accent takes under a pointer on the field. Both are
+     lighter than it: on navy an action lifts toward the light. Measured against
+     --sa-cyan-ink, the type they carry: 13.0:1 and 7.9:1. The hover used to be
+     declared at chroma 0.128 against a ceiling of 0.1047 and washed out — an
+     accent asked to be brighter than the medium allows comes back paler. */
+  --sa-cyan-bright-hover: oklch(0.8542 0.1231 213); /* #5ae4ff */
+  --sa-cyan-bright-press: oklch(0.7105 0.1275 217.8); /* #00b4d6 */
+  --sa-cyan-ink: oklch(0.1558 0.0251 214.9); /* #010f13 */
+  --sa-cyan-soft: oklch(0.5381 0.0962 217.9 / 0.2);
+  --sa-cyan-edge: oklch(0.5381 0.0962 217.9 / 0.55);
+  /* The button's focus ring, and the one value taken off the design canvas
+     rather than from it: at the canvas's third it is 1.56:1 against the paper,
+     under the 3:1 SC 1.4.11 asks. 0.8 is where both edges clear that floor at
+     once — 3.37:1 against paper outside, 3.42:1 against --sa-deep inside, which
+     is the test a ring drawn flush against a fill has to pass twice. Above 0.8
+     it gains on the paper and loses on the fill, so this is a maximum as much as
+     a minimum; 0.75 is the floor. */
+  --sa-cyan-ring: oklch(0.5381 0.0962 217.9 / 0.8);
+
+  /* Diepzee — the accent taken down until it is dark enough to set white type
+     on. The primary action's fill and nothing else, which is why it sits beside
+     the teal ramp rather than on it: teal is what the brand points with, this is
+     what it asks with. Measured against the white it carries — 12.0:1 at rest,
+     8.5:1 hovered, 14.7:1 pressed — so the button never dips as it is used.
+
+     These are the values that render. The lower two sit at the sRGB gamut edge
+     for their lightness, so the chroma is a consequence of the lightness rather
+     than a choice: 0.066 is as blue as L 0.33 gets. */
+  --sa-deep: oklch(0.4341 0.0811 224.5); /* #013b51 */
+  --sa-deep-hover: oklch(0.4137 0.0806 228.9); /* #02536e */
+  --sa-deep-press: oklch(0.275 0.054 230); /* #012c3d */
+  /* The same hue with the life taken out, for a button that cannot be pressed.
+     4.76:1 on --sa-wash-4: disabled type is exempt from the contrast floor and
+     this clears it anyway — "not now" has to stay readable, it is only the
+     invitation that is withdrawn. It keeps --sa-wash-4's ground rather than a
+     one-off grey, which is a ramp nobody can find again. */
+  --sa-deep-muted: oklch(0.513 0.045 223); /* #4a6d7a */
+
+  /* text on the dark field */
+  --sa-on-field: oklch(0.97 0.004 247.84);
+  --sa-on-field-muted: oklch(0.78 0.014 240);
+  --sa-on-field-faint: oklch(0.84 0.012 240);
+
+  /* semantic — surfaces */
+  --surface-page: var(--sa-paper);
+  --surface-section: var(--sa-paper-2);
+  --surface-raised: var(--sa-white);
+  --surface-hover: var(--sa-wash);
+  --surface-menu-item: var(--sa-wash-2);
+  --surface-chip: var(--sa-wash-3);
+  --surface-nav-hover: var(--sa-wash-4);
+  --surface-input: var(--sa-paper-3);
+  --surface-dark: var(--sa-field);
+
+  /* semantic — text */
+  --text-strong: var(--sa-ink);
+  --text-body: var(--sa-grey-3);
+  --text-muted: var(--sa-grey-4);
+  --text-faint: var(--sa-grey-6);
+  --text-nav: var(--sa-grey-2);
+  --text-lead: var(--sa-grey-1);
+  --text-accent: var(--sa-cyan);
+  --text-error: var(--sa-red);
+  --text-on-dark: var(--sa-on-field);
+  --text-on-dark-muted: var(--sa-on-field-muted);
+  --text-on-dark-faint: var(--sa-on-field-faint);
+
+  /* semantic — borders */
+  --border-hairline: var(--sa-line);
+  --border-input: var(--sa-line-2);
+  --border-button: var(--sa-line-3);
+  --border-on-dark: var(--sa-field-line);
+  --mark-dot: var(--sa-line-4);
+
+  /* semantic — actions
+     An action has four states and every one of them is a fill, never a
+     movement: see the buttons block in critical.css for why the lift went. */
+  --action-primary-bg: var(--sa-deep);
+  --action-primary-bg-hover: var(--sa-deep-hover);
+  --action-primary-bg-press: var(--sa-deep-press);
+  --action-primary-bg-off: var(--sa-wash-4);
+  --action-primary-fg: var(--sa-white);
+  --action-primary-fg-off: var(--sa-deep-muted);
+  --action-secondary-hover: var(--sa-deep);
+  /* The four `--action-ondark-*` steps went with `.btn--ondark` in
+     `critical.css`. The ramp they were struck from stays: the team page's
+     portrait overlay uses it. */
+  --focus-ring-action: var(--sa-cyan-ring);
+
+  /* ---------------------------------------------------------------- *
+   * Type — Geist at 650 for display, 400-450 for body
+   * ---------------------------------------------------------------- */
+
+  /* No webfont is loaded: fast-static-site SKILL.md §4 forbids third-party font
+     origins and no licensed Geist binaries were supplied. Geist is named first
+     so the intended face is used wherever it is installed; everything else
+     falls back to the platform UI face, which costs zero requests and zero CLS. */
+  --font-sans: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* The page never uses a size that is not on this list. Every step fluids down
+     on narrow viewports; the design doc value is the upper bound.
+
+     The scale is in rem with the px value beside it. In px, a reader raising
+     their browser's default text size — or turning on Firefox's and Safari's
+     "zoom text only" — moved nothing on this site. Every step divides into 16
+     exactly, so at the default root the site renders byte-identically to what
+     it did; above it, it grows. Four sizes stay in px and each says why where
+     it is written: the header's nav row and brand (`critical.css`), measured to
+     the pixel against a row that clips, and the phone's form controls
+     (`main.css`), where 16px is what iOS Safari watches.
+
+     Spacing stays in px: text-only zoom asks for the type to grow inside the
+     layout, and every gutter and rhythm is already a viewport `clamp()`. */
+  --text-display: clamp(2.125rem, 1.55rem + 2.4vw, 3.375rem);
+  --text-h1-sub: clamp(1.6875rem, 1.35rem + 1.5vw, 2.375rem);
+  --text-h2: clamp(1.5625rem, 1.3rem + 1.2vw, 2.125rem);
+  --text-h2-sm: clamp(1.5rem, 1.28rem + 1vw, 2rem);
+  --text-h3: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --text-h4: 1.1875rem; /* 19px */
+  --text-h5: 1.0625rem; /* 17px */
+  /* The lede and the two body steps are `--text-lede` / `--text-copy-lg` /
+     `--text-copy` and not `--text-lead` / `--text-body-*`, because those names
+     are taken forty lines up by the ink they are set in. A custom property
+     declared twice in one block keeps the last value, so the sizes silently
+     overwrote the colours and seventeen blocks of body copy inherited the
+     page's full ink. `check-dist.mjs` now fails the build on a repeat. */
+  --text-lede: 1.03125rem; /* 16.5px */
+  --text-copy-lg: 1rem; /* 16px */
+  --text-copy: 0.96875rem; /* 15.5px */
+  --text-ui: 0.9375rem; /* 15px */
+  --text-ui-sm: 0.875rem; /* 14px */
+  --text-meta: 0.84375rem; /* 13.5px */
+  --text-meta-sm: 0.8125rem; /* 13px */
+  --text-micro: 0.78125rem; /* 12.5px */
+  /* The disclosure line in the footer, and its only consumer. Half a step under
+     `--text-micro`, and the half step is what buys the line: the four register
+     facts measure 781px at 11.5 and about 850 at 12.5, against 799px of row. */
+  --text-nano: 0.71875rem; /* 11.5px */
+
+  --weight-display: 650;
+  --weight-semibold: 600;
+  --weight-medium-plus: 550;
+  --weight-medium: 500;
+  --weight-book: 450;
+
+  --track-display: -0.032em;
+  --track-h2: -0.022em;
+  --track-h3: -0.014em;
+  --track-h5: -0.012em;
+  --track-ui: -0.005em;
+
+  --leading-display: 1.03;
+  --leading-h2: 1.12;
+  --leading-body: 1.62;
+  --leading-body-tight: 1.6;
+  --leading-snug: 1.5;
+
+  /* ---------------------------------------------------------------- *
+   * Space — 104 between sections, 64 gutter, 72 column gap
+   * ---------------------------------------------------------------- */
+
+  --space-1: 2px;
+  --space-2: 5px;
+  --space-3: 7px;
+  --space-4: 10px;
+  --space-5: 14px;
+  --space-6: 18px;
+  --space-7: 22px;
+  --space-8: 26px;
+  --space-9: 28px;
+  --space-10: 30px;
+  --space-11: 36px;
+  --space-12: 46px;
+  --space-13: 56px;
+  --space-14: 64px;
+  --space-16: 104px;
+
+  --gutter-page: clamp(20px, 5vw, 64px);
+  --gap-column: clamp(28px, 5vw, 72px);
+  --section-rhythm: clamp(56px, 8vw, 104px);
+  --measure: 44ch;
+  --measure-display: 14ch;
+  /* Long-form only, and an outer bound rather than the width: the article column
+     takes what the page leaves beside the rail, and this stops it running away
+     on a very wide monitor. The doc's 44ch is far too narrow for twenty
+     paragraphs. */
+  --measure-prose: 100ch;
+
+  /* The two numbers the sticky header makes everything else agree with. Both
+     are tokens for the same reason: each has readers in two stylesheets, and a
+     value that has to match across files is what a token is for.
+
+     `--scroll-clearance` is what an anchor has to clear — `scroll-padding-top`
+     in `critical.css`, the clause index's sticky top in `main.css`. Where the
+     two disagree, the clause a reader jumped to sits above the row that sent
+     them there. `--header-phone` is the header's height below 621px, read by
+     the row itself and by the menu sheet welded to its bottom edge. */
+  --scroll-clearance: 96px;
+  --header-phone: 56px;
+
+  /* ---------------------------------------------------------------- *
+   * Shape — 5 chip, 7 button, 8 nav, 11 menu item, 16 panel, 20 card, 26 shell
+   * ---------------------------------------------------------------- */
+
+  --radius-chip: 5px;
+  --radius-button: 7px;
+  --radius-nav: 8px;
+  --radius-menu-item: 11px;
+  --radius-panel: 16px;
+  --radius-card: 20px;
+  --radius-pill: 999px;
+
+  --shadow-menu: 0 28px 60px -30px oklch(0.148 0.03 247.84 / 0.42),
+    0 2px 6px -2px oklch(0.148 0.02 247.84 / 0.08);
+  --shadow-lift-sm: 0 10px 24px -12px oklch(0.148 0.03 247.84 / 0.45);
+  /* The two the buttons use, and the only shadows on the site drawn inside the
+     box rather than under it: a cast shadow says a thing is off the page, these
+     say the fill has a top and a bottom. `-press` reverses `-action`, so the
+     same rectangle reads pushed in rather than merely darker. */
+  --shadow-action: inset 0 1px 0 oklch(1 0 0 / 0.14);
+  --shadow-action-press: inset 0 1px 3px oklch(0.203 0.0457 238.9 / 0.55);
+
+  /* ---------------------------------------------------------------- *
+   * Motion — two speeds: travel and colour
+   * ---------------------------------------------------------------- */
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-move: 0.34s;
+  --dur-tint: 0.22s;
+  --dur-tint-fast: 0.2s;
+  --transition-move: transform var(--dur-move) var(--ease-out-expo),
+    box-shadow var(--dur-move) var(--ease-out-expo);
+  --transition-tint: color var(--dur-tint) ease, background-color var(--dur-tint) ease,
+    border-color var(--dur-tint) ease;
+}

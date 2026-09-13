@@ -1,0 +1,31 @@
+<!-- ════════════════ 38 · BUILD FOR SMALL CONTEXT ════════════════ -->
+<section id="token-efficient-ai-development-slide-38" data-label="Small context" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-38-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-38-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-38-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-38-title" class="slide__title">Build for small context.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-38-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-38-rows" class="rows">
+        <div id="token-efficient-ai-development-slide-38-row-01" class="row">
+          <span id="token-efficient-ai-development-slide-38-row-01-term" class="row__term">Small, single-purpose files</span>
+          <span id="token-efficient-ai-development-slide-38-row-01-detail" class="row__detail">A five-line change should touch one small file, not an 800-line module. The agent loads less to act, and hallucinates less.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-38-row-02" class="row">
+          <span id="token-efficient-ai-development-slide-38-row-02-term" class="row__term">Clear boundaries</span>
+          <span id="token-efficient-ai-development-slide-38-row-02-detail" class="row__detail">Split into domain, usecases, ports and adapters. Dependencies point inward, so the agent reasons about one layer at a time, not the whole graph.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-38-row-03" class="row">
+          <span id="token-efficient-ai-development-slide-38-row-03-term" class="row__term">Vertical slices, not layers</span>
+          <span id="token-efficient-ai-development-slide-38-row-03-detail" class="row__detail">Group by capability, so everything one feature needs lives in one folder: billing, auth, snippets. The agent opens that slice and ignores the rest.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-38-note" class="slide__note">The cheapest token is the one you never send. Structure decides how much context a change needs, before you type a single prompt.</p>
+
+  </div>
+  <!--chrome 38/56-->
+</section>

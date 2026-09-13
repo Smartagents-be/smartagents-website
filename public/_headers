@@ -1,0 +1,87 @@
+# Two asset classes, two policies (fast-static-site §6).
+# Later rules override earlier ones, so the generic rule goes first.
+#
+# There is no `Vary: Accept-Encoding` here any more. Cloudflare adds it to every
+# response it compresses, so the header was a line saying what the edge already
+# says — and a hand-written `Vary` on a rule this broad is the kind of thing that
+# quietly splits a cache key if it ever falls out of step with the edge's own.
+
+#
+# Two headers below are about transport and content rather than caching.
+#
+# `Strict-Transport-Security` is a year, on this hostname, and deliberately
+# without `includeSubDomains` or `preload`. Both of those are promises about
+# every name under smartagents.be — a mail host, a staging box, whatever n8n
+# runs on — and this repo cannot see any of them. Add them the day somebody has
+# checked that list; until then the apex and www are what the site is served
+# from and what this covers.
+#
+# `Content-Security-Policy-Report-Only` is the real one, one step short of
+# enforcing. It reports and blocks nothing, which is how a policy is rolled out:
+# the browser console names anything the list below has missed, and the header
+# becomes `Content-Security-Policy` when a week of real traffic has named
+# nothing. There is no `report-uri`, on purpose — a reporting endpoint is a
+# third-party request on a site whose whole policy is not to make any, so the
+# console is the destination.
+#
+# What is in it and why:
+#   'self'                      everything the site loads is its own.
+#   style-src 'unsafe-inline'   the critical CSS is an inline <style> block in
+#                               every page, and `clipDefs()` carries one inline
+#                               style attribute. Both are ours, both are static.
+#   'inline-speculation-rules'  the prefetch rules in every <head>.
+#   challenges.cloudflare.com   Turnstile: its script, the frame it opens and
+#                               the verification it posts. The one third party
+#                               the site has, loaded only on interaction.
+#   form-action 'self' mailto:  the contact form's no-JS fallback submits to a
+#                               `mailto:` action. Without `mailto:` here, the
+#                               one path that works with JS off is the one path
+#                               the policy would break.
+#   frame-ancestors 'none'      the same thing X-Frame-Options says, in the
+#                               header that modern browsers actually read.
+#
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'inline-speculation-rules' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; worker-src 'self'; form-action 'self' mailto:; base-uri 'self'; object-src 'none'; frame-ancestors 'none'
+
+# Content-hashed by Vite, so the URL changes whenever the bytes do.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Media and downloads (video, posters, one-pagers) are not content-hashed:
+# revalidate daily.
+/media/*
+  Cache-Control: public, max-age=86400
+
+# The service worker must never be served stale.
+/sw.js
+  Cache-Control: no-cache
+
+# Behind a password, so nothing between the reader and the origin may hold a
+# copy: `private` keeps it out of any shared cache and `no-store` keeps it out
+# of the browser's own disk. The Function in `functions/secured/[[path]].js`
+# says the same thing on the responses it builds itself, because a redirect it
+# constructs never passes through this file.
+#
+# The gated area gets a policy of its own, and the difference is one word.
+# `/secured/` is a separate build with separate conventions: the two Smart Scan
+# documents and the decks were authored as standalone HTML and carry inline
+# `<script>` blocks, and one of them an inline `onclick`. Under the site's own
+# policy every one of those is a violation, so a single global rule would fill
+# the console with reports about the one area that is not public and teach
+# whoever reads them to ignore it. Scoped, the public site's policy stays a
+# short list of things that really should never appear there, and this one says
+# exactly what the gated area is still doing. Moving those scripts into files is
+# what would let this line become the one above it.
+/secured/*
+  X-Robots-Tag: noindex, follow
+  Cache-Control: private, no-store
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'
+
+/favicon.svg
+  Cache-Control: public, max-age=604800

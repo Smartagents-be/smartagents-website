@@ -1,0 +1,7 @@
+/* staffing-pitch — no rules of its own.
+
+   Every slide here is one of the eight archetypes in ../shared/slide.css.
+   `.nobreak` holds this deck's hyphenated compounds together at 60px and
+   above; on the founders slide "AI-talent en -impact" is wrapped as two units,
+   because the second half opens on a hanging hyphen and "en" has to travel
+   with it. */

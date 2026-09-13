@@ -1,0 +1,46 @@
+<!-- ════════════════ 44 · EXAMPLE · SPEC ════════════════ -->
+<section id="token-efficient-ai-development-slide-44" data-label="A spec in the repo" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-44-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-44-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-44-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-44-title" class="slide__title">A spec the agent builds against.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-44-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-44-snips" class="snips">
+        <div id="token-efficient-ai-development-slide-44-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-44-snip-01-label" class="snip__label">The spec, in the repo</span>
+          <span id="token-efficient-ai-development-slide-44-snip-01-file" class="snip__file">spec.md</span>
+          <pre id="token-efficient-ai-development-slide-44-snip-01-code" class="snip__code"># Rate limiting per IP
+## Requirements
+- Cap to N requests / minute per IP
+- Respond 429 with Retry-After
+## Design
+- Middleware in src/middleware/
+## Tasks
+- [ ] sliding-window store
+- [ ] wire the middleware
+- [ ] tests for 429 and reset</pre>
+          <span id="token-efficient-ai-development-slide-44-snip-01-cap" class="snip__cap">Reviewed and committed: the spec is the shared context.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-44-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-44-snip-02-label" class="snip__label">Generate it, then build</span>
+          <span id="token-efficient-ai-development-slide-44-snip-02-file" class="snip__file">agent</span>
+          <pre id="token-efficient-ai-development-slide-44-snip-02-code" class="snip__code">&gt; /specify  rate limiting per IP
+⏺ spec.md
+&gt; /plan
+⏺ plan.md
+&gt; /tasks
+⏺ tasks.md
+&gt; implement task 1</pre>
+          <span id="token-efficient-ai-development-slide-44-snip-02-cap" class="snip__cap">GitHub Spec Kit shown here, or Amazon Kiro, or Claude Code plan mode with shift and tab.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-44-note" class="slide__note">The agent builds task by task against a plan you already reviewed, instead of holding the whole feature in its head: less context, less drift.</p>
+
+  </div>
+  <!--chrome 44/56-->
+</section>

@@ -1,0 +1,43 @@
+<!-- ════════════════ 42 · EXAMPLE · PLAN ════════════════ -->
+<section id="token-efficient-ai-development-slide-42" data-label="Plan, then build" class="slide slide--footed">
+  <div id="token-efficient-ai-development-slide-42-inner" class="slide__inner">
+
+    <div id="token-efficient-ai-development-slide-42-head" class="slide__head">
+      <div id="token-efficient-ai-development-slide-42-rule" class="rule" aria-hidden="true"></div>
+      <h2 id="token-efficient-ai-development-slide-42-title" class="slide__title">Agree the plan, then build.</h2>
+    </div>
+
+    <div id="token-efficient-ai-development-slide-42-body" class="slide__body">
+      <div id="token-efficient-ai-development-slide-42-snips" class="snips">
+        <div id="token-efficient-ai-development-slide-42-snip-01" class="snip">
+          <span id="token-efficient-ai-development-slide-42-snip-01-label" class="snip__label">1 · Ask for a plan</span>
+          <span id="token-efficient-ai-development-slide-42-snip-01-file" class="snip__file">claude · plan mode</span>
+          <pre id="token-efficient-ai-development-slide-42-snip-01-code" class="snip__code">&gt; @auth.middleware.ts @session.config.ts
+  Fix the 30s session-timeout bug.
+⏵⏵ plan mode on · shift+tab to cycle</pre>
+          <span id="token-efficient-ai-development-slide-42-snip-01-cap" class="snip__cap">Plan mode will not touch a file until you approve.</span>
+        </div>
+        <div id="token-efficient-ai-development-slide-42-snip-02" class="snip">
+          <span id="token-efficient-ai-development-slide-42-snip-02-label" class="snip__label">2 · Review, then approve</span>
+          <span id="token-efficient-ai-development-slide-42-snip-02-file" class="snip__file">claude · plan</span>
+          <pre id="token-efficient-ai-development-slide-42-snip-02-code" class="snip__code">⏺ Here’s my plan:
+
+  1. session.config.ts: maxAge is set
+     in seconds, convert to ms
+  2. auth.middleware.ts: apply the fix
+  3. add a regression test
+
+  Would you like to proceed?
+  ❯ 1. Yes, and auto-accept edits
+    2. Yes, and manually approve edits
+    3. No, keep planning</pre>
+          <span id="token-efficient-ai-development-slide-42-snip-02-cap" class="snip__cap">Wrong plan? Pick keep planning, and fix it in prose rather than in a diff.</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="token-efficient-ai-development-slide-42-note" class="slide__note">Cheap to steer early. Review the plan, then let it build, one step at a time.</p>
+
+  </div>
+  <!--chrome 42/56-->
+</section>
