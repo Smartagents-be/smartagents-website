@@ -200,22 +200,14 @@ ${
 function offer(t, lang) {
   const columns = COURSES.map((course) => courseColumn({ t, lang, ...course }));
 
-  return html`<section id="offer" class="section section--training-offer" aria-labelledby="training-offer-title">
-  <div id="training-offer-field-slot" class="field-slot training-offer__field" aria-hidden="true">
-    <div id="training-offer-field" class="field" data-magnet data-magnet-free data-magnet-points="480" data-magnet-amp="20" data-magnet-sigma="100" data-clip="dnaField"><sa-node-field id="training-offer-nodes"></sa-node-field></div>
-  </div>
-  <div id="training-offer-companion-slot" class="field-slot training-offer__companion" aria-hidden="true">
-    <div id="training-offer-companion" class="field" data-magnet data-magnet-free data-magnet-points="200" data-magnet-amp="30" data-magnet-sigma="60" data-clip="heroPebbleA"><sa-node-field id="training-offer-companion-nodes"></sa-node-field></div>
-  </div>
-  <div id="training-offer-surface" class="training-offer__surface section--orbits">
+  return html`<section id="offer" class="section section--orbits" aria-labelledby="training-offer-title">
 ${orbitRings('training-offer', 'orbits--offer')}
-    <div id="training-offer-head" class="section__head">
-      <h2 id="training-offer-title" class="section-heading">${t('training.offer.title')}</h2>
-    </div>
-    <p id="training-offer-lede" class="section-lede">${t('training.offer.lede')}</p>
-    <div id="training-offer-list" class="offer">
+  <div id="training-offer-head" class="section__head">
+    <h2 id="training-offer-title" class="section-heading">${t('training.offer.title')}</h2>
+  </div>
+  <p id="training-offer-lede" class="section-lede">${t('training.offer.lede')}</p>
+  <div id="training-offer-list" class="offer">
 ${join(columns)}
-    </div>
   </div>
 </section>`;
 }
@@ -223,16 +215,28 @@ ${join(columns)}
 /* ------------------------------------------------------------------ *
  * Hoe een cursus verloopt — the copy beside the developer course tour
  *
- * The offer floats above a continuous dark field that emerges into this gap.
- * The heading and practical details sit beside its exposed curves.
+ * Two shapes hung off the two rules that bound the section: a half disc dropping
+ * from the rule the offer closes on, just right of the split between the courses,
+ * and a stone standing on the rule the tour hangs from, lower and further right,
+ * so the pair reads as one diagonal. Each is pinned to its own rule, so the
+ * cursor swells and rocks them but never peels them off.
+ *
+ * The stone lives inside the section head, which is what puts its foot on the
+ * rule whatever the heading does to the height above it.
  * ------------------------------------------------------------------ */
 
 function format(t) {
-  return html`<section id="training-format" class="section section--training-format" aria-labelledby="training-format-title">
-  <div id="training-format-head" class="section__head">
-    <h2 id="training-format-title" class="section-heading">${t('training.format.title')}</h2>
+  return html`<section id="training-format" class="section" aria-labelledby="training-format-title">
+  <div id="training-format-dome-slot" class="field-slot tour__dome" aria-hidden="true">
+    <div id="training-format-dome" class="field" data-magnet data-magnet-free data-magnet-pin="top" data-magnet-points="280" data-magnet-amp="24" data-magnet-sigma="70" data-clip="tourDome"><sa-node-field id="training-format-dome-nodes"></sa-node-field></div>
   </div>
-  <div id="training-format-inner" class="tour tour--training">
+  <div id="training-format-head" class="section__head tour__ground">
+    <h2 id="training-format-title" class="section-heading">${t('training.format.title')}</h2>
+    <div id="training-format-stone-slot" class="field-slot tour__stone" aria-hidden="true">
+      <div id="training-format-stone" class="field" data-magnet data-magnet-free data-magnet-pin="bottom" data-magnet-points="300" data-magnet-amp="42" data-magnet-sigma="70" data-clip="tourStone"><sa-node-field id="training-format-stone-nodes"></sa-node-field></div>
+    </div>
+  </div>
+  <div id="training-format-inner" class="tour">
     <div id="training-format-copy" class="tour__copy">
       <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
       <p id="training-format-accents" class="tour__body tour__body--follow">${t('training.format.accents')}</p>

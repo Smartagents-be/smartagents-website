@@ -319,6 +319,16 @@ export function clipDefs(body) {
     // and the lengths want refitting.
     dnaBlob:
       'M0.330,0.045 C0.560,-0.030 0.800,0.115 0.910,0.345 C1.020,0.580 0.980,0.845 0.790,0.955 C0.600,1.060 0.3360,0.9882 0.180,0.775 C0.0466,0.5910 0.0048,0.3312 0.140,0.170 C0.1884,0.1128 0.260,0.068 0.330,0.045 Z',
+    // Hoe een cursus verloopt: a stone on the hairline the tour hangs from. It
+    // stands on a fifth of its own width, so the cursor rocks it without lifting.
+    tourStone:
+      'M0.560,1.000 C0.740,0.995 0.880,0.930 0.945,0.800 C1.000,0.688 0.980,0.545 0.895,0.430 C0.800,0.302 0.640,0.190 0.470,0.120 C0.330,0.062 0.210,0.048 0.140,0.100 C0.060,0.160 0.030,0.320 0.055,0.510 C0.082,0.716 0.180,0.900 0.300,0.970 C0.375,1.014 0.450,1.004 0.560,1.000 Z',
+    // The counterweight under the agentic engineering course: flat top welded to
+    // the rule that closes the offer, free-hand underside running out long and
+    // shallow to the right. The one easing lifts 4px over 37px, which is about
+    // the limit — twice that and the underside reads as scallops.
+    tourDome:
+      'M0,0 L1,0 C0.978,0.150 0.835,0.330 0.780,0.330 C0.742,0.330 0.698,0.295 0.660,0.295 C0.560,0.295 0.340,1.000 0.230,1.000 C0.130,1.000 0.018,0.560 0,0 Z',
     // Training: a body, a shoulder and a foot run together into one mass hung
     // off the right page edge — three lobes, (530, 150) r 116, (300, 340) r 124
     // and (582, 382) r 92 in the pixels of the box at 1440, summed as Σ r²/d²,

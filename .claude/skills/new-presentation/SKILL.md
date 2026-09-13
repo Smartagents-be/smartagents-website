@@ -137,7 +137,7 @@ Head: `.rule` · `.slide__eyebrow` · `.slide__title` (`--sm`) · `.slide__lede`
 Rows: `.rows` (`--tight`) · `.row` · `.row__term` · `.row__detail`
 Statement: `.statement` · `.statement__support`
 Compare: `.compare` · `.compare__col` (`--then`) · `.compare__head` · `.compare__title` · `.compare__sub` · `.compare__list` · `.compare__item`
-Steps: `.steps` (`--3`, `--5`) · `.step` (`--ahead`) · `.step__num` · `.step__title` · `.step__body`
+Steps: `.steps` (`--3`, `--5`, `--lead`) · `.step` (`--ahead`) · `.step__num` · `.step__title` · `.step__body`
 Media: `.media` (`--flip`) · `.media__words` · `.media__frame` (`--fit`, `--audio`) · `.portraits`
 People: `.people` · `.person` · `.person__photo` · `.person__text` · `.person__role` · `.person__name` · `.person__body` · `.person__meta`
 Cover and close: `.slide__brand` · `.cover` · `.cover__title` · `.cover__sub` · `.cover__meta` · `.close` · `.close__title` · `.close__sub` · `.contact` · `.contact__end`

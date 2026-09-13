@@ -540,6 +540,14 @@ select {
   clip-path: url(#dnaBlob);
 }
 
+[data-clip="tourStone"] {
+  clip-path: url(#tourStone);
+}
+
+[data-clip="tourDome"] {
+  clip-path: url(#tourDome);
+}
+
 /* The AI staffing page's hero: an arch on the flank the petal is a leaf on, and
    the two pebbles come away from it. `heroPebbleA` is shared with the training
    hero's bead. */

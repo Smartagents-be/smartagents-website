@@ -363,6 +363,32 @@ body {
   text-wrap: pretty;
 }
 
+/* The number stands in front of the rule instead of under it, and the rule
+   runs from the number to the column's edge. The rule keeps its meaning: cyan
+   for reached, the pale line for ahead. */
+.steps--lead .step {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.steps--lead .step__num {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.steps--lead .step__num::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--sa-cyan);
+}
+
+.steps--lead .step--ahead .step__num::after {
+  background: var(--sa-line-4);
+}
+
 /* A three-step or five-step progression is the same row with a different
    count; say so on the container rather than restyling the step. */
 .steps--3 {

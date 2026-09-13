@@ -422,31 +422,16 @@ load-bearing unless it says otherwise.
   licence for a free-floating shape beside a flank welded on one edge rather
   than three, are argued in "Deviations from the design doc", item 13, in the
   `smartagents-design` README.
-- **The training offer is a sheet over two free shapes, and both shapes are
-  borrowed.** `.section--training-offer` in `main.css` lays the two course
-  columns on a paper surface (`.training-offer__surface`: one rounded corner,
-  no shadow) and hangs two fields under it — `training-offer__field`, the
-  homepage's `dnaField` disc entering from the left page edge and running 80px
-  past the section's foot, and `training-offer__companion`, another
-  `heroPebbleA` standing off to its right and 135px below the foot. Neither is
-  a hero silhouette, so the one-shape-per-page rule for heroes does not bind
-  them: what the reader sees is the curve that clears the sheet, not the
-  drawing. Three things are load-bearing. **The next section makes room** —
-  `.section--training-format` takes 104px of top padding, the 80px reveal plus
-  the 20px cursor pull with margin, so the disc never crosses the "Hoe een
-  cursus verloopt" heading. And **the section is raised**, `z-index: 2` on a
-  `.section` that is already positioned, so what hangs past its foot paints
-  over the section below rather than under it. Last, **only the disc is an edge
-  shape**: it enters from the page edge and reads as drawn with the magnets off,
-  where the companion is a free pebble standing clear of everything, so that one
-  takes the bead's query rather than a width of its own. It used to go at 941px,
-  which left it in two states it cannot be read in: with no magnet to join
-  anything between 941 and 1080px, and, from 1000px down, straddling
-  `.section-heading`'s rule, which at that width stops being a cut of the
-  heading and runs the full page directly under the pebble.
-  The pair replaced `tourDome` and `tourStone`, the two shapes that hung off the
-  rules around the course tour; both paths are gone from `clipDefs()` and both
-  rules from `critical.css`.
+- **Under the training offer, two shapes hang off the two rules that bound the
+  course tour.** `tourDome` is a half disc welded to the rule the offer closes
+  on (`data-magnet-pin="top"`), just right of the split between the two courses;
+  `tourStone` stands on the rule the tour hangs from (`pin="bottom"`), lower and
+  further right, so the pair reads as one diagonal. The stone lives inside
+  `.tour__ground`, the section head, which is what puts its foot on the rule
+  however the heading wraps. Both go below 941px, where the heading and the
+  copy stack and take the band back. They were replaced for a while by a paper
+  sheet over the homepage's `dnaField` disc and a `heroPebbleA`, and put back
+  on the client's call: the pair read better beside the two courses.
 - **The team hero is a pair.** `teamHeroPair` is two lobes of nearly one size —
   (430, 230) r 155 and (300, 530) r 170 in the pixels of the box at 1440 — run
   together on a diagonal and hung off the right page edge, traced the same way

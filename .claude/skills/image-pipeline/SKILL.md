@@ -71,3 +71,15 @@ anyway. It is not invisible in the markup: the `<img>` declares one aspect ratio
 and the two sources disagree with each other about it, which means AVIF and JPEG
 were not the same crop. `sips -z 428 760 <stem>-760.jpg` over the file itself
 settles it; the AVIF was made from that same JPEG, so the crop cannot shift.
+
+**Never ship an AVIF `sips` wrote on macOS 26 without checking it for `grid`.**
+The newer ImageIO writer (ftyp brand `MiPr`, with `irot` and `clli` boxes) tiles
+a larger image into a `grid` of AV1 items. Chromium and WebKit decode it; Gecko
+fails the decode outright, and for the same `<picture>` reason as above the card
+shows its alt text. Axel's re-crop hit exactly this: 320w and 440w came out as
+single items, 880w as a grid, so the portrait vanished in Firefox only on a 2x
+screen, where `srcset` picks the 880w file. The fix was to re-encode all three
+from their own JPEGs with `sharp` (installed in a scratch folder, not the repo:
+`.avif({ quality: 55, effort: 9, chromaSubsampling: '4:2:0' })`), which writes
+one plain item. Check a file with `xxd -p f.avif | tr -d '\n' | grep 67726964`
+(`grid`); it should print nothing, like the `clap` check.
