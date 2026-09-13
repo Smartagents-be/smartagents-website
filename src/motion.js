@@ -31,7 +31,8 @@ const still = matchMedia('(prefers-reduced-motion: reduce)');
  * ------------------------------------------------------------------ */
 
 const POINTS = 220; // per shape, unless data-magnet-points says otherwise
-const REACH = 175;
+const REACH = 95; // px from the edge at which a shape starts to pull toward the cursor
+const JOIN_REACH = 175; // px: how near the cursor must be to both shapes for a join to strengthen
 const GRIP = 120; // how far past the edge the cursor keeps the swell alive
 const BLEED = 140; // room for a bulge to render outside the resting silhouette
 const WELD = 30; // px of a pinned edge over which the pull fades to nothing
@@ -800,7 +801,7 @@ function joins(items, linked) {
       // to a closed curve moves as smoothly as the cursor does, where the point
       // realising it jumps the moment two approaches tie, and the whole join is
       // seen to flicker with it.
-      const t = Math.min(1, Math.max(A.item.reach, B.item.reach) / REACH);
+      const t = Math.min(1, Math.max(A.item.reach, B.item.reach) / JOIN_REACH);
       const near = 1 - t * t * (3 - 2 * t);
       const k = MERGE * near;
       // Two outlines facing each other across g join when 2·e^(-g/2k) reaches 1,
@@ -1016,7 +1017,7 @@ function magnets() {
        inside it: skip the 480-distance walk the loop below would spend arriving
        at that. `item.reach` stays Infinity, which `joins()` reads as "not near".
        On a page with five magnets this is four walks a frame saved. */
-    if (x < -REACH || x > w + REACH || y < -REACH || y > h + REACH) return;
+    if (x < -JOIN_REACH || x > w + JOIN_REACH || y < -JOIN_REACH || y > h + JOIN_REACH) return;
 
     let nearest = 0;
     /* Squared until the end: comparing squares picks the same nearest point,
