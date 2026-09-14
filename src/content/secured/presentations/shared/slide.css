@@ -675,6 +675,25 @@ body {
   color: var(--sa-cyan);
 }
 
+/* The lockup as a slide's heading, for the one slide that says who we are.
+   Set at the cover title's size, with the mark scaled from the 30px lockup
+   above. The gap is tighter than a straight scale: the mark sits inside its
+   48px box with a sixth of it empty on each side, and at this size that margin
+   alone is a word space. It stands 72px further down than a title would:
+   at this size it is a mark rather than a heading, and hard under the rule it
+   read as pinned to the top edge. */
+.slide__brand--lg {
+  margin: 72px 0 0;
+  gap: 24px;
+  font-size: 104px;
+  letter-spacing: var(--ls-display);
+}
+
+.slide__brand--lg img {
+  width: 118px;
+  height: 118px;
+}
+
 /* The cover's own column: pinned to the foot of the slide, 52% of the width,
    the paper above it left as the counterweight to the shape on the right.
    That asymmetry is the hero of the public site, and it is the same one. */
@@ -1096,4 +1115,23 @@ sa-node-field {
   font-size: 26px;
   line-height: 1.5;
   color: var(--sa-grey-6);
+}
+
+/* ══ Wrapping ═══════════════════════════════════════════════════════════════
+   Body copy is balanced rather than wrapped greedily. A greedy wrap in a
+   column held to 44ch left lines like "The result is" standing half-empty
+   above a long word, and a slide is read from across a room, where a ragged
+   right edge reads as a mistake. `balance` keeps the number of lines and only
+   evens their lengths, so no slide gets taller; Chrome ignores it past six
+   lines, which is more than any of these blocks should carry. Placed last so it
+   wins over the `pretty` the rules above declare. */
+.slide__lede,
+.statement__support,
+.step__body,
+.row__detail,
+.compare__item,
+.person__body,
+.cover__sub,
+.close__sub {
+  text-wrap: balance;
 }

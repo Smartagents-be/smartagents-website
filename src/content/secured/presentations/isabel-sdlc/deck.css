@@ -1,10 +1,12 @@
 /* isabel-sdlc — rules that belong to this deck alone.
 
-   Three figures, none of them one of the eight archetypes, and none sharing a
-   class with the others: slide 08 asks where the queue is, 12 zooms into Build to
-   show where the agent works, 09 shows what one month at Ponto delivered.
+   Five figures, none of them one of the eight archetypes, and none sharing a
+   class with the others: slide 06 names the two teams we work in, 07 asks where
+   the queue is, 11 shows why the investment comes before the output, 13 shows
+   how the way of working reaches every team, 16 shows what one month at Ponto
+   delivered.
 
-   Slide 08 is one band per row with the six desks named on it. The same six
+   Slide 07 is one band per row with the six desks named on it. The same six
    desks (Product, Analysis, Build, Review, Test, Release) in all three rows, and
    what differs is where the band narrows: read top to bottom, the narrowest
    point travels right and gets wider. The geometry is struck by the same
@@ -271,287 +273,7 @@
   margin-top: 0;
 }
 
-/* ══ Slide 12: a zoom into Build ════════════════════════════════════════════
-   Slide 08's bar on top with only Build lit, so the room sees this is one stage
-   of the lifecycle and not the whole of it. Two dashed lines open Build into
-   the box below, where the agent loops.
-
-   Inside Build a person acts once: the decision hanging under the box, reached
-   by a pair of arrows because a question goes out and an answer comes back.
-   The box on the right is not part of Build. It is the handoff to the next
-   stage, so its label is grey where the person's is cyan.
-
-   The columns are fixed so the right-hand dashed line can land on the box's
-   corner: 1176 of 1696 is 69.34% of the lens. */
-
-.zoom {
-  display: flex;
-  flex-direction: column;
-}
-
-.zoom__desk--dim {
-  color: rgb(255 255 255 / 0.4);
-}
-
-/* Chained onto `.flow__bar` so it outranks the run bar's `box-shadow: none`. */
-.flow__bar .flow__desk.zoom__desk--focus {
-  font-weight: var(--fw-semibold);
-  box-shadow: inset 0 -6px 0 var(--sa-cyan-bright);
-}
-
-.zoom__lens {
-  display: block;
-  width: 100%;
-  height: 44px;
-  overflow: visible;
-}
-
-.zoom__lens path {
-  fill: none;
-  stroke: var(--sa-line-4);
-  stroke-width: 2;
-  stroke-dasharray: 5 9;
-  vector-effect: non-scaling-stroke;
-}
-
-.zoom__work {
-  display: grid;
-  grid-template-columns: 1176px 120px 400px;
-  grid-template-rows: auto auto;
-  align-items: center;
-}
-
-.zoom__box {
-  grid-column: 1;
-  grid-row: 1;
-  position: relative;
-  box-sizing: border-box;
-  padding: 44px 40px 52px;
-  border: 1px solid var(--sa-line);
-  border-radius: 6px;
-}
-
-/* Centred, because the two dashed lines land on the box's top corners. */
-.zoom__legend {
-  position: absolute;
-  top: -13px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  padding: 0 14px;
-  background: var(--sa-paper);
-  font-size: 22px;
-  line-height: 1.2;
-  color: var(--sa-grey-3);
-  white-space: nowrap;
-}
-
-.zoom__cycle {
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.zoom__steps {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.zoom__step {
-  font-size: 30px;
-  line-height: 1.25;
-  letter-spacing: var(--ls-h3);
-  font-weight: var(--fw-semibold);
-  white-space: nowrap;
-}
-
-.zoom__step + .zoom__step::before {
-  content: "→";
-  margin: 0 22px;
-  color: var(--sa-grey-6);
-  font-weight: var(--fw-medium);
-}
-
-/* The return runs under the steps from Fix back to the first one. Its ends sit
-   near the centres of the first and last step, which is what the side margins
-   approximate. */
-.zoom__return {
-  position: relative;
-  height: 28px;
-  margin: 16px 22px 0 165px;
-  border: 2.5px solid var(--sa-cyan);
-  border-top: none;
-  border-radius: 0 0 20px 20px;
-}
-
-.zoom__return::before {
-  content: "";
-  position: absolute;
-  left: -9px;
-  top: -12px;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid var(--sa-cyan);
-}
-
-.zoom__repeat {
-  position: absolute;
-  left: 50%;
-  bottom: -18px;
-  transform: translateX(-50%);
-  margin: 0;
-  padding: 0 16px;
-  background: var(--sa-paper);
-  color: var(--sa-cyan);
-  font-size: 22px;
-  line-height: 1.4;
-  font-weight: var(--fw-medium);
-  white-space: nowrap;
-}
-
-.zoom__out {
-  grid-column: 2;
-  grid-row: 1;
-  position: relative;
-  height: 2.5px;
-  margin: 0 12px 0 0;
-  background: var(--sa-ink);
-}
-
-.zoom__out::after {
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: -7px;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 12px solid var(--sa-ink);
-}
-
-.zoom__out-label {
-  position: absolute;
-  left: 0;
-  right: -12px;
-  bottom: 12px;
-  margin: 0;
-  text-align: center;
-  font-size: 22px;
-  line-height: 1.4;
-  color: var(--sa-grey-6);
-  white-space: nowrap;
-}
-
-/* Boxes, so every arrow ends on an edge. */
-.zoom__node {
-  box-sizing: border-box;
-  padding: 20px 28px 22px;
-  border: 1px solid var(--sa-line);
-  border-radius: 6px;
-}
-
-.zoom__node--review {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.zoom__who {
-  margin: 0;
-  font-size: 22px;
-  line-height: 1.4;
-  font-weight: var(--fw-medium);
-  color: var(--sa-cyan);
-}
-
-.zoom__next {
-  margin: 0;
-  font-size: 22px;
-  line-height: 1.4;
-  font-weight: var(--fw-medium);
-  color: var(--sa-grey-6);
-}
-
-.zoom__node-title {
-  margin: 2px 0 0;
-  font-size: 27px;
-  line-height: 1.2;
-  letter-spacing: var(--ls-h3);
-  font-weight: var(--fw-semibold);
-  white-space: nowrap;
-}
-
-.zoom__node-body {
-  margin: 8px 0 0;
-  font-size: 22px;
-  line-height: 1.45;
-  color: var(--sa-grey-3);
-  text-wrap: pretty;
-}
-
-/* Centred under the box. The arrows run from the box's bottom edge to the
-   node's top edge, and the label hangs beside them without moving them off the
-   centre line. */
-.zoom__ask {
-  grid-column: 1;
-  grid-row: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.zoom__ask-arrows {
-  position: relative;
-  display: flex;
-  gap: 14px;
-  height: 60px;
-}
-
-.zoom__down,
-.zoom__up {
-  position: relative;
-  width: 2.5px;
-  height: 48px;
-  background: var(--sa-cyan);
-}
-
-.zoom__down::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: -7px;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 12px solid var(--sa-cyan);
-}
-
-.zoom__up {
-  margin-top: 12px;
-}
-
-.zoom__up::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: -7px;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid var(--sa-cyan);
-}
-
-.zoom__ask-label {
-  position: absolute;
-  left: calc(100% + 18px);
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0;
-  font-size: 22px;
-  line-height: 1.4;
-  color: var(--sa-grey-6);
-  white-space: nowrap;
-}
-
-/* ══ Slide 09: one month at Ponto ═════════════════════════════════════════════
+/* ══ Slide 16: one month at Ponto ═════════════════════════════════════════════
    Two numbers that moved, and what the work turned up besides. The metrics are
    set large because they are the slide; each carries one cyan rule under it at
    full width. It is a 3px line, not a bar: cyan stays a rule and a mark here too.
@@ -671,8 +393,8 @@
   color: var(--sa-grey-3);
 }
 
-/* ══ Slide 11: the next four weeks ══════════════════════════════════════════
-   The `.results` grid and the `.finding` list from slide 09, on purpose: the
+/* ══ Slide 17: the next four weeks ══════════════════════════════════════════
+   The `.results` grid and the `.finding` list from slide 16, on purpose: the
    follow-ups are the same kind of item as what the month turned up. The right
    column is the one objective that is a proposal rather than a task, so it gets
    the width and a three-step `.steps` row of its own. */
@@ -696,4 +418,438 @@
   line-height: 1.5;
   color: var(--sa-grey-3);
   text-wrap: pretty;
+}
+
+/* ══ Slide 11: why the investment comes first ═══════════════════════════════
+   The chart on the left, the two investments beside it as the shared `.step`
+   blocks, stacked rather than in a `.steps` row. The chart is a shape and not
+   data: three lines over four years, no y axis, and a foot note that says so
+   (it was a caption in the plot corner, where nobody read it), because a room reads a curve with years under it as a forecast.
+
+   The columns are fixed so the SVG draws at its real size and its type is set
+   at the stage's pixels rather than scaled: 1056 + 80 + 560 = 1696, the content
+   width. Years sit 320 apart from x=48, and the peak marker is the investment
+   curve's own apex at x=339. */
+
+.invest {
+  display: grid;
+  grid-template-columns: 1056px 560px;
+  column-gap: 80px;
+  align-items: center;
+}
+
+.invest__chart {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.invest__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 40px;
+  margin: 0;
+  padding: 0 0 0 48px;
+  list-style: none;
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--sa-grey-3);
+}
+
+.invest__key {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.invest__key::before {
+  content: "";
+  width: 36px;
+  border-top: 4px solid var(--key);
+}
+
+.invest__key--spend { --key: var(--sa-cyan); }
+.invest__key--output { --key: var(--sa-ink); }
+
+.invest__key--skills {
+  --key: var(--sa-grey-6);
+}
+
+.invest__key--skills::before {
+  border-top-style: dashed;
+}
+
+.invest__plot {
+  display: block;
+  overflow: visible;
+}
+
+.invest__baseline {
+  stroke: var(--sa-line-4);
+  stroke-width: 1.5;
+}
+
+.invest__peak {
+  stroke: var(--sa-grey-6);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+}
+
+.invest__line {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.invest__line--spend { stroke: var(--sa-cyan); }
+.invest__line--output { stroke: var(--sa-ink); }
+
+.invest__line--skills {
+  stroke: var(--sa-grey-6);
+  stroke-dasharray: 10 10;
+}
+
+.invest__label {
+  font-size: 22px;
+  fill: var(--sa-grey-3);
+}
+
+.invest__year {
+  font-size: 22px;
+  fill: var(--sa-grey-6);
+}
+
+.invest__points {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ══ Slide 06: the two teams we learn in ════════════════════════════════════
+   The team names are the slide, so they are set larger than the title: a room
+   should leave knowing it is Ponto and Trustees. Each carries the cyan rule of a
+   step reached, with who works there above it. A bracket under both says the
+   two share one objective, and an arrow hands it to the organisation, which
+   takes the pale rule and the grey of a step not yet reached.
+
+   500 + 500 + 116 + 460 + 3 x 40 = 1696, the content width. The team columns are
+   set by "Trustees", about 466px at 128px in the platform face: re-measure when
+   the face arrives or a team name changes. The bracket's label
+   sits on its bottom edge with a paper ground, so the grid carries 20px of padding for the half that hangs below it. */
+
+.task {
+  display: grid;
+  grid-template-columns: 500px 500px 116px 460px;
+  grid-template-rows: auto auto;
+  column-gap: 40px;
+  padding-bottom: 20px;
+}
+
+.task__team {
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 28px;
+  border-top: 2px solid var(--sa-cyan);
+}
+
+.task__who {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--sa-cyan);
+}
+
+.task__name {
+  font-size: 128px;
+  line-height: 1;
+  letter-spacing: var(--ls-display);
+  font-weight: var(--fw-display);
+  color: var(--sa-ink);
+}
+
+.task__both {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  position: relative;
+  height: 44px;
+  margin: 40px 12px 0;
+  border: 2.5px solid var(--sa-cyan);
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+}
+
+.task__both-label {
+  position: absolute;
+  left: 50%;
+  bottom: -20px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 18px;
+  background: var(--sa-paper);
+  color: var(--sa-ink);
+  font-size: 28px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+.task__out {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  align-self: center;
+  position: relative;
+  height: 2.5px;
+  margin-right: 12px;
+  background: var(--sa-grey-6);
+}
+
+.task__out::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--sa-grey-6);
+}
+
+.task__org {
+  grid-column: 4;
+  grid-row: 1 / 3;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 28px;
+  border-top: 2px solid var(--sa-line-4);
+}
+
+.task__when {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--sa-grey-6);
+}
+
+.task__org-title {
+  font-size: 48px;
+  line-height: 1.15;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+  color: var(--sa-grey-2);
+}
+
+.task__org-body {
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* ══ Slide 12: what the gates check, and what that brings ═══════════════════
+   The `.compare` columns, in a grid of this deck's own rather than `.compare`
+   itself, because the two sides do not weigh the same: the checks are full,
+   concrete sentences and the benefits are one line each. 1020 + 56 + 620 = 1696.
+   It sits in `.slide__body` so it centres in the slide instead of hanging off
+   the title, which `.compare` does by growing to fill the height, and 40px
+   further down again so the lists do not read as a continuation of the title.
+   That margin only fits because every check but Team standards is two lines and
+   every benefit is one: a longer line in either column takes it back. */
+
+.gates {
+  display: grid;
+  grid-template-columns: 1020px 620px;
+  column-gap: 56px;
+  margin-top: 40px;
+}
+
+/* ══ Slide 13: how the way of working reaches every team ═════════════════════
+   Left to right: who writes it, where it lives, whose agent loads it. The loop
+   underneath is the argument, so it is the only cyan on the slide.
+
+   The columns are fixed so the fan can be drawn at its real size: the team
+   list is three 80px boxes with 20px between them, 280px in all, and the fan's
+   three ends sit on their centres at 40, 140 and 240. */
+
+.hub {
+  display: grid;
+  grid-template-columns: 300px 240px 520px 236px 400px;
+  grid-template-rows: 280px auto;
+  align-items: center;
+}
+
+.hub__node {
+  box-sizing: border-box;
+  padding: 24px 28px;
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+}
+
+.hub__node--platform {
+  grid-column: 1;
+  grid-row: 1;
+  height: 120px;
+}
+
+.hub__node--repo {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.hub__title {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.hub__sub {
+  margin: 8px 0 0;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-3);
+}
+
+.hub__arrow {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  height: 2.5px;
+  margin: 0 12px 0 20px;
+  background: var(--sa-ink);
+}
+
+.hub__arrow::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--sa-ink);
+}
+
+.hub__arrow-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  margin: 0;
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-grey-6);
+  white-space: nowrap;
+}
+
+.hub__fan {
+  grid-column: 4;
+  grid-row: 1;
+  display: block;
+}
+
+.hub__fan > path {
+  fill: none;
+  stroke: var(--sa-ink);
+  stroke-width: 2.5;
+}
+
+.hub__fan-head {
+  fill: var(--sa-ink);
+}
+
+.hub__teams {
+  grid-column: 5;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hub__team {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 0 28px;
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+/* Starts under the middle of the team column, runs back under the whole row and
+   climbs 80px into the platform node, which is how far its 120px box sits above
+   the bottom of the 280px row. */
+.hub__feedback {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  position: relative;
+  height: 70px;
+  margin: 0 200px 0 150px;
+  border: 2.5px solid var(--sa-cyan);
+  border-top: none;
+  border-radius: 0 0 22px 22px;
+}
+
+.hub__feedback::before {
+  content: "";
+  position: absolute;
+  left: -2.5px;
+  bottom: 100%;
+  width: 2.5px;
+  height: 68px;
+  background: var(--sa-cyan);
+}
+
+.hub__feedback::after {
+  content: "";
+  position: absolute;
+  left: -9px;
+  bottom: calc(100% + 68px);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--sa-cyan);
+}
+
+.hub__feedback-label {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 16px;
+  background: var(--sa-paper);
+  color: var(--sa-cyan);
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+/* ══ Slide 16: the two lead-ins ═════════════════════════════════════════════
+   "Goal:" and "First results:" open the slide's two titles at the same size, so
+   colour is what tells the label from the claim. Slide 17 names its team the
+   same way, and slides 12 to 14 carry the number of the proposal step each one
+   opens (01 gates, 02 platform, 03 training), so the room can follow slide 10. Cyan as a mark on two words,
+   the way the wordmark carries it, never as a fill. */
+
+.lead-in {
+  color: var(--sa-cyan);
+}
+
+/* The deck's own body copy, balanced for the reason the wrapping block at the
+   foot of `shared/slide.css` gives. */
+.task__org-body,
+.finding__body,
+.next__note {
+  text-wrap: balance;
 }

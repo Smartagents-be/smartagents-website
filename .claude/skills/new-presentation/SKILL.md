@@ -140,7 +140,7 @@ Compare: `.compare` · `.compare__col` (`--then`) · `.compare__head` · `.compa
 Steps: `.steps` (`--3`, `--5`, `--lead`) · `.step` (`--ahead`) · `.step__num` · `.step__title` · `.step__body`
 Media: `.media` (`--flip`) · `.media__words` · `.media__frame` (`--fit`, `--audio`) · `.portraits`
 People: `.people` (`--solo`, `--flip`) · `.person` · `.person__photo` · `.person__text` · `.person__role` · `.person__name` · `.person__body` · `.person__meta`
-Cover and close: `.slide__brand` · `.cover` · `.cover__title` · `.cover__sub` · `.cover__meta` · `.close` · `.close__title` · `.close__sub` · `.contact` · `.contact__end`
+Cover and close: `.slide__brand` (`--lg`) · `.cover` · `.cover__title` · `.cover__sub` · `.cover__meta` · `.close` · `.close__title` · `.close__sub` · `.contact` · `.contact__end`
 Wrap guard: `.nobreak`
 Dark shape: `.field` · `.slide__shape` (`--petal`, `--lobe`, `--wedge`) · `<sa-node-field>` · `.node` (`--lit`, `--dim`) · `.link`
 Orbits: `.orbits` (`--close`) · `.orbits__origin` · `.orbits__ring--01…05` · `.orbits__path--01…03` · `.orbits__node`
@@ -158,7 +158,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 
 | Deck | Classes | Why it is not shared |
 |---|---|---|
-| `isabel-sdlc` | `.flow`, `.zoom`, `.slide-notes`, `.results`, `.metric`, `.finding` | Three figures, each drawn for one argument |
+| `isabel-sdlc` | `.flow`, `.hub`, `.slide-notes`, `.results`, `.metric`, `.finding`, `.invest`, `.task`, `.gates`, `.next`, `.lead-in` | Five figures and one uneven comparison, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
 
