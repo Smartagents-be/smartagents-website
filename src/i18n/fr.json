@@ -376,14 +376,9 @@
   "jobs.vacancies.empty": "Rien n'est ouvert pour le moment. Envoyez-nous votre profil malgré tout et nous vous contacterons dès qu'un poste se libère.",
   "jobs.cta.apply": "Postuler",
 
-  "jobs.why.title": "Travailler chez SmartAgents",
-  "jobs.why.work.title": "Ce que vous construisez",
-  "jobs.why.work.body": "Des agents IA et l'agentic engineering autour d'eux, en production chez des entreprises belges. Tout aussi souvent du coaching, des formations et la relation avec le client. Ce qui ne sert à personne, nous le retirons.",
-  "jobs.why.team.title": "Avec qui vous travaillez",
-  "jobs.why.team.body": "Une petite équipe motivée qui travaille sur le même type de solutions. Vous êtes proche de tous ceux qui les construisent.",
-  "jobs.why.team.link": "Rencontrez l'équipe",
-  "jobs.why.learn.title": "Ce que vous apprenez",
-  "jobs.why.learn.body": "Le domaine bouge chaque mois. Vous travaillez avec ce qui existe aujourd'hui, sur de vrais dossiers, et c'est là qu'on apprend le plus vite.",
+  "jobs.convince.title": "Travailler chez SmartAgents",
+  "jobs.convince.1": "Chez SmartAgents, vous contribuez à construire des agents IA et l'agentic engineering qui les entoure, en production chez des entreprises belges, et tout aussi souvent du coaching, des formations et la relation directe avec le client. Ce qui ne sert à personne, nous le retirons aussi. Nous testons également chaque outil nous-mêmes d'abord, sur nos propres projets, avant de le proposer à un client : vous ne travaillez donc jamais ici avec quelque chose qui doit encore faire ses preuves.",
+  "jobs.convince.2": "Le domaine bouge chaque mois. Vous travaillez avec ce qui existe aujourd'hui, sur de vrais dossiers, et c'est là qu'on apprend le plus vite. Avec une petite équipe motivée, vous êtes proche de tous ceux qui construisent. [Rencontrez l'équipe]. Ce que vous mettez en place aujourd'hui tourne demain chez un client, sans strates et sans délai entre une idée et son effet.",
 
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Politique de confidentialité · SmartAgents",

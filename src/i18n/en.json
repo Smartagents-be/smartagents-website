@@ -376,14 +376,9 @@
   "jobs.vacancies.empty": "Nothing is open at the moment. Send us your profile anyway and we will get in touch as soon as something comes up.",
   "jobs.cta.apply": "Apply",
 
-  "jobs.why.title": "Working at SmartAgents",
-  "jobs.why.work.title": "What you build",
-  "jobs.why.work.body": "AI agents and the agentic engineering around them, running in production at Belgian companies. Just as often coaching, training and the client relationship itself. What nobody uses, we take back out.",
-  "jobs.why.team.title": "Who you work with",
-  "jobs.why.team.body": "A small, driven team working on the same kind of solution. You sit close to everyone building it.",
-  "jobs.why.team.link": "Meet the team",
-  "jobs.why.learn.title": "What you learn",
-  "jobs.why.learn.body": "The field moves every month. You work with what exists today, on real client work, and that is where you pick it up fastest.",
+  "jobs.convince.title": "Working at SmartAgents",
+  "jobs.convince.1": "At SmartAgents you help build AI agents and the agentic engineering around them, in production at Belgian companies, and just as often coaching, training and direct client contact. What doesn't get used, we take back out too. We also test every tool ourselves first, on our own projects, before we put it in front of a client: so you never work with something that still has to prove itself.",
+  "jobs.convince.2": "The field moves every month. You work with what exists today, on real client work, which is where you pick it up fastest. With a small, driven team you sit close to everyone building it. [Meet the team]. What you set up today runs at a client tomorrow, with no layers and no delay between an idea and its effect.",
 
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Privacy notice · SmartAgents",
