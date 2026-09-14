@@ -1,10 +1,10 @@
 /* isabel-sdlc — rules that belong to this deck alone.
 
    Three figures, none of them one of the eight archetypes, and none sharing a
-   class with the others: slide 03 asks where the queue is, 07 zooms into Build to
-   show where the agent works, 08 shows how the way of working reaches every team.
+   class with the others: slide 08 asks where the queue is, 12 zooms into Build to
+   show where the agent works, 09 shows what one month at Ponto delivered.
 
-   Slide 03 is one band per row with the six desks named on it. The same six
+   Slide 08 is one band per row with the six desks named on it. The same six
    desks (Product, Analysis, Build, Review, Test, Release) in all three rows, and
    what differs is where the band narrows: read top to bottom, the narrowest
    point travels right and gets wider. The geometry is struck by the same
@@ -271,8 +271,8 @@
   margin-top: 0;
 }
 
-/* ══ Slide 07: a zoom into Build ════════════════════════════════════════════
-   Slide 03's bar on top with only Build lit, so the room sees this is one stage
+/* ══ Slide 12: a zoom into Build ════════════════════════════════════════════
+   Slide 08's bar on top with only Build lit, so the room sees this is one stage
    of the lifecycle and not the whole of it. Two dashed lines open Build into
    the box below, where the agent loops.
 
@@ -443,7 +443,7 @@
   white-space: nowrap;
 }
 
-/* Boxes, like the nodes on slide 08, so every arrow ends on an edge. */
+/* Boxes, so every arrow ends on an edge. */
 .zoom__node {
   box-sizing: border-box;
   padding: 20px 28px 22px;
@@ -551,172 +551,149 @@
   white-space: nowrap;
 }
 
-/* ══ Slide 08: how the way of working reaches every team ═════════════════════
-   Left to right: who writes it, where it lives, whose agent loads it. The loop
-   underneath is the argument, so it is the only cyan on the slide.
+/* ══ Slide 09: one month at Ponto ═════════════════════════════════════════════
+   Two numbers that moved, and what the work turned up besides. The metrics are
+   set large because they are the slide; each carries one cyan rule under it at
+   full width. It is a 3px line, not a bar: cyan stays a rule and a mark here too.
+   A pale rule at the before value's share sat above it for a while and was
+   taken out, because it read as an underline under the old number.
 
-   The columns are fixed so the fan can be drawn at its real size: the team
-   list is three 80px boxes with 20px between them, 280px in all, and the fan's
-   three ends sit on their centres at 40, 140 and 240. */
+   The right column is a hairline list, the `.row` grammar stacked instead of
+   split, because a 40% term column at half the slide's width wraps every title. */
 
-.hub {
+.results {
   display: grid;
-  grid-template-columns: 300px 240px 520px 236px 400px;
-  grid-template-rows: 280px auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 128px;
   align-items: center;
 }
 
-.hub__node {
-  box-sizing: border-box;
-  padding: 24px 28px;
-  border: 1px solid var(--sa-line);
-  border-radius: 6px;
+.results__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }
 
-.hub__node--platform {
-  grid-column: 1;
-  grid-row: 1;
-  height: 120px;
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.hub__node--repo {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.hub__title {
-  margin: 0;
-  font-size: 30px;
+.metric__label {
+  font-family: var(--font-mono);
+  font-size: 24px;
   line-height: 1.2;
-  letter-spacing: var(--ls-h3);
-  font-weight: var(--fw-semibold);
+  color: var(--sa-grey-6);
 }
 
-.hub__sub {
-  margin: 8px 0 0;
-  font-size: 22px;
-  line-height: 1.4;
+.metric__figures {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  line-height: 1;
+}
+
+.metric__from {
+  font-size: 64px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h2);
+  color: var(--sa-grey-5);
+}
+
+.metric__arrow {
+  font-size: 48px;
+  color: var(--sa-grey-5);
+}
+
+.metric__to {
+  font-size: 120px;
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-display);
+  color: var(--sa-ink);
+}
+
+.metric__unit {
+  font-size: 28px;
   color: var(--sa-grey-3);
 }
 
-.hub__arrow {
-  grid-column: 2;
-  grid-row: 1;
-  position: relative;
-  height: 2.5px;
-  margin: 0 12px 0 20px;
-  background: var(--sa-ink);
-}
-
-.hub__arrow::after {
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: -7px;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 12px solid var(--sa-ink);
-}
-
-.hub__arrow-label {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 12px;
-  margin: 0;
-  text-align: center;
-  font-size: 22px;
-  line-height: 1.4;
-  color: var(--sa-grey-6);
-  white-space: nowrap;
-}
-
-.hub__fan {
-  grid-column: 4;
-  grid-row: 1;
-  display: block;
-}
-
-.hub__fan > path {
-  fill: none;
-  stroke: var(--sa-ink);
-  stroke-width: 2.5;
-}
-
-.hub__fan-head {
-  fill: var(--sa-ink);
-}
-
-.hub__teams {
-  grid-column: 5;
-  grid-row: 1;
+.metric__bars {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 8px;
+  margin-top: 12px;
 }
 
-.hub__team {
-  box-sizing: border-box;
+.metric__bar {
+  display: block;
+  width: var(--w);
+  height: 3px;
+  background: var(--sa-line-4);
+}
+
+.metric__bar--to {
+  background: var(--sa-cyan);
+}
+
+.results__found {
   display: flex;
-  align-items: center;
-  height: 80px;
-  padding: 0 28px;
-  border: 1px solid var(--sa-line);
-  border-radius: 6px;
-  font-size: 28px;
-  line-height: 1.2;
+  flex-direction: column;
+}
+
+.results__found .metric__label {
+  margin-bottom: 12px;
+}
+
+.finding {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 0;
+  border-top: 1px solid var(--sa-line);
+}
+
+.finding:last-child {
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.finding__title {
+  font-size: 34px;
+  line-height: 1.25;
   letter-spacing: var(--ls-h3);
   font-weight: var(--fw-semibold);
 }
 
-/* Starts under the middle of the team column, runs back under the whole row and
-   climbs 80px into the platform node, which is how far its 120px box sits above
-   the bottom of the 280px row. */
-.hub__feedback {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  position: relative;
-  height: 70px;
-  margin: 0 200px 0 150px;
-  border: 2.5px solid var(--sa-cyan);
-  border-top: none;
-  border-radius: 0 0 22px 22px;
+.finding__body {
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
 }
 
-.hub__feedback::before {
-  content: "";
-  position: absolute;
-  left: -2.5px;
-  bottom: 100%;
-  width: 2.5px;
-  height: 68px;
-  background: var(--sa-cyan);
+/* ══ Slide 11: the next four weeks ══════════════════════════════════════════
+   The `.results` grid and the `.finding` list from slide 09, on purpose: the
+   follow-ups are the same kind of item as what the month turned up. The right
+   column is the one objective that is a proposal rather than a task, so it gets
+   the width and a three-step `.steps` row of its own. */
+
+.next .metric__label {
+  margin-bottom: 14px;
 }
 
-.hub__feedback::after {
-  content: "";
-  position: absolute;
-  left: -9px;
-  bottom: calc(100% + 68px);
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid var(--sa-cyan);
+.next__title {
+  margin: 0 0 32px;
+  font-size: 48px;
+  line-height: 1.15;
+  letter-spacing: var(--ls-h2);
+  font-weight: var(--fw-display);
+  text-wrap: pretty;
 }
 
-.hub__feedback-label {
-  position: absolute;
-  left: 50%;
-  bottom: -18px;
-  transform: translateX(-50%);
-  margin: 0;
-  padding: 0 16px;
-  background: var(--sa-paper);
-  color: var(--sa-cyan);
-  font-size: 22px;
-  line-height: 1.4;
-  font-weight: var(--fw-medium);
-  white-space: nowrap;
+.next__note {
+  margin: 36px 0 0;
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
 }

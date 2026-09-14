@@ -484,6 +484,40 @@ body {
   overflow-wrap: anywhere;
 }
 
+/* One person, for the slide that introduces them. The slide head carries the
+   name, so the person drops the hairlines it wears beside a second person
+   (the rows under the text bring their own) and the portrait doubles in size.
+   A few `.rows` go in `.person__text` under the role and the one line.
+   `--flip` puts the portrait on the right, for the second of two such slides
+   in a row, the way `.media--flip` alternates an image. */
+.people--solo {
+  grid-template-columns: 1fr;
+}
+
+.people--solo .person {
+  gap: 96px;
+  padding: 0;
+  border: 0;
+}
+
+.people--solo .person__photo {
+  width: 360px;
+  height: 540px;
+}
+
+.people--solo .person__text {
+  flex: 1;
+  gap: 14px;
+}
+
+.people--solo .rows {
+  margin-top: 28px;
+}
+
+.people--flip .person__photo {
+  order: 2;
+}
+
 /* ══ Media ═════════════════════════════════════════════════════════════════
    A screenshot or a photograph, with the words in a third of the width
    beside it. The frame is `--sa-wash` so an image that does not fill it
@@ -547,8 +581,12 @@ body {
 
    The hairline moves onto the asset with it, or a screenshot of a white
    interface has no edge at all and floats loose on paper. */
+/* The row is sized to the frame rather than to its content, or `max-height:
+   100%` on the asset has nothing definite to resolve against and a near-square
+   image overruns the foot of the frame. */
 .media__frame--fit {
   display: grid;
+  grid-template: minmax(0, 100%) / minmax(0, 100%);
   place-items: center;
   border-radius: 0;
   background: none;
@@ -779,6 +817,24 @@ sa-node-field {
   clip-path: path('M0,52 C58,238 168,382 318,472 C432,540 520,590 566,664 C606,728 622,780 628,820 L0,820 Z');
 }
 
+/* The petal turned round for a content slide whose image sits on the left: it
+   comes down off the top edge and runs off the left, and the portrait stands in
+   front of it with the navy showing round its edges. Drawn differently rather
+   than mirrored, so it does not read as the cover's shape flipped: a thin neck
+   down the left edge, a full belly behind the portrait, a long tail back to the
+   edge. Struck clear of the three things a footed slide keeps at the left: the
+   head (the neck stays left of x 90 until y 215, and the head starts at x 112),
+   the text column (the belly peaks at about x 533, the text starts at 568 in a
+   `.people--solo`), and the footer mark (the tail meets the edge at y 920, 45px
+   above the mark). */
+.slide__shape--wedge {
+  top: 0;
+  left: 0;
+  width: 560px;
+  height: 920px;
+  clip-path: path('M0,0 L56,0 C60,150 70,215 200,262 C360,330 520,430 530,600 C540,770 380,890 0,920 Z');
+}
+
 /* A node and the hairline that leaves it. Position both inline in stage
    pixels; `--d`, `--w` and `--a` carry the size and the angle so the look
    stays here. Five nodes on a shape is plenty. */
@@ -833,9 +889,13 @@ sa-node-field {
   height: 0;
 }
 
+/* Heavier than the site's rings: 2px and about twice the strength. A deck is
+   projected, and a projector's black level and washed-out contrast made the
+   site's 1px, 5-to-20% rings disappear on the wall while they read fine on the
+   laptop driving it. */
 .orbits__ring {
   position: absolute;
-  border: 1px solid;
+  border: 2px solid;
   border-radius: 50%;
 }
 
@@ -843,14 +903,14 @@ sa-node-field {
   inset: -260px auto auto -260px;
   width: 520px;
   height: 520px;
-  border-color: color-mix(in oklch, var(--sa-ink) 10%, transparent);
+  border-color: color-mix(in oklch, var(--sa-ink) 22%, transparent);
 }
 
 .orbits__ring--02 {
   inset: -390px auto auto -390px;
   width: 780px;
   height: 780px;
-  border-color: color-mix(in oklch, var(--sa-cyan) 20%, transparent);
+  border-color: color-mix(in oklch, var(--sa-cyan) 42%, transparent);
 }
 
 .orbits__ring--03 {
@@ -858,21 +918,21 @@ sa-node-field {
   width: 1060px;
   height: 1060px;
   border-style: dashed;
-  border-color: color-mix(in oklch, var(--sa-ink) 11%, transparent);
+  border-color: color-mix(in oklch, var(--sa-ink) 24%, transparent);
 }
 
 .orbits__ring--04 {
   inset: -680px auto auto -680px;
   width: 1360px;
   height: 1360px;
-  border-color: color-mix(in oklch, var(--sa-ink) 7%, transparent);
+  border-color: color-mix(in oklch, var(--sa-ink) 16%, transparent);
 }
 
 .orbits__ring--05 {
   inset: -845px auto auto -845px;
   width: 1690px;
   height: 1690px;
-  border-color: color-mix(in oklch, var(--sa-ink) 5%, transparent);
+  border-color: color-mix(in oklch, var(--sa-ink) 12%, transparent);
 }
 
 .orbits__path {

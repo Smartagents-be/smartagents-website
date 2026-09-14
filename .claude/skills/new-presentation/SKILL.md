@@ -139,10 +139,10 @@ Statement: `.statement` · `.statement__support`
 Compare: `.compare` · `.compare__col` (`--then`) · `.compare__head` · `.compare__title` · `.compare__sub` · `.compare__list` · `.compare__item`
 Steps: `.steps` (`--3`, `--5`, `--lead`) · `.step` (`--ahead`) · `.step__num` · `.step__title` · `.step__body`
 Media: `.media` (`--flip`) · `.media__words` · `.media__frame` (`--fit`, `--audio`) · `.portraits`
-People: `.people` · `.person` · `.person__photo` · `.person__text` · `.person__role` · `.person__name` · `.person__body` · `.person__meta`
+People: `.people` (`--solo`, `--flip`) · `.person` · `.person__photo` · `.person__text` · `.person__role` · `.person__name` · `.person__body` · `.person__meta`
 Cover and close: `.slide__brand` · `.cover` · `.cover__title` · `.cover__sub` · `.cover__meta` · `.close` · `.close__title` · `.close__sub` · `.contact` · `.contact__end`
 Wrap guard: `.nobreak`
-Dark shape: `.field` · `.slide__shape` (`--petal`, `--lobe`) · `<sa-node-field>` · `.node` (`--lit`, `--dim`) · `.link`
+Dark shape: `.field` · `.slide__shape` (`--petal`, `--lobe`, `--wedge`) · `<sa-node-field>` · `.node` (`--lit`, `--dim`) · `.link`
 Orbits: `.orbits` (`--close`) · `.orbits__origin` · `.orbits__ring--01…05` · `.orbits__path--01…03` · `.orbits__node`
 
 Anything genuinely new goes in the deck's own `deck.css`, written with tokens rather than
@@ -158,7 +158,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 
 | Deck | Classes | Why it is not shared |
 |---|---|---|
-| `isabel-sdlc` | `.flow`, `.zoom`, `.hub`, `.slide-notes` | Three diagrams, each drawn for one argument |
+| `isabel-sdlc` | `.flow`, `.zoom`, `.slide-notes`, `.results`, `.metric`, `.finding` | Three figures, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
 
