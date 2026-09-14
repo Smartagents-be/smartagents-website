@@ -243,11 +243,11 @@
   "processes.cta.phases": "See the approach",
 
   "processes.phases.title": "How an engagement runs",
-  "processes.phases.lede": "We take one process that comes back every week and follow it end to end. Not a drawing on paper, but the work that is on the table this week, gone through with your own people. We also say where AI adds nothing.",
+  "processes.phases.lede": "We take one weekly recurring process and follow it from A to Z. No theoretical diagrams, but the work that is actually on the table this week, together with your own team. And we're upfront when AI adds no value.",
 
-  "processes.phase.01.title": "Going through the work",
+  "processes.phase.01.title": "Going through the work together",
   "processes.phase.01.body": "In the SmartScan we walk through the tasks on the table this week with your people: mail, quotes, reporting, case files. Not what the process is supposed to be, but what actually happens.",
-  "processes.phase.02.title": "Where AI pays off",
+  "processes.phase.02.title": "AI Where It Counts",
   "processes.phase.02.body": "Task by task we say where AI takes the work over, where it only assists, and where it adds nothing. That last one is almost always part of the answer.",
   "processes.phase.03.title": "Making it reusable",
   "processes.phase.03.body": "We build what keeps coming back: a workflow your team runs again, a skill that captures your way of working, an agent that handles a piece on its own.",
@@ -359,6 +359,7 @@
   "jobs.cta.vacancies": "See the vacancies",
 
   "jobs.vacancies.title": "Open vacancies",
+  "jobs.vacancies.lede": "Full-time employment or freelance.",
   "jobs.vacancies.empty": "Nothing is open at the moment. Send us your profile anyway and we will get in touch as soon as something comes up.",
   "jobs.cta.apply": "Apply",
 

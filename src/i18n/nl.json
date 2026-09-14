@@ -243,11 +243,11 @@
   "processes.cta.phases": "Bekijk de aanpak",
 
   "processes.phases.title": "Hoe een traject verloopt",
-  "processes.phases.lede": "We nemen één proces dat elke week terugkomt en volgen het van begin tot eind. Geen tekening op papier, maar het werk dat er deze week ligt, doorgenomen met je eigen mensen. We zeggen ook waar AI er niets aan toevoegt.",
+  "processes.phases.lede": "We pakken één wekelijks terugkerend proces en lopen dat van A tot Z door. Geen theoretische schema's, maar het werk dat er deze week daadwerkelijk ligt, samen met jouw team. En we zijn direct helder: als AI geen meerwaarde biedt, zeggen we dat ook.",
 
-  "processes.phase.01.title": "Het werk doornemen",
+  "processes.phase.01.title": "Samen het werk doornemen",
   "processes.phase.01.body": "In de SmartScan gaan we met je mensen door de taken die deze week op tafel liggen: mail, offertes, rapportering, dossiers. Niet wat het proces zou moeten zijn, wel wat er echt gebeurt.",
-  "processes.phase.02.title": "Waar AI iets oplevert",
+  "processes.phase.02.title": "AI Waar het Telt",
   "processes.phase.02.body": "Per taak zeggen we waar AI het werk overneemt, waar het alleen ondersteunt, en waar het niets toevoegt. Dat laatste is bijna altijd een deel van het antwoord.",
   "processes.phase.03.title": "Herbruikbaar vastleggen",
   "processes.phase.03.body": "We bouwen wat blijft terugkomen: een workflow die je team opnieuw draait, een skill die je manier van werken vastlegt, een agent die een stuk zelf afhandelt.",
@@ -359,6 +359,7 @@
   "jobs.cta.vacancies": "Bekijk de vacatures",
 
   "jobs.vacancies.title": "Openstaande vacatures",
+  "jobs.vacancies.lede": "Vast in dienst of freelance.",
   "jobs.vacancies.empty": "Er staat op dit moment niets open. Stuur gerust toch je profiel door, dan nemen we contact op zodra er iets vrijkomt.",
   "jobs.cta.apply": "Solliciteer",
 

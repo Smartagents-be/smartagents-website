@@ -243,11 +243,11 @@
   "processes.cta.phases": "Voir la démarche",
 
   "processes.phases.title": "Comment se déroule un projet",
-  "processes.phases.lede": "Nous prenons un processus qui revient chaque semaine et le suivons de bout en bout. Pas un schéma sur papier, mais le travail qui est sur la table cette semaine, passé en revue avec vos propres collaborateurs. Nous disons aussi où l'IA n'apporte rien.",
+  "processes.phases.lede": "Nous prenons un processus hebdomadaire récurrent et le suivons de A à Z. Pas de schémas théoriques, mais le travail réellement sur la table cette semaine, avec votre propre équipe. Et nous sommes clairs d'emblée : si l'IA n'apporte pas de plus-value, nous le disons aussi.",
 
-  "processes.phase.01.title": "Passer le travail en revue",
+  "processes.phase.01.title": "Passer le travail en revue ensemble",
   "processes.phase.01.body": "Lors du SmartScan, nous parcourons avec vos collaborateurs les tâches de la semaine : les mails, les offres, le reporting, les dossiers. Non pas ce que le processus devrait être, mais ce qui se passe vraiment.",
-  "processes.phase.02.title": "Là où l'IA fait gagner du temps",
+  "processes.phase.02.title": "L'IA Là où Ça Compte",
   "processes.phase.02.body": "Tâche par tâche, nous disons où l'IA reprend le travail, où elle ne fait qu'assister, et où elle n'apporte rien. Ce dernier cas fait presque toujours partie de la réponse.",
   "processes.phase.03.title": "Rendre le tout réutilisable",
   "processes.phase.03.body": "Nous construisons ce qui revient sans cesse : un workflow que votre équipe relance, une skill qui fixe votre façon de travailler, un agent qui traite une partie tout seul.",
@@ -359,6 +359,7 @@
   "jobs.cta.vacancies": "Voir les postes",
 
   "jobs.vacancies.title": "Postes ouverts",
+  "jobs.vacancies.lede": "En contrat fixe ou en freelance.",
   "jobs.vacancies.empty": "Rien n'est ouvert pour le moment. Envoyez-nous votre profil malgré tout et nous vous contacterons dès qu'un poste se libère.",
   "jobs.cta.apply": "Postuler",
 

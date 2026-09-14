@@ -192,6 +192,7 @@ function vacancies(t, jobs) {
   <div id="jobs-vacancies-head" class="section__head">
     <h2 id="jobs-vacancies-title" class="section-heading">${t('jobs.vacancies.title')}</h2>
   </div>
+  <p id="jobs-vacancies-lede" class="section-lede">${t('jobs.vacancies.lede')}</p>
   <p id="jobs-vacancies-empty" class="jobs-empty">${t('jobs.vacancies.empty')}</p>
 </section>`;
   }
@@ -202,6 +203,7 @@ function vacancies(t, jobs) {
   <div id="jobs-vacancies-head" class="section__head">
     <h2 id="jobs-vacancies-title" class="section-heading">${t('jobs.vacancies.title')}</h2>
   </div>
+  <p id="jobs-vacancies-lede" class="section-lede">${t('jobs.vacancies.lede')}</p>
   <div id="jobs-vacancies-ground" class="tracks">
     <sa-accordion id="jobs-vacancies-panel" class="tracks__panel">
 ${join(rows)}
