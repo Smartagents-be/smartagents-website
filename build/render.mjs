@@ -357,16 +357,17 @@ function renderLlmsTxt({ strings }) {
   const lang = defaultLanguage.code;
   const line = (label, url, body) => `- [${label}](${absolute(url)}): ${body}`;
 
-  // The kata is not a fifth service: it is the developer course inside the
-  // training offer, so it is a nested bullet under the line it belongs to
-  // rather than an entry of its own in the list of four.
+  // Neither the kata nor the business course is a fifth service: both are
+  // courses inside the training offer, so each is a nested bullet under the
+  // line it belongs to rather than an entry of its own in the list of four.
   const services = ['training', 'staffing', 'sdlc', 'processes']
     .map((key) => {
       const slug = SERVICE_PAGES[key].slugs[lang];
       const entry = line(t(`service.${key}.title`), pagePath(lang, slug), t(`service.${key}.body`));
       if (key !== 'training') return entry;
       const kataSlug = kataPage.slugs[lang];
-      return `${entry}\n  ${line(t('kata.hero.title'), pagePath(lang, kataSlug), t('kata.description'))}`;
+      const businessSlug = businessPage.slugs[lang];
+      return `${entry}\n  ${line(t('business.hero.title'), pagePath(lang, businessSlug), t('business.description'))}\n  ${line(t('kata.hero.title'), pagePath(lang, kataSlug), t('kata.description'))}`;
     })
     .join('\n');
 
