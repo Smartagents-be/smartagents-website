@@ -29,6 +29,7 @@ import { deckPage, securedIndexPage } from '../src/layouts/deck.mjs';
 import { page as homePage } from '../src/pages/home.mjs';
 import { page as trainingPage } from '../src/pages/training.mjs';
 import { page as kataPage } from '../src/pages/kata.mjs';
+import { page as businessPage } from '../src/pages/business.mjs';
 import { page as staffingPage } from '../src/pages/staffing.mjs';
 import { page as sdlcPage } from '../src/pages/sdlc.mjs';
 import { page as processesPage } from '../src/pages/processes.mjs';
@@ -49,6 +50,7 @@ const PAGES = [
   homePage,
   trainingPage,
   kataPage,
+  businessPage,
   staffingPage,
   sdlcPage,
   processesPage,

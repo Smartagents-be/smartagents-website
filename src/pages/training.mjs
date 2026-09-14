@@ -7,6 +7,7 @@ import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
 import { ficheKilobytes } from './fiche.mjs';
 import { kataPath, FICHE as AGENTIC_FICHE } from './kata.mjs';
+import { businessPath, FICHE as BUSINESS_FICHE } from './business.mjs';
 import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
@@ -16,11 +17,11 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
  * A fiche is named after the course it belongs to, not the product the course
  * was once built around: a browser puts the file name in the download bar, so a
  * reader clicked one course and was handed something that looked like another.
- * The developer course's is named in `kata.mjs`, where that course's own page
- * prints the same link.
+ * Each course's fiche name and detail page are named in that course's own
+ * module (`kata.mjs`, `business.mjs`), where that page prints the same link.
  */
 const COURSES = [
-  { key: 'business', fiche: 'SmartAgents_AI_Business_Teams_Onepager.pdf' },
+  { key: 'business', fiche: BUSINESS_FICHE, detail: businessPath },
   { key: 'agentic', fiche: AGENTIC_FICHE, detail: kataPath }
 ];
 
@@ -157,9 +158,7 @@ ${orbitRings('training-hero')}
  * @param {string} options.key      course key, also the id suffix
  * @param {string} options.fiche    file name of the one-pager in /media/
  * @param {string} options.lang
- * @param {Function} [options.detail] resolves this course's own page in `lang`,
- *   where it has one. Only the developer course does today; the business course
- *   is the offer's whole statement of itself and has nowhere to go.
+ * @param {Function} [options.detail] resolves this course's own page in `lang`.
  */
 function courseColumn({ t, lang, key, fiche, detail }) {
   const id = `training-offer-course-${key}`;
