@@ -284,7 +284,7 @@
   "business.cta.body": "Tell us briefly where your team is stuck and who is joining. We propose a day built around you, at our place, at your office or online.",
 
   "staffing.title": "AI staffing and coaching · SmartAgents",
-  "staffing.description": "An AI-native engineer working inside your project, coaching for your developers and AI workflows for your business teams. One track per team, picked on what is stuck today.",
+  "staffing.description": "An AI-native engineer working inside your project, coaching for your developers and AI workflows for your business teams.",
 
   "staffing.hero.title": "AI Pioneers Who Deliver Impact Right Away",
 
@@ -312,7 +312,7 @@
   "staffing.cta.body": "Tell us briefly where your team is stuck and what the project looks like today. We put the right solution forward right away.",
 
   "processes.title": "AI-native business processes · SmartAgents",
-  "processes.description": "We go through the work your teams do today, say where AI pays off and where it does not, and leave reusable workflows, skills and agents behind. With coaching until your people run them.",
+  "processes.description": "We go through the work your teams do today, say where AI pays off and where it does not, and leave reusable workflows, skills and agents behind.",
 
   "processes.hero.title": "From repetitive tasks to scalable workflows",
 
@@ -344,7 +344,7 @@
   "processes.cta.body": "Sketch briefly what work comes back weekly and who handles it today. We show you right away where the first gains are, and we're just as honest when AI is not the answer.",
 
   "sdlc.title": "AI-native SDLC · SmartAgents",
-  "sdlc.description": "From an SDLC with six desks and five handoffs to an AI-native one with four gates. We guide software teams through that shift: most of the work is not technical but human.",
+  "sdlc.description": "From an SDLC with six desks and five handoffs to an AI-native one with four gates. We guide software teams through that shift.",
 
   "sdlc.hero.title": "From traditional to AI-native SDLC",
 
@@ -445,7 +445,7 @@
 
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Privacy notice · SmartAgents",
-  "privacy.description": "What personal data smartagents.be processes, why, who sees it and how long we keep it. No analytics, no tracking and no cookies of our own on the public pages.",
+  "privacy.description": "What personal data smartagents.be processes, why, who sees it and how long we keep it. No analytics or tracking on the public pages.",
   "privacy.heading": "Privacy notice",
   "privacy.lede": "This page explains what personal data smartagents.be processes, why, and what you can do about it. It describes what the site actually does today, not what it could do.",
   "privacy.updated": "Last updated on 11 September 2026",

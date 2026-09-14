@@ -284,7 +284,7 @@
   "business.cta.body": "Vertel kort waar je team op vastloopt en wie er meedoet. We stellen een dag voor op maat, bij ons, bij jou op kantoor of online.",
 
   "staffing.title": "AI staffing en coaching · SmartAgents",
-  "staffing.description": "Een AI-native engineer die meedraait in je project, coaching voor je developers en AI-workflows voor je business teams. Eén spoor per team, gekozen op wat er vandaag vastloopt.",
+  "staffing.description": "Een AI-native engineer die meedraait in je project, coaching voor je developers en AI-workflows voor je business teams.",
 
   "staffing.hero.title": "AI-Pioniers die Meteen Impact Maken",
 
@@ -312,7 +312,7 @@
   "staffing.cta.body": "Vertel kort waar je team op vastloopt en hoe het project er vandaag uitziet. Wij schuiven meteen de juiste oplossing naar voren.",
 
   "processes.title": "AI-native businessprocessen · SmartAgents",
-  "processes.description": "We nemen het werk door dat je teams vandaag doen, zeggen waar AI iets oplevert en waar niet, en laten herbruikbare workflows, skills en agents achter, met coaching tot je mensen ze zelf draaien.",
+  "processes.description": "We nemen het werk door dat je teams vandaag doen, zeggen waar AI iets oplevert en waar niet, en laten herbruikbare workflows, skills en agents achter.",
 
   "processes.hero.title": "Van repetitive taken naar schaalbare workflows",
 
@@ -344,7 +344,7 @@
   "processes.cta.body": "Schets kort welk werk wekelijks terugkeert en wie het nu uitvoert. Wij laten direct zien waar de eerste winst ligt en zijn net zo eerlijk als AI níét de oplossing is.",
 
   "sdlc.title": "AI-native SDLC · SmartAgents",
-  "sdlc.description": "Van een SDLC met zes bureaus en vijf overdrachten naar een AI-native SDLC met vier gates. Wij begeleiden softwareteams door die omslag: het meeste werk zit niet in de techniek maar in de mensen.",
+  "sdlc.description": "Van een SDLC met zes bureaus en vijf overdrachten naar een AI-native SDLC met vier gates. Wij begeleiden softwareteams door die omslag.",
 
   "sdlc.hero.title": "Van traditionele naar AI-native SDLC",
 
@@ -445,7 +445,7 @@
 
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Privacybeleid · SmartAgents",
-  "privacy.description": "Welke persoonsgegevens smartagents.be verwerkt, waarom, wie ze te zien krijgt en hoe lang we ze bijhouden. Geen analytics, geen tracking en geen eigen cookies op de publieke pagina's.",
+  "privacy.description": "Welke persoonsgegevens smartagents.be verwerkt, waarom, wie ze ziet en hoe lang we ze bijhouden. Geen analytics of tracking op de publieke pagina's.",
   "privacy.heading": "Privacybeleid",
   "privacy.lede": "Deze pagina legt uit welke persoonsgegevens smartagents.be verwerkt, waarom, en wat je daaraan kunt doen. Ze beschrijft wat de website vandaag effectief doet, niet wat hij zou kunnen doen.",
   "privacy.updated": "Laatst bijgewerkt op 11 september 2026",

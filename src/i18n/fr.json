@@ -284,7 +284,7 @@
   "business.cta.body": "Dites-nous brièvement où votre équipe bloque et qui participe. Nous proposons une journée sur mesure, chez nous, chez vous ou en ligne.",
 
   "staffing.title": "AI staffing et coaching · SmartAgents",
-  "staffing.description": "Un ingénieur AI-native qui travaille au sein de votre projet, du coaching pour vos développeurs et des workflows IA pour vos équipes métier. Une piste par équipe, choisie sur ce qui bloque aujourd'hui.",
+  "staffing.description": "Un ingénieur AI-native qui travaille au sein de votre projet, du coaching pour vos développeurs et des workflows IA pour vos équipes métier.",
 
   "staffing.hero.title": "Des Pionniers de l'IA qui Ont un Impact Immédiat",
 
@@ -312,7 +312,7 @@
   "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous mettons immédiatement la bonne solution en avant.",
 
   "processes.title": "Processus métier AI-native · SmartAgents",
-  "processes.description": "Nous passons en revue le travail que vos équipes font aujourd'hui, disons où l'IA fait gagner du temps et où elle n'apporte rien, et laissons des workflows, des skills et des agents réutilisables.",
+  "processes.description": "Nous passons en revue le travail que vos équipes font aujourd'hui, disons où l'IA fait gagner du temps et où elle n'apporte rien.",
 
   "processes.hero.title": "De tâches répétitives à des workflows évolutifs",
 
@@ -344,7 +344,7 @@
   "processes.cta.body": "Décrivez brièvement quel travail revient chaque semaine et qui s'en charge aujourd'hui. Nous montrons immédiatement où se trouve le premier gain, et nous sommes tout aussi francs quand l'IA n'est pas la solution.",
 
   "sdlc.title": "SDLC AI-native · SmartAgents",
-  "sdlc.description": "D'un SDLC à six bureaux et cinq transferts vers un SDLC AI-native à quatre gates. Nous accompagnons vos équipes de développement : l'essentiel du travail n'est pas technique mais humain.",
+  "sdlc.description": "D'un SDLC à six bureaux et cinq transferts vers un SDLC AI-native à quatre gates. Nous accompagnons vos équipes de développement.",
 
   "sdlc.hero.title": "Du traditionnel au SDLC AI-native",
 
@@ -445,7 +445,7 @@
 
   "footer.legal": "© {year} SmartAgents",
   "privacy.title": "Politique de confidentialité · SmartAgents",
-  "privacy.description": "Quelles données à caractère personnel smartagents.be traite, pourquoi, qui les voit et combien de temps nous les gardons. Pas d'analytique, pas de traçage et aucun cookie de notre fait sur les pages publiques.",
+  "privacy.description": "Quelles données smartagents.be traite, pourquoi, qui les voit et combien de temps nous les gardons. Pas d'analytique ni de traçage sur les pages publiques.",
   "privacy.heading": "Politique de confidentialité",
   "privacy.lede": "Cette page explique quelles données à caractère personnel smartagents.be traite, pourquoi, et ce que vous pouvez faire à ce sujet. Elle décrit ce que le site fait réellement aujourd'hui, pas ce qu'il pourrait faire.",
   "privacy.updated": "Dernière mise à jour le 11 septembre 2026",
