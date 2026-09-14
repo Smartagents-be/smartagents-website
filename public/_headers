@@ -58,6 +58,22 @@
 /media/*
   Cache-Control: public, max-age=86400
 
+# The two course one-pagers each name the page they belong to. A PDF has no
+# <head> to carry a canonical, and Google reads one from a `Link` header for
+# exactly that case. It is a signal, not an order: Google uses a canonical to
+# choose one URL among duplicate or similar ones, a one-page fiche is not a
+# duplicate of its course page, and Google may well ignore it. It stays because
+# it costs nothing and names the page to prefer if a crawler does take the two
+# for one. Both fiches are written in Dutch, so both point at the Dutch page:
+# the agentic engineering one at the kata page it links to, the business one at
+# the training page that offers it. Cloudflare adds these to the `/media/*` rule
+# above rather than replacing it.
+/media/SmartAgents_Agentic_Engineering_Onepager.pdf
+  Link: <https://smartagents.be/nl/training/agentic-engineering-kata/>; rel="canonical"
+
+/media/SmartAgents_AI_Business_Teams_Onepager.pdf
+  Link: <https://smartagents.be/nl/training/>; rel="canonical"
+
 # The service worker must never be served stale.
 /sw.js
   Cache-Control: no-cache
@@ -85,3 +101,20 @@
 
 /favicon.svg
   Cache-Control: public, max-age=604800
+
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+/favicon-96.png
+  Cache-Control: public, max-age=604800
+
+# The project's own `pages.dev` hostnames serve the whole site as well, and to a
+# crawler a second host is a second copy of the site. This is Cloudflare's
+# documented pair: the first line is the production alias, the second every
+# preview and branch alias under it. A placeholder in a host stops at a period,
+# so neither line can match smartagents.be.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
