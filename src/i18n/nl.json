@@ -238,7 +238,7 @@
   "processes.title": "AI-native businessprocessen · SmartAgents",
   "processes.description": "We nemen het werk door dat je teams vandaag doen, zeggen waar AI iets oplevert en waar niet, en laten herbruikbare workflows, skills en agents achter, met coaching tot je mensen ze zelf draaien.",
 
-  "processes.hero.title": "Van je taken naar herbruikbare workflows",
+  "processes.hero.title": "Van repetitive taken naar schaalbare workflows",
 
   "processes.cta.phases": "Bekijk de aanpak",
 
@@ -264,13 +264,13 @@
   "processes.outcome.people.title": "Mensen die ermee werken",
   "processes.outcome.people.body": "De collega's die het werk doen, draaien de nieuwe workflow zelf. Blijft er iets liggen, dan hoort het niet in het proces en gaat het eruit.",
 
-  "processes.cta.title": "Welk proces zullen we doornemen?",
-  "processes.cta.body": "Vertel kort welk werk elke week terugkomt en wie het vandaag doet. We stellen voor waar we zouden beginnen, en zeggen ook wanneer AI er niets aan toevoegt.",
+  "processes.cta.title": "Welk proces pakken we als eerste aan?",
+  "processes.cta.body": "Schets kort welk werk wekelijks terugkeert en wie het nu uitvoert. Wij laten direct zien waar de eerste winst ligt en zijn net zo eerlijk als AI níét de oplossing is.",
 
   "sdlc.title": "AI-native SDLC · SmartAgents",
   "sdlc.description": "Van een SDLC met zes bureaus en vijf overdrachten naar een AI-native SDLC met vier gates. Wij begeleiden softwareteams door die omslag: het meeste werk zit niet in de techniek maar in de mensen.",
 
-  "sdlc.hero.title": "Van traditionele SDLC naar AI-native",
+  "sdlc.hero.title": "Van traditionele naar AI-native SDLC",
 
   "sdlc.cta.journey": "Bekijk de weg ernaartoe",
 
@@ -330,7 +330,7 @@
   "sdlc.work.platform.body": "Wij helpen een klein platformteam uit je eigen organisatie de afspraken vast te leggen in de repository en ze bij elk team binnen te brengen via de tooling zelf, niet via een wikipagina die één keer geschreven wordt en nooit meer gelezen. Het is een basis, geen grens: elk team bouwt erop verder, en feedback uit elk team stuurt die basis bij.",
 
   "sdlc.cta.title": "Waar staat je team vandaag?",
-  "sdlc.cta.body": "Vertel kort hoe je teams vandaag werken en waar het schuurt. We zeggen welke stap eerst komt, en waarom die eerst komt.",
+  "sdlc.cta.body": "Schets kort hoe je softwareteams nu werken en waar de bottlenecks zitten. Wij adviseren meteen de juiste prioriteit en leggen uit waarom die stap als eerste de meeste impact maakt.",
 
   "nav.team": "Team",
 

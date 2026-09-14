@@ -238,7 +238,7 @@
   "processes.title": "Processus métier AI-native · SmartAgents",
   "processes.description": "Nous passons en revue le travail que vos équipes font aujourd'hui, disons où l'IA fait gagner du temps et où elle n'apporte rien, et laissons des workflows, des skills et des agents réutilisables.",
 
-  "processes.hero.title": "De vos tâches à des workflows réutilisables",
+  "processes.hero.title": "De tâches répétitives à des workflows évolutifs",
 
   "processes.cta.phases": "Voir la démarche",
 
@@ -264,13 +264,13 @@
   "processes.outcome.people.title": "Les gens qui s'en servent",
   "processes.outcome.people.body": "Les collègues qui font le travail font tourner le nouveau workflow eux-mêmes. Si quelque chose reste inutilisé, cela n'a pas sa place dans le processus et nous le retirons.",
 
-  "processes.cta.title": "Quel processus allons-nous passer en revue ?",
-  "processes.cta.body": "Dites-nous brièvement quel travail revient chaque semaine et qui le fait aujourd'hui. Nous proposons par où nous commencerions, et nous disons aussi quand l'IA n'y apporte rien.",
+  "processes.cta.title": "Quel processus abordons-nous en premier ?",
+  "processes.cta.body": "Décrivez brièvement quel travail revient chaque semaine et qui s'en charge aujourd'hui. Nous montrons immédiatement où se trouve le premier gain, et nous sommes tout aussi francs quand l'IA n'est pas la solution.",
 
   "sdlc.title": "SDLC AI-native · SmartAgents",
   "sdlc.description": "D'un SDLC à six bureaux et cinq transferts vers un SDLC AI-native à quatre gates. Nous accompagnons vos équipes de développement : l'essentiel du travail n'est pas technique mais humain.",
 
-  "sdlc.hero.title": "Du SDLC traditionnel à l'AI-native",
+  "sdlc.hero.title": "Du traditionnel au SDLC AI-native",
 
   "sdlc.cta.journey": "Voir le chemin à parcourir",
 
@@ -330,7 +330,7 @@
   "sdlc.work.platform.body": "Nous aidons une petite équipe plateforme de chez vous à inscrire les règles dans le dépôt et à les faire arriver dans chaque équipe par l'outillage lui-même, pas par une page de wiki écrite une fois et jamais relue. C'est une base, pas une limite : chaque équipe construit dessus, et les retours de chaque équipe la font évoluer.",
 
   "sdlc.cta.title": "Où en est votre équipe aujourd'hui ?",
-  "sdlc.cta.body": "Dites-nous brièvement comment vos équipes travaillent aujourd'hui et où cela coince. Nous disons quelle étape vient en premier, et pourquoi celle-là d'abord.",
+  "sdlc.cta.body": "Décrivez brièvement comment vos équipes de développement travaillent aujourd'hui et où se situent les goulots d'étranglement. Nous conseillons immédiatement la bonne priorité et expliquons pourquoi cette étape a le plus d'impact en premier.",
 
   "nav.team": "Équipe",
 
