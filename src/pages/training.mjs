@@ -6,7 +6,8 @@
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
 import { ficheKilobytes } from './fiche.mjs';
-import { kataPath, KATA_VIDEO, KATA_POSTER, FICHE as AGENTIC_FICHE } from './kata.mjs';
+import { kataPath, FICHE as AGENTIC_FICHE } from './kata.mjs';
+import { businessPath, FICHE as BUSINESS_FICHE } from './business.mjs';
 import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
@@ -16,11 +17,11 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
  * A fiche is named after the course it belongs to, not the product the course
  * was once built around: a browser puts the file name in the download bar, so a
  * reader clicked one course and was handed something that looked like another.
- * The developer course's is named in `kata.mjs`, where that course's own page
- * prints the same link.
+ * Each course's fiche name and detail page are named in that course's own
+ * module (`kata.mjs`, `business.mjs`), where that page prints the same link.
  */
 const COURSES = [
-  { key: 'business', fiche: 'SmartAgents_AI_Business_Teams_Onepager.pdf' },
+  { key: 'business', fiche: BUSINESS_FICHE, detail: businessPath },
   { key: 'agentic', fiche: AGENTIC_FICHE, detail: kataPath }
 ];
 
@@ -157,9 +158,7 @@ ${orbitRings('training-hero')}
  * @param {string} options.key      course key, also the id suffix
  * @param {string} options.fiche    file name of the one-pager in /media/
  * @param {string} options.lang
- * @param {Function} [options.detail] resolves this course's own page in `lang`,
- *   where it has one. Only the developer course does today; the business course
- *   is the offer's whole statement of itself and has nowhere to go.
+ * @param {Function} [options.detail] resolves this course's own page in `lang`.
  */
 function courseColumn({ t, lang, key, fiche, detail }) {
   const id = `training-offer-course-${key}`;
@@ -236,19 +235,9 @@ function format(t) {
       <div id="training-format-stone" class="field" data-magnet data-magnet-free data-magnet-pin="bottom" data-magnet-points="300" data-magnet-amp="42" data-magnet-sigma="70" data-clip="tourStone"><sa-node-field id="training-format-stone-nodes"></sa-node-field></div>
     </div>
   </div>
-  <div id="training-format-inner" class="tour">
-    <div id="training-format-copy" class="tour__copy">
-      <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
-      <p id="training-format-accents" class="tour__body tour__body--follow">${t('training.format.accents')}</p>
-    </div>
-    <div id="training-format-media" class="video-block">
-      <sa-lazy-video id="training-format-video" class="video-frame">
-        <video id="training-format-video-el" controls playsinline preload="none" poster="${KATA_POSTER}" aria-label="${t('training.format.videoLabel')}">
-          <source id="training-format-video-source" type="video/mp4" data-src="${KATA_VIDEO}">
-        </video>
-      </sa-lazy-video>
-      <noscript id="training-format-video-noscript"><a id="training-format-video-fallback" class="video-block__fallback" href="${KATA_VIDEO}">${t('training.format.fallback')}</a></noscript>
-    </div>
+  <div id="training-format-inner" class="tour__copy">
+    <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
+    <p id="training-format-accents" class="tour__body tour__body--follow">${t('training.format.accents')}</p>
   </div>
 </section>`;
 }

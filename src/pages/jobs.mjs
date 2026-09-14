@@ -1,6 +1,6 @@
 // The jobs page: the one page on the public site written for someone who wants
 // to work here rather than to buy something. Three blocks — the hero, the open
-// vacancies, what the job is like around the work — and nothing between them.
+// vacancies, why to join — and nothing between them.
 //
 // It is the only public page with no contact section, the privacy notice aside,
 // and that is deliberate: Odoo's own form per vacancy is where an application
@@ -25,17 +25,6 @@ import { html, join, raw } from '../../build/lib/html.mjs';
 import { index, orbitRings, teamPath } from '../layouts/base.mjs';
 import { breadcrumbNode, homeStep } from '../layouts/schema.mjs';
 
-/**
- * What the job is like around the work itself.
- *
- * What is *not* in the list is the point of it. It briefly carried a flat
- * structure, a share in the company, remote-first and hours not counted, none of
- * them confirmed — a promise to a candidate about their own employment is the
- * one kind of copy here that may not be inferred. The three that stayed describe
- * the work, which the company can be held to without anyone signing anything.
- */
-const REASONS = ['work', 'team', 'learn'];
-
 export const page = {
   id: 'jobs',
   slugs: { nl: 'jobs', en: 'jobs', fr: 'emplois' },
@@ -50,8 +39,8 @@ export const page = {
   render: ({ t, lang, vacancies: jobs }) => html`<main id="main" tabindex="-1">
 
 ${hero(t)}
+${convince(t, lang)}
 ${vacancies(t, jobs || [])}
-${reasons(t, lang)}
 
 </main>`
 };
@@ -213,42 +202,43 @@ ${join(rows)}
 }
 
 /* ------------------------------------------------------------------ *
- * Werken bij SmartAgents — what is true around the work
+ * Waarom SmartAgents — what is true around the work, and why join
  *
- * Three things all true at the same time, which is what the hairline row list is
- * for. One links, to the team page, and it is the only place on the site where a
- * cue carries a word: two of the three rows go nowhere, so an arrow on the third
- * is a difference a reader has to notice before they can read it.
- * It is also the only row list with a third column (`rows--cued` on the list):
- * everywhere else the arrow moved into the title, and a word cannot be.
+ * Two paragraphs at the reading measure, the team page's own `.story`
+ * treatment: this reads as warm, continuous writing that pulls a candidate
+ * in, not a row list. Folds in what used to be the separate "Werken bij
+ * SmartAgents" row list (what you build, who with, what you learn) rather
+ * than keeping two sections that both answer "why work here". Everything
+ * here is traceable to copy already published elsewhere on the site (the DNA
+ * section, the team page's own story), so nothing is a new promise about
+ * employment terms.
+ *
+ * The one link — to the team page — sits inside the second paragraph's own
+ * sentence rather than as a trailing cue: the source string carries the
+ * link's label in square brackets, the same mechanism the contact form's
+ * privacy line uses, because where a link falls in a sentence is a
+ * translator's decision and Dutch, English and French do not agree on it.
  * ------------------------------------------------------------------ */
 
-function reasons(t, lang) {
+function convince(t, lang) {
   const team = teamPath(lang);
 
-  const rows = REASONS.map((key) => {
-    const id = `jobs-reason-${key}`;
-    const href = key === 'team' ? team : null;
+  const paragraphs = ['1', '2'].map((n) => {
+    const text = t(`jobs.convince.${n}`);
+    const parts = text.match(/^(.*)\[(.+)\](.*)$/);
 
-    const inner = html`        <span id="${id}-title" class="row__title">${t(`jobs.why.${key}.title`)}</span>
-        <span id="${id}-body" class="row__body">${t(`jobs.why.${key}.body`)}</span>${href ? html`
-        <span id="${id}-cue" class="row__cue row__cue--named" aria-hidden="true">${t(`jobs.why.${key}.link`)} &rarr;</span>` : ''}`;
+    if (!parts) return html`      <p id="jobs-convince-body-${n}">${text}</p>`;
 
-    return href
-      ? html`      <a id="${id}" class="row" href="${href}">
-${inner}
-      </a>`
-      : html`      <div id="${id}" class="row">
-${inner}
-      </div>`;
+    const [, before, label, after] = parts;
+    return html`      <p id="jobs-convince-body-${n}">${before}<a id="jobs-convince-body-${n}-link" href="${team}">${label}</a>${after}</p>`;
   });
 
-  return html`<section id="jobs-why" class="section" aria-labelledby="jobs-why-title">
-  <div id="jobs-why-head" class="section__head">
-    <h2 id="jobs-why-title" class="section-heading">${t('jobs.why.title')}</h2>
+  return html`<section id="jobs-convince" class="section" aria-labelledby="jobs-convince-title">
+  <div id="jobs-convince-head" class="section__head">
+    <h2 id="jobs-convince-title" class="section-heading">${t('jobs.convince.title')}</h2>
   </div>
-  <div id="jobs-why-rows" class="rows rows--cued">
-${join(rows)}
+  <div id="jobs-convince-body" class="story">
+${join(paragraphs)}
   </div>
 </section>`;
 }
