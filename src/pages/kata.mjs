@@ -193,6 +193,18 @@ ${join(items)}
  * ------------------------------------------------------------------ */
 
 function tour(t) {
+  const expectItems = [1, 2, 3, 4].map((n) => {
+    const id = `kata-tour-expect-${n}`;
+
+    return html`      <div id="${id}" class="numbered">
+        <span id="${id}-index" class="numbered__index" aria-hidden="true">${index(n)}</span>
+        <div id="${id}-copy">
+          <div id="${id}-title" class="numbered__title">${t(`kata.tour.expect.${n}.title`)}</div>
+          <p id="${id}-body">${t(`kata.tour.expect.${n}.body`)}</p>
+        </div>
+      </div>`;
+  });
+
   return html`<section id="kata-tour" class="section" aria-labelledby="kata-tour-title">
   <div id="kata-tour-head" class="section__head">
     <h2 id="kata-tour-title" class="section-heading">${t('kata.tour.title')}</h2>
@@ -200,7 +212,10 @@ function tour(t) {
   <div id="kata-tour-inner" class="tour">
     <div id="kata-tour-copy" class="tour__copy">
       <p id="kata-tour-body" class="tour__body">${t('kata.tour.body')}</p>
-      <p id="kata-tour-accents" class="tour__body tour__body--follow">${t('kata.tour.accents')}</p>
+      <p id="kata-tour-expect-lede" class="tour__body tour__body--follow">${t('kata.tour.expect.lede')}</p>
+      <div id="kata-tour-expect-rows" class="rows">
+${join(expectItems)}
+      </div>
     </div>
     <div id="kata-tour-media" class="video-block">
       <sa-lazy-video id="kata-tour-video" class="video-frame">
@@ -301,19 +316,36 @@ ${join(rows)}
 /* ------------------------------------------------------------------ *
  * Hoe u oefent — what a team actually does all day
  *
- * A paragraph beside a band rather than a list, which is the third shape on this
- * page and what keeps the six themes above and the three requirements below from
- * reading as one list. The band of six one-word deliverables it used to carry is
- * gone: every one of them was already in the paragraph beside it.
+ * Now a numbered list like the tour section above it, matching the copy's own
+ * "Hoe de training is opgebouwd" structure. It sits between the six themes above
+ * and the three requirements below, which read as lists too — three lists in a
+ * row was the earlier reason this one stayed a paragraph, and that tension still
+ * applies; the copy just now asks for the list shape anyway.
  * ------------------------------------------------------------------ */
 
 function practice(t) {
+  const items = [1, 2, 3].map((n) => {
+    const id = `kata-practice-item-${n}`;
+
+    return html`      <div id="${id}" class="numbered">
+        <span id="${id}-index" class="numbered__index" aria-hidden="true">${index(n)}</span>
+        <div id="${id}-copy">
+          <div id="${id}-title" class="numbered__title">${t(`kata.practice.item.${n}.title`)}</div>
+          <p id="${id}-body">${t(`kata.practice.item.${n}.body`)}</p>
+        </div>
+      </div>`;
+  });
+
   return html`<section id="kata-practice" class="section" aria-labelledby="kata-practice-title">
   <div id="kata-practice-head" class="section__head">
     <h2 id="kata-practice-title" class="section-heading">${t('kata.practice.title')}</h2>
   </div>
   <div id="kata-practice-inner" class="practice">
     <p id="kata-practice-lede" class="tour__body">${t('kata.practice.lede')}</p>
+    <p id="kata-practice-items-lede" class="tour__body tour__body--follow">${t('kata.practice.items.lede')}</p>
+    <div id="kata-practice-rows" class="rows">
+${join(items)}
+    </div>
   </div>
 </section>`;
 }

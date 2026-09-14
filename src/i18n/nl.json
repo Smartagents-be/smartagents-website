@@ -16,7 +16,7 @@
 
   "cta.talk": "Plan een gesprek",
   "cta.mail": "Mail ons",
-  "cta.seeWork": "Bekijk wat we doen",
+  "cta.seeWork": "Wat we doen",
   "cta.allArticles": "Alle artikelen",
   "cta.send": "Verstuur bericht",
 
@@ -145,7 +145,7 @@
 
   "kata.hero.eyebrow": "Training",
   "kata.hero.title": "De agentic engineering kata",
-  "kata.cta.day": "Bekijk de dag",
+  "kata.cta.day": "Verloop van de dag",
   "kata.cta.offer": "Bekijk het volledige aanbod",
 
   "kata.spec.duration.label": "Duur",
@@ -157,9 +157,17 @@
   "kata.spec.language.label": "Taal",
   "kata.spec.language.value": "Nederlands of Engels",
 
-  "kata.tour.title": "Wat de kata is",
-  "kata.tour.body": "Eén dag in een echte codebase, waarin je stap voor stap leert een agent te sturen op code die al bestaat. Zoals bij een kata slijp je de beweging in door herhaling: elke oefening bouwt voort op de code uit de vorige stap. De repository is de les, en op het eind beslist de build of wat eruit kwam goed genoeg is.",
-  "kata.tour.accents": "Het lesmateriaal, de code en de opdrachten zijn één geheel, en ze blijven na de trainingsdag beschikbaar. Elke pagina levert de slide die de trainer op het scherm toont, zodat wat je later terugleest exact is wat je die dag hebt gezien. Dezelfde pagina's hebben een spoor voor zelfstudie, in het Nederlands en het Engels, zodat je in je eigen tempo verder werkt en je collega's meeneemt. De trainers werken er zelf dagelijks mee: ze staan niet alleen voor de groep, ze zitten ook naast jou achter het scherm.",
+  "kata.tour.title": "Wat staat je te wachten?",
+  "kata.tour.body": "Tijdens deze trainingsdag duik je direct een echte codebase in. Stap voor stap leer je een AI-agent aansturen op bestaande code. Zoals bij een kata slijp je de juiste vaardigheden in door herhaling: elke oefening bouwt direct voort op de vorige stap. De repository is jouw lesmateriaal, en aan het eind bepaalt de build onverbiddelijk of het resultaat goed genoeg is.",
+  "kata.tour.expect.lede": "Wat je kunt verwachten:",
+  "kata.tour.expect.1.title": "Code en lesmateriaal in één",
+  "kata.tour.expect.1.body": "Alles staat in dezelfde repository en blijft ook na de training volledig tot je beschikking.",
+  "kata.tour.expect.2.title": "Exact dezelfde sheets",
+  "kata.tour.expect.2.body": "Elk lesonderdeel bevat de exacte slides die de trainer toont, zodat je later thuis of op het werk alles naadloos terugvindt.",
+  "kata.tour.expect.3.title": "Studiemateriaal op jouw tempo",
+  "kata.tour.expect.3.body": "Beschikbaar in het Nederlands en Engels, zodat je zelfstandig verder leert of je collega's meeneemt.",
+  "kata.tour.expect.4.title": "Ervaren trainers",
+  "kata.tour.expect.4.body": "De trainers gebruiken deze technieken dagelijks in de praktijk. Ze staan niet alleen voor de groep, maar kijken en denken direct met je mee achter het scherm.",
   "kata.tour.videoLabel": "Rondleiding door de agentic engineering kata van SmartAgents",
   "kata.tour.fallback": "Bekijk de rondleiding (MP4)",
 
@@ -176,8 +184,15 @@
   "kata.step.03.title": "Soft skills",
   "kata.step.03.body": "Het deel dat niet over code gaat: wat er verandert aan het werk zelf, en aan hoe je erover praat.",
   "kata.step.03.units": "Change management · Verwachtingen managen · Impostorsyndroom",
-  "kata.practice.title": "Hoe je oefent",
-  "kata.practice.lede": "Door te doen. De meeste stappen hebben een flagbord: korte codes die pas tevoorschijn komen als je de code op je eigen machine draait, van meetpunten voorziet of beter beveiligt. Ze staan nergens in de tekst en een zoekopdracht vindt ze niet. De quizzen ernaast draaien in de browser en blijven werken als de service uit staat. In de namiddagworkshop beslist de build: testdekking, complexiteit en mutatietests bepalen of je code klaar is, niet het woord van de agent.",
+  "kata.practice.title": "Praktijkgericht leren door te doen",
+  "kata.practice.lede": "Geen droge theorie, maar directe toepassing op een eigen machine. De cursisten gaan vanaf het eerste moment zelf aan de slag met uitdagende, praktijkgerichte opdrachten.",
+  "kata.practice.items.lede": "Hoe de training is opgebouwd:",
+  "kata.practice.item.1.title": "Interactieve opdrachten",
+  "kata.practice.item.1.body": "Cursisten ontrafelen verborgen codes (flags) die pas zichtbaar worden zodra de software lokaal draait, van de juiste meetpunten is voorzien of beter is beveiligd. Dit garandeert dat de stof echt in de praktijk is toegepast en niet simpelweg kan worden opgezocht.",
+  "kata.practice.item.2.title": "Altijd toegankelijke kennischecks",
+  "kata.practice.item.2.body": "De tussentijdse quizzen draaien direct in de browser. Ze blijven ook beschikbaar wanneer de lokale omgeving uit staat, wat het leereffect borgt.",
+  "kata.practice.item.3.title": "Objectieve kwaliteitscontrole",
+  "kata.practice.item.3.body": "Tijdens de middagworkshop bepaalt de geautomatiseerde build of de geschreven code aan de hoogste standaarden voldoet. Testdekking, codecomplexiteit en mutatietesten geven het verlossende eindoordeel — een objectieve borging van kwaliteit waarin niet de AI-agent, maar de harde data beslist.",
 
   "kata.themes.title": "Wat blijft hangen",
   "kata.themes.lede": "Elk thema heeft een oefening achter zich waarin je het zelf doet, en elk komt de dag erna terug in het werk.",

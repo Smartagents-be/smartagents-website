@@ -16,7 +16,7 @@
 
   "cta.talk": "Planifier un entretien",
   "cta.mail": "Écrivez-nous",
-  "cta.seeWork": "Voir ce que nous faisons",
+  "cta.seeWork": "Ce que nous faisons",
   "cta.allArticles": "Tous les articles",
   "cta.send": "Envoyer le message",
 
@@ -145,7 +145,7 @@
 
   "kata.hero.eyebrow": "Formation",
   "kata.hero.title": "Le kata agentic engineering",
-  "kata.cta.day": "Voir la journée",
+  "kata.cta.day": "Déroulement de la journée",
   "kata.cta.offer": "Voir l'offre complète",
 
   "kata.spec.duration.label": "Durée",
@@ -157,9 +157,17 @@
   "kata.spec.language.label": "Langue",
   "kata.spec.language.value": "Néerlandais ou anglais",
 
-  "kata.tour.title": "Ce qu'est le kata",
-  "kata.tour.body": "Une journée dans une vraie base de code, où vous apprenez pas à pas à piloter un agent sur du code qui existe déjà. Comme dans un kata, le geste s'apprend par la répétition : chaque exercice s'appuie sur le code de l'étape précédente. Le dépôt est la leçon, et à la fin c'est le build qui décide si ce qui en est sorti tient.",
-  "kata.tour.accents": "Le support de cours, le code et les exercices forment un tout, et ils restent disponibles après la journée. Chaque page fournit la slide que le formateur affiche, de sorte que ce que vous relisez ensuite est exactement ce que vous avez vu ce jour-là. Les mêmes pages portent une piste en autoformation, en néerlandais et en anglais, pour continuer à votre rythme et embarquer vos collègues. Les formateurs travaillent eux-mêmes ainsi au quotidien : ils ne sont pas seulement devant le groupe, ils s'assoient aussi à côté de vous devant l'écran.",
+  "kata.tour.title": "Qu'est-ce qui vous attend ?",
+  "kata.tour.body": "Pendant cette journée de formation, vous plongez directement dans une vraie base de code. Pas à pas, vous apprenez à piloter un agent IA sur du code existant. Comme dans un kata, vous affûtez les bons réflexes par la répétition : chaque exercice s'appuie directement sur l'étape précédente. Le dépôt est votre support de cours, et à la fin, c'est le build qui décide, sans concession, si le résultat est à la hauteur.",
+  "kata.tour.expect.lede": "Ce à quoi vous pouvez vous attendre :",
+  "kata.tour.expect.1.title": "Le code et le support de cours réunis",
+  "kata.tour.expect.1.body": "Tout se trouve dans le même dépôt, et reste entièrement à votre disposition après la formation.",
+  "kata.tour.expect.2.title": "Exactement les mêmes slides",
+  "kata.tour.expect.2.body": "Chaque partie du cours reprend les slides exactes que le formateur montre, pour que vous retrouviez tout, plus tard, chez vous ou au travail, sans accroc.",
+  "kata.tour.expect.3.title": "Du matériel d'étude à votre rythme",
+  "kata.tour.expect.3.body": "Disponible en néerlandais et en anglais, pour continuer à apprendre seul ou embarquer vos collègues.",
+  "kata.tour.expect.4.title": "Des formateurs expérimentés",
+  "kata.tour.expect.4.body": "Les formateurs utilisent ces techniques au quotidien dans la pratique. Ils ne se contentent pas d'être devant le groupe : ils regardent et réfléchissent avec vous, directement devant l'écran.",
   "kata.tour.videoLabel": "Visite guidée du kata agentic engineering de SmartAgents",
   "kata.tour.fallback": "Voir la visite guidée (MP4)",
 
@@ -176,8 +184,15 @@
   "kata.step.03.title": "Soft skills",
   "kata.step.03.body": "La partie qui ne parle pas de code : ce qui change dans le travail lui-même, et dans la façon d'en parler.",
   "kata.step.03.units": "Change management · Gérer les attentes · Syndrome de l'imposteur",
-  "kata.practice.title": "Comment vous vous exercez",
-  "kata.practice.lede": "En faisant. La plupart des étapes ont un tableau de flags : de courts codes qui n'apparaissent que si vous faites tourner, instrumentez ou durcissez le code sur votre propre machine. Ils ne sont nulle part dans le texte et aucune recherche ne les trouve. Les quiz à côté tournent dans le navigateur et continuent de fonctionner service éteint. Dans l'atelier de l'après-midi, c'est le build qui décide : couverture, complexité et tests de mutation disent si votre code est prêt, pas la parole de l'agent.",
+  "kata.practice.title": "Apprendre par la pratique",
+  "kata.practice.lede": "Pas de théorie aride, mais une mise en pratique directe sur votre propre machine. Dès le premier instant, les participants se lancent dans des exercices concrets et exigeants.",
+  "kata.practice.items.lede": "Comment la formation est construite :",
+  "kata.practice.item.1.title": "Exercices interactifs",
+  "kata.practice.item.1.body": "Les participants découvrent des codes cachés (flags) qui n'apparaissent que lorsque le logiciel tourne localement, est correctement instrumenté ou mieux sécurisé. Cela garantit que la matière est réellement mise en pratique, et ne peut pas simplement être trouvée en ligne.",
+  "kata.practice.item.2.title": "Des vérifications toujours accessibles",
+  "kata.practice.item.2.body": "Les quiz intermédiaires tournent directement dans le navigateur. Ils continuent de fonctionner même quand l'environnement local est éteint, ce qui ancre l'apprentissage.",
+  "kata.practice.item.3.title": "Un contrôle qualité objectif",
+  "kata.practice.item.3.body": "Pendant l'atelier de l'après-midi, le build automatisé détermine si le code écrit répond aux standards les plus élevés. La couverture de tests, la complexité du code et les tests de mutation rendent le verdict final — une garantie de qualité objective où ce sont les données concrètes qui décident, pas l'agent IA.",
 
   "kata.themes.title": "Ce qui reste",
   "kata.themes.lede": "Chaque thème a un exercice derrière lui, que vous faites vous-même, et chacun revient dans le travail dès le lendemain.",
