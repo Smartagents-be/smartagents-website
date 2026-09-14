@@ -135,8 +135,6 @@
   "training.format.title": "Comment se déroule une formation",
   "training.format.body": "Pas une présentation que l'on subit. Explications, exercices et labs alternent, avec du temps pour vos propres questions et un formateur qui regarde par-dessus votre épaule.",
   "training.format.accents": "L'accent est mis sur ce que vous utilisez dès le lendemain : un usage plus malin de l'IA, une vue claire sur ce que coûte chaque requête, et des workflows qui s'intègrent à la façon dont votre équipe travaille déjà. Les slides et le support de cours restent à vous ensuite.",
-  "training.format.videoLabel": "Visite guidée de la formation développeurs de SmartAgents",
-  "training.format.fallback": "Voir la visite guidée (MP4)",
 
   "training.cta.title": "Prêt à former votre équipe ?",
 

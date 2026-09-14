@@ -6,7 +6,7 @@
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
 import { ficheKilobytes } from './fiche.mjs';
-import { kataPath, KATA_VIDEO, KATA_POSTER, FICHE as AGENTIC_FICHE } from './kata.mjs';
+import { kataPath, FICHE as AGENTIC_FICHE } from './kata.mjs';
 import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
@@ -236,19 +236,9 @@ function format(t) {
       <div id="training-format-stone" class="field" data-magnet data-magnet-free data-magnet-pin="bottom" data-magnet-points="300" data-magnet-amp="42" data-magnet-sigma="70" data-clip="tourStone"><sa-node-field id="training-format-stone-nodes"></sa-node-field></div>
     </div>
   </div>
-  <div id="training-format-inner" class="tour">
-    <div id="training-format-copy" class="tour__copy">
-      <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
-      <p id="training-format-accents" class="tour__body tour__body--follow">${t('training.format.accents')}</p>
-    </div>
-    <div id="training-format-media" class="video-block">
-      <sa-lazy-video id="training-format-video" class="video-frame">
-        <video id="training-format-video-el" controls playsinline preload="none" poster="${KATA_POSTER}" aria-label="${t('training.format.videoLabel')}">
-          <source id="training-format-video-source" type="video/mp4" data-src="${KATA_VIDEO}">
-        </video>
-      </sa-lazy-video>
-      <noscript id="training-format-video-noscript"><a id="training-format-video-fallback" class="video-block__fallback" href="${KATA_VIDEO}">${t('training.format.fallback')}</a></noscript>
-    </div>
+  <div id="training-format-inner" class="tour__copy">
+    <p id="training-format-body" class="tour__body">${t('training.format.body')}</p>
+    <p id="training-format-accents" class="tour__body tour__body--follow">${t('training.format.accents')}</p>
   </div>
 </section>`;
 }
