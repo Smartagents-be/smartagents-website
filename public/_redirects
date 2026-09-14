@@ -8,6 +8,196 @@
 /contact /nl/#contact 301
 /contact/ /nl/#contact 301
 
+# The old Eleventy site, which this one replaced in cbd2582. Every source below
+# is a URL that site published, read off its permalinks in `git show cbd2582^1`,
+# and every target is what took its place here. Permanent, and meant to stay:
+# Google asks for a site move's redirects to be kept for at least a year, and a
+# permanent redirect is the one that hands a page's standing to its successor.
+# `scripts/check-dist.mjs` fails the build if a target stops resolving.
+#
+# A URL with nothing to succeed it is left out on purpose and answers 404.
+# Sending it to the homepage would be a soft 404 by another name, so each gets a
+# rule the day the client names a successor. The pages: the old five-step build
+# method at `/aanpak/`, its four step pages under `/services/`, and
+# `/customerzone/`. The files under /assets/: the demo videos `smartagents.mp4`
+# and `smartspace-demo.mp4`; `handshake.webp`, a stock photo nothing here shows;
+# `agent-network.svg`, a decoration on the old team page; `smartspace-ui.png`, a
+# SmartSpace screen no current page shows; the SVG banners of the four posts
+# deleted before the redesign (`wat-is-een-agent`, `rpa-vs-agents`,
+# `case-claes-logistics`, `copilot-tips`); and the old decks' `deck/deck-stage.js`
+# and `deck/tokens.css`. The old site's stylesheets and scripts under /shared/
+# have nothing to succeed them either.
+#
+# Every page is here twice, with and without its trailing slash. Cloudflare's
+# redirects doc writes `/trailing /trailing/ 301` as a rule of its own and never
+# says one form matches the other, so the slashless URL a person types would
+# otherwise reach the catch-all, which puts /nl/ in front of it and finds nothing.
+
+# The services overview is the homepage section that lists the services.
+/services/                           /nl/#services                                   301
+/services                            /nl/#services                                   301
+/en/services/                        /en/#services                                   301
+/en/services                         /en/#services                                   301
+/fr/services/                        /fr/#services                                   301
+/fr/services                         /fr/#services                                   301
+
+# Training. The developers page is the one the kata page was ported from.
+/services/training/                  /nl/training/                                   301
+/services/training                   /nl/training/                                   301
+/en/services/training/               /en/training/                                   301
+/en/services/training                /en/training/                                   301
+/fr/services/training/               /fr/formation/                                  301
+/fr/services/training                /fr/formation/                                  301
+/services/training/developers/       /nl/training/agentic-engineering-kata/          301
+/services/training/developers        /nl/training/agentic-engineering-kata/          301
+/en/services/training/developers/    /en/training/agentic-engineering-kata/          301
+/en/services/training/developers     /en/training/agentic-engineering-kata/          301
+/fr/services/training/developers/    /fr/formation/kata-agentic-engineering/         301
+/fr/services/training/developers     /fr/formation/kata-agentic-engineering/         301
+
+# The business learning path the training page's offer replaced: an
+# introduction, a management day, and the c-level page the old site had already
+# renamed to management. All three fold into the training page.
+/services/training/ai-introductie/   /nl/training/                                   301
+/services/training/ai-introductie    /nl/training/                                   301
+/en/services/training/ai-introductie/ /en/training/                                  301
+/en/services/training/ai-introductie /en/training/                                   301
+/fr/services/training/ai-introductie/ /fr/formation/                                 301
+/fr/services/training/ai-introductie /fr/formation/                                  301
+/services/training/management/       /nl/training/                                   301
+/services/training/management        /nl/training/                                   301
+/en/services/training/management/    /en/training/                                   301
+/en/services/training/management     /en/training/                                   301
+/fr/services/training/management/    /fr/formation/                                  301
+/fr/services/training/management     /fr/formation/                                  301
+/services/training/c-level/          /nl/training/                                   301
+/services/training/c-level           /nl/training/                                   301
+/en/services/training/c-level/       /en/training/                                   301
+/en/services/training/c-level        /en/training/                                   301
+
+# Microsoft 365 Copilot, the page and its one-pager. Pending client
+# confirmation: that both fold into the training page is our reading, not yet
+# the client's.
+/services/training/m365-copilot/     /nl/training/                                   301
+/services/training/m365-copilot      /nl/training/                                   301
+/en/services/training/m365-copilot/  /en/training/                                   301
+/en/services/training/m365-copilot   /en/training/                                   301
+/fr/services/training/m365-copilot/  /fr/formation/                                  301
+/fr/services/training/m365-copilot   /fr/formation/                                  301
+/assets/SmartAgents_M365_Copilot_Onepager.pdf /nl/training/                                  301
+
+# Staffing. Agentic automation is part of what the staffing track does now.
+/services/staffing/                  /nl/ai-staffing/                                301
+/services/staffing                   /nl/ai-staffing/                                301
+/en/services/staffing/               /en/ai-staffing/                                301
+/en/services/staffing                /en/ai-staffing/                                301
+/fr/services/staffing/               /fr/ai-staffing/                                301
+/fr/services/staffing                /fr/ai-staffing/                                301
+/services/agentic-ai/                /nl/ai-staffing/                                301
+/services/agentic-ai                 /nl/ai-staffing/                                301
+/en/services/agentic-ai/             /en/ai-staffing/                                301
+/en/services/agentic-ai              /en/ai-staffing/                                301
+/fr/services/agentic-ai/             /fr/ai-staffing/                                301
+/fr/services/agentic-ai              /fr/ai-staffing/                                301
+
+# Process optimisation, and the SmartScan, which is the first phase of it now.
+/services/process-optimization/      /nl/ai-native-processen/                        301
+/services/process-optimization       /nl/ai-native-processen/                        301
+/en/services/process-optimization/   /en/ai-native-processes/                        301
+/en/services/process-optimization    /en/ai-native-processes/                        301
+/fr/services/process-optimization/   /fr/processus-ai-native/                        301
+/fr/services/process-optimization    /fr/processus-ai-native/                        301
+/services/smart-scan/                /nl/ai-native-processen/                        301
+/services/smart-scan                 /nl/ai-native-processen/                        301
+/en/services/smart-scan/             /en/ai-native-processes/                        301
+/en/services/smart-scan              /en/ai-native-processes/                        301
+/fr/services/smart-scan/             /fr/processus-ai-native/                        301
+/fr/services/smart-scan              /fr/processus-ai-native/                        301
+
+# The SmartSpace product page is the SmartSpace article.
+/products/smartspace/                /nl/inzichten/smartspace/                       301
+/products/smartspace                 /nl/inzichten/smartspace/                       301
+/en/products/smartspace/             /en/insights/smartspace/                        301
+/en/products/smartspace              /en/insights/smartspace/                        301
+/fr/products/smartspace/             /fr/analyses/smartspace/                        301
+/fr/products/smartspace              /fr/analyses/smartspace/                        301
+
+# The blog is the insights. Eleventy named a post after its file with the date
+# prefix dropped, so these are the posts' file names.
+/blog/                               /nl/inzichten/                                  301
+/blog                                /nl/inzichten/                                  301
+/en/blog/                            /en/insights/                                   301
+/en/blog                             /en/insights/                                   301
+/fr/blog/                            /fr/analyses/                                   301
+/fr/blog                             /fr/analyses/                                   301
+/blog/smartagents-lancering/         /nl/inzichten/hello-ai-era/                     301
+/blog/smartagents-lancering          /nl/inzichten/hello-ai-era/                     301
+/en/blog/smartagents-lancering/      /en/insights/hello-ai-era/                      301
+/en/blog/smartagents-lancering       /en/insights/hello-ai-era/                      301
+/fr/blog/smartagents-lancering/      /fr/analyses/hello-ai-era/                      301
+/fr/blog/smartagents-lancering       /fr/analyses/hello-ai-era/                      301
+/blog/smartspace-platform/           /nl/inzichten/smartspace/                       301
+/blog/smartspace-platform            /nl/inzichten/smartspace/                       301
+/en/blog/smartspace-platform/        /en/insights/smartspace/                        301
+/en/blog/smartspace-platform         /en/insights/smartspace/                        301
+/fr/blog/smartspace-platform/        /fr/analyses/smartspace/                        301
+/fr/blog/smartspace-platform         /fr/analyses/smartspace/                        301
+/blog/wat-werkt-en-wat-niet/         /nl/inzichten/wat-werkt-en-wat-niet/            301
+/blog/wat-werkt-en-wat-niet          /nl/inzichten/wat-werkt-en-wat-niet/            301
+/en/blog/wat-werkt-en-wat-niet/      /en/insights/what-works-and-what-doesnt/        301
+/en/blog/wat-werkt-en-wat-niet       /en/insights/what-works-and-what-doesnt/        301
+/fr/blog/wat-werkt-en-wat-niet/      /fr/analyses/ce-qui-fonctionne-et-ce-qui-ne-fonctionne-pas/ 301
+/fr/blog/wat-werkt-en-wat-niet       /fr/analyses/ce-qui-fonctionne-et-ce-qui-ne-fonctionne-pas/ 301
+/blog/ontbijtsessie-aviso/           /nl/inzichten/ontbijtsessie-aviso/              301
+/blog/ontbijtsessie-aviso            /nl/inzichten/ontbijtsessie-aviso/              301
+/en/blog/ontbijtsessie-aviso/        /en/insights/breakfast-session-aviso/           301
+/en/blog/ontbijtsessie-aviso         /en/insights/breakfast-session-aviso/           301
+/fr/blog/ontbijtsessie-aviso/        /fr/analyses/petit-dejeuner-aviso/              301
+/fr/blog/ontbijtsessie-aviso         /fr/analyses/petit-dejeuner-aviso/              301
+
+# Team, jobs and contact. The Dutch pages lost their unprefixed URL and the
+# French ones their slug; the English team and jobs pages kept theirs and
+# resolve as they are, as the Dutch contact page does above.
+/team/                               /nl/team/                                       301
+/team                                /nl/team/                                       301
+/jobs/                               /nl/jobs/                                       301
+/jobs                                /nl/jobs/                                       301
+/fr/team/                            /fr/equipe/                                     301
+/fr/team                             /fr/equipe/                                     301
+/fr/jobs/                            /fr/emplois/                                    301
+/fr/jobs                             /fr/emplois/                                    301
+/en/contact/                         /en/#contact                                    301
+/en/contact                          /en/#contact                                    301
+/fr/contact/                         /fr/#contact                                    301
+/fr/contact                          /fr/#contact                                    301
+
+# The old site's public files under /assets/, which today holds only Vite's
+# hashed output. The two developer one-pagers were the agentic engineering
+# fiche's predecessors, and the kata video and its poster moved to /media/
+# unchanged. The introduction and management fiches have no successor file, so
+# they go to the page that offers what replaced them.
+/assets/training_agentic_dev.pdf                 /media/SmartAgents_Agentic_Engineering_Onepager.pdf 301
+/assets/SmartAgents_AI_Developers_Onepager.pdf   /media/SmartAgents_Agentic_Engineering_Onepager.pdf 301
+/assets/SmartAgents_AI_Introductie_Onepager.pdf  /nl/training/                                       301
+/assets/SmartAgents_AI_Management_Onepager.pdf   /nl/training/                                       301
+/assets/kata-agentic-engineering.mp4             /media/kata-agentic-engineering.mp4                 301
+/assets/kata-agentic-engineering-poster.jpg      /media/kata-agentic-engineering-poster.jpg          301
+
+# The old site's pictures go to the file that shows the same picture today: each
+# founder's portrait to the largest cut of it, each post's picture to that
+# post's insights thumbnail, the old brand card (the share image of most pages,
+# and the blog's default banner) to the current card, and the old logo to the
+# same mark as an SVG.
+/assets/axel-profile.webp                        /media/team/axel-880.jpg                            301
+/assets/tom-profile.webp                         /media/team/tom-880.jpg                             301
+/assets/blog/smartagents-launch.png              /media/insights/launch-480.jpg                      301
+/assets/blog/smartspace-platform.png             /media/insights/smartspace-760.jpg                  301
+/assets/blog/wat-werkt-en-wat-niet.png           /media/insights/what-works-760.jpg                  301
+/assets/blog/aviso-ontbijtsessie.jpg             /media/insights/aviso-760.jpg                       301
+/assets/social-preview.webp                      /media/og-default.png                               301
+/assets/blog/default-banner.webp                 /media/og-default.png                               301
+/assets/logo.svg                                 /favicon.svg                                        301
+
 # Pitch-decks staan achter de secured-login onder /secured/presentations/.
 # De oude korte link en de vorige publieke /presentations/-paden zijn al
 # gedeeld. Browsers behouden het #slide-fragment bij een redirect, dus
