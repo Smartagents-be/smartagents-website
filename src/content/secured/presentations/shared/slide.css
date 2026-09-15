@@ -1117,6 +1117,27 @@ sa-node-field {
   color: var(--sa-grey-6);
 }
 
+/* A source credit is not read aloud, so it is not a `.slide__note`: it sits on
+   the footer line, centred between the brand and the page number and set a step
+   smaller than either. The line height is the page number's box (26px × 1.5),
+   so all three share one centre line. It is a child of `.slide__inner`, and the
+   child combinator is what outranks that rule's `position: relative`.
+
+   One short line and no more: it does not wrap, and a credit long enough to
+   reach the brand overlaps it without `check:slides` noticing. */
+.slide__inner > .slide__source {
+  position: absolute;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 39px;
+  white-space: nowrap;
+  color: var(--sa-grey-6);
+}
+
 /* ══ Wrapping ═══════════════════════════════════════════════════════════════
    Body copy is balanced rather than wrapped greedily. A greedy wrap in a
    column held to 44ch left lines like "The result is" standing half-empty

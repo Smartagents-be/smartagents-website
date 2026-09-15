@@ -133,7 +133,7 @@ invent a sibling. Sizes are absolute pixels against the 1920x1080 stage — neve
 clamp, which would measure against the browser window instead of the slide.
 
 Structure: `.slide` · `.slide--footed` · `.slide__inner` · `.slide__body`
-Head: `.rule` · `.slide__eyebrow` · `.slide__title` (`--sm`) · `.slide__lede` (`--sm`) · `.slide__note`
+Head: `.rule` · `.slide__eyebrow` · `.slide__title` (`--sm`) · `.slide__lede` (`--sm`) · `.slide__note` · `.slide__source` (a credit on the footer line)
 Rows: `.rows` (`--tight`) · `.row` · `.row__term` · `.row__detail`
 Statement: `.statement` · `.statement__support`
 Compare: `.compare` · `.compare__col` (`--then`) · `.compare__head` · `.compare__title` · `.compare__sub` · `.compare__list` · `.compare__item`

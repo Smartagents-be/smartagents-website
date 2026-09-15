@@ -175,7 +175,7 @@
   box-shadow: -2px 0 0 rgb(255 255 255 / 0.22);
 }
 
-/* One run: nothing changes hands in it, so nothing divides it. */
+/* One pipeline: nothing changes hands in it, so nothing divides it. */
 .flow__bar--run .flow__desk + .flow__desk {
   box-shadow: none;
 }
@@ -260,9 +260,9 @@
   line-height: 1;
 }
 
-/* Three footnotes: how to read the figure, what a gate is, then the credit. They
-   share one slot because as siblings of `.slide__inner` they would be pushed
-   56px apart and read as three unrelated blocks of mono. */
+/* Two footnotes: how to read the figure, then what a gate is. They share one
+   slot because as siblings of `.slide__inner` they would be pushed 56px apart
+   and read as two unrelated blocks of mono. */
 .slide-notes {
   display: flex;
   flex-direction: column;
