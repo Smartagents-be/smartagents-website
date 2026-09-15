@@ -853,3 +853,12 @@
 .next__note {
   text-wrap: balance;
 }
+
+/* ══ Slide 18: five objectives ═════════════════════════════════════════════
+   Five rows run the list down to the footer line, so the closing hairline
+   would strike through the mark and the page number. The list ends on its
+   last row instead. */
+
+#isabel-sdlc-slide-18 .row:last-child {
+  border-bottom: 0;
+}
