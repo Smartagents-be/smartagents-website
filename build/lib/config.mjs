@@ -12,3 +12,14 @@
  * host the real key is not registered for.
  */
 export const TURNSTILE_SITE_KEY = process.env.TURNSTILE_SITE_KEY || '0x4AAAAAADMvHHhg51ylmZft';
+
+/**
+ * Google Tag Manager container. Public by design, like the site key: it is in
+ * every page's markup. `GTM_ID` overrides it, and an empty value turns the whole
+ * thing off — no banner, no footer control, no request to Google — which is what
+ * a preview build that should not count as traffic wants.
+ *
+ * The container never loads before the visitor accepts: see
+ * `src/components/consent/consent.js`.
+ */
+export const GTM_ID = process.env.GTM_ID ?? 'GTM-549SNV2X';

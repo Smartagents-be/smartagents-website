@@ -18,6 +18,7 @@ import { page as jobsPage } from '../pages/jobs.mjs';
 import { page as privacyPage } from '../pages/privacy/privacy.mjs';
 import { insightsIndexPath } from '../pages/insights/insights.mjs';
 import { PHONE, PHONE_HREF, EMAIL } from '../components/contact-form/contact-form.mjs';
+import { consentBanner, consentControl } from '../components/consent/consent.mjs';
 
 /**
  * The services with a detail page of their own, keyed by the string the homepage
@@ -168,6 +169,7 @@ ${join(article)}
 </head>
 <body id="site-body">
 <a id="site-skip-link" class="skip-link" href="#main">${ctx.t('a11y.skip')}</a>
+${consentBanner(ctx.t, ctx.lang)}
 ${clipDefs(ctx.body)}
 <div id="site-shell" class="shell">
 ${siteHeader(ctx)}
@@ -719,7 +721,7 @@ export function siteFooter({ t, lang, pageId }) {
     <nav id="site-footer-nav" class="footer-nav" aria-label="${t('a11y.footerNav')}">
 ${insights ? html`      <a id="site-footer-link-insights" href="${insights}"${onInsights}>${t('nav.insights')}</a>
 ` : ''}${jobs ? html`      <a id="site-footer-link-jobs" href="${jobs}"${onJobs}>${t('nav.jobs')}</a>
-` : ''}      <a id="site-footer-link-linkedin" href="${LINKEDIN_URL}" target="_blank" rel="noopener noreferrer">LinkedIn<span id="site-footer-link-linkedin-hint" class="visually-hidden"> (${t('a11y.newTab')})</span></a>
+` : ''}${consentControl(t)}      <a id="site-footer-link-linkedin" href="${LINKEDIN_URL}" target="_blank" rel="noopener noreferrer">LinkedIn<span id="site-footer-link-linkedin-hint" class="visually-hidden"> (${t('a11y.newTab')})</span></a>
     </nav>
   </div>
   <div id="site-footer-base" class="site-footer__row site-footer__base">

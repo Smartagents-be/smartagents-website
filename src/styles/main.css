@@ -1359,8 +1359,88 @@ a.article-row:hover .article-row__image {
 /* Last, after every resting colour above it: same specificity, later rule. With
    the legalese's colour written below this, the three links a reader is most
    likely to reach for had no hover at all. */
-.site-footer a:hover {
+.site-footer a:hover,
+.footer-nav__button:hover {
   color: var(--sa-cyan);
+}
+
+/* "Cookie-instellingen" reopens the consent banner, so it is a button; it sits
+   in the link row because withdrawing has to be as easy to find as agreeing
+   was, and it reads as one more link there. */
+.footer-nav__button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  transition: color var(--dur-tint) ease;
+  color: var(--text-body);
+  font-size: var(--text-meta);
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------ *
+ * Consent banner
+ *
+ * A panel pinned to the foot of the window, not a modal: the page stays usable
+ * and ignoring it is refusing. Shown by components/consent/consent.js only while
+ * no choice is stored. Under the phone sheet (80) and over the header (60).
+ * ------------------------------------------------------------------ */
+
+.consent {
+  position: fixed;
+  z-index: 70;
+  inset-inline-start: var(--gutter-page);
+  bottom: var(--space-6);
+  display: grid;
+  gap: var(--space-5);
+  width: min(460px, calc(100vw - 2 * var(--gutter-page)));
+  padding: var(--space-7);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-menu);
+}
+
+/* Both display values above beat the user agent's `[hidden]`, and both are
+   printed hidden until consent.js decides otherwise. */
+.consent[hidden],
+.footer-nav__button[hidden] {
+  display: none;
+}
+
+.consent__body {
+  margin: 0;
+  color: var(--text-body);
+  font-size: var(--text-meta);
+  line-height: var(--leading-snug);
+}
+
+.consent__body a {
+  color: var(--text-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+@media (width < 621px) {
+  .consent {
+    inset-inline: var(--space-5);
+    bottom: var(--space-5);
+    width: auto;
+    padding: var(--space-6);
+  }
+
+  .consent__actions > .btn {
+    flex: 1;
+    justify-content: center;
+  }
 }
 
 /* The bookend: the header's wedge turned over in the bottom-left corner,
@@ -4023,6 +4103,8 @@ html:not([data-clause-spy]) .prose__heading:target,
      page's petal is in normal flow below 940px. */
   .site-header,
   .skip-link,
+  .consent,
+  .footer-nav__button,
   .orbits,
   .footer-mark,
   .header-wedge {

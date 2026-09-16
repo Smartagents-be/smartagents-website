@@ -4,17 +4,20 @@
 // with the data once it has left the site, which is stated as what we can and
 // cannot confirm. The ones that are easy to get wrong are worth naming:
 //
-//   • The public pages set no cookies and load nothing third-party. The only
-//     external host in a built public page is the LinkedIn href in the footer,
-//     and it is a link, not a request. `localStorage` appears only under
-//     /secured/.
+//   • The public pages set no cookies of their own and load nothing
+//     third-party until the visitor accepts the consent banner
+//     (components/consent/). Only then does Google Tag Manager load, and with it
+//     whatever Analytics and Ads tags the container holds. The choice itself is
+//     in `localStorage` (`sa-consent`, a year), not in a cookie. The cookie
+//     names and lifetimes below are Google's defaults; the 14 months of
+//     Analytics retention is a setting in the GA property, not in this repo.
 //   • Art. 13 is answered item by item, 13(2)(e) included: "Wat we verzamelen"
 //     ends by saying nothing here is obligatory and what follows from not
 //     giving it.
 //   • Both ways to reach a person are links. The number was plain text and four
 //     ordinary spaces, so it broke across two lines at a 768px tablet — on the
 //     page where it is an art. 13(1)(a) contact detail rather than a convenience.
-//   • The clause says "no cookies *of our own*", and `privacy.description`, the
+//   • The clause said "no cookies *of our own*", and `privacy.description`, the
 //     page's search snippet, carries the same qualifier. It did not, for a
 //     round, while the body conceded that touching the form loads Turnstile.
 //   • /secured/ does set one cookie and the notice says so: `export_session`,
@@ -84,9 +87,13 @@ const nl = [
     keuze; laat je het staan, dan verandert er niets en missen we alleen de
     gegevens die we nodig hebben om je te antwoorden. Bellen of mailen kan
     natuurlijk ook.`,
-  p`We verzamelen niets anders. Er is geen analytics, geen tracking, geen
-    advertentiepixel en geen profilering op deze website. We nemen ook geen
-    beslissingen over jou op een geautomatiseerde manier.`,
+  p`Meer verzamelen we niet zonder je toestemming. Geef je die in de
+    cookiebanner, dan laden we Google Tag Manager en via die tag Google Analytics
+    en Google Ads. Die meten welke pagina's je bekijkt, hoe je op de site kwam en
+    of je het contactformulier hebt verstuurd, en onthouden dat onder een
+    willekeurige code in een cookie. Weiger je of kies je niet, dan laadt geen van
+    de drie. Zelf bouwen we geen profiel van je op, en we nemen geen beslissingen
+    over jou op een geautomatiseerde manier.`,
 
   h2`Waarom, en op welke grond`,
   p`Je bericht verwerken we om erop te antwoorden en om de stappen te zetten die
@@ -96,6 +103,10 @@ const nl = [
   p`Je IP-adres verwerken we om het formulier te beschermen tegen spam en
     misbruik. Dat is ons gerechtvaardigd belang, artikel 6, lid 1, f): zonder die bescherming
     is een open formulier binnen een dag onbruikbaar.`,
+  p`De meting met Google Analytics en Google Ads gebeurt alleen met je
+    toestemming, artikel 6, lid 1, a). Je trekt die in wanneer je wilt, via
+    Cookie-instellingen onderaan elke pagina. Wat voor dat moment gemeten is,
+    blijft rechtmatig verwerkt.`,
 
   h2`Wie je bericht te zien krijgt`,
   p`Je bericht gaat niet verder dan deze partijen, en we verkopen of verhuren
@@ -105,11 +116,16 @@ const nl = [
      bewaart kortstondig de teller die aan je IP-adres hangt.`,
     `**n8n Cloud** verwerkt je bericht en stuurt het door. Daarbij kunnen berichtgegevens in de uitvoeringsgeschiedenis worden opgeslagen.`,
     `**Slack** is waar je bericht bij ons binnenkomt, samen met een e-mail naar
-     onze eigen mailbox.`
+     onze eigen mailbox.`,
+    `**Google** krijgt je bericht nooit. Geef je toestemming voor cookies, dan
+     krijgt Google via Tag Manager, Analytics en Ads wel gegevens over je bezoek:
+     de pagina's, je browser en toestel, je IP-adres, de cookiecode, en het feit
+     dat je het formulier verstuurde.`
   ]),
-  p`Cloudflare en Slack zijn bedrijven die gegevens ook buiten de Europese
-    Economische Ruimte kunnen verwerken. Dat gebeurt op basis van de
-    standaardcontractbepalingen van de Europese Commissie; een kopie daarvan
+  p`Cloudflare, Slack en Google zijn bedrijven die gegevens ook buiten de Europese
+    Economische Ruimte kunnen verwerken. Dat gebeurt op basis van het EU-VS-kader
+    voor gegevensbescherming of de standaardcontractbepalingen van de Europese
+    Commissie; een kopie daarvan
     kun je bij ons opvragen via [${EMAIL}](mailto:${EMAIL}). n8n Cloud draait in
     de EU-regio.`,
 
@@ -120,13 +136,24 @@ const nl = [
      dan valt je dossier onder de bewaartermijnen van die samenwerking.`,
     `**De teller op je IP-adres** verdwijnt vanzelf, twee uur na je laatste bericht.`,
     `**Uitvoeringsgegevens bij n8n** kunnen bewaard blijven. We kunnen daarvoor geen automatische verwijdering na een vaste termijn bevestigen. Je kunt ons vragen je berichtgegevens te laten verwijderen.`,
-    `**Serverlogs** vallen onder de bewaartermijnen van onze hostingpartner.`
+    `**Serverlogs** vallen onder de bewaartermijnen van onze hostingpartner.`,
+    `**Meetgegevens bij Google Analytics** blijven 14 maanden bewaard. De cookies
+     zelf vervallen na hoogstens twee jaar (Analytics) en 90 dagen (Ads).`,
+    `**Je keuze in de cookiebanner** onthoudt je browser een jaar. Daarna vragen
+     we het opnieuw.`
   ]),
   p`Wil je het eerder weg, dan volstaat een mail. Zie [Je rechten](clause:07).`,
 
   h2`Cookies`,
-  p`Op de publieke pagina's van deze website plaatsen we zelf geen cookies, en er
-    staat dan ook geen cookiebanner. Als je het contactformulier aanraakt, laadt
+  p`Op de publieke pagina's van deze website komen er alleen cookies als je daar
+    in de banner toestemming voor geeft. Dan plaatst Google Analytics _ga en
+    _ga_ gevolgd door een code, en Google Ads _gcl_au. Weiger je, dan laadt er
+    geen enkele Google-tag en komt er ook geen cookie. Je keuze zelf bewaren we
+    niet in een cookie maar in de opslag van je browser.`,
+  p`Je verandert die keuze wanneer je wilt via Cookie-instellingen onderaan elke
+    pagina. Trek je je toestemming in, dan verwijderen we de Google-cookies die op
+    dit domein staan.`,
+  p`Als je het contactformulier aanraakt, laadt
     de spamcontrole van Cloudflare, en die kan daarbij zelf een technisch gegeven
     plaatsen dat ze nodig heeft om de controle uit te voeren. Raak je het
     formulier niet aan, dan gebeurt dat niet.`,
@@ -185,9 +212,12 @@ const en = [
   p`You are under no obligation to give us anything. Filling in the form is a
     choice; leave it and nothing changes, except that we do not have what we
     would need in order to answer you. Calling or mailing works just as well.`,
-  p`We collect nothing else. There is no analytics, no tracking, no advertising
-    pixel and no profiling on this site. We also make no automated decisions
-    about you.`,
+  p`We collect nothing more without your consent. If you give it in the cookie
+    banner, we load Google Tag Manager and, through it, Google Analytics and
+    Google Ads. They measure which pages you view, how you reached the site and
+    whether you sent the contact form, and remember that under a random code in a
+    cookie. If you refuse or do not choose, none of the three loads. We build no
+    profile of you ourselves, and we make no automated decisions about you.`,
 
   h2`Why, and on what basis`,
   p`We process your message in order to answer it and to take the steps you are
@@ -197,6 +227,10 @@ const en = [
   p`We process your IP address to protect the form against spam and abuse. That is our
     legitimate interest, article 6(1)(f): without that protection an open form is unusable
     within a day.`,
+  p`Measurement with Google Analytics and Google Ads happens only with your
+    consent, article 6(1)(a). You can withdraw it whenever you like, through
+    Cookie settings at the foot of every page. What was measured before then
+    remains lawfully processed.`,
 
   h2`Who sees your message`,
   p`Your message goes no further than these parties, and we neither sell nor
@@ -206,11 +240,15 @@ const en = [
      briefly holds the counter attached to your IP address.`,
     `**n8n Cloud** processes and forwards your message. Message data may also be saved in its execution history.`,
     `**Slack** is where your message arrives with us, alongside an e-mail to our
-     own mailbox.`
+     own mailbox.`,
+    `**Google** never receives your message. If you consent to cookies, Google
+     does receive data about your visit through Tag Manager, Analytics and Ads:
+     the pages, your browser and device, your IP address, the cookie code, and
+     the fact that you sent the form.`
   ]),
-  p`Cloudflare and Slack are companies that may also process data outside the
-    European Economic Area. That happens under the European Commission's
-    standard contractual clauses; mail [${EMAIL}](mailto:${EMAIL}) for a copy of
+  p`Cloudflare, Slack and Google are companies that may also process data outside
+    the European Economic Area. That happens under the EU-US Data Privacy
+    Framework or the European Commission's standard contractual clauses; mail [${EMAIL}](mailto:${EMAIL}) for a copy of
     them. n8n Cloud runs in the EU region.`,
 
   h2`How long we keep it`,
@@ -221,14 +259,25 @@ const en = [
     `**The counter on your IP address** disappears by itself, two hours after your last
      message.`,
     `**Execution data at n8n** may be retained. We cannot confirm automatic deletion after a fixed period. You can ask us to have your message data removed.`,
-    `**Server logs** are subject to our hosting provider's retention periods.`
+    `**Server logs** are subject to our hosting provider's retention periods.`,
+    `**Measurement data in Google Analytics** is kept for 14 months. The cookies
+     themselves expire after at most two years (Analytics) and 90 days (Ads).`,
+    `**Your choice in the cookie banner** is remembered by your browser for a
+     year. After that we ask again.`
   ]),
   p`If you would rather we removed it sooner, an e-mail is enough. See
     [Your rights](clause:07).`,
 
   h2`Cookies`,
-  p`On the public pages of this site we set no cookies of our own, which is why
-    there is no cookie banner. If you interact with the contact form,
+  p`On the public pages of this site, cookies are set only if you consent to
+    them in the banner. Google Analytics then sets _ga and _ga_ followed by a
+    code, and Google Ads sets _gcl_au. If you refuse, no Google tag loads and no
+    cookie is set. Your choice itself is not kept in a cookie but in your
+    browser's storage.`,
+  p`You can change that choice whenever you like through Cookie settings at the
+    foot of every page. If you withdraw your consent, we remove the Google
+    cookies set on this domain.`,
+  p`If you interact with the contact form,
     Cloudflare's spam check loads, and it may itself place a technical value it
     needs in order to run the check. If you do not touch the form, that does not
     happen.`,
@@ -289,8 +338,13 @@ const fr = [
     si vous ne le faites pas, rien ne change, si ce n'est que nous n'avons pas ce
     qu'il nous faudrait pour vous répondre. Un appel ou un e-mail fait tout aussi
     bien l'affaire.`,
-  p`Nous ne recueillons rien d'autre. Il n'y a sur ce site ni analytique, ni
-    traçage, ni pixel publicitaire, ni profilage. Nous ne prenons pas non plus
+  p`Nous ne recueillons rien de plus sans votre accord. Si vous le donnez dans
+    le bandeau cookies, nous chargeons Google Tag Manager et, par son biais,
+    Google Analytics et Google Ads. Ils mesurent les pages que vous consultez,
+    la manière dont vous êtes arrivé sur le site et si vous avez envoyé le
+    formulaire de contact, et retiennent cela sous un code aléatoire dans un
+    cookie. Si vous refusez ou ne choisissez pas, aucun des trois ne se charge.
+    Nous ne construisons nous-mêmes aucun profil de vous, et nous ne prenons pas
     de décision automatisée à votre sujet.`,
 
   h2`Pourquoi, et sur quelle base`,
@@ -301,6 +355,10 @@ const fr = [
   p`Nous traitons votre adresse IP pour protéger le formulaire du spam et des
     abus. C'est notre intérêt légitime, article 6, paragraphe 1, f) : sans cette protection,
     un formulaire ouvert devient inutilisable en une journée.`,
+  p`La mesure avec Google Analytics et Google Ads n'a lieu qu'avec votre
+    consentement, article 6, paragraphe 1, a). Vous pouvez le retirer quand vous
+    le souhaitez, via Paramètres des cookies en bas de chaque page. Ce qui a été
+    mesuré avant ce moment reste traité de manière licite.`,
 
   h2`Qui voit votre message`,
   p`Votre message ne va pas plus loin que ces parties, et nous ne vendons ni ne
@@ -310,11 +368,17 @@ const fr = [
      conserve brièvement le compteur rattaché à votre adresse IP.`,
     `**n8n Cloud** traite et transmet votre message. Les données du message peuvent aussi être enregistrées dans l'historique des exécutions.`,
     `**Slack** est l'endroit où votre message nous parvient, en même temps qu'un
-     e-mail vers notre propre boîte.`
+     e-mail vers notre propre boîte.`,
+    `**Google** ne reçoit jamais votre message. Si vous acceptez les cookies,
+     Google reçoit en revanche, via Tag Manager, Analytics et Ads, des données
+     sur votre visite : les pages, votre navigateur et votre appareil, votre
+     adresse IP, le code du cookie, et le fait que vous avez envoyé le
+     formulaire.`
   ]),
-  p`Cloudflare et Slack sont des sociétés susceptibles de traiter des données
-    en dehors de l'Espace économique européen. Cela se fait sur la base des
-    clauses contractuelles types de la Commission européenne ; vous pouvez nous
+  p`Cloudflare, Slack et Google sont des sociétés susceptibles de traiter des
+    données en dehors de l'Espace économique européen. Cela se fait sur la base
+    du cadre de protection des données UE-États-Unis ou des clauses
+    contractuelles types de la Commission européenne ; vous pouvez nous
     en demander une copie à [${EMAIL}](mailto:${EMAIL}). n8n Cloud tourne dans la
     région UE.`,
 
@@ -327,14 +391,26 @@ const fr = [
     `**Le compteur lié à votre adresse IP** disparaît de lui-même, deux heures après votre
      dernier message.`,
     `**Les données d'exécution chez n8n** peuvent être conservées. Nous ne pouvons pas confirmer leur suppression automatique après une durée fixe. Vous pouvez nous demander de faire supprimer les données de votre message.`,
-    `**Les journaux serveur** sont soumis aux durées de conservation de notre hébergeur.`
+    `**Les journaux serveur** sont soumis aux durées de conservation de notre hébergeur.`,
+    `**Les données de mesure dans Google Analytics** sont conservées 14 mois.
+     Les cookies eux-mêmes expirent au plus tard après deux ans (Analytics) et
+     90 jours (Ads).`,
+    `**Votre choix dans le bandeau cookies** est retenu par votre navigateur
+     pendant un an. Ensuite, nous vous le redemandons.`
   ]),
   p`Si vous préférez que nous l'effacions plus tôt, un e-mail suffit. Voyez
     [Vos droits](clause:07).`,
 
   h2`Cookies`,
-  p`Sur les pages publiques de ce site, nous ne déposons aucun cookie de notre
-    fait, et c'est pourquoi il n'y a pas de bandeau cookies. Si vous interagissez
+  p`Sur les pages publiques de ce site, des cookies ne sont déposés que si vous
+    l'acceptez dans le bandeau. Google Analytics dépose alors _ga et _ga_ suivi
+    d'un code, et Google Ads dépose _gcl_au. Si vous refusez, aucune balise
+    Google ne se charge et aucun cookie n'est déposé. Votre choix lui-même n'est
+    pas conservé dans un cookie mais dans le stockage de votre navigateur.`,
+  p`Vous pouvez modifier ce choix quand vous le souhaitez via Paramètres des
+    cookies en bas de chaque page. Si vous retirez votre consentement, nous
+    supprimons les cookies Google déposés sur ce domaine.`,
+  p`Si vous interagissez
     avec le formulaire de contact, le contrôle antispam de Cloudflare se charge,
     et il peut lui-même déposer une valeur technique dont il a besoin pour
     effectuer ce contrôle. Si vous ne touchez pas au formulaire, cela n'arrive

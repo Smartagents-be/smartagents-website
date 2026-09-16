@@ -594,8 +594,18 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   changes; change a number there and in the CSS together. If the offer ever
   shrinks back to two services the row fits at 768px again and that band should
   get it back.
-- **No third-party requests.** No webfonts, no icon library, no analytics on the
-  public pages. Turnstile is the one exception and loads only on interaction.
+- **No third-party requests before the visitor asks for them.** No webfonts, no
+  icon library. Turnstile loads on the first interaction with the form. Google
+  Tag Manager (`GTM_ID` in `build/lib/config.mjs`, empty turns it off) loads
+  only after the visitor accepts the consent banner: `src/components/consent/`
+  holds the build-time banner and footer control and `consent.js`, which sets
+  the Consent Mode v2 defaults to denied, keeps the choice in `localStorage` for
+  a year, and is the only code that requests `gtm.js` (basic mode, so a refusal
+  sends Google nothing at all). The contact form pushes `contact_form_submit`
+  to `dataLayer` only after `/api/contact` answers ok; GTM's built-in form
+  trigger never sees this form, because the component stops the native submit.
+  The privacy notice describes all of this, so a change to the container's tags
+  is a change to that notice too.
 - **`/secured/` is self-contained but not off-brand.** It serves its own
   `tokens.css`, `base.css` and `deck-stage.js` and links nothing from the public
   build, yet `src/content/secured/tokens.css` carries the same values as

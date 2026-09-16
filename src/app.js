@@ -3,6 +3,9 @@
 // MPA-feels-like-SPA stack is CSS-only view transitions).
 // See .claude/skills/webcomponent-mpa-spa/SKILL.md §5.
 import './styles/main.css';
+/* Consent first: it declares the Consent Mode defaults, and it is the only
+   thing that loads Google Tag Manager, after the visitor accepts. */
+import './components/consent/consent.js';
 
 /* ------------------------------------------------------------------ *
  * Lazy component registration
@@ -80,7 +83,7 @@ if (navToggle) {
 
   /* The skip link is in here because it points into `#main`, and a link to
      inert content is a tab stop that goes nowhere. */
-  const behindSheet = ['site-skip-link', 'main', 'site-footer']
+  const behindSheet = ['site-skip-link', 'site-consent', 'main', 'site-footer']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 

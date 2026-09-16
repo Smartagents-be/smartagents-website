@@ -239,6 +239,16 @@ class ContactForm extends HTMLElement {
       this.form.reset();
       for (const { name } of RULES) this.mark(name, null);
       this.say(this.dataset.sent, 'ok');
+      /* The conversion, for Google Tag Manager: pushed only once the endpoint
+         has accepted the message, so a rejected or failed post never counts.
+         Before consent it waits in the array and nothing reads it; see
+         components/consent/consent.js. A trigger on GTM's own form-submit
+         event cannot see this form, which stops the native submit. */
+      (window.dataLayer = window.dataLayer || []).push({
+        event: 'contact_form_submit',
+        form_id: this.id,
+        page_path: location.pathname
+      });
     } catch (error) {
       /* 429 gets its own sentence, because it is the one failure the visitor can
          act on: "Versturen lukte niet" in front of a rate limit invites exactly
