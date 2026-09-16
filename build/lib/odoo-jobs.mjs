@@ -90,10 +90,16 @@ const SNAPSHOT_PATH = 'src/content/jobs/odoo-snapshot.json';
  * through, because Odoo's job description is authored in a rich-text editor by
  * someone who is not thinking about this site's markup.
  *
+ * @typedef {object} Point
+ * @property {'p'|'li'} type  'li' for an actual bullet — a real `<li>`, or a
+ *                             line an editor typed as a dash — 'p' for prose:
+ *                             an intro paragraph, a heading, a closing line.
+ * @property {string} text
+ *
  * @typedef {object} Vacancy
  * @property {string} slug      Odoo's own url segment, and this page's id key
  * @property {string} title
- * @property {string[]} points  what the job is, one line per point
+ * @property {Point[]} points   what the job is, one entry per line, typed
  * @property {string|null} location
  * @property {string} url       the job on Odoo
  * @property {string} applyUrl  its application form
@@ -117,33 +123,80 @@ const decodeEntities = (value) =>
     .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)));
 
 /**
- * Rich text from Odoo to a list of lines. `<br>`, `</p>` and `</li>` are the
- * three things that end a line in what its editor produces; everything else is
- * dropped, entities are decoded once, and empty lines go.
+ * Rich text from Odoo to a list of typed lines. `<br>`, `</p>`, `</li>`,
+ * `</div>` and a closing heading are the things that end a line in what its
+ * editor produces; everything else is dropped and entities are decoded once.
+ *
+ * A line is a bullet (`type: 'li'`) when it closed inside a real `<li>`, or
+ * when the text itself opens with a dash — Odoo's editor lets someone type
+ * "- like this" instead of using its list tool, and the alternative to
+ * catching that is a dash sitting inside a bullet. Everything else — an intro
+ * paragraph, a heading typed as one, a closing line — is prose (`type: 'p'`)
+ * and is never turned into a bullet it was not written as. Odoo's own HTML
+ * carries indentation whitespace between block tags; a literal newline in the
+ * source is not a line break and must not be read as one, which is why this
+ * walks tag boundaries rather than splitting the decoded text on `\n`.
  */
-function linesFromHtml(value) {
+function pointsFromHtml(value) {
   if (!value) return [];
-  return decodeEntities(
-    String(value)
-      .replace(/<(?:script|style)[\s\S]*?<\/(?:script|style)>/gi, ' ')
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<\/(?:p|li|div|h[1-6])>/gi, '\n')
-      .replace(/<[^>]+>/g, '')
-  )
-    .split('\n')
-    .map(clean)
-    .filter(Boolean);
+  const markup = String(value).replace(/<(?:script|style)[\s\S]*?<\/(?:script|style)>/gi, ' ');
+  const tokens = markup.split(/(<[^>]+>)/g);
+
+  const points = [];
+  let buffer = '';
+  let liDepth = 0;
+
+  const flush = () => {
+    const decoded = decodeEntities(buffer).replace(/\s+/g, ' ').trim();
+    buffer = '';
+    if (!decoded) return;
+    const dash = decoded.match(/^[-•–—]\s*/);
+    const text = dash ? decoded.slice(dash[0].length).trim() : decoded;
+    if (!text) return;
+    points.push({ type: liDepth > 0 || dash ? 'li' : 'p', text });
+  };
+
+  for (const token of tokens) {
+    if (!token) continue;
+    if (token[0] !== '<') {
+      buffer += token;
+      continue;
+    }
+    const tag = token.toLowerCase();
+    if (/^<li[\s>]/.test(tag)) {
+      liDepth += 1;
+    } else if (tag === '</li>') {
+      flush();
+      liDepth = Math.max(0, liDepth - 1);
+    } else if (/^<br\s*\/?>/.test(tag) || /^<\/(?:p|div|h[1-6])>/.test(tag)) {
+      flush();
+    }
+  }
+  flush();
+
+  return points;
 }
 
 /** A vacancy is usable when it can be named and linked to. */
 const isUsable = (job) => Boolean(job && job.title && job.slug);
+
+/**
+ * A point as read back off a snapshot, or fresh off `pointsFromHtml`: both are
+ * already `{ type, text }`. A committed snapshot written before this typing
+ * existed held plain strings — those are every one of them a real bullet,
+ * which is what the page rendered them as.
+ */
+const normalisePoint = (point) =>
+  point && typeof point === 'object'
+    ? { type: point.type === 'li' ? 'li' : 'p', text: clean(point.text) }
+    : { type: 'li', text: clean(point) };
 
 function normalise({ slug, title, points, location }) {
   const cleanSlug = clean(slug).replace(/^\/+|\/+$/g, '');
   return {
     slug: cleanSlug,
     title: clean(title),
-    points: (points || []).map(clean).filter(Boolean),
+    points: (points || []).map(normalisePoint).filter((point) => point.text),
     location: clean(location) || null,
     url: `${ODOO_ORIGIN}/jobs/${cleanSlug}`,
     applyUrl: `${ODOO_ORIGIN}/jobs/apply/${cleanSlug}`
@@ -210,7 +263,7 @@ async function fromApi(odooLang, uid) {
         // `website_url` is `/jobs/<slug>-<id>`; the slug is the last segment.
         slug: String(row.website_url || '').split('/').filter(Boolean).pop(),
         title: row.name,
-        points: linesFromHtml(row.website_description || row.description),
+        points: pointsFromHtml(row.website_description || row.description),
         location: Array.isArray(row.address_id) ? cities.get(row.address_id[0]) || null : null
       })
     )
@@ -293,7 +346,7 @@ async function fromPublicPage(odooLang) {
       normalise({
         slug: href[1].replace(/^\/jobs\//, ''),
         title: title ? decodeEntities(title[1].replace(/<[^>]+>/g, '')) : '',
-        points: description ? linesFromHtml(description[1]) : [],
+        points: description ? pointsFromHtml(description[1]) : [],
         location: place
       })
     );

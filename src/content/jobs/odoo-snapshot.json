@@ -1,16 +1,63 @@
 {
   "source": "public page",
-  "fetchedAt": "2026-09-12T06:06:03.490Z",
+  "fetchedAt": "2026-09-16T09:04:57.428Z",
   "jobs": {
     "nl": [
       {
         "slug": "agentic-ai-engineer-1",
         "title": "Agentic AI engineer",
         "points": [
-          "Je bouwt oplossingen die echte bedrijfsprocessen verbeteren, van copilots en workflowautomatisatie tot multi-agentsystemen.",
-          "Je vertaalt technische mogelijkheden naar schaalbare toepassingen die passen bij het dagelijkse werk van onze klanten.",
-          "Je werkt met LLM's, tools, RAG en integraties met bestaande systemen om oplossingen bruikbaar te maken in de praktijk.",
-          "Je werkt in korte iteraties, neemt verantwoordelijkheid en ziet snel het effect van wat je bouwt."
+          {
+            "type": "p",
+            "text": "Ben jij gefascineerd door de snelle evolutie van AI en wil je vooroplopen in de transitie van passieve LLM's naar autonome, actiegerichte AI Agents? Wij zoeken geen ontwikkelaar die enkel bestaande API's aanroept, maar een T-shaped AI Engineer: een specialist met diepe technische expertise in AI-architectuur en een brede blik op software engineering, workflows en business integratie."
+          },
+          {
+            "type": "p",
+            "text": "Als AI Engineer bij ons bouw je de volgende generatie intelligentie. Je ontwerpt schaalbare agentic workflows, integreert complexe LLM-systemen en slaat de brug tussen innovatieve AI-concepten en robuuste enterprise-oplossingen."
+          },
+          {
+            "type": "p",
+            "text": "Wat ga je doen?"
+          },
+          {
+            "type": "li",
+            "text": "Agentic Workflows & Multi-Agent Systems: Ontwerpen en implementeren van autonome agents en orchestratiestructuren."
+          },
+          {
+            "type": "li",
+            "text": "AI & Software Integration: Integreren van LLM's (OpenAI, Anthropic, open-source modellen) in bestaande applicaties en enterprise workflows met oog voor latency, kosten en betrouwbaarheid."
+          },
+          {
+            "type": "li",
+            "text": "Retrieval-Augmented Generation (RAG): Opzetten van geavanceerde RAG-pipelines en vectordatabases om interne data en kennisbronnen naadloos te ontsluiten."
+          },
+          {
+            "type": "li",
+            "text": "Procesautomatisering: Analyseren van complexe bedrijfsprocessen en deze vertalen naar gestroomlijnde, geautomatiseerde AI-workflows."
+          },
+          {
+            "type": "li",
+            "text": "Fine-Tuning & Prompt Engineering: Optimaliseren van modelprestaties via geavanceerde prompt engineering, fine-tuning en evaluatiestructuren (evals)."
+          },
+          {
+            "type": "p",
+            "text": "Jouw Profiel:"
+          },
+          {
+            "type": "p",
+            "text": "Wij zoeken iemand met een diepe verticale expertise in AI/ML engineering, gecombineerd met een brede horizontale kennis van software-architectuur, cloud en procesoptimalisatie."
+          }
+        ],
+        "location": null
+      },
+      {
+        "slug": "spontane-sollicitatie-2",
+        "title": "Spontane sollicitatie",
+        "points": [
+          {
+            "type": "p",
+            "text": "Wij zijn altijd op zoek naar gedreven talent dat wil meebouwen aan de toekomst van AI en agentic engineering. Zie jij kansen die wij nog niet zien, of wil je gewoon sparren over een mogelijke samenwerking?"
+          }
         ],
         "location": null
       }
@@ -20,10 +67,57 @@
         "slug": "agentic-ai-engineer-1",
         "title": "Agentic AI engineer",
         "points": [
-          "You build solutions that improve real business processes, from copilots and workflow automation to multi-agent systems.",
-          "You translate technical possibilities into scalable applications that fit our clients' day-to-day work.",
-          "You work with LLMs, tools, RAG and integrations with existing systems to make solutions useful in practice.",
-          "You work in short iterations, take responsibility and quickly see the impact of what you build."
+          {
+            "type": "p",
+            "text": "Ben jij gefascineerd door de snelle evolutie van AI en wil je vooroplopen in de transitie van passieve LLM's naar autonome, actiegerichte AI Agents? Wij zoeken geen ontwikkelaar die enkel bestaande API's aanroept, maar een T-shaped AI Engineer: een specialist met diepe technische expertise in AI-architectuur en een brede blik op software engineering, workflows en business integratie."
+          },
+          {
+            "type": "p",
+            "text": "Als AI Engineer bij ons bouw je de volgende generatie intelligentie. Je ontwerpt schaalbare agentic workflows, integreert complexe LLM-systemen en slaat de brug tussen innovatieve AI-concepten en robuuste enterprise-oplossingen."
+          },
+          {
+            "type": "p",
+            "text": "Wat ga je doen?"
+          },
+          {
+            "type": "li",
+            "text": "Agentic Workflows & Multi-Agent Systems: Ontwerpen en implementeren van autonome agents en orchestratiestructuren."
+          },
+          {
+            "type": "li",
+            "text": "AI & Software Integration: Integreren van LLM's (OpenAI, Anthropic, open-source modellen) in bestaande applicaties en enterprise workflows met oog voor latency, kosten en betrouwbaarheid."
+          },
+          {
+            "type": "li",
+            "text": "Retrieval-Augmented Generation (RAG): Opzetten van geavanceerde RAG-pipelines en vectordatabases om interne data en kennisbronnen naadloos te ontsluiten."
+          },
+          {
+            "type": "li",
+            "text": "Procesautomatisering: Analyseren van complexe bedrijfsprocessen en deze vertalen naar gestroomlijnde, geautomatiseerde AI-workflows."
+          },
+          {
+            "type": "li",
+            "text": "Fine-Tuning & Prompt Engineering: Optimaliseren van modelprestaties via geavanceerde prompt engineering, fine-tuning en evaluatiestructuren (evals)."
+          },
+          {
+            "type": "p",
+            "text": "Jouw Profiel:"
+          },
+          {
+            "type": "p",
+            "text": "Wij zoeken iemand met een diepe verticale expertise in AI/ML engineering, gecombineerd met een brede horizontale kennis van software-architectuur, cloud en procesoptimalisatie."
+          }
+        ],
+        "location": null
+      },
+      {
+        "slug": "spontane-sollicitatie-2",
+        "title": "Spontane sollicitatie",
+        "points": [
+          {
+            "type": "p",
+            "text": "Wij zijn altijd op zoek naar gedreven talent dat wil meebouwen aan de toekomst van AI en agentic engineering. Zie jij kansen die wij nog niet zien, of wil je gewoon sparren over een mogelijke samenwerking?"
+          }
         ],
         "location": null
       }
@@ -33,10 +127,57 @@
         "slug": "agentic-ai-engineer-1",
         "title": "Agentic AI engineer",
         "points": [
-          "Vous développez des solutions qui améliorent de vrais processus métier, des copilotes et de l'automatisation des workflows aux systèmes multi-agents.",
-          "Vous traduisez les possibilités techniques en applications évolutives adaptées au travail quotidien de nos clients.",
-          "Vous utilisez des LLM, des outils, le RAG et des intégrations aux systèmes existants pour rendre les solutions utiles en pratique.",
-          "Vous travaillez par itérations courtes, prenez vos responsabilités et voyez rapidement les effets de votre travail."
+          {
+            "type": "p",
+            "text": "Ben jij gefascineerd door de snelle evolutie van AI en wil je vooroplopen in de transitie van passieve LLM's naar autonome, actiegerichte AI Agents? Wij zoeken geen ontwikkelaar die enkel bestaande API's aanroept, maar een T-shaped AI Engineer: een specialist met diepe technische expertise in AI-architectuur en een brede blik op software engineering, workflows en business integratie."
+          },
+          {
+            "type": "p",
+            "text": "Als AI Engineer bij ons bouw je de volgende generatie intelligentie. Je ontwerpt schaalbare agentic workflows, integreert complexe LLM-systemen en slaat de brug tussen innovatieve AI-concepten en robuuste enterprise-oplossingen."
+          },
+          {
+            "type": "p",
+            "text": "Wat ga je doen?"
+          },
+          {
+            "type": "li",
+            "text": "Agentic Workflows & Multi-Agent Systems: Ontwerpen en implementeren van autonome agents en orchestratiestructuren."
+          },
+          {
+            "type": "li",
+            "text": "AI & Software Integration: Integreren van LLM's (OpenAI, Anthropic, open-source modellen) in bestaande applicaties en enterprise workflows met oog voor latency, kosten en betrouwbaarheid."
+          },
+          {
+            "type": "li",
+            "text": "Retrieval-Augmented Generation (RAG): Opzetten van geavanceerde RAG-pipelines en vectordatabases om interne data en kennisbronnen naadloos te ontsluiten."
+          },
+          {
+            "type": "li",
+            "text": "Procesautomatisering: Analyseren van complexe bedrijfsprocessen en deze vertalen naar gestroomlijnde, geautomatiseerde AI-workflows."
+          },
+          {
+            "type": "li",
+            "text": "Fine-Tuning & Prompt Engineering: Optimaliseren van modelprestaties via geavanceerde prompt engineering, fine-tuning en evaluatiestructuren (evals)."
+          },
+          {
+            "type": "p",
+            "text": "Jouw Profiel:"
+          },
+          {
+            "type": "p",
+            "text": "Wij zoeken iemand met een diepe verticale expertise in AI/ML engineering, gecombineerd met een brede horizontale kennis van software-architectuur, cloud en procesoptimalisatie."
+          }
+        ],
+        "location": null
+      },
+      {
+        "slug": "spontane-sollicitatie-2",
+        "title": "Spontane sollicitatie",
+        "points": [
+          {
+            "type": "p",
+            "text": "Wij zijn altijd op zoek naar gedreven talent dat wil meebouwen aan de toekomst van AI en agentic engineering. Zie jij kansen die wij nog niet zien, of wil je gewoon sparren over een mogelijke samenwerking?"
+          }
         ],
         "location": null
       }

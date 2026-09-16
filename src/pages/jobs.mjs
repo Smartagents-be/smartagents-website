@@ -139,12 +139,40 @@ ${orbitRings('jobs-hero')}
  * @param {object} options.job    one normalised vacancy (build/lib/odoo-jobs.mjs)
  * @param {boolean} options.open  whether the row stands open on arrival
  */
+/**
+ * Odoo's description is a flat list of typed lines (`build/lib/odoo-jobs.mjs`):
+ * `'li'` where the editor drew a real bullet, `'p'` for everything it wrote as
+ * prose — an intro paragraph, a heading, a closing line. Adjacent bullets are
+ * one list; a run of prose is one paragraph per line, because each line is
+ * already one block of Odoo's own markup (a `<p>`, a heading) and merging them
+ * would run a heading into the paragraph under it.
+ */
+function pointBlocks(points) {
+  const blocks = [];
+  for (const point of points) {
+    const last = blocks[blocks.length - 1];
+    if (point.type === 'li' && last?.kind === 'list') last.items.push(point.text);
+    else if (point.type === 'li') blocks.push({ kind: 'list', items: [point.text] });
+    else blocks.push({ kind: 'text', text: point.text });
+  }
+  return blocks;
+}
+
 function vacancy({ t, job, open }) {
   const id = `jobs-vacancy-${job.slug}`;
 
-  const points = job.points.map(
-    (point, i) => html`              <li id="${id}-point-${index(i + 1)}" class="track__point">${point}</li>`
-  );
+  const blocks = pointBlocks(job.points).map((block, i) => {
+    const blockId = `${id}-${block.kind}-${index(i + 1)}`;
+    if (block.kind === 'list') {
+      const items = block.items.map(
+        (item, k) => html`              <li id="${blockId}-point-${index(k + 1)}" class="track__point">${item}</li>`
+      );
+      return html`            <ul id="${blockId}" class="track__points">
+${join(items)}
+            </ul>`;
+    }
+    return html`            <p id="${blockId}" class="track__body">${block.text}</p>`;
+  });
 
   return html`      <details id="${id}" class="track" name="jobs-vacancy"${open ? raw(' open') : ''}>
         <summary id="${id}-summary" class="track__summary">
@@ -154,10 +182,7 @@ function vacancy({ t, job, open }) {
           <span id="${id}-chevron" class="track__chevron" aria-hidden="true"></span>
         </summary>
         <div id="${id}-panel" class="track__panel">
-          <div id="${id}-panel-inner" class="track__inner">${points.length ? html`
-            <ul id="${id}-points" class="track__points">
-${join(points)}
-            </ul>` : ''}
+          <div id="${id}-panel-inner" class="track__inner">${blocks.length ? join(blocks) : ''}
             <p id="${id}-actions" class="track__actions">
               <a id="${id}-apply" class="btn btn--primary" href="${job.applyUrl}" target="_blank" rel="noopener noreferrer">${t('jobs.cta.apply')}<span id="${id}-apply-hint" class="visually-hidden"> (${t('a11y.newTab')})</span></a>
             </p>

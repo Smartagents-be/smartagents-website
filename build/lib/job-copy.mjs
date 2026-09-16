@@ -18,9 +18,14 @@ export function applyEditorialCopy(byLang) {
          back to what Odoo said. */
       return {
         ...job,
-        points: job.points.map((point) =>
-          entry.points?.find((item) => item.sources?.includes(point))?.[lang] || point
-        ),
+        // A point is now `{ type, text }`; a correction matches and replaces the
+        // text only, so a reviewed rewrite can never turn a paragraph into a
+        // bullet or the reverse — that distinction is read off Odoo's own markup,
+        // not from this file.
+        points: job.points.map((point) => {
+          const match = entry.points?.find((item) => item.sources?.includes(point.text));
+          return match ? { ...point, text: match[lang] || point.text } : point;
+        }),
         location: entry.locations?.[job.location]?.[lang] || job.location
       };
     })

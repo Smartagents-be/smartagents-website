@@ -3928,6 +3928,15 @@ html:not([data-clause-spy]) .prose__heading:target,
   color: var(--text-faint);
 }
 
+/* A vacancy's own rhythm: `.track__body` (prose) and `.track__points` (a real
+   bullet list) stand as siblings in the order Odoo wrote them, and only a
+   `.track__body` run collapses its own gap — see the rule above. Two blocks of
+   different kinds still need the same breathing room between them. */
+.track__body + .track__points,
+.track__points + .track__body {
+  margin-top: var(--space-6);
+}
+
 /* The panel's own vertical rhythm before the action, so the button is a block
    of its own rather than the last line of the description. */
 .track__actions {
