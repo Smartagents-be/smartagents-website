@@ -9,9 +9,8 @@ import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 
 // The four services, in the order they are offered. Training and AI staffing
 // lead because they are the two a reader arrives already looking for; the two
-// AI-native tracks follow, engineering first, because the SDLC page names the
-// journey the business page is part of.
-const SERVICES = ['training', 'staffing', 'sdlc', 'processes'];
+// AI-native tracks follow, business processes first.
+const SERVICES = ['training', 'staffing', 'processes', 'sdlc'];
 const DNA = ['1', '2', '3', '4'];
 
 export const page = {

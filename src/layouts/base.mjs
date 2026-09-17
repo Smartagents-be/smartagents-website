@@ -486,7 +486,7 @@ export function clipDefs(body) {
  * Home is first and is not redundant with the brand link beside it: the wordmark
  * is unlabelled, outside the nav landmark, and never takes `aria-current`.
  */
-const NAV_ITEMS = ['home', 'training', 'staffing', 'sdlc', 'processes', 'team', 'insights', 'jobs'];
+const NAV_ITEMS = ['home', 'training', 'staffing', 'processes', 'sdlc', 'team', 'insights', 'jobs'];
 
 /**
  * What the bar itself prints. Inzichten is in `NAV_ITEMS` for the phone sheet
