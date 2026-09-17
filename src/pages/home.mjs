@@ -95,7 +95,9 @@ function services(t, lang) {
     const content = html`    <span id="${id}-title" class="row__title">${t(`service.${key}.title`)}${href
       ? html`&nbsp;<span id="${id}-cue" class="row__cue" aria-hidden="true">&rarr;</span>`
       : ''}</span>
-    <span id="${id}-body" class="row__body">${t(`service.${key}.body`)}</span>`;
+    <span id="${id}-body" class="row__body">${t(`service.${key}.body`)}${href
+      ? html` <span id="${id}-more" class="row__more">${t('cta.more')}&nbsp;<span aria-hidden="true">&rarr;</span></span>`
+      : ''}</span>`;
 
     return href
       ? html`<a id="${id}" class="row" href="${href}">

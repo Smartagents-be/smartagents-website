@@ -495,6 +495,18 @@
   font-size: var(--text-ui-sm);
 }
 
+/* The homepage's four service rows only: a second, worded cue at the end of
+   the body copy, because the title's arrow sits 18px above the fold of a
+   440px-tall row and a reader scanning the body text alone never reaches it.
+   Not the site's row idiom generally — `.row__cue` after the title stays the
+   only cue everywhere else `.row` is used. */
+.row__more {
+  margin-left: 0.3em;
+  color: var(--text-accent);
+  font-weight: var(--weight-medium-plus);
+  white-space: nowrap;
+}
+
 /* One hover for the three lists that have rows: a wash, the row's own ink kept,
    3px of travel. The cue's extra 2px makes the arrow lead the row. */
 a.row:hover,
