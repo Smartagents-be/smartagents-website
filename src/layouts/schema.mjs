@@ -11,6 +11,7 @@
 // graph cannot outlive the sentence it was made from.
 import { SITE_ORIGIN, absolute, defaultLanguage, languages, pagePath } from '../../build/lib/i18n.mjs';
 import { EMAIL, PHONE } from '../components/contact-form/contact-form.mjs';
+import { profilePath } from '../pages/profiles.mjs';
 
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/smartagents-be/';
 
@@ -216,14 +217,21 @@ export function articleNode({ t, lang, url, key, published, image }) {
 }
 
 /** The founders, for the team page. */
-export function founderNodes(t) {
+export function founderNodes(t, lang) {
   return FOUNDERS.map((founder) =>
     node({
       '@type': 'Person',
       '@id': founderId(founder.key),
       name: founder.name,
       description: t(`team.person.${founder.key}.body`),
-      image: absolute(`/media/team/${founder.key}-440.jpg`),
+      /* The 880, matching the node each founder's own page declares under this
+         same `@id`: one person, one picture, whichever page states it. */
+      image: absolute(`/media/team/${founder.key}-880.jpg`),
+      /* Each founder has a canonical page of its own now, so the node names it
+         rather than leaving the team page as the only place a consumer can
+         resolve the person to a URL. Null in a language the profiles are not
+         published in, which `node()` drops. */
+      url: profilePath(founder.key, lang) ? absolute(profilePath(founder.key, lang)) : null,
       worksFor: { '@id': ORGANISATION_ID },
       sameAs: [founder.linkedin]
     })

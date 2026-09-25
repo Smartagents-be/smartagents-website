@@ -149,7 +149,7 @@ The production implementation of all of this lives in `src/`; see `SKILL.md` for
 
 ## Deviations from the design doc
 
-The doc is a fixed 1180px canvas rendered in a preview host. Thirteen things had to be decided
+The doc is a fixed 1180px canvas rendered in a preview host. Fifteen things had to be decided
 outside it, and are decided the same way everywhere in `src/`:
 
 1. **Responsive behaviour.** The three page measures (`--gutter-page`, `--gap-column`,
@@ -673,3 +673,57 @@ outside it, and are decided the same way everywhere in `src/`:
     already, when the petal became the swell: the bead sits lower (`top: 17%`, 88px of paper under
     the header rather than 26) because the swell's crown is hard against the right page edge and
     there was no reason left to crowd the bar.
+
+15. **A founder has a page of their own, drawn on the `SmartAgents Team Profiel`
+    artboard.** `/nl/team/tom-haeldermans/` and `/nl/team/axel-segers/` sit
+    under the team page the way the kata sits under training (item 12). The
+    hero is a breadcrumb (Team / name), then the portrait in a 400px left column
+    and the copy beside it: role pill, name, the bio's first paragraph as the
+    lede, three facts on hairlines, LinkedIn and the CV. Under it, "Over mij"
+    and "Opleiding en certificaten" are the split (heading on its cyan rule in
+    the narrow column, content in the wide), the career is a hairline row per
+    role (organisation, period and place left; role and what it was right), the
+    personal facts are three abreast. The artboard's expertise chips and "Realisaties" are
+    not built: the first is the tag row this README already refuses, and no
+    source records the second.
+
+    **The bio is in the first person, and these two pages are the only place on
+    the site that is.** Everything else speaks as the company — "we bouwen", "we
+    zeggen eerlijk waar AI niets toevoegt" — and a profile written that way puts
+    the firm between the reader and the person whose page they opened ("Tom
+    bouwt software", "Hij begon als onderzoeker"), which reads as a house
+    describing its staff. In "ik" the same sentences are the person answering
+    for themselves, which is the whole reason a profile page exists. The `je`
+    register for the reader is unchanged, and so is French `vous`.
+
+    Two things stay third person on purpose. The **`description` keys**, because
+    they are the search snippet, the Open Graph line and the `llms.txt` entry —
+    "I build software that has to keep running in production" is a result with
+    no subject in it. And the **career rows**, which are elliptical CV lines
+    with no subject at all ("Bouwde backends en data-integraties…"); reading
+    them as first person is what a CV already does, and prefixing five rows with
+    "Ik" would make a list out of a person.
+
+    **The portrait carries the page's one navy shape.** `profileField` — the
+    DNA disc's outline under its own id — hangs behind the 4:5 frame and breaks
+    out of it on the top-left and bottom-right, so the face is set on the field
+    rather than beside it, and the node field runs in it like every other shape.
+    It carries no magnet: the frame over it would hide the pull. The orbit rings
+    stand off the right flank behind the copy.
+
+    **The page carries no contact section and no closing band.** The artboard
+    ends on a navy band asking for a conversation; it is not built. A page
+    about a person is the wrong place to ask for the meeting twice, and the
+    header's `cta.talk` is the route to one.
+
+    **Nothing on the page is invented about a real person.** Every fact is read
+    off the CV, the public LinkedIn profile, or the isabel-sdlc deck, which is
+    where the three personal facts about Tom were already written down and
+    approved. Where a source is silent the block is absent rather than filled:
+    Axel carries no "Buiten het werk" section, because no source this repo can
+    see records one, and `facts: 0` in `PROFILES` is how that is said. This is
+    the people equivalent of the rule at the top of `schema.mjs` — a claim about
+    a person is worse than a claim about an offer, because the person has to live
+    with it. The house rule that nothing on this site names a programming
+    language or a build tool holds here too, which costs two of Tom's
+    certifications their place on the page; they are on the CV the page links.

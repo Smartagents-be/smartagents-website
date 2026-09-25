@@ -8,6 +8,7 @@
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join, raw } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
+import { profilePath } from './profiles.mjs';
 import { breadcrumbNode, founderNodes, homeStep } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
@@ -76,13 +77,13 @@ export const page = {
      page carries and `sameAs` their own LinkedIn profile. This is the only page
      that names a person, so it is the only one that declares one. */
   schema: ({ t, lang, url }) => [
-    ...founderNodes(t),
+    ...founderNodes(t, lang),
     breadcrumbNode([homeStep(t, lang), { name: t('nav.team'), url }])
   ],
 
   render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
-${hero(t)}
+${hero(t, lang)}
 ${story(t)}
 ${contact(t, lang)}
 
@@ -98,7 +99,7 @@ ${contact(t, lang)}
  * 86 and 118 because the whole drawing is the waist.
  * ------------------------------------------------------------------ */
 
-function hero(t) {
+function hero(t, lang) {
   return html`<section id="team-hero" class="hero hero--team" aria-labelledby="team-hero-title">
 ${orbitRings('team-hero')}
   <div id="team-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
@@ -108,7 +109,7 @@ ${orbitRings('team-hero')}
     <h1 id="team-hero-title">${t('team.hero.title')}</h1>
   </div>
   <div id="team-founders" class="founders">
-${join(FOUNDERS.map((founder, i) => person({ t, eager: i === 0, ...founder })))}
+${join(FOUNDERS.map((founder, i) => person({ t, lang, eager: i === 0, ...founder })))}
   </div>
 </section>`;
 }
@@ -120,14 +121,16 @@ ${join(FOUNDERS.map((founder, i) => person({ t, eager: i === 0, ...founder })))}
  *
  * @param {object} options
  * @param {Function} options.t
+ * @param {string} options.lang      the language being rendered
  * @param {string} options.key       string key, also the id suffix
  * @param {string} options.name      proper noun, never translated
  * @param {string} options.portrait  path stem in /media/team/, without width or extension
  * @param {string} options.linkedin  absolute profile URL
  * @param {boolean} options.eager    true for the portrait that is preloaded
  */
-function person({ t, key, name, portrait, linkedin, eager }) {
+function person({ t, lang, key, name, portrait, linkedin, eager }) {
   const id = `team-person-${key}`;
+  const profile = profilePath(key, lang);
 
   return html`    <article id="${id}" class="person">
       <picture id="${id}-picture" class="person__picture">
@@ -137,7 +140,19 @@ function person({ t, key, name, portrait, linkedin, eager }) {
       <div id="${id}-overlay" class="person__overlay">
         <h2 id="${id}-name" class="person__name">${name}</h2>
         <p id="${id}-body" class="person__body">${t(`team.person.${key}.body`)}</p>
-        <a id="${id}-linkedin" class="person__link" href="${linkedin}" target="_blank" rel="noopener noreferrer" aria-label="${name} ${t('team.linkedinLabel')}">${linkedinMark(`${id}-linkedin`)}</a>
+        <!-- The card cannot itself be a link, because it already contains one:
+             the LinkedIn mark. So the way down to the profile is a named link
+             beside it, which is the row__cue--named argument at card scale:
+             with two destinations in one box, an arrow alone is a difference
+             the reader has to notice before they can read it. It drops to the
+             mark alone in a language the profile is not published in, the rule
+             servicePath() follows everywhere else. -->
+        <div id="${id}-actions" class="person__actions">
+${profile
+    ? html`          <a id="${id}-profile" class="person__profile" href="${profile}">${t('profile.card.link', { name: name.split(' ')[0] })} <span id="${id}-profile-arrow" aria-hidden="true">&rarr;</span></a>
+`
+    : ''}          <a id="${id}-linkedin" class="person__link" href="${linkedin}" target="_blank" rel="noopener noreferrer" aria-label="${name} ${t('team.linkedinLabel')}">${linkedinMark(`${id}-linkedin`)}</a>
+        </div>
       </div>
     </article>`;
 }

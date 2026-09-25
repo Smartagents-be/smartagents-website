@@ -315,6 +315,10 @@ export function clipDefs(body) {
     // Ons DNA: the disc clips its helix too, including magnetic deformations.
     dnaField:
       'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
+    // A founder's profile: the DNA disc's outline, behind the portrait. Its own
+    // id rather than `dnaField` so a magnet on either can never rewrite the other.
+    profileField:
+      'M0.700,0.000 C0.884,0.000 1.000,0.096 1.000,0.226 C1.000,0.354 0.868,0.416 0.734,0.450 C0.662,0.469 0.620,0.518 0.614,0.626 C0.601,0.860 0.478,1.000 0.298,1.000 C0.112,1.000 0.000,0.890 0.000,0.750 C0.000,0.614 0.150,0.560 0.284,0.526 C0.350,0.509 0.394,0.466 0.400,0.352 C0.410,0.126 0.522,0.000 0.700,0.000 Z',
     // The small companion. The four handles are set by curvature rather than by
     // eye, so the radius runs on across each join instead of stepping — drawn by
     // eye the flank stepped 66px to 84px and read as a flat spot. Move an anchor

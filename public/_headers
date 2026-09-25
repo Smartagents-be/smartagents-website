@@ -80,6 +80,18 @@
 /media/SmartAgents_AI_Business_Teams_Onepager.pdf
   Link: <https://smartagents.be/nl/training/>; rel="canonical"
 
+# Tom's CV is the one file under /media/ that is a person rather than a product,
+# and it carries a home address, a mobile number and a date of birth. It is
+# published deliberately and linked from his profile, so it stays reachable —
+# but there is no reason for it to be a search result of its own, competing
+# with the page that frames it and putting those three facts in an index. The
+# canonical names that page for a crawler that takes the two for one; the
+# `noindex` is the part that matters. Revisit both if the CV is ever replaced
+# with a redacted export, which is the better answer to the same problem.
+/media/Tom_Haeldermans_CV.pdf
+  X-Robots-Tag: noindex
+  Link: <https://smartagents.be/nl/team/tom-haeldermans/>; rel="canonical"
+
 # The service worker must never be served stale.
 /sw.js
   Cache-Control: no-cache

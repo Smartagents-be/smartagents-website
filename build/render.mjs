@@ -34,6 +34,7 @@ import { page as staffingPage } from '../src/pages/staffing.mjs';
 import { page as sdlcPage } from '../src/pages/sdlc.mjs';
 import { page as processesPage } from '../src/pages/processes.mjs';
 import { page as teamPage } from '../src/pages/team.mjs';
+import { PROFILES, profilePages } from '../src/pages/profiles.mjs';
 import { page as jobsPage } from '../src/pages/jobs.mjs';
 import { readVacancies } from './lib/odoo-jobs.mjs';
 import { page as privacyPage } from '../src/pages/privacy/privacy.mjs';
@@ -44,8 +45,8 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(rootDir, 'dist');
 const contentDir = path.join(rootDir, 'src/content');
 
-// The four insight pages are generated from one list; see
-// src/pages/insights/insights.mjs.
+// The four insight pages and the two founder profiles are each generated from
+// one list; see src/pages/insights/insights.mjs and src/pages/profiles.mjs.
 const PAGES = [
   homePage,
   trainingPage,
@@ -55,6 +56,7 @@ const PAGES = [
   sdlcPage,
   processesPage,
   teamPage,
+  ...profilePages,
   jobsPage,
   insightsIndexPage,
   ...insightPages,
@@ -403,6 +405,7 @@ ${articles}
 ## Over
 
 ${line(t('team.hero.title'), pagePath(lang, teamPage.slugs[lang]), t('team.description'))}
+${PROFILES.map((profile) => `  ${line(profile.name, pagePath(lang, profile.slugs[lang]), t(`profile.${profile.key}.description`))}`).join('\n')}
 ${line(t('nav.jobs'), pagePath(lang, jobsPage.slugs[lang]), t('jobs.description'))}
 ${line(t('privacy.heading'), pagePath(lang, privacyPage.slugs[lang]), t('privacy.description'))}
 

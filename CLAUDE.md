@@ -2,8 +2,9 @@
 
 Pre-rendered static site, no backend, no framework. The public site is the
 redesigned homepage, six detail pages — training, AI staffing and coaching,
-the AI-native SDLC, AI-native businessprocessen, team, and jobs — one page below
-one of them (the agentic engineering kata, under training), the privacy notice,
+the AI-native SDLC, AI-native businessprocessen, team, and jobs — three pages
+below them (the agentic engineering kata under training, and a profile for each
+founder under team), the privacy notice,
 the "Inzichten" index and the four articles under it (NL / EN / FR); the
 password-gated `/secured/` area (internal documents and pitch decks) is live.
 
@@ -261,6 +262,50 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   warning. Jobs sends them to the vacancies one screen down, in the page's own
   words, and the privacy notice sends them to a person by mail, which is the
   channel the notice itself names for a data request.
+- **A founder has a page, and it is generated from the same list the team page
+  prints.** `src/pages/profiles.mjs` holds `PROFILES` — one entry per founder,
+  with its per-language slug under the team page's own (`team/tom-haeldermans`
+  and `team/axel-segers`, `equipe/…` in French) — and turns each entry into a
+  page module, so `build/render.mjs` spreads `profilePages` into `PAGES` and the
+  team page builds its cards' link down from the same list through
+  `profilePath()`. It is the kata's relationship to training, applied to people:
+  the id is the parent's plus a hyphen (`team-tom`), so `isCurrentNavItem` marks
+  Team while a reader is on one; the parent segment is written out rather than
+  read off `team.mjs`, because that page imports `profilePath` back and the pair
+  would close a cycle; and the breadcrumb's first step is a link up.
+  The layout is the `SmartAgents Team Profiel` design — see "Deviations from
+  the design doc", item 15, in the `smartagents-design` README: the portrait
+  left with the `profileField` navy shape behind it, the bio's first paragraph
+  as the hero's lede and the rest under "Over mij", the career as hairline rows
+  whose title key ("Rol · Organisatie") is split on its last interpunct, the
+  credentials with the trailing year split off their body key. The design's
+  closing navy band is not built: the page has no contact section, and the
+  header's `cta.talk` is the route to a conversation. **The career runs
+  newest first**, the order `INSIGHTS` uses and the order a CV is read in, and
+  the numbering in `src/i18n` was reversed with it so `career.1` is the top row
+  in both places. And **the bio speaks in the first person**, the only copy on
+  the site that does — the `description` keys stay third person because they are
+  the search snippet, and the career rows stay subjectless CV lines; both
+  reasons are in item 15. **Every fact about a
+  person is sourced**: the CV, the public LinkedIn profile, or the isabel-sdlc
+  deck, which is where Tom's three personal facts were already written down.
+  Nothing is invented about a real person, so where a source is silent the block
+  is absent rather than filled — `facts: 0` on Axel is that, and the comment
+  beside it says what it would take to turn the block on. **Nothing on the page
+  names a programming language or a build tool**, the same house rule the kata
+  page keeps: Tom holds two more certifications than the page prints and both
+  name a language in their title, so they stay on the CV one click away.
+  And **`PROFILES` carries the row counts** (`career`, `facts`, `credentials`)
+  rather than deriving them, because a flat string file cannot be asked how many
+  keys share a prefix — a missing key fails the build, so the number and the
+  copy check each other on every build.
+  The CV itself is `public/media/Tom_Haeldermans_CV.pdf`, shipped as-is and
+  named after the person for the reason a course fiche is named after its
+  course: the browser prints the file name in the download bar. The link reads
+  its size off the file at build time through `ficheKilobytes()`. Note that it
+  is the client's own CV and carries a home address, a mobile number and a date
+  of birth; it was published at the client's explicit call, so replacing it with
+  a redacted export is a decision to take with them, not silently.
 - **An insight is a page generated from a list.** `src/pages/insights/insights.mjs`
   holds `INSIGHTS` — one entry per article, with its per-language slug under that
   language's own word for the section (`inzichten/` · `insights/` · `analyses/`)

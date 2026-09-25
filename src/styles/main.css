@@ -2836,6 +2836,405 @@ sa-node-field {
   }
 }
 
+/* The two ways off a founder's card. The card itself cannot be the link — it
+   already contains the LinkedIn mark — so the named link and the mark share a
+   row, ranged apart, and the 44px mark sets the row's height. */
+.person__actions {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-6);
+}
+
+/* The mark carried its own top margin when it was the overlay's last child.
+   Inside the row that margin is the row's, and left on the child it was paid
+   twice: the overlay grew 62px and the scrim went from covering just under half
+   of each portrait on a phone to 60% of it. */
+.person__actions .person__link {
+  margin-top: 0;
+}
+
+/* The link down to the profile, in the arrowed idiom every other named cue on
+   the site uses. On navy, so it takes the bright cyan rather than the on-paper
+   accent, and it travels on hover like a row rather than lifting like a
+   button. */
+.person__profile {
+  transition: var(--transition-move), var(--transition-tint);
+  display: inline-flex;
+  gap: 0.4em;
+  align-items: center;
+  /* 44, not the 32 every other arrowed link on the site takes: it stands beside
+     the LinkedIn mark, which is a 44px square, and two targets in one row at
+     two different heights is the row failing to look like a row. */
+  min-height: 44px;
+  color: var(--text-on-dark);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium-plus);
+}
+
+.person__profile:hover {
+  color: var(--sa-cyan-bright);
+  transform: translateX(3px);
+}
+
+/* ------------------------------------------------------------------ *
+ * Detail pages — a founder's profile
+ *
+ * The `SmartAgents Team Profiel` artboard: a breadcrumb, then the portrait in
+ * a 400px left column with the page's one navy shape hung behind it, and the
+ * copy beside it — role pill, name, lede, three facts, two actions. Under the
+ * hero, every block is either the split (heading left on its cyan rule, content
+ * right) or a hairline list, and the page closes on a navy band.
+ *
+ * It is `.hero--profile` and not `.hero--page`: that 440px floor is the detail
+ * heroes' rhythm for a headline and two buttons, and this hero is sized by its
+ * portrait.
+ * ------------------------------------------------------------------ */
+
+.hero--profile {
+  padding: clamp(40px, 6vw, 72px) var(--gutter-page) 0;
+}
+
+.orbits--profile .orbits__origin {
+  top: 40%;
+  left: 92%;
+}
+
+.profile-trail {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin-bottom: clamp(28px, 4vw, 48px);
+  color: var(--text-faint);
+  font-size: var(--text-meta);
+}
+
+.profile-trail__up {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  font-weight: var(--weight-medium-plus);
+}
+
+.profile-trail__here {
+  color: var(--text-nav);
+}
+
+.profile-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, 400px) minmax(0, 1fr);
+  gap: clamp(36px, 6vw, 88px);
+  align-items: start;
+}
+
+.profile-hero__text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(0px, 2vw, 24px);
+}
+
+/* The role, as the pill over the name: the one fact that has to sit with it. */
+.profile-role {
+  align-self: flex-start;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-chip);
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+.hero--profile h1 {
+  /* A name is one line at these widths, so the 17ch measure `.hero h1` sets for
+     a sentence would only ever wrap it. */
+  max-width: none;
+  margin-top: var(--space-6);
+}
+
+/* The first paragraph of the bio, in the first person like the rest of it. */
+.profile-lede {
+  max-width: 52ch;
+  margin-top: var(--space-7);
+  color: var(--text-lead);
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.5;
+  letter-spacing: -0.008em;
+  text-wrap: pretty;
+}
+
+.profile-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 var(--space-11);
+  max-width: 600px;
+  margin-top: var(--space-11);
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: var(--text-ui);
+}
+
+.profile-facts__item {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.profile-facts__item dt {
+  color: var(--text-faint);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium-plus);
+}
+
+.profile-facts__item dd {
+  color: var(--text-strong);
+  font-weight: var(--weight-medium-plus);
+}
+
+/* A button carrying a brand mark. `.btn` is a flex container, so the space
+   authored between the mark and the label would otherwise collapse. */
+.btn--marked {
+  gap: 0.5em;
+}
+
+/* The portrait: 4:5 in a hairline frame, with `profileField` behind it. The
+   field breaks out on the top-left and the bottom-right, so the frame reads as
+   set onto the navy rather than beside it. The images are 2:3, so the frame
+   crops them from the foot and keeps the face. */
+.profile-portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.profile-portrait__field {
+  inset: -10% -12% -12% -16%;
+}
+
+[data-clip="profileField"] {
+  clip-path: url(#profileField);
+}
+
+.profile-portrait__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-dark);
+}
+
+.profile-portrait__image {
+  transition: filter var(--dur-move) var(--ease-out-expo);
+  width: 100%;
+  height: 100%;
+  filter: saturate(0.72) contrast(1.04);
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.profile-portrait:hover .profile-portrait__image {
+  filter: none;
+}
+
+/* No hover to undo the grade on a coarse pointer, so the portrait is itself —
+   the team page's own rule, for the same reason. */
+@media (hover: none) {
+  .profile-portrait__image {
+    filter: none;
+  }
+}
+
+/* The split: heading on its rule in the narrow column, content in the wide. */
+.profile-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+  gap: var(--gap-column);
+  align-items: start;
+}
+
+.profile-split > .section-heading {
+  justify-self: start;
+}
+
+.profile-prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 64ch;
+  padding-top: var(--space-7);
+  color: var(--text-nav);
+  font-size: var(--text-lede);
+  line-height: 1.66;
+}
+
+/* Loopbaan: where and when on the left, what on the right. */
+.profile-role-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+  gap: var(--gap-column);
+  align-items: baseline;
+  padding: var(--space-9) 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.profile-roles > :last-child {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.profile-role-row__where {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.profile-role-row__org {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-h3);
+}
+
+.profile-role-row__when {
+  color: var(--text-faint);
+  font-size: var(--text-meta);
+}
+
+.profile-role-row__years {
+  font-variant-numeric: tabular-nums;
+}
+
+.profile-role-row__what {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.profile-role-row__role {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
+}
+
+.profile-role-row__body {
+  color: var(--text-body);
+  font-size: var(--text-copy-lg);
+  line-height: 1.62;
+}
+
+/* Opleiding en certificaten: credential and issuer, the year set apart. */
+.profile-credentials {
+  display: grid;
+  padding-top: var(--space-7);
+  list-style: none;
+}
+
+.profile-credential {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-6);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.profile-credential:last-child {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.profile-credential__what {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.profile-credential__title {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
+}
+
+.profile-credential__issuer {
+  color: var(--text-muted);
+  font-size: var(--text-ui);
+}
+
+.profile-credential__year {
+  color: var(--text-faint);
+  font-size: var(--text-meta);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Buiten het werk: three abreast on hairlines. */
+.profile-asides {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-1) var(--space-12);
+}
+
+.profile-aside {
+  padding: var(--space-9) 0;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.profile-aside__title {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-h3);
+}
+
+.profile-aside__body {
+  margin-top: var(--space-3);
+  color: var(--text-body);
+  font-size: var(--text-copy);
+  line-height: 1.6;
+}
+
+/* Stacked below the desk: the portrait leads, capped so it stays a portrait
+   rather than a banner, and every split becomes one column. */
+@media (width < 1001px) {
+  .profile-hero,
+  .profile-split,
+  .profile-role-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .profile-portrait {
+    max-width: 360px;
+  }
+
+  .profile-split {
+    gap: var(--space-6);
+  }
+
+  .profile-role-row {
+    gap: var(--space-3);
+  }
+
+  /* `critical.css` holds `.hero__text` to 80% on a phone to keep copy clear of
+     a flank silhouette; this hero's shape is behind the portrait. */
+  .hero--profile .hero__text {
+    max-width: none;
+  }
+}
+
+@media (width < 621px) {
+  .profile-facts,
+  .profile-asides {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The field breaks out of the frame by a share of it; on a phone the left
+     break-out would reach into the gutter, so it is pulled in on that side. */
+  .profile-portrait__field {
+    inset: -8% -10% -10% -8%;
+  }
+}
+
 /* ------------------------------------------------------------------ *
  * Detail pages — an insight
  *
