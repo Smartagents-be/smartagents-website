@@ -42,8 +42,10 @@ const TOM_CV = 'Tom_Haeldermans_CV.pdf';
  * `key` names the person and is the id stem, the translation-key stem and the
  * portrait stem; `slugs` is the URL segment per language, under the team page's
  * own slug; `career` is the period each career row prints, one per
- * `profile.<key>.career.<n>` entry, newest first; `facts` and `credentials` are
- * how many rows those two blocks have, `0` meaning the block is not printed.
+ * `profile.<key>.career.<n>` entry, newest first; `about` is how many bio
+ * paragraphs there are, the first being the hero's lede; `facts` and
+ * `credentials` are how many rows those two blocks have, `0` meaning the block
+ * is not printed.
  *
  * The counts live here rather than being derived, because a string file cannot
  * be asked how many keys share a prefix and a missing key fails the build — so
@@ -60,6 +62,7 @@ export const PROFILES = [
     },
     linkedin: 'https://www.linkedin.com/in/axelsegers/',
     career: ['2026–', '2024–26', '2022–24', '2016–24', '1999–22'],
+    about: 2,
     // No personal facts about Axel exist in any source this repo can see — the
     // isabel-sdlc deck wrote three for Tom and none for him. Inventing them is
     // the one thing the rule at the top of this file forbids, so the block is
@@ -79,6 +82,7 @@ export const PROFILES = [
     linkedin: 'https://www.linkedin.com/in/tom-haeldermans-862172117/',
     cv: TOM_CV,
     career: ['2026–', '2026–', '2021–26', '2021–24', '2016–21'],
+    about: 3,
     facts: 3,
     credentials: 8
   }
@@ -95,10 +99,9 @@ const SPEC = ['base', 'focus', 'background'];
 
 /**
  * The bio's paragraphs. The first is the hero's lede, beside the face; the rest
- * are the "Over mij" block under it. Both profiles run to three.
+ * are the "Over mij" block under it, as many as the profile's `about` says.
  */
 const LEDE = '1';
-const ABOUT = ['2', '3'];
 
 /** Widths shipped for every portrait, smallest first — the team page's own set. */
 const PORTRAIT_WIDTHS = [320, 440, 880];
@@ -289,14 +292,15 @@ ${cv
  * ------------------------------------------------------------------ */
 
 function about({ t, profile }) {
-  const { key } = profile;
+  const { key, about: count } = profile;
   const id = `profile-${key}-about`;
+  const paragraphs = Array.from({ length: count - 1 }, (_, i) => String(i + 2));
 
   return html`<section id="${id}" class="section" aria-labelledby="${id}-title">
   <div id="${id}-split" class="profile-split">
     <h2 id="${id}-title" class="section-heading">${t('profile.about.title')}</h2>
     <div id="${id}-body" class="profile-prose">
-${join(ABOUT.map((n) => html`      <p id="${id}-${n}">${t(`profile.${key}.about.${n}`)}</p>`))}
+${join(paragraphs.map((n) => html`      <p id="${id}-${n}">${t(`profile.${key}.about.${n}`)}</p>`))}
     </div>
   </div>
 </section>`;
