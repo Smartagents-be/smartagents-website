@@ -69,7 +69,7 @@ export const PROFILES = [
     // off until he supplies them. Three `profile.axel.fact.<n>.{title,body}`
     // entries per language and this number is all it takes.
     facts: 0,
-    credentials: 4
+    credentials: 0
   },
   {
     key: 'tom',
