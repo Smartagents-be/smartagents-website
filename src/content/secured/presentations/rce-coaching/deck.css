@@ -1,0 +1,45 @@
+/* The RCE figure on slide 03: one dot grid, the codebase, drawn three times.
+   Restrict puts a boundary round a patch of it, contain works that patch one
+   item at a time, expand keeps the trusted patch and grows the boundary to
+   the whole grid. `margin-top: auto` sits the three on one baseline whatever
+   the step body above each one runs to. */
+.rce-fig {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: auto;
+  padding-top: 40px;
+  overflow: visible;
+}
+
+.rce-fig__dot {
+  fill: var(--sa-line-4);
+}
+
+.rce-fig__dot--in {
+  fill: var(--sa-ink);
+}
+
+.rce-fig__dot--done {
+  fill: var(--sa-cyan);
+}
+
+.rce-fig__dot--todo {
+  fill: none;
+  stroke: var(--sa-grey-3);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.rce-fig__bound,
+.rce-fig__focus {
+  fill: none;
+  stroke: var(--sa-cyan);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.rce-fig__bound--was {
+  stroke: var(--sa-grey-4);
+  stroke-dasharray: 6 6;
+}

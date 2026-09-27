@@ -1,0 +1,27 @@
+{
+  "title": "SmartAgents — Restrict, contain, expand",
+  "description": "SmartAgents coaching session: why AI over-reaches in a codebase, and how restricting, containing and then expanding its work keeps it trustworthy.",
+  "lang": "en",
+  "width": "1920",
+  "height": "1080",
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
+  "slides": [
+    "00-cover",
+    "01-starting-point",
+    "02-teacher",
+    "03-rules",
+    "04-quality",
+    "05-rce",
+    "06-restrict",
+    "07-contain",
+    "08-expand",
+    "09-models",
+    "10-today",
+    "11-close"
+  ]
+}

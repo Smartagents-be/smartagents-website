@@ -17,8 +17,8 @@ no public deck URL and no way to make one: a public page cannot link into `/secu
 ```
 src/content/secured/presentations/<slug>/
   deck.json          the title, the stage size, the slide order
-  deck.css           empty in seven of the ten decks; one figure in each of
-                     the other three
+  deck.css           empty in seven of the eleven decks; one figure in each of
+                     the other four
   assets/
     logo.svg         cyan mark, for a slide on paper
     logo-dark.svg    bright mark. `chrome()` in build/lib/decks.mjs picks it
@@ -133,14 +133,14 @@ invent a sibling. Sizes are absolute pixels against the 1920x1080 stage — neve
 clamp, which would measure against the browser window instead of the slide.
 
 Structure: `.slide` · `.slide--footed` · `.slide__inner` · `.slide__body`
-Head: `.rule` · `.slide__eyebrow` · `.slide__title` (`--sm`) · `.slide__lede` (`--sm`) · `.slide__note` · `.slide__source` (a credit on the footer line)
+Head: `.rule` · `.slide__eyebrow` · `.slide__title` (`--sm`) · `.slide__lede` (`--sm`, `--line`) · `.slide__note` (`--ink`) · `.slide__source` (a credit on the footer line)
 Rows: `.rows` (`--tight`) · `.row` · `.row__term` · `.row__detail`
 Statement: `.statement` · `.statement__support`
 Compare: `.compare` · `.compare__col` (`--then`) · `.compare__head` · `.compare__title` · `.compare__sub` · `.compare__list` · `.compare__item`
 Steps: `.steps` (`--3`, `--5`, `--lead`) · `.step` (`--ahead`) · `.step__num` · `.step__title` · `.step__body`
 Media: `.media` (`--flip`) · `.media__words` · `.media__frame` (`--fit`, `--audio`) · `.portraits`
 People: `.people` (`--solo`, `--flip`) · `.person` · `.person__photo` · `.person__text` · `.person__role` · `.person__name` · `.person__body` · `.person__meta`
-Cover and close: `.slide__brand` (`--lg`) · `.cover` · `.cover__title` · `.cover__sub` · `.cover__meta` · `.close` · `.close__title` · `.close__sub` · `.contact` · `.contact__end`
+Cover and close: `.slide__brand` (`--lg`) · `.cover` (`--wide`) · `.cover__title` (`--sm`) · `.cover__sub` · `.cover__meta` · `.close` · `.close__title` · `.close__sub` · `.contact` · `.contact__end`
 Wrap guard: `.nobreak`
 Dark shape: `.field` · `.slide__shape` (`--petal`, `--lobe`, `--wedge`) · `<sa-node-field>` · `.node` (`--lit`, `--dim`) · `.link`
 Orbits: `.orbits` (`--close`) · `.orbits__origin` · `.orbits__ring--01…05` · `.orbits__path--01…03` · `.orbits__node`
@@ -161,6 +161,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 | `isabel-sdlc` | `.flow`, `.hub`, `.slide-notes`, `.results`, `.metric`, `.finding`, `.invest`, `.task`, `.gates`, `.next`, `.lead-in` | Five figures and one uneven comparison, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
+| `rce-coaching` | `.rce-fig` | One dot grid drawn three times, under the restrict, contain and expand columns |
 
 That is the bar: a figure nothing else will ever want. A figure two decks want is shared
 today, not after the second copy. Nothing in that column overrides a shared class either: a

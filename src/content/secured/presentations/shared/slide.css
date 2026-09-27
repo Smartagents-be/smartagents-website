@@ -151,6 +151,12 @@ body {
   line-height: 1.55;
 }
 
+/* A lede that is one sentence meant to be read in one breath. The 44ch cap
+   breaks it mid-phrase; this lets it run the width of the slide instead. */
+.slide__lede--line {
+  max-width: none;
+}
+
 /* A source, a caveat, a duration. Mono, faint, and pushed to the foot of the
    content column so it lands on the same line whatever sits above it. */
 .slide__note {
@@ -160,6 +166,15 @@ body {
   font-size: 24px;
   line-height: 1.5;
   color: var(--sa-grey-6);
+}
+
+/* A note that is an instruction rather than a caveat, set at the head of
+   `.slide__body` over the figure it applies to. It takes the ink, and it
+   drops the auto margin, which inside the centred body would take all the
+   free space and push the block to the foot. */
+.slide__note--ink {
+  margin-top: 0;
+  color: var(--sa-ink);
 }
 
 /* A term that must not break across its own hyphen: a product name, `AI-ready`
@@ -722,6 +737,17 @@ body {
    file exists to end. */
 .cover__title--sm {
   font-size: 88px;
+}
+
+/* A cover whose title and sub are each meant to hold one line. The petal
+   curves away to the right below its waist, so the lower half of the slide
+   has room the 52% column does not use; the sub loses its 22ch cap with it. */
+.cover--wide {
+  width: 64%;
+}
+
+.cover--wide .cover__sub {
+  max-width: none;
 }
 
 .cover__sub {
