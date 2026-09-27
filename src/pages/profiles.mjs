@@ -254,7 +254,7 @@ ${parent
   <div id="${id}-grid" class="profile-hero">
     <div id="${id}-portrait" class="profile-portrait">
       <div id="${id}-field-slot" class="field-slot profile-portrait__field" aria-hidden="true">
-        <div id="${id}-field" class="field" data-clip="profileField"><sa-node-field id="${id}-nodes"></sa-node-field></div>
+        <div id="${id}-field" class="field" data-magnet data-magnet-free data-magnet-amp="92" data-clip="profileField"><sa-node-field id="${id}-nodes"></sa-node-field></div>
       </div>
       <div id="${id}-frame" class="profile-portrait__frame">
         <picture id="${id}-picture">
