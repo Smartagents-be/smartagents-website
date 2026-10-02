@@ -1097,6 +1097,17 @@ sa-node-field {
   }
 }
 
+/* A node on a sheet of paper is a dot stopped wherever the print caught it,
+   and Chrome writes it with a transparency group that macOS's PDF renderer
+   (Preview, Quick Look) draws as a pale square behind it — over the cover
+   title, on every exported deck. The rings are the figure; the dots stay on
+   screen. */
+@media print {
+  .orbits__path {
+    display: none;
+  }
+}
+
 /* ══ Footer ════════════════════════════════════════════════════════════════
    The chrome marker in a slide fragment expands to this at build time
    (build/lib/decks.mjs). The markup is fixed; only the look is ours.
