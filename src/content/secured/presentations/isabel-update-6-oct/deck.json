@@ -1,0 +1,23 @@
+{
+  "title": "SmartAgents — Isabel · Update and cake moments",
+  "description": "The Ponto update for 6 October 2026, and what is worth celebrating: the technical wins and the people ones.",
+  "lang": "en",
+  "width": "1920",
+  "height": "1080",
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
+  "slides": [
+    "00-cover",
+    "01-ponto",
+    "02-cake",
+    "03-more-important",
+    "04-people",
+    "05-trust",
+    "06-timeline",
+    "07-close"
+  ]
+}

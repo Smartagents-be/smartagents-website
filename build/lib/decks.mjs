@@ -14,6 +14,7 @@ const DECK_NAMES = {
   'kbc-staffing-pitch-en': 'KBC · AI Staffing (EN)',
   'advocatuur-pitch': 'Advocatuur · Procesoptimalisatie & AI',
   'isabel-sdlc': 'Isabel · AI-native SDLC',
+  'isabel-update-6-oct': 'Isabel · Update and cake moments, 6 October',
   'lease-lens-demo': 'LeaseLens demo'
 };
 
