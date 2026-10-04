@@ -2,17 +2,63 @@
 <section id="ontbijtsessie-slide-12" data-label="Bouwsteen RAG" class="slide slide--footed">
   <div id="ontbijtsessie-slide-12-inner" class="slide__inner">
 
-    <div id="ontbijtsessie-slide-12-head" class="slide__head">
-      <div id="ontbijtsessie-slide-12-rule" class="rule" aria-hidden="true"></div>
-      <p id="ontbijtsessie-slide-12-eyebrow" class="slide__eyebrow">Bouwsteen 02 van 04</p>
-    </div>
+    <div id="ontbijtsessie-slide-12-media" class="media media--flip">
+      <div id="ontbijtsessie-slide-12-words" class="media__words">
+        <div id="ontbijtsessie-slide-12-rule" class="rule" aria-hidden="true"></div>
+        <p id="ontbijtsessie-slide-12-eyebrow" class="slide__eyebrow">Bouwsteen 02 van 04</p>
+        <h2 id="ontbijtsessie-slide-12-title" class="slide__title slide__title--sm">AI met jouw documenten erbij</h2>
+        <p id="ontbijtsessie-slide-12-lede" class="slide__lede slide__lede--sm">Retrieval-Augmented Generation, in gewone taal. Voor elke vraag eerst zoeken in jouw kennisbank, dan pas antwoorden, met bronvermelding.</p>
+        <p id="ontbijtsessie-slide-12-note" class="slide__note">Citeert in plaats van te verzinnen. Elk antwoord herleidbaar naar de bron.</p>
+      </div>
 
-    <div id="ontbijtsessie-slide-12-body" class="slide__body">
-      <p id="ontbijtsessie-slide-12-statement" class="statement">AI met jouw documenten erbij.</p>
-      <p id="ontbijtsessie-slide-12-support" class="statement__support">Retrieval-Augmented Generation, in gewone taal. Voor elke vraag eerst zoeken in jouw kennisbank, dan pas antwoorden, met bronvermelding.</p>
-    </div>
+      <div id="ontbijtsessie-slide-12-frame" class="media__frame ui-stage">
+        <div id="ontbijtsessie-slide-12-app" class="ui rag" data-demo="rag">
+          <div id="ontbijtsessie-slide-12-app-bar" class="ui__bar">
+            <span id="ontbijtsessie-slide-12-app-titles" class="ui__titles">
+              <span id="ontbijtsessie-slide-12-app-title" class="ui__title">AI-assistent</span>
+              <span id="ontbijtsessie-slide-12-app-sub" class="ui__sub">met je documenten</span>
+            </span>
+          </div>
 
-    <p id="ontbijtsessie-slide-12-note" class="slide__note">Citeert in plaats van te verzinnen. Werkt op Office, PDF, e-mail en SharePoint. Elk antwoord herleidbaar naar de bron.</p>
+          <div id="ontbijtsessie-slide-12-app-body" class="ui__body ui-chat">
+            <div id="ontbijtsessie-slide-12-q" class="ui-msg ui-msg--user ui-step" data-wait="500">Wat is de opzegtermijn bij klant Bekaert?</div>
+
+            <div id="ontbijtsessie-slide-12-search" class="rag__search ui-step" data-wait="1200">
+              <span id="ontbijtsessie-slide-12-search-head" class="ui-row">
+                <span id="ontbijtsessie-slide-12-search-label" class="ui-label">Doorzoekt je kennisbank</span>
+                <span id="ontbijtsessie-slide-12-search-dots" class="ui-typing rag__dots" aria-hidden="true"><i id="ontbijtsessie-slide-12-search-dot-01"></i><i id="ontbijtsessie-slide-12-search-dot-02"></i><i id="ontbijtsessie-slide-12-search-dot-03"></i></span>
+              </span>
+              <div id="ontbijtsessie-slide-12-docs" class="ui-list rag__docs">
+                <div id="ontbijtsessie-slide-12-doc-01" class="ui-item ui-step" data-wait="700">
+                  <span id="ontbijtsessie-slide-12-doc-01-name" class="ui-item__main">Contract Bekaert.pdf</span>
+                  <span id="ontbijtsessie-slide-12-doc-01-meta" class="ui-item__end">2023</span>
+                </div>
+                <div id="ontbijtsessie-slide-12-doc-02" class="ui-item rag__hit ui-step" data-wait="550">
+                  <span id="ontbijtsessie-slide-12-doc-02-name" class="ui-item__main">Addendum 2024.pdf</span>
+                  <span id="ontbijtsessie-slide-12-doc-02-cite" class="ui-chip ui-chip--cite rag__cite ui-step" data-wait="1200">✓ art. 8.2</span>
+                </div>
+                <div id="ontbijtsessie-slide-12-doc-03" class="ui-item ui-step" data-wait="550">
+                  <span id="ontbijtsessie-slide-12-doc-03-name" class="ui-item__main">Mail Verhaegen</span>
+                  <span id="ontbijtsessie-slide-12-doc-03-meta" class="ui-item__end">apr. 2024</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="ontbijtsessie-slide-12-a" class="ui-msg ui-msg--ai ui-step" data-wait="1100">
+              <span id="ontbijtsessie-slide-12-a-text">Drie maanden. Het staat in artikel 8.2 van het addendum van mei 2024.</span>
+              <span id="ontbijtsessie-slide-12-a-chips" class="ui-chips">
+                <span id="ontbijtsessie-slide-12-a-cite" class="ui-chip ui-chip--cite">Addendum 2024.pdf · art. 8.2</span>
+              </span>
+            </div>
+          </div>
+
+          <div id="ontbijtsessie-slide-12-app-foot" class="ui__foot">
+            <span id="ontbijtsessie-slide-12-app-field" class="ui-field">Stel een vraag over je documenten…</span>
+            <span id="ontbijtsessie-slide-12-app-send" class="ui-send" aria-hidden="true">↑</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
   <!--chrome 12/30-->
