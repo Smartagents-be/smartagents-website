@@ -45,6 +45,9 @@ ${join(extraScripts)}
 `;
 }
 
+/** Clients whose material is listed together on the overview, by slug prefix. */
+const CLIENT_GROUPS = [{ key: 'isabel', prefix: 'isabel', title: 'Isabel' }];
+
 /** The /secured/ overview: internal documents and decks behind the password gate. */
 export function securedIndexPage({ documents, decks }) {
   const list = (scope, items) => html`<ul id="${scope}-list" class="list">
@@ -74,18 +77,27 @@ ${join(
   ${list(scope, items)}
 </section>`;
 
+  const deckItems = decks.map((deck) => ({ slug: deck.slug, name: deck.name, html: deck.url, pdf: deck.pdf }));
+
+  // A client with more than one thing behind the password gets a section of
+  // its own, ahead of the generic two. Membership is the slug prefix, so a new
+  // `isabel-*` document or deck lands here without being listed anywhere.
   const sections = [];
-  if (documents.length) {
-    sections.push(section('secured-documents', 'Documenten', documents));
+  const claimed = new Set();
+  for (const client of CLIENT_GROUPS) {
+    const items = [...documents, ...deckItems].filter((item) => item.slug.startsWith(client.prefix));
+    if (!items.length) continue;
+    items.forEach((item) => claimed.add(item.slug));
+    sections.push(section(`secured-client-${client.key}`, client.title, items));
   }
-  if (decks.length) {
-    sections.push(
-      section(
-        'secured-decks',
-        'Pitches',
-        decks.map((deck) => ({ slug: deck.slug, name: deck.name, html: deck.url, pdf: deck.pdf }))
-      )
-    );
+
+  const restDocuments = documents.filter((item) => !claimed.has(item.slug));
+  const restDecks = deckItems.filter((item) => !claimed.has(item.slug));
+  if (restDocuments.length) {
+    sections.push(section('secured-documents', 'Documenten', restDocuments));
+  }
+  if (restDecks.length) {
+    sections.push(section('secured-decks', 'Pitches', restDecks));
   }
   if (!sections.length) {
     sections.push(html`<p id="secured-empty" class="empty">Geen documenten beschikbaar.</p>`);
