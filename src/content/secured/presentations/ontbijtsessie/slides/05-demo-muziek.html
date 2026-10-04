@@ -2,16 +2,51 @@
 <section id="ontbijtsessie-slide-05" data-label="Demo muziek" class="slide slide--footed">
   <div id="ontbijtsessie-slide-05-inner" class="slide__inner">
 
-    <div id="ontbijtsessie-slide-05-media" class="media media--flip">
+    <div id="ontbijtsessie-slide-05-media" class="media">
       <div id="ontbijtsessie-slide-05-words" class="media__words">
         <div id="ontbijtsessie-slide-05-rule" class="rule" aria-hidden="true"></div>
+        <p id="ontbijtsessie-slide-05-eyebrow" class="slide__eyebrow">Demo 03 · Suno</p>
         <h2 id="ontbijtsessie-slide-05-title" class="slide__title slide__title--sm">Een liedje over jouw bedrijf</h2>
-        <p id="ontbijtsessie-slide-05-prompt" class="slide__lede slide__lede--sm">De prompt: "Een introductie bij een ontbijtsessie van Aviso+ over artificiële intelligentie."</p>
-        <p id="ontbijtsessie-slide-05-style" class="slide__lede slide__lede--sm">Stijl en stem kies je uit een lijst: schlager-rock met stevige gitaren en een meezingrefrein. Twintig seconden wachten, en het nummer staat er.</p>
-        <p id="ontbijtsessie-slide-05-note" class="slide__note">Demo 03 · Suno. Gevraagde toon: een energieke ochtendstart, optimistisch over wat AI voor je werk kan betekenen. Voor achtergrondmuziek, wachtmuziek, social media, een event-intro of een podcast-intro.</p>
+        <p id="ontbijtsessie-slide-05-lede" class="slide__lede slide__lede--sm">Eén prompt van een paar zinnen. Stijl en stem kies je uit een lijst. Twintig seconden wachten, en het nummer staat er.</p>
+        <p id="ontbijtsessie-slide-05-note" class="slide__note">Voor achtergrondmuziek, wachtmuziek, social media, een event-intro of een podcast-intro.</p>
       </div>
-      <div id="ontbijtsessie-slide-05-frame" class="media__frame media__frame--audio">
-        <audio id="ontbijtsessie-slide-05-audio" title="Aviso ochtendstart, geschreven en gezongen door Suno" src="assets/aviso-ochtendstart.mp3" controls preload="metadata"></audio>
+
+      <div id="ontbijtsessie-slide-05-frame" class="media__frame ui-stage">
+        <div id="ontbijtsessie-slide-05-track" class="ui track" data-demo="music">
+          <div id="ontbijtsessie-slide-05-track-bar" class="ui__bar">
+            <div id="ontbijtsessie-slide-05-track-titles" class="ui__titles">
+              <span id="ontbijtsessie-slide-05-track-title" class="ui__title">Aviso ochtendstart</span>
+              <span id="ontbijtsessie-slide-05-track-sub" class="ui__sub">Geschreven en gezongen door Suno</span>
+            </div>
+            <span id="ontbijtsessie-slide-05-track-meta" class="ui__meta">Klaar in 20 s</span>
+          </div>
+
+          <div id="ontbijtsessie-slide-05-track-body" class="ui__body">
+            <div id="ontbijtsessie-slide-05-track-prompt" class="track__block">
+              <span id="ontbijtsessie-slide-05-track-prompt-label" class="ui-label">Prompt</span>
+              <p id="ontbijtsessie-slide-05-track-prompt-text" class="track__prompt">"Een introductie bij een ontbijtsessie van Aviso+ over artificiële intelligentie. Een energieke ochtendstart, optimistisch over wat AI voor je werk kan betekenen."</p>
+            </div>
+
+            <div id="ontbijtsessie-slide-05-track-style" class="track__block">
+              <span id="ontbijtsessie-slide-05-track-style-label" class="ui-label">Stijl</span>
+              <div id="ontbijtsessie-slide-05-track-chips" class="ui-chips">
+                <span id="ontbijtsessie-slide-05-track-chip-genre" class="ui-chip">Schlager-rock</span>
+                <span id="ontbijtsessie-slide-05-track-chip-gitaar" class="ui-chip">Stevige gitaren</span>
+                <span id="ontbijtsessie-slide-05-track-chip-refrein" class="ui-chip">Meezingrefrein</span>
+                <span id="ontbijtsessie-slide-05-track-chip-sfeer" class="ui-chip">Energiek</span>
+              </div>
+            </div>
+
+            <canvas id="ontbijtsessie-slide-05-track-wave" class="track__wave" aria-label="Golfvorm van het nummer, klik om te zoeken"></canvas>
+          </div>
+
+          <div id="ontbijtsessie-slide-05-track-foot" class="ui__foot">
+            <button id="ontbijtsessie-slide-05-track-play" class="ui-send track__play" type="button" aria-label="Afspelen of pauzeren">▶</button>
+            <span id="ontbijtsessie-slide-05-track-time" class="ui__meta track__time">0:00 / 0:00</span>
+          </div>
+
+          <audio id="ontbijtsessie-slide-05-audio" title="Aviso ochtendstart, geschreven en gezongen door Suno" src="assets/aviso-ochtendstart.mp3" preload="metadata"></audio>
+        </div>
       </div>
     </div>
 

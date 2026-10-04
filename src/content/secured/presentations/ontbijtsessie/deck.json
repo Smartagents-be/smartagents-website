@@ -7,7 +7,8 @@
     "../shared/slide.css"
   ],
   "scripts": [
-    "../shared/node-field.js"
+    "../shared/node-field.js",
+    "demo.js"
   ],
   "slides": [
     "00-cover",
