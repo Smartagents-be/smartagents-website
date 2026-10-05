@@ -15,6 +15,7 @@ const DECK_NAMES = {
   'advocatuur-pitch': 'Advocatuur · Procesoptimalisatie & AI',
   'isabel-sdlc': 'Isabel · AI-native SDLC',
   'isabel-update-6-oct': 'Isabel · Update and cake moments, 6 October',
+  'rce-coaching': 'Isabel · Coaching: restrict, contain, expand',
   'lease-lens-demo': 'LeaseLens demo'
 };
 

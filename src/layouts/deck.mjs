@@ -45,8 +45,12 @@ ${join(extraScripts)}
 `;
 }
 
-/** Clients whose material is listed together on the overview, by slug prefix. */
-const CLIENT_GROUPS = [{ key: 'isabel', prefix: 'isabel', title: 'Isabel' }];
+/**
+ * Clients whose material is listed together on the overview, by slug prefix,
+ * plus any slug named outright: a deck made for a client before the prefix
+ * rule existed keeps its URL, which has already been sent out.
+ */
+const CLIENT_GROUPS = [{ key: 'isabel', prefix: 'isabel', slugs: ['rce-coaching'], title: 'Isabel' }];
 
 /** The /secured/ overview: internal documents and decks behind the password gate. */
 export function securedIndexPage({ documents, decks }) {
@@ -85,7 +89,9 @@ ${join(
   const sections = [];
   const claimed = new Set();
   for (const client of CLIENT_GROUPS) {
-    const items = [...documents, ...deckItems].filter((item) => item.slug.startsWith(client.prefix));
+    const items = [...documents, ...deckItems].filter(
+      (item) => item.slug.startsWith(client.prefix) || client.slugs?.includes(item.slug)
+    );
     if (!items.length) continue;
     items.forEach((item) => claimed.add(item.slug));
     sections.push(section(`secured-client-${client.key}`, client.title, items));
