@@ -1086,7 +1086,39 @@ sa-node-field {
   }
 }
 
+/* ══ Builds ════════════════════════════════════════════════════════════════
+   An element with data-build="N" waits for the presenter's Nth forward press
+   on its slide; deck-stage.js sets data-built when it is due. It keeps its
+   box while hidden, so the slide never reflows as a step lands and
+   check:slides measures the slide with every step shown. Print and the PDF
+   export show every step. */
+
+[data-build] {
+  transition: opacity 360ms ease, transform 360ms ease, visibility 0s;
+}
+
+[data-build]:not([data-built]) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s 200ms;
+}
+
+@media print {
+  [data-build]:not([data-built]) {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  [data-build],
+  [data-build]:not([data-built]) {
+    transition: none;
+    transform: none;
+  }
+
   .orbits__path,
   .orbits__node {
     animation: none;

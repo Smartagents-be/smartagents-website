@@ -1265,20 +1265,75 @@
         return;
       }
       this._index = clamped;
+      this._setBuild(this._slides[clamped], 0);
       this._applyIndex({ showOverlay: true, broadcast: true, reason });
+    }
+
+    // ── Builds ────────────────────────────────────────────────────────────
+    //
+    // An element inside a slide carrying data-build="N" is hidden until the
+    // presenter has pressed forward N times on that slide; elements sharing a
+    // number appear together. Forward reveals the next step before it leaves
+    // the slide, back hides the last one before it returns to the previous
+    // slide, and arriving on a slide by going back shows every step, so
+    // stepping backwards never replays a build. A jump (number key, rail,
+    // Home) lands on step 0. The shown state is data-built on each element;
+    // slide.css hides the rest on screen and shows everything in print.
+
+    _buildSteps(slide) {
+      if (!slide) return [];
+      const steps = new Set();
+      slide.querySelectorAll('[data-build]').forEach((el) => {
+        const n = parseInt(el.getAttribute('data-build'), 10);
+        if (n > 0) steps.add(n);
+      });
+      return [...steps].sort((a, b) => a - b);
+    }
+
+    _setBuild(slide, step) {
+      if (!slide) return;
+      slide.dataset.buildStep = String(step);
+      slide.querySelectorAll('[data-build]').forEach((el) => {
+        el.toggleAttribute('data-built', parseInt(el.getAttribute('data-build'), 10) <= step);
+      });
+    }
+
+    /** Move one build step inside the current slide; false when there is none
+     *  left in that direction and the slide itself should change. */
+    _stepBuild(dir) {
+      const slide = this._slides[this._index];
+      const steps = this._buildSteps(slide);
+      if (!steps.length) return false;
+      const at = parseInt(slide.dataset.buildStep || '0', 10);
+      if (dir > 0) {
+        const next = steps.find((n) => n > at);
+        if (next === undefined) return false;
+        this._setBuild(slide, next);
+        return true;
+      }
+      const prev = steps.filter((n) => n < at);
+      if (at === 0) return false;
+      this._setBuild(slide, prev.length ? prev[prev.length - 1] : 0);
+      return true;
     }
 
     /** Step forward/back skipping any slide marked data-deck-skip. Falls
      *  back to _go's clamp-at-ends behaviour (flash overlay) when there's
-     *  nothing further in that direction. */
+     *  nothing further in that direction. A slide with builds steps through
+     *  them first. */
     _advance(dir, reason) {
       if (!this._slides.length) return;
+      if (this._stepBuild(dir)) return;
       let i = this._index + dir;
       while (i >= 0 && i < this._slides.length && this._slides[i].hasAttribute('data-deck-skip')) {
         i += dir;
       }
       if (i < 0 || i >= this._slides.length) { this._flashOverlay(); return; }
       this._go(i, reason);
+      if (dir < 0) {
+        const steps = this._buildSteps(this._slides[i]);
+        if (steps.length) this._setBuild(this._slides[i], steps[steps.length - 1]);
+      }
     }
 
     // ── Thumbnail rail ────────────────────────────────────────────────────
