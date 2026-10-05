@@ -15,13 +15,18 @@
     "01-starting-point",
     "02-teacher",
     "03-rules",
-    "04-quality",
-    "05-rce",
-    "06-restrict",
-    "07-contain",
-    "08-expand",
-    "09-models",
-    "10-today",
-    "11-close"
+    "04-dials",
+    "05-context",
+    "06-prompt",
+    "07-reads",
+    "08-code",
+    "09-prove",
+    "10-rce",
+    "11-restrict",
+    "12-contain",
+    "13-expand",
+    "14-models",
+    "15-today",
+    "16-close"
   ]
 }

@@ -1,4 +1,4 @@
-/* The RCE figure on slide 03: one dot grid, the codebase, drawn three times.
+/* The RCE figure on slide 10: one dot grid, the codebase, drawn three times.
    Restrict puts a boundary round a patch of it, contain works that patch one
    item at a time, expand keeps the trusted patch and grows the boundary to
    the whole grid. `margin-top: auto` sits the three on one baseline whatever
@@ -42,4 +42,498 @@
 .rce-fig__bound--was {
   stroke: var(--sa-grey-4);
   stroke-dasharray: 6 6;
+}
+
+/* The dials on slide 04: model, effort and context drawn as one rotary knob
+   three times, so they read as controls you set rather than meters you read.
+   The scale runs 270 degrees round the knob and lights cyan up to where the
+   pointer is turned. The context knob adds its zones: the ticks past the good
+   band are ink, as the window fills towards 200k, and the good band is a thin
+   bracket outside the scale. Labels are SVG text, so they scale with it. */
+.dials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 72px;
+}
+
+.dial {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dial__fig {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  overflow: visible;
+}
+
+.dial__scale {
+  fill: none;
+  stroke: var(--sa-line-4);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.dial__scale--lit {
+  stroke: var(--sa-cyan);
+}
+
+.dial__scale--much {
+  stroke: var(--sa-ink);
+}
+
+.dial__body {
+  fill: var(--sa-ink);
+}
+
+.dial__grip {
+  fill: none;
+  stroke: var(--sa-grey-2);
+  stroke-width: 3;
+}
+
+.dial__pointer {
+  stroke: var(--sa-paper);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.dial__band {
+  fill: none;
+  stroke: var(--sa-grey-3);
+  stroke-width: 2;
+}
+
+.dial__label {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  fill: var(--sa-grey-2);
+}
+
+.dial__label--mid {
+  text-anchor: middle;
+}
+
+.dial__label--end {
+  text-anchor: end;
+}
+
+.dial__name {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.dial__trade {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 20px;
+  font-size: 26px;
+  line-height: 1.45;
+}
+
+.dial__trade dt {
+  font-weight: var(--fw-medium);
+  color: var(--sa-ink);
+}
+
+.dial__trade dd {
+  margin: 0;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+/* The context layers on slide 05: the three layer names stand from the start
+   and each one's contents land one per click, from what is loaded before
+   anyone types to what a single task adds, and a fourth
+   click rings the prompt, the one item the reader writes every time. The ring
+   is drawn on rather than faded in: `pathLength="1"` lets one dash cover the
+   whole stroke whatever its real length. Its viewBox is close to the box it
+   is stretched over, so the stroke needs no `non-scaling-stroke`, which would
+   measure that dash in screen pixels and draw the ring as dots. */
+.ctx .row__term {
+  flex: 0 0 340px;
+}
+
+.ctx__detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ctx__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 56px;
+  font-size: 30px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  color: var(--sa-ink);
+}
+
+.ctx__aside {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+  text-wrap: pretty;
+}
+
+.ctx__command {
+  font-family: var(--font-mono);
+  color: var(--sa-ink);
+}
+
+.ctx__circled {
+  position: relative;
+}
+
+.ctx__circle {
+  position: absolute;
+  inset: -24px -36px -22px -34px;
+  width: calc(100% + 70px);
+  height: calc(100% + 46px);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.ctx__circle path {
+  fill: none;
+  stroke: var(--sa-cyan);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 700ms ease-out;
+}
+
+.ctx__circle:not([data-built]) path {
+  stroke-dashoffset: 1;
+}
+
+.ctx__circle[data-build] {
+  transform: none;
+}
+
+@media print {
+  .ctx__circle:not([data-built]) path {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The prompt sizes on slide 06: a bar under each column head, drawn to
+   scale, so the step from about 100 tokens to about 1,500 reads before the
+   number does. The plan's bar is 60% of the column and the basic prompt's is
+   a fifteenth of that. */
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 20px;
+  margin-top: 12px;
+}
+
+.tokens__note {
+  flex-basis: 100%;
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--sa-grey-3);
+}
+
+.tokens__bar--plan ~ .tokens__note {
+  color: var(--sa-cyan);
+  font-weight: var(--fw-medium);
+}
+
+.tokens__bar {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--sa-grey-4);
+}
+
+.tokens__bar--basic {
+  width: 4%;
+}
+
+.tokens__bar--plan {
+  width: 60%;
+  background: var(--sa-cyan);
+}
+
+.tokens__label {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  color: var(--sa-ink);
+  white-space: nowrap;
+}
+
+/* The figures under the columns on slide 06: a short ask that comes back as
+   a result with assumed lines in it, against an interview that comes back
+   as a plan with every line written. `margin-top: auto` sits both on the
+   column's foot so they line up whatever the lists above them run to. */
+.pfig {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  margin-top: auto;
+  overflow: visible;
+}
+
+.pfig__ask,
+.pfig__a {
+  fill: var(--sa-grey-4);
+}
+
+.pfig__q {
+  fill: none;
+  stroke: var(--sa-cyan);
+  stroke-width: 2.5;
+}
+
+.pfig__arrow {
+  fill: none;
+  stroke: var(--sa-grey-3);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pfig__doc {
+  fill: none;
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+}
+
+.pfig__line {
+  fill: none;
+  stroke: var(--sa-grey-3);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.pfig__line--assumed {
+  stroke: var(--sa-grey-4);
+  stroke-dasharray: 2 10;
+}
+
+.pfig__line--head {
+  stroke: var(--sa-cyan);
+  stroke-width: 8;
+}
+
+.pfig__mark {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: var(--fw-semibold);
+  fill: var(--sa-grey-3);
+}
+
+.pfig__label {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  fill: var(--sa-grey-2);
+  text-anchor: middle;
+}
+
+/* Slide 08: the words beside one context window drawn to scale, a task
+   midway through. Files it has read are the cyan block; everything else is
+   grey, with what is still free left as an outline. The counts are typical
+   rather than measured, which is why they carry a tilde. */
+.code-split {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 96px;
+  align-items: center;
+}
+
+.code-split__words {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.code-split__claim {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 32px;
+  line-height: 1.5;
+  color: var(--sa-ink);
+  text-wrap: pretty;
+}
+
+.code-split .row__term {
+  flex-basis: 42%;
+}
+
+.window {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.window__free {
+  fill: none;
+  stroke: var(--sa-grey-4);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+}
+
+.window__reads {
+  fill: var(--sa-cyan);
+}
+
+.window__prompt {
+  fill: var(--sa-ink);
+}
+
+.window__project {
+  fill: var(--sa-grey-4);
+}
+
+.window__always {
+  fill: var(--sa-line-4);
+}
+
+.window__caption,
+.window__count {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  fill: var(--sa-grey-3);
+}
+
+.window__label {
+  font-size: 24px;
+  fill: var(--sa-ink);
+}
+
+.window__label--lead {
+  font-size: 30px;
+  font-weight: var(--fw-semibold);
+}
+
+.window__count--lead {
+  font-size: 28px;
+  fill: var(--sa-cyan);
+}
+
+/* The loop on slide 09: four stations on one track, and a return line
+   under them from the last back to the first, which is the whole point: the
+   agent goes round without anybody between the stations. The track and the
+   return are struck from the station centres, a quarter of the width apart,
+   so they meet the dots whatever the copy under them runs to. */
+.loop__claim {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 32px;
+  line-height: 1.5;
+  color: var(--sa-ink);
+  text-wrap: pretty;
+}
+
+.loop {
+  position: relative;
+}
+
+.loop__stations {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.loop__stations::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: var(--sa-cyan);
+}
+
+.loop__station {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.loop__dot {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  border: 3px solid var(--sa-cyan);
+  background: var(--sa-paper);
+}
+
+.loop__title {
+  font-size: 34px;
+  line-height: 1.2;
+  letter-spacing: var(--ls-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.loop__body {
+  max-width: 18ch;
+  font-size: 26px;
+  line-height: 1.45;
+  color: var(--sa-grey-3);
+  text-wrap: balance;
+}
+
+.loop__return {
+  position: relative;
+  margin: 28px 12.5% 0;
+  height: 56px;
+  border: 2px solid var(--sa-cyan);
+  border-top: 0;
+  border-radius: 0 0 28px 28px;
+  display: flex;
+  justify-content: center;
+}
+
+/* The arrowhead, on the left end, pointing back up at the first station. */
+.loop__return::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -10px;
+  border: 9px solid transparent;
+  border-bottom: 14px solid var(--sa-cyan);
+  border-top: 0;
+}
+
+.loop__return-label {
+  position: absolute;
+  bottom: -18px;
+  padding: 0 24px;
+  background: var(--sa-paper);
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 36px;
+  color: var(--sa-ink);
+  white-space: nowrap;
+}
+
+.loop__end {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.5;
+  font-weight: var(--fw-medium);
+  color: var(--sa-ink);
 }

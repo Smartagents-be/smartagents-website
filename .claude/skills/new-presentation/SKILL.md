@@ -142,6 +142,7 @@ Media: `.media` (`--flip`) · `.media__words` · `.media__frame` (`--fit`, `--au
 People: `.people` (`--solo`, `--flip`) · `.person` · `.person__photo` · `.person__text` · `.person__role` · `.person__name` · `.person__body` · `.person__meta`
 Cover and close: `.slide__brand` (`--lg`) · `.cover` (`--wide`) · `.cover__title` (`--sm`) · `.cover__sub` · `.cover__meta` · `.close` · `.close__title` · `.close__sub` · `.contact` · `.contact__end`
 Wrap guard: `.nobreak`
+Builds: the `data-build="N"` attribute (see below)
 Dark shape: `.field` · `.slide__shape` (`--petal`, `--lobe`, `--wedge`) · `<sa-node-field>` · `.node` (`--lit`, `--dim`) · `.link`
 Orbits: `.orbits` (`--close`) · `.orbits__origin` · `.orbits__ring--01…05` · `.orbits__path--01…03` · `.orbits__node`
 
@@ -161,13 +162,35 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 | `isabel-sdlc` | `.flow`, `.hub`, `.slide-notes`, `.results`, `.metric`, `.finding`, `.invest`, `.task`, `.gates`, `.next`, `.lead-in` | Five figures and one uneven comparison, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
-| `rce-coaching` | `.rce-fig` | One dot grid drawn three times, under the restrict, contain and expand columns |
+| `rce-coaching` | `.rce-fig`, `.dials`, `.ctx`, `.tokens`, `.pfig`, `.code-split`, `.window`, `.loop` | One dot grid drawn three times, under the restrict, contain and expand columns; three knobs for model, effort and context; the context layers with the ring drawn round the prompt; the to-scale prompt sizes and the ask-versus-interview figures; one context window drawn to scale beside the words; the agent's test loop with its return line |
 
 That is the bar: a figure nothing else will ever want. A figure two decks want is shared
 today, not after the second copy. Nothing in that column overrides a shared class either: a
 deck that needs a shared class to behave differently gets a modifier in `shared/slide.css`
 (`.cover__title--sm` is one) rather than a redefinition in its own file, or the deck stops
 looking like the deck before it in exactly the way this stylesheet exists to prevent.
+
+### Builds: revealing a slide one click at a time
+
+Put `data-build="N"` on any element inside a slide and it stays hidden until the presenter
+has pressed forward N times on that slide. Elements that share a number appear together.
+Forward reveals the next step before it leaves the slide. Back hides the last step before it
+returns to the previous slide. Arriving on a slide by going back shows every step, so stepping
+backwards never replays a build. A jump (number key, rail, Home) lands on step 0. The logic
+is `_stepBuild` in `shared/deck-stage.js`, and the hide and fade are under "Builds" in
+`shared/slide.css`.
+
+- A hidden step keeps its box, so the slide never reflows as a step lands, and
+  `check:slides` measures the slide with every step in place.
+- Print and `export:pdfs` show every step, so the PDF is the finished slide.
+- The thumbnail rail clones a slide as it stands, so a thumb can show a slide half built.
+- Steps change only on a forward or back press. A mouse click on the slide does nothing,
+  so a presenter's clicker (which sends PageDown) and the arrow keys are what drive them.
+- Reach for it when the order of the reveal is the argument (`rce-coaching` slide 05 shows
+  the three context layers by name, fills them in one per click from always loaded to per
+  task, then rings the prompt). Build the contents, not the frame: names and hairlines that
+  stand from the start tell the room what is coming. Do not build
+  every slide: a deck that makes the room wait on every line is slower, not clearer.
 
 ## 4. The five rules that carry the look
 
@@ -187,16 +210,24 @@ Arrows are the character `→`. There are no icons; do not introduce an icon lib
 
 ## 5. Copy
 
-Apply the `blog-style` guide to every line of slide copy. On top of it, four rules that are
+Apply the `blog-style` guide to every line of slide copy. On top of it, six rules that are
 specific to slides:
 
 - **No em-dash (— or --) anywhere.** Use a comma, a colon, a full stop, or rewrite.
 - **No exclamation marks.**
 - **A slide holds one idea.** If the text will not fit, it is two slides, not a smaller font.
 - **The closing slide ends on a concrete action**, never a sentiment.
+- **No tagline lede.** A `.slide__lede` under a title is there only when it carries a fact the
+  rest of the slide does not. A line that sums the slide up in an aphorism ("Turn one up and
+  you get something back. You also pay for it.") is not one: the body already says it,
+  concretely, and the line costs the slide a band of height. When in doubt, leave the lede
+  out; a title over its rows, steps or figure is a complete head.
+- **No teaser note.** Do not end a slide on a `.slide__note` that announces the next one
+  ("More on that next."). The next slide is its own announcement, and the presenter says
+  the bridge out loud.
 
 Dutch by default, formal *u*, "we / ons / onze" for SmartAgents. A deck written in another
-language keeps the same voice and the same four rules, and sets `lang` in `deck.json`.
+language keeps the same voice and the same six rules, and sets `lang` in `deck.json`.
 
 Two things to watch in any language:
 
