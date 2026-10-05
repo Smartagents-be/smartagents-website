@@ -21,12 +21,13 @@
     "07-reads",
     "08-code",
     "09-prove",
-    "10-rce",
-    "11-restrict",
-    "12-contain",
-    "13-expand",
-    "14-models",
-    "15-today",
-    "16-close"
+    "10-workflows",
+    "11-rce",
+    "12-restrict",
+    "13-contain",
+    "14-expand",
+    "15-models",
+    "16-today",
+    "17-close"
   ]
 }

@@ -162,7 +162,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 | `isabel-sdlc` | `.flow`, `.hub`, `.slide-notes`, `.results`, `.metric`, `.finding`, `.invest`, `.task`, `.gates`, `.next`, `.lead-in` | Five figures and one uneven comparison, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
-| `rce-coaching` | `.rce-fig`, `.dials`, `.ctx`, `.tokens`, `.pfig`, `.code-split`, `.window`, `.loop` | One dot grid drawn three times, under the restrict, contain and expand columns; three knobs for model, effort and context; the context layers with the ring drawn round the prompt; the to-scale prompt sizes and the ask-versus-interview figures; one context window drawn to scale beside the words; the agent's test loop with its return line |
+| `rce-coaching` | `.rce-fig`, `.dials`, `.ctx`, `.tokens`, `.pfig`, `.code-split`, `.window`, `.loop`, `.workflows`, `.swap` | One dot grid drawn three times, under the restrict, contain and expand columns; three knobs for model, effort and context; the context layers with the ring drawn round the prompt; the to-scale prompt sizes and the ask-versus-interview figures; one context window drawn to scale beside the words; the agent's test loop with its return line; the tasks swapped for the setups that replace them |
 
 That is the bar: a figure nothing else will ever want. A figure two decks want is shared
 today, not after the second copy. Nothing in that column overrides a shared class either: a

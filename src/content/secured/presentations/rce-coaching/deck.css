@@ -1,4 +1,4 @@
-/* The RCE figure on slide 10: one dot grid, the codebase, drawn three times.
+/* The RCE figure on slide 11: one dot grid, the codebase, drawn three times.
    Restrict puts a boundary round a patch of it, contain works that patch one
    item at a time, expand keeps the trusted patch and grows the boundary to
    the whole grid. `margin-top: auto` sits the three on one baseline whatever
@@ -536,4 +536,63 @@
   line-height: 1.5;
   font-weight: var(--fw-medium);
   color: var(--sa-ink);
+}
+
+/* The swap on slide 10: a task on the left, in grey, and the setup that
+   replaces it on the right, in ink, on hairline rows. The arrow column is
+   fixed so the two sides line up down the list. */
+.workflows__claim,
+.workflows__payoff {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 32px;
+  line-height: 1.5;
+  color: var(--sa-ink);
+  text-wrap: pretty;
+}
+
+.workflows__payoff {
+  font-weight: var(--fw-medium);
+}
+
+.swap__row {
+  display: grid;
+  grid-template-columns: 1fr 96px 1fr;
+  align-items: baseline;
+  padding: 26px 0;
+  border-top: 1px solid var(--sa-line);
+}
+
+.swap__row:last-child {
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.swap__row--head {
+  padding: 0 0 14px;
+  border-top: 0;
+}
+
+.swap__label {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--sa-grey-3);
+}
+
+.swap__task {
+  font-size: 30px;
+  line-height: 1.35;
+  color: var(--sa-grey-3);
+}
+
+.swap__arrow {
+  font-size: 32px;
+  color: var(--sa-cyan);
+  text-align: center;
+}
+
+.swap__setup {
+  font-size: 32px;
+  line-height: 1.35;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
 }
