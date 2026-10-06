@@ -372,8 +372,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   deck's `deck.json` under `styles`. It is the `Slide Template` design canvas
   turned into classes, and it is what makes a deck's own `deck.css` empty: the
   ten decks that predate it each carried a thousand-plus lines copied from the
-  deck before, which is the drift it exists to end. Seven are empty now; the
-  other three keep one figure each, listed in the skill. The eight archetypes,
+  deck before, which is the drift it exists to end. Eight are empty now; the
+  other five keep figures of their own, listed in the skill. The eight archetypes,
   the ready markup for each and the rules that keep them on brand are in the
   `new-presentation` skill. Note that `check-dist.mjs` fails on an unexpanded
   chrome marker anywhere in `dist/`, comments in a stylesheet included.

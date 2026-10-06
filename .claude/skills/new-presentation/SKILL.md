@@ -17,8 +17,8 @@ no public deck URL and no way to make one: a public page cannot link into `/secu
 ```
 src/content/secured/presentations/<slug>/
   deck.json          the title, the stage size, the slide order
-  deck.css           empty in seven of the eleven decks; one figure in each of
-                     the other four
+  deck.css           empty in eight of the thirteen decks; figures of their
+                     own in the other five
   assets/
     logo.svg         cyan mark, for a slide on paper
     logo-dark.svg    bright mark. `chrome()` in build/lib/decks.mjs picks it
@@ -60,7 +60,7 @@ another language: it is what a screen reader and the browser's hyphenation read.
 `styles` is the important line. `../shared/slide.css` is the whole visual system; without
 it a slide renders as unstyled text. Every deck in the folder once carried a
 1000-to-1700-line `deck.css` copied from the deck before it, which is the thing this
-stylesheet exists to end; seven are empty now and the other three keep one figure each.
+stylesheet exists to end; eight are empty now and the other five keep figures of their own.
 **Do not copy an old `deck.css` into a new deck**, and do not start one: reach for a shared
 class, and if there isn't one, read §3 before you write a rule.
 
@@ -162,6 +162,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 | `isabel-sdlc` | `.flow`, `.hub`, `.slide-notes`, `.results`, `.metric`, `.finding`, `.invest`, `.task`, `.gates`, `.next`, `.lead-in` | Five figures and one uneven comparison, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
+| `isabel-update-6-oct` | `.cake` | A line-drawn cake on the two cake-moments slides, one candle per row |
 | `rce-coaching` | `.rce-fig`, `.dials`, `.ctx`, `.tokens`, `.pfig`, `.code-split`, `.window`, `.loop`, `.workflows`, `.swap` | One dot grid drawn three times, under the restrict, contain and expand columns; three knobs for model, effort and context; the context layers with the ring drawn round the prompt; the to-scale prompt sizes and the ask-versus-interview figures; one context window drawn to scale beside the words; the agent's test loop with its return line; the tasks swapped for the setups that replace them |
 
 That is the bar: a figure nothing else will ever want. A figure two decks want is shared

@@ -1,0 +1,36 @@
+/* ══ Cake ══════════════════════════════════════════════════════════════════
+   The two "cake moments" slides carry a line-drawn cake beside the heading,
+   one candle per row on the slide. Ink outline, cyan icing and flames: cyan
+   stays a line and a mark, never a fill of the tiers. */
+
+.cake {
+  position: absolute;
+  top: var(--pad-t);
+  right: var(--pad-x);
+  width: 254px;
+  height: auto;
+  overflow: visible;
+}
+
+.cake__plate,
+.cake__tier {
+  fill: none;
+  stroke: var(--sa-ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.cake__icing {
+  fill: none;
+  stroke: var(--sa-cyan);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.cake__candle {
+  fill: var(--sa-ink);
+}
+
+.cake__flame {
+  fill: var(--sa-cyan);
+}
