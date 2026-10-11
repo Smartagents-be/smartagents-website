@@ -24,7 +24,7 @@ separate archetype for it, so do not write one.
 So put the proposal on the right, always, even when the chronology runs the other way. The
 two lists must be the same length; an uneven pair reads as an argument that ran out.
 
-**Steps.** `.steps--3` and `.steps--5` change the column count and nothing else. `.step--ahead`
+**Steps.** Always with `.steps--lead`, which stands the number in front of its rule. `.steps--3` and `.steps--5` change the column count and nothing else. `.step--ahead`
 is the pale rule and the lighter title: use it for a step not yet reached, a phase outside the
 current scope, or an option not taken. A row of four steps that are all cyan is a row with no
 information in its rules; if every step is reached, the slide is a rows list.

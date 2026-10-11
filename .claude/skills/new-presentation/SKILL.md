@@ -103,7 +103,7 @@ the geometry of the dark shape. This is what each archetype is for.
 | Rows | `.rows` | A list of parallel points, each with a one-line gloss. | 4 rows |
 | Statement | `.statement` | One thought, set large. Slows the deck down. | Not two in a row |
 | Compare | `.compare` | Now against next. The right column is the answer. | Equal-length lists |
-| Steps | `.steps` | A progression with a direction. Cyan rule = reached. | 3 to 5 columns |
+| Steps | `.steps.steps--lead` | A progression with a direction. Cyan rule = reached. | 3 to 5 columns |
 | Media | `.media` | A screenshot, video or photograph with words beside it. | Alternate the side |
 | People | `.people` | Who is doing this. Portrait, name, role, one line. | 2 people |
 | Close | `.close` | The question you leave in the room, plus contact. | Last slide |
@@ -120,6 +120,13 @@ drops the heading to the middle with it.
 Two archetypes are their own body and take no wrapper: `.compare` and `.media` both grow to
 fill the slide themselves, and nesting them in `.slide__body` centres a thing that is already
 the full height. Rows, statement, steps and people all want the wrapper.
+
+**A steps slide puts the number in front of the line.** Every new `.steps` row carries
+`.steps--lead`: the `01` stands at the head of its own rule and the rule runs from the
+number to the column's edge, instead of the number sitting under a full-width rule. The
+rule keeps its meaning, cyan for reached and pale for `.step--ahead`. The bare `.steps`
+form is what the decks written before this rule still use; do not write a new one, and
+move an old slide over when you are editing it anyway.
 
 **A section divider is a statement with an eyebrow and no title.** A deck long enough to have
 parts says so on a slide of its own: `.slide__eyebrow` names the part, `.statement` says what
@@ -163,6 +170,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
 | `isabel-update-6-oct` | `.cake` | A line-drawn cake on the two cake-moments slides, one candle per row |
+| `isabel-testing-strategy` | `.shapes`, `.shape` | The testing pyramid and the testing honeycomb, drawn side by side at one scale; the honeycomb lands on the first forward press |
 | `rce-coaching` | `.rce-fig`, `.dials`, `.ctx`, `.tokens`, `.pfig`, `.code-split`, `.window`, `.loop`, `.workflows`, `.swap` | One dot grid drawn three times, under the restrict, contain and expand columns; three knobs for model, effort and context; the context layers with the ring drawn round the prompt; the to-scale prompt sizes and the ask-versus-interview figures; one context window drawn to scale beside the words; the agent's test loop with its return line; the tasks swapped for the setups that replace them |
 
 That is the bar: a figure nothing else will ever want. A figure two decks want is shared
@@ -330,6 +338,7 @@ overview, which offers it next to the "Bekijken" link.
 - [ ] `TT` equals the number of slides minus two
 - [ ] Cover and closing slide carry neither the marker nor `slide--footed`
 - [ ] No two consecutive slides use the same archetype
+- [ ] Every `.steps` row carries `.steps--lead`, so the number stands in front of the line
 - [ ] Every class used appears in `shared/slide.css`; nothing new went into `deck.css`
 - [ ] Every element inside a section has an id, scoped `<deck-slug>-slide-NN-<part>`
 - [ ] Every `<img>` has an `alt` (`alt=""` for the decorative mark)
