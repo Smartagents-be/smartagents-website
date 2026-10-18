@@ -1,0 +1,19 @@
+{
+  "title": "SmartAgents — Isabel · Update",
+  "description": "The Isabel update for 20 October 2026: a short pause on the AI-native SDLC sessions, and the local playgrounds for Ponto, XS2A and FIC that let the AI replay ISM tickets.",
+  "lang": "en",
+  "width": "1920",
+  "height": "1080",
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
+  "slides": [
+    "00-cover",
+    "01-update",
+    "02-playgrounds",
+    "03-close"
+  ]
+}

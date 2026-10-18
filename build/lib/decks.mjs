@@ -16,6 +16,7 @@ const DECK_NAMES = {
   'isabel-sdlc': 'Isabel · AI-native SDLC',
   'isabel-update-6-oct': 'Isabel · Update and cake moments, 6 October',
   'isabel-update-13-oct': 'Isabel · Ponto update, 13 October',
+  'isabel-update-20-oct': 'Isabel · Update and playgrounds, 20 October',
   'rce-coaching': 'Isabel · Coaching: restrict, contain, expand',
   'lease-lens-demo': 'LeaseLens demo'
 };
