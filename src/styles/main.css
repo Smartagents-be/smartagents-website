@@ -4772,13 +4772,6 @@ html:not([data-clause-spy]) .prose__heading:target,
   font-weight: var(--weight-medium);
 }
 
-.agent-map__label--hub {
-  fill: var(--sa-cyan);
-  font-family: var(--font-mono);
-  font-size: 16px;
-  font-weight: var(--weight-book);
-}
-
 .agent-map__agent {
   transform-box: fill-box;
   transform-origin: center;

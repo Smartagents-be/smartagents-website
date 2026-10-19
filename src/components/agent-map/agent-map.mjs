@@ -15,11 +15,11 @@ const HUB = { x: 306, y: 310 };
  * name stands relative to its node and which way it reads off that point.
  */
 const AGENTS = [
-  { key: 'mail', x: 299, y: 106, label: { x: 299, y: 74, anchor: 'middle' } },
-  { key: 'invoices', x: 470, y: 222, label: { x: 494, y: 206, anchor: 'start' } },
+  { key: 'tests', x: 299, y: 106, label: { x: 299, y: 74, anchor: 'middle' } },
+  { key: 'deploys', x: 470, y: 222, label: { x: 494, y: 206, anchor: 'start' } },
   { key: 'review', x: 399, y: 470, label: { x: 418, y: 506, anchor: 'start' } },
   { key: 'planning', x: 161, y: 440, label: { x: 146, y: 476, anchor: 'end' } },
-  { key: 'quotes', x: 138, y: 242, label: { x: 116, y: 226, anchor: 'end' } }
+  { key: 'fixes', x: 138, y: 242, label: { x: 116, y: 226, anchor: 'end' } }
 ];
 
 /** The work around the agents: small nodes, keyed by a two-digit name. */
@@ -42,17 +42,17 @@ const LARGE = new Set(['06', '11', '12', '17', '18', '25', '26', '27', '30']);
  * marked `flow` carry a pulse of their own now and then, out from the agent.
  */
 const EDGES = [
-  ['mail', '01'], ['01', '02'], ['mail', '02', 'flow'], ['02', '03'], ['02', '04'],
-  ['02', '05'], ['05', '06'], ['06', 'quotes'],
-  ['04', '08'], ['08', '07'], ['07', 'invoices', 'flow'], ['07', '09'],
-  ['09', 'invoices'], ['07', '10'], ['10', '11'], ['11', 'invoices'],
+  ['tests', '01'], ['01', '02'], ['tests', '02', 'flow'], ['02', '03'], ['02', '04'],
+  ['02', '05'], ['05', '06'], ['06', 'fixes'],
+  ['04', '08'], ['08', '07'], ['07', 'deploys', 'flow'], ['07', '09'],
+  ['09', 'deploys'], ['07', '10'], ['10', '11'], ['11', 'deploys'],
   ['11', '12'], ['10', '13'], ['13', '14'], ['14', '15'], ['15', '12'],
   ['15', '16'], ['16', 'review', 'flow'], ['review', '17'], ['17', '15'],
   ['review', '18'], ['18', '17'], ['review', '19'], ['19', '20'],
   ['20', '21'], ['21', '22'], ['22', '23'], ['23', '16'], ['20', '24'],
   ['24', 'planning', 'flow'], ['planning', '25'], ['24', '25'],
-  ['planning', '26'], ['26', '27'], ['27', '28'], ['28', 'quotes'],
-  ['quotes', '29', 'flow'], ['29', '28'], ['29', '30'], ['30', 'quotes']
+  ['planning', '26'], ['26', '27'], ['27', '28'], ['28', 'fixes'],
+  ['fixes', '29', 'flow'], ['29', '28'], ['29', '30'], ['30', 'fixes']
 ];
 
 const AT = Object.fromEntries(AGENTS.map((agent) => [agent.key, [agent.x, agent.y]]));
@@ -122,7 +122,6 @@ export function agentMap({ t, prefix }) {
         <circle id="${prefix}-hub-halo" class="agent-map__halo" cx="${HUB.x}" cy="${HUB.y}" r="40"/>
         <circle id="${prefix}-hub-body" class="agent-map__body" cx="${HUB.x}" cy="${HUB.y}" r="25"/>
         <circle id="${prefix}-hub-core" class="agent-map__core" cx="${HUB.x}" cy="${HUB.y}" r="5"/>
-        <text id="${prefix}-hub-label" class="agent-map__label agent-map__label--hub" x="${HUB.x - 50}" y="${HUB.y + 5}" text-anchor="end">${t('hero.map.team')}</text>
       </g>
       <g id="${prefix}-agents" class="agent-map__agents">
       ${join(agents, '\n      ')}
