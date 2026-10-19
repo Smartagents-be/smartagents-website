@@ -14,6 +14,7 @@
     "00-cover",
     "01-update",
     "02-playgrounds",
-    "03-close"
+    "03-base-image",
+    "04-close"
   ]
 }

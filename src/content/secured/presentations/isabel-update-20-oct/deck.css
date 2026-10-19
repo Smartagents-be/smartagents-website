@@ -129,3 +129,52 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* ══ Base image ════════════════════════════════════════════════════════════
+   Slide 03: the base image as a stack of layers, and each agent as its own
+   layer on a copy of that base, inside the node it will run on. The node's
+   boundary is pale and dashed because the VM is not there yet. The next
+   agents are drawn dashed and land on the first press. Reuses the line and
+   label classes of the playground figure above. */
+
+.bi__slab,
+.bi__layer {
+  fill: var(--sa-white);
+  stroke: var(--sa-ink);
+  stroke-width: 3;
+}
+
+.bi__base {
+  fill: none;
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+}
+
+.bi__base-name,
+.bi__name {
+  font-size: 40px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+  text-anchor: middle;
+  fill: var(--sa-ink);
+}
+
+.bi__name {
+  font-size: 34px;
+}
+
+.bi__node {
+  fill: none;
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+  stroke-dasharray: 12 10;
+}
+
+.bi--next .bi__layer {
+  stroke: var(--sa-grey-6);
+  stroke-dasharray: 12 10;
+}
+
+.bi--next .bi__name {
+  fill: var(--sa-grey-3);
+}
