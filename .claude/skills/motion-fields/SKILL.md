@@ -65,8 +65,12 @@ load-bearing unless it says otherwise.
   three shapes in a line are the composition either way, so they stay on a coarse
   pointer and under `prefers-reduced-motion`, and only the phone drops them.
 
-- **The homepage hero is the petal, the counter-lobe and one island between
-  them.** `homeHeroIsland` stands in `.hero__island-slot`, a slot of its own
+- **The homepage hero is the agent map, the counter-lobe and one island between
+  them.** The petal that stood in the right flank is gone: `.hero__map` holds
+  `<sa-agent-map>` (`src/components/agent-map/`), an inline SVG of the reader's
+  team with five agents on spokes, animated in CSS and paused off screen. It is
+  not a `.field` and takes no magnet; `heroPetal` is still defined in
+  `clipDefs()` but no page names it. The rest of this entry is the left flank. `homeHeroIsland` stands in `.hero__island-slot`, a slot of its own
   inside `.hero__field--left` rather than a box on that field, so a magnet may
   grow the flank's box without dragging the island with it. It takes an
   `aspect-ratio` of 1.3 for the reason the training bead does: the drawing in a

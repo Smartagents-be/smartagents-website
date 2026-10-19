@@ -22,7 +22,16 @@
   "cta.send": "Send message",
   "cta.more": "More",
 
-  "hero.claim": "Digital colleagues that never sleep",
+  "hero.claim.lead": "Digital colleagues",
+  "hero.claim.accent": "that never sleep.",
+  "hero.offer": "Our offer",
+  "hero.map.label": "Your team in the middle, connected to AI agents for mail, invoices, code review, planning and quotes.",
+  "hero.map.team": "your team",
+  "hero.map.mail": "Mail",
+  "hero.map.invoices": "Invoices",
+  "hero.map.review": "Code review",
+  "hero.map.planning": "Planning",
+  "hero.map.quotes": "Quotes",
 
   "section.services": "What we do",
   "section.dna": "Our DNA",

@@ -5,6 +5,7 @@
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings, servicePath } from '../layouts/base.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
+import { agentMap } from '../components/agent-map/agent-map.mjs';
 import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 
 // The four services, in the order they are offered. Training and AI staffing
@@ -20,7 +21,7 @@ export const page = {
 
   render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
-${hero(t)}
+${hero(t, lang)}
 ${services(t, lang)}
 ${dna(t)}
 ${insights(t, lang)}
@@ -38,11 +39,30 @@ ${contact(t, lang)}
  * why both can opt out of the nav guard with `data-magnet-free`.
  * ------------------------------------------------------------------ */
 
-function hero(t) {
-  return html`<section id="home-hero" class="hero">
+/**
+ * The offer in one line under the claim: the four services by the short name
+ * the nav prints, each a link where its page is published in this language.
+ */
+function heroOffer(t, lang) {
+  const items = SERVICES.map((key) => {
+    const href = servicePath(key, lang);
+    const label = t(`service.${key}.nav`);
+    return html`        <li id="home-hero-offer-${key}" class="hero__offer-item">${href
+      ? html`<a id="home-hero-offer-${key}-link" href="${href}">${label}</a>`
+      : label}</li>`;
+  });
+  return html`      <ul id="home-hero-offer" class="hero__offer" aria-label="${t('hero.offer')}">
+${join(items)}
+      </ul>`;
+}
+
+function hero(t, lang) {
+  return html`<section id="home-hero" class="hero hero--home">
 ${orbitRings('home-hero')}
-  <div id="home-hero-field-slot-right" class="field-slot hero__field hero__field--right" aria-hidden="true">
-    <div id="home-hero-field-right" class="field" data-magnet data-magnet-free data-magnet-pin="right" data-magnet-points="480" data-magnet-amp="86" data-magnet-sigma="118" data-clip="heroPetal"><sa-node-field id="home-hero-nodes-right"></sa-node-field></div>
+  <!-- The petal that stood here is the diagram now: the reader's team in the
+       middle and the agents around it, which is the claim beside it drawn. -->
+  <div id="home-hero-map-slot" class="hero__map">
+  ${agentMap({ t, prefix: 'home-hero-map' })}
   </div>
   <div id="home-hero-field-slot-left" class="field-slot hero__field hero__field--left" aria-hidden="true">
     <div id="home-hero-field-left" class="field" data-magnet data-magnet-free data-magnet-pin="left" data-magnet-points="360" data-magnet-amp="46" data-magnet-sigma="110" data-clip="heroLobe"><sa-node-field id="home-hero-nodes-left"></sa-node-field></div>
@@ -61,7 +81,13 @@ ${orbitRings('home-hero')}
            is the sentence the head has always carried in the page's own
            description key: read from there rather than written again, so the
            page and its search snippet can never say two different things. -->
-      <h1 id="home-hero-title">${t('hero.claim')}</h1>
+      <!-- Two halves, so the second can take the accent: the claim reads as one
+           sentence and ends on a full stop. -->
+      <h1 id="home-hero-title" class="hero__claim">
+        <span id="home-hero-title-lead" class="hero__claim-lead">${t('hero.claim.lead')}</span>
+        <span id="home-hero-title-accent" class="hero__claim-accent">${t('hero.claim.accent')}</span>
+      </h1>
+${heroOffer(t, lang)}
       <div id="home-hero-actions" class="hero__actions">
         <a id="home-hero-cta-talk" class="btn btn--primary" href="#contact">${t('cta.talk')}</a>
         <a id="home-hero-cta-work" class="btn btn--ghost" href="#services">${t('cta.seeWork')}</a>

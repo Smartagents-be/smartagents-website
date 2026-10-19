@@ -22,7 +22,16 @@
   "cta.send": "Envoyer le message",
   "cta.more": "En savoir plus",
 
-  "hero.claim": "Des collaborateurs virtuels actifs 24h/24 et 7j/7",
+  "hero.claim.lead": "Des collaborateurs virtuels",
+  "hero.claim.accent": "actifs 24h/24 et 7j/7.",
+  "hero.offer": "Notre offre",
+  "hero.map.label": "Votre équipe au centre, reliée à des agents IA pour le mail, les factures, la revue de code, le planning et les devis.",
+  "hero.map.team": "votre équipe",
+  "hero.map.mail": "Mail",
+  "hero.map.invoices": "Factures",
+  "hero.map.review": "Revue de code",
+  "hero.map.planning": "Planning",
+  "hero.map.quotes": "Devis",
 
   "section.services": "Ce que nous faisons",
   "section.dna": "Notre ADN",

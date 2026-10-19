@@ -22,7 +22,16 @@
   "cta.send": "Verstuur bericht",
   "cta.more": "Meer",
 
-  "hero.claim": "Digitale collega's die nooit slapen",
+  "hero.claim.lead": "Digitale collega's",
+  "hero.claim.accent": "die nooit slapen.",
+  "hero.offer": "Ons aanbod",
+  "hero.map.label": "Jouw team in het midden, verbonden met AI-agents voor mail, facturen, code review, planning en offertes.",
+  "hero.map.team": "jouw team",
+  "hero.map.mail": "Mail",
+  "hero.map.invoices": "Facturen",
+  "hero.map.review": "Code review",
+  "hero.map.planning": "Planning",
+  "hero.map.quotes": "Offertes",
 
   "section.services": "Wat we doen",
   "section.dna": "Ons DNA",
