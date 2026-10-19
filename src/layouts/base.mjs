@@ -479,7 +479,7 @@ export function clipDefs(body) {
 
 /**
  * The nav in reading order: the homepage, every service with a page behind it,
- * the team page, and the one homepage section a reader arrives looking for.
+ * the team page and the jobs page.
  *
  * Contact is not in the list at all: the button two items along goes to the same
  * anchor, in the bar and in the sheet alike. Jobs is last rather than beside the
@@ -490,23 +490,19 @@ export function clipDefs(body) {
  * Home is first and is not redundant with the brand link beside it: the wordmark
  * is unlabelled, outside the nav landmark, and never takes `aria-current`.
  */
-const NAV_ITEMS = ['home', 'training', 'staffing', 'processes', 'sdlc', 'team', 'insights', 'jobs'];
+const NAV_ITEMS = ['home', 'training', 'staffing', 'processes', 'sdlc', 'team', 'jobs'];
 
-/**
- * What the bar itself prints. Inzichten is in `NAV_ITEMS` for the phone sheet
- * alone: with four service names in the row there is no width left for a section
- * read on the way down the homepage anyway.
+/*
+ * The bar and the phone sheet print the same list. Inzichten used to be in the
+ * sheet alone — the bar has no width left for it with four service names in
+ * the row — and it is out of both now: it is a section read on the way down the
+ * homepage, and the footer links its index on every page.
  *
- * Jobs is in both, and was added knowing it does not quite fit — in French,
- * between 1181px and about 1240px, the primary action now stands 31px inside the
- * page gutter rather than on it. Nothing is clipped; the arithmetic and the
- * lever are in `.site-nav` in `critical.css`.
- *
- * The difference is emitted rather than painted over: a nav link hidden in CSS
- * ships in every HTML file at every width, buys nothing for anyone, and puts
- * what the bar contains in a stylesheet instead of here.
+ * Jobs was added knowing it does not quite fit — in French, between 1181px and
+ * about 1240px, the primary action now stands 31px inside the page gutter
+ * rather than on it. Nothing is clipped; the arithmetic and the lever are in
+ * `.site-nav` in `critical.css`.
  */
-const BAR_ITEMS = new Set(['home', 'training', 'staffing', 'sdlc', 'processes', 'team', 'jobs']);
 
 /**
  * Where a nav key points from `lang`. A service, the team page and the insights
@@ -606,7 +602,6 @@ export function siteHeader({ t, lang, alternates, pageId }) {
 
   // The key rides along as a modifier class so a single link stays nameable.
   const navLinks = items
-    .filter(({ key }) => BAR_ITEMS.has(key))
     .map(
       ({ key, href, label, current }) => html`<a id="nav-link-${key}" class="nav-link nav-link--${key}${current ? ' is-current' : ''}" href="${href}"${current ? raw(` aria-current="${navCurrentValue(key, pageId)}"`) : ''}>${label}</a>`
     );
@@ -654,9 +649,8 @@ ${languageSwitcher(lang, alternates, t, 'header', t('a11y.language'))}
  * Row one is the ways to reach a person, plus the two destinations the header
  * does not carry. The site's page names were cut from it: the header is sticky,
  * so a second copy of a permanently visible list is six more tab stops rather
- * than navigation. Inzichten stays because `BAR_ITEMS` drops it from the bar and
- * the phone sheet is hidden above 1180px — without this there is one link to the
- * section in a desk page. Jobs stays because the foot of a service page is where
+ * than navigation. Inzichten stays because no menu carries it — without this
+ * there is no link to the section's index from anywhere but the homepage. Jobs stays because the foot of a service page is where
  * a reader who has read to the end looks for it.
  *
  * The customer zone is not linked from here or anywhere public: it is a password

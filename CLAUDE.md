@@ -860,16 +860,15 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   of its own — it is part of what the staffing track does inside a project. All
   four article rows link too, through `insightPath()`. See "Deviations from the
   design doc" in the `smartagents-design` README.
-- **`NAV_ITEMS` is not what the bar prints.** `BAR_ITEMS` in
-  `src/layouts/base.mjs` is: home, the four services and the team page.
-  Inzichten is in `NAV_ITEMS` for the phone sheet alone, because with four
-  service names in the row there is no width left for a section that is read on
-  the way down the homepage anyway, and Contact is in neither — the button two items along goes
-  to the same anchor, in the bar and in the sheet. The difference is emitted
-  rather than hidden in CSS: a nav link that is `display: none` at every width
-  ships in every one of the site's HTML files, is out of the accessibility tree
-  too, and puts what the bar contains in a stylesheet instead of beside the
-  list.
+- **The bar and the phone sheet print one list.** `NAV_ITEMS` in
+  `src/layouts/base.mjs` is home, the four services, the team page and jobs.
+  Inzichten used to be in the sheet alone and is in neither now: it is a section
+  read on the way down the homepage, and the footer links its index on every
+  page. Contact is not in the list either — the button two items along goes to
+  the same anchor, in the bar and in the sheet. A nav link is left out of the
+  markup rather than hidden in CSS: one that is `display: none` at every width
+  ships in every one of the site's HTML files and puts what the bar contains in
+  a stylesheet instead of beside the list.
 - **A service has two names, and the nav prints the shorter one.**
   `service.<key>.nav` is what `navLabel()` reads for the bar and the sheet;
   `service.<key>.title` is what the homepage row and the page's own hero print.
