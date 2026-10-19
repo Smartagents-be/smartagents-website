@@ -13,6 +13,30 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
  */
 const TRACKS = ['engineer', 'developers', 'business'];
 
+/**
+ * What each track's panel says, in order, as keys under `staffing.track.<key>.`.
+ * A string is a paragraph; `{ lead }` is the line the copy opens on, `{ h }` a
+ * subheading and `{ list, n }` a bullet list of `<list>.1` … `<list>.n`. The
+ * engineer track is the one the page is titled after and the only one long
+ * enough to need headings; the other two are two paragraphs each.
+ */
+const COPY = {
+  engineer: [
+    { lead: 'lead' },
+    'intro.1',
+    'intro.2',
+    { h: 'embedded.title' },
+    'embedded.body',
+    { h: 'more.title' },
+    'more.body',
+    { list: 'more.point', n: 3 },
+    { h: 'ownership.title' },
+    'ownership.body'
+  ],
+  developers: ['body', 'how'],
+  business: ['body', 'how']
+};
+
 export const page = {
   id: 'staffing',
   slugs: { nl: 'ai-staffing', en: 'ai-staffing', fr: 'ai-staffing' },
@@ -125,8 +149,7 @@ function track({ t, key, open }) {
         <div id="${id}-panel" class="track__panel">
           <div id="${id}-panel-inner" class="track__inner">
             <div id="${id}-copy" class="track__copy">
-              <p id="${id}-body" class="track__body">${t(`staffing.track.${key}.body`)}</p>
-              <p id="${id}-how" class="track__body">${t(`staffing.track.${key}.how`)}</p>
+${join(COPY[key].map((block) => copyBlock({ t, key, id, block })))}
             </div>
             <div id="${id}-fit" class="track__fit">
               <p id="${id}-fit-label" class="track__fit-label">${t('staffing.track.fitLabel')}</p>
@@ -135,6 +158,32 @@ function track({ t, key, open }) {
           </div>
         </div>
       </details>`;
+}
+
+/**
+ * One block of a track's copy. Ids come from the key path with its dots turned
+ * to hyphens, so they are the same in every language and survive a reorder.
+ */
+function copyBlock({ t, key, id, block }) {
+  const k = (path) => `staffing.track.${key}.${path}`;
+  const slug = (path) => `${id}-${path.replaceAll('.', '-')}`;
+
+  if (typeof block === 'string') {
+    return html`              <p id="${slug(block)}" class="track__body">${t(k(block))}</p>`;
+  }
+  if (block.lead) {
+    return html`              <p id="${slug(block.lead)}" class="track__lead">${t(k(block.lead))}</p>`;
+  }
+  if (block.h) {
+    return html`              <h4 id="${slug(block.h)}" class="track__subtitle">${t(k(block.h))}</h4>`;
+  }
+  const items = Array.from({ length: block.n }, (_, i) => {
+    const path = `${block.list}.${i + 1}`;
+    return html`                <li id="${slug(path)}" class="track__point">${t(k(path))}</li>`;
+  });
+  return html`              <ul id="${slug(block.list)}s" class="track__points">
+${join(items)}
+              </ul>`;
 }
 
 function tracks(t) {

@@ -2500,6 +2500,36 @@ sa-node-field {
   margin-top: var(--space-6);
 }
 
+/* The line a long track opens on: a claim, so it takes the ink and the weight
+   the paragraphs under it do not. */
+.track__lead {
+  max-width: 80ch;
+  color: var(--text-strong);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+.track__lead + .track__body {
+  margin-top: var(--space-6);
+}
+
+/* A subheading inside an open track: one step under the track's own name, and
+   the gap above it larger than the one below, so it belongs to what follows. */
+.track__subtitle {
+  max-width: 80ch;
+  margin-top: var(--space-9);
+  color: var(--text-strong);
+  font-size: var(--text-lede);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-body-tight);
+}
+
+.track__subtitle + .track__body {
+  margin-top: var(--space-3);
+}
+
 /* "Past wanneer": the line that lets a reader rule a track out, set apart from
    the paragraphs above it by a rule across its top, because it answers a
    different question than they do. */
