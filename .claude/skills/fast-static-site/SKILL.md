@@ -162,8 +162,10 @@ this section is about network-level speed.
    `pointerenter`/`touchstart` for links in viewport.
 2. **Service worker** (Workbox or hand-written, under 5 KB):
    - Precache the app shell assets from the Vite manifest (JS, CSS, sprite, fonts).
-   - Runtime cache HTML pages with **stale-while-revalidate** so return visits render from cache
-     immediately and refresh in the background.
+   - Runtime cache HTML pages **network-first**, falling back to the cache when the network fails
+     or takes longer than a few seconds. Not stale-while-revalidate: for documents it hands every
+     returning visitor the previous deploy, and a plain reload goes through the worker and gets the
+     same stale copy again. With navigation preload enabled, asking the network first is cheap.
    - Cache images with cache-first and a size/age limit (e.g. 200 entries, 30 days).
    - Do not cache videos in the SW; let the browser HTTP cache handle range requests.
    - Enable navigation preload.

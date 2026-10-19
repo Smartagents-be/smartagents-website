@@ -934,3 +934,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   old chunk reachable until it ages out. `images-<version>` stays keyed on the
   assets, because `/media/` is un-hashed and the version is the only thing that
   can invalidate an image that changed under a URL it kept.
+  **Pages are network-first**, with the cache as the fallback when the network
+  fails or takes longer than `PAGE_TIMEOUT` (3s). They were stale-while-revalidate,
+  and even with the content-keyed cache that handed a returning visitor the
+  previous deploy on the first view of every page — and a plain reload goes
+  through the worker, so reloading showed the same stale copy again.

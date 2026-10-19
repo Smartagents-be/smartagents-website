@@ -82,10 +82,23 @@ async function trim(cacheName, limit) {
   await Promise.all(keys.slice(0, keys.length - limit).map((key) => cache.delete(key)));
 }
 
-/** HTML: stale-while-revalidate, so repeat views render from cache instantly. */
+/* How long a navigation waits on the network before it settles for the cached
+   copy. Long enough that an ordinary connection always wins, short enough that
+   a dead one does not leave the reader staring at a blank tab. */
+const PAGE_TIMEOUT = 3000;
+
+/**
+ * HTML: network first, the cache only when the network fails or is too slow.
+ *
+ * This was stale-while-revalidate, and that is the wrong trade for documents:
+ * every returning visitor was handed the previous deploy on every page they
+ * opened, and a plain reload goes through the worker too, so reloading handed
+ * them the same stale copy again — "I deployed and I still see the old page"
+ * was the design working as written. With navigation preload on, the network
+ * request starts while the worker boots, so asking it first costs little.
+ */
 async function handlePage(event) {
   const cache = await caches.open(PAGES);
-  const cached = await cache.match(event.request);
 
   const network = (async () => {
     const preload = await event.preloadResponse;
@@ -101,15 +114,23 @@ async function handlePage(event) {
     return response;
   })();
 
-  if (cached) {
-    event.waitUntil(network.catch(() => {}));
-    return cached;
-  }
+  // The fetch keeps running past the timeout, so a slow page still lands in
+  // the cache for next time.
+  event.waitUntil(network.catch(() => {}));
+
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error('timeout')), PAGE_TIMEOUT);
+  });
 
   try {
-    return await network;
+    return await Promise.race([network, timeout]);
   } catch (error) {
-    return cached || Response.error();
+    const cached = await cache.match(event.request);
+    // Timed out with nothing cached: wait for the network after all.
+    return cached || network.catch(() => Response.error());
+  } finally {
+    clearTimeout(timer);
   }
 }
 
