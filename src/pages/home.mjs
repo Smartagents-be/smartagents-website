@@ -8,10 +8,10 @@ import { contactSection } from '../components/contact-form/contact-form.mjs';
 import { agentMap } from '../components/agent-map/agent-map.mjs';
 import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 
-// The four services, in the order they are offered. Training and AI staffing
-// lead because they are the two a reader arrives already looking for; the two
-// AI-native tracks follow, business processes first.
-const SERVICES = ['training', 'staffing', 'processes', 'sdlc'];
+// The four services, in the order they are offered: training and coaching
+// first, then AI-native business processes, AI staffing and the AI-native SDLC.
+// The nav (`NAV_ITEMS` in base.mjs) and llms.txt print the same order.
+const SERVICES = ['training', 'processes', 'staffing', 'sdlc'];
 const DNA = ['1', '2', '3', '4'];
 
 export const page = {

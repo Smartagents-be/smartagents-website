@@ -351,7 +351,7 @@ export function clipDefs(body) {
     // the jobs join, the other traced union on the site.
     teamHeroPair:
       'M1,0.159 C0.976,0.149 0.908,0.108 0.859,0.098 C0.809,0.088 0.754,0.088 0.704,0.098 C0.655,0.108 0.602,0.129 0.562,0.158 C0.522,0.188 0.489,0.232 0.464,0.276 C0.438,0.320 0.436,0.378 0.410,0.422 C0.384,0.465 0.338,0.497 0.308,0.538 C0.277,0.579 0.238,0.621 0.225,0.668 C0.213,0.715 0.215,0.775 0.233,0.820 C0.251,0.864 0.293,0.907 0.334,0.935 C0.375,0.964 0.428,0.982 0.478,0.991 C0.528,1.000 0.583,0.999 0.633,0.990 C0.682,0.980 0.735,0.961 0.776,0.932 C0.817,0.904 0.855,0.863 0.880,0.819 C0.905,0.776 0.905,0.718 0.925,0.671 C0.945,0.624 0.987,0.560 1,0.538 L1,0.159 Z',
-    // AI staffing en coaching: an arch, one long descent from the top edge down
+    // AI staffing: an arch, one long descent from the top edge down
     // to the bottom right corner. Three turns of the same curve, each easing out
     // of the last, because struck as a single sweep it reads as a bevel — and
     // each catch is a place the cursor has something to pull on. Opened up to
@@ -490,7 +490,7 @@ export function clipDefs(body) {
  * Home is first and is not redundant with the brand link beside it: the wordmark
  * is unlabelled, outside the nav landmark, and never takes `aria-current`.
  */
-const NAV_ITEMS = ['home', 'training', 'staffing', 'processes', 'sdlc', 'team', 'jobs'];
+const NAV_ITEMS = ['home', 'training', 'processes', 'staffing', 'sdlc', 'team', 'jobs'];
 
 /*
  * The bar and the phone sheet print the same list. Inzichten used to be in the
@@ -529,7 +529,7 @@ function navHref(key, lang, home) {
  * than scrolled to. The full names only fit again from about 1480px up.
  *
  * So the drift is bought deliberately, under one rule: the short name is always
- * the long one's opening words ("AI staffing en coaching" -> "AI staffing"), the
+ * the long one's opening words ("AI training & coaching" -> "AI training"), the
  * two sit on adjacent lines in `src/i18n`, and the page's hero states the full
  * name within a screen of the click. A short name that is not the long one's
  * head is a second name, and then the two really can say different things.

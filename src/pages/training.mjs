@@ -1,7 +1,7 @@
-// The training page: the detail page behind the "Training en coaching" service
-// row on the homepage. It carries the offer itself: the two courses we run
-// today, each an editorial block rather than a card, in the redesign's own
-// language (hairlines, no numbering).
+// The training page: the detail page behind the "AI training en coaching"
+// service row on the homepage. It carries the offer itself: the two courses we
+// run today, each an editorial block rather than a card, in the redesign's own
+// language (hairlines, no numbering), and the two coaching tracks under them.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
 import { orbitRings } from '../layouts/base.mjs';
@@ -10,6 +10,7 @@ import { kataPath, FICHE as AGENTIC_FICHE } from './kata.mjs';
 import { businessPath, FICHE as BUSINESS_FICHE } from './business.mjs';
 import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
+import { track } from '../components/tracks/tracks.mjs';
 
 /**
  * The courses we run today, in the order they are offered.
@@ -27,6 +28,13 @@ const COURSES = [
 
 /** The `learn.n` lines every live course carries. */
 const LEARN = ['1', '2', '3', '4'];
+
+/**
+ * The coaching tracks, in the order they open: developers first, because the
+ * courses above end on the developer one. Each panel is two paragraphs, keyed
+ * under `training.coaching.<key>.`.
+ */
+const COACHING = ['developers', 'business'];
 
 /**
  * The facts strip under every course: what a prospect has to know before they
@@ -70,6 +78,7 @@ export const page = {
 ${hero(t)}
 ${offer(t, lang)}
 ${format(t)}
+${coaching(t)}
 ${contact(t, lang)}
 
 </main>`;
@@ -207,6 +216,36 @@ ${orbitRings('training-offer', 'orbits--offer')}
   <p id="training-offer-lede" class="section-lede">${t('training.offer.lede')}</p>
   <div id="training-offer-list" class="offer">
 ${join(columns)}
+  </div>
+</section>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Coaching — the two tracks, one open at a time
+ *
+ * A course is a day; coaching is weeks beside the team on its own work. They
+ * came here from the AI staffing page, where they stood under the engineer
+ * track: training and coaching are the same promise at two lengths, and the
+ * page says so in its name. It comes after "Hoe een opleiding verloopt", so
+ * the courses and how a course runs read together before the longer form. The
+ * panel and its rows are `tracks.mjs`, the one the staffing page prints its
+ * standing track with. No dark shapes flank it: the course tour above has its
+ * dome and stone.
+ * ------------------------------------------------------------------ */
+
+function coaching(t) {
+  const rows = COACHING.map((key, i) =>
+    track({ t, id: `training-coaching-${key}`, base: `training.coaching.${key}`, copy: ['body', 'how'], group: 'training-coaching', open: i === 0 })
+  );
+
+  return html`<section id="coaching" class="section" aria-labelledby="training-coaching-title">
+  <div id="training-coaching-head" class="section__head">
+    <h2 id="training-coaching-title" class="section-heading">${t('training.coaching.title')}</h2>
+  </div>
+  <div id="training-coaching-ground" class="tracks">
+    <sa-accordion id="training-coaching-panel" class="tracks__panel">
+${join(rows)}
+    </sa-accordion>
   </div>
 </section>`;
 }

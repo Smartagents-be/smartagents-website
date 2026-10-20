@@ -362,7 +362,7 @@ function renderLlmsTxt({ strings }) {
   // Neither the kata nor the business course is a fifth service: both are
   // courses inside the training offer, so each is a nested bullet under the
   // line it belongs to rather than an entry of its own in the list of four.
-  const services = ['training', 'staffing', 'sdlc', 'processes']
+  const services = ['training', 'processes', 'staffing', 'sdlc']
     .map((key) => {
       const slug = SERVICE_PAGES[key].slugs[lang];
       const entry = line(t(`service.${key}.title`), pagePath(lang, slug), t(`service.${key}.body`));

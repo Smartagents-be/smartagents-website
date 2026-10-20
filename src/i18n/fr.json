@@ -1,6 +1,6 @@
 {
   "home.title": "SmartAgents · Des collaborateurs virtuels actifs 24h/24 et 7j/7",
-  "home.description": "SmartAgents construit des collègues numériques pour les organisations belges : formation, AI staffing et coaching, un SDLC AI-native et des processus métier AI-native.",
+  "home.description": "SmartAgents construit des collègues numériques pour les organisations belges : formation IA et coaching, AI staffing, un SDLC AI-native et des processus métier AI-native.",
 
   "a11y.skip": "Aller au contenu",
   "a11y.mainNav": "Navigation principale",
@@ -36,10 +36,10 @@
   "section.dna": "Notre ADN",
   "section.insights": "Analyses",
 
-  "service.training.title": "Formation IA",
+  "service.training.title": "Formation IA & coaching",
   "service.training.nav": "Formation IA",
   "service.training.body": "Une formation à l'IA donnée par des experts qui en construisent tous les jours. Pas de présentations génériques ni de concepts théoriques, mais des ateliers intensifs autour de votre propre code et de vos cas métier. Nous préparons aussi bien les équipes business que les ingénieurs logiciels à ne pas seulement comprendre l'IA, mais à l'utiliser immédiatement de façon stratégique et efficace sur le terrain.",
-  "service.staffing.title": "AI staffing et coaching",
+  "service.staffing.title": "AI staffing",
   "service.staffing.nav": "AI staffing",
   "service.staffing.body": "Une expertise IA validée. Nous sélectionnons nos spécialistes sur leur expérience concrète et leur adéquation avec votre équipe, pas sur un joli CV. Vous obtenez ainsi des experts qui livrent des résultats immédiats.",
   "service.sdlc.title": "Transformation SDLC AI-native",
@@ -106,14 +106,14 @@
   "form.failed": "L'envoi n'a pas fonctionné. Écrivez-nous à info@smartagents.be.",
   "form.rateLimited": "Trop de messages nous parviennent en ce moment. Réessayez dans une heure ou appelez-nous.",
 
-  "training.title": "Formation · SmartAgents",
-  "training.description": "Des ateliers basés sur des projets, des exercices et des slides d'accompagnement. De la découverte de l'IA au développement quotidien avec des agents.",
+  "training.title": "Formation & coaching · SmartAgents",
+  "training.description": "Des ateliers basés sur des projets, des exercices et des slides d'accompagnement, et du coaching aux côtés de votre équipe sur son propre travail. De la découverte de l'IA au développement quotidien avec des agents.",
 
   "training.hero.title": "Maîtrise de l'IA : Pour Bâtisseurs et Décideurs",
 
   "training.cta.offer": "Voir notre offre",
 
-  "training.offer.title": "Notre offre",
+  "training.offer.title": "Notre offre de formation",
   "training.offer.learn": "Ce que vous apprenez",
   "training.offer.lede": "Nos formations rendent votre organisation plus agile et plus rapide. Les participants apprennent exactement quel modèle d'IA utiliser pour un impact maximal, sans gaspiller de capacité. Parce que les collaborateurs traitent eux-mêmes le travail de routine et les petites adaptations avec l'IA, la dépendance à l'aide externe disparaît et votre équipe gagne un temps considérable.",
 
@@ -142,6 +142,16 @@
   "training.course.agentic.learn.3": "Ce que coûte chaque requête, et comment le garder bas",
   "training.course.agentic.learn.4": "Garder la qualité du code : revue, tests, garde-fous",
   "training.course.agentic.detail": "Voir le programme",
+
+  "training.coaching.title": "Coaching sur le terrain",
+  "training.coaching.developers.title": "Coaching pour développeurs",
+  "training.coaching.developers.body": "Nous apprenons à vos ingénieurs à travailler avec l'IA en le faisant ensemble : expliquer, montrer et appliquer à leurs propres tickets, jusqu'à ce que cela reste.",
+  "training.coaching.developers.how": "Concrètement : une demi-journée par semaine aux côtés de vos développeurs, sur leurs propres tickets. Nous travaillons sur le même écran, montrons ce qu'un agent peut porter et ce qu'il ne peut pas, et mettons en place ensemble les workflows asynchrones qui font avancer le travail en dehors des heures de bureau. Ce que nous installons vous appartient et vit dans votre dépôt, pas dans nos notes.",
+  "training.coaching.developers.fit": "Vos développeurs utilisent déjà l'IA pour compléter le code, mais traiter un ticket de bout en bout ne va pas encore plus vite.",
+  "training.coaching.business.title": "Coaching pour les équipes métier",
+  "training.coaching.business.body": "Nous formons vos collaborateurs nous-mêmes : ce que l'IA peut faire et ce qu'elle ne peut pas, et comment l'utiliser sur leurs propres dossiers. Du coaching à côté du travail en cours, avec des patterns réutilisables plutôt que des prompts isolés.",
+  "training.coaching.business.how": "Concrètement : des sessions avec les personnes qui font le travail, sur leurs propres dossiers. Nous dessinons ensemble quelle étape l'IA reprend et laquelle non, nous l'inscrivons comme un workflow que votre équipe relance, et nous restons jusqu'à ce que cela tourne sans nous. Pas une bibliothèque de prompts, une manière de travailler.",
+  "training.coaching.business.fit": "Vos équipes utilisent déjà l'IA, chacune dans son coin, et personne ne peut dire ce qui est réellement gagné.",
 
   "training.format.title": "Comment se déroule une formation",
   "training.format.body": "Pas une présentation que l'on subit. Explications, exercices et labs alternent, avec du temps pour vos propres questions et un formateur qui regarde par-dessus votre épaule.",
@@ -293,8 +303,8 @@
   "business.cta.title": "Prêt à apprendre à votre équipe à utiliser l'IA ?",
   "business.cta.body": "Dites-nous brièvement où votre équipe bloque et qui participe. Nous proposons une journée sur mesure, chez nous, chez vous ou en ligne.",
 
-  "staffing.title": "AI staffing et coaching · SmartAgents",
-  "staffing.description": "Un ingénieur AI-native qui travaille au sein de votre projet, du coaching pour vos développeurs et des workflows IA pour vos équipes métier.",
+  "staffing.title": "AI staffing · SmartAgents",
+  "staffing.description": "Un ingénieur AI-native qui rejoint votre projet en cours, livre dès la première semaine et montre de près à votre équipe comment fonctionne vraiment le développement piloté par l'IA.",
 
   "staffing.hero.title": "Des Pionniers de l'IA qui Ont un Impact Immédiat",
 
@@ -302,7 +312,7 @@
 
   "staffing.tracks.title": "Voici Comment Nous Renforçons Votre Équipe",
 
-  "staffing.track.fitLabel": "Le bon choix si",
+  "track.fitLabel": "Le bon choix si",
   "staffing.track.engineer.title": "AI engineer staffing",
   "staffing.track.engineer.lead": "Votre équipe peut faire plus. Nous vous montrons comment.",
   "staffing.track.engineer.intro.1": "L'IA promet beaucoup, mais dans la plupart des équipes de développement, elle se limite à un assistant malin dans le navigateur. Vous voyez les possibilités, vous entendez les histoires, mais la traduction vers votre propre base de code, votre propre workflow et vos propres délais ne se fait pas.",
@@ -318,16 +328,19 @@
   "staffing.track.engineer.ownership.body": "Tout ce que nous construisons vous appartient. Chaque modification passe par votre propre revue et chaque décision vous revient. Nous transmettons nos connaissances dès le premier jour, pas seulement la dernière semaine. Notre objectif est simple : quand nous partons, votre équipe travaille à un niveau qu'elle n'atteignait pas auparavant.",
 
   "staffing.track.engineer.fit": "Votre projet avance, le travail ne manque pas, et personne dans l'équipe ne va plus loin avec l'IA que la barre de recherche.",
-  "staffing.track.developers.title": "Coaching pour développeurs",
-  "staffing.track.developers.body": "Nous apprenons à vos ingénieurs à travailler avec l'IA en le faisant ensemble : expliquer, montrer et appliquer à leurs propres tickets, jusqu'à ce que cela reste.",
 
-  "staffing.track.developers.how": "Concrètement : une demi-journée par semaine aux côtés de vos développeurs, sur leurs propres tickets. Nous travaillons sur le même écran, montrons ce qu'un agent peut porter et ce qu'il ne peut pas, et mettons en place ensemble les workflows asynchrones qui font avancer le travail en dehors des heures de bureau. Ce que nous installons vous appartient et vit dans votre dépôt, pas dans nos notes.",
-  "staffing.track.developers.fit": "Vos développeurs utilisent déjà l'IA pour compléter le code, mais traiter un ticket de bout en bout ne va pas encore plus vite.",
-  "staffing.track.business.title": "Coaching pour les équipes métier",
-  "staffing.track.business.body": "Nous formons vos collaborateurs nous-mêmes : ce que l'IA peut faire et ce qu'elle ne peut pas, et comment l'utiliser sur leurs propres dossiers. Du coaching à côté du travail en cours, avec des patterns réutilisables plutôt que des prompts isolés.",
-
-  "staffing.track.business.how": "Concrètement : des sessions avec les personnes qui font le travail, sur leurs propres dossiers. Nous dessinons ensemble quelle étape l'IA reprend et laquelle non, nous l'inscrivons comme un workflow que votre équipe relance, et nous restons jusqu'à ce que cela tourne sans nous. Pas une bibliothèque de prompts, une manière de travailler.",
-  "staffing.track.business.fit": "Vos équipes utilisent déjà l'IA, chacune dans son coin, et personne ne peut dire ce qui est réellement gagné.",
+  "staffing.selection.title": "Comment nous trouvons votre ingénieur",
+  "staffing.selection.lede": "Chaque candidat suit les mêmes cinq étapes. La différence avec un cabinet de recrutement classique : celui qui évalue le candidat sur le plan technique construit lui-même avec l'IA chaque jour.",
+  "staffing.selection.01.title": "Intake",
+  "staffing.selection.01.body": "Nous passons en revue votre projet, votre équipe et le rôle : le travail qui attend, votre façon de collaborer et ce qui vous montrera, après trois mois, que cela fonctionne. Il en ressort un profil précis, que vous validez.",
+  "staffing.selection.02.title": "Premier screening",
+  "staffing.selection.02.body": "Un entretien structuré sur l'expérience, la motivation et la communication, et sur la manière dont le candidat travaille déjà avec l'IA aujourd'hui. Seuls ceux qui convainquent passent à l'étape suivante.",
+  "staffing.selection.03.title": "Entretien technique",
+  "staffing.selection.03.body": "Un ingénieur SmartAgents évalue le candidat sur une mission réaliste : travailler avec des agents, qualité du code, revue et tests. Vous recevez un rapport écrit, pas une impression.",
+  "staffing.selection.04.title": "Rencontre et démarrage",
+  "staffing.selection.04.body": "Vous rencontrez le candidat vous-même et la décision vous revient. Nous organisons ensuite le démarrage pratique, pour que l'ingénieur travaille dans votre backlog dès la première semaine.",
+  "staffing.selection.05.title": "Suivi",
+  "staffing.selection.05.body": "Des évaluations régulières avec vous et avec l'ingénieur. Ce qui coince, nous le traitons tôt ; ce qui fonctionne, nous le consignons pour le reste de votre équipe.",
   "staffing.cta.title": "Vous cherchez quelqu'un qui le fait déjà ?",
   "staffing.cta.body": "Dites-nous brièvement où votre équipe bloque et à quoi ressemble le projet aujourd'hui. Nous mettons immédiatement la bonne solution en avant.",
 

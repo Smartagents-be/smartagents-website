@@ -33,8 +33,9 @@ if (!chromeBin) {
 
 /** The logo mark, lifted out of src/layouts/base.mjs so the two cannot drift. */
 const LOGO = readFileSync(path.join(rootDir, 'src/layouts/base.mjs'), 'utf8')
-  .match(/<svg \$\{idAttr\}class="logo[\s\S]*?<\/svg>/)[0]
-  .replace('${idAttr}', '')
+  .match(/<svg id="\$\{id\}" class="logo[\s\S]*?<\/svg>/)[0]
+  .replace('id="${id}" ', '')
+  .replaceAll(/\$\{at\('[a-z-]+'\)\}/g, '')
   .replace(/\$\{opacity\[0\]\}/, '0.62')
   .replace(/\$\{opacity\[1\]\}/, '0.42')
   .replace('logo logo--${surface}', 'logo')
@@ -82,7 +83,7 @@ const CARD = `<!doctype html><meta charset="utf-8">
   <div class="brand">${LOGO}<span>Smart<span class="accent">Agents</span></span></div>
   <div class="rule"></div>
   <h1>Digitale collega&rsquo;s die nooit slapen</h1>
-  <p>Training, AI staffing en coaching, AI-native SDLC en businessprocessen.</p>
+  <p>AI training en coaching, AI staffing, AI&#8209;native SDLC en businessprocessen.</p>
 </div>`;
 
 /** The square mark, for `Organization.logo`: the field, the mark, nothing else. */

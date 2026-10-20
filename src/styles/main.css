@@ -2229,7 +2229,7 @@ sa-node-field {
 }
 
 /* ------------------------------------------------------------------ *
- * Detail pages — AI staffing en coaching
+ * Detail pages — AI staffing
  *
  * Three blocks: the page hero, the track panel, the form. The dark field is
  * this page's own — an arch on the hero's right flank with two pebbles come
@@ -2376,6 +2376,15 @@ sa-node-field {
 
 .track__summary:hover {
   color: var(--text-accent);
+}
+
+/* A track standing alone has no control: its head is a heading, not a button. */
+.track--standing .track__summary {
+  cursor: auto;
+}
+
+.track--standing .track__summary:hover {
+  color: var(--text-strong);
 }
 
 .track__head {

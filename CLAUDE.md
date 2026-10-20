@@ -1,7 +1,7 @@
 # CLAUDE.md - Agent Entry Point
 
 Pre-rendered static site, no backend, no framework. The public site is the
-redesigned homepage, six detail pages — training, AI staffing and coaching,
+redesigned homepage, six detail pages — training and coaching, AI staffing,
 the AI-native SDLC, AI-native businessprocessen, team, and jobs — three pages
 below them (the agentic engineering kata under training, and a profile for each
 founder under team), the privacy notice,
@@ -441,7 +441,7 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   one sub-block that tells a reader something the body does not, which is
   whether that track is theirs.
 - **"Waarom investeren in AI-training?" is gone, and the two lines worth keeping
-  are the lede under "Ons aanbod".** It was five rows — Snellere adoptie, Hogere
+  are the lede under "Ons trainingsaanbod".** It was five rows — Snellere adoptie, Hogere
   productiviteit, Minder risico, Kostenbewust, Minder afhankelijk van externen —
   between the hero and the offer, so a reader who had come to see the courses
   read a page of reasons to want training first. Three of the five say what any
@@ -451,7 +451,15 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   `training.course.agentic.learn.3` teaches) and the independence it buys. The
   test they pass and the other three fail is whether a competitor's page could
   print the same line.
-- **An open staffing track is one column, and "Past wanneer" ends it.** The row
+- **The track panel is `src/components/tracks/tracks.mjs`, and two pages print
+  it.** The AI staffing page has one track, the AI-engineer one, and shows it
+  standing open with no chevron (`.track--standing`): it used to be the first of
+  three rows, and an accordion of one row is a control that can only hide the
+  page. The two coaching tracks moved to the training page, which is "AI
+  training & coaching" now, as an accordion under the courses (`#coaching`);
+  their strings are `training.coaching.*`, and "Past wanneer" is the shared
+  `track.fitLabel`.
+- **An open track is one column, and "Past wanneer" ends it.** The row
   was two columns for a while, the copy beside the fit line; side by side they
   read as a column of prose with a sidebar against it, where that line is the
   end of the answer rather than a note on it. It sits under the paragraphs now,
@@ -506,7 +514,7 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   something that looked like another. The link prints the format and the size,
   read off the file at build time in `training.mjs`. Both PDFs are generated
   by `npm run export:fiches` rather than exported by hand. The awareness and
-  management fiches that were left over from the learning path "Ons aanbod"
+  management fiches that were left over from the learning path "Ons trainingsaanbod"
   replaced are deleted: nothing linked them and Google would have indexed them
   as orphan PDFs competing with `/training/`. A file authored inside a deck and shown
   on a public page too (today: the kata tour video) is never duplicated: it stays
@@ -591,8 +599,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   **lowering a lightness lowers the chroma with it**, because the gamut narrows
   as it darkens: `--sa-deep` at L 0.33 tops out at 0.066.
 - **A disclosure is a `<details>`, and an accordion is three of them sharing a
-  `name`.** The AI staffing page's track panel is the only figure on the site
-  that opens and closes. The markup is what works with JS off — the rows open,
+  `name`.** The coaching panel on the training page is the only figure on the
+  site that opens and closes. The markup is what works with JS off — the rows open,
   and the `name` group makes the browser close the open one — and
   `<sa-accordion>` takes both over when it loads, because that is the only way
   either of them travels rather than snaps. The CSS version came first and does
@@ -884,7 +892,7 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   row clears at 1181px in all three languages with 15px to spare. So the drift
   the old rule guarded against is bought deliberately and in one place, under
   one constraint: **the short name is always the long name's opening words**
-  ("AI staffing en coaching" → "AI staffing"), the two sit on adjacent lines in
+  ("AI training & coaching" → "AI training"), the two sit on adjacent lines in
   `src/i18n`, and the hero of the page the link opens states the full name
   within a screen of the click. A short name that is not the long one's head is
   a second name, and then the two really can say different things. Home is

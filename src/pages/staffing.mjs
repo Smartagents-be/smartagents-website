@@ -1,41 +1,33 @@
-// The AI staffing and coaching page: the detail page behind the "AI staffing en
-// coaching" service row. Three blocks and nothing else — the page hero, the
-// offer, the form — because the offer is the page.
+// The AI staffing page: the detail page behind the "AI staffing" service row.
+// Three blocks and nothing else — the page hero, the offer, the form — because
+// the offer is the page. The two coaching tracks that stood beside it moved to
+// the training page, which is "AI training en coaching" now.
 // See .claude/skills/smartagents-design/README.md and element-ids/SKILL.md.
 import { html, join } from '../../build/lib/html.mjs';
-import { orbitRings } from '../layouts/base.mjs';
+import { track } from '../components/tracks/tracks.mjs';
+import { index, orbitRings } from '../layouts/base.mjs';
 import { breadcrumbNode, homeStep, serviceNode } from '../layouts/schema.mjs';
 import { contactSection } from '../components/contact-form/contact-form.mjs';
 
 /**
- * The three ways this offer reaches a team, and the order they open in. The
- * first is the one the page is titled after, so it stands open on arrival.
+ * What the engineer track's panel says, in order, as keys under
+ * `staffing.track.engineer.` — see `copyBlock()` in `tracks.mjs`.
  */
-const TRACKS = ['engineer', 'developers', 'business'];
+const COPY = [
+  { lead: 'lead' },
+  'intro.1',
+  'intro.2',
+  { h: 'embedded.title' },
+  'embedded.body',
+  { h: 'more.title' },
+  'more.body',
+  { list: 'more.point', n: 3 },
+  { h: 'ownership.title' },
+  'ownership.body'
+];
 
-/**
- * What each track's panel says, in order, as keys under `staffing.track.<key>.`.
- * A string is a paragraph; `{ lead }` is the line the copy opens on, `{ h }` a
- * subheading and `{ list, n }` a bullet list of `<list>.1` … `<list>.n`. The
- * engineer track is the one the page is titled after and the only one long
- * enough to need headings; the other two are two paragraphs each.
- */
-const COPY = {
-  engineer: [
-    { lead: 'lead' },
-    'intro.1',
-    'intro.2',
-    { h: 'embedded.title' },
-    'embedded.body',
-    { h: 'more.title' },
-    'more.body',
-    { list: 'more.point', n: 3 },
-    { h: 'ownership.title' },
-    'ownership.body'
-  ],
-  developers: ['body', 'how'],
-  business: ['body', 'how']
-};
+/** The selection, in the order every candidate goes through it. */
+const SELECTION = [1, 2, 3, 4, 5];
 
 export const page = {
   id: 'staffing',
@@ -53,6 +45,7 @@ export const page = {
 
 ${hero(t)}
 ${tracks(t)}
+${selection(t)}
 ${contact(t, lang)}
 
 </main>`;
@@ -104,91 +97,18 @@ ${orbitRings('staffing-hero')}
 }
 
 /* ------------------------------------------------------------------ *
- * Hoe we meewerken — the three tracks, one open at a time
+ * Hoe we meewerken — the one track, standing open
  *
- * Three columns side by side read as a price table and the reader compares them;
- * rows that open let them pick the one that is theirs. The offer has never been
- * a choice between three — it is one of three, and which one is obvious from the
- * team asking.
- *
- * Every row is a `<details>` sharing a `name`, so the panel works with JS off,
- * and `<sa-accordion>` takes both over when it loads. The first row stands open,
- * so the block never arrives as three closed bars.
+ * This was three rows that opened one at a time: the engineer track and two
+ * coaching tracks. Coaching is on the training page now, and an accordion of
+ * one row is a control that can only hide the page, so the track stands open in
+ * the same panel with no chevron.
  *
  * The panel is opaque, sits above the hero's tail, and is flanked by the leaf in
  * the left gutter and the wedge under the far corner.
  * ------------------------------------------------------------------ */
 
-/**
- * One track: a summary that is a name and three words, and a body it opens on.
- *
- * The three words under the name are gone — they were the paragraph the row
- * opens on, cut into noun phrases and printed above it, on a closed row where
- * the reader has not asked for any of it. "Past wanneer" stays: it is the one
- * sub-block that tells a reader whether this track is theirs.
- *
- * The name is an `<h3>`: `<summary>` takes heading content, and without one the
- * three offers this page exists to sell were the only named blocks on the site
- * missing from the heading outline.
- *
- * @param {object} options
- * @param {Function} options.t
- * @param {string} options.key    track key, also the id suffix
- * @param {boolean} options.open  whether the row stands open on arrival
- */
-function track({ t, key, open }) {
-  const id = `staffing-track-${key}`;
-
-  return html`      <details id="${id}" class="track" name="staffing-track"${open ? ' open' : ''}>
-        <summary id="${id}-summary" class="track__summary">
-          <div id="${id}-head" class="track__head">
-            <h3 id="${id}-title" class="track__title">${t(`staffing.track.${key}.title`)}</h3>
-          </div>
-          <span id="${id}-chevron" class="track__chevron" aria-hidden="true"></span>
-        </summary>
-        <div id="${id}-panel" class="track__panel">
-          <div id="${id}-panel-inner" class="track__inner">
-            <div id="${id}-copy" class="track__copy">
-${join(COPY[key].map((block) => copyBlock({ t, key, id, block })))}
-            </div>
-            <div id="${id}-fit" class="track__fit">
-              <p id="${id}-fit-label" class="track__fit-label">${t('staffing.track.fitLabel')}</p>
-              <p id="${id}-fit-body" class="track__fit-body">${t(`staffing.track.${key}.fit`)}</p>
-            </div>
-          </div>
-        </div>
-      </details>`;
-}
-
-/**
- * One block of a track's copy. Ids come from the key path with its dots turned
- * to hyphens, so they are the same in every language and survive a reorder.
- */
-function copyBlock({ t, key, id, block }) {
-  const k = (path) => `staffing.track.${key}.${path}`;
-  const slug = (path) => `${id}-${path.replaceAll('.', '-')}`;
-
-  if (typeof block === 'string') {
-    return html`              <p id="${slug(block)}" class="track__body">${t(k(block))}</p>`;
-  }
-  if (block.lead) {
-    return html`              <p id="${slug(block.lead)}" class="track__lead">${t(k(block.lead))}</p>`;
-  }
-  if (block.h) {
-    return html`              <h4 id="${slug(block.h)}" class="track__subtitle">${t(k(block.h))}</h4>`;
-  }
-  const items = Array.from({ length: block.n }, (_, i) => {
-    const path = `${block.list}.${i + 1}`;
-    return html`                <li id="${slug(path)}" class="track__point">${t(k(path))}</li>`;
-  });
-  return html`              <ul id="${slug(block.list)}s" class="track__points">
-${join(items)}
-              </ul>`;
-}
-
 function tracks(t) {
-  const rows = TRACKS.map((key, i) => track({ t, key, open: i === 0 }));
-
   return html`<section id="tracks" class="section" aria-labelledby="staffing-tracks-title">
   <div id="staffing-tracks-head" class="section__head">
     <h2 id="staffing-tracks-title" class="section-heading">${t('staffing.tracks.title')}</h2>
@@ -200,9 +120,43 @@ function tracks(t) {
     <div id="staffing-tracks-tail-slot" class="field-slot tracks__tail" aria-hidden="true">
       <div id="staffing-tracks-tail" class="field" data-magnet data-magnet-free data-magnet-points="220" data-magnet-amp="30" data-clip="tracksTail"><sa-node-field id="staffing-tracks-tail-nodes"></sa-node-field></div>
     </div>
-    <sa-accordion id="staffing-tracks-panel" class="tracks__panel">
-${join(rows)}
-    </sa-accordion>
+    <div id="staffing-tracks-panel" class="tracks__panel">
+${track({ t, id: 'staffing-track-engineer', base: 'staffing.track.engineer', copy: COPY })}
+    </div>
+  </div>
+</section>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Zo vinden we jouw engineer — the selection, in five steps
+ *
+ * Between the offer and the form, because it answers the question a reader has
+ * once they want the offer: how do you know the person you send is good? The
+ * homepage's `.steps` vocabulary, as on the businessprocessen page: a sequence
+ * every candidate runs in order, so there is nothing to open or pick between.
+ *
+ * Nothing here is a number we have not committed to — no days to a shortlist,
+ * no replacement guarantee. Those belong in the steps the day they are promises.
+ * ------------------------------------------------------------------ */
+
+function selection(t) {
+  const steps = SELECTION.map((n) => {
+    const id = `staffing-selection-${index(n)}`;
+
+    return html`    <div id="${id}" class="step${n === 1 ? ' step--first' : ''}">
+      <span id="${id}-index" class="step__index" aria-hidden="true">${index(n)}</span>
+      <h3 id="${id}-title">${t(`staffing.selection.${index(n)}.title`)}</h3>
+      <p id="${id}-body">${t(`staffing.selection.${index(n)}.body`)}</p>
+    </div>`;
+  });
+
+  return html`<section id="selection" class="section" aria-labelledby="staffing-selection-title">
+  <div id="staffing-selection-head" class="section__head">
+    <h2 id="staffing-selection-title" class="section-heading">${t('staffing.selection.title')}</h2>
+  </div>
+  <p id="staffing-selection-lede" class="section-lede">${t('staffing.selection.lede')}</p>
+  <div id="staffing-selection-steps" class="steps">
+${join(steps)}
   </div>
 </section>`;
 }

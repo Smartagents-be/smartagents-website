@@ -1,6 +1,6 @@
 {
   "home.title": "SmartAgents · Digitale collega's die nooit slapen",
-  "home.description": "SmartAgents bouwt digitale collega's voor Belgische organisaties: training, AI staffing en coaching, een AI-native SDLC en AI-native businessprocessen.",
+  "home.description": "SmartAgents bouwt digitale collega's voor Belgische organisaties: AI training en coaching, AI staffing, een AI-native SDLC en AI-native businessprocessen.",
 
   "a11y.skip": "Naar de inhoud",
   "a11y.mainNav": "Hoofdnavigatie",
@@ -36,10 +36,10 @@
   "section.dna": "Ons DNA",
   "section.insights": "Inzichten",
 
-  "service.training.title": "AI training",
+  "service.training.title": "AI training & coaching",
   "service.training.nav": "AI training",
   "service.training.body": "AI-training door de experts die er dagelijks mee bouwen. Geen algemene presentaties of theoretische concepten, maar intensieve workshops rond jullie eigen code en bedrijfscases. Wij stomen zowel business-teams als software-engineers klaar om AI niet alleen te begrijpen, maar meteen strategisch en efficiënt in te zetten in de praktijk.",
-  "service.staffing.title": "AI staffing en coaching",
+  "service.staffing.title": "AI staffing",
   "service.staffing.nav": "AI staffing",
   "service.staffing.body": "Gevalideerde AI-expertise. Wij selecteren specialisten op hun bouwervaring én fit met je team, niet op mooie cv's. Zo krijg je experts die direct resultaat leveren.",
   "service.sdlc.title": "AI-native SDLC-transformatie",
@@ -106,14 +106,14 @@
   "form.failed": "Versturen lukte niet. Mail ons gerust op info@smartagents.be.",
   "form.rateLimited": "Er komen nu te veel berichten binnen. Probeer het over een uur opnieuw, of bel ons.",
 
-  "training.title": "Training · SmartAgents",
-  "training.description": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides. Van een eerste kennismaking met AI tot dagelijks bouwen met agents.",
+  "training.title": "Training & coaching · SmartAgents",
+  "training.description": "Workshops gebaseerd op projecten, oefeningen en begeleidende slides, en coaching naast je team op zijn eigen werk. Van een eerste kennismaking met AI tot dagelijks bouwen met agents.",
 
   "training.hero.title": "AI-Meesterschap: Voor Bouwers én Beslissers",
 
   "training.cta.offer": "Bekijk het aanbod",
 
-  "training.offer.title": "Ons aanbod",
+  "training.offer.title": "Ons trainingsaanbod",
   "training.offer.learn": "Wat je leert",
   "training.offer.lede": "Onze trainingen maken je organisatie wendbaarder en sneller. Deelnemers leren exact welk AI-model ze moeten inzetten voor maximale impact, zonder capaciteit te verspillen. Doordat medewerkers routinewerk en kleine aanpassingen direct zélf afhandelen met AI, valt de afhankelijkheid van externe hulp weg en wint je team zeeën van tijd.",
 
@@ -142,6 +142,16 @@
   "training.course.agentic.learn.3": "Wat elke vraag kost, en hoe je die kost laag houdt",
   "training.course.agentic.learn.4": "Codekwaliteit bewaken met review, tests en vangrails",
   "training.course.agentic.detail": "Bekijk het programma",
+
+  "training.coaching.title": "Coaching op de werkvloer",
+  "training.coaching.developers.title": "Coaching voor developers",
+  "training.coaching.developers.body": "We leren je engineers werken met AI door het samen te doen: uitleggen, voordoen en toepassen op hun eigen tickets, tot het blijft hangen.",
+  "training.coaching.developers.how": "In de praktijk: een halve dag per week naast je developers, op hun eigen tickets. We werken aan hetzelfde scherm, tonen wat een agent wel en niet aankan, en zetten samen de async workflows op die het werk buiten kantooruren laten doorlopen. Wat we opzetten blijft van jou en staat in je repository, niet in onze notities.",
+  "training.coaching.developers.fit": "Je developers gebruiken AI al om code aan te vullen, maar een ticket van begin tot eind afwerken gaat nog niet sneller.",
+  "training.coaching.business.title": "Coaching voor business teams",
+  "training.coaching.business.body": "Wij leiden je medewerkers zelf op: wat AI wel en niet kan, en hoe ze het inzetten op hun eigen dossiers. Coaching naast het werk dat er ligt, met herbruikbare patronen in plaats van losse prompts.",
+  "training.coaching.business.how": "In de praktijk: sessies met de mensen die het werk doen, op hun eigen dossiers. We tekenen samen uit welke stap AI overneemt en welke niet, leggen dat vast als een workflow die je team opnieuw draait, en blijven erbij tot het zonder ons gaat. Geen promptbibliotheek, maar een manier van werken.",
+  "training.coaching.business.fit": "Je teams gebruiken AI al, ieder op eigen houtje, en niemand kan zeggen wat er precies mee gewonnen wordt.",
 
   "training.format.title": "Hoe een opleiding verloopt",
   "training.format.body": "Geen presentatie waar je naar zit te kijken. Uitleg, oefeningen en labs wisselen elkaar af, met tijd voor je eigen vragen en een trainer die over je schouder meekijkt.",
@@ -293,8 +303,8 @@
   "business.cta.title": "Klaar om je team AI te leren gebruiken?",
   "business.cta.body": "Vertel kort waar je team op vastloopt en wie er meedoet. We stellen een dag voor op maat, bij ons, bij jou op kantoor of online.",
 
-  "staffing.title": "AI staffing en coaching · SmartAgents",
-  "staffing.description": "Een AI-native engineer die meedraait in je project, coaching voor je developers en AI-workflows voor je business teams.",
+  "staffing.title": "AI staffing · SmartAgents",
+  "staffing.description": "Een AI-native engineer die meedraait in je lopend project, levert vanaf week één en je team ondertussen laat zien hoe AI-gedreven ontwikkeling echt werkt.",
 
   "staffing.hero.title": "AI-Pioniers die Meteen Impact Maken",
 
@@ -302,7 +312,7 @@
 
   "staffing.tracks.title": "Zo Versterken We Jouw Team",
 
-  "staffing.track.fitLabel": "Past wanneer",
+  "track.fitLabel": "Past wanneer",
   "staffing.track.engineer.title": "AI-engineer staffing",
   "staffing.track.engineer.lead": "Je team kan meer. Wij laten zien hoe.",
   "staffing.track.engineer.intro.1": "AI belooft veel, maar in de meeste ontwikkelteams blijft het bij een slimme assistent in de browser. Je ziet de mogelijkheden, je hoort de verhalen, maar de vertaling naar je eigen codebase, je eigen workflow en je eigen deadlines blijft uit.",
@@ -318,16 +328,19 @@
   "staffing.track.engineer.ownership.body": "Alles wat we bouwen, is van jou. Elke wijziging gaat door je eigen review en elke beslissing ligt bij jou. Kennisoverdracht doen we vanaf de eerste dag, niet pas in de laatste week. Ons doel is eenvoudig: wanneer wij vertrekken, werkt je team op een niveau dat het voordien niet haalde.",
 
   "staffing.track.engineer.fit": "Je project loopt en er is werk genoeg, maar AI komt in je team nog niet verder dan een vraag in de chat.",
-  "staffing.track.developers.title": "Coaching voor developers",
-  "staffing.track.developers.body": "We leren je engineers werken met AI door het samen te doen: uitleggen, voordoen en toepassen op hun eigen tickets, tot het blijft hangen.",
 
-  "staffing.track.developers.how": "In de praktijk: een halve dag per week naast je developers, op hun eigen tickets. We werken aan hetzelfde scherm, tonen wat een agent wel en niet aankan, en zetten samen de async workflows op die het werk buiten kantooruren laten doorlopen. Wat we opzetten blijft van jou en staat in je repository, niet in onze notities.",
-  "staffing.track.developers.fit": "Je developers gebruiken AI al om code aan te vullen, maar een ticket van begin tot eind afwerken gaat nog niet sneller.",
-  "staffing.track.business.title": "Coaching voor business teams",
-  "staffing.track.business.body": "Wij leiden je medewerkers zelf op: wat AI wel en niet kan, en hoe ze het inzetten op hun eigen dossiers. Coaching naast het werk dat er ligt, met herbruikbare patronen in plaats van losse prompts.",
-
-  "staffing.track.business.how": "In de praktijk: sessies met de mensen die het werk doen, op hun eigen dossiers. We tekenen samen uit welke stap AI overneemt en welke niet, leggen dat vast als een workflow die je team opnieuw draait, en blijven erbij tot het zonder ons gaat. Geen promptbibliotheek, maar een manier van werken.",
-  "staffing.track.business.fit": "Je teams gebruiken AI al, ieder op eigen houtje, en niemand kan zeggen wat er precies mee gewonnen wordt.",
+  "staffing.selection.title": "Zo vinden we jouw engineer",
+  "staffing.selection.lede": "Elke kandidaat doorloopt dezelfde vijf stappen. Het verschil met een klassiek selectiebureau: wie de kandidaat technisch beoordeelt, bouwt zelf elke dag met AI.",
+  "staffing.selection.01.title": "Intake",
+  "staffing.selection.01.body": "We bespreken je project, je team en de rol: welk werk er ligt, hoe jullie samenwerken en waaraan je na drie maanden ziet dat het werkt. Daaruit volgt een scherp profiel, dat jij goedkeurt.",
+  "staffing.selection.02.title": "Eerste screening",
+  "staffing.selection.02.body": "Een gestructureerd gesprek over ervaring, motivatie en communicatie, en over hoe de kandidaat vandaag al met AI werkt. Alleen wie overtuigt, gaat door.",
+  "staffing.selection.03.title": "Technisch interview",
+  "staffing.selection.03.body": "Een SmartAgents-engineer toetst de kandidaat aan een realistische opdracht: werken met agents, codekwaliteit, review en tests. Je krijgt een schriftelijk verslag, geen buikgevoel.",
+  "staffing.selection.04.title": "Kennismaking en start",
+  "staffing.selection.04.body": "Je spreekt de kandidaat zelf en de beslissing ligt bij jou. Daarna regelen we de praktische start, zodat de engineer vanaf week één meedraait in je backlog.",
+  "staffing.selection.05.title": "Opvolging",
+  "staffing.selection.05.body": "Vaste evaluatiemomenten met jou en met de engineer. Wat schuurt, pakken we vroeg aan; wat werkt, leggen we vast voor de rest van je team.",
   "staffing.cta.title": "Zoek je iemand die dit al doet?",
   "staffing.cta.body": "Vertel kort waar je team op vastloopt en hoe het project er vandaag uitziet. Wij schuiven meteen de juiste oplossing naar voren.",
 

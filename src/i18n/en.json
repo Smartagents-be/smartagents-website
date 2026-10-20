@@ -1,6 +1,6 @@
 {
   "home.title": "SmartAgents · Digital colleagues that never sleep",
-  "home.description": "SmartAgents builds digital colleagues for Belgian organisations: training, AI staffing and coaching, an AI-native SDLC and AI-native business processes.",
+  "home.description": "SmartAgents builds digital colleagues for Belgian organisations: AI training and coaching, AI staffing, an AI-native SDLC and AI-native business processes.",
 
   "a11y.skip": "Skip to content",
   "a11y.mainNav": "Main navigation",
@@ -36,10 +36,10 @@
   "section.dna": "Our DNA",
   "section.insights": "Insights",
 
-  "service.training.title": "AI training",
+  "service.training.title": "AI training & coaching",
   "service.training.nav": "AI training",
   "service.training.body": "AI training from the experts who build with it every day. No generic presentations or theoretical concepts, but intensive workshops built around your own code and business cases. We prepare both business teams and software engineers not just to understand AI, but to put it to work strategically and efficiently right away.",
-  "service.staffing.title": "AI staffing and coaching",
+  "service.staffing.title": "AI staffing",
   "service.staffing.nav": "AI staffing",
   "service.staffing.body": "Validated AI expertise. We select specialists on their build experience and fit with your team, not on impressive résumés. That's how you get experts who deliver results right away.",
   "service.sdlc.title": "AI-native SDLC transformation",
@@ -106,14 +106,14 @@
   "form.failed": "Sending did not work. Feel free to mail us at info@smartagents.be.",
   "form.rateLimited": "Too many messages are coming in right now. Try again in an hour, or give us a call.",
 
-  "training.title": "Training · SmartAgents",
-  "training.description": "Workshops built around projects, exercises and supporting slides. From a first introduction to AI to building with agents every day.",
+  "training.title": "Training & coaching · SmartAgents",
+  "training.description": "Workshops built around projects, exercises and supporting slides, and coaching beside your team on its own work. From a first introduction to AI to building with agents every day.",
 
   "training.hero.title": "AI Mastery: For Builders and Decision Makers",
 
   "training.cta.offer": "See our courses",
 
-  "training.offer.title": "Our courses",
+  "training.offer.title": "Our training courses",
   "training.offer.learn": "What you learn",
   "training.offer.lede": "Our trainings make your organization more agile and faster. Participants learn exactly which AI model to use for maximum impact, without wasting capacity. Because employees handle routine work and small adjustments themselves with AI right away, the dependency on outside help falls away and your team gains vast amounts of time.",
 
@@ -142,6 +142,16 @@
   "training.course.agentic.learn.3": "What every question costs, and how to keep it down",
   "training.course.agentic.learn.4": "Guarding code quality with review, tests and guardrails",
   "training.course.agentic.detail": "See the programme",
+
+  "training.coaching.title": "Coaching on the job",
+  "training.coaching.developers.title": "Coaching for developers",
+  "training.coaching.developers.body": "We teach your engineers to work with AI by doing it together: explaining, demonstrating and applying it to their own tickets, until it sticks.",
+  "training.coaching.developers.how": "In practice: half a day a week beside your developers, on their own tickets. We work at the same screen, show what an agent can and cannot carry, and set up together the async workflows that keep work moving outside office hours. What we set up is yours and lives in your repository, not in our notes.",
+  "training.coaching.developers.fit": "Your developers already use AI to complete code, but taking a ticket from start to finish is still no faster.",
+  "training.coaching.business.title": "Coaching for business teams",
+  "training.coaching.business.body": "We train your employees ourselves: what AI can and cannot do, and how to put it on their own case files. Coaching alongside the work already on their desk, with repeatable patterns instead of one-off prompts.",
+  "training.coaching.business.how": "In practice: sessions with the people who do the work, on their own files. We map out together which step AI takes over and which it does not, write that down as a workflow your team runs again, and stay until it runs without us. Not a prompt library, a way of working.",
+  "training.coaching.business.fit": "Your teams already use AI, each on their own, and nobody can say what is actually being gained.",
 
   "training.format.title": "How a course runs",
   "training.format.body": "Not a presentation you sit through. Explanation, exercises and labs alternate, with room for your own questions and a trainer looking over your shoulder.",
@@ -293,8 +303,8 @@
   "business.cta.title": "Ready to teach your team to use AI?",
   "business.cta.body": "Tell us briefly where your team is stuck and who is joining. We propose a day built around you, at our place, at your office or online.",
 
-  "staffing.title": "AI staffing and coaching · SmartAgents",
-  "staffing.description": "An AI-native engineer working inside your project, coaching for your developers and AI workflows for your business teams.",
+  "staffing.title": "AI staffing · SmartAgents",
+  "staffing.description": "An AI-native engineer working inside your running project, delivering from week one while your team sees up close how AI-driven development really works.",
 
   "staffing.hero.title": "AI Pioneers Who Deliver Impact Right Away",
 
@@ -302,7 +312,7 @@
 
   "staffing.tracks.title": "This Is How We Strengthen Your Team",
 
-  "staffing.track.fitLabel": "Right when",
+  "track.fitLabel": "Right when",
   "staffing.track.engineer.title": "AI engineer staffing",
   "staffing.track.engineer.lead": "Your team can do more. We show you how.",
   "staffing.track.engineer.intro.1": "AI promises a lot, but in most development teams it stops at a clever assistant in the browser. You see the possibilities, you hear the stories, but the translation to your own codebase, your own workflow and your own deadlines never comes.",
@@ -318,16 +328,19 @@
   "staffing.track.engineer.ownership.body": "Everything we build is yours. Every change goes through your own review and every decision is yours. We hand over knowledge from the first day, not in the last week. Our goal is simple: when we leave, your team works at a level it did not reach before.",
 
   "staffing.track.engineer.fit": "Your project is running, there is work enough, and nobody on the team gets AI further than the search bar.",
-  "staffing.track.developers.title": "Coaching for developers",
-  "staffing.track.developers.body": "We teach your engineers to work with AI by doing it together: explaining, demonstrating and applying it to their own tickets, until it sticks.",
 
-  "staffing.track.developers.how": "In practice: half a day a week beside your developers, on their own tickets. We work at the same screen, show what an agent can and cannot carry, and set up together the async workflows that keep work moving outside office hours. What we set up is yours and lives in your repository, not in our notes.",
-  "staffing.track.developers.fit": "Your developers already use AI to complete code, but taking a ticket from start to finish is still no faster.",
-  "staffing.track.business.title": "Coaching for business teams",
-  "staffing.track.business.body": "We train your employees ourselves: what AI can and cannot do, and how to put it on their own case files. Coaching alongside the work already on their desk, with repeatable patterns instead of one-off prompts.",
-
-  "staffing.track.business.how": "In practice: sessions with the people who do the work, on their own files. We map out together which step AI takes over and which it does not, write that down as a workflow your team runs again, and stay until it runs without us. Not a prompt library, a way of working.",
-  "staffing.track.business.fit": "Your teams already use AI, each on their own, and nobody can say what is actually being gained.",
+  "staffing.selection.title": "How we find your engineer",
+  "staffing.selection.lede": "Every candidate goes through the same five steps. The difference from a traditional recruitment agency: the person who assesses a candidate technically builds with AI every day.",
+  "staffing.selection.01.title": "Intake",
+  "staffing.selection.01.body": "We go through your project, your team and the role: what work is waiting, how you work together and how you will know after three months that it is working. That becomes a sharp profile, which you sign off.",
+  "staffing.selection.02.title": "First screening",
+  "staffing.selection.02.body": "A structured conversation about experience, motivation and communication, and about how the candidate already works with AI today. Only those who convince move on.",
+  "staffing.selection.03.title": "Technical interview",
+  "staffing.selection.03.body": "A SmartAgents engineer tests the candidate on a realistic assignment: working with agents, code quality, review and tests. You get a written report, not a gut feeling.",
+  "staffing.selection.04.title": "Introduction and start",
+  "staffing.selection.04.body": "You meet the candidate yourself and the decision is yours. We then arrange the practical start, so the engineer is working in your backlog from week one.",
+  "staffing.selection.05.title": "Follow-up",
+  "staffing.selection.05.body": "Regular reviews with you and with the engineer. What rubs, we tackle early; what works, we record for the rest of your team.",
   "staffing.cta.title": "Looking for someone who already does this?",
   "staffing.cta.body": "Tell us briefly where your team is stuck and what the project looks like today. We put the right solution forward right away.",
 

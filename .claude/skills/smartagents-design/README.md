@@ -211,7 +211,7 @@ outside it, and are decided the same way everywhere in `src/`:
    can never drift.
 4. **Rows are only links when there is somewhere to go.** The doc's service and article rows link
    to detail pages that mostly did not exist, so a row with no destination renders plain and drops
-   the "Ontdek →" cue. All four services have a page now — training, AI staffing and coaching, the
+   the "Ontdek →" cue. All four services have a page now — training and coaching, AI staffing, the
    AI-native SDLC and AI-native businessprocessen — so every row links; the lookup is
    `servicePath(key, lang)` in `src/layouts/base.mjs`, and adding a page to `SERVICE_PAGES` there
    brings the hover, the arrow and the translate back on the homepage row and puts the service in
