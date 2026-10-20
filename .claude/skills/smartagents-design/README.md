@@ -679,7 +679,8 @@ outside it, and are decided the same way everywhere in `src/`:
     under the team page the way the kata sits under training (item 12). The
     hero is a breadcrumb (Team / name), then the portrait in a 400px left column
     and the copy beside it: role pill, name, the bio's first paragraph as the
-    lede, three facts on hairlines, LinkedIn and the CV. Under it, "Over mij"
+    lede, three facts on hairlines, and LinkedIn (no CV download: it carried
+    personal contact details and came off at the client's request). Under it, "Over mij"
     and "Opleiding en certificaten" are the split (heading on its cyan rule in
     the narrow column, content in the wide), the career is a hairline row per
     role (organisation, period and place left; role and what it was right), the
@@ -726,4 +727,4 @@ outside it, and are decided the same way everywhere in `src/`:
     a person is worse than a claim about an offer, because the person has to live
     with it. The house rule that nothing on this site names a programming
     language or a build tool holds here too, which costs two of Tom's
-    certifications their place on the page; they are on the CV the page links.
+    certifications their place on the page.

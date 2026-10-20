@@ -294,18 +294,16 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   beside it says what it would take to turn the block on. **Nothing on the page
   names a programming language or a build tool**, the same house rule the kata
   page keeps: Tom holds two more certifications than the page prints and both
-  name a language in their title, so they stay on the CV one click away.
+  name a language in their title, so they are not printed.
   And **`PROFILES` carries the row counts** (`career`, `facts`, `credentials`)
   rather than deriving them, because a flat string file cannot be asked how many
   keys share a prefix — a missing key fails the build, so the number and the
   copy check each other on every build.
-  The CV itself is `public/media/Tom_Haeldermans_CV.pdf`, shipped as-is and
-  named after the person for the reason a course fiche is named after its
-  course: the browser prints the file name in the download bar. The link reads
-  its size off the file at build time through `ficheKilobytes()`. Note that it
-  is the client's own CV and carries a home address, a mobile number and a date
-  of birth; it was published at the client's explicit call, so replacing it with
-  a redacted export is a decision to take with them, not silently.
+  **No CV is published.** Tom's used to be in `public/media/` and linked from
+  his hero; it carried a home address, a mobile number and a date of birth, and
+  the client asked for it to come off the site. The CV stays a *source* for
+  facts on the page, not a download. Do not put it, or a redacted export of it,
+  back without asking.
 - **An insight is a page generated from a list.** `src/pages/insights/insights.mjs`
   holds `INSIGHTS` — one entry per article, with its per-language slug under that
   language's own word for the section (`inzichten/` · `insights/` · `analyses/`)

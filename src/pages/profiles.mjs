@@ -14,8 +14,8 @@
 //
 // Two content rules hold here. **Nothing on this page names a programming
 // language or a build tool**, the house rule the kata page states: a founder's
-// stack is on the CV one click away, and on the site what travels is the way of
-// working. And **every fact about a person is sourced** — the CV, the public
+// stack stays off the site, and what travels is the way of working. And
+// **every fact about a person is sourced** — the CV, the public
 // LinkedIn profile, or the isabel-sdlc deck, which is where Tom's three
 // personal facts were already written down and approved. Nothing here is
 // invented about a real person; where a source is silent, the block is absent.
@@ -23,18 +23,7 @@
 import { html, join, raw } from '../../build/lib/html.mjs';
 import { absolute, pathOf } from '../../build/lib/i18n.mjs';
 import { orbitRings, teamPath } from '../layouts/base.mjs';
-import { ficheKilobytes } from './fiche.mjs';
 import { ORGANISATION_ID, breadcrumbNode, founderId, homeStep } from '../layouts/schema.mjs';
-
-/**
- * Tom's CV, shipped as-is from `public/media/`. Named after the person the way
- * a course fiche is named after its course: the browser prints the file name in
- * the download bar, so it has to say whose it is without the page around it.
- *
- * Axel has none. A download link with nothing behind it is worse than no link,
- * so the block is driven by this field being present rather than by a flag.
- */
-const TOM_CV = 'Tom_Haeldermans_CV.pdf';
 
 /**
  * The two founders, in the order the team page lists them.
@@ -80,7 +69,6 @@ export const PROFILES = [
       fr: 'equipe/tom-haeldermans'
     },
     linkedin: 'https://www.linkedin.com/in/tom-haeldermans-862172117/',
-    cv: TOM_CV,
     career: ['2026–', '2026–', '2021–26', '2021–24', '2016–21'],
     about: 3,
     facts: 3,
@@ -96,6 +84,14 @@ const byKey = new Map(PROFILES.map((profile) => [profile.key, profile]));
  * set twice within one screen is the list restating the hero.
  */
 const SPEC = ['base', 'focus', 'background'];
+
+/**
+ * The facts printed as a bulleted list rather than a line. Their values hold
+ * the items as one string split on " · ", the separator the career titles are
+ * split on; a value with no separator is a list of one, so the two columns
+ * keep the same shape on both profiles.
+ */
+const LISTED = new Set(['focus', 'background']);
 
 /**
  * The bio's paragraphs. The first is the hero's lede, beside the face; the rest
@@ -144,7 +140,7 @@ const linkedinMark = (id) =>
 
 /** One founder's page module. */
 function profilePage(profile) {
-  const { key, name, slugs, linkedin, cv } = profile;
+  const { key, name, slugs, linkedin } = profile;
 
   return {
     /* The parent's id plus a hyphen, so `isCurrentNavItem` marks Team while the
@@ -174,8 +170,7 @@ function profilePage(profile) {
     }),
 
     /* The `Person` node the team page already declares, on their own page and
-       carrying what this page adds: the role it prints, the seat it names and
-       the CV it links. `@id` is the founder id rather than a new one, so the
+       carrying what this page adds: the role it prints and the seat it names. `@id` is the founder id rather than a new one, so the
        graph has one node per person however many pages describe them. */
     schema: ({ t, lang, url }) => [
       {
@@ -212,7 +207,7 @@ ${facts({ t, profile })}
 export const profilePages = PROFILES.map(profilePage);
 
 /* ------------------------------------------------------------------ *
- * Hero — the way up, the face, the name, the lede, three facts, two actions
+ * Hero — the way up, the face, the name, the lede, three facts, LinkedIn
  *
  * Portrait left and copy right, the `SmartAgents Team Profiel` artboard. The
  * portrait carries the page's one navy shape: `profileField`, the DNA disc's
@@ -230,15 +225,28 @@ export const profilePages = PROFILES.map(profilePage);
  * in a language the team page is not published in.
  * ------------------------------------------------------------------ */
 
+/** A spec fact's value: a line, or for a `LISTED` fact one bullet per item. */
+function factValue(id, fact, value) {
+  if (!LISTED.has(fact)) return value;
+  const items = value.split(' · ').map(
+    (item, i) => html`            <li id="${id}-item-${i + 1}">${item}</li>`
+  );
+  return html`
+          <ul id="${id}-list" class="profile-facts__list">
+${join(items)}
+          </ul>
+          `;
+}
+
 function hero({ t, lang, profile }) {
-  const { key, name, linkedin, cv } = profile;
+  const { key, name, linkedin } = profile;
   const id = `profile-${key}-hero`;
   const parent = teamPath(lang);
 
   const facts = SPEC.map(
     (fact) => html`        <div id="${id}-fact-${fact}" class="profile-facts__item">
           <dt id="${id}-fact-${fact}-label">${t(`profile.spec.${fact}.label`)}</dt>
-          <dd id="${id}-fact-${fact}-value">${t(`profile.${key}.spec.${fact}.value`)}</dd>
+          <dd id="${id}-fact-${fact}-value">${factValue(`${id}-fact-${fact}`, fact, t(`profile.${key}.spec.${fact}.value`))}</dd>
         </div>`
   );
 
@@ -275,10 +283,7 @@ ${join(facts)}
       </dl>
       <div id="${id}-actions" class="hero__actions">
         <a id="${id}-cta-linkedin" class="btn btn--ghost btn--marked" href="${linkedin}" target="_blank" rel="noopener noreferrer">${linkedinMark(`${id}-cta-linkedin`)} ${t('profile.cta.linkedin')}<span id="${id}-cta-linkedin-newtab" class="visually-hidden"> ${t('a11y.newTab')}</span></a>
-${cv
-    ? html`        <a id="${id}-cv" class="offer-course__fiche" href="/media/${cv}" type="application/pdf">${t('profile.cv.label', { name: name.split(' ')[0] })} <span id="${id}-cv-size" class="offer-course__fiche-size">(PDF, ${ficheKilobytes(cv)} kB)</span> <span id="${id}-cv-arrow" aria-hidden="true">&darr;</span></a>
-`
-    : ''}      </div>
+      </div>
     </div>
   </div>
 </section>`;
@@ -363,7 +368,7 @@ ${join(rows)}
  * trailing year or year range off it, and a body with none is all issuer.
  *
  * Tom holds two more certifications than are printed here, and both name a
- * programming language in their title. They are on the CV one click away; the
+ * programming language in their title, so they are not printed; the
  * house rule that nothing on this site names a language holds on the page. A
  * platform certification's proper name is neither a language nor a build tool:
  * it is the awarded title, and abbreviating it would misname the credential.

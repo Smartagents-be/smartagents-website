@@ -3037,6 +3037,19 @@ sa-node-field {
   font-weight: var(--weight-medium-plus);
 }
 
+/* Focus and background, one item per line. A cyan disc, as in the article
+   lists, and an indent small enough that the items stay under the label. */
+.profile-facts__list {
+  display: grid;
+  gap: var(--space-1);
+  padding-left: 1.1em;
+  list-style: disc;
+}
+
+.profile-facts__list li::marker {
+  color: var(--sa-cyan);
+}
+
 /* A button carrying a brand mark. `.btn` is a flex container, so the space
    authored between the mark and the label would otherwise collapse. */
 .btn--marked {
