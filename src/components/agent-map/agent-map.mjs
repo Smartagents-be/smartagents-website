@@ -11,15 +11,18 @@ import { html, join } from '../../../build/lib/html.mjs';
 const HUB = { x: 306, y: 310 };
 
 /**
- * The five agents, in the order the pulses leave the hub. `label` is where the
+ * The five services around the team, clockwise from the top, which is also the
+ * order the pulses leave the hub in. `label` is where the
  * name stands relative to its node and which way it reads off that point.
  */
 const AGENTS = [
-  { key: 'tests', x: 299, y: 106, label: { x: 299, y: 74, anchor: 'middle' } },
-  { key: 'deploys', x: 470, y: 222, label: { x: 494, y: 206, anchor: 'start' } },
-  { key: 'review', x: 399, y: 470, label: { x: 418, y: 506, anchor: 'start' } },
-  { key: 'planning', x: 161, y: 440, label: { x: 146, y: 476, anchor: 'end' } },
-  { key: 'fixes', x: 138, y: 242, label: { x: 116, y: 226, anchor: 'end' } }
+  { key: 'training', x: 299, y: 106, label: { x: 299, y: 74, anchor: 'middle' } },
+  { key: 'coaching', x: 470, y: 222, label: { x: 494, y: 206, anchor: 'start' } },
+  { key: 'staffing', x: 399, y: 470, label: { x: 418, y: 506, anchor: 'start' } },
+  { key: 'sdlc', x: 161, y: 440, label: { x: 146, y: 476, anchor: 'end' } },
+  // Above its node rather than beside it: the longest name, and to its left
+  // is the edge of the drawing.
+  { key: 'processes', x: 138, y: 242, label: { x: 138, y: 212, anchor: 'middle' } }
 ];
 
 /** The work around the agents: small nodes, keyed by a two-digit name. */
@@ -42,17 +45,17 @@ const LARGE = new Set(['06', '11', '12', '17', '18', '25', '26', '27', '30']);
  * marked `flow` carry a pulse of their own now and then, out from the agent.
  */
 const EDGES = [
-  ['tests', '01'], ['01', '02'], ['tests', '02', 'flow'], ['02', '03'], ['02', '04'],
-  ['02', '05'], ['05', '06'], ['06', 'fixes'],
-  ['04', '08'], ['08', '07'], ['07', 'deploys', 'flow'], ['07', '09'],
-  ['09', 'deploys'], ['07', '10'], ['10', '11'], ['11', 'deploys'],
+  ['training', '01'], ['01', '02'], ['training', '02', 'flow'], ['02', '03'], ['02', '04'],
+  ['02', '05'], ['05', '06'], ['06', 'processes'],
+  ['04', '08'], ['08', '07'], ['07', 'coaching', 'flow'], ['07', '09'],
+  ['09', 'coaching'], ['07', '10'], ['10', '11'], ['11', 'coaching'],
   ['11', '12'], ['10', '13'], ['13', '14'], ['14', '15'], ['15', '12'],
-  ['15', '16'], ['16', 'review', 'flow'], ['review', '17'], ['17', '15'],
-  ['review', '18'], ['18', '17'], ['review', '19'], ['19', '20'],
+  ['15', '16'], ['16', 'staffing', 'flow'], ['staffing', '17'], ['17', '15'],
+  ['staffing', '18'], ['18', '17'], ['staffing', '19'], ['19', '20'],
   ['20', '21'], ['21', '22'], ['22', '23'], ['23', '16'], ['20', '24'],
-  ['24', 'planning', 'flow'], ['planning', '25'], ['24', '25'],
-  ['planning', '26'], ['26', '27'], ['27', '28'], ['28', 'fixes'],
-  ['fixes', '29', 'flow'], ['29', '28'], ['29', '30'], ['30', 'fixes']
+  ['24', 'sdlc', 'flow'], ['sdlc', '25'], ['24', '25'],
+  ['sdlc', '26'], ['26', '27'], ['27', '28'], ['28', 'processes'],
+  ['processes', '29', 'flow'], ['29', '28'], ['29', '30'], ['30', 'processes']
 ];
 
 const AT = Object.fromEntries(AGENTS.map((agent) => [agent.key, [agent.x, agent.y]]));

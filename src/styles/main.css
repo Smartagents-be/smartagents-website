@@ -4774,7 +4774,13 @@ html:not([data-clause-spy]) .prose__heading:target,
   transform-origin: center;
 }
 
+/* A paper-coloured outline drawn under each glyph, so a label stays legible
+   where an edge of the network runs behind it. */
 .agent-map__label {
+  paint-order: stroke;
+  stroke: var(--sa-paper);
+  stroke-width: 6px;
+  stroke-linejoin: round;
   fill: var(--text-strong);
   font-family: var(--font-sans);
   font-size: 17px;
