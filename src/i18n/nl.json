@@ -583,5 +583,10 @@
   "notfound.description": "Deze pagina bestaat niet (of niet meer).",
   "notfound.tagline": "Deze pagina bestaat niet (of niet meer).",
   "notfound.lede": "Misschien is de pagina verhuisd, of klopt het adres net niet. Hieronder staan de plekken waar de meeste mensen naartoe willen.",
-  "notfound.home": "Terug naar de startpagina"
+  "notfound.home": "Terug naar de startpagina",
+  "ravago.title": "Kata Ravago · SmartAgents",
+  "ravago.description": "De code voor de agentic engineering kata bij Ravago, om te klonen of als zip.",
+  "ravago.hero.title": "Kata Ravago",
+  "ravago.clone.label": "Kloon-commando",
+  "ravago.zip": "Download als zip"
 }

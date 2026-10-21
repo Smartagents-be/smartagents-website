@@ -419,6 +419,10 @@ for (const { relativePath, content } of htmlFiles) {
 
 /** Every URL in the sitemap is a page that exists. */
 const sitemap = distFiles.find((file) => file.relativePath === 'sitemap.xml');
+// The pages the sitemap lists, as files. A public page outside it is one the
+// site chose not to put forward (a client's download page), and the robots
+// check below holds the two to the same decision.
+const sitemapPages = new Set();
 if (sitemap) {
   for (const match of sitemap.content.matchAll(/<loc>([^<]+)<\/loc>/g)) {
     const target = resolveAbsolute('sitemap.xml', match[1].trim());
@@ -427,6 +431,7 @@ if (sitemap) {
     if (resolved && !allDistPaths.has(resolved)) {
       fail('sitemap.xml', 'sitemap URL does not resolve in dist/', match[1].trim());
     }
+    if (resolved) sitemapPages.add(resolved);
   }
 }
 
@@ -440,7 +445,8 @@ for (const { relativePath, content } of htmlFiles) {
 
   const robots = content.match(/<meta\s+name="robots"\s+content="([^"]*)"/i);
   const expectedRobots =
-    isSecured(relativePath) || isRootFallback(relativePath) || isNotFound(relativePath)
+    isSecured(relativePath) || isRootFallback(relativePath) || isNotFound(relativePath) ||
+    (sitemap && isPublicPage(relativePath) && !sitemapPages.has(relativePath))
       ? 'noindex, follow'
       : 'index, follow';
 

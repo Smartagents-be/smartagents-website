@@ -1782,6 +1782,48 @@ sa-node-field {
   }
 }
 
+/* A download page: the kata's code for one client's group. One thing to do, so
+   the copy stands on the hero's centre line rather than in the split column,
+   and the orbit rings are the only texture; a silhouette beside a centred block
+   would put the shape and the command in each other's way. */
+.hero--download .hero__inner {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  padding-left: var(--gutter-page);
+  text-align: center;
+}
+
+.hero--download .hero__text {
+  align-self: center;
+  max-width: 44rem;
+}
+
+.hero--download h1 {
+  margin-inline: auto;
+}
+
+/* The clone command is the link. `user-select: all` makes one click take the
+   whole line, so it copies with no script; it scrolls rather than wraps on a
+   phone because a command broken over two lines no longer pastes as one. */
+.download__command {
+  margin-top: var(--space-10);
+  padding: var(--space-5) var(--space-6);
+  overflow-x: auto;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface-chip);
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: var(--text-ui-sm);
+  text-align: left;
+  white-space: pre;
+  user-select: all;
+}
+
+.download__actions {
+  justify-content: center;
+}
+
 /* Prose under a heading, and the rows that follow it. */
 /* Badges are one of the two places a pill is allowed (the other is the language
    chip). Sentence case, like everything else. */

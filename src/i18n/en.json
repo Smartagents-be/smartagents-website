@@ -583,5 +583,10 @@
   "notfound.description": "This page does not exist (any more).",
   "notfound.tagline": "This page does not exist (any more).",
   "notfound.lede": "The page may have moved, or the address is just slightly off. Below are the places most people are looking for.",
-  "notfound.home": "Back to the homepage"
+  "notfound.home": "Back to the homepage",
+  "ravago.title": "Kata Ravago · SmartAgents",
+  "ravago.description": "The code for the agentic engineering kata at Ravago, to clone or as a zip.",
+  "ravago.hero.title": "Kata Ravago",
+  "ravago.clone.label": "Clone command",
+  "ravago.zip": "Download as zip"
 }

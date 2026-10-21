@@ -80,6 +80,17 @@
 /media/SmartAgents_AI_Business_Teams_Onepager.pdf
   Link: <https://smartagents.be/nl/training/>; rel="canonical"
 
+# A git repository served as files (build/lib/git-download.mjs). `info/refs`
+# names the packs, so a cached copy of one beside a fresh copy of the other is a
+# clone that fails halfway: everything revalidates. Not a page, so not a search
+# result either.
+/kata-ravago.git/*
+  Cache-Control: no-cache
+  X-Robots-Tag: noindex
+
+/media/*.zip
+  X-Robots-Tag: noindex
+
 # The service worker must never be served stale.
 /sw.js
   Cache-Control: no-cache
