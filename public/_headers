@@ -88,9 +88,11 @@
   Cache-Control: no-cache
   X-Robots-Tag: noindex
 
-# A zip of a git download changes with every re-cut of its bundle, under the
+# The zip of a git download changes with every re-cut of its bundle, under the
 # same name, and a day-old copy is the old code: it revalidates, like the clone.
-/media/*.zip
+# It lives outside /media/ because there that rule's Cache-Control won from this
+# one: a no-cache under /media/*.zip never reached the response.
+/downloads/*
   Cache-Control: no-cache
   X-Robots-Tag: noindex
 

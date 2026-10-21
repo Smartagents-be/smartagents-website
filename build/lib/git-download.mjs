@@ -13,11 +13,11 @@
 // binary file, all history and branches, and nothing a nested `.git` directory
 // would do to this repository's own index. The build turns it into two things —
 // the bare repository at `/<slug>.git/` and a zip of the default branch at
-// `/media/<slug>.zip` for a reader without git — so the two can never be two
+// `/downloads/<slug>.zip` for a reader without git — so the two can never be two
 // versions of the code.
 //
 // The page links both unconditionally, so a missing bundle leaves a broken
-// `/media/<slug>.zip` link and `check-dist.mjs` fails the build on it. That is
+// `/downloads/<slug>.zip` link and `check-dist.mjs` fails the build on it. That is
 // the guard: a clone URL that answers 404 never ships. A bundle that is there
 // and fails to unpack fails the build too.
 import { spawnSync } from 'node:child_process';
@@ -28,7 +28,7 @@ import { fileURLToPath } from 'node:url';
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 /**
- * Every repository the site serves. `slug` is the URL: `/<slug>.git/` and `/media/<slug>.zip`.
+ * Every repository the site serves. `slug` is the URL: `/<slug>.git/` and `/downloads/<slug>.zip`.
  * `folder` is the one folder the zip unpacks to, the name the page's clone command gives too.
  */
 export const GIT_DOWNLOADS = {
@@ -36,7 +36,7 @@ export const GIT_DOWNLOADS = {
 };
 
 export const cloneUrlPath = (slug) => `/${slug}.git`;
-export const zipPath = (slug) => `/media/${slug}.zip`;
+export const zipPath = (slug) => `/downloads/${slug}.zip`;
 
 
 function git(args, cwd) {
