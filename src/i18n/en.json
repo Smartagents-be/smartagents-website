@@ -594,7 +594,6 @@
   "ravago.setup.title": "What you need",
   "ravago.setup.tool": "Tool",
   "ravago.setup.version": "Version",
-  "ravago.setup.docker.version": "recent version",
   "ravago.setup.also.title": "Also",
   "ravago.setup.also.assistant": "An AI assistant: preferably Claude Code or GitHub Copilot CLI. Copilot in your IDE works too.",
   "ravago.setup.also.editor": "A code editor: preferably VS Code or IntelliJ IDEA.",

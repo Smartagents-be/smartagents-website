@@ -69,7 +69,8 @@ const TOOLS = [
   ['git', 'Git', '2.x'],
   ['node', 'Node.js (+ npm)', '22.12+ (20.19+)'],
   ['jdk', 'Java JDK', '25+'],
-  ['maven', 'Maven', '3.9+']
+  ['maven', 'Maven', '3.9+'],
+  ['docker', 'Docker', '23+']
 ];
 
 function setup(t, folder) {
@@ -87,11 +88,7 @@ ${TOOLS.map(([key, name, version]) => html`            <tr id="ravago-setup-tool
               <th id="ravago-setup-tools-${key}-name" scope="row">${name}</th>
               <td id="ravago-setup-tools-${key}-version">${version}</td>
             </tr>
-`)}            <tr id="ravago-setup-tools-docker">
-              <th id="ravago-setup-tools-docker-name" scope="row">Docker</th>
-              <td id="ravago-setup-tools-docker-version">${t('ravago.setup.docker.version')}</td>
-            </tr>
-          </tbody>
+`)}          </tbody>
         </table>
         <h3 id="ravago-setup-also-title" class="download__setup-subtitle">${t('ravago.setup.also.title')}</h3>
         <ul id="ravago-setup-also" class="download__setup-list">
