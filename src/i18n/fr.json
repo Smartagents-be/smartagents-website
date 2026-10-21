@@ -596,7 +596,7 @@
   "ravago.setup.version": "Version",
   "ravago.setup.also.title": "En plus",
   "ravago.setup.also.assistant": "Un assistant IA, comme Claude Code ou GitHub Copilot CLI. Copilot dans votre IDE convient aussi.",
-  "ravago.setup.also.editor": "Un éditeur de code, comme VS Code ou IntelliJ IDEA.",
+  "ravago.setup.also.editor": "Un éditeur de code, comme VS Code ou IntelliJ IDEA. Pour travailler avec des dev containers, nous recommandons VS Code.",
   "ravago.setup.also.network": "Un accès à Maven Central, npm et Docker Hub. Derrière un proxy d'entreprise, configurez-le à l'avance pour Maven et npm.",
   "ravago.setup.also.ports": "Les ports 5173 et 8080 libres.",
   "ravago.setup.start.title": "Démarrer",

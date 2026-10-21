@@ -596,7 +596,7 @@
   "ravago.setup.version": "Versie",
   "ravago.setup.also.title": "Verder",
   "ravago.setup.also.assistant": "Een AI-assistent, zoals Claude Code of GitHub Copilot CLI. Copilot in je IDE kan ook.",
-  "ravago.setup.also.editor": "Een code-editor, zoals VS Code of IntelliJ IDEA.",
+  "ravago.setup.also.editor": "Een code-editor, zoals VS Code of IntelliJ IDEA. Voor het werken met dev containers raden we VS Code aan.",
   "ravago.setup.also.network": "Toegang tot Maven Central, npm en Docker Hub. Werk je achter een bedrijfsproxy, stel die dan vooraf in voor Maven en npm.",
   "ravago.setup.also.ports": "Poorten 5173 en 8080 vrij.",
   "ravago.setup.start.title": "Opstarten",
