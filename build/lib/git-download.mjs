@@ -27,9 +27,12 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-/** Every repository the site serves. `slug` is the URL: `/<slug>.git/` and `/media/<slug>.zip`. */
+/**
+ * Every repository the site serves. `slug` is the URL: `/<slug>.git/` and `/media/<slug>.zip`.
+ * `folder` is the one folder the zip unpacks to, the name the page's clone command gives too.
+ */
 export const GIT_DOWNLOADS = {
-  'kata-ravago': { bundle: 'src/content/downloads/kata-ravago.bundle' }
+  'kata-ravago': { bundle: 'src/content/downloads/kata-ravago.bundle', folder: 'kata' }
 };
 
 export const cloneUrlPath = (slug) => `/${slug}.git`;
@@ -55,7 +58,7 @@ function git(args, cwd) {
 export function writeGitDownloads(distDir) {
   const written = [];
 
-  for (const [slug, { bundle }] of Object.entries(GIT_DOWNLOADS)) {
+  for (const [slug, { bundle, folder }] of Object.entries(GIT_DOWNLOADS)) {
     const source = path.join(rootDir, bundle);
     if (!existsSync(source)) continue;
 
@@ -103,7 +106,7 @@ export function writeGitDownloads(distDir) {
 
     const zip = path.join(distDir, zipPath(slug).slice(1));
     mkdirSync(path.dirname(zip), { recursive: true });
-    git(['archive', '--format=zip', `--prefix=${slug}/`, '-o', zip, 'HEAD'], repo);
+    git(['archive', '--format=zip', `--prefix=${folder}/`, '-o', zip, 'HEAD'], repo);
 
     written.push(slug);
   }

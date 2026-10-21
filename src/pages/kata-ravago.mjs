@@ -7,7 +7,7 @@
 // repository itself is served as plain files; see build/lib/git-download.mjs.
 import { html } from '../../build/lib/html.mjs';
 import { absolute } from '../../build/lib/i18n.mjs';
-import { cloneUrlPath, zipPath } from '../../build/lib/git-download.mjs';
+import { GIT_DOWNLOADS, cloneUrlPath, zipPath } from '../../build/lib/git-download.mjs';
 import { orbitRings } from '../layouts/base.mjs';
 
 const SLUG = 'kata-ravago';
@@ -28,7 +28,8 @@ ${hero(t)}
 
 function hero(t) {
   // `kata` names the folder, so the group's paths match the course's own.
-  const command = `git clone ${absolute(cloneUrlPath(SLUG))} kata`;
+  const { folder } = GIT_DOWNLOADS[SLUG];
+  const command = `git clone ${absolute(cloneUrlPath(SLUG))} ${folder}`;
 
   return html`<section id="ravago-hero" class="hero hero--page hero--download" aria-labelledby="ravago-hero-title">
 ${orbitRings('ravago-hero')}
@@ -48,6 +49,7 @@ ${orbitRings('ravago-hero')}
       <div id="ravago-hero-actions" class="hero__actions download__actions">
         <a id="ravago-hero-zip" class="btn btn--ghost" href="${zipPath(SLUG)}" download>${t('ravago.zip')}</a>
       </div>
+${setup(t, folder)}
       <!-- The terms stand under the two ways to get the code rather than in a
            section of their own: a reader who has the command has read them. -->
       <section id="ravago-terms" class="download__terms" aria-labelledby="ravago-terms-title">
@@ -58,4 +60,53 @@ ${orbitRings('ravago-hero')}
     </div>
   </div>
 </section>`;
+}
+
+// The tools in a table, versions as `check.mjs` in the kata enforces them, and
+// what to do between the download and the course's first page. The assistant
+// runs install.txt: that check names what is missing and how to install it.
+const TOOLS = [
+  ['git', 'Git', '2.x'],
+  ['node', 'Node.js (+ npm)', '22.12+ (20.19+)'],
+  ['jdk', 'Java JDK', '25+'],
+  ['maven', 'Maven', '3.9+']
+];
+
+function setup(t, folder) {
+  return html`<section id="ravago-setup" class="download__setup" aria-labelledby="ravago-setup-title">
+        <h2 id="ravago-setup-title" class="download__setup-title">${t('ravago.setup.title')}</h2>
+        <table id="ravago-setup-tools" class="download__tools">
+          <thead id="ravago-setup-tools-head">
+            <tr id="ravago-setup-tools-head-row">
+              <th id="ravago-setup-tools-head-tool" scope="col">${t('ravago.setup.tool')}</th>
+              <th id="ravago-setup-tools-head-version" scope="col">${t('ravago.setup.version')}</th>
+            </tr>
+          </thead>
+          <tbody id="ravago-setup-tools-body">
+${TOOLS.map(([key, name, version]) => html`            <tr id="ravago-setup-tools-${key}">
+              <th id="ravago-setup-tools-${key}-name" scope="row">${name}</th>
+              <td id="ravago-setup-tools-${key}-version">${version}</td>
+            </tr>
+`)}            <tr id="ravago-setup-tools-docker">
+              <th id="ravago-setup-tools-docker-name" scope="row">${t('ravago.setup.docker')}</th>
+              <td id="ravago-setup-tools-docker-version">${t('ravago.setup.docker.version')}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p id="ravago-setup-jdk">${t('ravago.setup.jdk.before')} <code id="ravago-setup-jdk-command">mvn -v</code> ${t('ravago.setup.jdk.after')}</p>
+        <h3 id="ravago-setup-also-title" class="download__setup-subtitle">${t('ravago.setup.also.title')}</h3>
+        <ul id="ravago-setup-also" class="download__setup-list">
+          <li id="ravago-setup-also-assistant">${t('ravago.setup.also.assistant')}</li>
+          <li id="ravago-setup-also-editor">${t('ravago.setup.also.editor')}</li>
+          <li id="ravago-setup-also-network">${t('ravago.setup.also.network')}</li>
+          <li id="ravago-setup-also-ports">${t('ravago.setup.also.ports')}</li>
+        </ul>
+        <h3 id="ravago-setup-start-title" class="download__setup-subtitle">${t('ravago.setup.start.title')}</h3>
+        <ol id="ravago-setup-start" class="download__setup-list">
+          <li id="ravago-setup-start-install">${t('ravago.setup.start.install')}</li>
+          <li id="ravago-setup-start-get">${t('ravago.setup.start.get', { folder })}</li>
+          <li id="ravago-setup-start-assistant">${t('ravago.setup.start.assistant', { folder })} <code id="ravago-setup-start-assistant-prompt">Execute install.txt</code></li>
+          <li id="ravago-setup-start-course">${t('ravago.setup.start.course')} <code id="ravago-setup-start-course-command">cd front</code>, <code id="ravago-setup-start-course-dev">npm run dev</code>, ${t('ravago.setup.start.open')} <code id="ravago-setup-start-course-url">localhost:5173</code></li>
+        </ol>
+      </section>`;
 }
