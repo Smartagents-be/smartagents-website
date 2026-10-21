@@ -21,7 +21,7 @@
 // the guard: a clone URL that answers 404 never ships. A bundle that is there
 // and fails to unpack fails the build too.
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -88,6 +88,18 @@ export function writeGitDownloads(distDir) {
     git(['update-server-info'], repo);
     // FETCH_HEAD names the bundle by its path on the build machine.
     for (const leftover of ['logs', 'FETCH_HEAD']) rmSync(path.join(repo, leftover), { recursive: true, force: true });
+
+    // An empty alternates list, in both of the forms git asks for. Git requests
+    // them with curl's fail-on-error, and on HTTP/2 the libcurl macOS ships
+    // (8.7) answers a 404 there by breaking the shared connection
+    // (`nghttp2_session_mem_recv() returned -902`): the next request, for the
+    // pack list, hung, or the clone failed with "Unable to find <sha>". Empty
+    // is the valid answer for "no alternates", and a 200 leaves curl nothing to
+    // fail on. The 404 git gets for the loose commit it probes first does not
+    // go through that path and is harmless.
+    for (const list of ['alternates', 'http-alternates']) {
+      writeFileSync(path.join(repo, 'objects/info', list), '');
+    }
 
     const zip = path.join(distDir, zipPath(slug).slice(1));
     mkdirSync(path.dirname(zip), { recursive: true });
