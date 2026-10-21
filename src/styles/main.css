@@ -1793,8 +1793,12 @@ sa-node-field {
   text-align: center;
 }
 
+/* Its own width, not its content's: the command is one unbroken line, and a
+   grid item sized to it pushed the box past the gutter on both sides of a phone. */
 .hero--download .hero__text {
   align-self: center;
+  width: 100%;
+  min-width: 0;
   max-width: 44rem;
 }
 
@@ -1803,25 +1807,94 @@ sa-node-field {
 }
 
 /* The clone command is the link. `user-select: all` makes one click take the
-   whole line, so it copies with no script; it scrolls rather than wraps on a
-   phone because a command broken over two lines no longer pastes as one. */
+   whole line, so it copies with no script. It wraps on a phone rather than
+   scrolling: a soft wrap puts no newline in the copied text, so the command
+   still pastes as one line, and a scrollbar under one line of code was most of
+   the box. */
 .download__command {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
   margin-top: var(--space-10);
-  padding: var(--space-5) var(--space-6);
-  overflow-x: auto;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-6);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-panel);
   background: var(--surface-chip);
+  text-align: left;
+}
+
+.download__command-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding-block: var(--space-3);
   color: var(--text-strong);
   font-family: var(--font-mono);
   font-size: var(--text-ui-sm);
-  text-align: left;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   user-select: all;
+}
+
+/* `.btn` sets a display, which beats the user agent's `[hidden]`; the button
+   stays out until <sa-copy-command> has something to wire it to. */
+.download__copy {
+  flex: none;
+  justify-content: center;
+  padding: var(--space-3);
+}
+
+.download__copy[hidden] {
+  display: none;
+}
+
+/* The copy glyph at rest, a check for two seconds after a copy. */
+.download__copy-done,
+.download__copy[data-state="copied"] .download__copy-icon {
+  display: none;
+}
+
+.download__copy[data-state="copied"] .download__copy-done {
+  display: block;
 }
 
 .download__actions {
   justify-content: center;
+}
+
+/* The licence under the actions: small and left-set, because five lines of
+   centred legal prose are read as a shape rather than a sentence. */
+.download__terms {
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+  color: var(--text-muted);
+  font-size: var(--text-meta);
+  line-height: var(--leading-snug);
+  text-align: left;
+}
+
+.download__terms-title {
+  margin-bottom: var(--space-3);
+  color: var(--text-strong);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+}
+
+.download__terms p + p {
+  margin-top: var(--space-3);
+}
+
+/* No shape on this page, so the phone's 80% measure has nothing to clear, and
+   the actions stretch to the column like every other hero's. */
+@media (width < 621px) {
+  .hero--download .hero__text {
+    max-width: none;
+  }
+
+  .hero--download .hero__inner {
+    padding-bottom: var(--space-13);
+  }
 }
 
 /* Prose under a heading, and the rows that follow it. */

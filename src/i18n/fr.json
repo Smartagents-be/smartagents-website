@@ -588,5 +588,10 @@
   "ravago.description": "Le code du kata agentic engineering chez Ravago, à cloner ou en zip.",
   "ravago.hero.title": "Kata Ravago",
   "ravago.clone.label": "Commande de clonage",
-  "ravago.zip": "Télécharger en zip"
+  "ravago.zip": "Télécharger en zip",
+  "ravago.copy": "Copier",
+  "ravago.copied": "Copié",
+  "ravago.terms.title": "Conditions d'utilisation",
+  "ravago.terms.use": "Ce code est destiné exclusivement aux participants au kata agentic engineering chez Ravago, et ne peut être utilisé que pendant cette formation et à des fins personnelles. Vous bénéficiez à cet effet d'un droit d'utilisation personnel, non exclusif et non cessible. Il est interdit de diffuser, publier (y compris dans un dépôt public), vendre ou mettre à la disposition de tiers le code, en tout ou en partie.",
+  "ravago.terms.rights": "Tous les droits de propriété intellectuelle sur le code et le matériel de formation qui l'accompagne restent la propriété de SmartAgents BV. Tous droits réservés. Le code est fourni tel quel, sans aucune garantie. Cette utilisation est régie par le droit belge."
 }
