@@ -1941,10 +1941,6 @@ sa-node-field {
   color: var(--text-strong);
 }
 
-.download__tools + p {
-  margin-top: var(--space-3);
-}
-
 .download__setup-list {
   padding-left: var(--space-6);
 }

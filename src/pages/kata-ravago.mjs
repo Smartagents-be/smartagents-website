@@ -88,12 +88,11 @@ ${TOOLS.map(([key, name, version]) => html`            <tr id="ravago-setup-tool
               <td id="ravago-setup-tools-${key}-version">${version}</td>
             </tr>
 `)}            <tr id="ravago-setup-tools-docker">
-              <th id="ravago-setup-tools-docker-name" scope="row">${t('ravago.setup.docker')}</th>
+              <th id="ravago-setup-tools-docker-name" scope="row">Docker</th>
               <td id="ravago-setup-tools-docker-version">${t('ravago.setup.docker.version')}</td>
             </tr>
           </tbody>
         </table>
-        <p id="ravago-setup-jdk">${t('ravago.setup.jdk.before')} <code id="ravago-setup-jdk-command">mvn -v</code> ${t('ravago.setup.jdk.after')}</p>
         <h3 id="ravago-setup-also-title" class="download__setup-subtitle">${t('ravago.setup.also.title')}</h3>
         <ul id="ravago-setup-also" class="download__setup-list">
           <li id="ravago-setup-also-assistant">${t('ravago.setup.also.assistant')}</li>
