@@ -12,18 +12,21 @@
 // The source is a git bundle committed under `src/content/downloads/`: one
 // binary file, all history and branches, and nothing a nested `.git` directory
 // would do to this repository's own index. The build turns it into two things —
-// the bare repository at `/<slug>.git/` and a zip of the default branch at
-// `/downloads/<slug>.zip` for a reader without git — so the two can never be two
-// versions of the code.
+// the bare repository at `/<slug>.git/` and a zip of a clone of it at
+// `/downloads/<slug>.zip` — so the two can never be two versions of the code, and
+// unzipping gives the same folder, `.git` included, as cloning.
 //
 // The page links both unconditionally, so a missing bundle leaves a broken
 // `/downloads/<slug>.zip` link and `check-dist.mjs` fails the build on it. That is
 // the guard: a clone URL that answers 404 never ships. A bundle that is there
 // and fails to unpack fails the build too.
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { absolute } from './i18n.mjs';
+import { writeZip } from './zip.mjs';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -106,10 +109,61 @@ export function writeGitDownloads(distDir) {
 
     const zip = path.join(distDir, zipPath(slug).slice(1));
     mkdirSync(path.dirname(zip), { recursive: true });
-    git(['archive', '--format=zip', `--prefix=${folder}/`, '-o', zip, 'HEAD'], repo);
+    writeCloneZip(repo, slug, folder, branch.replace('refs/heads/', ''), zip);
 
     written.push(slug);
   }
 
   return written;
+}
+
+/**
+ * The zip is a clone, `.git` included, not `git archive` of the tree: the
+ * course runs git in the student's folder (a hook finds the repository by its
+ * `.git`, the dev container mounts it, the undo steps are `git restore`), so a
+ * folder without one breaks it.
+ *
+ * `--no-local` clones the way a reader does, over git's own transport: one
+ * fresh pack, not hard links to the served one with its bitmap. `--template=`
+ * leaves out the sample hooks, as for the served repository. What is left that
+ * a clone from the URL would not have is rewritten:
+ *
+ * - `config` points `origin` at the clone URL rather than at `dist/`, and says
+ *   nothing about the build machine's file system. `filemode` is false because
+ *   Windows keeps no executable bit: with true, git there would report the
+ *   one executable file in the kata as changed.
+ * - `logs/` goes: its first line names the path the clone came from.
+ * - `index` is read anew from HEAD, see below.
+ */
+function writeCloneZip(repo, slug, folder, branch, zip) {
+  const work = mkdtempSync(path.join(tmpdir(), `${slug}-zip-`));
+  try {
+    const clone = path.join(work, folder);
+    git(['clone', '--quiet', '--no-local', '--template=', repo, clone]);
+    writeFileSync(path.join(clone, '.git', 'config'), [
+      '[core]',
+      '\trepositoryformatversion = 0',
+      '\tfilemode = false',
+      '\tbare = false',
+      '\tlogallrefupdates = true',
+      '[remote "origin"]',
+      `\turl = ${absolute(cloneUrlPath(slug))}`,
+      '\tfetch = +refs/heads/*:refs/remotes/origin/*',
+      `[branch "${branch}"]`,
+      '\tremote = origin',
+      `\tmerge = refs/heads/${branch}`,
+      ''
+    ].join('\n'));
+    rmSync(path.join(clone, '.git', 'logs'), { recursive: true, force: true });
+
+    if (git(['status', '--porcelain'], clone) !== '') throw new Error(`${slug}: the clone for the zip is not clean`);
+    // The index a clone writes holds each file's inode and times on this
+    // machine, which make every build's zip different and mean nothing after an
+    // unzip. Read from HEAD it holds none, and git refreshes it on first use.
+    git(['read-tree', 'HEAD'], clone);
+    const committed = new Date(Number(git(['log', '-1', '--format=%ct'], clone)) * 1000);
+    writeZip(clone, folder, zip, committed);
+  } finally {
+    rmSync(work, { recursive: true, force: true });
+  }
 }
