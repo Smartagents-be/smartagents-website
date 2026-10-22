@@ -19,14 +19,14 @@ export const page = {
   noindex: true,
   strings: 'ravago',
 
-  render: ({ t }) => html`<main id="main" tabindex="-1">
+  render: ({ t, lang }) => html`<main id="main" tabindex="-1">
 
-${hero(t)}
+${hero(t, lang)}
 
 </main>`
 };
 
-function hero(t) {
+function hero(t, lang) {
   // `kata` names the folder, so the group's paths match the course's own.
   const { folder } = GIT_DOWNLOADS[SLUG];
   const command = `git clone ${absolute(cloneUrlPath(SLUG))} ${folder}`;
@@ -36,7 +36,11 @@ ${orbitRings('ravago-hero')}
   <div id="ravago-hero-inner" class="hero__inner">
     <div id="ravago-hero-text" class="hero__text">
       <h1 id="ravago-hero-title">${t('ravago.hero.title')}</h1>
-      <!-- One click selects the whole command (user-select: all), so it copies
+${lang === 'fr'
+    // The course itself is only in Dutch and English, so the French page says so up front.
+    ? html`      <p id="ravago-hero-language" class="download__language">${t('ravago.hero.language')}</p>
+`
+    : ''}      <!-- One click selects the whole command (user-select: all), so it copies
            without a script; <sa-copy-command> adds the button when it loads. -->
       <sa-copy-command id="ravago-clone" class="download__command">
         <pre id="ravago-clone-pre" class="download__command-text" aria-label="${t('ravago.clone.label')}"><code id="ravago-clone-code">${command}</code></pre>
@@ -68,7 +72,7 @@ ${setup(t, folder)}
 // A 4th entry is a string key for a note after the version.
 const TOOLS = [
   ['git', 'Git', '2.x'],
-  ['node', 'Node.js (+ npm)', '22.12+ (20.19+)'],
+  ['node', 'Node.js (+ npm)', '22.12+'],
   ['jdk', 'Java JDK', '25+'],
   ['maven', 'Maven', '3.9+'],
   ['docker', 'Docker', '23+', 'ravago.setup.docker']

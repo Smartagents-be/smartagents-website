@@ -587,6 +587,7 @@
   "ravago.title": "Kata Ravago · SmartAgents",
   "ravago.description": "De code voor de agentic engineering kata bij Ravago, om te klonen of als zip.",
   "ravago.hero.title": "Kata Ravago",
+  "ravago.hero.language": "De cursus is in het Nederlands en het Engels.",
   "ravago.clone.label": "Kloon-commando",
   "ravago.zip": "Download als zip",
   "ravago.copy": "Kopieer",

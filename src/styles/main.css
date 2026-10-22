@@ -1806,6 +1806,11 @@ sa-node-field {
   margin-inline: auto;
 }
 
+/* The French page's note that the course is in Dutch and English: set off from the title. */
+.download__language {
+  margin-top: var(--space-4);
+}
+
 /* The clone command is the link. `user-select: all` makes one click take the
    whole line, so it copies with no script. It wraps on a phone rather than
    scrolling: a soft wrap puts no newline in the copied text, so the command
