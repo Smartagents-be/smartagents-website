@@ -594,6 +594,7 @@
   "ravago.setup.title": "What you need",
   "ravago.setup.tool": "Tool",
   "ravago.setup.version": "Version",
+  "ravago.setup.docker": "only for Claude Code and Copilot CLI",
   "ravago.setup.also.title": "Also",
   "ravago.setup.also.assistant": "An AI assistant, such as Claude Code or GitHub Copilot CLI. Copilot in your IDE works too.",
   "ravago.setup.also.editor": "A code editor, such as VS Code or IntelliJ IDEA. For working with dev containers we recommend VS Code.",

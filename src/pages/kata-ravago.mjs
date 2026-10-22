@@ -65,12 +65,13 @@ ${setup(t, folder)}
 // The tools in a table, versions as `check.mjs` in the kata enforces them, and
 // what to do between the download and the course's first page. The assistant
 // runs install.txt: that check names what is missing and how to install it.
+// A 4th entry is a string key for a note after the version.
 const TOOLS = [
   ['git', 'Git', '2.x'],
   ['node', 'Node.js (+ npm)', '22.12+ (20.19+)'],
   ['jdk', 'Java JDK', '25+'],
   ['maven', 'Maven', '3.9+'],
-  ['docker', 'Docker', '23+']
+  ['docker', 'Docker', '23+', 'ravago.setup.docker']
 ];
 
 function setup(t, folder) {
@@ -84,9 +85,9 @@ function setup(t, folder) {
             </tr>
           </thead>
           <tbody id="ravago-setup-tools-body">
-${TOOLS.map(([key, name, version]) => html`            <tr id="ravago-setup-tools-${key}">
+${TOOLS.map(([key, name, version, note]) => html`            <tr id="ravago-setup-tools-${key}">
               <th id="ravago-setup-tools-${key}-name" scope="row">${name}</th>
-              <td id="ravago-setup-tools-${key}-version">${version}</td>
+              <td id="ravago-setup-tools-${key}-version">${version}${note ? ` (${t(note)})` : ''}</td>
             </tr>
 `)}          </tbody>
         </table>

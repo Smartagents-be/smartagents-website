@@ -594,6 +594,7 @@
   "ravago.setup.title": "Wat je nodig hebt",
   "ravago.setup.tool": "Tool",
   "ravago.setup.version": "Versie",
+  "ravago.setup.docker": "alleen voor Claude Code en Copilot CLI",
   "ravago.setup.also.title": "Verder",
   "ravago.setup.also.assistant": "Een AI-assistent, zoals Claude Code of GitHub Copilot CLI. Copilot in je IDE kan ook.",
   "ravago.setup.also.editor": "Een code-editor, zoals VS Code of IntelliJ IDEA. Voor het werken met dev containers raden we VS Code aan.",
