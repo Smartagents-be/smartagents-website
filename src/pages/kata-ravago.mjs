@@ -107,7 +107,7 @@ ${TOOLS.map(([key, name, version, note]) => html`            <tr id="ravago-setu
           <li id="ravago-setup-start-install">${t('ravago.setup.start.install')}</li>
           <li id="ravago-setup-start-get">${t('ravago.setup.start.get', { folder })}</li>
           <li id="ravago-setup-start-assistant">${t('ravago.setup.start.assistant', { folder })} <code id="ravago-setup-start-assistant-prompt">Execute install.txt</code></li>
-          <li id="ravago-setup-start-course">${t('ravago.setup.start.course')} <code id="ravago-setup-start-course-command">cd front</code>, <code id="ravago-setup-start-course-dev">npm run dev</code>, ${t('ravago.setup.start.open')} <code id="ravago-setup-start-course-url">localhost:5173</code></li>
+          <li id="ravago-setup-start-course">${t('ravago.setup.start.course')} <code id="ravago-setup-start-course-command">cd front</code>, <code id="ravago-setup-start-course-install">npm install</code>, <code id="ravago-setup-start-course-dev">npm run dev</code>, ${t('ravago.setup.start.open')} <code id="ravago-setup-start-course-url">localhost:5173</code></li>
         </ol>
       </section>`;
 }
