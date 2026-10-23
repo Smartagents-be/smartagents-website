@@ -12,6 +12,14 @@ the folder; nothing has to be told about it.
 Every deck lands under `/secured/presentations/<slug>/`, behind the password gate. There is
 no public deck URL and no way to make one: a public page cannot link into `/secured/`.
 
+A deck made for a client with an area of its own — today Isabel, any slug starting
+`isabel` plus `rce-coaching` — lands under `/secured/<client>/presentations/<slug>/`
+instead, where the client's own password reaches it. The source folder stays in
+`presentations/` with every other deck; `functions/secured/areas.js` is what says which
+area a slug is in, and the build, the overview, the guard and the redirect from the old
+address all read it. Keep `deck.json`'s `../shared/` paths as they are: the shell prints
+them absolute.
+
 ## 1. What a deck is made of
 
 ```
@@ -289,7 +297,7 @@ renders it. Until both exist, this section says what it says.
 ```
 npm run build          # renders, then check-dist.mjs gates it
 npm run check:slides   # needs a current dist/ and Chrome; measures every slide
-npm run dev            # serves dist/ on :8000; open /secured/presentations/<slug>/
+npm run dev            # serves dist/ on :8000; open the deck's URL (see above)
 npm run export:pdfs <slug>   # needs a current dist/; writes <slug>.pdf into the deck folder
 ```
 

@@ -6,7 +6,23 @@ Use this folder together with `secured/`:
 
 Route mapping in this repo:
 - `functions/secured/login.js` -> `/secured/login`
+- `functions/secured/[area]/login.js` -> `/secured/<area>/login`, a client area's login
 - `functions/secured/[[path]].js` -> catch-all guard for `/secured/*`
+- `functions/secured/areas.js` -> not a route: the client areas, read by the guard and the build
+
+Client areas:
+- `/secured/<area>/` has a password of its own, a Pages secret named in `areas.js`
+  (`SECURED_ISABEL_PASSWORD` for `/secured/isabel/`). It opens that sub-tree and the
+  shared deck runtime, nothing else.
+- Our `EXPORT_PASSWORD` opens everything, client areas included, and works at a client's
+  login page as well as ours.
+- Each session is its own cookie (`export_session`, `export_session_<area>`) signed with
+  the one `EXPORT_SESSION_SECRET` over a different message, so a client's token never
+  verifies as ours.
+- A client deck's old address under `/secured/presentations/` answers 301 to the new one.
+- `scripts/check-secured.mjs` runs at the end of `npm run build` and checks all of this
+  against `dist/` through the real handlers.
+- Adding a client: one entry in `CLIENT_AREAS`, one secret in the Pages dashboard.
 
 This split is platform-driven. The function files should stay under `functions/` unless deployment moves away from Cloudflare Pages Functions.
 

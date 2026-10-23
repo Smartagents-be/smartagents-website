@@ -2,7 +2,14 @@
 const EXPORT_SESSION_COOKIE = 'export_session';
 const EXPORT_ACCESS_MESSAGE = 'export-access';
 
-export async function generateToken(secret) {
+/**
+ * The session token is an HMAC of a fixed message under the session secret, so
+ * there is nothing to store. A client area signs a message of its own: one
+ * secret, but an Isabel token is not ours and does not verify as ours, and
+ * `scope` absent keeps our message byte-for-byte — sessions already open stay
+ * open across the deploy that added the areas.
+ */
+export async function generateToken(secret, scope = null) {
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey(
     'raw',
@@ -11,10 +18,23 @@ export async function generateToken(secret) {
     false,
     ['sign']
   );
-  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(EXPORT_ACCESS_MESSAGE));
+  const message = scope ? `${EXPORT_ACCESS_MESSAGE}:${scope}` : EXPORT_ACCESS_MESSAGE;
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(message));
   return Array.from(new Uint8Array(signature))
     .map((byte) => byte.toString(16).padStart(2, '0'))
     .join('');
+}
+
+/** Our cookie is `export_session`; a client area's carries its key. */
+export function sessionCookieName(scope = null) {
+  return scope ? `${EXPORT_SESSION_COOKIE}_${scope}` : EXPORT_SESSION_COOKIE;
+}
+
+/** Whether the request carries a valid session for `scope` (null is ours). */
+export async function hasSession(cookies, env, scope = null) {
+  const token = cookies[sessionCookieName(scope)];
+  if (!token || !env.EXPORT_SESSION_SECRET) return false;
+  return timingSafeEqual(token, await generateToken(env.EXPORT_SESSION_SECRET, scope));
 }
 
 export function timingSafeEqual(a, b) {

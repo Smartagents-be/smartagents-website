@@ -1,13 +1,7 @@
 // Cloudflare Pages catch-all guard for /secured/*.
 // This is the server-side pair to the static content inside /secured/.
-import {
-  EXPORT_SESSION_COOKIE,
-  buildSecuredPath,
-  generateToken,
-  getSecuredBasePath,
-  parseCookies,
-  timingSafeEqual
-} from './auth.js';
+import { buildSecuredPath, getSecuredBasePath, hasSession, parseCookies } from './auth.js';
+import { CLIENT_AREAS, SHARED_PREFIXES, areaForPath, areaRoot, movedDeckPath } from './areas.js';
 
 /**
  * Nothing behind the password is held anywhere. `public/_headers` says the same
@@ -22,6 +16,19 @@ function uncached(response) {
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
+/**
+ * Who may see what:
+ *
+ * - our session opens everything under /secured/, the client areas included;
+ * - a client area's session opens `/secured/<key>/` and the shared deck
+ *   runtime, and nothing else — not the overview, not another client's deck;
+ * - the login stylesheets are open to anyone, because the login page needs
+ *   them before there is a session at all.
+ *
+ * A client deck's old address, from before the areas, is redirected before
+ * any of that: the link a client was sent has to reach their own login, not
+ * ours.
+ */
 export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -36,16 +43,30 @@ export async function onRequest(context) {
     return uncached(await env.ASSETS.fetch(request));
   }
 
-  const cookies = parseCookies(request.headers.get('Cookie'));
-  const token = cookies[EXPORT_SESSION_COOKIE];
+  const moved = movedDeckPath(url.pathname);
+  if (moved) {
+    return uncached(Response.redirect(`${url.origin}${moved}${url.search}`, 301));
+  }
 
-  if (token && env.EXPORT_SESSION_SECRET) {
-    const expected = await generateToken(env.EXPORT_SESSION_SECRET);
-    if (timingSafeEqual(token, expected)) {
-      return uncached(await env.ASSETS.fetch(request));
+  const cookies = parseCookies(request.headers.get('Cookie'));
+  const area = areaForPath(url.pathname);
+
+  if (await hasSession(cookies, env)) {
+    return uncached(await env.ASSETS.fetch(request));
+  }
+
+  if (area && (await hasSession(cookies, env, area.key))) {
+    return uncached(await env.ASSETS.fetch(request));
+  }
+
+  if (SHARED_PREFIXES.some((prefix) => url.pathname.startsWith(prefix))) {
+    for (const each of CLIENT_AREAS) {
+      if (await hasSession(cookies, env, each.key)) {
+        return uncached(await env.ASSETS.fetch(request));
+      }
     }
   }
 
-  const loginUrl = `${url.origin}${buildSecuredPath(securedBasePath, '/login')}?redirect=${encodeURIComponent(url.pathname)}`;
+  const loginUrl = `${url.origin}${areaRoot(area)}login?redirect=${encodeURIComponent(url.pathname)}`;
   return uncached(Response.redirect(loginUrl, 302));
 }

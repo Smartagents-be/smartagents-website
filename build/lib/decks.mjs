@@ -3,6 +3,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { html, raw } from './html.mjs';
+import { areaForSlug, areaRoot, deckPath } from '../../functions/secured/areas.js';
 
 /** Friendly display names for the /secured/ overview. Falls back to the slug. */
 const DECK_NAMES = {
@@ -14,6 +15,7 @@ const DECK_NAMES = {
   'kbc-staffing-pitch-en': 'KBC · AI Staffing (EN)',
   'advocatuur-pitch': 'Advocatuur · Procesoptimalisatie & AI',
   'isabel-sdlc': 'Isabel · AI-native SDLC',
+  'isabel-testing-strategy': 'Isabel · Testing strategy',
   'isabel-update-6-oct': 'Isabel · Update and cake moments, 6 October',
   'isabel-update-13-oct': 'Isabel · Ponto update, 13 October',
   'isabel-update-20-oct': 'Isabel · Update and playgrounds, 20 October',
@@ -71,7 +73,9 @@ export function loadDecks(contentDir) {
       return raw(expandChrome(readFileSync(file, 'utf8')));
     });
 
-    const url = `/secured/presentations/${entry.name}/`;
+    // A client's deck is published under its area, where the client's own
+    // password reaches it; see `functions/secured/areas.js`.
+    const url = deckPath(entry.name);
     const pdf = existsSync(path.join(dir, `${entry.name}.pdf`))
       ? `${url}${entry.name}.pdf`
       : null;
@@ -79,6 +83,7 @@ export function loadDecks(contentDir) {
     decks.push({
       slug: entry.name,
       name: DECK_NAMES[entry.name] || prettify(entry.name),
+      area: areaForSlug(entry.name),
       dir,
       url,
       pdf,
@@ -100,12 +105,14 @@ export function loadSecuredDocuments(contentDir) {
     if (ext !== '.html' && ext !== '.pdf') continue;
 
     const base = path.basename(file, ext);
+    // A client's document sits in its area, like a client's deck.
+    const root = areaRoot(areaForSlug(base));
     if (!documents.has(base)) {
-      documents.set(base, { name: prettify(base), slug: base, html: null, pdf: null });
+      documents.set(base, { name: prettify(base), slug: base, area: areaForSlug(base), html: null, pdf: null });
     }
     const record = documents.get(base);
-    if (ext === '.html') record.html = `/secured/${base}/`;
-    if (ext === '.pdf') record.pdf = `/secured/${file}`;
+    if (ext === '.html') record.html = `${root}${base}/`;
+    if (ext === '.pdf') record.pdf = `${root}${file}`;
   }
 
   return [...documents.values()].sort((a, b) => a.name.localeCompare(b.name));

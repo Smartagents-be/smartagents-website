@@ -26,6 +26,7 @@ import { createReadStream, existsSync, mkdtempSync, rmSync, statSync, readdirSyn
 import { extname, join, normalize, resolve } from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
+import { deckPath } from '../functions/secured/areas.js';
 import { tmpdir } from 'node:os';
 
 const repoRoot = resolve(process.cwd());
@@ -211,7 +212,7 @@ let flagged = 0;
 let slides = 0;
 
 for (const slug of decks) {
-  const url = `http://${host}:${port}/secured/presentations/${slug}/`;
+  const url = `http://${host}:${port}${deckPath(slug)}`;
   let rows;
   try {
     rows = await measure(url);

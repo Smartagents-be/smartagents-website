@@ -2,6 +2,20 @@
 // One layout function, one deck.json per deck: the ten decks used to be ten
 // near-identical HTML documents.
 import { html, raw, join } from '../../build/lib/html.mjs';
+import { CLIENT_AREAS } from '../../functions/secured/areas.js';
+
+/**
+ * A deck's config names the shared files relative to the folder the deck sits
+ * in in the repo, `/secured/presentations/<slug>/`, which is also where a
+ * deck outside a client area is published. A client's deck is published a
+ * level deeper, so every path that climbs out of the deck's own folder is
+ * resolved against the repo's layout here and printed absolute. What stays
+ * inside the folder — `assets/`, `deck.css` — moves with it and stays relative.
+ */
+function fromRepoLayout(slug, href) {
+  if (!href.startsWith('../')) return href;
+  return new URL(href, `https://deck.invalid/secured/presentations/${slug}/`).pathname;
+}
 
 export function deckPage(deck) {
   const { config, slides } = deck;
@@ -13,10 +27,10 @@ export function deckPage(deck) {
     : '';
 
   const extraStyles = (config.styles || []).map(
-    (href) => html`<link rel="stylesheet" href="${href}">`
+    (href) => html`<link rel="stylesheet" href="${fromRepoLayout(deck.slug, href)}">`
   );
   const extraScripts = (config.scripts || []).map(
-    (src) => html`<script src="${src}"></script>`
+    (src) => html`<script src="${fromRepoLayout(deck.slug, src)}"></script>`
   );
 
   return html`<!doctype html>
@@ -29,7 +43,7 @@ export function deckPage(deck) {
 <title>${config.title}</title>
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 ${fonts}
-<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="/secured/tokens.css">
 ${join(extraStyles)}
 <link rel="stylesheet" href="deck.css">
 </head>
@@ -38,7 +52,7 @@ ${join(extraStyles)}
 ${join(slides)}
 </deck-stage>
 
-<script src="../shared/deck-stage.js"></script>
+<script src="/secured/presentations/shared/deck-stage.js"></script>
 ${join(extraScripts)}
 </body>
 </html>
@@ -46,14 +60,11 @@ ${join(extraScripts)}
 }
 
 /**
- * Clients whose material is listed together on the overview, by slug prefix,
- * plus any slug named outright: a deck made for a client before the prefix
- * rule existed keeps its URL, which has already been sent out.
+ * The /secured/ overview: internal documents and decks behind the password
+ * gate. With `area` it is that client area's overview instead, given only the
+ * area's own items, so it prints them flat under the client's name.
  */
-const CLIENT_GROUPS = [{ key: 'isabel', prefix: 'isabel', slugs: ['rce-coaching'], title: 'Isabel' }];
-
-/** The /secured/ overview: internal documents and decks behind the password gate. */
-export function securedIndexPage({ documents, decks }) {
+export function securedIndexPage({ documents, decks, area = null }) {
   const list = (scope, items) => html`<ul id="${scope}-list" class="list">
 ${join(
     items.map(
@@ -81,17 +92,17 @@ ${join(
   ${list(scope, items)}
 </section>`;
 
-  const deckItems = decks.map((deck) => ({ slug: deck.slug, name: deck.name, html: deck.url, pdf: deck.pdf }));
+  const deckItems = decks.map((deck) => ({ slug: deck.slug, name: deck.name, area: deck.area, html: deck.url, pdf: deck.pdf }));
 
   // A client with more than one thing behind the password gets a section of
   // its own, ahead of the generic two. Membership is the slug prefix, so a new
   // `isabel-*` document or deck lands here without being listed anywhere.
   const sections = [];
   const claimed = new Set();
-  for (const client of CLIENT_GROUPS) {
-    const items = [...documents, ...deckItems].filter(
-      (item) => item.slug.startsWith(client.prefix) || client.slugs?.includes(item.slug)
-    );
+  // Membership is the area's, in `functions/secured/areas.js`: a client's deck
+  // is listed under the client because that is where its password reaches.
+  for (const client of area ? [] : CLIENT_AREAS) {
+    const items = [...documents, ...deckItems].filter((item) => item.area === client);
     if (!items.length) continue;
     items.forEach((item) => claimed.add(item.slug));
     sections.push(section(`secured-client-${client.key}`, client.title, items));
@@ -103,7 +114,7 @@ ${join(
     sections.push(section('secured-documents', 'Documenten', restDocuments));
   }
   if (restDecks.length) {
-    sections.push(section('secured-decks', 'Pitches', restDecks));
+    sections.push(section('secured-decks', area ? 'Presentaties' : 'Pitches', restDecks));
   }
   if (!sections.length) {
     sections.push(html`<p id="secured-empty" class="empty">Geen documenten beschikbaar.</p>`);
@@ -114,7 +125,7 @@ ${join(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SmartAgents — Documenten</title>
+<title>SmartAgents — Documenten${area ? ` · ${area.title}` : ''}</title>
 <meta name="description" content="Beveiligde documenten van SmartAgents.">
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#f9fafb">
@@ -125,7 +136,7 @@ ${join(
 <body id="secured-body">
 <header id="secured-header" class="page-head">
   <p id="secured-brand" class="brand"><span id="secured-brand-base" class="brand-base">Smart</span><span id="secured-brand-accent" class="brand-accent">Agents</span></p>
-  <p id="secured-subtitle" class="subtitle">Beveiligde documenten</p>
+  <p id="secured-subtitle" class="subtitle">Beveiligde documenten${area ? ` · ${area.title}` : ''}</p>
 </header>
 <main id="secured-main">
 ${join(sections)}

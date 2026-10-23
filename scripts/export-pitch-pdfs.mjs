@@ -10,6 +10,7 @@ import { createReadStream, existsSync, readFileSync, readdirSync, statSync } fro
 import { extname, join, normalize, resolve } from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
+import { deckPath } from '../functions/secured/areas.js';
 
 const repoRoot = resolve(process.cwd());
 const distDir = resolve(repoRoot, 'dist');
@@ -116,7 +117,7 @@ console.log(`Serving dist at http://${host}:${port}`);
 
 let failures = 0;
 for (const slug of decks) {
-  const url = `http://${host}:${port}/secured/presentations/${slug}/`;
+  const url = `http://${host}:${port}${deckPath(slug)}`;
   const out = join(presentationsDir, slug, `${slug}.pdf`);
   process.stdout.write(`Exporting ${slug} ... `);
   // Use async spawn (not spawnSync): the static server lives in this same

@@ -94,8 +94,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   project has one, Cloudflare reads `pages_build_output_dir`, bindings and
   `[vars]` from it and ignores the dashboard equivalents. Secrets
   (`TURNSTILE_SECRET_KEY`, `N8N_SHARED_SECRET`, `EXPORT_PASSWORD`,
-  `EXPORT_SESSION_SECRET`) stay dashboard-managed; a binding a Function needs at
-  runtime belongs in the file. `functions/api/README.md` records one that is
+  `EXPORT_SESSION_SECRET`, `SECURED_ISABEL_PASSWORD`) stay dashboard-managed;
+  a binding a Function needs at runtime belongs in the file. `functions/api/README.md` records one that is
   still missing.
 - **Odoo owns the vacancy list, and the jobs page prints it. Both are in the
   `jobs-and-odoo` skill** (`.claude/skills/jobs-and-odoo/SKILL.md`): the
@@ -657,6 +657,17 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   trigger never sees this form, because the component stops the native submit.
   The privacy notice describes all of this, so a change to the container's tags
   is a change to that notice too.
+- **A client can have an area of its own under `/secured/`, with its own
+  password.** `/secured/isabel/` is the first: `SECURED_ISABEL_PASSWORD` opens
+  that sub-tree and the shared deck runtime and nothing else, and our
+  `EXPORT_PASSWORD` still opens everything, the area included.
+  `functions/secured/areas.js` is the one list — which slugs belong to which
+  area — and the guard, the build, both overviews, the PDF export and the 301
+  from a client deck's old `/secured/presentations/<slug>/` address all read
+  it. The deck's source stays in `presentations/`; only where it is published
+  moves. `scripts/check-secured.mjs` is the last build step and asks the real
+  handlers, with each password, for everything each session may and may not
+  open. See `functions/secured/README.md`.
 - **`/secured/` is self-contained but not off-brand.** It serves its own
   `tokens.css`, `base.css` and `deck-stage.js` and links nothing from the public
   build, yet `src/content/secured/tokens.css` carries the same values as

@@ -61,3 +61,9 @@ run(process.execPath, ['scripts/check-dist.mjs']);
 //    the form, which shipped broken precisely because nothing compared the two
 //    halves of it. No network: Turnstile and the webhook are stubbed.
 run(process.execPath, ['scripts/check-contact.mjs']);
+// 6. check-secured.mjs asks the real /secured/ Functions, with each password,
+//    for what each session may and may not open — a client area's password
+//    opens its own sub-tree and nothing else. A gate that is wrong in either
+//    direction still renders fine for whoever is meant to see the page, so the
+//    build is the only place it can show.
+run(process.execPath, ['scripts/check-secured.mjs']);

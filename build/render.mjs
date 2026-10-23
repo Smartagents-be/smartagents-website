@@ -1,7 +1,7 @@
 // Renders every page template to a complete HTML file in dist/.
 // Runs after `vite build`, which produces the hashed assets and the manifest.
 // See .claude/skills/fast-static-site/SKILL.md §1.
-import { cpSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -21,6 +21,7 @@ import {
 import { loadManifest } from './lib/assets.mjs';
 import { PHONE, EMAIL } from '../src/components/contact-form/contact-form.mjs';
 import { loadDecks, loadSecuredDocuments } from './lib/decks.mjs';
+import { CLIENT_AREAS } from '../functions/secured/areas.js';
 // `SERVICE_PAGES` is the nav's own list of the four services; `llms.txt` is
 // built from it rather than from a second copy that could fall behind it.
 import { basePage, SERVICE_PAGES } from '../src/layouts/base.mjs';
@@ -268,14 +269,48 @@ function copyPromoMedia() {
   }
 }
 
+/**
+ * The copy above lays `src/content/secured/` out as it is in the repo, where a
+ * client's deck sits in `presentations/` with every other. The guard reads the
+ * URL to decide which password opens a file, so a client's deck folder — its
+ * images, its stylesheet, its PDF — is moved to where its page was written.
+ */
+function moveIntoAreas({ decks, documents }) {
+  for (const deck of decks) {
+    if (!deck.area) continue;
+    const from = path.join(distDir, 'secured/presentations', deck.slug);
+    cpSync(from, path.join(distDir, deck.url.slice(1)), { recursive: true });
+    rmSync(from, { recursive: true, force: true });
+  }
+  for (const document of documents) {
+    if (!document.area || !document.pdf) continue;
+    const target = path.join(distDir, document.pdf.slice(1));
+    mkdirSync(path.dirname(target), { recursive: true });
+    renameSync(path.join(distDir, 'secured', path.basename(document.pdf)), target);
+  }
+}
+
 async function renderSecured() {
   const decks = loadDecks(contentDir);
   const documents = loadSecuredDocuments(contentDir);
 
   await writeHtml('secured/index.html', securedIndexPage({ documents, decks }));
 
+  // A client area's own overview: the one page its password lands on, listing
+  // only what that password opens.
+  for (const area of CLIENT_AREAS) {
+    await writeHtml(
+      path.join('secured', area.key, 'index.html'),
+      securedIndexPage({
+        documents: documents.filter((item) => item.area === area),
+        decks: decks.filter((item) => item.area === area),
+        area
+      })
+    );
+  }
+
   for (const deck of decks) {
-    await writeHtml(path.join('secured/presentations', deck.slug, 'index.html'), deckPage(deck));
+    await writeHtml(path.join(deck.url.slice(1), 'index.html'), deckPage(deck));
   }
 
   // Standalone documents are already complete HTML pages; copy them into their
@@ -283,10 +318,11 @@ async function renderSecured() {
   for (const document of documents) {
     if (!document.html) continue;
     const source = path.join(contentDir, 'secured', `${document.slug}.html`);
-    await writeHtml(path.join('secured', document.slug, 'index.html'), readFileSync(source, 'utf8'));
+    await writeHtml(path.join(document.html.slice(1), 'index.html'), readFileSync(source, 'utf8'));
   }
 
   copySecuredStatic();
+  moveIntoAreas({ decks, documents });
   return { decks, documents };
 }
 
