@@ -381,6 +381,133 @@
   line-height: var(--leading-body-tight);
 }
 
+/* ------------------------------------------------------------------ *
+ * Zij vertrouwen op ons — the client logos between the homepage DNA section
+ * and the insights.
+ *
+ * The label is a divider: centred, a hairline running out to each side, so it
+ * is the band's top edge rather than a line floating over it. Under it five
+ * equal cells, parted by short vertical hairlines, each logo centred in its
+ * cell. Equal cells are what give the row a rhythm: spread with
+ * `space-between`, a square mark beside a wordmark five times as wide left
+ * gaps from 200 to 400px and the row read as five loose objects.
+ *
+ * The logos are one grey baked into the files, dimmed further here; their
+ * sizes are set in the markup (see `clients()` in home.mjs).
+ * ------------------------------------------------------------------ */
+
+.clients {
+  position: relative;
+  z-index: 1;
+  padding: var(--section-rhythm) var(--gutter-page) 0;
+}
+
+.clients__inner {
+  display: grid;
+  gap: var(--space-11);
+}
+
+.clients__title {
+  display: flex;
+  gap: var(--space-8);
+  align-items: center;
+  color: var(--text-faint);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-body-tight);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.clients__title::before,
+.clients__title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--sa-line);
+}
+
+.clients__list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.clients__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88px;
+  padding-inline: var(--space-8);
+}
+
+/* The divider stops short of the cell's top and bottom, so it parts the logos
+   without boxing them in. */
+.clients__item + .clients__item::before {
+  content: '';
+  position: absolute;
+  inset-block: 22%;
+  left: 0;
+  width: 1px;
+  background: var(--sa-line);
+}
+
+.clients__logo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  opacity: 0.72;
+  transition: opacity var(--dur-tint) ease;
+}
+
+.clients__item:hover .clients__logo {
+  opacity: 0.9;
+}
+
+/* Below the desk five cells get too narrow for the wordmarks, so the row
+   becomes three over two, the two centred under the three. A six-column grid
+   with every cell two wide is what lets the second row sit centred without
+   leaving an empty cell. */
+@media (width < 1001px) {
+  .clients__list {
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: var(--space-6);
+  }
+
+  .clients__item {
+    grid-column: span 2;
+  }
+
+  .clients__item:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  /* A row's first cell takes no divider, and the fourth starts the second row. */
+  .clients__item:nth-child(4)::before {
+    content: none;
+  }
+}
+
+@media (width < 621px) {
+  .clients__inner {
+    gap: var(--space-8);
+  }
+
+  .clients__item {
+    min-height: 72px;
+    padding-inline: var(--space-4);
+  }
+
+  /* `zoom` rather than a width: it scales the size the markup gave each logo,
+     so the balance between them survives the step down. */
+  .clients__logo {
+    zoom: 0.8;
+  }
+}
+
 /* The rule over a heading is a cut of the heading's width on a desk. From the
    tablet down the heading is the column, so the rule runs the width of the page
    — and the head stops being a row, or the heading would be its longest line. */

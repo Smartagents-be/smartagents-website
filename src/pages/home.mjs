@@ -14,6 +14,21 @@ import { articleRows, insightsIndexPath } from './insights/insights.mjs';
 const SERVICES = ['training', 'processes', 'staffing', 'sdlc'];
 const DNA = ['1', '2', '3', '4'];
 
+// Organisations we have worked for, as monochrome SVGs in `/media/clients/`.
+// Each was traced from the client's own logo into one grey (`--sa-grey-6`), so
+// five brands with five palettes read as one quiet row. `ratio` is the file's
+// viewBox width over its height; `weight` corrects the equal-area size for how
+// much ink a logo carries — Ravago is a solid block and reads large at its
+// share, Pejati is a hairline frame and reads small. The name is a brand and is
+// not translated.
+const CLIENTS = [
+  { key: 'ravago', name: 'Ravago', ratio: 666 / 743, weight: 0.88 },
+  { key: 'isabel', name: 'Isabel Group', ratio: 261 / 89, weight: 1 },
+  { key: 'cegeka', name: 'Cegeka', ratio: 250.2 / 53.5, weight: 0.85 },
+  { key: 'schevenels', name: 'Schevenels Project Interieurs', ratio: 435.3 / 78.7, weight: 1 },
+  { key: 'pejati', name: 'Pejati Edelmetalen', ratio: 479.7 / 129.7, weight: 1.08 }
+];
+
 export const page = {
   id: 'home',
   // One entry per language. An empty slug is that language's root, e.g. /nl/.
@@ -24,6 +39,7 @@ export const page = {
 ${hero(t, lang)}
 ${services(t, lang)}
 ${dna(t)}
+${clients(t)}
 ${insights(t, lang)}
 ${contact(t, lang)}
 
@@ -93,6 +109,43 @@ ${heroOffer(t, lang)}
         <a id="home-hero-cta-work" class="btn btn--ghost" href="#services">${t('cta.seeWork')}</a>
       </div>
     </div>
+  </div>
+</section>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Zij vertrouwen op ons — between the DNA section and the insights.
+ *
+ * The label is a divider: centred, with a hairline running out to each side,
+ * so it is the top edge of the band rather than a line floating above it. The
+ * logos stand in five equal cells, parted by short vertical hairlines — the
+ * site's row language turned on its side — so the gaps are the grid's and
+ * not whatever a wide wordmark beside a square mark happens to leave.
+ *
+ * Every logo is given the same area rather than the same height: a square
+ * mark at the height of a wordmark five times as wide reads as a dot, and at
+ * the same width it towers over the row. Width goes with the square root of
+ * the aspect ratio, which is the usual optical compromise, and the pair is
+ * written into the markup so the row reserves its space before the files land.
+ * ------------------------------------------------------------------ */
+
+const LOGO_AREA = 4600;
+
+function clients(t) {
+  const items = CLIENTS.map(({ key, name, ratio, weight }) => {
+    const width = Math.round(Math.sqrt(LOGO_AREA * ratio) * weight);
+    const height = Math.round(width / ratio);
+    return html`    <li id="home-clients-item-${key}" class="clients__item">
+      <img id="home-clients-logo-${key}" class="clients__logo" src="/media/clients/${key}.svg" alt="${name}" width="${width}" height="${height}" loading="lazy" decoding="async">
+    </li>`;
+  });
+
+  return html`<section id="home-clients" class="clients" aria-labelledby="home-clients-title">
+  <div id="home-clients-inner" class="clients__inner">
+    <h2 id="home-clients-title" class="clients__title"><span id="home-clients-title-text" class="clients__title-text">${t('clients.title')}</span></h2>
+    <ul id="home-clients-list" class="clients__list">
+${join(items)}
+    </ul>
   </div>
 </section>`;
 }
