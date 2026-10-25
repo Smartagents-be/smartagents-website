@@ -24,7 +24,7 @@ const DNA = ['1', '2', '3', '4'];
 const CLIENTS = [
   { key: 'ravago', name: 'Ravago', ratio: 666 / 743, weight: 0.88 },
   { key: 'isabel', name: 'Isabel Group', ratio: 261 / 89, weight: 1 },
-  { key: 'qpark', name: 'Q-Park', ratio: 251.2 / 98.3, weight: 0.95 },
+  { key: 'cegeka', name: 'Cegeka', ratio: 250.2 / 53.5, weight: 0.85 },
   { key: 'schevenels', name: 'Schevenels Project Interieurs', ratio: 435.3 / 78.7, weight: 1 },
   { key: 'pejati', name: 'Pejati Edelmetalen', ratio: 479.7 / 129.7, weight: 1.08 }
 ];
