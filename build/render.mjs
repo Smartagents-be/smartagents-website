@@ -40,8 +40,6 @@ import { page as jobsPage } from '../src/pages/jobs.mjs';
 import { readVacancies } from './lib/odoo-jobs.mjs';
 import { page as privacyPage } from '../src/pages/privacy/privacy.mjs';
 import { page as notFoundPage } from '../src/pages/not-found.mjs';
-import { page as kataRavagoPage } from '../src/pages/kata-ravago.mjs';
-import { writeGitDownloads } from './lib/git-download.mjs';
 import { INSIGHTS, indexPage as insightsIndexPage, insightPages } from '../src/pages/insights/insights.mjs';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -64,7 +62,6 @@ const PAGES = [
   insightsIndexPage,
   ...insightPages,
   privacyPage,
-  kataRavagoPage,
   notFoundPage
 ];
 
@@ -585,9 +582,6 @@ const sitemapEntries = await renderPublicPages({ strings, criticalCss, assets, v
 await renderRootFallback();
 const { decks, documents } = await renderSecured();
 copyPromoMedia();
-// The clonable repositories and their zips; see build/lib/git-download.mjs.
-const gitDownloads = writeGitDownloads(distDir);
-if (gitDownloads.length) console.log(`Git downloads: ${gitDownloads.map((slug) => `/${slug}.git`).join(' · ')}`);
 
 // Static files that ship as-is (favicon, any future robots additions).
 cpSync(path.join(rootDir, 'public'), distDir, { recursive: true });

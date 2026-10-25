@@ -80,22 +80,6 @@
 /media/SmartAgents_AI_Business_Teams_Onepager.pdf
   Link: <https://smartagents.be/nl/training/>; rel="canonical"
 
-# A git repository served as files (build/lib/git-download.mjs). `info/refs`
-# names the packs, so a cached copy of one beside a fresh copy of the other is a
-# clone that fails halfway: everything revalidates. Not a page, so not a search
-# result either.
-/kata-ravago.git/*
-  Cache-Control: no-cache
-  X-Robots-Tag: noindex
-
-# The zip of a git download changes with every re-cut of its bundle, under the
-# same name, and a day-old copy is the old code: it revalidates, like the clone.
-# It lives outside /media/ because there that rule's Cache-Control won from this
-# one: a no-cache under /media/*.zip never reached the response.
-/downloads/*
-  Cache-Control: no-cache
-  X-Robots-Tag: noindex
-
 # The service worker must never be served stale.
 /sw.js
   Cache-Control: no-cache

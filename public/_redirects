@@ -8,13 +8,6 @@
 /contact /nl/#contact 301
 /contact/ /nl/#contact 301
 
-# The kata's code for Ravago's group, as it is handed out: the short URL with
-# no language, straight to the page rather than through the catch-all and a
-# second trailing-slash hop. The clone URL beside it, /kata-ravago.git/, is a
-# top-level directory and gets its pass-through rule generated.
-/kata-ravago /nl/kata-ravago/ 302
-/kata-ravago/ /nl/kata-ravago/ 302
-
 # The old Eleventy site, which this one replaced in cbd2582. Every source below
 # is a URL that site published, read off its permalinks in `git show cbd2582^1`,
 # and every target is what took its place here. Permanent, and meant to stay:
