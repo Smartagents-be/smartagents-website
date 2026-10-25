@@ -1,9 +1,8 @@
 // "Een dag agentic engineering bij Ravago" — 23 October 2026. Written for the
-// redesign rather than ported. Every claim about the day is the course's own
-// (the kata page and ../kata-agentic-java): the step names, the flags, the
-// build as the judge, the repository that stays with the group. Nothing is said
-// about a participant that a participant did not say, and, as on the kata page,
-// no language or build tool is named.
+// redesign rather than ported. The content follows the kata's own slides
+// (github.com/Smartagents-be/kata, front/src/steps/step*/locales): the step
+// names, each step's recap and the deck titles. Nothing is said about a
+// participant, and, as on the kata page, no language or build tool is named.
 import { p, h2, quote } from '../prose.mjs';
 
 const KATA = {
@@ -14,133 +13,117 @@ const KATA = {
 
 export const body = {
   nl: [
-    p`Bijna elke developer heeft intussen al eens een AI-agent code laten schrijven. Veel
-      minder developers weten waarom diezelfde agent de ene keer briljant is en de
-      volgende keer vol zelfvertrouwen de mist in gaat. Op 23 oktober zochten we dat een
-      volle dag lang uit, samen met de developers van **Ravago**.`,
-    p`Geen zaal met rijen stoelen en een spreker achteraan onverstaanbaar. Wel een ronde
-      tafel, laptops open, koffie binnen handbereik en iedereen met zicht op hetzelfde
-      scherm. Precies wat je wil voor een dag waarop niemand lang zou blijven
-      stilzitten.`,
-    h2`Eerst zien wat de agent ziet`,
-    p`De ochtend begon bij de vraag die alles verklaart: **wat zit er eigenlijk in het
-      contextvenster** van een agent? Je prompt, de tools, de sessie, de instructies die
-      je zelf nooit typt. Elke laag kost tokens en elke laag kleurt het antwoord.`,
-    p`Tom liet dat venster op het grote scherm laag per laag vollopen. Daarna was het
-      aan de groep, op hun eigen machine en in een echte codebase. Want wie één keer heeft
-      gezien hoe snel dat venster vol zit, stuurt een agent nooit meer op dezelfde manier
-      aan.`,
-    h2`Flags die je niet kan googelen`,
-    p`Een kata leert door herhaling, en elke oefening bouwt voort op de vorige. In de
-      code zitten **verborgen flags die pas verschijnen als je oplossing echt werkt**:
-      als de software lokaal draait, de juiste meetpunten heeft of beter beveiligd is.
-      Een antwoord opzoeken helpt je dus geen stap vooruit.`,
-    p`Dat maakt van elke oefening een kleine puzzel met een eerlijk einde. Een flag is
-      geen bewijs dat je de slide begreep. Het is het bewijs dat je het gedaan hebt.`,
-    quote`Niet de agent beslist of de code goed genoeg is. De build beslist.`,
-    h2`In de namiddag spreekt de build`,
-    p`Na de middag kwam alles samen in de workshop. Met de agent als collega werk je aan
-      bestaande code, en aan het eind velt **de geautomatiseerde build het oordeel**.
-      Testdekking, complexiteit en mutatietesten: harde cijfers, geen buikgevoel.`,
-    p`De dag sloot af bij het stuk dat vaak vergeten wordt. Wat verandert er aan je rol als
-      developer? Wat kan je beloven en wat niet? En hoe neem je de rest van je team mee?
-      De techniek levert pas iets op als het team er ook mee verder kan.`,
-    h2`Wat er blijft na vandaag`,
-    p`De repository blijft van de deelnemers, met alle oefeningen en exact dezelfde slides
-      die op het scherm stonden. Zo kan iedereen morgen verder op eigen tempo, of een
-      collega meenemen die er deze keer niet bij was.`,
-    p`Dank aan **Ravago** voor de gastvrijheid en aan elke deelnemer voor de scherpe vragen
-      en het doorzettingsvermogen tot de laatste flag.`,
-    p`Wil je jouw developers ook een dag laten oefenen met een agent in een echte
-      codebase? [Bekijk de kata](${KATA.nl}) of [laten we praten](#contact).`
+    p`Op 23 oktober gaven we de developers van **Ravago** een volle dag de agentic
+      engineering kata. Het doel: van losse prompts naar een agent die betrouwbaar
+      meewerkt in een echte codebase.`,
+    p`De kata volgt een vaste opbouw. Elke stap eindigt in oefeningen op de eigen machine,
+      met verborgen flags die pas verschijnen als de oplossing echt werkt.`,
+    h2`Context, model, mechanismen`,
+    p`De ochtend draaide rond één request: wat erin gaat, wat het kost en waar het
+      antwoord vandaan komt. Tokens, het contextvenster, de sessie en de keuze van het
+      model. **Wat in de context zit, stuurt het antwoord**, en meer context is niet
+      gratis.`,
+    p`Daarbij hoort een kritische blik. Een antwoord klinkt even zeker, of de agent nu je
+      bestand las of het uit zijn geheugen haalde. Grounding en controle zijn dus geen
+      extraatje.`,
+    h2`Agentic engineering`,
+    p`Daarna de kern van de dag. Wat de agent telkens opnieuw nodig heeft, hoort in de
+      repository en niet in je prompt: instructies, skills, hooks en scripts. En **goede
+      agentic engineering begint bij goede software engineering**, met de taal van de
+      business in de code.`,
+    p`Quality gates controleren de wijziging, niet wie ze maakte. Deterministische checks
+      en mutatietesten laten de agent zijn eigen werk bewijzen. Verder: bijsturen door
+      terug te spoelen in plaats van te corrigeren, de workflow kiezen op hoe lang de code
+      blijft leven, en parallel werken met een eigen worktree per agent.`,
+    quote`Een agent schrijft sneller dan jij leest. Laat een machine controleren wat een machine kan controleren.`,
+    h2`Soft skills`,
+    p`De dag sloot af bij wat er rond het werk verandert. De developer schuift op richting
+      analist en test engineer, het proces wordt de bottleneck en een abonnement alleen
+      koopt geen voorsprong. **Jij blijft de engineer**: wie het systeem begrijpt, hoeft
+      niet elke regel zelf te lezen.`,
+    h2`Na de training`,
+    p`De repository en de slides blijven bij de deelnemers, zodat ze de stof op eigen tempo
+      herhalen en meteen in hun eigen projecten toepassen. Dank aan **Ravago** voor de
+      gastvrijheid en de sterke inbreng van het team.`,
+    p`Wil je deze dag ook voor jouw developers? [Bekijk de kata](${KATA.nl}) of
+      [neem contact op](#contact).`
   ],
 
   en: [
-    p`By now almost every developer has let an AI agent write some code. Far fewer know why
-      that same agent is brilliant one moment and confidently wrong the next. On
-      23 October we spent a full day finding out, together with the developers at
-      **Ravago**.`,
-    p`No rows of chairs and a speaker nobody can hear from the back. Instead: a round
-      table, laptops open, coffee within reach and everyone looking at the same screen.
-      Exactly what you want for a day on which nobody would be sitting still for long.`,
-    h2`First, see what the agent sees`,
-    p`The morning started with the question that explains everything: **what is actually
-      in an agent's context window**? Your prompt, the tools, the session, the
-      instructions you never type yourself. Every layer costs tokens and every layer
-      colours the answer.`,
-    p`Tom filled that window layer by layer on the big screen. Then it was over to the
-      group, on their own machines and in a real codebase. Once you have seen how quickly
-      that window fills up, you never steer an agent the same way again.`,
-    h2`Flags you can't look up`,
-    p`A kata teaches through repetition, and every exercise builds on the one before. The
-      code hides **flags that only appear once your solution really works**: when the
-      software runs locally, has the right instrumentation or is better secured. Looking
-      up an answer gets you nowhere.`,
-    p`That turns every exercise into a small puzzle with an honest ending. A flag is not
-      proof that you understood the slide. It is proof that you did the work.`,
-    quote`The agent doesn't decide whether the code is good enough. The build does.`,
-    h2`In the afternoon, the build has its say`,
-    p`After lunch everything came together in the workshop. With the agent as a colleague
-      you work on existing code, and at the end **the automated build gives the verdict**.
-      Test coverage, complexity and mutation testing: hard numbers, not gut feeling.`,
-    p`The day closed on the part that often gets forgotten. What changes about your role
-      as a developer? What can you promise, and what can't you? And how do you bring the
-      rest of your team along? The technology only pays off when the team can carry it
-      forward.`,
-    h2`What stays after today`,
-    p`The repository stays with the participants, with every exercise and exactly the same
-      slides that were on screen. So everyone can carry on tomorrow at their own pace, or
-      bring along a colleague who wasn't there this time.`,
-    p`Thanks to **Ravago** for the hospitality, and to every participant for the sharp
-      questions and the persistence right up to the last flag.`,
-    p`Want your developers to spend a day practising with an agent in a real codebase?
-      [Take a look at the kata](${KATA.en}) or [let's talk](#contact).`
+    p`On 23 October we spent a full day taking the developers at **Ravago** through the
+      agentic engineering kata. The goal: from loose prompts to an agent that works
+      reliably in a real codebase.`,
+    p`The kata follows a fixed structure. Every step ends in exercises on the
+      participants' own machines, with hidden flags that only appear once the solution
+      really works.`,
+    h2`Context, model, mechanisms`,
+    p`The morning centred on a single request: what goes into it, what it costs and where
+      the answer comes from. Tokens, the context window, the session and the choice of
+      model. **What sits in the context steers the answer**, and more context is not
+      free.`,
+    p`That calls for a critical eye. An answer sounds just as sure whether the agent read
+      your file or pulled it from memory. Grounding and verification are not optional
+      extras.`,
+    h2`Agentic engineering`,
+    p`Then the core of the day. What the agent needs every time belongs in the repository,
+      not in your prompt: instructions, skills, hooks and scripts. And **good agentic
+      engineering starts with good software engineering**, with the language of the
+      business in the code.`,
+    p`Quality gates check the change, not who made it. Deterministic checks and mutation
+      testing let the agent prove its own work. Beyond that: steering by rewinding rather
+      than correcting, choosing the workflow by how long the code will live, and working
+      in parallel with a worktree per agent.`,
+    quote`An agent writes faster than you can read. Let a machine check what a machine can check.`,
+    h2`Soft skills`,
+    p`The day closed on what changes around the work. The developer moves towards analyst
+      and test engineer, the process becomes the bottleneck, and a subscription alone buys
+      no head start. **You are still the engineer**: understand the system, and you don't
+      need to read every line yourself.`,
+    h2`After the training`,
+    p`The repository and the slides stay with the participants, so they can revisit the
+      material at their own pace and apply it straight away in their own projects. Thanks
+      to **Ravago** for the hospitality and to the team for their strong input.`,
+    p`Want this day for your developers too? [Take a look at the kata](${KATA.en}) or
+      [get in touch](#contact).`
   ],
 
   fr: [
-    p`Presque tous les développeurs ont déjà laissé un agent IA écrire du code. Bien moins
-      savent pourquoi ce même agent est brillant un jour et se trompe avec aplomb le
-      lendemain. Le 23 octobre, nous avons passé une journée entière à le découvrir, avec
-      les développeurs de **Ravago**.`,
-    p`Pas de rangées de chaises ni d'orateur inaudible au fond de la salle. Plutôt une
-      table ronde, des laptops ouverts, du café à portée de main et tout le monde face au
-      même écran. Exactement ce qu'il faut pour une journée où personne n'allait rester
-      longtemps immobile.`,
-    h2`D'abord, voir ce que voit l'agent`,
-    p`La matinée a commencé par la question qui explique tout: **que contient vraiment la
-      fenêtre de contexte** d'un agent? Votre prompt, les outils, la session, les
-      instructions que vous ne tapez jamais vous-même. Chaque couche coûte des tokens et
-      chaque couche influence la réponse.`,
-    p`Tom a rempli cette fenêtre couche par couche sur le grand écran. Ensuite, c'était au
-      groupe de jouer, sur sa propre machine et dans une vraie base de code. Une fois
-      qu'on a vu à quelle vitesse cette fenêtre se remplit, on ne pilote plus jamais un
-      agent de la même façon.`,
-    h2`Des flags introuvables sur internet`,
-    p`Un kata apprend par la répétition, et chaque exercice s'appuie sur le précédent. Le
-      code cache **des flags qui n'apparaissent que lorsque votre solution fonctionne
-      vraiment**: quand le logiciel tourne en local, qu'il est correctement instrumenté
-      ou mieux sécurisé. Chercher la réponse ailleurs ne vous avance à rien.`,
-    p`Chaque exercice devient ainsi une petite énigme avec une fin honnête. Un flag ne
-      prouve pas que vous avez compris la slide. Il prouve que vous avez fait le
-      travail.`,
-    quote`Ce n'est pas l'agent qui décide si le code est assez bon. C'est le build.`,
-    h2`L'après-midi, le build a le dernier mot`,
-    p`Après le déjeuner, tout s'est rejoint dans l'atelier. Avec l'agent comme collègue,
-      vous travaillez sur du code existant, et à la fin **le build automatisé rend son
-      verdict**. Couverture de tests, complexité et tests de mutation: des chiffres
-      concrets, pas une impression.`,
-    p`La journée s'est terminée sur la partie qu'on oublie souvent. Qu'est-ce qui change
-      dans votre rôle de développeur? Que pouvez-vous promettre, et que ne pouvez-vous
-      pas? Et comment embarquer le reste de l'équipe? La technique ne rapporte que si
-      l'équipe peut la porter plus loin.`,
-    h2`Ce qui reste après aujourd'hui`,
-    p`Le dépôt reste aux participants, avec tous les exercices et exactement les mêmes
-      slides qu'à l'écran. Chacun peut donc continuer demain à son rythme, ou embarquer un
-      collègue qui n'était pas là cette fois.`,
-    p`Merci à **Ravago** pour son accueil, et à chaque participant pour ses questions
-      pointues et sa persévérance jusqu'au dernier flag.`,
-    p`Vous voulez que vos développeurs passent une journée à s'exercer avec un agent dans
-      une vraie base de code? [Découvrez le kata](${KATA.fr}) ou
-      [parlons-en](#contact).`
+    p`Le 23 octobre, nous avons consacré une journée entière au kata d'agentic engineering
+      avec les développeurs de **Ravago**. L'objectif: passer de prompts isolés à un agent
+      qui travaille de manière fiable dans une vraie base de code.`,
+    p`Le kata suit une structure fixe. Chaque étape se termine par des exercices sur la
+      propre machine des participants, avec des flags cachés qui n'apparaissent que
+      lorsque la solution fonctionne vraiment.`,
+    h2`Contexte, modèle, mécanismes`,
+    p`La matinée s'est articulée autour d'une seule requête: ce qui y entre, ce qu'elle
+      coûte et d'où vient la réponse. Les tokens, la fenêtre de contexte, la session et le
+      choix du modèle. **Ce qui se trouve dans le contexte oriente la réponse**, et plus de
+      contexte n'est pas gratuit.`,
+    p`Cela demande un regard critique. Une réponse paraît tout aussi sûre, que l'agent ait
+      lu votre fichier ou l'ait tirée de sa mémoire. L'ancrage et la vérification ne sont
+      donc pas des options.`,
+    h2`Agentic engineering`,
+    p`Ensuite, le cœur de la journée. Ce dont l'agent a besoin à chaque fois a sa place
+      dans le dépôt, pas dans votre prompt: instructions, skills, hooks et scripts. Et
+      **un bon agentic engineering commence par un bon génie logiciel**, avec le
+      vocabulaire du métier dans le code.`,
+    p`Les quality gates contrôlent la modification, pas son auteur. Des contrôles
+      déterministes et des tests de mutation permettent à l'agent de prouver son propre
+      travail. Et aussi: corriger le cap en revenant en arrière plutôt qu'en corrigeant,
+      choisir le workflow selon la durée de vie du code, et travailler en parallèle avec
+      un worktree par agent.`,
+    quote`Un agent écrit plus vite que vous ne lisez. Laissez une machine contrôler ce qu'une machine peut contrôler.`,
+    h2`Soft skills`,
+    p`La journée s'est terminée sur ce qui change autour du travail. Le développeur évolue
+      vers un rôle d'analyste et de test engineer, le processus devient le goulot
+      d'étranglement, et un abonnement seul n'achète aucune avance. **Vous restez
+      l'ingénieur**: comprenez le système, et vous n'avez pas besoin de lire chaque ligne
+      vous-même.`,
+    h2`Après la formation`,
+    p`Le dépôt et les slides restent aux participants, pour qu'ils puissent revoir la
+      matière à leur rythme et l'appliquer aussitôt dans leurs propres projets. Merci à
+      **Ravago** pour son accueil et à l'équipe pour sa participation active.`,
+    p`Vous souhaitez cette journée pour vos développeurs? [Découvrez le kata](${KATA.fr})
+      ou [contactez-nous](#contact).`
   ]
 };
