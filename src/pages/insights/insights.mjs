@@ -1,5 +1,5 @@
-// The four articles the homepage's "Inzichten" list points at, and the page
-// template all four are rendered from.
+// The articles the homepage's "Inzichten" list points at, and the page
+// template they are all rendered from.
 //
 // One list, two readers: the homepage builds its rows from `INSIGHTS`, and
 // `insightPages` turns the same entries into page modules. Adding an article
@@ -23,6 +23,7 @@ import {
 } from '../../layouts/schema.mjs';
 import { contactSection } from '../../components/contact-form/contact-form.mjs';
 import { prose } from '../prose.mjs';
+import { body as ravagoKata } from './ravago-kata.mjs';
 import { body as aviso } from './aviso.mjs';
 import { body as whatWorks } from './what-works.mjs';
 import { body as smartspace } from './smartspace.mjs';
@@ -38,6 +39,19 @@ import { body as launch } from './launch.mjs';
  * `article.tag.*` labels; `body` is the long-form copy, keyed by language.
  */
 export const INSIGHTS = [
+  {
+    key: 'ravago-kata',
+    slugs: {
+      nl: 'inzichten/agentic-engineering-kata-ravago',
+      en: 'insights/agentic-engineering-kata-ravago',
+      fr: 'analyses/kata-agentic-engineering-ravago'
+    },
+    published: '2026-10-23',
+    thumb: 'ravago-kata',
+    widths: [320, 480, 760],
+    tags: ['news', 'ai'],
+    body: ravagoKata
+  },
   {
     key: 'aviso',
     slugs: {
