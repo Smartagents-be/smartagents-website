@@ -1,6 +1,1693 @@
-/* ontbijtsessie — no rules of its own.
+/* ontbijtsessie: the screens this deck shows, and nothing else.
 
-   Every slide here is one of the eight archetypes in ../shared/slide.css. A
-   figure of this deck's own goes here, in tokens and in absolute pixels
-   against the 1920x1080 stage, and moves into ../shared/slide.css the moment
-   a second deck wants the same thing. */
+   The slides are the shared archetypes. What this deck adds is the thing a
+   breakfast audience needs to recognise an idea: the app it would run in. Every
+   example and every building block puts a working-looking screen in a media
+   frame, so the room sees an inbox, a chat or an offerte instead of a list
+   describing one.
+
+   A screen is a picture of an interface, so it may have what an interface has:
+   a header, a button, a chat bubble. It still speaks the slide's language:
+   white on the frame's wash, hairline edges and no shadow, sentence case, mono
+   for labels, ink for an action and cyan only as a mark (a rule, a dot, a
+   citation, the filled part of a score). The status colours (rose, amber,
+   green) are dots and figures, never a fill.
+
+   Animated screens play their sequence when their slide is shown (see
+   demo.js). Every step is visible in print and under reduced motion, so the
+   PDF and a still viewer get the finished screen. */
+
+/* ══ The stage the screen sits on ═════════════════════════════════════════ */
+
+.ui-stage {
+  display: grid;
+  place-items: center;
+  padding: 56px;
+}
+
+/* ══ The window ═══════════════════════════════════════════════════════════ */
+
+.ui {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--ui-w, 880px);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--sa-white);
+  border: 1px solid var(--sa-line-2);
+  border-radius: var(--r-panel);
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--sa-ink);
+}
+
+.ui__bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 28px;
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.ui__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ui__title {
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+}
+
+.ui__sub {
+  font-size: 19px;
+  color: var(--sa-grey-6);
+}
+
+.ui__meta {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--sa-grey-6);
+  white-space: nowrap;
+}
+
+.ui__body {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px;
+  min-height: 0;
+}
+
+.ui__foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border-top: 1px solid var(--sa-line);
+}
+
+/* ══ Parts ════════════════════════════════════════════════════════════════ */
+
+/* A field label, a section label inside the screen. Mono, sentence case. */
+.ui-label {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--sa-grey-6);
+}
+
+.ui-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ui-push {
+  margin-left: auto;
+}
+
+.ui-tabs {
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid var(--sa-line);
+  border-radius: var(--r-button);
+  background: var(--sa-wash);
+}
+
+.ui-tab {
+  padding: 7px 16px;
+  border-radius: 5px;
+  font-size: 18px;
+  color: var(--sa-grey-6);
+}
+
+.ui-tab--on {
+  background: var(--sa-white);
+  color: var(--sa-ink);
+  font-weight: var(--fw-medium);
+  box-shadow: 0 0 0 1px var(--sa-line);
+}
+
+/* The one action on a screen. Ink, as on the site. */
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--r-button);
+  background: var(--action-bg);
+  color: var(--action-fg);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+.ui-button--ghost {
+  background: none;
+  color: var(--sa-ink);
+  box-shadow: inset 0 0 0 1px var(--sa-line-3);
+}
+
+/* A text input, empty or typed into. */
+.ui-field {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 22px;
+  border-radius: var(--r-pill);
+  background: var(--sa-wash);
+  font-size: 20px;
+  color: var(--sa-grey-6);
+}
+
+.ui-send {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--action-bg);
+  color: var(--action-fg);
+  font-size: 22px;
+}
+
+/* Figures side by side, split by hairlines rather than boxed. */
+.ui-stats {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 4), 1fr);
+  border-top: 1px solid var(--sa-line);
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.ui-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+}
+
+.ui-stat + .ui-stat {
+  border-left: 1px solid var(--sa-line);
+}
+
+.ui-stat__value {
+  font-size: 38px;
+  line-height: 1.1;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A list inside a screen: hairline rows, like the slide's own. */
+.ui-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--sa-line);
+}
+
+.ui-item:last-child {
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.ui-item__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ui-item__name {
+  font-weight: var(--fw-medium);
+}
+
+.ui-item__sub {
+  font-size: 18px;
+  color: var(--sa-grey-6);
+}
+
+.ui-item__end {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--sa-grey-6);
+}
+
+/* What the AI wrote. The cyan edge is a rule: it marks the answer. */
+.ui-answer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px;
+  border-left: 3px solid var(--sa-cyan);
+  background: var(--sa-wash);
+}
+
+.ui-answer b {
+  font-weight: var(--fw-semibold);
+}
+
+/* Status. A dot, or a word set in the status colour; never a fill. */
+.ui-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background: var(--sa-grey-6);
+}
+
+.ui-dot--cyan { background: var(--sa-cyan); }
+.ui-dot--rose { background: var(--rose); }
+.ui-dot--amber { background: var(--amber); }
+.ui-dot--green { background: var(--green); }
+
+.ui-rose { color: var(--rose); }
+.ui-amber { color: var(--amber); }
+.ui-green { color: var(--green); }
+.ui-cyan { color: var(--sa-cyan); }
+
+/* A tag on a record, a source under an answer. */
+.ui-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ui-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid var(--sa-line-3);
+  border-radius: var(--r-pill);
+  font-size: 17px;
+  color: var(--sa-grey-3);
+  white-space: nowrap;
+}
+
+.ui-chip--cite {
+  color: var(--sa-cyan);
+  border-color: var(--accent-30);
+}
+
+/* Chat. The person is ink, the assistant is the wash. */
+.ui-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ui-msg {
+  max-width: 82%;
+  padding: 14px 20px;
+  border-radius: 18px;
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+.ui-msg--user {
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+  background: var(--action-bg);
+  color: var(--action-fg);
+}
+
+.ui-msg--ai {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom-left-radius: 6px;
+  background: var(--sa-wash-4);
+}
+
+/* A score: the figure, and a thin track filled in cyan up to it. */
+.ui-meter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-meter__track {
+  position: relative;
+  width: var(--track, 120px);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--sa-line-2);
+}
+
+.ui-meter__track::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--v, 0%);
+  border-radius: inherit;
+  background: var(--sa-cyan);
+}
+
+/* Three dots while the AI is busy. */
+.ui-typing {
+  display: inline-flex;
+  gap: 5px;
+  vertical-align: middle;
+}
+
+.ui-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sa-grey-6);
+  animation: ui-typing 1.1s infinite ease-in-out;
+}
+
+.ui-typing i:nth-child(2) { animation-delay: 0.15s; }
+.ui-typing i:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes ui-typing {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+
+/* ══ Sequences ════════════════════════════════════════════════════════════
+   demo.js arms a `[data-demo]` screen when its slide opens: the steps drop
+   out, then come in one by one. Unarmed (no script, print, reduced motion)
+   the screen is simply finished. */
+
+[data-demo].is-armed .ui-step {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+[data-demo].is-armed .ui-step.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.45s ease, transform var(--dur-move) var(--ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-demo].is-armed .ui-step {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ui-typing i {
+    animation: none;
+  }
+}
+
+@media print {
+  [data-demo].is-armed .ui-step {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ══ 04 · The AI-studio ═══════════════════════════════════════════════════
+   One window, three states on the same screen: the empty prompt, the build
+   (steps and streaming code) and the game it built. `data-state` on the
+   window picks which one is painted. */
+
+.ab {
+  --ui-w: 980px;
+}
+
+.ab .ab__status--live {
+  color: var(--sa-cyan);
+}
+
+.ab__screen {
+  position: relative;
+  height: 470px;
+}
+
+.ab__state {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.ab[data-state="idle"] .ab__state--idle,
+.ab[data-state="build"] .ab__state--build,
+.ab[data-state="game"] .ab__state--game {
+  display: flex;
+}
+
+.ab__state--idle {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.ab__ask {
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h2);
+}
+
+.ab__example {
+  margin-top: 18px;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ab__state--build {
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 28px;
+}
+
+.ab__step {
+  align-items: center;
+  padding: 10px 0;
+  font-size: 21px;
+}
+
+.ab__step-mark {
+  flex: none;
+  width: 22px;
+  font-family: var(--font-mono);
+  color: var(--sa-grey-6);
+}
+
+.ab__step--done .ab__step-mark {
+  color: var(--sa-cyan);
+}
+
+.ab__step-label {
+  flex: 1;
+}
+
+.ab__code {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 16px 20px;
+  overflow: hidden;
+  border: 1px solid var(--sa-line);
+  border-radius: var(--r-button);
+  background: var(--sa-wash);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+}
+
+.ab__state--game {
+  padding: 0;
+}
+
+.ab__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.ab__input {
+  border: 0;
+  outline: none;
+  font-family: inherit;
+  color: var(--sa-ink);
+}
+
+.ab__input::placeholder {
+  color: var(--sa-grey-6);
+}
+
+.ab__input:focus {
+  box-shadow: 0 0 0 2px var(--accent-30);
+}
+
+.ab__send {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ab__send:disabled,
+.ab__input:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ══ 05 · The track ═══════════════════════════════════════════════════════
+   A Suno-like song page. The browser's own audio bar is gone: the waveform is
+   the seek bar, its played part turns cyan, and the one action is ink. */
+
+.track {
+  --ui-w: 900px;
+}
+
+.track__block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.track__prompt {
+  margin: 0;
+  font-family: var(--font-serif-accent);
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--sa-grey-2);
+}
+
+.track__wave {
+  display: block;
+  width: 100%;
+  height: 120px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.track__play {
+  border: 0;
+  font-family: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.track__time {
+  margin-left: 4px;
+}
+
+/* ══ 09 · The landscape: sixteen tools in a hairline grid ═════════════════
+   A logo wall, but drawn as rows: hairlines between the cells, no boxes. The
+   marks are greyed so sixteen brand colours do not fight the slide. */
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--sa-line-2);
+}
+
+.logos__cell {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 22px 28px;
+  border-bottom: 1px solid var(--sa-line-2);
+}
+
+.logos__cell:not(:nth-child(4n + 1)) {
+  border-left: 1px solid var(--sa-line-2);
+}
+
+.logos__cell:nth-child(4n + 1) {
+  padding-left: 0;
+}
+
+.logos__mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+}
+
+.logos__mark img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: grayscale(1);
+}
+
+.logos__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.logos__name {
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+}
+
+.logos__product {
+  font-size: 21px;
+  line-height: 1.35;
+  color: var(--sa-grey-3);
+}
+
+.logos__role {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--sa-grey-6);
+}
+
+/* ══ 11 · The language model writes, one word at a time ═════════════════ */
+
+.llm {
+  --ui-w: 820px;
+}
+
+.llm__sentence {
+  margin: 0;
+  min-height: 3em;
+  font-size: 38px;
+  line-height: 1.4;
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-h3);
+  color: var(--sa-ink);
+}
+
+.llm__word--new {
+  animation: llm-word 0.4s var(--ease-out-expo);
+}
+
+@keyframes llm-word {
+  from { opacity: 0; color: var(--sa-cyan); }
+  to { opacity: 1; color: var(--sa-ink); }
+}
+
+/* The caret is a mark, so it is cyan. It blinks slowly while idle and quickly
+   while the model is weighing the next word. */
+.llm__caret {
+  display: inline-block;
+  width: 3px;
+  height: 0.95em;
+  margin-left: 6px;
+  vertical-align: -0.12em;
+  background: var(--sa-cyan);
+  animation: llm-caret 1.1s steps(1) infinite;
+}
+
+.llm__caret.is-thinking {
+  animation-duration: 0.4s;
+}
+
+@keyframes llm-caret {
+  50% { opacity: 0; }
+}
+
+.llm__next {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 22px;
+  border-top: 1px solid var(--sa-line);
+}
+
+.llm__cands {
+  min-height: 207px;
+}
+
+.llm__cand {
+  align-items: center;
+  padding: 16px 0;
+}
+
+.llm__cand-word {
+  flex: 1;
+  font-size: 26px;
+  color: var(--sa-grey-3);
+  transition: color var(--dur-tint) ease;
+}
+
+.llm__cand.is-chosen .llm__cand-word {
+  color: var(--sa-ink);
+  font-weight: var(--fw-semibold);
+}
+
+.llm__meter {
+  --track: 360px;
+}
+
+/* Every candidate's bar is grey; the one the model takes turns cyan. Scoped
+   under the row so it outranks `.ui-meter__track::after` in deck.css. */
+.llm__cand .llm__track::after {
+  background: var(--sa-line-4);
+  transition: width 0.9s var(--ease-out-expo), background-color var(--dur-tint) ease;
+}
+
+.llm__cand.is-chosen .llm__track::after {
+  background: var(--sa-cyan);
+}
+
+.llm__track--64 { --v: 64%; }
+.llm__track--21 { --v: 21%; }
+.llm__track--15 { --v: 15%; }
+
+.llm__p {
+  width: 3.5em;
+  text-align: right;
+  color: var(--sa-grey-6);
+}
+
+.llm__cand.is-chosen .llm__p {
+  color: var(--sa-ink);
+}
+
+/* ══ 12 · Retrieval: the question, the search, the cited answer ══════════ */
+
+.rag {
+  --ui-w: 800px;
+}
+
+.rag__search {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rag__docs .ui-item {
+  align-items: center;
+  padding: 12px 0;
+  font-size: 20px;
+}
+
+.rag__dots {
+  visibility: hidden;
+}
+
+.rag.is-searching .rag__dots {
+  visibility: visible;
+}
+
+.rag__hit .ui-item__main {
+  transition: color var(--dur-tint) ease;
+}
+
+.rag.is-found .rag__hit .ui-item__main,
+.rag:not(.is-armed) .rag__hit .ui-item__main {
+  font-weight: var(--fw-semibold);
+}
+
+.rag__cite {
+  flex: none;
+}
+
+/* ══ 14 · The agent loop ═════════════════════════════════════════════════
+   One ring, struck from (410, 300) with r 180 inside an 820x600 box. The
+   model decides on the left, the tools run on the right; the goal comes in at
+   the top and the result leaves at the bottom, both on the model's side. A
+   cyan dot travels the ring clockwise, and each node takes the cyan as the dot
+   passes it: the tools at a quarter turn, the model at three quarters. */
+
+.loop {
+  position: relative;
+  width: 820px;
+  height: 600px;
+  flex: none;
+}
+
+.loop__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.loop__track {
+  fill: none;
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+}
+
+.loop__chevron,
+.loop__io {
+  fill: none;
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.loop__entry {
+  position: absolute;
+  left: 230px;
+  top: 46px;
+  transform: translate(-50%, -50%);
+  padding: 10px 22px;
+  border-radius: var(--r-pill);
+  background: var(--action-bg);
+  color: var(--action-fg);
+  font-size: 21px;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+/* A zero-size pivot at the ring's centre; the dot sits r above it. */
+.loop__orbit {
+  position: absolute;
+  left: 410px;
+  top: 300px;
+  width: 0;
+  height: 0;
+}
+
+.loop__dot {
+  position: absolute;
+  left: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--sa-cyan);
+  transform: translateY(-180px);
+}
+
+.loop__node {
+  position: absolute;
+  top: 300px;
+  box-sizing: border-box;
+  width: 290px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 24px;
+  border: 1px solid var(--sa-line-2);
+  border-radius: var(--r-panel);
+  background: var(--sa-white);
+}
+
+.loop__node--decide { left: 230px; }
+.loop__node--tools { left: 590px; }
+
+.loop__num {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--sa-grey-6);
+}
+
+.loop__name {
+  font-size: 27px;
+  line-height: 1.2;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+}
+
+.loop__sub {
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--sa-grey-3);
+}
+
+.loop__exit {
+  position: absolute;
+  left: 230px;
+  top: 548px;
+  box-sizing: border-box;
+  width: 290px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 20px;
+  border-left: 3px solid var(--sa-cyan);
+  background: var(--sa-white);
+}
+
+.loop__exit-text {
+  font-size: 22px;
+  font-weight: var(--fw-semibold);
+}
+
+.loop.is-armed .loop__orbit {
+  animation: loop-orbit 6.4s linear infinite;
+}
+
+.loop.is-armed .loop__node {
+  animation: loop-node 6.4s ease-in-out infinite;
+}
+
+.loop.is-armed .loop__num {
+  animation: loop-num 6.4s ease-in-out infinite;
+}
+
+.loop.is-armed .loop__node--decide,
+.loop.is-armed .loop__node--decide .loop__num {
+  animation-delay: 3.2s;
+}
+
+@keyframes loop-orbit {
+  to { transform: rotate(360deg); }
+}
+
+/* Peaks at a quarter of the cycle: the tools node with no delay meets the dot
+   at a quarter turn, the model node with half a cycle's delay at three
+   quarters. */
+@keyframes loop-node {
+  0%, 15%, 35%, 100% { border-color: var(--sa-line-2); }
+  25% { border-color: var(--sa-cyan); }
+}
+
+@keyframes loop-num {
+  0%, 15%, 35%, 100% { color: var(--sa-grey-6); }
+  25% { color: var(--sa-cyan); }
+}
+
+/* ══ Examples 02 to 06 (slides 17 to 21) ══════════════════════════════════ */
+
+/* ══ A mail, read and answered (17) ═══════════════════════════════════════ */
+
+.ui-mail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ui-mail__dot {
+  margin-top: 0;
+}
+
+.ui-mail__subject {
+  font-weight: var(--fw-semibold);
+}
+
+.ui-mail__text {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+}
+
+.ui-draft {
+  border: 1px solid var(--sa-line-2);
+  border-radius: var(--r-button);
+}
+
+.ui-draft__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.ui-draft__bar .ui-button {
+  padding: 6px 14px;
+  font-size: 16px;
+}
+
+.ui-draft__text {
+  padding: 14px 18px;
+  color: var(--sa-ink);
+}
+
+/* ══ A pipeline of numbered stages (18) and ranked hits (20) ══════════════ */
+
+.ui-pipe__num {
+  flex: none;
+  width: 32px;
+  padding-top: 4px;
+}
+
+.ui-invoice-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 28px;
+  margin-top: 14px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--sa-cyan);
+  background: var(--sa-wash);
+}
+
+.ui-invoice-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ui-invoice-field__value {
+  font-size: 24px;
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ══ Search (20) ══════════════════════════════════════════════════════════ */
+
+.ui-query {
+  flex: 1;
+  min-width: 0;
+  font-size: 23px;
+  font-weight: var(--fw-medium);
+}
+
+.ui-hit {
+  gap: 6px;
+}
+
+.ui-hit__text {
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--sa-grey-3);
+}
+
+.ui-hit__source {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+/* ══ Chat with tools (19, 21) ═════════════════════════════════════════════ */
+
+/* What the assistant looked up before it answered. */
+.ui-tool {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--sa-grey-6);
+}
+
+/* The knowledge base under the header. A source lights up while it is read. */
+.ui-kb {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--sa-line);
+}
+
+.ui-kb .ui-chip {
+  transition: color var(--dur-tint) ease, border-color var(--dur-tint) ease;
+}
+
+.ui-kb .ui-chip.is-used {
+  color: var(--sa-cyan);
+  border-color: var(--sa-cyan);
+}
+
+.ui-cart {
+  align-self: flex-start;
+}
+
+/* A screen with a longer conversation sets everything one step smaller. */
+.ui--compact .ui__body {
+  gap: 12px;
+  padding: 22px 28px;
+}
+
+.ui--compact .ui-msg {
+  padding: 11px 18px;
+  font-size: 19px;
+}
+
+.ui--compact .ui-msg--ai {
+  gap: 10px;
+}
+
+.ui--compact .ui-cart {
+  padding: 8px 16px;
+  font-size: 17px;
+}
+
+/* ══ 22 · Offertes: two agents side by side, you underneath ══════════════ */
+
+.off {
+  --ui-w: 960px;
+}
+
+.off__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.off__col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 26px 24px;
+}
+
+.off__col + .off__col {
+  border-left: 1px solid var(--sa-line);
+}
+
+.off__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.off__who {
+  display: flex;
+  flex-direction: column;
+}
+
+.off__name {
+  font-weight: var(--fw-semibold);
+}
+
+.off__role {
+  font-size: 18px;
+  color: var(--sa-grey-6);
+}
+
+.off__status {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--sa-cyan);
+  white-space: nowrap;
+}
+
+.off .ui-item {
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+.off .ui-item__sub {
+  font-size: 17px;
+}
+
+.off-state__wait {
+  display: none;
+}
+
+.off-src.is-loading .off-state__wait {
+  display: inline;
+}
+
+.off-src.is-loading .off-state__done {
+  display: none;
+}
+
+.off-state__done {
+  color: var(--sa-cyan);
+}
+
+.off__summary {
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+  color: var(--sa-grey-3);
+}
+
+.off__doc {
+  border: 1px solid var(--sa-line-2);
+  border-radius: var(--r-button);
+}
+
+.off__docname {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sa-line);
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--sa-grey-3);
+}
+
+.off__fields {
+  padding: 2px 16px;
+}
+
+.off__field {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  font-size: 19px;
+}
+
+.off__field + .off__field {
+  border-top: 1px solid var(--sa-line);
+}
+
+.off__key {
+  color: var(--sa-grey-6);
+}
+
+.off__value {
+  font-weight: var(--fw-medium);
+}
+
+.off__value--sum {
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.off__badge {
+  align-self: flex-start;
+}
+
+.ui-dot.off__youdot {
+  margin-top: 0;
+}
+
+.off__youtext {
+  flex: 1;
+  font-size: 19px;
+}
+
+.off__wait {
+  display: none;
+  color: var(--sa-grey-6);
+}
+
+.off.is-waiting .off__wait {
+  display: inline;
+}
+
+.off.is-waiting .off__done {
+  display: none;
+}
+
+/* The invitation to click: a cyan ring, as the site draws a focus ring. */
+.off__button {
+  transition: box-shadow 0.4s ease;
+}
+
+.off__button.is-invite {
+  box-shadow: 0 0 0 5px var(--accent-30);
+}
+
+/* ══ 23 · CV-matching and 25 · Tender matcher: a profile, the top match
+   opened up with why, the next ones as rows with a score ═════════════════ */
+
+.match {
+  --ui-w: 900px;
+}
+
+.match .ui__body {
+  gap: 18px;
+  padding: 22px 28px;
+}
+
+.match__profile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.match__profile-name {
+  font-weight: var(--fw-semibold);
+}
+
+/* Initials, or a country code: the record's mark, in place of a photo. */
+.match__who {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--sa-line-2);
+  border-radius: 50%;
+  background: var(--sa-wash);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--sa-grey-3);
+}
+
+.match__top {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sa-line);
+}
+
+.match__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.match__score {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.match__score-value {
+  font-size: 40px;
+  line-height: 1;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-chip.match__miss {
+  color: var(--amber);
+  border-color: var(--amber-20);
+}
+
+.ui-answer.match__why {
+  padding: 14px 20px;
+  font-size: 19px;
+}
+
+.match .ui-item {
+  align-items: center;
+  padding: 10px 0;
+}
+
+.match__v89 { --v: 89%; }
+.match__v86 { --v: 86%; }
+.match__v88 { --v: 88%; }
+.match__v74 { --v: 74%; }
+
+/* ══ 24 · Klant 360: sources, three figures, one timeline ═════════════════ */
+
+.k360 {
+  --ui-w: 880px;
+}
+
+.k360 .ui__body {
+  gap: 18px;
+  padding: 22px 28px 26px;
+}
+
+.k360__sources,
+.k360__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.k360__stats {
+  --n: 3;
+}
+
+.k360__unit {
+  font-size: 20px;
+  font-weight: var(--fw-book);
+  color: var(--sa-grey-6);
+}
+
+.ui-item.k360__event {
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+.ui-item.k360__event b {
+  font-weight: var(--fw-semibold);
+}
+
+.k360__date {
+  flex: none;
+  width: 56px;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--sa-grey-6);
+}
+
+/* ══ 26 · Re-site: the old site and the new one, side by side ═════════════ */
+
+.rs-facts {
+  display: flex;
+  gap: 56px;
+  margin-top: 12px;
+}
+
+.rs-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rs-fact__value {
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h2);
+}
+
+.rs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  gap: 24px;
+  width: 100%;
+}
+
+.rs__side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.rs__arrow {
+  align-self: center;
+  font-size: 40px;
+  color: var(--sa-cyan);
+}
+
+/* The 2009 site. Its colours are the depicted site's own, not ours: a
+   navy-and-yellow banner, blue underlined links and a serif body, the way
+   such a site looked. Kept to its layout, without the visual noise. */
+.rs-old {
+  --old-paper: #fffef0;
+  --old-chrome: #ddd8cb;
+  --old-line: #b8b2a2;
+  --old-navy: #003366;
+  --old-yellow: #ffcc00;
+  --old-link: #0000cc;
+  --old-red: #cc0000;
+  --old-note: #ffff99;
+
+  overflow: hidden;
+  border: 1px solid var(--old-line);
+  border-radius: 4px;
+  background: var(--old-paper);
+  font-family: "Times New Roman", Times, serif;
+  color: #333;
+}
+
+.rs-old__chrome {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--old-line);
+  background: var(--old-chrome);
+}
+
+.rs-old__url {
+  display: block;
+  overflow: hidden;
+  padding: 3px 8px;
+  border: 1px solid #9a9484;
+  background: #fff;
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rs-old__banner {
+  padding: 14px 10px;
+  background: var(--old-navy);
+  color: var(--old-yellow);
+  font-size: 19px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.rs-old__nav {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: 7px;
+  border-bottom: 1px solid var(--old-line);
+  background: #e9e5d6;
+  font-size: 15px;
+  color: var(--old-link);
+  text-decoration: underline;
+}
+
+.rs-old__news {
+  padding: 5px;
+  background: var(--old-note);
+  color: var(--old-red);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.rs-old__content {
+  padding: 14px 16px;
+}
+
+.rs-old__text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.45;
+  text-align: justify;
+}
+
+.rs-old__photos {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.rs-old__photo {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  height: 96px;
+  border: 1px solid #999;
+  background: #e8e8e8;
+  font-size: 13px;
+  color: #888;
+}
+
+.rs-old__footer {
+  padding: 9px 12px;
+  border-top: 1px solid var(--old-line);
+  font-size: 13px;
+  line-height: 1.4;
+  color: #777;
+  text-align: center;
+}
+
+/* The new site: a modern browser and a warm, full-bleed hero, painted rather
+   than photographed so the deck carries no stock image. */
+.rs-new {
+  overflow: hidden;
+  border: 1px solid var(--sa-line-2);
+  border-radius: var(--r-button);
+  background: var(--sa-white);
+}
+
+.rs-new__chrome {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--sa-line);
+  background: var(--sa-wash);
+}
+
+.rs-new__url {
+  display: block;
+  padding: 4px 12px;
+  border: 1px solid var(--sa-line);
+  border-radius: var(--r-pill);
+  background: var(--sa-white);
+  font-size: 13px;
+  color: var(--sa-grey-6);
+}
+
+.rs-new__hero {
+  --wood-hi: #b08a5e;
+  --wood: #8a6743;
+  --wood-lo: #5e4329;
+  --wood-deep: #2e1f12;
+  --glow: rgba(255, 232, 185, 0.4);
+
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(90deg, rgba(28, 17, 8, 0.16) 0 2px, transparent 2px 62px),
+    radial-gradient(60% 46% at 70% 14%, var(--glow), transparent 60%),
+    linear-gradient(178deg, var(--wood-hi) 0%, var(--wood) 36%, var(--wood-lo) 66%, var(--wood-deep) 100%);
+  color: #fff;
+}
+
+.rs-new__window {
+  position: absolute;
+  top: 70px;
+  right: 34px;
+  width: 104px;
+  height: 150px;
+  border: 2px solid rgba(58, 38, 20, 0.55);
+  border-radius: 3px;
+  background:
+    linear-gradient(rgba(58, 38, 20, 0.55), rgba(58, 38, 20, 0.55)) center / 2px 100% no-repeat,
+    linear-gradient(rgba(58, 38, 20, 0.55), rgba(58, 38, 20, 0.55)) center / 100% 2px no-repeat,
+    linear-gradient(180deg, rgba(255, 240, 208, 0.45), rgba(255, 238, 205, 0.14));
+  box-shadow: 0 0 44px rgba(255, 228, 178, 0.3);
+}
+
+.rs-new__floor {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 96px;
+  border-top: 2px solid rgba(255, 235, 200, 0.22);
+  background: linear-gradient(180deg, rgba(72, 48, 26, 0.92), rgba(26, 15, 7, 0.96));
+}
+
+
+.rs-new__top {
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+}
+
+.rs-new__logo {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+}
+
+.rs-new__brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.rs-new__name {
+  font-size: 14px;
+  font-weight: var(--fw-semibold);
+}
+
+.rs-new__tag {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rs-new__copy {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.rs-new__claim {
+  max-width: 280px;
+  font-family: var(--font-serif-accent);
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.rs-new__since {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.rs-new__cta {
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+}

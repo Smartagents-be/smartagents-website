@@ -2,34 +2,50 @@
 <section id="ontbijtsessie-slide-14" data-label="Bouwsteen agents" class="slide slide--footed">
   <div id="ontbijtsessie-slide-14-inner" class="slide__inner">
 
-    <div id="ontbijtsessie-slide-14-head" class="slide__head">
-      <div id="ontbijtsessie-slide-14-rule" class="rule" aria-hidden="true"></div>
-      <p id="ontbijtsessie-slide-14-eyebrow" class="slide__eyebrow">Bouwsteen 04 van 04</p>
-      <h2 id="ontbijtsessie-slide-14-title" class="slide__title">Een digitale collega, geen lineaire workflow</h2>
-      <p id="ontbijtsessie-slide-14-lede" class="slide__lede">Geef een agent een doel, geen stappenplan.</p>
-    </div>
+    <div id="ontbijtsessie-slide-14-media" class="media">
+      <div id="ontbijtsessie-slide-14-words" class="media__words">
+        <div id="ontbijtsessie-slide-14-rule" class="rule" aria-hidden="true"></div>
+        <p id="ontbijtsessie-slide-14-eyebrow" class="slide__eyebrow">Bouwsteen 04 van 04</p>
+        <h2 id="ontbijtsessie-slide-14-title" class="slide__title slide__title--sm">Een digitale collega</h2>
+        <p id="ontbijtsessie-slide-14-lede" class="slide__lede slide__lede--sm">Geef een agent een doel, geen stappenplan. Het model kiest zelf welke tools nodig zijn en in welke volgorde, en stopt zodra het geen tool meer nodig heeft.</p>
+        <p id="ontbijtsessie-slide-14-note" class="slide__note">Op de grenzen die jij vastlegt, vraagt de agent jou om bevestiging.</p>
+      </div>
 
-    <div id="ontbijtsessie-slide-14-body" class="slide__body">
-      <div id="ontbijtsessie-slide-14-steps" class="steps steps--3">
-        <div id="ontbijtsessie-slide-14-step-01" class="step">
-          <span id="ontbijtsessie-slide-14-step-01-num" class="step__num">01</span>
-          <span id="ontbijtsessie-slide-14-step-01-title" class="step__title">Het model beslist</span>
-          <span id="ontbijtsessie-slide-14-step-01-body" class="step__body">Bekijkt de stand van zaken en kiest zelf welke tools nodig zijn, en in welke volgorde.</span>
-        </div>
-        <div id="ontbijtsessie-slide-14-step-02" class="step">
-          <span id="ontbijtsessie-slide-14-step-02-num" class="step__num">02</span>
-          <span id="ontbijtsessie-slide-14-step-02-title" class="step__title">Tools draaien</span>
-          <span id="ontbijtsessie-slide-14-step-02-body" class="step__body">Ze voeren uit wat het model besliste. Het resultaat gaat terug, en het model beslist opnieuw.</span>
-        </div>
-        <div id="ontbijtsessie-slide-14-step-03" class="step">
-          <span id="ontbijtsessie-slide-14-step-03-num" class="step__num">03</span>
-          <span id="ontbijtsessie-slide-14-step-03-title" class="step__title">Klaar</span>
-          <span id="ontbijtsessie-slide-14-step-03-body" class="step__body">Het model bepaalt zelf wanneer het stopt: zodra het geen tool meer nodig heeft.</span>
+      <div id="ontbijtsessie-slide-14-frame" class="media__frame ui-stage">
+        <div id="ontbijtsessie-slide-14-loop" class="loop" data-demo="agents">
+          <svg id="ontbijtsessie-slide-14-loop-svg" class="loop__svg" viewBox="0 0 820 600" aria-hidden="true">
+            <circle id="ontbijtsessie-slide-14-loop-track" class="loop__track" cx="410" cy="300" r="180"/>
+            <path id="ontbijtsessie-slide-14-loop-chevron-top" class="loop__chevron" d="M 401 108 L 417 120 L 401 132"/>
+            <path id="ontbijtsessie-slide-14-loop-chevron-bottom" class="loop__chevron" d="M 419 468 L 403 480 L 419 492"/>
+            <path id="ontbijtsessie-slide-14-loop-in" class="loop__io" d="M 230 74 L 230 196"/>
+            <path id="ontbijtsessie-slide-14-loop-in-head" class="loop__io" d="M 220 186 L 230 198 L 240 186"/>
+            <path id="ontbijtsessie-slide-14-loop-out" class="loop__io" d="M 230 404 L 230 492"/>
+            <path id="ontbijtsessie-slide-14-loop-out-head" class="loop__io" d="M 220 482 L 230 494 L 240 482"/>
+          </svg>
+
+          <span id="ontbijtsessie-slide-14-loop-entry" class="loop__entry">Jouw doel en de beschikbare tools</span>
+
+          <div id="ontbijtsessie-slide-14-loop-orbit" class="loop__orbit" aria-hidden="true"><span id="ontbijtsessie-slide-14-loop-dot" class="loop__dot"></span></div>
+
+          <div id="ontbijtsessie-slide-14-loop-decide" class="loop__node loop__node--decide">
+            <span id="ontbijtsessie-slide-14-loop-decide-num" class="loop__num">01</span>
+            <span id="ontbijtsessie-slide-14-loop-decide-name" class="loop__name">Het model beslist</span>
+            <span id="ontbijtsessie-slide-14-loop-decide-sub" class="loop__sub">Bekijkt de stand en kiest de volgende stap.</span>
+          </div>
+
+          <div id="ontbijtsessie-slide-14-loop-tools" class="loop__node loop__node--tools">
+            <span id="ontbijtsessie-slide-14-loop-tools-num" class="loop__num">02</span>
+            <span id="ontbijtsessie-slide-14-loop-tools-name" class="loop__name">Tools draaien</span>
+            <span id="ontbijtsessie-slide-14-loop-tools-sub" class="loop__sub">Voeren uit wat het model besliste. Het resultaat gaat terug.</span>
+          </div>
+
+          <div id="ontbijtsessie-slide-14-loop-exit" class="loop__exit">
+            <span id="ontbijtsessie-slide-14-loop-exit-label" class="ui-label">Geen tool meer nodig</span>
+            <span id="ontbijtsessie-slide-14-loop-exit-text" class="loop__exit-text">✓ Klaar, resultaat terug</span>
+          </div>
         </div>
       </div>
     </div>
-
-    <p id="ontbijtsessie-slide-14-note" class="slide__note">Eén ronde is één turn. De agent vraagt jou om bevestiging op de grenzen die jij vastlegt.</p>
 
   </div>
   <!--chrome 14/30-->

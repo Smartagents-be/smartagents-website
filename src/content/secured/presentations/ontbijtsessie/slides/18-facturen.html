@@ -2,33 +2,77 @@
 <section id="ontbijtsessie-slide-18" data-label="Facturen" class="slide slide--footed">
   <div id="ontbijtsessie-slide-18-inner" class="slide__inner">
 
-    <div id="ontbijtsessie-slide-18-head" class="slide__head">
-      <div id="ontbijtsessie-slide-18-rule" class="rule" aria-hidden="true"></div>
-      <p id="ontbijtsessie-slide-18-eyebrow" class="slide__eyebrow">Voorbeeld 03 · LLM, RAG, tools, agents</p>
-      <h2 id="ontbijtsessie-slide-18-title" class="slide__title">Facturen automatisch naar de boekhouding</h2>
-    </div>
+    <div id="ontbijtsessie-slide-18-media" class="media">
+      <div id="ontbijtsessie-slide-18-words" class="media__words">
+        <div id="ontbijtsessie-slide-18-rule" class="rule" aria-hidden="true"></div>
+        <p id="ontbijtsessie-slide-18-eyebrow" class="slide__eyebrow">Voorbeeld 03 · LLM, RAG, tools, agents</p>
+        <h2 id="ontbijtsessie-slide-18-title" class="slide__title slide__title--sm">Facturen automatisch naar de boekhouding</h2>
+        <p id="ontbijtsessie-slide-18-lede" class="slide__lede slide__lede--sm">Geen factuur meer overtypen of doorsturen. Alles staat klaar voor je boekhouder.</p>
+        <p id="ontbijtsessie-slide-18-note" class="slide__note">Foutmarge onder één procent. Acht seconden per factuur, voorheen ongeveer vier minuten.</p>
+      </div>
 
-    <div id="ontbijtsessie-slide-18-body" class="slide__body">
-      <div id="ontbijtsessie-slide-18-steps" class="steps steps--3">
-        <div id="ontbijtsessie-slide-18-step-01" class="step">
-          <span id="ontbijtsessie-slide-18-step-01-num" class="step__num">01</span>
-          <span id="ontbijtsessie-slide-18-step-01-title" class="step__title">Ze komt binnen</span>
-          <span id="ontbijtsessie-slide-18-step-01-body" class="step__body">PDF, scan, foto of UBL. Hoe ze binnenkomt maakt niet uit.</span>
-        </div>
-        <div id="ontbijtsessie-slide-18-step-02" class="step">
-          <span id="ontbijtsessie-slide-18-step-02-num" class="step__num">02</span>
-          <span id="ontbijtsessie-slide-18-step-02-title" class="step__title">Agent leest en matcht</span>
-          <span id="ontbijtsessie-slide-18-step-02-body" class="step__body">Velden uitlezen en matchen met de inkooporder: leverancier, bedrag, PO-nummer en een zekerheidsscore.</span>
-        </div>
-        <div id="ontbijtsessie-slide-18-step-03" class="step">
-          <span id="ontbijtsessie-slide-18-step-03-num" class="step__num">03</span>
-          <span id="ontbijtsessie-slide-18-step-03-title" class="step__title">Klaargezet</span>
-          <span id="ontbijtsessie-slide-18-step-03-body" class="step__body">In ClearFacts. Je boekhouder controleert en boekt. Geen factuur meer overtypen of doorsturen.</span>
+      <div id="ontbijtsessie-slide-18-frame" class="media__frame ui-stage">
+        <div id="ontbijtsessie-slide-18-app" class="ui" data-demo="facturen">
+          <div id="ontbijtsessie-slide-18-app-bar" class="ui__bar">
+            <div id="ontbijtsessie-slide-18-app-titles" class="ui__titles">
+              <span id="ontbijtsessie-slide-18-app-title" class="ui__title">Inkomende facturen</span>
+              <span id="ontbijtsessie-slide-18-app-sub" class="ui__sub">Factuur 2026-0412 · De Smet bvba</span>
+            </div>
+            <span id="ontbijtsessie-slide-18-app-meta" class="ui__meta">vandaag, 08:14</span>
+          </div>
+          <div id="ontbijtsessie-slide-18-app-body" class="ui__body">
+            <div id="ontbijtsessie-slide-18-app-flow" class="ui-list">
+
+              <div id="ontbijtsessie-slide-18-app-in" class="ui-item ui-step">
+                <span id="ontbijtsessie-slide-18-app-in-num" class="ui-label ui-pipe__num">01</span>
+                <div id="ontbijtsessie-slide-18-app-in-main" class="ui-item__main">
+                  <span id="ontbijtsessie-slide-18-app-in-name" class="ui-item__name">Factuur komt binnen</span>
+                  <span id="ontbijtsessie-slide-18-app-in-sub" class="ui-item__sub">PDF, scan, foto of UBL</span>
+                </div>
+                <span id="ontbijtsessie-slide-18-app-in-status" class="ui-item__end ui-green" data-done="✓ binnen">✓ binnen</span>
+              </div>
+
+              <div id="ontbijtsessie-slide-18-app-read" class="ui-item ui-step" data-wait="1000">
+                <span id="ontbijtsessie-slide-18-app-read-num" class="ui-label ui-pipe__num">02</span>
+                <div id="ontbijtsessie-slide-18-app-read-main" class="ui-item__main">
+                  <span id="ontbijtsessie-slide-18-app-read-name" class="ui-item__name">Agent leest en matcht</span>
+                  <span id="ontbijtsessie-slide-18-app-read-sub" class="ui-item__sub">Velden uitlezen, matchen met de inkooporder</span>
+                  <div id="ontbijtsessie-slide-18-app-fields" class="ui-invoice-fields">
+                    <div id="ontbijtsessie-slide-18-app-field-leverancier" class="ui-invoice-field ui-step" data-wait="900">
+                      <span id="ontbijtsessie-slide-18-app-field-leverancier-label" class="ui-label">Leverancier</span>
+                      <span id="ontbijtsessie-slide-18-app-field-leverancier-value" class="ui-invoice-field__value">De Smet bvba</span>
+                    </div>
+                    <div id="ontbijtsessie-slide-18-app-field-bedrag" class="ui-invoice-field ui-step" data-wait="600">
+                      <span id="ontbijtsessie-slide-18-app-field-bedrag-label" class="ui-label">Bedrag incl. btw</span>
+                      <span id="ontbijtsessie-slide-18-app-field-bedrag-value" class="ui-invoice-field__value">€ 1.247,80</span>
+                    </div>
+                    <div id="ontbijtsessie-slide-18-app-field-po" class="ui-invoice-field ui-step" data-wait="600">
+                      <span id="ontbijtsessie-slide-18-app-field-po-label" class="ui-label">Inkooporder</span>
+                      <span id="ontbijtsessie-slide-18-app-field-po-value" class="ui-invoice-field__value">PO-2026-118 <span id="ontbijtsessie-slide-18-app-field-po-check" class="ui-green">✓</span></span>
+                    </div>
+                    <div id="ontbijtsessie-slide-18-app-field-zekerheid" class="ui-invoice-field ui-step" data-wait="600">
+                      <span id="ontbijtsessie-slide-18-app-field-zekerheid-label" class="ui-label">Zekerheid</span>
+                      <span id="ontbijtsessie-slide-18-app-field-zekerheid-value" class="ui-invoice-field__value ui-cyan">98%</span>
+                    </div>
+                  </div>
+                </div>
+                <span id="ontbijtsessie-slide-18-app-read-status" class="ui-item__end ui-green" data-busy="lezen…" data-done="✓ gematcht">✓ gematcht</span>
+              </div>
+
+              <div id="ontbijtsessie-slide-18-app-out" class="ui-item ui-step" data-wait="1300">
+                <span id="ontbijtsessie-slide-18-app-out-num" class="ui-label ui-pipe__num">03</span>
+                <div id="ontbijtsessie-slide-18-app-out-main" class="ui-item__main">
+                  <span id="ontbijtsessie-slide-18-app-out-name" class="ui-item__name">Klaargezet in ClearFacts</span>
+                  <span id="ontbijtsessie-slide-18-app-out-sub" class="ui-item__sub">Je boekhouder controleert en boekt</span>
+                </div>
+                <span id="ontbijtsessie-slide-18-app-out-status" class="ui-item__end ui-green" data-done="✓ klaar">✓ klaar</span>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <p id="ontbijtsessie-slide-18-note" class="slide__note">Zekerheid 98 procent. Foutmarge onder één procent. Acht seconden per factuur, voorheen ongeveer vier minuten.</p>
 
   </div>
   <!--chrome 18/30-->

@@ -2,32 +2,49 @@
 <section id="ontbijtsessie-slide-04" data-label="Demo app-builder" class="slide slide--footed">
   <div id="ontbijtsessie-slide-04-inner" class="slide__inner">
 
-    <div id="ontbijtsessie-slide-04-head" class="slide__head">
-      <div id="ontbijtsessie-slide-04-rule" class="rule" aria-hidden="true"></div>
-      <h2 id="ontbijtsessie-slide-04-title" class="slide__title">Eén zin. Eén werkende app.</h2>
-    </div>
+    <div id="ontbijtsessie-slide-04-media" class="media media--flip">
+      <div id="ontbijtsessie-slide-04-words" class="media__words">
+        <div id="ontbijtsessie-slide-04-rule" class="rule" aria-hidden="true"></div>
+        <p id="ontbijtsessie-slide-04-eyebrow" class="slide__eyebrow">Demo 02 · software op aanvraag</p>
+        <h2 id="ontbijtsessie-slide-04-title" class="slide__title slide__title--sm">Eén zin. <span id="ontbijtsessie-slide-04-title-app" class="nobreak">Eén werkende app.</span></h2>
+        <p id="ontbijtsessie-slide-04-lede" class="slide__lede slide__lede--sm">Je beschrijft in gewone taal wat je wil. AI schrijft de code, test ze zelf, en na negentig seconden draait ze.</p>
+        <p id="ontbijtsessie-slide-04-note" class="slide__note">Voor interne tools, calculators, dashboards, formulieren en prototypes.</p>
+      </div>
 
-    <div id="ontbijtsessie-slide-04-body" class="slide__body">
-      <div id="ontbijtsessie-slide-04-steps" class="steps steps--3">
-        <div id="ontbijtsessie-slide-04-step-01" class="step">
-          <span id="ontbijtsessie-slide-04-step-01-num" class="step__num">01</span>
-          <span id="ontbijtsessie-slide-04-step-01-title" class="step__title">Je beschrijft het</span>
-          <span id="ontbijtsessie-slide-04-step-01-body" class="step__body">In gewone taal, één zin. Geen specificatie, geen ticket.</span>
-        </div>
-        <div id="ontbijtsessie-slide-04-step-02" class="step">
-          <span id="ontbijtsessie-slide-04-step-02-num" class="step__num">02</span>
-          <span id="ontbijtsessie-slide-04-step-02-title" class="step__title">AI schrijft en test</span>
-          <span id="ontbijtsessie-slide-04-step-02-body" class="step__body">De code komt er, en ze wordt meteen zelf uitgeprobeerd.</span>
-        </div>
-        <div id="ontbijtsessie-slide-04-step-03" class="step">
-          <span id="ontbijtsessie-slide-04-step-03-num" class="step__num">03</span>
-          <span id="ontbijtsessie-slide-04-step-03-title" class="step__title">Negentig seconden</span>
-          <span id="ontbijtsessie-slide-04-step-03-body" class="step__body">Zo lang duurt de build. Daarna draait ze.</span>
+      <div id="ontbijtsessie-slide-04-frame" class="media__frame ui-stage">
+        <div id="ontbijtsessie-slide-04-app" class="ui ab" data-demo="appbuilder" data-state="idle">
+          <div id="ontbijtsessie-slide-04-app-bar" class="ui__bar">
+            <div id="ontbijtsessie-slide-04-app-titles" class="ui__titles">
+              <span id="ontbijtsessie-slide-04-app-title" class="ui__title">AI-studio</span>
+              <span id="ontbijtsessie-slide-04-app-sub" class="ui__sub">Nieuwe app</span>
+            </div>
+            <span id="ontbijtsessie-slide-04-app-status" class="ui__meta ab__status">Klaar om te bouwen</span>
+          </div>
+
+          <div id="ontbijtsessie-slide-04-app-screen" class="ab__screen">
+            <div id="ontbijtsessie-slide-04-app-idle" class="ab__state ab__state--idle">
+              <span id="ontbijtsessie-slide-04-app-idle-title" class="ab__ask">Wat zal ik voor je bouwen?</span>
+              <span id="ontbijtsessie-slide-04-app-idle-sub" class="ui__sub">Typ je idee hieronder en druk op Enter.</span>
+              <button id="ontbijtsessie-slide-04-app-idle-example" class="ui-chip ab__example" type="button">Een spelletje voor op de receptie →</button>
+            </div>
+
+            <div id="ontbijtsessie-slide-04-app-build" class="ab__state ab__state--build">
+              <div id="ontbijtsessie-slide-04-app-steps" class="ui-list ab__steps"></div>
+              <pre id="ontbijtsessie-slide-04-app-code" class="ab__code"></pre>
+            </div>
+
+            <div id="ontbijtsessie-slide-04-app-game" class="ab__state ab__state--game">
+              <canvas id="ontbijtsessie-slide-04-app-canvas" class="ab__canvas" aria-label="Het gebouwde spel: een vogel die tussen palen door fladdert"></canvas>
+            </div>
+          </div>
+
+          <div id="ontbijtsessie-slide-04-app-foot" class="ui__foot">
+            <input id="ontbijtsessie-slide-04-app-input" class="ui-field ab__input" type="text" placeholder="Beschrijf de app die je wil bouwen" autocomplete="off" aria-label="Beschrijf de app die je wil bouwen">
+            <button id="ontbijtsessie-slide-04-app-send" class="ui-button ab__send" type="button">Bouw</button>
+          </div>
         </div>
       </div>
     </div>
-
-    <p id="ontbijtsessie-slide-04-note" class="slide__note">Demo 02 · Software op aanvraag. Voor interne tools, calculators, dashboards, formulieren en prototypes.</p>
 
   </div>
   <!--chrome 04/30-->
