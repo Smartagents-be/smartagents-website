@@ -16,7 +16,7 @@ const KATA = {
 
 export const body = {
   nl: [
-    p`Op 23 oktober zaten we een volle dag met de developers van **Ravago** rond de
+    p`Op 23 oktober zaten we een volle dag met een groep developers van **Ravago** rond de
       tafel voor de agentic engineering kata. Iedereen werkte op zijn eigen laptop, met
       een agent in de terminal en het oefenproject van de kata.`,
     p`Uitleg wisselde de hele dag af met oefeningen en demo's. In de oefeningen zoek je
@@ -66,7 +66,7 @@ export const body = {
   ],
 
   en: [
-    p`On 23 October we spent a full day round the table with the developers at
+    p`On 23 October we spent a full day round the table with a group of developers at
       **Ravago** for the agentic engineering kata. Everyone worked on their own laptop,
       with an agent in the terminal and the kata's practice project.`,
     p`Explanation alternated with exercises and demos all day. In the exercises you look
@@ -114,7 +114,7 @@ export const body = {
   ],
 
   fr: [
-    p`Le 23 octobre, nous avons passé une journée entière autour de la table avec les
+    p`Le 23 octobre, nous avons passé une journée entière autour de la table avec un groupe de
       développeurs de **Ravago** pour le kata d'agentic engineering. Chacun travaillait
       sur son propre ordinateur portable, avec un agent dans le terminal et le projet
       d'exercice du kata.`,
