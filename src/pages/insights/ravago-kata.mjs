@@ -1,4 +1,4 @@
-// "Een dag agentic engineering bij Ravago" — 23 October 2026. Written for the
+// "Agentic engineering training bij Ravago" — 23 October 2026. Written for the
 // redesign rather than ported. The content follows the kata's own material
 // (github.com/Smartagents-be/kata, front/src/steps/step*/locales): the morning
 // is step 1 and its recap, the afternoon step 2 (the repository, and the
