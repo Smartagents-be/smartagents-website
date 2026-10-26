@@ -274,6 +274,15 @@ function copyPromoMedia() {
  */
 function moveIntoAreas({ decks, documents }) {
   for (const deck of decks) {
+    // A deck from a client's own repository was never in the copy above, so
+    // its files are copied straight from its folder to where its page went.
+    if (deck.source !== 'local') {
+      cpSync(deck.dir, path.join(distDir, deck.url.slice(1)), {
+        recursive: true,
+        filter: (from) => statSync(from).isDirectory() || !COPY_SKIP.has(path.extname(from).toLowerCase())
+      });
+      continue;
+    }
     if (!deck.area) continue;
     const from = path.join(distDir, 'secured/presentations', deck.slug);
     cpSync(from, path.join(distDir, deck.url.slice(1)), { recursive: true });
@@ -288,7 +297,7 @@ function moveIntoAreas({ decks, documents }) {
 }
 
 async function renderSecured() {
-  const decks = loadDecks(contentDir);
+  const decks = loadDecks();
   const documents = loadSecuredDocuments(contentDir);
 
   await writeHtml('secured/index.html', securedIndexPage({ documents, decks }));

@@ -4,8 +4,13 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { html, raw } from './html.mjs';
 import { areaForSlug, areaRoot, deckPath } from '../../functions/secured/areas.js';
+import { deckSources } from './deck-sources.mjs';
 
-/** Friendly display names for the /secured/ overview. Falls back to the slug. */
+/**
+ * Friendly display names for the /secured/ overview. A deck's own `name` in
+ * its `deck.json` wins, which is how a deck from another repository names
+ * itself; then this map; then the slug.
+ */
 const DECK_NAMES = {
   'pitch': 'SmartAgents pitch',
   'staffing-pitch': 'AI Staffing pitch',
@@ -14,12 +19,6 @@ const DECK_NAMES = {
   'kbc-staffing-pitch': 'KBC · AI Staffing',
   'kbc-staffing-pitch-en': 'KBC · AI Staffing (EN)',
   'advocatuur-pitch': 'Advocatuur · Procesoptimalisatie & AI',
-  'isabel-sdlc': 'Isabel · AI-native SDLC',
-  'isabel-testing-strategy': 'Isabel · Testing strategy',
-  'isabel-update-6-oct': 'Isabel · Update and cake moments, 6 October',
-  'isabel-update-13-oct': 'Isabel · Ponto update, 13 October',
-  'isabel-update-20-oct': 'Isabel · Update and playgrounds, 20 October',
-  'rce-coaching': 'Isabel · Coaching: restrict, contain, expand',
   'lease-lens-demo': 'LeaseLens demo'
 };
 
@@ -54,42 +53,60 @@ function expandChrome(fragment) {
   );
 }
 
-export function loadDecks(contentDir) {
-  const decksDir = path.join(contentDir, 'secured/presentations');
-  if (!existsSync(decksDir)) return [];
-
+/**
+ * Every deck folder in every source (see `deck-sources.mjs`), this repo's
+ * first. A deck from a client's repository must be one its area claims by
+ * slug, or the build would write it where the client's password cannot reach
+ * it; and a slug is one deck, whichever repository it came from.
+ */
+export function loadDecks() {
   const decks = [];
-  for (const entry of readdirSync(decksDir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
-    if (!entry.isDirectory() || entry.name === 'shared') continue;
+  for (const source of deckSources()) {
+    if (!source.dir || !existsSync(source.dir)) continue;
 
-    const dir = path.join(decksDir, entry.name);
-    const configFile = path.join(dir, 'deck.json');
-    if (!existsSync(configFile)) continue;
+    for (const entry of readdirSync(source.dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      if (!entry.isDirectory() || entry.name === 'shared') continue;
 
-    const config = JSON.parse(readFileSync(configFile, 'utf8'));
-    const slides = config.slides.map((name) => {
-      const file = path.join(dir, 'slides', `${name}.html`);
-      if (!existsSync(file)) throw new Error(`Deck "${entry.name}" lists a missing slide: ${name}.html`);
-      return raw(expandChrome(readFileSync(file, 'utf8')));
-    });
+      const dir = path.join(source.dir, entry.name);
+      const configFile = path.join(dir, 'deck.json');
+      if (!existsSync(configFile)) continue;
 
-    // A client's deck is published under its area, where the client's own
-    // password reaches it; see `functions/secured/areas.js`.
-    const url = deckPath(entry.name);
-    const pdf = existsSync(path.join(dir, `${entry.name}.pdf`))
-      ? `${url}${entry.name}.pdf`
-      : null;
+      const area = areaForSlug(entry.name);
+      if (source.area && area?.key !== source.area) {
+        throw new Error(
+          `Deck "${entry.name}" from ${source.repo} is not in the ${source.area} area: its slug has to be one ` +
+          `CLIENT_AREAS in functions/secured/areas.js gives to "${source.area}".`
+        );
+      }
+      const twin = decks.find((deck) => deck.slug === entry.name);
+      if (twin) throw new Error(`Deck "${entry.name}" is in two places: ${twin.dir} and ${dir}`);
 
-    decks.push({
-      slug: entry.name,
-      name: DECK_NAMES[entry.name] || prettify(entry.name),
-      area: areaForSlug(entry.name),
-      dir,
-      url,
-      pdf,
-      config,
-      slides
-    });
+      const config = JSON.parse(readFileSync(configFile, 'utf8'));
+      const slides = config.slides.map((name) => {
+        const file = path.join(dir, 'slides', `${name}.html`);
+        if (!existsSync(file)) throw new Error(`Deck "${entry.name}" lists a missing slide: ${name}.html`);
+        return raw(expandChrome(readFileSync(file, 'utf8')));
+      });
+
+      // A client's deck is published under its area, where the client's own
+      // password reaches it; see `functions/secured/areas.js`.
+      const url = deckPath(entry.name);
+      const pdf = existsSync(path.join(dir, `${entry.name}.pdf`))
+        ? `${url}${entry.name}.pdf`
+        : null;
+
+      decks.push({
+        slug: entry.name,
+        name: config.name || DECK_NAMES[entry.name] || prettify(entry.name),
+        area,
+        source: source.key,
+        dir,
+        url,
+        pdf,
+        config,
+        slides
+      });
+    }
   }
 
   return decks;

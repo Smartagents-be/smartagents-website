@@ -14,19 +14,24 @@ no public deck URL and no way to make one: a public page cannot link into `/secu
 
 A deck made for a client with an area of its own — today Isabel, any slug starting
 `isabel` plus `rce-coaching` — lands under `/secured/<client>/presentations/<slug>/`
-instead, where the client's own password reaches it. The source folder stays in
-`presentations/` with every other deck; `functions/secured/areas.js` is what says which
-area a slug is in, and the build, the overview, the guard and the redirect from the old
-address all read it. Keep `deck.json`'s `../shared/` paths as they are: the shell prints
-them absolute.
+instead, where the client's own password reaches it; `functions/secured/areas.js` is what
+says which area a slug is in, and the build, the overview, the guard and the redirect from
+the old address all read it. Keep `deck.json`'s `../shared/` paths as they are: the shell
+prints them absolute.
+
+**Isabel's decks are not written here.** They live in the private repo
+`Smartagents-be/isabel-presentations` (checked out at `../isabel-presentations`), which has
+its own copy of this skill and its own templates, and a push to its `main` publishes. This
+repo is public; do not add an Isabel deck to `presentations/`. `build/lib/deck-sources.mjs`
+is how the build finds that repo, and the root `CLAUDE.md` has the rest.
 
 ## 1. What a deck is made of
 
 ```
 src/content/secured/presentations/<slug>/
   deck.json          the title, the stage size, the slide order
-  deck.css           empty in eight of the thirteen decks; figures of their
-                     own in the other five
+  deck.css           empty unless the deck draws a figure of its own;
+                     §3 lists the ones that do
   assets/
     logo.svg         cyan mark, for a slide on paper
     logo-dark.svg    bright mark. `chrome()` in build/lib/decks.mjs picks it
@@ -171,17 +176,13 @@ decks put the same two founders on a slide, and the classes for it were written 
 before anybody noticed; `.people` and `.portraits` are what is left of that, and §2 says
 which of the two a slide wants.
 
-Everything a deck still owns is listed here, so the list is checkable and so is its absence:
+Everything a deck in this repo still owns is listed here, so the list is checkable and so is
+its absence (the Isabel decks keep a table of their own in `isabel-presentations`):
 
 | Deck | Classes | Why it is not shared |
 |---|---|---|
-| `isabel-sdlc` | `.flow`, `.hub`, `.slide-notes`, `.results`, `.metric`, `.finding`, `.invest`, `.task`, `.gates`, `.next`, `.lead-in` | Five figures and one uneven comparison, each drawn for one argument |
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
-| `isabel-update-6-oct` | `.cake` | A line-drawn cake on the two cake-moments slides, one candle per row |
-| `isabel-update-27-oct` | `.mtn` | One mountain drawn four times at one geometry: the leap, the path walked by two agents with nothing to hold them to it, the trail with five checkpoints, the relay of agents |
-| `isabel-testing-strategy` | `.shapes`, `.shape` | The testing pyramid and the testing honeycomb, drawn side by side at one scale; the honeycomb lands on the first forward press |
-| `rce-coaching` | `.rce-fig`, `.dials`, `.ctx`, `.tokens`, `.pfig`, `.code-split`, `.window`, `.loop`, `.workflows`, `.swap` | One dot grid drawn three times, under the restrict, contain and expand columns; three knobs for model, effort and context; the context layers with the ring drawn round the prompt; the to-scale prompt sizes and the ask-versus-interview figures; one context window drawn to scale beside the words; the agent's test loop with its return line; the tasks swapped for the setups that replace them |
 
 That is the bar: a figure nothing else will ever want. A figure two decks want is shared
 today, not after the second copy. Nothing in that column overrides a shared class either: a
