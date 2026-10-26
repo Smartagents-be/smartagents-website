@@ -33,11 +33,11 @@ export const body = {
       `je model: probeer een goedkoper model op een afgebakende taak en kijk het
         resultaat na`
     ]),
-    h2`Je repository inrichten`,
-    p`In de namiddag ging het over de repository. Wat de agent elke keer nodig heeft, zet
-      je in bestanden: korte instructies, skills voor wat je vaak doet en hooks voor wat
-      altijd moet gebeuren. Omdat die bestanden in de repository staan, werkt het hele
-      team met dezelfde afspraken.`,
+    h2`Samenwerken met agents`,
+    p`In de namiddag leerden we een repository inrichten voor agents. Wat een agent elke
+      keer nodig heeft, zet je in bestanden: korte instructies, skills voor wat je vaak
+      doet en hooks voor wat altijd moet gebeuren. Je commit ze, dus het hele team werkt
+      met dezelfde afspraken.`,
     p`Veel aandacht ging naar quality gates. Een agent schrijft sneller code dan jij ze
       kan lezen, dus laat je de controle over aan checks die hij zelf na elke stap draait:
       tests, een ondergrens voor coverage en mutation testing. Je bouwt ze in met een hook
@@ -73,11 +73,11 @@ export const body = {
         along again with every question`,
       `your model: try a cheaper model on a well-scoped task and check the result`
     ]),
-    h2`Setting up your repository`,
-    p`The afternoon was about the repository. What the agent needs every time goes into
-      files: short instructions, skills for what you do often and hooks for what must
-      always happen. Because those files live in the repository, the whole team works to
-      the same agreements.`,
+    h2`Working with agents`,
+    p`In the afternoon we learned to set up a repository for agents. What an agent needs
+      every time goes into files: short instructions, skills for what you do often and
+      hooks for what must always happen. You commit them, so the whole team works to the
+      same agreements.`,
     p`Quality gates got a lot of attention. An agent writes code faster than you can read
       it, so the checking goes to gates it runs itself after every step: tests, a coverage
       floor and mutation testing. You build them in with a hook and a check before the
@@ -117,11 +117,12 @@ export const body = {
       `votre modèle: essayez un modèle moins cher sur une tâche bien délimitée et
         vérifiez le résultat`
     ]),
-    h2`Organiser votre dépôt`,
-    p`L'après-midi portait sur le dépôt. Ce dont l'agent a besoin à chaque fois va dans
-      des fichiers: des instructions courtes, des skills pour ce que vous faites souvent
-      et des hooks pour ce qui doit toujours se produire. Comme ces fichiers sont dans le
-      dépôt, toute l'équipe travaille avec les mêmes conventions.`,
+    h2`Travailler avec des agents`,
+    p`L'après-midi, nous avons appris à organiser un dépôt pour des agents. Ce dont un
+      agent a besoin à chaque fois va dans des fichiers: des instructions courtes, des
+      skills pour ce que vous faites souvent et des hooks pour ce qui doit toujours se
+      produire. Vous les committez, et toute l'équipe travaille ainsi avec les mêmes
+      conventions.`,
     p`Les quality gates ont reçu beaucoup d'attention. Un agent écrit du code plus vite que
       vous ne pouvez le lire: le contrôle passe donc par des vérifications qu'il lance
       lui-même après chaque étape, comme les tests, un seuil de couverture et les tests de
