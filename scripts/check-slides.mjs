@@ -27,11 +27,11 @@ import { extname, join, normalize, resolve } from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { deckPath } from '../functions/secured/areas.js';
+import { deckSources } from '../build/lib/deck-sources.mjs';
 import { tmpdir } from 'node:os';
 
 const repoRoot = resolve(process.cwd());
 const distDir = resolve(repoRoot, 'dist');
-const presentationsDir = resolve(repoRoot, 'src', 'content', 'secured', 'presentations');
 const host = '127.0.0.1';
 
 // Slack before a slide is called broken. `.slide--footed` reserves 184px at the
@@ -193,10 +193,18 @@ async function measure(url) {
 }
 
 const only = process.argv[2];
-const decks = readdirSync(presentationsDir, { withFileTypes: true })
-  .filter((e) => e.isDirectory() && e.name !== 'shared')
-  .filter((e) => existsSync(join(presentationsDir, e.name, 'deck.json')))
-  .map((e) => e.name)
+// Every source the build reads, a client's own repository included; see
+// build/lib/deck-sources.mjs. `deckDir` maps a slug back to its folder.
+const deckDir = new Map();
+for (const source of deckSources()) {
+  if (!source.dir || !existsSync(source.dir)) continue;
+  for (const e of readdirSync(source.dir, { withFileTypes: true })) {
+    if (e.isDirectory() && e.name !== 'shared' && existsSync(join(source.dir, e.name, 'deck.json'))) {
+      deckDir.set(e.name, join(source.dir, e.name));
+    }
+  }
+}
+const decks = [...deckDir.keys()]
   .filter((name) => !only || name === only)
   .sort();
 

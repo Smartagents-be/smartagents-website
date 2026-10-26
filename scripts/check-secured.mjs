@@ -20,6 +20,7 @@ import { onRequest as guard } from '../functions/secured/[[path]].js';
 import { onRequest as login } from '../functions/secured/login.js';
 import { onRequest as areaLogin } from '../functions/secured/[area]/login.js';
 import { CLIENT_AREAS } from '../functions/secured/areas.js';
+import { deckSources } from '../build/lib/deck-sources.mjs';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(rootDir, 'dist');
@@ -128,7 +129,12 @@ for (const area of CLIENT_AREAS) {
   // What their session opens: their overview, every page it links, and every
   // file each of those pages loads.
   const pages = [root, ...filesOf(root).filter((ref) => ref.startsWith(root) && ref.endsWith('/'))];
-  check(`${root} lists something`, pages.length > 1);
+  // An area whose decks come from a repository this build could not read is
+  // empty on purpose, and fetch-decks.mjs has already said so (or failed the
+  // build, on Pages). Everything else about its password is still checked.
+  const unread = deckSources().find((source) => source.area === area.key && !source.dir);
+  if (unread && pages.length === 1) console.warn(`  - ${root} is empty: ${unread.repo} was not read`);
+  else check(`${root} lists something`, pages.length > 1);
   const files = new Set(pages.flatMap((page) => [page, ...filesOf(page)]));
   const blocked = [];
   for (const file of files) {
@@ -149,7 +155,7 @@ for (const area of CLIENT_AREAS) {
 
   // Ours opens theirs.
   await opens(`our session opens ${root}`, root, ours.cookie);
-  await opens(`our session opens their decks`, pages[1], ours.cookie);
+  if (pages[1]) await opens(`our session opens their decks`, pages[1], ours.cookie);
 }
 
 // The old address of a client deck is moved, not lost.

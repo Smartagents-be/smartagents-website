@@ -94,7 +94,8 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
   project has one, Cloudflare reads `pages_build_output_dir`, bindings and
   `[vars]` from it and ignores the dashboard equivalents. Secrets
   (`TURNSTILE_SECRET_KEY`, `N8N_SHARED_SECRET`, `EXPORT_PASSWORD`,
-  `EXPORT_SESSION_SECRET`, `SECURED_ISABEL_PASSWORD`) stay dashboard-managed;
+  `EXPORT_SESSION_SECRET`, `SECURED_ISABEL_PASSWORD`, `ISABEL_PRESENTATIONS_TOKEN`)
+  stay dashboard-managed;
   a binding a Function needs at runtime belongs in the file. `functions/api/README.md` records one that is
   still missing.
 - **Odoo owns the vacancy list, and the jobs page prints it. Both are in the
@@ -127,6 +128,25 @@ Nothing here is a GitHub Action, so a green local build is the only signal.
 - **`dist/.vite/` is scaffolding.** `render.mjs` reads the manifest from it, then
   `build-site.mjs` deletes the directory before `check-dist.mjs` runs, so it
   never ships. Both validators already skip dot-entries at the root of `dist/`.
+- **Isabel's decks are not in this repo.** They live in the private
+  `Smartagents-be/isabel-presentations`, because this one is public, and
+  `build/lib/deck-sources.mjs` is where the build finds them: an explicit
+  `ISABEL_PRESENTATIONS_DIR`, else the sibling checkout `../isabel-presentations`,
+  else `.external/isabel-presentations`, which `scripts/fetch-decks.mjs` — the
+  first step of `npm run build` — unpacks from GitHub with
+  `ISABEL_PRESENTATIONS_TOKEN` (a fine-grained token, Contents read-only on that
+  one repo; a build secret, and `check-dist.mjs` fails on its value in `dist/`).
+  On Pages a build that can read neither **fails** rather than publish an empty
+  area; locally it warns and builds the area empty. A push to that repo's `main`
+  runs its own workflow, which builds this site against the decks and then calls
+  a Pages deploy hook named `isabel-presentations`, so the client's decks reach
+  production without anyone touching this repo — and every push here fetches its
+  `main` too. Every deck there must be one `CLIENT_AREAS` gives to `isabel`;
+  `loadDecks()` throws otherwise, and on a slug that exists in both repos. A
+  deck names itself for the overview with `name` in its `deck.json`, since
+  nothing in this repo lists it. The authoring skill for those decks is a copy
+  of `new-presentation` adapted to that repo; a change to `shared/slide.css`
+  still lands here.
 - **`functions/` is picked up from the repo root**, not from `dist/`. Cloudflare
   derives the routes from the file tree, which is why there is no `_routes.json`.
 

@@ -5,11 +5,20 @@
 import { spawn } from 'node:child_process';
 import { statSync, watch } from 'node:fs';
 import path from 'node:path';
+import { deckSources } from '../build/lib/deck-sources.mjs';
 
 const EVENTS_PATH = '/__dev/events';
 
 /** Directories and files whose contents feed the build. */
-const WATCH_TARGETS = ['src', 'build', 'public', 'vite.config.js'];
+const WATCH_TARGETS = [
+  'src',
+  'build',
+  'public',
+  'vite.config.js',
+  // A client deck repository checked out beside this one, so a save there
+  // reloads the deck here. A fetched copy is not a source and is not watched.
+  ...deckSources().filter((source) => source.key !== 'local' && source.dir && !source.fetched).map((source) => source.dir)
+];
 
 /** Editor noise that must never trigger a rebuild. */
 const IGNORED = /(^|[\\/])(\.DS_Store|\.git|node_modules)([\\/]|$)|[~]$|\.sw[po]$/;

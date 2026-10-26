@@ -637,7 +637,13 @@ for (const file of sourceFiles) {
    username, and it is very likely to be an address the footer prints on every
    page of the site — scanning for it would fail the production build on a
    perfect match that is not a leak at all. */
-const SECRET_ENV = ['ODOO_API_KEY', 'N8N_SHARED_SECRET', 'EXPORT_PASSWORD', 'EXPORT_SESSION_SECRET'];
+const SECRET_ENV = [
+  'ODOO_API_KEY',
+  'N8N_SHARED_SECRET',
+  'EXPORT_PASSWORD',
+  'EXPORT_SESSION_SECRET',
+  'ISABEL_PRESENTATIONS_TOKEN'
+];
 
 for (const name of SECRET_ENV) {
   const value = process.env[name];

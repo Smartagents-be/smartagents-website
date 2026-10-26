@@ -11,10 +11,10 @@ import { extname, join, normalize, resolve } from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { deckPath } from '../functions/secured/areas.js';
+import { deckSources } from '../build/lib/deck-sources.mjs';
 
 const repoRoot = resolve(process.cwd());
 const distDir = resolve(repoRoot, 'dist');
-const presentationsDir = resolve(repoRoot, 'src', 'content', 'secured', 'presentations');
 const host = '127.0.0.1';
 
 if (!existsSync(distDir)) {
@@ -75,7 +75,7 @@ function serveDist() {
 /** How many slides the deck declares, or 0 if the manifest cannot be read. */
 function slideCount(slug) {
   try {
-    const deck = JSON.parse(readFileSync(join(presentationsDir, slug, 'deck.json'), 'utf8'));
+    const deck = JSON.parse(readFileSync(join(deckDir.get(slug), 'deck.json'), 'utf8'));
     return Array.isArray(deck.slides) ? deck.slides.length : 0;
   } catch {
     return 0;
@@ -99,10 +99,18 @@ function pageCount(file) {
 // files in the diff, each of them a fresh print that differs from the committed
 // one in ways nobody reviewed.
 const only = process.argv[2];
-const decks = readdirSync(presentationsDir, { withFileTypes: true })
-  .filter((e) => e.isDirectory() && e.name !== 'shared')
-  .filter((e) => existsSync(join(presentationsDir, e.name, 'deck.json')))
-  .map((e) => e.name)
+// Every source the build reads, a client's own repository included; see
+// build/lib/deck-sources.mjs. `deckDir` maps a slug back to its folder.
+const deckDir = new Map();
+for (const source of deckSources()) {
+  if (!source.dir || !existsSync(source.dir)) continue;
+  for (const e of readdirSync(source.dir, { withFileTypes: true })) {
+    if (e.isDirectory() && e.name !== 'shared' && existsSync(join(source.dir, e.name, 'deck.json'))) {
+      deckDir.set(e.name, join(source.dir, e.name));
+    }
+  }
+}
+const decks = [...deckDir.keys()]
   .filter((name) => !only || name === only)
   .sort();
 
@@ -118,7 +126,7 @@ console.log(`Serving dist at http://${host}:${port}`);
 let failures = 0;
 for (const slug of decks) {
   const url = `http://${host}:${port}${deckPath(slug)}`;
-  const out = join(presentationsDir, slug, `${slug}.pdf`);
+  const out = join(deckDir.get(slug), `${slug}.pdf`);
   process.stdout.write(`Exporting ${slug} ... `);
   // Use async spawn (not spawnSync): the static server lives in this same
   // process, so a synchronous child would block the event loop and Chrome

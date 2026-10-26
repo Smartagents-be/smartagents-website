@@ -44,6 +44,9 @@ if (!existsSync(viteBin)) {
   process.exit(1);
 }
 
+// 0. fetch-decks.mjs puts the client deck repositories where render.mjs reads
+//    them, when no checkout of them is on disk; see build/lib/deck-sources.mjs.
+run(process.execPath, ['scripts/fetch-decks.mjs']);
 // 1. Vite builds and hashes the JS/CSS shell and writes the manifest.
 run(viteBin, ['build']);
 // 2. render.mjs turns every template into a complete HTML file.

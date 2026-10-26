@@ -23,6 +23,9 @@ Client areas:
 - `scripts/check-secured.mjs` runs at the end of `npm run build` and checks all of this
   against `dist/` through the real handlers.
 - Adding a client: one entry in `CLIENT_AREAS`, one secret in the Pages dashboard.
+- A client's decks can live in a repository of their own: Isabel's are in the private
+  `Smartagents-be/isabel-presentations`, found by `build/lib/deck-sources.mjs`. The build
+  refuses a deck from there that `CLIENT_AREAS` does not give to its area.
 
 This split is platform-driven. The function files should stay under `functions/` unless deployment moves away from Cloudflare Pages Functions.
 

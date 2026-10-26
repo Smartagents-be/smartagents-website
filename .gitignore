@@ -22,3 +22,6 @@ shots/
 
 # design-sync output (rebuilt by the sync; never hand-edited)
 ds-bundle/
+
+# Client deck repositories fetched by scripts/fetch-decks.mjs
+.external/
