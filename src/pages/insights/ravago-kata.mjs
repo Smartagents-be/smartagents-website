@@ -19,9 +19,8 @@ export const body = {
     p`Op 23 oktober zaten we een volle dag met een groep developers van **Ravago** rond de
       tafel voor de agentic engineering kata. Iedereen werkte op zijn eigen laptop, met
       zijn eigen AI-assistent en het oefenproject van de kata.`,
-    p`Uitleg wisselde de hele dag af met oefeningen en demo's. In de oefeningen zoek je
-      verborgen flags, en die vind je pas als je oplossing echt draait. Zo merk je meteen
-      of je agent zijn werk gedaan heeft.`,
+    p`We wisselden theorie af met demo's en oefeningen. De verborgen flag in een oefening
+      vind je pas als je oplossing werkt.`,
     h2`Wat er in één vraag zit`,
     p`We begonnen bij wat er gebeurt als je een agent iets vraagt. We keken naar tokens,
       naar wat er allemaal in het contextvenster belandt en naar waarom de sessie je
@@ -69,9 +68,8 @@ export const body = {
     p`On 23 October we spent a full day round the table with a group of developers at
       **Ravago** for the agentic engineering kata. Everyone worked on their own laptop,
       with their own AI assistant and the kata's practice project.`,
-    p`Explanation alternated with exercises and demos all day. In the exercises you look
-      for hidden flags, and you only find them once your solution actually runs. That
-      tells you straight away whether your agent did its job.`,
+    p`We alternated theory with demos and exercises. You only find an exercise's hidden
+      flag once your solution works.`,
     h2`What goes into a single question`,
     p`We started with what happens when you ask an agent something. We looked at tokens,
       at everything that ends up in the context window, and at why the session decides
@@ -118,10 +116,8 @@ export const body = {
       développeurs de **Ravago** pour le kata d'agentic engineering. Chacun travaillait
       sur son propre ordinateur portable, avec son propre assistant IA et le projet
       d'exercice du kata.`,
-    p`Les explications ont alterné toute la journée avec des exercices et des démos. Dans
-      les exercices, vous cherchez des flags cachés, et vous ne les trouvez que lorsque
-      votre solution tourne vraiment. Vous voyez donc tout de suite si votre agent a fait
-      son travail.`,
+    p`Nous avons alterné théorie, démos et exercices. Le flag caché d'un exercice
+      n'apparaît que lorsque votre solution fonctionne.`,
     h2`Ce que contient une seule question`,
     p`Nous avons commencé par ce qui se passe quand vous posez une question à un agent.
       Nous avons regardé les tokens, tout ce qui atterrit dans la fenêtre de contexte, et
