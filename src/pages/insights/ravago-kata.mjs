@@ -27,7 +27,8 @@ export const body = {
       agent samen te werken. Daarvoor gaven we concrete tips:`,
     list([
       `je prompt: noem het doel, de bestanden die ertoe doen en wat niet mag`,
-      `je context: geef het bestand dat ertoe doet in plaats van de hele map`,
+      `je context: geef de agent alleen wat hij voor deze taak nodig heeft, want meer
+        context maakt hem duurder en minder betrouwbaar`,
       `je sessie: begin een nieuwe sessie voor elke taak, want alles wat erin zit, gaat
         bij elke vraag opnieuw mee`,
       `je model: probeer een goedkoper model op een afgebakende taak en kijk het
@@ -68,7 +69,8 @@ export const body = {
       do yourself to work better with an agent. We gave concrete tips for it:`,
     list([
       `your prompt: name the goal, the files that matter and what is off limits`,
-      `your context: hand over the file that matters instead of the whole folder`,
+      `your context: give the agent only what it needs for this task, because more
+        context makes it more expensive and less reliable`,
       `your session: start a new one for every task, because everything in it goes
         along again with every question`,
       `your model: try a cheaper model on a well-scoped task and check the result`
@@ -111,7 +113,8 @@ export const body = {
       conseils concrets:`,
     list([
       `votre prompt: nommez l'objectif, les fichiers qui comptent et ce qui est interdit`,
-      `votre contexte: donnez le fichier qui compte plutôt que tout le dossier`,
+      `votre contexte: ne donnez à l'agent que ce dont il a besoin pour cette tâche, car
+        plus de contexte le rend plus cher et moins fiable`,
       `votre session: commencez-en une nouvelle pour chaque tâche, car tout ce qu'elle
         contient repart à chaque question`,
       `votre modèle: essayez un modèle moins cher sur une tâche bien délimitée et
