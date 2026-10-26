@@ -30,8 +30,8 @@ export const body = {
     p`Een antwoord klinkt even zeker of de agent nu je bestand gelezen heeft of zelf
       heeft ingevuld wat hij niet wist. Daarom vraag je bij twijfel waar hij het gezien
       heeft, of om een test die faalt.`,
-    h2`Werken met een agent`,
-    p`Het grootste deel van de dag ging over hoe je met een agent samenwerkt. Wat hij
+    h2`Werken met agents`,
+    p`Het grootste deel van de dag ging over hoe je met agents samenwerkt. Wat een agent
       telkens opnieuw nodig heeft, zet je in de repository en niet in je prompt. **Een
       correctie die je voor de derde keer typt, hoort in een bestand.**`,
     p`Een agent schrijft sneller code dan jij ze kan lezen, dus elke regel zelf nalezen
@@ -43,6 +43,10 @@ export const body = {
       beurt mee.`,
     p`Ook de werkwijze hangt af van de code. Voor een prototype dat je weggooit, volstaat
       een korte vraag. Code die blijft, krijgt eerst een spec in de repository.`,
+    p`We keken ook naar meerdere agents tegelijk, elk in een eigen worktree, en naar een
+      bouwer en een criticus die elkaars werk nakijken. Meer agents geven meer output,
+      maar je aandacht blijft dezelfde. Splits dus alleen werk waarvan elk stuk een eigen
+      check heeft.`,
     h2`Wat dit met ons werk doet`,
     p`We sloten de dag af met een open gesprek over hoe ons werk verandert en hoe we
       daarmee omgaan.`,
@@ -75,9 +79,9 @@ export const body = {
       along again on every turn.`,
     p`An answer sounds just as sure whether the agent read your file or filled in what it
       didn't know. So when in doubt, you ask where it saw it, or for a failing test.`,
-    h2`Working with an agent`,
-    p`Most of the day was about how you work together with an agent. What it needs every
-      time goes in the repository, not in your prompt. **A correction you type for the
+    h2`Working with agents`,
+    p`Most of the day was about how you work together with agents. What an agent needs
+      every time goes in the repository, not in your prompt. **A correction you type for the
       third time belongs in a file.**`,
     p`An agent writes code faster than you can read it, so reading every line yourself
       doesn't last. You give it checks it can run itself after every step, and you make
@@ -87,6 +91,10 @@ export const body = {
       A correction added on top stays in the context and goes along on every turn.`,
     p`The way of working depends on the code too. For a prototype you will throw away, a
       short request is enough. Code that stays gets a spec in the repository first.`,
+    p`We also looked at several agents at once, each in its own worktree, and at a
+      builder and a critic that check each other's work. More agents give more output,
+      but your attention stays the same. So only split work where each piece has its own
+      check.`,
     h2`What this does to our work`,
     p`We closed the day with an open conversation about how our work is changing and how
       we deal with it.`,
@@ -122,9 +130,9 @@ export const body = {
     p`Une réponse paraît tout aussi sûre, que l'agent ait lu votre fichier ou qu'il ait
       complété lui-même ce qu'il ne savait pas. En cas de doute, demandez-lui donc où il
       l'a vu, ou un test qui échoue.`,
-    h2`Travailler avec un agent`,
-    p`L'essentiel de la journée portait sur la manière de collaborer avec un agent. Ce
-      dont il a besoin à chaque fois a sa place dans le dépôt, pas dans votre prompt.
+    h2`Travailler avec des agents`,
+    p`L'essentiel de la journée portait sur la manière de collaborer avec des agents.
+      Ce dont un agent a besoin à chaque fois a sa place dans le dépôt, pas dans votre prompt.
       **Une correction que vous tapez pour la troisième fois doit aller dans un
       fichier.**`,
     p`Un agent écrit du code plus vite que vous ne pouvez le lire, et relire chaque ligne
@@ -136,6 +144,10 @@ export const body = {
       chaque tour.`,
     p`La façon de travailler dépend aussi du code. Pour un prototype que vous jetterez,
       une courte demande suffit. Le code qui reste reçoit d'abord une spec dans le dépôt.`,
+    p`Nous avons aussi regardé plusieurs agents en parallèle, chacun dans son propre
+      worktree, et un constructeur et un critique qui vérifient le travail l'un de
+      l'autre. Plus d'agents donnent plus de résultats, mais votre attention reste la
+      même. Ne découpez donc que le travail dont chaque morceau a son propre contrôle.`,
     h2`Ce que cela change à notre travail`,
     p`Nous avons terminé la journée par une discussion ouverte sur la façon dont notre
       travail évolue et sur la manière d'y faire face.`,
