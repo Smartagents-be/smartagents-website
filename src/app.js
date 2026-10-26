@@ -18,8 +18,7 @@ const COMPONENTS = {
   'sa-node-field': () => import('./components/node-field/node-field.js'),
   'sa-contact-form': () => import('./components/contact-form/contact-form.js'),
   'sa-clause-index': () => import('./components/clause-index/clause-index.js'),
-  'sa-agent-map': () => import('./components/agent-map/agent-map.js'),
-  'sa-copy-command': () => import('./components/copy-command/copy-command.js')
+  'sa-agent-map': () => import('./components/agent-map/agent-map.js')
 };
 
 const loading = new Set();

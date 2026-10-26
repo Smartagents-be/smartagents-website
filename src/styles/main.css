@@ -1909,198 +1909,6 @@ sa-node-field {
   }
 }
 
-/* A download page: the kata's code for one client's group. One thing to do, so
-   the copy stands on the hero's centre line rather than in the split column,
-   and the orbit rings are the only texture; a silhouette beside a centred block
-   would put the shape and the command in each other's way. */
-.hero--download .hero__inner {
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  padding-left: var(--gutter-page);
-  text-align: center;
-}
-
-/* Its own width, not its content's: the command is one unbroken line, and a
-   grid item sized to it pushed the box past the gutter on both sides of a phone. */
-.hero--download .hero__text {
-  align-self: center;
-  width: 100%;
-  min-width: 0;
-  max-width: 44rem;
-}
-
-.hero--download h1 {
-  margin-inline: auto;
-}
-
-/* The French page's note that the course is in Dutch and English: set off from the title. */
-.download__language {
-  margin-top: var(--space-4);
-}
-
-/* The clone command is the link. `user-select: all` makes one click take the
-   whole line, so it copies with no script. It wraps on a phone rather than
-   scrolling: a soft wrap puts no newline in the copied text, so the command
-   still pastes as one line, and a scrollbar under one line of code was most of
-   the box. */
-.download__command {
-  display: flex;
-  gap: var(--space-4);
-  align-items: center;
-  margin-top: var(--space-10);
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-6);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-panel);
-  background: var(--surface-chip);
-  text-align: left;
-}
-
-.download__command-text {
-  flex: 1 1 auto;
-  min-width: 0;
-  margin: 0;
-  padding-block: var(--space-3);
-  color: var(--text-strong);
-  font-family: var(--font-mono);
-  font-size: var(--text-ui-sm);
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  user-select: all;
-}
-
-/* `.btn` sets a display, which beats the user agent's `[hidden]`; the button
-   stays out until <sa-copy-command> has something to wire it to. */
-.download__copy {
-  flex: none;
-  justify-content: center;
-  padding: var(--space-3);
-}
-
-.download__copy[hidden] {
-  display: none;
-}
-
-/* The copy glyph at rest, a check for two seconds after a copy. */
-.download__copy-done,
-.download__copy[data-state="copied"] .download__copy-icon {
-  display: none;
-}
-
-.download__copy[data-state="copied"] .download__copy-done {
-  display: block;
-}
-
-.download__actions {
-  justify-content: center;
-}
-
-/* The licence under the actions: small and left-set, because five lines of
-   centred legal prose are read as a shape rather than a sentence. */
-.download__terms {
-  margin-top: var(--space-12);
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--border-hairline);
-  color: var(--text-muted);
-  font-size: var(--text-meta);
-  line-height: var(--leading-snug);
-  text-align: left;
-}
-
-.download__terms-title {
-  margin-bottom: var(--space-3);
-  color: var(--text-strong);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-semibold);
-}
-
-.download__terms p + p {
-  margin-top: var(--space-3);
-}
-
-/* What to install and how to start, between the download and the terms. Left-set
-   like the terms, at reading size: this is the part the group acts on. */
-.download__setup {
-  margin-top: var(--space-12);
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--border-hairline);
-  color: var(--text-muted);
-  line-height: var(--leading-snug);
-  text-align: left;
-}
-
-.download__setup-title,
-.download__setup-subtitle {
-  margin-bottom: var(--space-3);
-  color: var(--text-strong);
-  font-weight: var(--weight-semibold);
-}
-
-.download__setup-title {
-  font-size: var(--text-ui);
-}
-
-.download__setup-subtitle {
-  margin-top: var(--space-6);
-  font-size: var(--text-ui-sm);
-}
-
-.download__setup code {
-  color: var(--text-strong);
-  font-family: var(--font-mono);
-  font-size: 0.92em;
-  overflow-wrap: anywhere;
-}
-
-.download__tools {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.download__tools th,
-.download__tools td {
-  padding: var(--space-2) var(--space-3) var(--space-2) 0;
-  border-bottom: 1px solid var(--border-hairline);
-  text-align: left;
-  font-weight: var(--weight-book);
-}
-
-.download__tools thead th {
-  color: var(--text-strong);
-  font-weight: var(--weight-semibold);
-}
-
-.download__tools tbody th {
-  color: var(--text-strong);
-}
-
-.download__setup-list {
-  padding-left: var(--space-6);
-}
-
-ul.download__setup-list {
-  list-style: disc;
-}
-
-ol.download__setup-list {
-  list-style: decimal;
-}
-
-.download__setup-list li + li {
-  margin-top: var(--space-2);
-}
-
-/* No shape on this page, so the phone's 80% measure has nothing to clear, and
-   the actions stretch to the column like every other hero's. */
-@media (width < 621px) {
-  .hero--download .hero__text {
-    max-width: none;
-  }
-
-  .hero--download .hero__inner {
-    padding-bottom: var(--space-13);
-  }
-}
-
 /* Prose under a heading, and the rows that follow it. */
 /* Badges are one of the two places a pill is allowed (the other is the language
    chip). Sentence case, like everything else. */
@@ -4952,6 +4760,23 @@ html:not([data-clause-spy]) .prose__heading:target,
   right: var(--gutter-page);
   width: min(38%, 600px);
   translate: 0 -50%;
+}
+
+/* The desk drops the diagram: beside the claim it was one more set of lines on
+   a hero that already carries the rings, the lobe and the island. */
+@media (width >= 1181px) {
+  .hero__map {
+    display: none;
+  }
+}
+
+/* Where the diagram stands, the hero's rings go: they ran straight through its
+   own dotted orbit and network, and two sets of circles over one drawing read
+   as noise. */
+@media (width < 1181px) {
+  .hero--home .orbits {
+    display: none;
+  }
 }
 
 @media (621px <= width < 941px) {

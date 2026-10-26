@@ -160,6 +160,7 @@ Wrap guard: `.nobreak`
 Builds: the `data-build="N"` attribute (see below)
 Dark shape: `.field` · `.slide__shape` (`--petal`, `--lobe`, `--wedge`) · `<sa-node-field>` · `.node` (`--lit`, `--dim`) · `.link`
 Orbits: `.orbits` (`--close`) · `.orbits__origin` · `.orbits__ring--01…05` · `.orbits__path--01…03` · `.orbits__node`
+Playground: `.pg` · `.pg__svg` · `.pg__boundary` · `.pg__app` · `.pg__name` · `.pg__sub` · `.pg__tag` · `.pg__link` · `.pg__plug` · `.pg__replay` · `.pg__head` and the rest of the `.pg__*` set (the ISM playgrounds figure, shared by two Isabel updates)
 
 Anything genuinely new goes in the deck's own `deck.css`, written with tokens rather than
 literal values (`--sa-grey-3`, `--sa-line`, `--ls-h3`, `--fw-semibold`). If you find yourself
@@ -178,6 +179,7 @@ Everything a deck still owns is listed here, so the list is checkable and so is 
 | `token-efficient-ai-development` | `.snips`, `.close__roles` | The only deck that shows code verbatim |
 | `lease-lens-demo` | `.qr` | A QR code, on the one slide that hands out a URL |
 | `isabel-update-6-oct` | `.cake` | A line-drawn cake on the two cake-moments slides, one candle per row |
+| `isabel-update-27-oct` | `.mtn` | One mountain drawn four times at one geometry: the leap, the path walked by two agents with nothing to hold them to it, the trail with five checkpoints, the relay of agents |
 | `isabel-testing-strategy` | `.shapes`, `.shape` | The testing pyramid and the testing honeycomb, drawn side by side at one scale; the honeycomb lands on the first forward press |
 | `rce-coaching` | `.rce-fig`, `.dials`, `.ctx`, `.tokens`, `.pfig`, `.code-split`, `.window`, `.loop`, `.workflows`, `.swap` | One dot grid drawn three times, under the restrict, contain and expand columns; three knobs for model, effort and context; the context layers with the ring drawn round the prompt; the to-scale prompt sizes and the ask-versus-interview figures; one context window drawn to scale beside the words; the agent's test loop with its return line; the tasks swapped for the setups that replace them |
 

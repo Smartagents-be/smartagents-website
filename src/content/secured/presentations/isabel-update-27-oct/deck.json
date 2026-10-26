@@ -1,0 +1,30 @@
+{
+  "title": "SmartAgents — Isabel · Recap and update",
+  "description": "The Isabel update for 27 October 2026: a recap told as one mountain, from the leap of faith through agents on an open path to checkpoints and a relay of specialized agents; then the update, the Ponto coaching, the playgrounds and FIC on real bank sandboxes, and where we are held back.",
+  "lang": "en",
+  "width": "1920",
+  "height": "1080",
+  "styles": [
+    "../shared/slide.css"
+  ],
+  "scripts": [
+    "../shared/node-field.js"
+  ],
+  "slides": [
+    "00-cover",
+    "01-recap",
+    "02-leap",
+    "03-path",
+    "04-checkpoints",
+    "05-checks",
+    "06-fatigue",
+    "07-relay",
+    "08-one-or-many",
+    "09-update",
+    "10-coaching",
+    "11-playgrounds",
+    "12-fic",
+    "13-held-back",
+    "14-close"
+  ]
+}
