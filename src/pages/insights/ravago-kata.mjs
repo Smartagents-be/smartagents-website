@@ -24,7 +24,8 @@ export const body = {
     h2`Hoe een agent echt werkt`,
     p`In de voormiddag begonnen we bij de basis: wat er met je vraag gebeurt, wat de agent
       echt leest en wat dat kost. Wie dat doorheeft, kan zelf veel doen om beter met een
-      agent samen te werken. Daarvoor gaven we concrete tips:`,
+      agent samen te werken. Een greep uit de tips die we
+      meegaven:`,
     list([
       `je prompt: noem het doel, de bestanden die ertoe doen en wat niet mag`,
       `je context: geef de agent alleen wat hij voor deze taak nodig heeft, want meer
@@ -66,7 +67,7 @@ export const body = {
     h2`How an agent really works`,
     p`In the morning we started with the basics: what happens to your question, what the
       agent actually reads and what that costs. Once you see that, there is a lot you can
-      do yourself to work better with an agent. We gave concrete tips for it:`,
+      do yourself to work better with an agent. A few of the tips we shared:`,
     list([
       `your prompt: name the goal, the files that matter and what is off limits`,
       `your context: give the agent only what it needs for this task, because more
@@ -109,8 +110,8 @@ export const body = {
     h2`Comment un agent fonctionne vraiment`,
     p`Le matin, nous sommes partis des bases: ce qui arrive à votre question, ce que
       l'agent lit réellement et ce que cela coûte. Une fois que vous le voyez, vous pouvez
-      faire beaucoup vous-même pour mieux collaborer avec un agent. Nous avons donné des
-      conseils concrets:`,
+      faire beaucoup vous-même pour mieux collaborer avec un agent. Quelques-uns des conseils
+      que nous avons donnés:`,
     list([
       `votre prompt: nommez l'objectif, les fichiers qui comptent et ce qui est interdit`,
       `votre contexte: ne donnez à l'agent que ce dont il a besoin pour cette tâche, car
