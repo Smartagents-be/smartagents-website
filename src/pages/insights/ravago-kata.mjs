@@ -40,8 +40,8 @@ export const body = {
       met dezelfde afspraken.`,
     p`Veel aandacht ging naar quality gates. Een agent schrijft sneller code dan jij ze
       kan lezen, dus laat je de controle over aan checks die hij zelf na elke stap draait:
-      tests, een ondergrens voor coverage en mutation testing. Je bouwt ze in met een hook
-      en een check voor de merge, zodat de agent geen drempel kan verlagen. Wat er gebouwd
+      tests, een ondergrens voor coverage en mutation testing. Dezelfde checks draaien
+      ook voor elke merge, zodat de agent de lat niet stilletjes lager kan leggen. Wat er gebouwd
       wordt en wanneer het in productie gaat, beslis je zelf.`,
     quote`Laat een machine controleren wat een machine kan controleren.`,
     p`Daarna bekeken we hoe je meerdere agents laat samenwerken: een bouwer en een
@@ -80,8 +80,8 @@ export const body = {
       same agreements.`,
     p`Quality gates got a lot of attention. An agent writes code faster than you can read
       it, so the checking goes to gates it runs itself after every step: tests, a coverage
-      floor and mutation testing. You build them in with a hook and a check before the
-      merge, so the agent cannot lower a threshold. What gets built and when it goes to
+      floor and mutation testing. The same checks also run before
+      every merge, so the agent cannot quietly lower the bar. What gets built and when it goes to
       production, you decide yourself.`,
     quote`Let a machine check what a machine can check.`,
     p`Then we looked at how to get several agents working together: a builder and a
@@ -126,8 +126,8 @@ export const body = {
     p`Les quality gates ont reçu beaucoup d'attention. Un agent écrit du code plus vite que
       vous ne pouvez le lire: le contrôle passe donc par des vérifications qu'il lance
       lui-même après chaque étape, comme les tests, un seuil de couverture et les tests de
-      mutation. Vous les intégrez avec un hook et un contrôle avant le merge, pour que
-      l'agent ne puisse pas abaisser la barre. Ce qui est construit et quand cela part en
+      mutation. Les mêmes contrôles tournent aussi avant chaque merge,
+      pour que l'agent ne puisse pas abaisser la barre en douce. Ce qui est construit et quand cela part en
       production, c'est vous qui le décidez.`,
     quote`Laissez une machine contrôler ce qu'une machine peut contrôler.`,
     p`Nous avons ensuite vu comment faire collaborer plusieurs agents: un constructeur et
