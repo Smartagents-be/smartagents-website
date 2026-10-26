@@ -38,16 +38,21 @@ export const body = {
       je in bestanden: korte instructies, skills voor wat je vaak doet en hooks voor wat
       altijd moet gebeuren. Omdat die bestanden in de repository staan, werkt het hele
       team met dezelfde afspraken.`,
+    p`Veel aandacht ging naar quality gates. Een agent schrijft sneller code dan jij ze
+      kan lezen, dus laat je de controle over aan checks die hij zelf na elke stap draait:
+      tests, een ondergrens voor coverage en mutation testing. Je bouwt ze in met een hook
+      en een check voor de merge, zodat de agent geen drempel kan verlagen. Wat er gebouwd
+      wordt en wanneer het in productie gaat, beslis je zelf.`,
+    quote`Laat een machine controleren wat een machine kan controleren.`,
     p`Daarna bekeken we hoe je meerdere agents laat samenwerken: een bouwer en een
       criticus die elkaars werk nakijken, of agents die elk in een eigen worktree naast
-      elkaar werken. Checks die de agents zelf draaien, bewaken de kwaliteit.`,
-    quote`Laat een machine controleren wat een machine kan controleren.`,
+      elkaar werken.`,
     h2`Wat dit met ons werk doet`,
     p`We sloten af met een open gesprek over hoe ons werk verandert en hoe we daarmee
       omgaan. Wie minder zelf schrijft, leest en test meer. Management verwacht soms tien
       keer zoveel output, terwijl typen nooit de bottleneck was. En wie twijfelt of hij
       dit al goed genoeg kan: niemand doet dit al lang. **Jij blijft de engineer.**`,
-    p`De deelnemers houden de repository en de slides, zodat ze alles later kunnen
+    p`De deelnemers houden de repository met de cursus, zodat ze alles later kunnen
       nalezen. Dank aan Ravago voor de ontvangst.`,
     p`Wil je zo'n dag ook voor jouw developers? [Bekijk de kata](${KATA.nl}) of
       [neem contact op](#contact).`
@@ -73,17 +78,22 @@ export const body = {
       files: short instructions, skills for what you do often and hooks for what must
       always happen. Because those files live in the repository, the whole team works to
       the same agreements.`,
+    p`Quality gates got a lot of attention. An agent writes code faster than you can read
+      it, so the checking goes to gates it runs itself after every step: tests, a coverage
+      floor and mutation testing. You build them in with a hook and a check before the
+      merge, so the agent cannot lower a threshold. What gets built and when it goes to
+      production, you decide yourself.`,
+    quote`Let a machine check what a machine can check.`,
     p`Then we looked at how to get several agents working together: a builder and a
       critic checking each other's work, or agents working side by side, each in its own
-      worktree. Checks the agents run themselves keep the quality up.`,
-    quote`Let a machine check what a machine can check.`,
+      worktree.`,
     h2`What this does to our work`,
     p`We closed with an open conversation about how our work is changing and how we deal
       with it. If you write less yourself, you read and test more. Management sometimes
       expects ten times the output, while typing was never the bottleneck. And if you
       doubt whether you are good enough at this yet: nobody has been doing it for long.
       **You are still the engineer.**`,
-    p`The participants keep the repository and the slides, so they can go back over
+    p`The participants keep the repository with the course, so they can go back over
       everything later. Thanks to Ravago for having us.`,
     p`Want a day like this for your developers? [Take a look at the kata](${KATA.en}) or
       [get in touch](#contact).`
@@ -112,11 +122,16 @@ export const body = {
       des fichiers: des instructions courtes, des skills pour ce que vous faites souvent
       et des hooks pour ce qui doit toujours se produire. Comme ces fichiers sont dans le
       dépôt, toute l'équipe travaille avec les mêmes conventions.`,
+    p`Les quality gates ont reçu beaucoup d'attention. Un agent écrit du code plus vite que
+      vous ne pouvez le lire: le contrôle passe donc par des vérifications qu'il lance
+      lui-même après chaque étape, comme les tests, un seuil de couverture et les tests de
+      mutation. Vous les intégrez avec un hook et un contrôle avant le merge, pour que
+      l'agent ne puisse pas abaisser la barre. Ce qui est construit et quand cela part en
+      production, c'est vous qui le décidez.`,
+    quote`Laissez une machine contrôler ce qu'une machine peut contrôler.`,
     p`Nous avons ensuite vu comment faire collaborer plusieurs agents: un constructeur et
       un critique qui vérifient le travail l'un de l'autre, ou des agents qui travaillent
-      côte à côte, chacun dans son propre worktree. Des contrôles que les agents lancent
-      eux-mêmes veillent à la qualité.`,
-    quote`Laissez une machine contrôler ce qu'une machine peut contrôler.`,
+      côte à côte, chacun dans son propre worktree.`,
     h2`Ce que cela change à notre travail`,
     p`Nous avons terminé par une discussion ouverte sur la façon dont notre travail
       évolue et sur la manière d'y faire face. Qui écrit moins lui-même lit et teste
@@ -124,8 +139,8 @@ export const body = {
       la frappe n'a jamais été le goulot d'étranglement. Et si vous doutez d'être déjà
       assez à l'aise: personne ne fait cela depuis longtemps. **Vous restez
       l'ingénieur.**`,
-    p`Les participants gardent le dépôt et les slides, pour pouvoir tout relire plus
-      tard. Merci à Ravago pour son accueil.`,
+    p`Les participants gardent le dépôt avec la formation, pour pouvoir tout relire
+      plus tard. Merci à Ravago pour son accueil.`,
     p`Vous souhaitez une journée comme celle-ci pour vos développeurs?
       [Découvrez le kata](${KATA.fr}) ou [contactez-nous](#contact).`
   ]
