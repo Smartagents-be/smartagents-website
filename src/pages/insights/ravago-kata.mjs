@@ -46,6 +46,8 @@ export const body = {
       ook voor elke merge, zodat de agent de lat niet stilletjes lager kan leggen. Wat er gebouwd
       wordt en wanneer het in productie gaat, beslis je zelf.`,
     quote`Laat een machine controleren wat een machine kan controleren.`,
+    p`Ook loop engineering kwam aan bod: de agent toont de bug in een echte
+      development-omgeving, legt hem vast in een test en werkt tot die slaagt.`,
     p`Daarna bekeken we hoe je meerdere agents laat samenwerken: een bouwer en een
       criticus die elkaars werk nakijken, of agents die elk in een eigen worktree naast
       elkaar werken.`,
@@ -87,6 +89,8 @@ export const body = {
       every merge, so the agent cannot quietly lower the bar. What gets built and when it goes to
       production, you decide yourself.`,
     quote`Let a machine check what a machine can check.`,
+    p`Loop engineering came up too: the agent shows the bug in a real development
+      environment, pins it down in a test and works until that test passes.`,
     p`Then we looked at how to get several agents working together: a builder and a
       critic checking each other's work, or agents working side by side, each in its own
       worktree.`,
@@ -134,6 +138,9 @@ export const body = {
       pour que l'agent ne puisse pas abaisser la barre en douce. Ce qui est construit et quand cela part en
       production, c'est vous qui le décidez.`,
     quote`Laissez une machine contrôler ce qu'une machine peut contrôler.`,
+    p`Le loop engineering a aussi été abordé: l'agent montre le bug dans un vrai
+      environnement de développement, le fige dans un test et travaille jusqu'à ce que
+      ce test réussisse.`,
     p`Nous avons ensuite vu comment faire collaborer plusieurs agents: un constructeur et
       un critique qui vérifient le travail l'un de l'autre, ou des agents qui travaillent
       côte à côte, chacun dans son propre worktree.`,
