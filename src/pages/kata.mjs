@@ -34,11 +34,12 @@ const SPEC_FACTS = {
 };
 
 /**
- * The six themes of the day, in the order they are met. Also what
- * `Course.teaches` says in the graph — `KATA_THEMES` in `src/layouts/schema.mjs`
- * is the same list, keyed the same way.
+ * The themes of the day, in the order the course meets them: the first two come
+ * out of step 1, the next three out of step 2, the last out of step 3. Each one
+ * is read off that step's own "Wat je meeneemt" recap in the kata repository.
+ * Also what `Course.teaches` says in the graph, through `courseNode`.
  */
-const THEMES = ['truth', 'workflow', 'cost', 'setup', 'parallel', 'team'];
+const THEMES = ['cost', 'truth', 'setup', 'gates', 'workflow', 'team'];
 
 /**
  * The four steps of the curriculum. The numbers are the course's own: it counts
