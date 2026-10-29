@@ -1222,6 +1222,373 @@ sa-node-field {
   stroke-linejoin: round;
 }
 
+/* ══ The mountain ═══════════════════════════════════════════════════════════
+   One mountain at one geometry: the idea at the summit, production flagged
+   at the foot. Drawn for the 27 October Isabel update and shown again on
+   30 October, which is why it lives here rather than in one deck. Four
+   slides draw it: the leap crosses it in one arc, the path lets two agents
+   walk it with nothing holding them to it, the checkpoints put a gate on
+   each of the path's five turns, the relay walks it with an agent per leg.
+   They share every coordinate, so the drawing never moves between slides
+   and the advance reads as the same picture changing: move a point on one
+   and move it on the other three. Cyan is the way down and nothing else:
+   the leap, the trail walked. A trail not walked yet is pale. */
+
+.mtn {
+  margin: 0;
+}
+
+.mtn__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-sans);
+}
+
+.mtn__ground {
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+}
+
+/* Light comes from the east. The lit face is a wash, the west face a step
+   darker, the snow the whitest paper there is, and the far range sits behind
+   in a pale wash with a hairline. Every fill is paper or wash, never a
+   colour, and the ink edge is drawn last so nothing under it can thin it. */
+.mtn__far {
+  fill: var(--sa-wash-3);
+  stroke: var(--sa-line-3);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.mtn__face {
+  fill: var(--sa-wash);
+}
+
+.mtn__shade {
+  fill: var(--sa-line);
+}
+
+.mtn__strata {
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.mtn__snow {
+  fill: var(--sa-paper-3);
+  stroke: var(--sa-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.mtn__arete {
+  fill: none;
+  stroke: var(--sa-grey-6);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.mtn__edge {
+  fill: none;
+  stroke: var(--sa-ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.mtn__cloud {
+  fill: var(--sa-paper-3);
+  stroke: var(--sa-line-4);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.mtn__pole {
+  stroke: var(--sa-ink);
+  stroke-width: 3;
+}
+
+.mtn__flag {
+  fill: var(--sa-ink);
+}
+
+.mtn__place,
+.mtn__name {
+  font-size: 34px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+  fill: var(--sa-ink);
+}
+
+.mtn__sub {
+  font-family: var(--font-mono);
+  font-size: 21px;
+  fill: var(--sa-grey-3);
+}
+
+/* On the checkpoint slide a label reads name, then what is checked
+   automatically in mono, then the human gate set apart in the sans and in
+   ink: the last line is the person who says yes. */
+.mtn__gate {
+  font-size: 23px;
+  font-weight: var(--fw-medium);
+  fill: var(--sa-ink);
+}
+
+.mtn__doubt {
+  font-size: 34px;
+  fill: var(--sa-grey-3);
+}
+
+.mtn__leap {
+  fill: none;
+  stroke: var(--sa-cyan);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 2 14;
+}
+
+/* The mask that uncovers the dotted leap: white is what shows. */
+.mtn__reveal {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 14;
+}
+
+.mtn__land {
+  fill: var(--sa-paper);
+  stroke: var(--sa-cyan);
+  stroke-width: 4;
+}
+
+.mtn__trail {
+  fill: none;
+  stroke: var(--sa-cyan);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The path as it is meant to be walked: drawn before anyone walks it, and
+   still there under the checkpoints and the relay. */
+.mtn__trail--path {
+  stroke: var(--sa-grey-6);
+  stroke-width: 3;
+  stroke-dasharray: 10 10;
+}
+
+/* What an agent actually walked, on slide 03, before there are checkpoints. The first agent's trace is
+   cyan, the second's ink, and a jump off the slope is dotted like the leap.
+   The dot is the agent: it rides the whole route on a CSS motion path and
+   stays where it ended. */
+.mtn__trace {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mtn__trace--first {
+  stroke: var(--sa-cyan);
+}
+
+.mtn__trace--second {
+  stroke: var(--sa-grey-2);
+}
+
+.mtn__trace--jump {
+  stroke-dasharray: 2 14;
+}
+
+.mtn__walker {
+  offset-rotate: 0deg;
+  offset-distance: 100%;
+  stroke: var(--sa-paper-3);
+  stroke-width: 3;
+}
+
+.mtn__walker--first {
+  fill: var(--sa-cyan);
+}
+
+.mtn__walker--second {
+  fill: var(--sa-grey-2);
+}
+
+.mtn__legend {
+  font-size: 28px;
+  font-weight: var(--fw-medium);
+  fill: var(--sa-grey-2);
+}
+
+.mtn__cp {
+  fill: var(--sa-paper-3);
+  stroke: var(--sa-ink);
+  stroke-width: 3;
+}
+
+.mtn__cp-num {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  text-anchor: middle;
+  fill: var(--sa-ink);
+}
+
+.mtn__agent {
+  fill: var(--sa-ink);
+}
+
+/* ══ Motion ════════════════════════════════════════════════════════════════
+   Slight, and only on screen. A build inside the mountain does not slide up
+   12px like a build elsewhere: the drawing is a map, and a trail that lands
+   12px off the slope reads as a trail in the wrong place. It fades, and then
+   the thing in it moves the way it would: a trail draws itself downhill from
+   where the last one stopped, a checkpoint settles in once its leg reaches
+   it, the label follows. The leap is uncovered along its arc and lands
+   before "A result" appears, and the three questions follow it on the same
+   press. Going back, the drawing resets only after the
+   group has faded, so nothing is seen undrawing.
+
+   Two things move without a press: the clouds drift a few dozen pixels and
+   the flag stirs. Neither runs under reduced motion, and in print every
+   rule below is out of scope, so the PDF is the finished drawing. */
+
+.mtn [data-build],
+.mtn [data-build]:not([data-built]) {
+  transform: none;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .mtn__draw {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 900ms cubic-bezier(0.45, 0, 0.25, 1) 80ms;
+  }
+
+  .mtn__draw--slow {
+    transition-duration: 1100ms;
+  }
+
+  .mtn__draw--after-agent {
+    transition-delay: 260ms;
+  }
+
+  .mtn__draw--late {
+    transition-delay: 900ms;
+  }
+
+  .mtn__draw--path {
+    transition-duration: 1800ms;
+  }
+
+  /* A walk is drawn at walking pace, run after run; each run carries its own
+     start and length from the generator, as --d and --t. A dashed or dotted
+     run cannot draw with its own dasharray, so a jump is uncovered by its
+     mask instead, the way the leap is. */
+  .mtn__walk {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset var(--t) linear var(--d);
+  }
+
+  .mtn__walk:not(.mtn__reveal) {
+    stroke-dasharray: 1 1;
+  }
+
+  .mtn__reveal.mtn__walk {
+    stroke-dasharray: 1 1;
+  }
+
+  .mtn [data-build]:not([data-built]) .mtn__walk {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0s 220ms;
+  }
+
+  .mtn [data-built] .mtn__walker {
+    animation: mtn-walk var(--t) linear both;
+  }
+
+  .mtn [data-build]:not([data-built]) .mtn__walker {
+    offset-distance: 0%;
+  }
+
+  .mtn [data-build]:not([data-built]) .mtn__draw {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0s 220ms;
+  }
+
+  .mtn__pop {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      transform 460ms cubic-bezier(0.3, 1.5, 0.5, 1) 780ms,
+      opacity 240ms ease 780ms;
+  }
+
+  .mtn__pop--landing {
+    transition-delay: 1080ms;
+  }
+
+  .mtn__pop--now {
+    transition-delay: 0ms;
+  }
+
+  .mtn [data-build]:not([data-built]) .mtn__pop {
+    transform: scale(0.3);
+    opacity: 0;
+    transition: transform 0s 220ms, opacity 0s 220ms;
+  }
+
+  .mtn__after {
+    transition: opacity 420ms ease var(--d, 900ms);
+  }
+
+  .mtn__after--landing {
+    transition-delay: 1240ms;
+  }
+
+  /* The doubts land on the same press as the leap, one at a time once
+     "A result" is on the slide: the room reads the questions as what the
+     landing raises, not as a slide of their own. */
+  .mtn__doubts .mtn__after:nth-child(1) { transition-delay: 1800ms; }
+  .mtn__doubts .mtn__after:nth-child(2) { transition-delay: 2300ms; }
+  .mtn__doubts .mtn__after:nth-child(3) { transition-delay: 2800ms; }
+
+  .mtn [data-build]:not([data-built]) .mtn__after {
+    opacity: 0;
+    transition: opacity 0s 220ms;
+  }
+
+  .mtn__cloud {
+    animation: mtn-drift 16s ease-in-out infinite alternate;
+  }
+
+  .mtn__cloud--slow {
+    animation-duration: 23s;
+    animation-direction: alternate-reverse;
+  }
+
+  .mtn__flag {
+    transform-box: fill-box;
+    transform-origin: right center;
+    animation: mtn-stir 2.8s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes mtn-walk {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+
+@keyframes mtn-drift {
+  to { transform: translateX(46px); }
+}
+
+@keyframes mtn-stir {
+  to { transform: scaleX(0.86) skewY(-4deg); }
+}
+
+
 /* ══ Builds ════════════════════════════════════════════════════════════════
    An element with data-build="N" waits for the presenter's Nth forward press
    on its slide; deck-stage.js sets data-built when it is due. It keeps its
